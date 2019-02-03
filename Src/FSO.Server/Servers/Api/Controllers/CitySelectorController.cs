@@ -14,6 +14,7 @@ using FSO.Server.Database.DA.Shards;
 using FSO.Common.Domain.Shards;
 using NLog;
 using System.IO;
+using FSO.Common;
 
 namespace FSO.Server.Servers.Api.Controllers
 {
@@ -64,7 +65,8 @@ namespace FSO.Server.Servers.Api.Controllers
                     DownloadURL = reader.ReadLine();
                     reader.Close();
                 }
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 DownloadURL = ""; // couldn't find info from the watchdog
             }
@@ -79,7 +81,7 @@ namespace FSO.Server.Servers.Api.Controllers
                 {
                     return Response.AsXml(new XMLErrorMessage(ERROR_MISSING_TOKEN_CODE, ERROR_MISSING_TOKEN_MSG));
                 }
-                
+
                 using (var db = DAFactory.Get())
                 {
                     var ticket = db.AuthTickets.Get((string)ticketValue);
@@ -132,8 +134,10 @@ namespace FSO.Server.Servers.Api.Controllers
                 {
                     var avatars = db.Avatars.GetSummaryByUserId(user.UserID);
 
-                    foreach(var avatar in avatars){
-                        result.Add(new AvatarData {
+                    foreach (var avatar in avatars)
+                    {
+                        result.Add(new AvatarData
+                        {
                             ID = avatar.avatar_id,
                             Name = avatar.name,
                             ShardName = shardsDomain.GetById(avatar.shard_id).Name,
@@ -158,7 +162,8 @@ namespace FSO.Server.Servers.Api.Controllers
 
                 var shardName = this.Request.Query["shardName"];
                 var avatarId = this.Request.Query["avatarId"];
-                if(avatarId  == null){
+                if (avatarId == null)
+                {
                     //Using 0 to mean no avatar for CAS
                     avatarId = "0";
                 }
@@ -177,14 +182,15 @@ namespace FSO.Server.Servers.Api.Controllers
                         if (avatarDBID != 0)
                         {
                             var avatar = db.Avatars.Get(avatarDBID);
-                            if (avatar == null) {
+                            if (avatar == null)
+                            {
                                 //can't join server with an avatar that doesn't exist
                                 return Response.AsXml(new XMLErrorMessage(ERROR_AVATAR_NOT_FOUND_CODE, ERROR_AVATAR_NOT_FOUND_MSG));
                             }
                             if (avatar.user_id != user.UserID || avatar.shard_id != shard.Id)
                             {
                                 //make sure we own the avatar we're trying to connect with
-                                LOG.Info("SECURITY: Invalid avatar login attempt from " + ip + ", user "+user.UserID);
+                                LOG.Info("SECURITY: Invalid avatar login attempt from " + ip + ", user " + user.UserID);
                                 return Response.AsXml(new XMLErrorMessage(ERROR_AVATAR_NOT_YOURS_CODE, ERROR_AVATAR_NOT_YOURS_MSG));
                             }
                         }
@@ -231,8 +237,8 @@ namespace FSO.Server.Servers.Api.Controllers
             {
                 var result = new XMLList<ShardStatusItem>("Shard-Status-List");
                 var shards = shardsDomain.All;
-                
-                foreach(var shard in shards)
+
+                foreach (var shard in shards)
                 {
                     var status = Protocol.CitySelector.ShardStatus.Down;
                     /*switch (shard.Status)
@@ -266,6 +272,8 @@ namespace FSO.Server.Servers.Api.Controllers
 
         private static string GetServerVersion()
         {
+            return GameConsts.TCBranch;
+            /*
             if (File.Exists("version.txt"))
             {
                 using (StreamReader Reader = new StreamReader(File.Open("version.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
@@ -277,7 +285,8 @@ namespace FSO.Server.Servers.Api.Controllers
             {
                 return "unknown-0";
             }
+            */
         }
     }
-    
+
 }

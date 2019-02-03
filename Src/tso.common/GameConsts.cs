@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Reflection;
 
 namespace FSO.Common
@@ -12,8 +13,8 @@ namespace FSO.Common
         public static string Unused = "Unused";
         #endregion
 
-        public static string GameVersion = $"{Assembly.GetExecutingAssembly().GetName().Version}";
+        public static string FullVersion = $"{Assembly.GetExecutingAssembly().GetName().Version}";
         public static string TCBranch = "nso";
-        public static string TCVersion = $"{TCBranch}-{GameVersion}";
+        public static string TCVersion = $"{TCBranch}-{FullVersion}";
     }
 }

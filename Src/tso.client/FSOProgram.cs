@@ -124,7 +124,7 @@ namespace FSO.Client
                 //check if this path has tso in it. tuning.dat should be a good indication.
                 if (!File.Exists(Path.Combine(path, "tuning.dat")))
                 {
-                    ShowDialog("The Sims Online appears to be missing. The game expects TSO at directory '"+path+"', but some core files are missing from that folder. If you know you installed TSO into a different directory, please move it into the directory specified.");
+                    ShowDialog("The Sims Online appears to be missing. The game expects TSO at directory '" + path + "', but some core files are missing from that folder. If you know you installed TSO into a different directory, please move it into the directory specified.");
                     return false;
                 }
 
@@ -170,6 +170,7 @@ namespace FSO.Client
 
         private string GetClientVersion()
         {
+            /*
             string ExeDir = GlobalSettings.Default.StartupPath;
 
             if (File.Exists("version.txt"))
@@ -183,6 +184,8 @@ namespace FSO.Client
             {
                 return "(?)";
             }
+            */
+            return GameConsts.TCVersion;
         }
     }
 }

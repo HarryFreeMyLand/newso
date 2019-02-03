@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FSO.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace FSO.Server.Common
         {
             var result = new ServerVersion()
             {
-                Name = "unknown",
-                Number = "0"
+                Name = GameConsts.TCBranch,
+                Number = GameConsts.FullVersion
             };
-
+            /*
             if (File.Exists("version.txt"))
             {
                 using (StreamReader Reader = new StreamReader(File.Open("version.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
@@ -27,7 +28,7 @@ namespace FSO.Server.Common
                     var str = Reader.ReadLine();
                     var split = str.LastIndexOf('-');
 
-                    result.Name= str;
+                    result.Name = str;
                     if (split != -1)
                     {
                         result.Name = str.Substring(0, split);
@@ -35,6 +36,7 @@ namespace FSO.Server.Common
                     }
                 }
             }
+            */
             return result;
         }
     }

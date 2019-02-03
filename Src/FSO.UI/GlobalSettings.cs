@@ -48,7 +48,7 @@ namespace FSO.Client
             { "ShadowQuality", "2048"},
             { "SmoothZoom", "true"},
             { "AntiAlias", "false"},
-            { "EdgeScroll", "true"},
+            { "EdgeScroll", "false"},
             { "Lighting", "true"},
             { "FXVolume", "10"},
             { "MusicVolume", "10"},
