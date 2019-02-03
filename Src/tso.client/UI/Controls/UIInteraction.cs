@@ -75,9 +75,11 @@ namespace FSO.Client.UI.Controls
             if (AcceptButton == null)
             {
                 HIT.HITVM.Get().PlaySoundEvent(UISounds.CallQueueFull);
-                AcceptButton = new UIButton();
-                AcceptButton.Texture = GetTexture(0x1B300000001);
-                AcceptButton.Y = 40 - 24;
+                AcceptButton = new UIButton
+                {
+                    Texture = GetTexture(0x1B300000001),
+                    Y = 40 - 24
+                };
                 Add(AcceptButton);
                 var tween = GameFacade.Screens.Tween.To(AcceptButton, 0.33f, new Dictionary<string, float>()
                     {
@@ -85,10 +87,12 @@ namespace FSO.Client.UI.Controls
                     }, TweenQuad.EaseOut);
                 AcceptButton.OnButtonClick += (btn) => { OnInteractionResult?.Invoke(this, true); };
 
-                DeclineButton = new UIButton();
-                DeclineButton.Texture = GetTexture(0x1B600000001);
-                DeclineButton.Y = 45 - 24;
-                DeclineButton.X = 45 - 19;
+                DeclineButton = new UIButton
+                {
+                    Texture = GetTexture(0x1B600000001),
+                    Y = 45 - 24,
+                    X = 45 - 19
+                };
                 Add(DeclineButton);
                 var tween2 = GameFacade.Screens.Tween.To(DeclineButton, 0.33f, new Dictionary<string, float>()
                     {

@@ -228,7 +228,7 @@ namespace FSO.Client.Rendering.City
         {
             var screen = UIScreen.Current;
 
-            Matrix ViewMatrix = Matrix.Identity;
+            var ViewMatrix = Matrix.Identity;
 
             ViewMatrix *= Matrix.CreateScale(new Vector3(1, 0.5f + (float)(1.0 - ZoomProgress) / 2, 1)); //makes world flatter in near view. This effect is present in the original, 
             //you just can't notice it as there is no zoom in animation. It also renders in true isometric... but that's an awful idea and makes lots look unusual when placed on flat tiles.
@@ -257,8 +257,10 @@ namespace FSO.Client.Rendering.City
 
         public Vector2 CalculateR()
         {
-            Vector2 ReturnM = new Vector2(m_ViewOffX, -m_ViewOffY);
-            ReturnM.Y = -2.0f * m_ViewOffY;
+            var ReturnM = new Vector2(m_ViewOffX, -m_ViewOffY)
+            {
+                Y = -2.0f * m_ViewOffY
+            };
             float temp = ReturnM.X;
             double cos = Math.Cos((-45.0 / 180.0) * Math.PI);
             double sin = Math.Sin((-45.0 / 180.0) * Math.PI);
@@ -310,7 +312,7 @@ namespace FSO.Client.Rendering.City
 
                     parent.LotPosition = new Vector3((float)(x + 1), elev / 12.0f, (float)(y + 0));
 
-                    Vector3 scrollPos = Vector3.Transform(new Vector3((float)(x + 1) - tile.Y, elev / 12.0f, (float)(y + 0) + tile.X), View);
+                    var scrollPos = Vector3.Transform(new Vector3((float)(x + 1) - tile.Y, elev / 12.0f, (float)(y + 0) + tile.X), View);
                     m_TargVOffX += (scrollPos.X - m_TargVOffX) / 3;
                     m_TargVOffY += (scrollPos.Y - m_TargVOffY) / 3;
                 }

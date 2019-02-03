@@ -104,7 +104,7 @@ namespace FSO.Client.UI.Panels.EODs
                 //TODO: Use current avatars appearance type
                 Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(outfit.asset_id);
                 Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
-                FSO.Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
+                Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem {
                     Data = outfit,

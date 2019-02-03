@@ -104,12 +104,16 @@ namespace FSO.Client.UI.Panels
 
             BackgroundDescriptionImage = script.Create<UIImage>("BackgroundDescriptionImage");
             AddAt(0, BackgroundDescriptionImage);
-            
-            BackgroundContractedImage = new UIImage();
-            BackgroundContractedImage.Texture = ContractedBackgroundImage;
+
+            BackgroundContractedImage = new UIImage
+            {
+                Texture = ContractedBackgroundImage
+            };
             this.AddAt(0, BackgroundContractedImage);
-            BackgroundExpandedImage = new UIImage();
-            BackgroundExpandedImage.Texture = ExpandedBackgroundImage;
+            BackgroundExpandedImage = new UIImage
+            {
+                Texture = ExpandedBackgroundImage
+            };
             this.AddAt(0, BackgroundExpandedImage);
 
             ContractButton.OnButtonClick += (x) => Open = false;
@@ -128,10 +132,12 @@ namespace FSO.Client.UI.Panels
             RoommateList = script.Create<UIRoommateList>("RoommateList");
             Add(RoommateList);
 
-            SkillGameplayLabel = new UIClickableLabel();
-            SkillGameplayLabel.Position = RoommateList.Position + new Vector2(-1, 24);
-            SkillGameplayLabel.Size = new Vector2(180, 18);
-            SkillGameplayLabel.Alignment = TextAlignment.Center;
+            SkillGameplayLabel = new UIClickableLabel
+            {
+                Position = RoommateList.Position + new Vector2(-1, 24),
+                Size = new Vector2(180, 18),
+                Alignment = TextAlignment.Center
+            };
             SkillGameplayLabel.OnButtonClick += SkillGameplayLabel_OnButtonClick;
             SkillGameplayLabel.CaptionStyle = SkillGameplayLabel.CaptionStyle.Clone();
             SkillGameplayLabel.CaptionStyle.Size = 9;
@@ -463,9 +469,11 @@ namespace FSO.Client.UI.Panels
                 RoommateButtons.RemoveAt(RoommateButtons.Count - 1);
             }
             while (roommates.Count > RoommateButtons.Count) {
-                var btn = new UIPersonButton();
-                btn.FrameSize = UIPersonButtonSize.SMALL;
-                btn.X = RoommateButtons.Count * (20 + 6); //6 is gutter size
+                var btn = new UIPersonButton
+                {
+                    FrameSize = UIPersonButtonSize.SMALL,
+                    X = RoommateButtons.Count * (20 + 6) //6 is gutter size
+                };
                 Add(btn);
                 RoommateButtons.Add(btn);
             }
@@ -506,19 +514,25 @@ namespace FSO.Client.UI.Panels
 
         public void Init(Texture2D roommateBtnTexture, Texture2D visitorButtonTexture)
         {
-            RoommateButton = new UIButton(roommateBtnTexture);
-            RoommateButton.Visible = false;
+            RoommateButton = new UIButton(roommateBtnTexture)
+            {
+                Visible = false
+            };
             Add(RoommateButton);
 
-            VisitorButton = new UIButton(visitorButtonTexture);
-            VisitorButton.Visible = false;
+            VisitorButton = new UIButton(visitorButtonTexture)
+            {
+                Visible = false
+            };
             Add(VisitorButton);
 
             RoommateButton.OnButtonClick += (UIElement btn) => { if (OnLotClick != null) OnLotClick(btn); };
             VisitorButton.OnButtonClick += (UIElement btn) => { if (OnLotClick != null) OnLotClick(btn); };
 
-            Thumbnail = new UIImage();
-            Thumbnail.X = 4;
+            Thumbnail = new UIImage
+            {
+                X = 4
+            };
             Add(Thumbnail);
 
             Mode = UILotRelationship.VISITOR;

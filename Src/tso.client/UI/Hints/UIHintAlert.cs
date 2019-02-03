@@ -45,13 +45,17 @@ namespace FSO.Client.UI.Hints
             OKText = NextButton.Caption;
             Hints = new List<UIHint>() { hint };
 
-            var formField = new UIHBoxContainer();
-            formField.X = 20;
+            var formField = new UIHBoxContainer
+            {
+                X = 20
+            };
             HideContainer = formField;
             Add(formField);
 
-            var check = new UIButton(GetTexture(0x0000083600000001));
-            check.Tooltip = "Mark all hints as read. Hints added by future updates will still be shown.";
+            var check = new UIButton(GetTexture(0x0000083600000001))
+            {
+                Tooltip = "Mark all hints as read. Hints added by future updates will still be shown."
+            };
             check.OnButtonClick += x => {
                 check.Selected = !check.Selected;
             };

@@ -88,8 +88,10 @@ namespace FSO.Client.UI.Panels.EODs
             var formField = new UIHBoxContainer();
             parent.Add(formField);
 
-            var check = new UIButton(GetTexture(0x0000083600000001));
-            check.Tooltip = caption;
+            var check = new UIButton(GetTexture(0x0000083600000001))
+            {
+                Tooltip = caption
+            };
             check.OnButtonClick += x => {
                 check.Selected = !check.Selected;
                 SetOption(groupName, check.Selected);
@@ -114,9 +116,11 @@ namespace FSO.Client.UI.Panels.EODs
                 var formField = new UIHBoxContainer();
                 vbox.Add(formField);
 
-                var radio = new UIRadioButton();
-                radio.RadioData = optionValues[i];
-                radio.RadioGroup = groupName;
+                var radio = new UIRadioButton
+                {
+                    RadioData = optionValues[i],
+                    RadioGroup = groupName
+                };
                 radio.OnButtonClick += Radio_OnButtonClick;
                 radio.Tooltip = optionLabels[i];
 
@@ -130,7 +134,7 @@ namespace FSO.Client.UI.Panels.EODs
             Container.Add(vbox);
         }
 
-        private void Radio_OnButtonClick(Framework.UIElement button)
+        private void Radio_OnButtonClick(UIElement button)
         {
             var radio = (UIRadioButton)button;
             SetOption(radio.RadioGroup, radio.RadioData);

@@ -45,7 +45,7 @@ namespace FSO.Client.UI
             }
         }
 
-        [UIAttribute("size")]
+        [UI("size")]
         public override Vector2 Size
         {
             get

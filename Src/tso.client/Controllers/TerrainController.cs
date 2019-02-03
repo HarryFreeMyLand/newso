@@ -286,7 +286,7 @@ namespace FSO.Client.Controllers
                                 if (!y.IsFaulted && y.Result != null)
                                 {
                                     var old = (Lot)y.Result;
-                                    UIAlertOptions AlertOptions = new UIAlertOptions();
+                                    var AlertOptions = new UIAlertOptions();
                                     if (old.Lot_LeaderID == Network.MyCharacter)
                                     {
                                         //we are the owner
@@ -373,12 +373,14 @@ namespace FSO.Client.Controllers
 
         private void ShowNormalLotBuy(string price, string ourCash)
         {
-            UIAlertOptions AlertOptions = new UIAlertOptions();
-            AlertOptions.Title = GameFacade.Strings.GetString("246", "1");
-            AlertOptions.Message = GameFacade.Strings.GetString("215", "23", new string[] { price, ourCash });
-            AlertOptions.Buttons = new UIAlertButton[] {
+            var AlertOptions = new UIAlertOptions
+            {
+                Title = GameFacade.Strings.GetString("246", "1"),
+                Message = GameFacade.Strings.GetString("215", "23", new string[] { price, ourCash }),
+                Buttons = new UIAlertButton[] {
                     new UIAlertButton(UIAlertButtonType.Yes, new ButtonClickDelegate(BuyPropertyAlert_OnButtonClick)),
-                    new UIAlertButton(UIAlertButtonType.No, BuyPropertyAlert_OnCancel) };
+                    new UIAlertButton(UIAlertButtonType.No, BuyPropertyAlert_OnCancel) }
+            };
 
             _LotBuyAlert = UIScreen.GlobalShowAlert(AlertOptions, true);
         }

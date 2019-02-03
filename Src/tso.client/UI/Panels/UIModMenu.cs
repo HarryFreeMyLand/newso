@@ -28,39 +28,45 @@ namespace FSO.Client.UI.Panels
                 (GlobalSettings.Default.GraphicsHeight / 2.0f) - 150
             );
 
-            IPBanButton = new UIButton();
-            IPBanButton.Caption = "IP Ban";
-            IPBanButton.Position = new Microsoft.Xna.Framework.Vector2(40, 50);
-            IPBanButton.Width = 300;
+            IPBanButton = new UIButton
+            {
+                Caption = "IP Ban",
+                Position = new Microsoft.Xna.Framework.Vector2(40, 50),
+                Width = 300
+            };
             IPBanButton.OnButtonClick += x =>
             {
-                var controller = FindController<FSO.Client.Controllers.CoreGameScreenController>();
+                var controller = FindController<Controllers.CoreGameScreenController>();
                 if (controller != null)
                     controller.ModRequest(AvatarID, ModerationRequestType.IPBAN_USER);
                 UIScreen.RemoveDialog(this);
             };
             Add(IPBanButton);
 
-            var BanButton = new UIButton();
-            BanButton.Caption = "Ban User";
-            BanButton.Position = new Microsoft.Xna.Framework.Vector2(40, 90);
-            BanButton.Width = 300;
+            var BanButton = new UIButton
+            {
+                Caption = "Ban User",
+                Position = new Microsoft.Xna.Framework.Vector2(40, 90),
+                Width = 300
+            };
             BanButton.OnButtonClick += x =>
             {
-                var controller = FindController<FSO.Client.Controllers.CoreGameScreenController>();
+                var controller = FindController<Controllers.CoreGameScreenController>();
                 if (controller != null)
                     controller.ModRequest(AvatarID, ModerationRequestType.BAN_USER);
                 UIScreen.RemoveDialog(this);
             };
             Add(BanButton);
 
-            var kickButton = new UIButton();
-            kickButton.Caption = "Kick Avatar";
-            kickButton.Position = new Microsoft.Xna.Framework.Vector2(40, 130);
-            kickButton.Width = 300;
+            var kickButton = new UIButton
+            {
+                Caption = "Kick Avatar",
+                Position = new Microsoft.Xna.Framework.Vector2(40, 130),
+                Width = 300
+            };
             kickButton.OnButtonClick += x =>
             {
-                var controller = FindController<FSO.Client.Controllers.CoreGameScreenController>();
+                var controller = FindController<Controllers.CoreGameScreenController>();
                 if (controller != null)
                     controller.ModRequest(AvatarID, ModerationRequestType.KICK_USER);
                 UIScreen.RemoveDialog(this);

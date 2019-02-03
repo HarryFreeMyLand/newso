@@ -473,6 +473,7 @@
     <Content Include="Content\UI\hints\english.dir\vm_firstvisitor.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include=".editorconfig" />
     <None Include="Resources\Icon.bmp" />
     <None Include="Resources\ico256.fw.png" />
     <Content Include="sdl2.dll">

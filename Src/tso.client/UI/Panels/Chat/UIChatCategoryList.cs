@@ -120,10 +120,12 @@ namespace FSO.Client.UI.Panels.Chat
 
             if (EditMode)
             {
-                var btn2 = new UIButton(btnTex);
-                btn2.Caption = GameFacade.Strings.GetString("f113", "14");
-                btn2.Tooltip = GameFacade.Strings.GetString("f113", "16");
-                btn2.CaptionStyle = btnCaption;
+                var btn2 = new UIButton(btnTex)
+                {
+                    Caption = GameFacade.Strings.GetString("f113", "14"),
+                    Tooltip = GameFacade.Strings.GetString("f113", "16"),
+                    CaptionStyle = btnCaption
+                };
                 btn2.OnButtonClick += NewButton;
 
                 btn2.X = xPos;
@@ -133,11 +135,13 @@ namespace FSO.Client.UI.Panels.Chat
                     xPos += (int)btn2.Width + 1;
                     Add(btn2);
                 }
-                
-                btn2 = new UIButton(btnTex);
-                btn2.Caption = GameFacade.Strings.GetString("f113", "15");
-                btn2.Tooltip = GameFacade.Strings.GetString("f113", "17");
-                btn2.CaptionStyle = btnCaption;
+
+                btn2 = new UIButton(btnTex)
+                {
+                    Caption = GameFacade.Strings.GetString("f113", "15"),
+                    Tooltip = GameFacade.Strings.GetString("f113", "17"),
+                    CaptionStyle = btnCaption
+                };
                 btn2.OnButtonClick += CancelEditButton;
 
                 btn2.X = xPos;
@@ -146,10 +150,12 @@ namespace FSO.Client.UI.Panels.Chat
             }
             else if (perm >= VMTSOAvatarPermissions.Owner)
             {
-                var btn2 = new UIButton(btnTex);
-                btn2.Caption = GameFacade.Strings.GetString("f113", "13");
-                btn2.Tooltip = GameFacade.Strings.GetString("f113", "20");
-                btn2.CaptionStyle = btnCaption;
+                var btn2 = new UIButton(btnTex)
+                {
+                    Caption = GameFacade.Strings.GetString("f113", "13"),
+                    Tooltip = GameFacade.Strings.GetString("f113", "20"),
+                    CaptionStyle = btnCaption
+                };
                 btn2.OnButtonClick += EditButton;
 
                 btn2.X = xPos;

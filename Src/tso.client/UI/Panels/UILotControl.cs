@@ -61,8 +61,8 @@ namespace FSO.Client.UI.Panels
         private bool TipIsError;
         private Texture2D RMBCursor;
 
-        public FSO.SimAntics.VM vm;
-        public LotView.World World;
+        public VM vm;
+        public World World;
         public VMEntity ActiveEntity;
         public uint SelectedSimID {
             get
@@ -138,13 +138,13 @@ namespace FSO.Client.UI.Panels
         /// </summary>
         /// <param name="vm">A SimAntics VM instance.</param>
         /// <param name="World">A World instance.</param>
-        public UILotControl(FSO.SimAntics.VM vm, LotView.World World)
+        public UILotControl(VM vm, World World)
         {
             this.vm = vm;
             this.World = World;
 
             ActiveEntity = vm.Entities.FirstOrDefault(x => x is VMAvatar);
-            MouseEvt = this.ListenForMouse(new Microsoft.Xna.Framework.Rectangle(0, 0, 
+            MouseEvt = this.ListenForMouse(new Rectangle(0, 0, 
                 GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight), OnMouse);
 
             Queue = new UIInteractionQueue(ActiveEntity, vm);
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Panels
             return vm.LotName + " - " + vm.Entities.Count(x => x is VMAvatar && x.PersistID != 0);
         }
 
-        void vm_OnDialog(FSO.SimAntics.Model.VMDialogInfo info)
+        void vm_OnDialog(SimAntics.Model.VMDialogInfo info)
         {
             if (info != null && ((info.DialogID == LastDialogID && info.DialogID != 0 && info.Block)
                 || info.Caller != null && info.Caller != ActiveEntity)) return;
@@ -709,7 +709,7 @@ namespace FSO.Client.UI.Panels
             if (vm.Context.Blueprint != null && LastCuts != null)
             {
                 vm.Context.Blueprint.Cutaway = LastCuts;
-                vm.Context.Blueprint.Damage.Add(new FSO.LotView.Model.BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
             }
 
             //MouseCutRect = new Rectangle(0,0,0,0);
@@ -996,8 +996,10 @@ namespace FSO.Client.UI.Panels
                         UIScreen.RemoveDialog(LotSaveDialog); LotSaveDialog = null;
                     })
                 }
-            });
-            LotSaveDialog.ResponseText = "house_00";
+            })
+            {
+                ResponseText = "house_00"
+            };
             UIScreen.GlobalShowDialog(LotSaveDialog, true);
         }
 
@@ -1051,8 +1053,10 @@ namespace FSO.Client.UI.Panels
                         UIScreen.RemoveDialog(LotSaveDialog); LotSaveDialog = null;
                     })
                 }
-            });
-            LotSaveDialog.ResponseText = vm.LotName;
+            })
+            {
+                ResponseText = vm.LotName
+            };
             UIScreen.GlobalShowDialog(LotSaveDialog, true);
         }
 
@@ -1082,7 +1086,7 @@ namespace FSO.Client.UI.Panels
                     {
                         LastCuts = new bool[vm.Context.Architecture.Width * vm.Context.Architecture.Height];
                         vm.Context.Blueprint.Cutaway = LastCuts;
-                        vm.Context.Blueprint.Damage.Add(new FSO.LotView.Model.BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                        vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
                         for (int i = 0; i < LastCuts.Length; i++) LastCuts[i] = true;
                     }
                     else if (WallsMode == 1)
@@ -1094,7 +1098,7 @@ namespace FSO.Client.UI.Panels
                     {
                         LastCuts = new bool[vm.Context.Architecture.Width * vm.Context.Architecture.Height];
                         vm.Context.Blueprint.Cutaway = LastCuts;
-                        vm.Context.Blueprint.Damage.Add(new FSO.LotView.Model.BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                        vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
                     }
                     LastWallMode = WallsMode;
                 }
@@ -1131,7 +1135,7 @@ namespace FSO.Client.UI.Panels
                         if (recut > 1 || notableChange || LastRectCutNotable)
                         {
                             vm.Context.Blueprint.Cutaway = finalCut;
-                            vm.Context.Blueprint.Damage.Add(new FSO.LotView.Model.BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                            vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
                         }
                         LastRectCutNotable = notableChange;
                     }

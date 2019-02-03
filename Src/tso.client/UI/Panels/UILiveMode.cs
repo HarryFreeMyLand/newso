@@ -127,8 +127,10 @@ namespace FSO.Client.UI.Panels
             LotController = lotController;
 
             DefaultBGImage = GetTexture(Small800 ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002);
-            Background = new UIImage(DefaultBGImage);
-            Background.Y = 35;
+            Background = new UIImage(DefaultBGImage)
+            {
+                Y = 35
+            };
             this.AddAt(0, Background);
 
             EODCloseButton.OnButtonClick += EODCloseButton_OnButtonClick;
@@ -138,23 +140,30 @@ namespace FSO.Client.UI.Panels
             MotivesLabel.Alignment = TextAlignment.Left;
             MotivesLabel.Position -= new Vector2(0, 5);
 
-            PeopleListBg = new UIImage(PeopleListBackgroundImg);
-            PeopleListBg.Position = new Microsoft.Xna.Framework.Vector2(375, 38);
+            PeopleListBg = new UIImage(PeopleListBackgroundImg)
+            {
+                Position = new Vector2(375, 38)
+            };
             this.AddAt(1, PeopleListBg);
 
-            Divider = new UIImage(DividerImg);
-            Divider.Position = new Microsoft.Xna.Framework.Vector2(140, 49);
+            Divider = new UIImage(DividerImg)
+            {
+                Position = new Vector2(140, 49)
+            };
             this.AddAt(1, Divider);
 
-            MoodPanelButton = new UIButton();
-            
-            MoodPanelButton.Texture = GetTexture((ulong)GameContent.FileIDs.UIFileIDs.lpanel_moodpanelbtn);
-            MoodPanelButton.ImageStates = 4;
-            MoodPanelButton.Position = new Vector2(31, 63);
+            MoodPanelButton = new UIButton
+            {
+                Texture = GetTexture((ulong)GameContent.FileIDs.UIFileIDs.lpanel_moodpanelbtn),
+                ImageStates = 4,
+                Position = new Vector2(31, 63)
+            };
             this.Add(MoodPanelButton);
 
-            MotiveDisplay = new UIMotiveDisplay();
-            MotiveDisplay.Position = new Vector2(165, 56);
+            MotiveDisplay = new UIMotiveDisplay
+            {
+                Position = new Vector2(165, 56)
+            };
             this.Add(MotiveDisplay);
             DynamicOverlay.Add(MotiveDisplay);
 
@@ -542,7 +551,7 @@ namespace FSO.Client.UI.Panels
             if (Thumb != null) Thumb.Position = MoodPanelButton.Position + new Vector2(33, 10);
         }
 
-        public override void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public override void Update(Common.Rendering.Framework.Model.UpdateState state)
         {
             if (SelectedAvatar != null)
             {

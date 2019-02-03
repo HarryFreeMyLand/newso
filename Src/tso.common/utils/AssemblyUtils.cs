@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,7 +13,8 @@ namespace FSO.Common.Utils
         public static List<Assembly> GetFreeSOLibs()
         {
             var map = new Dictionary<string, Assembly>();
-            if (Entry == null) Entry = Assembly.GetEntryAssembly();
+            if (Entry == null)
+                Entry = Assembly.GetEntryAssembly();
             RecurseAssembly(Entry, map);
             return map.Values.ToList();
         }
@@ -23,7 +24,8 @@ namespace FSO.Common.Utils
             var refs = assembly.GetReferencedAssemblies();
             foreach (var refAsm in refs)
             {
-                if ((refAsm.Name.StartsWith("FSO.") || refAsm.Name.Equals("FreeSO")) && !map.ContainsKey(refAsm.Name))
+                if ((refAsm.Name.StartsWith("FSO.") || refAsm.Name.Equals("FreeSO"))
+                    && !map.ContainsKey(refAsm.Name))
                 {
                     var loadedAssembly = Assembly.Load(refAsm);
                     map.Add(refAsm.Name, loadedAssembly);

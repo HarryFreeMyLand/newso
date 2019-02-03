@@ -140,13 +140,16 @@ namespace FSO.Client.UI.Panels
 
         private void initSimHead()
         {
-            HeadCamera = new BasicCamera(GameFacade.GraphicsDevice, new Vector3(0.0f, 7.0f, -17.0f), Vector3.Zero, Vector3.Up);
+            HeadCamera = new BasicCamera(GameFacade.GraphicsDevice, new Vector3(0.0f, 7.0f, -17.0f), Vector3.Zero, Vector3.Up)
+            {
+                Position = new Vector3(0, 5.2f, 12.5f),
+                Target = new Vector3(0, 5.2f, 0.0f)
+            };
 
-            HeadCamera.Position = new Vector3(0, 5.2f, 12.5f);
-            HeadCamera.Target = new Vector3(0, 5.2f, 0.0f);
-
-            HeadScene = new _3DTargetScene(GameFacade.GraphicsDevice, HeadCamera, new Point((int)(200*TrueScale),(int)(200*TrueScale)), (GlobalSettings.Default.AntiAlias) ? 8 : 0);
-            HeadScene.ID = "UIPieMenuHead";
+            HeadScene = new _3DTargetScene(GameFacade.GraphicsDevice, HeadCamera, new Point((int)(200 * TrueScale), (int)(200 * TrueScale)), (GlobalSettings.Default.AntiAlias) ? 8 : 0)
+            {
+                ID = "UIPieMenuHead"
+            };
 
             m_Head.Scene = HeadScene;
             m_Head.Scale = new Vector3(1f);
@@ -178,7 +181,7 @@ namespace FSO.Client.UI.Panels
             HeadCamera.ProjectionOrigin = new Vector2(100, 100);
         }
 
-        public override void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public override void Update(Common.Rendering.Framework.Model.UpdateState state)
         {
             base.Update(state);
             if (m_BgGrow < 1)

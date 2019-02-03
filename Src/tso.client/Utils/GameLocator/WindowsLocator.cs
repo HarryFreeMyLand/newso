@@ -18,14 +18,14 @@ namespace FSO.Client.Utils.GameLocator
             using (var hklm = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry32))
             {
                 //Find the path to TSO on the user's system.
-                RegistryKey softwareKey = hklm.OpenSubKey("SOFTWARE");
+                var softwareKey = hklm.OpenSubKey("SOFTWARE");
 
                 if (Array.Exists(softwareKey.GetSubKeyNames(), delegate (string s) { return s.Equals("Maxis", StringComparison.InvariantCultureIgnoreCase); }))
                 {
-                    RegistryKey maxisKey = softwareKey.OpenSubKey("Maxis");
+                    var maxisKey = softwareKey.OpenSubKey("Maxis");
                     if (Array.Exists(maxisKey.GetSubKeyNames(), delegate (string s) { return s.Equals("The Sims Online", StringComparison.InvariantCultureIgnoreCase); }))
                     {
-                        RegistryKey tsoKey = maxisKey.OpenSubKey("The Sims Online");
+                        var tsoKey = maxisKey.OpenSubKey("The Sims Online");
                         string installDir = (string)tsoKey.GetValue("InstallDir");
                         installDir += @"\TSOClient\";
                         return installDir.Replace('\\', '/');
@@ -59,7 +59,7 @@ namespace FSO.Client.Utils.GameLocator
             if ((Environment.OSVersion.Version.Major == 5 && Environment.OSVersion.Version.Minor >= 1) ||
                 Environment.OSVersion.Version.Major >= 6)
             {
-                using (Process p = Process.GetCurrentProcess())
+                using (var p = Process.GetCurrentProcess())
                 {
                     bool retVal;
                     if (!IsWow64Process(p.Handle, out retVal))

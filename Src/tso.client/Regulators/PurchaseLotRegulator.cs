@@ -48,7 +48,7 @@ namespace FSO.Client.Regulators
                     AsyncTransition("SendPurchaseRequest");
                     break;
                 case "SendPurchaseRequest":
-                    Network.CityClient.Write(new FSO.Server.Protocol.Electron.Packets.PurchaseLotRequest
+                    Network.CityClient.Write(new Server.Protocol.Electron.Packets.PurchaseLotRequest
                     {
                         LotLocation_X = CurrentRequest.X,
                         LotLocation_Y = CurrentRequest.Y,
@@ -57,7 +57,7 @@ namespace FSO.Client.Regulators
                     });
                     break;
                 case "ReceivedPurchaseResponse":
-                    var response = data as FSO.Server.Protocol.Electron.Packets.PurchaseLotResponse;
+                    var response = data as Server.Protocol.Electron.Packets.PurchaseLotResponse;
                     if(response.Status == Server.Protocol.Electron.Packets.PurchaseLotStatus.FAILED){
                         //Error
                         ThrowErrorAndReset(response.Reason);

@@ -42,7 +42,7 @@ using FSO.UI.Model;
 
 namespace FSO.Client.UI.Screens
 {
-    public class CoreGameScreen : FSO.Client.UI.Framework.GameScreen, IGameScreen
+    public class CoreGameScreen : Framework.GameScreen, IGameScreen
     {
         public UIUCP ucp;
         public UIGizmo gizmo;
@@ -65,9 +65,9 @@ namespace FSO.Client.UI.Screens
         private UIAlert SwitchLotDialog;
 
         public UILotControl LotControl { get; set; } //world, lotcontrol and vm will be null if we aren't in a lot.
-        private LotView.World World;
+        private World World;
         public bool WorldLoaded;
-        public FSO.SimAntics.VM vm { get; set; }
+        public VM vm { get; set; }
         public VMClientDriver Driver;
         public uint VisualBudget { get; set; }
 
@@ -242,8 +242,10 @@ namespace FSO.Client.UI.Screens
             SaveHouseButton.OnButtonClick += new ButtonClickDelegate(SaveHouseButton_OnButtonClick);
             this.Add(SaveHouseButton);*/
 
-            ucp = new UIUCP(this);
-            ucp.Y = ScreenHeight - 210;
+            ucp = new UIUCP(this)
+            {
+                Y = ScreenHeight - 210
+            };
             ucp.SetInLot(false);
             ucp.UpdateZoomButton();
             ucp.MoneyText.Caption = "0";// PlayerAccount.Money.ToString();
@@ -261,36 +263,48 @@ namespace FSO.Client.UI.Screens
             
             this.Add(FSOFacade.MessageController);
 
-            MessageTray = new UIMessageTray();
-            MessageTray.X = ScreenWidth - 70;
-            MessageTray.Y = 12;
+            MessageTray = new UIMessageTray
+            {
+                X = ScreenWidth - 70,
+                Y = 12
+            };
             this.Add(MessageTray);
 
             WindowContainer = new UIContainer();
             Add(WindowContainer);
 
-            PersonPage = new UIPersonPage();
-            PersonPage.Visible = false;
+            PersonPage = new UIPersonPage
+            {
+                Visible = false
+            };
             ControllerUtils.BindController<PersonPageController>(PersonPage);
             WindowContainer.Add(PersonPage);
 
-            LotPage = new UILotPage();
-            LotPage.Visible = false;
+            LotPage = new UILotPage
+            {
+                Visible = false
+            };
             ControllerUtils.BindController<LotPageController>(LotPage);
             WindowContainer.Add(LotPage);
 
-            Bookmarks = new UIBookmarks();
-            Bookmarks.Visible = false;
+            Bookmarks = new UIBookmarks
+            {
+                Visible = false
+            };
             ControllerUtils.BindController<BookmarksController>(Bookmarks);
             WindowContainer.Add(Bookmarks);
 
-            Relationships = new UIRelationshipDialog();
-            Relationships.Visible = false;
+            Relationships = new UIRelationshipDialog
+            {
+                Visible = false
+            };
             ControllerUtils.BindController<RelationshipDialogController>(Relationships);
             WindowContainer.Add(Relationships);
 
-            Inbox = new UIInbox();
-            Inbox.Visible = false;
+            Inbox = new UIInbox
+            {
+                Visible = false
+            };
             ControllerUtils.BindController<InboxController>(Inbox);
             WindowContainer.Add(Inbox);
         }
@@ -334,8 +348,10 @@ namespace FSO.Client.UI.Screens
 
         private void InitializeMap(int cityMap)
         {
-            CityRenderer = new Terrain(GameFacade.GraphicsDevice); //The Terrain class implements the ThreeDAbstract interface so that it can be treated as a scene but manage its own drawing and updates.
-            CityRenderer.m_GraphicsDevice = GameFacade.GraphicsDevice;
+            CityRenderer = new Terrain(GameFacade.GraphicsDevice)
+            {
+                m_GraphicsDevice = GameFacade.GraphicsDevice
+            }; //The Terrain class implements the ThreeDAbstract interface so that it can be treated as a scene but manage its own drawing and updates.
             CityRenderer.Initialize(cityMap);
             CityRenderer.LoadContent(GameFacade.GraphicsDevice);
             CityRenderer.RegenData = true;
@@ -344,8 +360,10 @@ namespace FSO.Client.UI.Screens
 
             CityTooltip = new UICustomTooltip();
             Add(CityTooltip);
-            CityTooltipHitArea = new UICustomTooltipContainer(CityTooltip);
-            CityTooltipHitArea.OnMouseExt = new UIMouseEvent(MouseHandler);
+            CityTooltipHitArea = new UICustomTooltipContainer(CityTooltip)
+            {
+                OnMouseExt = new UIMouseEvent(MouseHandler)
+            };
             CityTooltipHitArea.SetSize(ScreenWidth, ScreenHeight);
             AddAt(0, CityTooltipHitArea);
         }
@@ -353,11 +371,11 @@ namespace FSO.Client.UI.Screens
         private void InitializeMouse(){
         }
 
-        public override void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public override void Update(UpdateState state)
         {
             //GameFacade.Game.IsFixedTimeStep = (vm == null || vm.Ready);
 
-            Visible = ((World?.Visible == false || (World?.State as FSO.LotView.RC.WorldStateRC)?.CameraMode != true) && !CityRenderer.Camera.HideUI);
+            Visible = ((World?.Visible == false || (World?.State as LotView.RC.WorldStateRC)?.CameraMode != true) && !CityRenderer.Camera.HideUI);
             GameFacade.Game.IsMouseVisible = Visible;
 
             base.Update(state);
@@ -657,8 +675,10 @@ namespace FSO.Client.UI.Screens
             Driver.OnClientCommand += VMSendCommand;
             Driver.OnShutdown += VMShutdown;
 
-            vm = new VM(new VMContext(World), Driver, new UIHeadlineRendererProvider());
-            vm.FSOVDoAsyncLoad = true;
+            vm = new VM(new VMContext(World), Driver, new UIHeadlineRendererProvider())
+            {
+                FSOVDoAsyncLoad = true
+            };
             vm.ListenBHAVChanges();
             vm.Init();
 

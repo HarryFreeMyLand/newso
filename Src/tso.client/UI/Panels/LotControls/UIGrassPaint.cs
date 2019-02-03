@@ -29,7 +29,7 @@ namespace FSO.Client.UI.Panels.LotControls
     {
         VMMultitileGroup WallCursor;
         VM vm;
-        LotView.World World;
+        World World;
         UILotControl Parent;
 
         private bool Drawing;
@@ -39,7 +39,7 @@ namespace FSO.Client.UI.Panels.LotControls
         private VMArchitectureCommand LastCmd;
         private bool WasDown;
 
-        public UIGrassPaint(VM vm, LotView.World world, UILotControl parent, List<int> parameters)
+        public UIGrassPaint(VM vm, World world, UILotControl parent, List<int> parameters)
         {
             this.vm = vm;
             World = parent.World;

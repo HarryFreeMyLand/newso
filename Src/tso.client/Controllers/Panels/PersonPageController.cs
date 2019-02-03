@@ -159,7 +159,7 @@ namespace FSO.Client.Controllers
 
         public void ChangeTopic()
         {
-            List<ITopic> topics = new List<ITopic>();
+            var topics = new List<ITopic>();
             if (View.Visible && AvatarId != 0)
             {
                 topics.Add(Topics.For(MaskedStruct.SimPage_Main, AvatarId));

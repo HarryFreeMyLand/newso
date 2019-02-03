@@ -100,7 +100,7 @@ namespace FSO.Client.UI.Panels
         public event ButtonClickDelegate OnAsyncSaleCancelClicked;
 
         //world required for drawing thumbnails
-        public LotView.World World;
+        public World World;
         public UIImage Thumbnail;
         public UI3DThumb Thumb3D;
         public bool Roommate = true;
@@ -244,7 +244,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        public UIQueryPanel(LotView.World world) {
+        public UIQueryPanel(World world) {
             World = world;
             Active = false;
             Opacity = 0;
@@ -263,8 +263,10 @@ namespace FSO.Client.UI.Panels
             //NOTE: the background and position of this element changes with the context it is used in.
             //other elements that are only used for certain modes will be flagged as such with comments.
 
-            QuerybackPanel = new UIImage(BackgroundImagePanel);
-            QuerybackPanel.Y = 0;
+            QuerybackPanel = new UIImage(BackgroundImagePanel)
+            {
+                Y = 0
+            };
             this.AddAt(0, QuerybackPanel);
 
             ListenForMouse(new Rectangle(0, 0, QuerybackPanel.Texture.Width, QuerybackPanel.Texture.Height), (t, s) => { });
@@ -272,31 +274,43 @@ namespace FSO.Client.UI.Panels
             Size = QuerybackPanel.Size.ToVector2() + new Vector2(22, 42);
             BackOffset = new Point(40, 0);
 
-            QuerybackCatalog = new UIImage(BackgroundImageCatalog);
-            QuerybackCatalog.Position = new Vector2(-22, 0);
+            QuerybackCatalog = new UIImage(BackgroundImageCatalog)
+            {
+                Position = new Vector2(-22, 0)
+            };
             this.AddAt(1, QuerybackCatalog);
 
-            QuerybackTrade = new UIImage(BackgroundImageTrade);
-            QuerybackTrade.X = -40;
-            QuerybackTrade.Y = 0;
+            QuerybackTrade = new UIImage(BackgroundImageTrade)
+            {
+                X = -40,
+                Y = 0
+            };
             this.AddAt(2, QuerybackTrade);
 
             //init general tab specific backgrounds
 
-            DescriptionBackgroundImage = new UIImage(ImageDescriptionBackground);
-            DescriptionBackgroundImage.Position = new Microsoft.Xna.Framework.Vector2(119, 7);
+            DescriptionBackgroundImage = new UIImage(ImageDescriptionBackground)
+            {
+                Position = new Vector2(119, 7)
+            };
             this.AddAt(3, DescriptionBackgroundImage);
 
-            MotivesBackgroundImage = new UIImage(ImageMotivesBackground);
-            MotivesBackgroundImage.Position = new Microsoft.Xna.Framework.Vector2(useSmall ? 395:619, 7);
+            MotivesBackgroundImage = new UIImage(ImageMotivesBackground)
+            {
+                Position = new Vector2(useSmall ? 395 : 619, 7)
+            };
             this.AddAt(3, MotivesBackgroundImage);
 
-            GeneralTabImage = new UIImage(ImageGeneralTab);
-            GeneralTabImage.Position = new Microsoft.Xna.Framework.Vector2(useSmall ? 563 : 787, 0);
+            GeneralTabImage = new UIImage(ImageGeneralTab)
+            {
+                Position = new Vector2(useSmall ? 563 : 787, 0)
+            };
             this.AddAt(3, GeneralTabImage);
 
-            SpecificTabImage = new UIImage(ImageSpecificTab);
-            SpecificTabImage.Position = new Microsoft.Xna.Framework.Vector2(useSmall ? 563 : 787, 0);
+            SpecificTabImage = new UIImage(ImageSpecificTab)
+            {
+                Position = new Vector2(useSmall ? 563 : 787, 0)
+            };
             this.AddAt(3, SpecificTabImage);
 
             OwnerPriceBack = script.Create<UIImage>("OwnerPriceBack");
@@ -310,8 +324,10 @@ namespace FSO.Client.UI.Panels
             ForSalePrice.Y += 2;
             ForSalePrice.SetSize(OwnerPriceBack.Width, ForSalePrice.Height);
 
-            Thumbnail = new UIImage();
-            Thumbnail.Position = new Vector2(24, 11);
+            Thumbnail = new UIImage
+            {
+                Position = new Vector2(24, 11)
+            };
             Thumbnail.SetSize(90, 90);
             this.Add(Thumbnail);
 
@@ -344,8 +360,10 @@ namespace FSO.Client.UI.Panels
             SpecificBtnBGs.Add(AddButtonBackground(AsyncSaleButton, btnBg));
             AsyncCancelSaleButtonBG = AddButtonBackground(AsyncCancelSaleButton, btnBg);
 
-            var progressBG = new UIImage(ImageWearBack);
-            progressBG.Position = WearProgressBar.Position - new Vector2(3, 2);
+            var progressBG = new UIImage(ImageWearBack)
+            {
+                Position = WearProgressBar.Position - new Vector2(3, 2)
+            };
             AddAt(3, progressBG);
             SpecificBtnBGs.Add(progressBG);
 
@@ -355,8 +373,10 @@ namespace FSO.Client.UI.Panels
 
         private UIImage AddButtonBackground(UIElement button, Texture2D img)
         {
-            var bg = new UIImage(img);
-            bg.Position = button.Position - new Vector2(3, 3);
+            var bg = new UIImage(img)
+            {
+                Position = button.Position - new Vector2(3, 3)
+            };
             this.AddAt(3, bg);
             return bg;
         }

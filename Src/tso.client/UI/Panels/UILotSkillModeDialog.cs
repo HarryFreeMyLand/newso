@@ -32,22 +32,26 @@ namespace FSO.Client.UI.Panels
             if (!SkillGameplayCategory.TryGetValue(category, out min)) min = 0;
 
             Caption = GameFacade.Strings.GetString("f109", "5");
-            DescLabel = new UILabel();
-            DescLabel.Caption = GameFacade.Strings.GetString("f109", "6") + ((min > 0)?("\n\n"+ GameFacade.Strings.GetString("f109", "7")) : "");
-            DescLabel.Position = new Vector2(25, 40);
-            DescLabel.Wrapped = true;
-            DescLabel.Size = new Vector2(350, 200);
+            DescLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f109", "6") + ((min > 0) ? ("\n\n" + GameFacade.Strings.GetString("f109", "7")) : ""),
+                Position = new Vector2(25, 40),
+                Wrapped = true,
+                Size = new Vector2(350, 200)
+            };
             Add(DescLabel);
 
             var vbox = new UIVBoxContainer();
             for (uint i=0; i<3; i++)
             {
                 var hbox = new UIHBoxContainer();
-                var radio = new UIRadioButton();
-                radio.RadioGroup = "skl";
-                radio.RadioData = i;
-                radio.Disabled = i < min;
-                radio.Selected = i == originalValue;
+                var radio = new UIRadioButton
+                {
+                    RadioGroup = "skl",
+                    RadioData = i,
+                    Disabled = i < min,
+                    Selected = i == originalValue
+                };
                 radio.OnButtonClick += Radio_OnButtonClick;
 
                 hbox.Add(radio);
@@ -71,12 +75,12 @@ namespace FSO.Client.UI.Panels
             OnModeChosen(Result);
         }
 
-        private void CloseButton_OnButtonClick(Framework.UIElement button)
+        private void CloseButton_OnButtonClick(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }
 
-        private void Radio_OnButtonClick(Framework.UIElement button)
+        private void Radio_OnButtonClick(UIElement button)
         {
             Result = (uint)((UIRadioButton)button).RadioData;
         }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -10,7 +10,7 @@ namespace FSO.Common
 {
     public abstract class IniConfig
     {
-        private string ActivePath;
+        private string _activePath;
 
         public abstract Dictionary<string, string> DefaultValues
         {
@@ -19,14 +19,15 @@ namespace FSO.Common
 
         private void SetValue(string key, string value)
         {
-            var prop = this.GetType().GetProperty(key);
+            var prop = GetType().GetProperty(key);
             if (prop != null)
             {
                 try
                 {
                     if (prop.PropertyType != typeof(string))
                         prop.SetValue(this, Convert.ChangeType(value, prop.PropertyType, CultureInfo.InvariantCulture));
-                    else prop.SetValue(this, value);
+                    else
+                        prop.SetValue(this, value);
                 }
                 catch (Exception) { }
             }
@@ -34,7 +35,7 @@ namespace FSO.Common
 
         public IniConfig(string path)
         {
-            ActivePath = path;
+            _activePath = path;
             Load();
         }
 
@@ -46,20 +47,23 @@ namespace FSO.Common
                 SetValue(pair.Key, pair.Value);
             }
 
-            if (!File.Exists(ActivePath))
+            if (!File.Exists(_activePath))
             {
                 Save();
-            } else
+            }
+            else
             {
-                var lines = File.ReadAllLines(ActivePath);
+                var lines = File.ReadAllLines(_activePath);
                 foreach (var line in lines)
                 {
                     var clean = line.Trim();
-                    if (clean.Length == 0 || clean[0] == '#' || clean[0] == '[') continue;
+                    if (clean.Length == 0 || clean[0] == '#' || clean[0] == '[')
+                        continue;
                     var split = clean.IndexOf('=');
-                    if (split == -1) continue; //?
+                    if (split == -1)
+                        continue; //?
                     var prop = clean.Substring(0, split).Trim();
-                    var value = clean.Substring(split+1).Trim();
+                    var value = clean.Substring(split + 1).Trim();
 
                     SetValue(prop, value);
                 }
@@ -70,13 +74,14 @@ namespace FSO.Common
         {
             try
             {
-                using (var stream = new StreamWriter(File.Open(ActivePath, FileMode.Create, FileAccess.Write)))
+                using (var stream = new StreamWriter(File.Open(_activePath, FileMode.Create, FileAccess.Write)))
                 {
-                    stream.WriteLine("# FreeSO Settings File. Properties are self explanatory.");
-                    var props = this.GetType().GetProperties();
+                    stream.WriteLine($"# {GameConsts.GameName} Settings File. Properties are self explanatory.");
+                    var props = GetType().GetProperties();
                     foreach (var prop in props)
                     {
-                        if (prop.Name == "Default" || prop.Name == "DefaultValues") continue;
+                        if (prop.Name == "Default" || prop.Name == "DefaultValues")
+                            continue;
                         stream.WriteLine(prop.Name + "=" + Convert.ToString(prop.GetValue(this), CultureInfo.InvariantCulture));
                     }
                 }

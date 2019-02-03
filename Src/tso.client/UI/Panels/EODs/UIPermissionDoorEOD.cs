@@ -93,7 +93,7 @@ namespace FSO.Client.UI.Panels.EODs
         }
 
         private bool IgnoreEntryChange;
-        private void CodeTextEntry_OnChange(Framework.UIElement element)
+        private void CodeTextEntry_OnChange(UIElement element)
         {
             if (IgnoreEntryChange) return;
             var newText = CodeTextEntry.CurrentText;

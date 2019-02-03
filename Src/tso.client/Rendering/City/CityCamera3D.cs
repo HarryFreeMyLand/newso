@@ -101,9 +101,11 @@ namespace FSO.Client.Rendering.City
         public CityCamera3D() : base(GameFacade.GraphicsDevice, new Vector3(256, 0, 256), new Vector3(256, 0, 256), Vector3.Up)
         {
             NearPlane = 0.25f;
-            Touch = new UILotControlTouchHelper(this);
-            Touch.MinZoom = 0.25f;
-            Touch.MaxZoom = 2.5f;
+            Touch = new UILotControlTouchHelper(this)
+            {
+                MinZoom = 0.25f,
+                MaxZoom = 2.5f
+            };
         }
 
         public Vector2 CalculateR()
@@ -147,13 +149,13 @@ namespace FSO.Client.Rendering.City
                     parent.LotPosition = new Vector3((float)(x + 1), elev / 12.0f, (float)(y + 0));
 
                     CenterTile += (new Vector2((float)(x + 1) - tile.Y, (float)(y + 0) + tile.X) - CenterTile) * (1f - (float)Math.Pow(0.975f, 60f / FSOEnvironment.RefreshRate));
-                    TargRX = (((LotView.RC.WorldStateRC)lotWorld.State).RotationX - (float)Math.PI / 2);
-                    TargRY = (((LotView.RC.WorldStateRC)lotWorld.State).RotationY);
+                    TargRX = (((WorldStateRC)lotWorld.State).RotationX - (float)Math.PI / 2);
+                    TargRY = (((WorldStateRC)lotWorld.State).RotationY);
 
                     if (LotZoomProgress == 0)
                     {
-                        ((LotView.RC.WorldStateRC)lotWorld.State).RotationX = RotationX + (float)Math.PI / 2;
-                        (((LotView.RC.WorldStateRC)lotWorld.State).RotationY) = (RotationY - 1.10f) / (1.10f / (float)(Math.PI / 2));
+                        ((WorldStateRC)lotWorld.State).RotationX = RotationX + (float)Math.PI / 2;
+                        (((WorldStateRC)lotWorld.State).RotationY) = (RotationY - 1.10f) / (1.10f / (float)(Math.PI / 2));
                     }
                     else if (LotZoomProgress != 1)
                     {
@@ -272,7 +274,7 @@ namespace FSO.Client.Rendering.City
 
             if (RMBScroll && inCity)
             {
-                Vector2 scrollBy = new Vector2();
+                var scrollBy = new Vector2();
                 if (state.TouchMode)
                 {
                     scrollBy = new Vector2(RMBScrollX - state.MouseState.X, RMBScrollY - state.MouseState.Y);
@@ -290,7 +292,7 @@ namespace FSO.Client.Rendering.City
                     angle += 8;
                     angle %= 8;
 
-                    CursorType type = CursorType.ArrowUp;
+                    var type = CursorType.ArrowUp;
                     switch ((int)Math.Round(angle))
                     {
                         case 0: type = CursorType.ArrowUp; break;

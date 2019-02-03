@@ -62,9 +62,11 @@ namespace FSO.Client.UI.Panels
             if (FSOEnvironment.SoftwareKeyboard)
             {
                 //need a button to initiate chat history
-                var btn = new UIButton();
-                btn.Caption = "Chat";
-                btn.Position = new Vector2(10, 10);
+                var btn = new UIButton
+                {
+                    Caption = "Chat",
+                    Position = new Vector2(10, 10)
+                };
                 btn.OnButtonClick += (state) =>
                 {
                     HistoryDialog.Visible = !HistoryDialog.Visible;
@@ -104,17 +106,21 @@ namespace FSO.Client.UI.Panels
             InvalidAreas.Add(new Rectangle(-100000, GlobalSettings.Default.GraphicsHeight - 20, 200000 +GlobalSettings.Default.GraphicsWidth, 100020)); //bottom
             InvalidAreas.Add(new Rectangle(-100000, GlobalSettings.Default.GraphicsHeight - 230, 100230, 100230)); //ucp
 
-            HistoryDialog = new UIChatDialog(owner);
-            HistoryDialog.Position = new Vector2(GlobalSettings.Default.ChatLocationX, GlobalSettings.Default.ChatLocationY);
-            HistoryDialog.Visible = true;
-            HistoryDialog.Opacity = 0.8f;
+            HistoryDialog = new UIChatDialog(owner)
+            {
+                Position = new Vector2(GlobalSettings.Default.ChatLocationX, GlobalSettings.Default.ChatLocationY),
+                Visible = true,
+                Opacity = 0.8f
+            };
             HistoryDialog.OnSendMessage += SendMessage;
             this.Add(HistoryDialog);
 
-            PropertyLog = new UIPropertyLog();
-            PropertyLog.Position = new Vector2(400, 20);
-            PropertyLog.Visible = false;
-            PropertyLog.Opacity = 0.8f;
+            PropertyLog = new UIPropertyLog
+            {
+                Position = new Vector2(400, 20),
+                Visible = false,
+                Opacity = 0.8f
+            };
             this.Add(PropertyLog);
         }
 

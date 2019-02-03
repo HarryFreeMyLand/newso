@@ -58,18 +58,24 @@ namespace FSO.Client.UI.Controls
         private void UISimInit()
         {
             Vitaboy.Avatar.DefaultTechnique = (GlobalSettings.Default.Lighting) ? 3 : 0;
-            Camera = new WorldCamera(GameFacade.GraphicsDevice);
-            Camera.Zoom = Zoom;
-            Camera.CenterTile = new Vector3(-1, -1, 0)*FSOEnvironment.DPIScaleFactor;
-            Scene = new _3DTargetScene(GameFacade.GraphicsDevice, Camera, 
-                new Point((int)(140 * FSOEnvironment.DPIScaleFactor), (int)(200 * FSOEnvironment.DPIScaleFactor)), 
-                (GlobalSettings.Default.AntiAlias)?8:0);
-            Scene.ID = "UISim";
+            Camera = new WorldCamera(GameFacade.GraphicsDevice)
+            {
+                Zoom = Zoom,
+                CenterTile = new Vector3(-1, -1, 0) * FSOEnvironment.DPIScaleFactor
+            };
+            Scene = new _3DTargetScene(GameFacade.GraphicsDevice, Camera,
+                new Point((int)(140 * FSOEnvironment.DPIScaleFactor), (int)(200 * FSOEnvironment.DPIScaleFactor)),
+                (GlobalSettings.Default.AntiAlias) ? 8 : 0)
+            {
+                ID = "UISim"
+            };
 
             GameFacade.Game.GraphicsDevice.DeviceReset += new EventHandler<EventArgs>(GraphicsDevice_DeviceReset);
 
-            Avatar = new AdultVitaboyModel();
-            Avatar.Scene = Scene;
+            Avatar = new AdultVitaboyModel
+            {
+                Scene = Scene
+            };
             var scale = FSOEnvironment.DPIScaleFactor;
             Avatar.Scale = new Vector3(scale, scale, scale);
             
@@ -78,7 +84,7 @@ namespace FSO.Client.UI.Controls
 
         private Vector2 _Size;
         private Vector2 _SimScale;
-        [UIAttribute("size")]
+        [UI("size")]
         public override Vector2 Size
         {
             get

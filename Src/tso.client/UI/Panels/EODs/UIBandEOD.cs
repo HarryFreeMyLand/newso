@@ -238,11 +238,15 @@ namespace FSO.Client.UI.Panels.EODs
                     if (Players[index + 1] != null)
                         Remove(Players[index + 1]);
                     // Make Person buttons for all players
-                    Players[index] = new UIVMPersonButton(lobbyPlayerButton.Avatar, lobbyPlayerButton.vm, true);
-                    Players[index].Position = players[index].Position;
+                    Players[index] = new UIVMPersonButton(lobbyPlayerButton.Avatar, lobbyPlayerButton.vm, true)
+                    {
+                        Position = players[index].Position
+                    };
                     Add(Players[index]);
-                    Players[index + 1] = new UIVMPersonButton(lobbyPlayerButton.Avatar, lobbyPlayerButton.vm, true);
-                    Players[index + 1].Position = players[index + 1].Position;
+                    Players[index + 1] = new UIVMPersonButton(lobbyPlayerButton.Avatar, lobbyPlayerButton.vm, true)
+                    {
+                        Position = players[index + 1].Position
+                    };
                     Add(Players[index + 1]);
                     playerNumber++;
                 }

@@ -179,7 +179,7 @@ namespace FSO.Client.UI.Controls
             Texture2D textureCopy = TextureUtils.Copy(originalTexture.GraphicsDevice, originalTexture);
 
             Color[] aColors = new Color[textureCopy.Height * textureCopy.Width];
-            textureCopy.GetData<Color>(aColors);
+            textureCopy.GetData(aColors);
 
             var i = 0;
             for (int y = 0; y < textureCopy.Height; y++)
@@ -200,7 +200,7 @@ namespace FSO.Client.UI.Controls
                     i++;
                 }
             }
-            textureCopy.SetData<Color>(aColors);
+            textureCopy.SetData(aColors);
             return textureCopy;
         }
     }

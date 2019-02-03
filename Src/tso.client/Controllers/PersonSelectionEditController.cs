@@ -66,12 +66,14 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private void ShowError(ErrorMessage errorMsg) { 
+        private void ShowError(ErrorMessage errorMsg) {
             /** Error message intended for the user **/
-            UIAlertOptions Options = new UIAlertOptions();
-            Options.Message = errorMsg.Message;
-            Options.Title = errorMsg.Title;
-            Options.Buttons = errorMsg.Buttons;
+            var Options = new UIAlertOptions
+            {
+                Message = errorMsg.Message,
+                Title = errorMsg.Title,
+                Buttons = errorMsg.Buttons
+            };
             UIScreen.GlobalShowAlert(Options, true);
         }
 

@@ -137,50 +137,62 @@ namespace FSO.Client.UI.Panels
 
             //switch lighting and uieffects label. replace lighting check with a slider
 
-            LightingSlider = new UISlider();
-            LightingSlider.Orientation = 0;
-            LightingSlider.Texture = GetTexture(0x42500000001);
-            LightingSlider.MinValue = 0f;
-            LightingSlider.MaxValue = 3f;
-            LightingSlider.AllowDecimals = false;
-            LightingSlider.Position = new Vector2(184, 167);
+            LightingSlider = new UISlider
+            {
+                Orientation = 0,
+                Texture = GetTexture(0x42500000001),
+                MinValue = 0f,
+                MaxValue = 3f,
+                AllowDecimals = false,
+                Position = new Vector2(184, 167)
+            };
             LightingSlider.SetSize(240f, 0f);
             Add(LightingSlider);
             //LightingLabel.X -= 24;
 
-            DPIButton = new UIButton();
-            DPIButton.Size = new Vector2(150, 35);
-            DPIButton.Caption = GameFacade.Strings.GetString("f103", "13");
-            DPIButton.Position = new Vector2(40, 250);
+            DPIButton = new UIButton
+            {
+                Size = new Vector2(150, 35),
+                Caption = GameFacade.Strings.GetString("f103", "13"),
+                Position = new Vector2(40, 250)
+            };
             DPIButton.OnButtonClick += DPIButton_OnButtonClick;
             Add(DPIButton);
 
             var style = TextStyle.DefaultTitle.Clone();
             style.Size = 12;
 
-            var toggle = new UILabel();
-            toggle.CaptionStyle = style;
-            toggle.Caption = GameFacade.Strings.GetString("f103", "19");
-            toggle.Position = new Vector2(23, 35);
+            var toggle = new UILabel
+            {
+                CaptionStyle = style,
+                Caption = GameFacade.Strings.GetString("f103", "19"),
+                Position = new Vector2(23, 35)
+            };
             Add(toggle);
 
-            var detail = new UILabel();
-            detail.CaptionStyle = style;
-            detail.Caption = GameFacade.Strings.GetString("f103", "22");
-            detail.Position = new Vector2(180, 35);
+            var detail = new UILabel
+            {
+                CaptionStyle = style,
+                Caption = GameFacade.Strings.GetString("f103", "22"),
+                Position = new Vector2(180, 35)
+            };
             Add(detail);
 
-            var adv = new UILabel();
-            adv.CaptionStyle = style;
-            adv.Caption = GameFacade.Strings.GetString("f103", "16");
-            adv.Position = new Vector2(180, 117);
+            var adv = new UILabel
+            {
+                CaptionStyle = style,
+                Caption = GameFacade.Strings.GetString("f103", "16"),
+                Position = new Vector2(180, 117)
+            };
             Add(adv);
 
-            var types = new UILabel();
-            types.Caption = GameFacade.Strings.GetString("f103", "17");
-            types.Position = new Vector2(180, 145);
-            types.Size = new Vector2(240, 0);
-            types.Alignment = TextAlignment.Center;
+            var types = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f103", "17"),
+                Position = new Vector2(180, 145),
+                Size = new Vector2(240, 0),
+                Alignment = TextAlignment.Center
+            };
             Add(types);
 
             Caption = GameFacade.Strings.GetString("f103", "21");
@@ -211,9 +223,11 @@ namespace FSO.Client.UI.Panels
         {
             var check = new UIButton(AntiAliasCheckButton.Texture);
             Add(check);
-            var label = new UILabel();
-            label.CaptionStyle = UIEffectsLabel.CaptionStyle;
-            label.Position = check.Position + new Microsoft.Xna.Framework.Vector2(34, 0);
+            var label = new UILabel
+            {
+                CaptionStyle = UIEffectsLabel.CaptionStyle,
+                Position = check.Position + new Vector2(34, 0)
+            };
             Add(label);
             return new Tuple<UIButton, UILabel>(check, label);
         }
@@ -328,19 +342,23 @@ namespace FSO.Client.UI.Panels
         public UISlider DPISlider;
         public UIDPIScaleDialog() : base(UIDialogStyle.OK, true) {
 
-            DPILabel = new UILabel();
-            DPILabel.Position = new Vector2(25, 50);
-            DPILabel.Size = new Vector2(350f, 0f);
-            DPILabel.Alignment = TextAlignment.Center;
+            DPILabel = new UILabel
+            {
+                Position = new Vector2(25, 50),
+                Size = new Vector2(350f, 0f),
+                Alignment = TextAlignment.Center
+            };
             DynamicOverlay.Add(DPILabel);
 
-            DPISlider = new UISlider();
-            DPISlider.Orientation = 0;
-            DPISlider.Texture = GetTexture(0x42500000001);
-            DPISlider.MinValue = 4f;
-            DPISlider.MaxValue = 12f;
-            DPISlider.AllowDecimals = false;
-            DPISlider.Position = new Vector2(25, 80);
+            DPISlider = new UISlider
+            {
+                Orientation = 0,
+                Texture = GetTexture(0x42500000001),
+                MinValue = 4f,
+                MaxValue = 12f,
+                AllowDecimals = false,
+                Position = new Vector2(25, 80)
+            };
             DPISlider.SetSize(350f, 0f);
 
             DPISlider.Value = FSOEnvironment.DPIScaleFactor * 4;

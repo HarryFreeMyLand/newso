@@ -546,8 +546,10 @@ namespace FSO.Client.UI.Panels
 
 
 
-            FiltersProperty = new UIGizmoPropertyFilters(ui, this);
-            FiltersProperty.Visible = false;
+            FiltersProperty = new UIGizmoPropertyFilters(ui, this)
+            {
+                Visible = false
+            };
             this.Add(FiltersProperty);
 
             Search = new UIGizmoSearch(ui, this);

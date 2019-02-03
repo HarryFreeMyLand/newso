@@ -5,6 +5,8 @@ namespace FSO.Common
 {
     public struct GameConsts
     {
+        public static string GameName = "NSO";
+
         #region Error Messages
         public static string NotImplemented = "Not Implemented";
         public static string NotImplementedMsg = "This feature is not implemented yet!";

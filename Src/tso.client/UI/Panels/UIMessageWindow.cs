@@ -80,14 +80,18 @@ namespace FSO.Client.UI.Panels
 
             Messages = new List<IMEntry>();
 
-            BtnBackground = new UIImage(backgroundBtnImage);
-            BtnBackground.X = 313;
-            BtnBackground.Y = 216;
+            BtnBackground = new UIImage(backgroundBtnImage)
+            {
+                X = 313,
+                Y = 216
+            };
             this.AddAt(0, BtnBackground);
 
-            TypeBackground = new UIImage(backgroundMessageImage);
-            TypeBackground.X = 10;
-            TypeBackground.Y = 12;
+            TypeBackground = new UIImage(backgroundMessageImage)
+            {
+                X = 10,
+                Y = 12
+            };
             this.AddAt(0, TypeBackground);
 
             Background = new UIImage(backgroundImage);
@@ -97,7 +101,7 @@ namespace FSO.Client.UI.Panels
             UIUtils.MakeDraggable(TypeBackground, this, true);
 
             LetterSubjectTextEdit.MaxLines = 1;
-            LetterSubjectTextEdit.TextMargin = new Microsoft.Xna.Framework.Rectangle(2, 2, 2, 2);
+            LetterSubjectTextEdit.TextMargin = new Rectangle(2, 2, 2, 2);
             LetterSubjectTextEdit.MaxChars = 128;
 
             MessageSlider.AttachButtons(MessageScrollUpButton, MessageScrollDownButton, 1);
@@ -126,7 +130,7 @@ namespace FSO.Client.UI.Panels
             HistoryTextEdit.BBCodeEnabled = true;
             HistoryTextEdit.TextStyle = HistoryTextEdit.TextStyle.Clone();
             HistoryTextEdit.TextStyle.Size = 8;
-            HistoryTextEdit.TextMargin = new Microsoft.Xna.Framework.Rectangle(3, 3, 3, 3);
+            HistoryTextEdit.TextMargin = new Rectangle(3, 3, 3, 3);
             HistoryTextEdit.SetSize(333, 100);
 
             CloseButton.OnButtonClick += new ButtonClickDelegate(CloseButton_OnButtonClick);

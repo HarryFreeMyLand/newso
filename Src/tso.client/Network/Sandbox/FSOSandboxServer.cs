@@ -74,7 +74,7 @@ namespace FSO.Client.Network.Sandbox
                             var state = new VMNetAvatarPersistState();
                             try
                             {
-                                state.Deserialize(new System.IO.BinaryReader(new MemoryStream(nmsg.Data)));
+                                state.Deserialize(new BinaryReader(new MemoryStream(nmsg.Data)));
                             }
                             catch (Exception)
                             {
@@ -140,7 +140,7 @@ namespace FSO.Client.Network.Sandbox
             Acceptor = new AsyncSocketAcceptor();
             Acceptor.FilterChain.AddLast("protocol", new ProtocolCodecFilter(new FSOSandboxProtocol()));
             Acceptor.Handler = this;
-            System.Net.IPAddress ip;
+            IPAddress ip;
             System.Net.IPAddress.TryParse("0.0.0.0", out ip);
 
             try

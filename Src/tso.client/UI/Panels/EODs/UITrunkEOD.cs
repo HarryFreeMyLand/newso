@@ -117,7 +117,7 @@ namespace FSO.Client.UI.Panels.EODs
                 var purchasable = Content.Content.Get().AvatarPurchasables.Get(outfit.PurchasableOutfitId);
                 Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(purchasable.OutfitID);
                 Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(UserAppearanceType));
-                FSO.Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
+                Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem
                 {
@@ -131,7 +131,7 @@ namespace FSO.Client.UI.Panels.EODs
                 var skeletonBodyPurchaseable = Content.Content.Get().AvatarPurchasables.Get(6000069312525);
                 var skeletonBodyOutfit = Content.Content.Get().AvatarOutfits.Get(6000069312525);
                 Appearance TempAppearance = Content.Content.Get().AvatarAppearances.Get(skeletonBodyOutfit.GetAppearance(UserAppearanceType));
-                FSO.Common.Content.ContentID thumbnailID = TempAppearance.ThumbnailID;
+                Common.Content.ContentID thumbnailID = TempAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem
                 {

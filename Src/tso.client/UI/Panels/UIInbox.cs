@@ -137,9 +137,11 @@ namespace FSO.Client.UI.Panels
                 SortButtons[i].OnButtonClick += (btn) => { Sort(btni); };
             }
 
-            Dropdown = new UIInboxDropdown();
-            Dropdown.X = 162;
-            Dropdown.Y = 13;
+            Dropdown = new UIInboxDropdown
+            {
+                X = 162,
+                Y = 13
+            };
             this.Add(Dropdown);
 
             SummaryInfoTextLabel.Alignment = TextAlignment.Center | TextAlignment.Middle;
@@ -211,9 +213,11 @@ namespace FSO.Client.UI.Panels
                     var time = new DateTime(it.Time);
                     time = time.ToLocalTime();
                     var dateformat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern;
-                    var item = new UIListBoxItem(it, "", "", TypeIcons[it.Type], "", time.ToString("HH:mm ddd "+dateformat), "", it.Subject, "", it.SenderName);
-                    item.CustomStyle = TypeStyles[it.Type];
-                    item.UseDisabledStyleByDefault = it.ReadState > 0;
+                    var item = new UIListBoxItem(it, "", "", TypeIcons[it.Type], "", time.ToString("HH:mm ddd " + dateformat), "", it.Subject, "", it.SenderName)
+                    {
+                        CustomStyle = TypeStyles[it.Type],
+                        UseDisabledStyleByDefault = it.ReadState > 0
+                    };
                     InboxListBox.Items.Add(item);
                 }
             }

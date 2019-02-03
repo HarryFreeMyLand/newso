@@ -20,13 +20,13 @@ namespace FSO.Common.Utils
 
         public Promise(Func<object, T> getter)
         {
-            this.Getter = getter;
+            Getter = getter;
         }
 
         public void SetValue(T value)
         {
-            this.HasRun = true;
-            this.Value = value;
+            HasRun = true;
+            Value = value;
         }
 
 

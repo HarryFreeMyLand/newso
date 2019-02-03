@@ -35,7 +35,7 @@ namespace FSO.Common.Rendering.Framework
 
         public GameScreen(GraphicsDevice device)
         {
-            this.Device = device;
+            Device = device;
 
             State = new UpdateState();
         }

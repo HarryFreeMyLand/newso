@@ -23,7 +23,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
         public static UInt64 GetFullCardAssetID(string valueAndSuit)
         {
             FullPlayCardAssets cardAsset;
-            if (Enum.TryParse<FullPlayCardAssets>(valueAndSuit, true, out cardAsset))
+            if (Enum.TryParse(valueAndSuit, true, out cardAsset))
                 return (ulong)cardAsset;
             else
                 return 0;
@@ -72,7 +72,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
         public static UInt64 GetPartialCardAssetID(string valueAndSuit)
         {
             PartialPlayCardAssets cardAsset;
-            if (Enum.TryParse<PartialPlayCardAssets>(valueAndSuit, true, out cardAsset))
+            if (Enum.TryParse(valueAndSuit, true, out cardAsset))
                 return (ulong)cardAsset;
             else
                 return 0;
@@ -172,14 +172,14 @@ namespace FSO.Client.UI.Panels.EODs.Utils
         public static int GetStringIndexOfCardValue(string cardValueString)
         {
             PlayingCardValueStringIndexes value;
-            if (Enum.TryParse<PlayingCardValueStringIndexes>(cardValueString, out value))
+            if (Enum.TryParse(cardValueString, out value))
                 return (int)value;
             return 200; // index too high for string table
         }
         public static int GetStringIndexOfSuitValue(string suitValueString)
         {
             PlayingCardSuitStringIndexes suit;
-            if (Enum.TryParse<PlayingCardSuitStringIndexes>(suitValueString, out suit))
+            if (Enum.TryParse(suitValueString, out suit))
                 return (int)suit;
             return 200; // index too high for string table
         }

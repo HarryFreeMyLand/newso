@@ -98,10 +98,12 @@ namespace FSO.Client.UI.Panels.EODs
             Script = RenderScript("gamecompdrawacardeod.uis");
 
             // a FreeSO exclusive change to the ugly UI labels
-            BetterLabel = new UITextEdit();
-            BetterLabel.X = 70;
-            BetterLabel.Y = 9;
-            BetterLabel.Size = new Microsoft.Xna.Framework.Vector2(300, 24);
+            BetterLabel = new UITextEdit
+            {
+                X = 70,
+                Y = 9,
+                Size = new Microsoft.Xna.Framework.Vector2(300, 24)
+            };
             BetterLabel.TextStyle.Size = 10;
             BetterLabel.Mode = UITextEditMode.ReadOnly;
             ZeroCardMessage = GameFacade.Strings.GetString("f112", "1"); // "You have zero cards in this game deck."

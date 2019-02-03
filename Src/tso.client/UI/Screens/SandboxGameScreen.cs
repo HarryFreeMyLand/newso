@@ -28,7 +28,7 @@ using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Screens
 {
-    public class SandboxGameScreen : FSO.Client.UI.Framework.GameScreen, IGameScreen
+    public class SandboxGameScreen : Framework.GameScreen, IGameScreen
     {
         public UIUCP ucp;
         public UIGameTitle Title;
@@ -44,8 +44,8 @@ namespace FSO.Client.UI.Screens
         public bool Downtown;
 
         public UILotControl LotControl { get; set; } //world, lotcontrol and vm will be null if we aren't in a lot.
-        private LotView.World World;
-        public FSO.SimAntics.VM vm { get; set; }
+        private World World;
+        public VM vm { get; set; }
         public VMNetDriver Driver;
         public uint VisualBudget { get; set; }
 
@@ -162,8 +162,10 @@ namespace FSO.Client.UI.Screens
         {
             StateChanges = new Queue<SimConnectStateChange>();
 
-            ucp = new UIUCP(this);
-            ucp.Y = ScreenHeight - 210;
+            ucp = new UIUCP(this)
+            {
+                Y = ScreenHeight - 210
+            };
             ucp.SetInLot(false);
             ucp.UpdateZoomButton();
             ucp.MoneyText.Caption = "0";// PlayerAccount.Money.ToString();
@@ -278,11 +280,11 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        public override void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public override void Update(Common.Rendering.Framework.Model.UpdateState state)
         {
             GameFacade.Game.IsFixedTimeStep = (vm == null || vm.Ready);
 
-            Visible = World?.Visible == true && (World?.State as FSO.LotView.RC.WorldStateRC)?.CameraMode != true;
+            Visible = World?.Visible == true && (World?.State as LotView.RC.WorldStateRC)?.CameraMode != true;
             GameFacade.Game.IsMouseVisible = Visible;
 
             if (state.NewKeys.Contains(Microsoft.Xna.Framework.Input.Keys.F1) && state.CtrlDown)
@@ -461,8 +463,10 @@ namespace FSO.Client.UI.Screens
                 };
             } else
             {
-                var globalLink = new VMTSOGlobalLinkStub();
-                globalLink.Database = new SimAntics.Engine.TSOGlobalLink.VMTSOStandaloneDatabase();
+                var globalLink = new VMTSOGlobalLinkStub
+                {
+                    Database = new SimAntics.Engine.TSOGlobalLink.VMTSOStandaloneDatabase()
+                };
                 var sd = new VMServerDriver(globalLink);
                 SandServer = new FSOSandboxServer();
 
@@ -618,7 +622,7 @@ namespace FSO.Client.UI.Screens
             SwitchLot = (int)lotId;
         }
 
-        private void Vm_OnChatEvent(SimAntics.NetPlay.Model.VMChatEvent evt)
+        private void Vm_OnChatEvent(VMChatEvent evt)
         {
             if (ZoomLevel < 4)
             {

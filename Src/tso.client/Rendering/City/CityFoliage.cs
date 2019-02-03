@@ -175,8 +175,10 @@ namespace FSO.Client.Rendering.City
 
         public CityFoliageChunk GenerateChunk(GraphicsDevice gd, int x, int y, HashSet<int> noTrees)
         {
-            var chunk = new CityFoliageChunk();
-            chunk.Bounds = new BoundingBox(new Vector3(x * ChunkSize, 0, y * ChunkSize), new Vector3((x+1) * 32, 255 / 12f, (y+1) * 32));
+            var chunk = new CityFoliageChunk
+            {
+                Bounds = new BoundingBox(new Vector3(x * ChunkSize, 0, y * ChunkSize), new Vector3((x + 1) * 32, 255 / 12f, (y + 1) * 32))
+            };
 
             Task.Run(() =>
             {

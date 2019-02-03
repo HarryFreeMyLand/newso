@@ -89,12 +89,16 @@ namespace FSO.Client.UI.Panels.EODs
             Catalog.X -= 2;
             Add(Catalog);
 
-            OfferCatalog = new UICatalog(10); //only uses top row
-            OfferCatalog.Position = Catalog.Position + new Vector2(41, 116);
+            OfferCatalog = new UICatalog(10)
+            {
+                Position = Catalog.Position + new Vector2(41, 116)
+            }; //only uses top row
             Add(OfferCatalog);
 
-            OtherOfferCatalog = new UICatalog(10); //only uses top row
-            OtherOfferCatalog.Position = Catalog.Position + new Vector2(41, 166);
+            OtherOfferCatalog = new UICatalog(10)
+            {
+                Position = Catalog.Position + new Vector2(41, 166)
+            }; //only uses top row
             Add(OtherOfferCatalog);
 
             OurAvatarMoneySymbol.CurrentText = "$";
@@ -108,10 +112,12 @@ namespace FSO.Client.UI.Panels.EODs
             OtherAcceptedButton.Disabled = true;
             OtherAcceptedButton.ForceState = 0;
 
-            LockoutTimerLabel = new UILabel();
-            LockoutTimerLabel.Size = AmountEntry.Size;
-            LockoutTimerLabel.Alignment = TextAlignment.Center;
-            LockoutTimerLabel.Position = (AmountEntry.Position + OtherAvatarAmount.Position) / 2;
+            LockoutTimerLabel = new UILabel
+            {
+                Size = AmountEntry.Size,
+                Alignment = TextAlignment.Center,
+                Position = (AmountEntry.Position + OtherAvatarAmount.Position) / 2
+            };
             Add(LockoutTimerLabel);
 
             SetMyPerson(LotController.vm.MyUID);
@@ -159,14 +165,14 @@ namespace FSO.Client.UI.Panels.EODs
             BuyItem.Delete(LotController.vm.Context);
         }
 
-        private void AcceptClicked(Framework.UIElement button)
+        private void AcceptClicked(UIElement button)
         {
             MyOffer.Accepted = !MyOffer.Accepted;
             AcceptButton.Selected = MyOffer.Accepted;
             Send("trade_offer", "a" + (MyOffer.Accepted?"1":"0"));
         }
 
-        private void AmountEntry_OnChange(Framework.UIElement element)
+        private void AmountEntry_OnChange(UIElement element)
         {
             TimeSinceType = FSOEnvironment.RefreshRate;
             int parse;
@@ -550,8 +556,10 @@ namespace FSO.Client.UI.Panels.EODs
             }
             var ava = LotController.vm.GetObjectByPersist(persist);
             if (ava == null) return;
-            MyPerson = new UIVMPersonButton((VMAvatar)ava, LotController.vm, true);
-            MyPerson.Position = new Vector2(43, 134);
+            MyPerson = new UIVMPersonButton((VMAvatar)ava, LotController.vm, true)
+            {
+                Position = new Vector2(43, 134)
+            };
             Add(MyPerson);
         }
 
@@ -562,8 +570,10 @@ namespace FSO.Client.UI.Panels.EODs
                 if (OtherPerson.Avatar.PersistID == persist) return;
                 Remove(OtherPerson);
             }
-            OtherPerson = new UIVMPersonButton((VMAvatar)LotController.vm.GetObjectByPersist(persist), LotController.vm, true);
-            OtherPerson.Position = new Vector2(43, 184);
+            OtherPerson = new UIVMPersonButton((VMAvatar)LotController.vm.GetObjectByPersist(persist), LotController.vm, true)
+            {
+                Position = new Vector2(43, 184)
+            };
             Add(OtherPerson);
         }
 

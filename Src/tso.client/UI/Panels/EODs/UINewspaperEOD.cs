@@ -60,46 +60,62 @@ namespace FSO.Client.UI.Panels.EODs
             BarGraphs = new UINewspaperPctBar[8];
             for (int i = 0; i < 8; i++)
             {
-                BarGraphs[i] = new UINewspaperPctBar(GameFacade.Strings.GetString("f108", (i + 1).ToString()), 0, 0, i == 7);
-                BarGraphs[i].Position = new Vector2(80 + 45 * i, 45 + 187);
+                BarGraphs[i] = new UINewspaperPctBar(GameFacade.Strings.GetString("f108", (i + 1).ToString()), 0, 0, i == 7)
+                {
+                    Position = new Vector2(80 + 45 * i, 45 + 187)
+                };
                 Add(BarGraphs[i]);
             }
 
-            GraphTab = new UINewspaperGraphTab();
-            GraphTab.Position = new Vector2(0, 187);
+            GraphTab = new UINewspaperGraphTab
+            {
+                Position = new Vector2(0, 187)
+            };
             Add(GraphTab);
 
-            FrontTab = new UINewspaperCover();
-            FrontTab.Position = new Vector2(0, 187);
+            FrontTab = new UINewspaperCover
+            {
+                Position = new Vector2(0, 187)
+            };
             FrontTab.OnShowNewsItem += FrontTab_OnShowNewsItem;
             Add(FrontTab);
 
-            FrontTabBtn = new UIButton(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.eod_dc_newcardbtn));
-            FrontTabBtn.Position = new Vector2(33 + 21, 55 + 5 + 187);
+            FrontTabBtn = new UIButton(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.eod_dc_newcardbtn))
+            {
+                Position = new Vector2(33 + 21, 55 + 5 + 187)
+            };
             FrontTabBtn.OnButtonClick += (btn) => SetTab(0);
             FrontTabBtn.Tooltip = GameFacade.Strings.GetString("f108", "14");
             Add(FrontTabBtn);
 
             var ui = Content.Content.Get().CustomUI;
-            BarTabBtn = new UIButton(ui.Get("eod_news_bar.png").Get(GameFacade.GraphicsDevice));
-            BarTabBtn.Position = new Vector2(33, 55 + 37 + 187);
-            BarTabBtn.Tooltip = GameFacade.Strings.GetString("f108", "15");
+            BarTabBtn = new UIButton(ui.Get("eod_news_bar.png").Get(GameFacade.GraphicsDevice))
+            {
+                Position = new Vector2(33, 55 + 37 + 187),
+                Tooltip = GameFacade.Strings.GetString("f108", "15")
+            };
             BarTabBtn.OnButtonClick += (btn) => SetTab(1);
             Add(BarTabBtn);
-            
-            GraphTabBtn = new UIButton(ui.Get("eod_news_line.png").Get(GameFacade.GraphicsDevice));
-            GraphTabBtn.Position = new Vector2(38, 55 + 71 + 187);
-            GraphTabBtn.Tooltip = GameFacade.Strings.GetString("f108", "16");
+
+            GraphTabBtn = new UIButton(ui.Get("eod_news_line.png").Get(GameFacade.GraphicsDevice))
+            {
+                Position = new Vector2(38, 55 + 71 + 187),
+                Tooltip = GameFacade.Strings.GetString("f108", "16")
+            };
             GraphTabBtn.OnButtonClick += (btn) => SetTab(2);
             Add(GraphTabBtn);
 
-            TopBg = new UIImage(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.eod_signs_readback));
-            TopBg.Position = new Vector2(20, 93);
+            TopBg = new UIImage(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.eod_signs_readback))
+            {
+                Position = new Vector2(20, 93)
+            };
             Add(TopBg);
 
-            TopSlider = new UISlider();
-            TopSlider.Texture = GetTexture((ulong)GameContent.FileIDs.UIFileIDs.eod_signs_slider);
-            TopSlider.Orientation = 1;
+            TopSlider = new UISlider
+            {
+                Texture = GetTexture((ulong)GameContent.FileIDs.UIFileIDs.eod_signs_slider),
+                Orientation = 1
+            };
             TopSlider.SetSize(TopSlider.Texture.Width, 105);
             TopSlider.Position = new Vector2(425, 103);
             Add(TopSlider);
@@ -310,10 +326,12 @@ namespace FSO.Client.UI.Panels.EODs
             DateLabels = new UILabel[7];
             for (int i=0; i<7; i++)
             {
-                var label = new UILabel();
-                label.Size = new Vector2(31, 13);
-                label.Alignment = TextAlignment.Center | TextAlignment.Middle;
-                label.Position = new Vector2(125 + i*45, 55 - 16);
+                var label = new UILabel
+                {
+                    Size = new Vector2(31, 13),
+                    Alignment = TextAlignment.Center | TextAlignment.Middle,
+                    Position = new Vector2(125 + i * 45, 55 - 16)
+                };
                 label.CaptionStyle = label.CaptionStyle.Clone();
                 label.CaptionStyle.Size = 9;
                 label.CaptionStyle.Shadow = true;
@@ -342,8 +360,10 @@ namespace FSO.Client.UI.Panels.EODs
                 SkillLabels[i] = label;
             }
 
-            Graph = new UINewspaperGraph();
-            Graph.Position = new Vector2(80 + 45, 55);
+            Graph = new UINewspaperGraph
+            {
+                Position = new Vector2(80 + 45, 55)
+            };
             Add(Graph);
         }
 
@@ -569,29 +589,37 @@ namespace FSO.Client.UI.Panels.EODs
             PayoutLabel.Caption = GameFacade.Strings.GetString("f108", "20");
             Add(PayoutLabel);
 
-            LatestLabel = new UILabel();
-            LatestLabel.CaptionStyle = PayoutLabel.CaptionStyle.Clone();
+            LatestLabel = new UILabel
+            {
+                CaptionStyle = PayoutLabel.CaptionStyle.Clone()
+            };
             LatestLabel.CaptionStyle.Shadow = true;
             LatestLabel.Size = new Vector2(180, 23);
             LatestLabel.Position = new Vector2(84, 81);
             LatestLabel.Caption = GameFacade.Strings.GetString("f108", "12");
             Add(LatestLabel);
 
-            RecentLabel = new UILabel();
-            RecentLabel.CaptionStyle = PayoutLabel.CaptionStyle;
-            RecentLabel.Size = new Vector2(180, 23);
-            RecentLabel.Position = new Vector2(271, 40);
-            RecentLabel.Caption = GameFacade.Strings.GetString("f108", "13");
+            RecentLabel = new UILabel
+            {
+                CaptionStyle = PayoutLabel.CaptionStyle,
+                Size = new Vector2(180, 23),
+                Position = new Vector2(271, 40),
+                Caption = GameFacade.Strings.GetString("f108", "13")
+            };
             Add(RecentLabel);
 
-            NextButton = new UIButton(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.buypanel_scrollrightbtn));
-            NextButton.Position = new Vector2(271 + 185, 59 + 24);
+            NextButton = new UIButton(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.buypanel_scrollrightbtn))
+            {
+                Position = new Vector2(271 + 185, 59 + 24)
+            };
             NextButton.OnButtonClick += (btn) => SetPage(1);
             NextButton.Tooltip = GameFacade.Strings.GetString("f108", "17");
             Add(NextButton);
 
-            PrevButton = new UIButton(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.buypanel_scrollleftbtn));
-            PrevButton.Position = new Vector2(84 - 14, 59 + 24);
+            PrevButton = new UIButton(GetTexture((ulong)GameContent.FileIDs.UIFileIDs.buypanel_scrollleftbtn))
+            {
+                Position = new Vector2(84 - 14, 59 + 24)
+            };
             PrevButton.OnButtonClick += (btn) => SetPage(0);
             PrevButton.Tooltip = GameFacade.Strings.GetString("f108", "18");
             Add(PrevButton);

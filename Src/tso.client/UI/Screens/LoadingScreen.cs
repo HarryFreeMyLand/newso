@@ -43,11 +43,13 @@ namespace FSO.Client.UI.Screens
             Background = new UISetupBackground();
 
             //TODO: Letter spacing is a bit wrong on this label
-            var lbl = new UILabel();
-            lbl.Caption = GameFacade.Strings.GetString("154", "5");
-            lbl.X = 0;
-            lbl.Size = new Microsoft.Xna.Framework.Vector2(800, 100);
-            lbl.Y = 508;
+            var lbl = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("154", "5"),
+                X = 0,
+                Size = new Vector2(800, 100),
+                Y = 508
+            };
 
             var style = lbl.CaptionStyle.Clone();
             style.Size = 17;
@@ -59,7 +61,7 @@ namespace FSO.Client.UI.Screens
             {
                 X = 0,
                 Y = 550,
-                Size = new Microsoft.Xna.Framework.Vector2(800, 100),
+                Size = new Vector2(800, 100),
                 CaptionStyle = style
             };
 
@@ -67,7 +69,7 @@ namespace FSO.Client.UI.Screens
             {
                 X = 0,
                 Y = 550,
-                Size = new Microsoft.Xna.Framework.Vector2(800, 100),
+                Size = new Vector2(800, 100),
                 CaptionStyle = style
             };
 
@@ -84,7 +86,7 @@ namespace FSO.Client.UI.Screens
             CurrentPreloadLabel = 0;
             AnimateLabel("", PreloadLabels[0]);
 
-            
+
             CheckProgressTimer = GameThread.SetInterval(CheckProgressTimer_Elapsed, 5);
 
             //GameFacade.Screens.Tween.To(rect, 10.0f, new Dictionary<string, float>() {
@@ -145,13 +147,13 @@ namespace FSO.Client.UI.Screens
             ProgressLabel2.X = 800;
             ProgressLabel2.Caption = newLabel;
 
-            var tween = GameFacade.Screens.Tween.To(ProgressLabel1, 0.5f, new Dictionary<string, float>() 
+            var tween = GameFacade.Screens.Tween.To(ProgressLabel1, 0.5f, new Dictionary<string, float>()
             {
                 {"X", -800.0f}
             });
             tween.OnComplete += new TweenEvent(tween_OnComplete);
 
-            GameFacade.Screens.Tween.To(ProgressLabel2, 0.5f, new Dictionary<string, float>() 
+            GameFacade.Screens.Tween.To(ProgressLabel2, 0.5f, new Dictionary<string, float>()
             {
                 {"X", 0.0f}
             });

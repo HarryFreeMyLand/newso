@@ -1071,8 +1071,10 @@ namespace FSO.Client.UI.Panels.EODs
 
             // create the actual graphic using Script => UIImage, then copy its properites when creating the proper UISlotsImage
             ScriptedRouletteWheel = Script.Create<UIImage>("rouletteWheel");
-            RouletteWheel = new UISlotsImage(ScriptedRouletteWheel.Texture);
-            RouletteWheel.Position = ScriptedRouletteWheel.Position;
+            RouletteWheel = new UISlotsImage(ScriptedRouletteWheel.Texture)
+            {
+                Position = ScriptedRouletteWheel.Position
+            };
             RouletteWheel.SetBounds(0, 0, redStop.X, 40);
             Add(RouletteWheel);
             RouletteBall = Script.Create<UIImage>("rouletteBall");

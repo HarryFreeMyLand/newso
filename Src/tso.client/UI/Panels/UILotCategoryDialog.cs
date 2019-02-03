@@ -75,7 +75,7 @@ namespace FSO.Client.UI.Panels
             UIScreen.RemoveDialog(this);
         }
 
-        private void Close(Framework.UIElement button)
+        private void Close(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }

@@ -18,8 +18,8 @@ namespace FSO.Common.Utils
 
         public ValuePointer(object item, string field)
         {
-            this.Item = item;
-            this.Field = item.GetType().GetProperty(field);
+            Item = item;
+            Field = item.GetType().GetProperty(field);
         }
 
         public object Get()

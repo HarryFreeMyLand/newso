@@ -295,9 +295,11 @@ namespace FSO.Client.UI.Panels.EODs
             AddAt(2, LightsFrame2);
             BetIndents = Script.Create<UIImage>("BetIndents");
             AddAt(3, BetIndents);
-            Chips = new UISlotsImage(MoneyChipsImage);
-            Chips.X = 110;
-            Chips.Y = 285;
+            Chips = new UISlotsImage(MoneyChipsImage)
+            {
+                X = 110,
+                Y = 285
+            };
             Add(Chips);
 
             // Customize and place payout table
@@ -334,9 +336,11 @@ namespace FSO.Client.UI.Panels.EODs
             PayoutTableColumn2Row3.Y = 120;
             PayoutTableColumn2Row3.Y += 42;
             Add(PayoutTableColumn2Row3);
-            PayoutTableColumn2Row4 = new UISlotsImage(Wheel1LegendImage);
-            PayoutTableColumn2Row4.X = 275;
-            PayoutTableColumn2Row4.Y = 120;
+            PayoutTableColumn2Row4 = new UISlotsImage(Wheel1LegendImage)
+            {
+                X = 275,
+                Y = 120
+            };
             PayoutTableColumn2Row4.SetBounds(75, 0, 15, 21);
             PayoutTableColumn2Row4.Y += 63;
             Add(PayoutTableColumn2Row4);

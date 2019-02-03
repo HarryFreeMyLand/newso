@@ -72,13 +72,13 @@ namespace FSO.Client.UI.Panels
             CloseButton.OnButtonClick += CloseButton_OnButtonClick;
         }
 
-        private void CloseButton_OnButtonClick(Framework.UIElement button)
+        private void CloseButton_OnButtonClick(UIElement button)
         {
             //todo: special behaviour?
             UIScreen.RemoveDialog(this);
         }
 
-        private void AcceptButton_OnButtonClick(Framework.UIElement button)
+        private void AcceptButton_OnButtonClick(UIElement button)
         {
             if (OnNameChosen != null)
             {
@@ -90,7 +90,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void NameTextEdit_OnChange(Framework.UIElement element)
+        private void NameTextEdit_OnChange(UIElement element)
         {
             RefreshValidation();
         }

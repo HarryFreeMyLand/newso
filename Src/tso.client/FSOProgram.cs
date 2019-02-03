@@ -1,4 +1,4 @@
-﻿using FSO.Client.Utils;
+using FSO.Client.Utils;
 using FSO.Client.Utils.GameLocator;
 using FSO.Common;
 using FSO.Common.Rendering.Framework.IO;
@@ -33,8 +33,8 @@ namespace FSO.Client
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
             AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            OperatingSystem os = Environment.OSVersion;
-            PlatformID pid = os.Platform;
+            var os = Environment.OSVersion;
+            var pid = os.Platform;
 
             ILocator gameLocator;
             bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
@@ -72,7 +72,8 @@ namespace FSO.Client
                     {
                         GlobalSettings.Default.LanguageCode = byte.Parse(cmd.Substring(4));
                     }
-                    else if (cmd.StartsWith("hz")) GlobalSettings.Default.TargetRefreshRate = int.Parse(cmd.Substring(2));
+                    else if (cmd.StartsWith("hz"))
+                        GlobalSettings.Default.TargetRefreshRate = int.Parse(cmd.Substring(2));
                     else
                     {
                         //normal style param
@@ -134,7 +135,8 @@ namespace FSO.Client
                 FSOEnvironment.Linux = linux;
                 FSOEnvironment.DirectX = UseDX;
                 FSOEnvironment.GameThread = Thread.CurrentThread;
-                if (GlobalSettings.Default.LanguageCode == 0) GlobalSettings.Default.LanguageCode = 1;
+                if (GlobalSettings.Default.LanguageCode == 0)
+                    GlobalSettings.Default.LanguageCode = 1;
                 Files.Formats.IFF.Chunks.STR.DefaultLangCode = (Files.Formats.IFF.Chunks.STRLangCode)GlobalSettings.Default.LanguageCode;
 
                 GlobalSettings.Default.StartupPath = path;
@@ -143,12 +145,12 @@ namespace FSO.Client
             }
             else
             {
-                ShowDialog("The Sims Online was not found on your system. FreeSO will not be able to run without access to the original game files.");
+                ShowDialog($"The Sims Online was not found on your system. {GameConsts.GameName} will not be able to run without access to the original game files.");
                 return false;
             }
         }
 
-        private static System.Reflection.Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
         {
             try
             {

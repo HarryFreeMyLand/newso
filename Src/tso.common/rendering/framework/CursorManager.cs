@@ -64,7 +64,7 @@ namespace FSO.Common.Rendering.Framework
         {
             INSTANCE = this;
             m_CursorMap = new Dictionary<CursorType, MouseCursor>();
-            this.GD = gd;
+            GD = gd;
         }
 
         public void SetCursor(CursorType type)

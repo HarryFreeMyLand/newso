@@ -385,6 +385,7 @@
     <Content Include="ContentSrc\Effects\2DWorldBatch.fx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include=".editorconfig" />
     <None Include="app.config" />
     <None Include="ContentSrc\Effects\2dWorldBatch.mgfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

@@ -25,8 +25,8 @@ namespace FSO.Common.Rendering.Framework.Shapes
 
         public _3DCube(Color color, Vector3 size)
         {
-            this.Color = color;
-            this.Size = size;
+            Color = color;
+            Size = size;
         }
 
         public override void Initialize(){

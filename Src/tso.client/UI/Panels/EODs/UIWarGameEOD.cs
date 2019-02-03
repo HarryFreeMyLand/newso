@@ -121,15 +121,19 @@ namespace FSO.Client.UI.Panels.EODs
                 var avatar = (VMAvatar)Controller.Lot.vm.GetObjectById(avatarID);
                 if (split[1].Equals("blue"))
                 {
-                    Players[0] = new UIVMPersonButton((VMAvatar)avatar, Controller.Lot.vm, false);
-                    Players[0].Position = BluePlayerPos.Position;
+                    Players[0] = new UIVMPersonButton((VMAvatar)avatar, Controller.Lot.vm, false)
+                    {
+                        Position = BluePlayerPos.Position
+                    };
                     PlayerIsBlue = true;
                     Add(Players[0]);
                 }
                 else
                 {
-                    Players[1] = new UIVMPersonButton((VMAvatar)avatar, Controller.Lot.vm, false);
-                    Players[1].Position = RedPlayerPos.Position;
+                    Players[1] = new UIVMPersonButton((VMAvatar)avatar, Controller.Lot.vm, false)
+                    {
+                        Position = RedPlayerPos.Position
+                    };
                     Add(Players[1]);
                 }
             }
@@ -211,14 +215,18 @@ namespace FSO.Client.UI.Panels.EODs
                 var avatar = (VMAvatar)Controller.Lot.vm.GetObjectById(avatarID);
                 if (PlayerIsBlue)
                 {
-                    Players[1] = new UIVMPersonButton(avatar, Controller.Lot.vm, false);
-                    Players[1].Position = RedPlayerPos.Position;
+                    Players[1] = new UIVMPersonButton(avatar, Controller.Lot.vm, false)
+                    {
+                        Position = RedPlayerPos.Position
+                    };
                     Add(Players[1]);
                 }
                 else
                 {
-                    Players[0] = new UIVMPersonButton(avatar, Controller.Lot.vm, false);
-                    Players[0].Position = BluePlayerPos.Position;
+                    Players[0] = new UIVMPersonButton(avatar, Controller.Lot.vm, false)
+                    {
+                        Position = BluePlayerPos.Position
+                    };
                     Add(Players[0]);
                 }
             }
@@ -470,12 +478,16 @@ namespace FSO.Client.UI.Panels.EODs
             ResultDefeatImg.Visible = false;
 
             // set player choice image
-            MoveIconBlue = new UISlotsImage(MoveIconImage);
-            MoveIconBlue.X = 215;
+            MoveIconBlue = new UISlotsImage(MoveIconImage)
+            {
+                X = 215
+            };
             MoveIconBlue.SetBounds(((byte)UIWarGameEODMoveChoices.Unknown * MOVE_ICON_WIDTH_HEIGHT), 0,
                 MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
-            MoveIconRed = new UISlotsImage(MoveIconImage);
-            MoveIconRed.X = 285;
+            MoveIconRed = new UISlotsImage(MoveIconImage)
+            {
+                X = 285
+            };
             MoveIconRed.SetBounds(((byte)UIWarGameEODMoveChoices.Unknown * MOVE_ICON_WIDTH_HEIGHT), 0,
                 MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
             MoveIconBlue.Y = MoveIconRed.Y = 124;

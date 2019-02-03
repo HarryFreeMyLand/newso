@@ -12,12 +12,12 @@ namespace FSO.Common.Utils
 
         public XMLList(string nodeName)
         {
-            this.NodeName = nodeName;
+            NodeName = nodeName;
         }
 
         public XMLList()
         {
-            this.NodeName = "Unknown";
+            NodeName = "Unknown";
         }
 
         #region IXMLPrinter Members
@@ -40,7 +40,7 @@ namespace FSO.Common.Utils
             {
                 var instance = (T)Activator.CreateInstance(type);
                 instance.Parse(child);
-                this.Add(instance);
+                Add(instance);
             }
         }
 

@@ -92,8 +92,10 @@ namespace FSO.Client.UI.Panels
 
             Background.ListenForMouse(new UIMouseEvent(DragMouseEvents));
 
-            Categories = new UIChatCategoryList(this);
-            Categories.Position = new Vector2(31, 29);
+            Categories = new UIChatCategoryList(this)
+            {
+                Position = new Vector2(31, 29)
+            };
             Add(Categories);
             ChangeSizeTo(new Vector2(GlobalSettings.Default.ChatSizeX, GlobalSettings.Default.ChatSizeY));
         }

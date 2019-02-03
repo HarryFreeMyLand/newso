@@ -78,11 +78,15 @@ namespace FSO.Client.UI.Panels
             var script = this.RenderScript("cityselector.uis");
             this.DialogSize = (Point)script.GetControlProperty("DialogSize");
 
-            var cityThumbBG = new UIImage(thumbnailBackgroundImage);
-            cityThumbBG.Position = (Vector2)script.GetControlProperty("CityThumbnailBackgroundPosition");
+            var cityThumbBG = new UIImage(thumbnailBackgroundImage)
+            {
+                Position = (Vector2)script.GetControlProperty("CityThumbnailBackgroundPosition")
+            };
             this.Add(cityThumbBG);
-            CityThumb = new UIImage();
-            CityThumb.Position = (Vector2)script.GetControlProperty("CityThumbnailPosition");
+            CityThumb = new UIImage
+            {
+                Position = (Vector2)script.GetControlProperty("CityThumbnailPosition")
+            };
             this.Add(CityThumb);
 
             CityDescriptionSlider.AttachButtons(CityDescriptionScrollUpButton, CityDescriptionDownButton, 1);

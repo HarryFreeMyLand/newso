@@ -40,9 +40,11 @@ namespace FSO.Client.UI.Screens
             {
                 var pxSize = sizes[i];
 
-                var label = new UILabel();
-                label.Caption = msg;
-                label.CaptionStyle = TextStyle.DefaultLabel.Clone();
+                var label = new UILabel
+                {
+                    Caption = msg,
+                    CaptionStyle = TextStyle.DefaultLabel.Clone()
+                };
                 label.CaptionStyle.Size = pxSize;
 
                 label.X = 10;
@@ -91,9 +93,11 @@ namespace FSO.Client.UI.Screens
 
                 foreach (var align in alignments)
                 {
-                    var label = new UILabel();
-                    label.Caption = msg;
-                    label.CaptionStyle = TextStyle.DefaultLabel.Clone();
+                    var label = new UILabel
+                    {
+                        Caption = msg,
+                        CaptionStyle = TextStyle.DefaultLabel.Clone()
+                    };
                     label.CaptionStyle.Size = pxSize;
                     label.Size = new Vector2(800.0f, 50.0f);
                     label.Alignment = align;

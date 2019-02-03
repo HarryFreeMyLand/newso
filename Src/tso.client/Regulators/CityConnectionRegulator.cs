@@ -116,7 +116,7 @@ namespace FSO.Client.Regulators
             {
                 if (Client.IsConnected)
                 {
-                    Client.Write(new Server.Protocol.Electron.Packets.KeepAlive());
+                    Client.Write(new KeepAlive());
                 }
             }, 10000); //keep alive every 10 seconds. prevents disconnection by aggressive NAT.
         }

@@ -200,7 +200,7 @@ namespace FSO.Client.Rendering.City.Plugins
                 case PainterMode.FORESTTYPE:
                     float iScale = (float)(1 / (City.GetIsoScale() * 2));
 
-                    Color selColor = Color.White;
+                    var selColor = Color.White;
 
                     switch (Mode)
                     {

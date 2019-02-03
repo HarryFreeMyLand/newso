@@ -106,9 +106,11 @@ namespace FSO.Client.UI.Panels
             {
                 var ranked = best4[i];
                 if (bestScore - ranked.Item1 > bestScore / 2) break;
-                var suggestion = new UIEmojiSuggestion(ranked.Item2, this);
-                suggestion.Position = new Vector2(0, i * 22);
-                suggestion.Selected = (i == 0);
+                var suggestion = new UIEmojiSuggestion(ranked.Item2, this)
+                {
+                    Position = new Vector2(0, i * 22),
+                    Selected = (i == 0)
+                };
                 Add(suggestion);
                 last = suggestion;
             }

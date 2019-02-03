@@ -27,7 +27,7 @@ namespace FSO.Client.Rendering.City.Graph
 
         public VoronoiCellGraph(List<Vector2> verts)
         {
-            var mesh = VoronoiLib.FortunesAlgorithm.Run(verts.Select(x => new VoronoiLib.Structures.FortuneSite(x.X, x.Y)).ToList(), 0, 0, 512, 512);
+            var mesh = VoronoiLib.FortunesAlgorithm.Run(verts.Select(x => new FortuneSite(x.X, x.Y)).ToList(), 0, 0, 512, 512);
 
             var ptDict = new Dictionary<Vector2, int>();
             var pts = new List<Vector2>();

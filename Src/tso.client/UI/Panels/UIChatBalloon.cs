@@ -112,7 +112,7 @@ namespace FSO.Client.UI.Panels
                 BBCode = true,
                 Alignment = TextAlignment.Center,
                 MaxWidth = textW,
-                Position = new Microsoft.Xna.Framework.Vector2(18, 16),
+                Position = new Vector2(18, 16),
                 Scale = _Scale,
                 TextStyle = BodyTextStyle,
                 WordWrap = true,
@@ -132,12 +132,12 @@ namespace FSO.Client.UI.Panels
         private void AlphaCopy(Texture2D tex)
         {
             var data = new Color[tex.Width * tex.Height];
-            tex.GetData<Color>(data);
+            tex.GetData(data);
             for (int i = 0; i < data.Length; i++)
             {
                 data[i].A = data[i].R;
             }
-            tex.SetData<Color>(data);
+            tex.SetData(data);
         }
 
         public override void Update(UpdateState state)

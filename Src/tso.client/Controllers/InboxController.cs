@@ -126,19 +126,19 @@ namespace FSO.Client.Controllers
                             {
                                 //show a message indicating we recieved new mail while we were offline.
                                 UIAlert alert = null;
-                                alert = UIScreen.GlobalShowAlert(new UI.Controls.UIAlertOptions
+                                alert = UIScreen.GlobalShowAlert(new UIAlertOptions
                                 {
                                     Title = GameFacade.Strings.GetString("225", "1"),
                                     Message = GameFacade.Strings.GetString("225", msg.Messages.Length > 1 ? "3" : "2", new string[] { msg.Messages.Length.ToString() }),
-                                    Buttons = new UI.Controls.UIAlertButton[]
+                                    Buttons = new UIAlertButton[]
                                     {
-                                        new UI.Controls.UIAlertButton(UI.Controls.UIAlertButtonType.Yes, (btn =>
+                                        new UIAlertButton(UI.Controls.UIAlertButtonType.Yes, (btn =>
                                         {
                                             //show the inbox
                                             ((CoreGameScreen)UIScreen.Current).OpenInbox();
                                             UIScreen.RemoveDialog(alert);
                                         })),
-                                        new UI.Controls.UIAlertButton(UI.Controls.UIAlertButtonType.No, (btn =>
+                                        new UIAlertButton(UI.Controls.UIAlertButtonType.No, (btn =>
                                         {
                                             UIScreen.RemoveDialog(alert);
                                         }))

@@ -105,8 +105,10 @@ namespace FSO.Client.UI.Panels
             UseSmall = useSmall;
             var script = this.RenderScript("buypanel"+(useSmall?"":"1024")+".uis");
 
-            Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002));
-            Background.Y = 0;
+            Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
+            {
+                Y = 0
+            };
             Background.BlockInput();
             this.AddAt(0, Background);
             Size = Background.Size.ToVector2();
@@ -126,10 +128,12 @@ namespace FSO.Client.UI.Panels
             InventoryCatalogVisitorIcon = script.Create<UIImage>("InventoryCatalogVisitorIcon");
             this.AddAt(5, InventoryCatalogVisitorIcon);
 
-            Catalog = new UICatalog(useSmall ? 14 : 24);
-            Catalog.ActiveVM = lotController.vm;
+            Catalog = new UICatalog(useSmall ? 14 : 24)
+            {
+                ActiveVM = lotController.vm
+            };
             Catalog.OnSelectionChange += new CatalogSelectionChangeDelegate(Catalog_OnSelectionChange);
-            Catalog.Position = new Microsoft.Xna.Framework.Vector2(275, 7);
+            Catalog.Position = new Vector2(275, 7);
             this.Add(Catalog);
 
             CategoryMap = new Dictionary<UIButton, int>
@@ -188,7 +192,7 @@ namespace FSO.Client.UI.Panels
             ObjLimitLabel.Caption = "127/250 Objects";
             ObjLimitLabel.Y = -20;
             ObjLimitLabel.X = Background.Width/2 - 100;
-            ObjLimitLabel.Size = new Microsoft.Xna.Framework.Vector2(200, 0);
+            ObjLimitLabel.Size = new Vector2(200, 0);
             ObjLimitLabel.Alignment = TextAlignment.Center;
             DynamicOverlay.Add(ObjLimitLabel);
         }

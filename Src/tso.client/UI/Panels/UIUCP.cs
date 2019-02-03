@@ -130,8 +130,10 @@ namespace FSO.Client.UI.Panels
             Size = new Vector2(Background.Width, Background.Height); //for caching
 
 
-            BackgroundMatchmaker = new UIImage(BackgroundMatchmakerImage);
-            BackgroundMatchmaker.Y = 81;
+            BackgroundMatchmaker = new UIImage(BackgroundMatchmakerImage)
+            {
+                Y = 81
+            };
             this.AddAt(0, BackgroundMatchmaker);
             BackgroundMatchmaker.BlockInput();
 
@@ -181,10 +183,12 @@ namespace FSO.Client.UI.Panels
 
             MoneyText.CaptionStyle = MoneyText.CaptionStyle.Clone();
 
-            var temp = new UILabel();
-            temp.X = SecondFloorButton.X + 7;
-            temp.Y = SecondFloorButton.Y - 14;
-            temp.Caption = "1";
+            var temp = new UILabel
+            {
+                X = SecondFloorButton.X + 7,
+                Y = SecondFloorButton.Y - 14,
+                Caption = "1"
+            };
             temp.CaptionStyle = temp.CaptionStyle.Clone();
             temp.CaptionStyle.Size = 7;
             temp.CaptionStyle.Shadow = true;
@@ -247,8 +251,10 @@ namespace FSO.Client.UI.Panels
 
                     if (GameBlocker == null)
                     {
-                        GameBlocker = new UIBlocker();
-                        GameBlocker.Position = new Vector2(0, 220 - Game.ScreenHeight);
+                        GameBlocker = new UIBlocker
+                        {
+                            Position = new Vector2(0, 220 - Game.ScreenHeight)
+                        };
                         GameBlocker.OnMouseEvt += (evt, state) =>
                         {
                             if (evt == UIMouseEventType.MouseDown) SetFocus(UCPFocusMode.Game);
@@ -277,8 +283,10 @@ namespace FSO.Client.UI.Panels
 
                     if (CurrentPanel > -1 && PanelBlocker == null)
                     {
-                        PanelBlocker = new UIBlocker(580, 104);
-                        PanelBlocker.Position = new Vector2(220, 106);
+                        PanelBlocker = new UIBlocker(580, 104)
+                        {
+                            Position = new Vector2(220, 106)
+                        };
                         PanelBlocker.OnMouseEvt += (evt, state) =>
                         {
                             if (evt == UIMouseEventType.MouseDown) SetFocus(UCPFocusMode.ActiveTab);
@@ -318,9 +326,11 @@ namespace FSO.Client.UI.Panels
         {
             if (SelWallsPanel == null)
             {
-                SelWallsPanel = new UISelectHouseView();
-                SelWallsPanel.X = 31;
-                SelWallsPanel.Y = 48;
+                SelWallsPanel = new UISelectHouseView
+                {
+                    X = 31,
+                    Y = 48
+                };
                 SelWallsPanel.OnModeSelection += new HouseViewSelection(UpdateWallsViewCallback);
                 this.Add(SelWallsPanel);
             }
@@ -350,7 +360,7 @@ namespace FSO.Client.UI.Panels
             HouseViewSelectButton.Disabled = false;
         }
 
-        public override void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public override void Update(Common.Rendering.Framework.Model.UpdateState state)
         {
             var time = DateTime.UtcNow;
             var tsoTime = TSOTime.FromUTC(time);
@@ -567,9 +577,11 @@ namespace FSO.Client.UI.Panels
                 switch (newPanel)
                 {
                     case 5:
-                        Panel = new UIOptions();
-                        Panel.X = 177;
-                        Panel.Y = 96;
+                        Panel = new UIOptions
+                        {
+                            X = 177,
+                            Y = 96
+                        };
                         DynamicOverlay.Add(Panel);
                         OptionsModeButton.Selected = true;
                         SetFocus(UCPFocusMode.ActiveTab);
@@ -619,9 +631,11 @@ namespace FSO.Client.UI.Panels
                         break;
                     case 1:
                         if (!Game.InLot) break; //not ingame
-                        Panel = new UILiveMode(Game.LotControl);
-                        Panel.X = 177;
-                        Panel.Y = 61;
+                        Panel = new UILiveMode(Game.LotControl)
+                        {
+                            X = 177,
+                            Y = 61
+                        };
                         DynamicOverlay.Add(Panel);
                         LiveModeButton.Selected = true;
                         SetFocus(UCPFocusMode.ActiveTab);

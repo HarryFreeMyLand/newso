@@ -35,7 +35,7 @@ namespace FSO.Client
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class TSOGame : FSO.Common.Rendering.Framework.Game
+    public class TSOGame : Common.Rendering.Framework.Game
     {
         public UILayer uiLayer;
         public _3DLayer SceneMgr;
@@ -77,8 +77,10 @@ namespace FSO.Client
         bool newChange = false;
         void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            if (newChange || !GlobalSettings.Default.Windowed) return;
-            if (Window.ClientBounds.Width == 0 || Window.ClientBounds.Height == 0) return;
+            if (newChange || !GlobalSettings.Default.Windowed)
+                return;
+            if (Window.ClientBounds.Width == 0 || Window.ClientBounds.Height == 0)
+                return;
             newChange = true;
             var width = Math.Max(1, Window.ClientBounds.Width);
             var height = Math.Max(1, Window.ClientBounds.Height);
@@ -90,7 +92,8 @@ namespace FSO.Client
             GlobalSettings.Default.GraphicsHeight = height;
 
             newChange = false;
-            if (uiLayer?.CurrentUIScreen == null) return;
+            if (uiLayer?.CurrentUIScreen == null)
+                return;
 
             uiLayer.SpriteBatch.ResizeBuffer(GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight);
             GlobalSettings.Default.GraphicsWidth = (int)(width / FSOEnvironment.DPIScaleFactor);
@@ -140,7 +143,7 @@ namespace FSO.Client
             if (!FSOEnvironment.MSAASupport)
                 settings.AntiAlias = false;
 
-            LotView.WorldConfig.Current = new LotView.WorldConfig()
+            LotView.WorldConfig.Current = new WorldConfig()
             {
                 LightingMode = settings.LightingMode,
                 SmoothZoom = settings.SmoothZoom,
@@ -148,7 +151,8 @@ namespace FSO.Client
                 AA = settings.AntiAlias,
             };
 
-            if (!FSOEnvironment.TexCompressSupport) settings.TexCompression = 0;
+            if (!FSOEnvironment.TexCompressSupport)
+                settings.TexCompression = 0;
             else if ((settings.TexCompression & 2) == 0)
             {
                 settings.TexCompression = 1;
@@ -156,8 +160,8 @@ namespace FSO.Client
             FSOEnvironment.TexCompress = (!IffFile.RETAIN_CHUNK_DATA) && (settings.TexCompression & 1) > 0;
             //end settings management
 
-            OperatingSystem os = Environment.OSVersion;
-            PlatformID pid = os.Platform;
+            var os = Environment.OSVersion;
+            var pid = os.Platform;
             GameFacade.Linux = (pid == PlatformID.MacOSX || pid == PlatformID.Unix);
 
             FSO.Content.Content.TS1Hybrid = GlobalSettings.Default.TS1HybridEnable;
@@ -180,7 +184,8 @@ namespace FSO.Client
             GameFacade.Emojis = new Common.Rendering.Emoji.EmojiProvider(GraphicsDevice);
             CurLoader.BmpLoaderFunc = Files.ImageLoader.FromStream;
             GameFacade.Cursor = new CursorManager(GraphicsDevice);
-            if (!GameFacade.Linux) GameFacade.Cursor.Init(FSO.Content.Content.Get().GetPath(""), false);
+            if (!GameFacade.Linux)
+                GameFacade.Cursor.Init(FSO.Content.Content.Get().GetPath(""), false);
 
             /** Init any computed values **/
             GameFacade.Init();
@@ -213,12 +218,13 @@ namespace FSO.Client
 
             WorldContent.Init(this.Services, Content.RootDirectory);
             DGRP3DMesh.InitRCWorkers();
-            if (!(FSOEnvironment.SoftwareKeyboard && FSOEnvironment.SoftwareDepth)) AddTextInput();
+            if (!(FSOEnvironment.SoftwareKeyboard && FSOEnvironment.SoftwareDepth))
+                AddTextInput();
             base.Screen.Layers.Add(SceneMgr);
             base.Screen.Layers.Add(uiLayer);
             GameFacade.LastUpdateState = base.Screen.State;
             //Bind ninject objects
-            kernel.Bind<FSO.Content.Content>().ToConstant(FSO.Content.Content.Get());
+            kernel.Bind<Content.Content>().ToConstant(FSO.Content.Content.Get());
             kernel.Load(new ClientDomainModule());
 
             //Have to be eager with this, it sets a singleton instance on itself to avoid packets having
@@ -279,13 +285,13 @@ namespace FSO.Client
             Effect vitaboyEffect = null;
             try
             {
-                GameFacade.MainFont = new FSO.Client.UI.Framework.Font();
+                GameFacade.MainFont = new UI.Framework.Font();
                 GameFacade.MainFont.AddSize(10, Content.Load<SpriteFont>("Fonts/FreeSO_10px"));
                 GameFacade.MainFont.AddSize(12, Content.Load<SpriteFont>("Fonts/FreeSO_12px"));
                 GameFacade.MainFont.AddSize(14, Content.Load<SpriteFont>("Fonts/FreeSO_14px"));
                 GameFacade.MainFont.AddSize(16, Content.Load<SpriteFont>("Fonts/FreeSO_16px"));
 
-                GameFacade.EdithFont = new FSO.Client.UI.Framework.Font();
+                GameFacade.EdithFont = new UI.Framework.Font();
                 GameFacade.EdithFont.AddSize(12, Content.Load<SpriteFont>("Fonts/Trebuchet_12px"));
                 GameFacade.EdithFont.AddSize(14, Content.Load<SpriteFont>("Fonts/Trebuchet_14px"));
 
@@ -294,7 +300,7 @@ namespace FSO.Client
             }
             catch (Exception e)
             {
-                FSOProgram.ShowDialog("Content could not be loaded. Make sure that the FreeSO content has been compiled! (ContentSrc/TSOClientContent.mgcb) \r\n\r\n" + e.ToString());
+                FSOProgram.ShowDialog($"Content could not be loaded. Make sure that the {GameConsts.GameName} content has been compiled! (ContentSrc/TSOClientContent.mgcb) \r\n\r\n" + e.ToString());
                 Exit();
                 Environment.Exit(0);
             }
@@ -321,7 +327,8 @@ namespace FSO.Client
             GameThread.UpdateExecuting = true;
             DiscordRpcEngine.Update();
 
-            if (HITVM.Get() != null) HITVM.Get().Tick();
+            if (HITVM.Get() != null)
+                HITVM.Get().Tick();
 
             base.Update(gameTime);
             GameThread.UpdateExecuting = false;

@@ -84,8 +84,10 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 player.PersonButton = null;
             }
 
-            player.PersonButton = new UIVMPersonButton((VMAvatar)avatar, EOD.Controller.Lot.vm, true);
-            player.PersonButton.Position = player.Image.Position + new Microsoft.Xna.Framework.Vector2(2, 2);
+            player.PersonButton = new UIVMPersonButton((VMAvatar)avatar, EOD.Controller.Lot.vm, true)
+            {
+                Position = player.Image.Position + new Microsoft.Xna.Framework.Vector2(2, 2)
+            };
             Add(player.PersonButton);
 
             if (CaptionFunction != null)

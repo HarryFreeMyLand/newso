@@ -1263,12 +1263,14 @@ namespace FSO.Client.UI.Panels.EODs
             };
             Side100ChipButton.Y = Ante100ChipButton.Y + 47;
             Add(Side100ChipButton);
-            
+
 
             // diving line
-            var horizontalDivider = new UIHighlightSprite(107, 1, 0.25f);
-            horizontalDivider.X = Ante1ChipButton.X;
-            horizontalDivider.Y = (Side1ChipButton.Y + Ante1ChipButton.Y + Ante1ChipButton.Texture.Height) / 2;
+            var horizontalDivider = new UIHighlightSprite(107, 1, 0.25f)
+            {
+                X = Ante1ChipButton.X,
+                Y = (Side1ChipButton.Y + Ante1ChipButton.Y + Ante1ChipButton.Texture.Height) / 2
+            };
             Add(horizontalDivider);
 
 
@@ -1505,17 +1507,23 @@ namespace FSO.Client.UI.Panels.EODs
             DealerCardsContainer.SetInactive();
 
             // dividing lines
-            LeftDivider = new UIHighlightSprite(1, 60, 0.25f);
-            LeftDivider.X = Player1CardsContainer.X + 68;
-            LeftDivider.Y = Player1CardsContainer.Y;
+            LeftDivider = new UIHighlightSprite(1, 60, 0.25f)
+            {
+                X = Player1CardsContainer.X + 68,
+                Y = Player1CardsContainer.Y
+            };
             Add(LeftDivider);
-            MiddleDivider = new UIHighlightSprite(1, 60, 0.25f);
-            MiddleDivider.X = Player2CardsContainer.X + 68;
-            MiddleDivider.Y = Player1CardsContainer.Y;
+            MiddleDivider = new UIHighlightSprite(1, 60, 0.25f)
+            {
+                X = Player2CardsContainer.X + 68,
+                Y = Player1CardsContainer.Y
+            };
             Add(MiddleDivider);
-            RightDivider = new UIHighlightSprite(1, 60, 0.25f);
-            RightDivider.X = Player3CardsContainer.X + 68;
-            RightDivider.Y = Player1CardsContainer.Y;
+            RightDivider = new UIHighlightSprite(1, 60, 0.25f)
+            {
+                X = Player3CardsContainer.X + 68,
+                Y = Player1CardsContainer.Y
+            };
             Add(RightDivider);
 
             // VMPersonButtons

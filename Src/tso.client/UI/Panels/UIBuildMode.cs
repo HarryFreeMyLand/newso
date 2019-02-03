@@ -83,23 +83,31 @@ namespace FSO.Client.UI.Panels
             var useSmall = (FSOEnvironment.UIZoomFactor>1f || GlobalSettings.Default.GraphicsWidth < 1024);
             var script = this.RenderScript("buildpanel" + (useSmall ? "" : "1024") + ".uis");
 
-            Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002));
-            Background.Y = 0;
+            Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
+            {
+                Y = 0
+            };
             Background.BlockInput();
             this.AddAt(0, Background);
 
             Size = Background.Size.ToVector2();
 
-            Divider = new UIImage(dividerImage);
-            Divider.Position = new Vector2(337, 14);
+            Divider = new UIImage(dividerImage)
+            {
+                Position = new Vector2(337, 14)
+            };
             this.AddAt(1, Divider);
 
-            SubToolBg = new UIImage(subtoolsBackground);
-            SubToolBg.Position = new Vector2(336, 5);
+            SubToolBg = new UIImage(subtoolsBackground)
+            {
+                Position = new Vector2(336, 5)
+            };
             this.AddAt(2, SubToolBg);
 
-            Catalog = new UICatalog(useSmall ? 10 : 20);
-            Catalog.ActiveVM = lotController.vm;
+            Catalog = new UICatalog(useSmall ? 10 : 20)
+            {
+                ActiveVM = lotController.vm
+            };
             Catalog.OnSelectionChange += new CatalogSelectionChangeDelegate(Catalog_OnSelectionChange);
             Catalog.Position = new Vector2(364, 7);
             this.Add(Catalog);
@@ -155,26 +163,32 @@ namespace FSO.Client.UI.Panels
             ObjLimitLabel.Caption = "127/250 Objects";
             ObjLimitLabel.Y = -20;
             ObjLimitLabel.X = Background.Width / 2 - 100;
-            ObjLimitLabel.Size = new Microsoft.Xna.Framework.Vector2(200, 0);
+            ObjLimitLabel.Size = new Vector2(200, 0);
             ObjLimitLabel.Alignment = TextAlignment.Center;
             DynamicOverlay.Add(ObjLimitLabel);
 
-            RoofSteepBtn = new UIButton(GetTexture(0x4C200000001));
-            RoofSteepBtn.X = 46;
-            RoofSteepBtn.Y = 6;
+            RoofSteepBtn = new UIButton(GetTexture(0x4C200000001))
+            {
+                X = 46,
+                Y = 6
+            };
             Add(RoofSteepBtn);
-            RoofShallowBtn = new UIButton(GetTexture(0x4C700000001));
-            RoofShallowBtn.X = 46;
-            RoofShallowBtn.Y = 92;
+            RoofShallowBtn = new UIButton(GetTexture(0x4C700000001))
+            {
+                X = 46,
+                Y = 92
+            };
             Add(RoofShallowBtn);
 
 
-            RoofSlider = new UISlider();
-            RoofSlider.Orientation = 1;
-            RoofSlider.Texture = GetTexture(0x4AB00000001);
-            RoofSlider.MinValue = 0f;
-            RoofSlider.MaxValue = 1.25f;
-            RoofSlider.AllowDecimals = true;
+            RoofSlider = new UISlider
+            {
+                Orientation = 1,
+                Texture = GetTexture(0x4AB00000001),
+                MinValue = 0f,
+                MaxValue = 1.25f,
+                AllowDecimals = true
+            };
             RoofSlider.AttachButtons(RoofSteepBtn, RoofShallowBtn, 0.25f);
             RoofSlider.X = 48;
             RoofSlider.Y = 24;

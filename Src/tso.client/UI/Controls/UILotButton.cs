@@ -45,11 +45,13 @@ namespace FSO.Client.UI.Controls
         {
             DataService = FSOFacade.Kernel.Get<IClientDataService>();
 
-            NameLabel = new UILabel();
-            NameLabel.Y = 52;
-            NameLabel.X = 2;
-            NameLabel.Alignment = TextAlignment.Center;
-            NameLabel.Size = new Vector2(76, 40);
+            NameLabel = new UILabel
+            {
+                Y = 52,
+                X = 2,
+                Alignment = TextAlignment.Center,
+                Size = new Vector2(76, 40)
+            };
             NameLabel.CaptionStyle = NameLabel.CaptionStyle.Clone();
             NameLabel.CaptionStyle.Size = 9;
             NameLabel.Wrapped = true;

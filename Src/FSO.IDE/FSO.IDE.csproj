@@ -577,6 +577,7 @@
     <EmbeddedResource Include="ResourceBrowser\SelectTreeDialog.resx">
       <DependentUpon>SelectTreeDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

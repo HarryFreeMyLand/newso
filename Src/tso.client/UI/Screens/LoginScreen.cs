@@ -71,10 +71,12 @@ namespace FSO.Client.UI.Screens
             Background = new UISetupBackground();
 
             /** Client version **/
-            var lbl = new UILabel();
-            lbl.Caption = "Version " + GlobalSettings.Default.ClientVersion;
-            lbl.X = 20;
-            lbl.Y = 558;
+            var lbl = new UILabel
+            {
+                Caption = "Version " + GlobalSettings.Default.ClientVersion,
+                X = 20,
+                Y = 558
+            };
             Background.BackgroundCtnr.Add(lbl);
             this.Add(Background);
 
@@ -86,8 +88,10 @@ namespace FSO.Client.UI.Screens
             this.Add(LoginProgress);
 
             /** Login dialog **/
-            LoginDialog = new UILoginDialog(Login);
-            LoginDialog.Opacity = 0.9f;
+            LoginDialog = new UILoginDialog(Login)
+            {
+                Opacity = 0.9f
+            };
             //Center
             LoginDialog.X = (ScreenWidth - LoginDialog.Width) / 2;
             LoginDialog.Y = (ScreenHeight - LoginDialog.Height) / 2;
@@ -220,10 +224,12 @@ namespace FSO.Client.UI.Screens
                 }
 
                 /** Error message intended for the user **/
-                UIAlertOptions Options = new UIAlertOptions();
-                Options.Message = errorMsg.Message;
-                Options.Title = errorMsg.Title;
-                Options.Buttons = errorMsg.Buttons;
+                UIAlertOptions Options = new UIAlertOptions
+                {
+                    Message = errorMsg.Message,
+                    Title = errorMsg.Title,
+                    Buttons = errorMsg.Buttons
+                };
                 LastAlert = GlobalShowAlert(Options, true);
             }
         }

@@ -34,8 +34,10 @@ namespace FSO.Client.UI.Panels
             var y = 0;
 
             foreach(var message in messages){
-                var ui = new UIMessageIcon(message);
-                ui.Y = y;
+                var ui = new UIMessageIcon(message)
+                {
+                    Y = y
+                };
                 _Items.Add(ui);
                 this.Add(ui);
                 y += 45;
@@ -68,8 +70,10 @@ namespace FSO.Client.UI.Panels
             Message = message;
 
             var script = this.RenderScript("messageicon.uis");
-            button = new UIButton((message.Type == MessageType.Call) ? BackgroundImageCall : BackgroundImageLetter);
-            button.ImageStates = 3;
+            button = new UIButton((message.Type == MessageType.Call) ? BackgroundImageCall : BackgroundImageLetter)
+            {
+                ImageStates = 3
+            };
             button.OnButtonClick += Button_OnButtonClick;
             this.Add(button);
 
@@ -151,7 +155,7 @@ namespace FSO.Client.UI.Panels
         }
 
         private Vector2 _FrameSize;
-        [UIAttribute("frameSize")]
+        [UI("frameSize")]
         public Vector2 FrameSize
         {
             get { return _FrameSize; }
@@ -159,7 +163,7 @@ namespace FSO.Client.UI.Panels
         }
 
         private Vector2 _ThumbSize;
-        [UIAttribute("thumbSize")]
+        [UI("thumbSize")]
         public Vector2 ThumbSize
         {
             get { return _ThumbSize; }
@@ -167,7 +171,7 @@ namespace FSO.Client.UI.Panels
         }
 
         private Vector2 _Offset;
-        [UIAttribute("offset")]
+        [UI("offset")]
         public Vector2 Offset
         {
             get { return _Offset; }

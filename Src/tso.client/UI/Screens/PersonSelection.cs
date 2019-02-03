@@ -346,10 +346,12 @@ namespace FSO.Client.UI.Screens
             HouseThumb.SetSize(78, 58);
             Screen.Add(HouseThumb);
 
-            Sim = new UISim();
-            Sim.Visible = false;
-            Sim.Position = AvatarButton.Position + new Vector2(1, 10);
-            Sim.Size = new Vector2(140, 200);
+            Sim = new UISim
+            {
+                Visible = false,
+                Position = AvatarButton.Position + new Vector2(1, 10),
+                Size = new Vector2(140, 200)
+            };
 
             Screen.Add(Sim);
             SetTab(PersonSlotTab.EnterTab);

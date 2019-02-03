@@ -176,7 +176,7 @@ namespace FSO.Client
                 new AnnouncementMsgPDU(),
 
                 new MessagingWindowController(null, null, null),
-                new Controllers.Panels.SecureTradeController(null,null),
+                new SecureTradeController(null,null),
                 new GizmoSearchController(null, null, null),
                 new GizmoTop100Controller(null, null, null, null, null),
                 new LotAdmitController(null, null, null),
@@ -204,7 +204,7 @@ namespace FSO.Client
         {
             ChangeState<TransitionScreen, ConnectCityController>((view, controller) =>
             {
-                controller.Connect(cityName, avatarId, () => { GotoCity(controller.AvatarData, lotId); }, new Common.Utils.Callback(Disconnect));
+                controller.Connect(cityName, avatarId, () => { GotoCity(controller.AvatarData, lotId); }, new Callback(Disconnect));
             });
         }
 
@@ -219,7 +219,7 @@ namespace FSO.Client
                     {
                         Disconnect();
                     }, 1000);
-                }, new Common.Utils.Callback(Disconnect));
+                }, new Callback(Disconnect));
             });
         }
 
@@ -233,7 +233,7 @@ namespace FSO.Client
              */
             ChangeState<TransitionScreen, ConnectCASController>((view, controller) =>
             {
-                controller.Connect(cityName, new Common.Utils.Callback(GotoCAS), new Common.Utils.Callback(Disconnect));
+                controller.Connect(cityName, new Callback(GotoCAS), new Callback(Disconnect));
             });
         }
 
@@ -294,7 +294,8 @@ namespace FSO.Client
         /// and then work to clean everything up
         /// </summary>
         public void FatalError(string errorTitle, string errorMessage){
-            var alert = UIScreen.GlobalShowAlert(new UI.Controls.UIAlertOptions {
+            var alert = UIScreen.GlobalShowAlert(new UIAlertOptions
+            {
                 Message = errorMessage,
                 Title = errorTitle,
                 Buttons = UIAlertButton.Ok(x => Disconnect())
@@ -309,7 +310,7 @@ namespace FSO.Client
         {
             if(_DebugMenu == null){
                 _DebugMenu = new UIDebugMenu();
-                _DebugDialog = new UI.DialogReference()
+                _DebugDialog = new DialogReference()
                 {
                     Dialog = _DebugMenu,
                     Modal = true

@@ -65,10 +65,12 @@ namespace FSO.Client.Rendering.City
             for (int x = 0; x < 4; x++)
                 if (edges[x] < maxEdge && edges[x] != -1) maxEdge = edges[x];
 
-            Blend ReturnBlend = new Blend();
-            ReturnBlend.Binary = binary;
-            ReturnBlend.AtlasPosition = atlasPos;
-            ReturnBlend.MaxEdge = maxEdge;
+            var ReturnBlend = new Blend
+            {
+                Binary = binary,
+                AtlasPosition = atlasPos,
+                MaxEdge = maxEdge
+            };
 
             return ReturnBlend;
         }
@@ -81,36 +83,44 @@ namespace FSO.Client.Rendering.City
 
             if (x < 511)
             {
-                var vec = new Vector3();
-                vec.X = 1;
-                vec.Y = GetElevationPoint(x + 1, y) - GetElevationPoint(x, y);
+                var vec = new Vector3
+                {
+                    X = 1,
+                    Y = GetElevationPoint(x + 1, y) - GetElevationPoint(x, y)
+                };
                 vec = Vector3.Transform(vec, rotToNormalXY);
                 sum += vec;
             }
 
             if (x > 1)
             {
-                var vec = new Vector3();
-                vec.X = 1;
-                vec.Y = GetElevationPoint(x, y) - GetElevationPoint(x - 1, y);
+                var vec = new Vector3
+                {
+                    X = 1,
+                    Y = GetElevationPoint(x, y) - GetElevationPoint(x - 1, y)
+                };
                 vec = Vector3.Transform(vec, rotToNormalXY);
                 sum += vec;
             }
 
             if (y < 511)
             {
-                var vec = new Vector3();
-                vec.Z = 1;
-                vec.Y = GetElevationPoint(x, y + 1) - GetElevationPoint(x, y);
+                var vec = new Vector3
+                {
+                    Z = 1,
+                    Y = GetElevationPoint(x, y + 1) - GetElevationPoint(x, y)
+                };
                 vec = Vector3.Transform(vec, rotToNormalZY);
                 sum += vec;
             }
 
             if (y > 1)
             {
-                var vec = new Vector3();
-                vec.Z = 1;
-                vec.Y = GetElevationPoint(x, y) - GetElevationPoint(x, y - 1);
+                var vec = new Vector3
+                {
+                    Z = 1,
+                    Y = GetElevationPoint(x, y) - GetElevationPoint(x, y - 1)
+                };
                 vec = Vector3.Transform(vec, rotToNormalZY);
                 sum += vec;
             }

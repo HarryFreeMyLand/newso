@@ -117,7 +117,7 @@ namespace FSO.Client.UI.Panels.EODs
          * UI Events
          */
         
-        private void BtnDelete_OnButtonClick(Framework.UIElement button)
+        private void BtnDelete_OnButtonClick(UIElement button)
         {
             if (OutfitBrowser.DataProvider == null) { return; }
 
@@ -146,7 +146,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void DefaultRadio_OnButtonClick(Framework.UIElement button)
+        private void DefaultRadio_OnButtonClick(UIElement button)
         {
             if (OutfitBrowser.DataProvider == null) { return; }
 
@@ -160,14 +160,14 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void BtnAccept_OnButtonClick(Framework.UIElement button)
+        private void BtnAccept_OnButtonClick(UIElement button)
         {
             var outfit = GetSelectedOutfit();
             if (outfit == null) { return; }
             Send("dresser_change_outfit", outfit.outfit_id.ToString());
         }
 
-        private void SetTab(Framework.UIElement button)
+        private void SetTab(UIElement button)
         {
             if (button == btnDay)
             {
@@ -250,7 +250,7 @@ namespace FSO.Client.UI.Panels.EODs
                 //TODO: Use current avatars appearance type
                 Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(outfit.asset_id);
                 Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
-                FSO.Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
+                Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem
                 {

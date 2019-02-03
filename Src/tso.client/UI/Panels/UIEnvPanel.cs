@@ -50,7 +50,7 @@ namespace FSO.Client.UI.Panels
             CurrentPanel = -1;
         }
 
-        private void SetMode(Framework.UIElement button)
+        private void SetMode(UIElement button)
         {
             var btn = (UIButton)button;
             int newPanel = -1;
@@ -66,19 +66,25 @@ namespace FSO.Client.UI.Panels
                 switch (newPanel)
                 {
                     case 0:
-                        Panel = new UILightingPanel(LotControl);
-                        Panel.X = 130; //TODO: use uiscript positions
-                        Panel.Y = 9;
+                        Panel = new UILightingPanel(LotControl)
+                        {
+                            X = 130, //TODO: use uiscript positions
+                            Y = 9
+                        };
                         break;
                     case 1:
-                        Panel = new UITimeOfDayPanel(LotControl);
-                        Panel.X = 140; //TODO: use uiscript positions
-                        Panel.Y = 9;
+                        Panel = new UITimeOfDayPanel(LotControl)
+                        {
+                            X = 140, //TODO: use uiscript positions
+                            Y = 9
+                        };
                         break;
                     case 2:
-                        Panel = new UISoundsPanel(LotControl);
-                        Panel.X = 55; //TODO: use uiscript positions
-                        Panel.Y = 0;
+                        Panel = new UISoundsPanel(LotControl)
+                        {
+                            X = 55, //TODO: use uiscript positions
+                            Y = 0
+                        };
                         break;
                     default:
                         btn.Selected = false;

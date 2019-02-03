@@ -53,9 +53,11 @@ namespace FSO.Client.UI.Panels
             Background.BlockInput();
             Size = Background.Size.ToVector2();
 
-            Divider = new UIImage(DividerImage);
-            Divider.X = 227;
-            Divider.Y = 17;
+            Divider = new UIImage(DividerImage)
+            {
+                X = 227,
+                Y = 17
+            };
             this.Add(Divider);
 
             ExitButton.OnButtonClick += new ButtonClickDelegate(ExitButton_OnButtonClick);
@@ -191,9 +193,11 @@ namespace FSO.Client.UI.Panels
             var ttsMode = GlobalSettings.Default.TTSMode;
             for (int i = 0; i < 3; i++)
             {
-                var radio = new UIRadioButton();
-                radio.RadioData = i;
-                radio.RadioGroup = "ttsOpt";
+                var radio = new UIRadioButton
+                {
+                    RadioData = i,
+                    RadioGroup = "ttsOpt"
+                };
                 radio.OnButtonClick += TTSOptSet;
                 radio.Tooltip = GameFacade.Strings.GetString("f113", (2 + i).ToString());
                 radio.Selected = ttsMode == i;
@@ -211,9 +215,11 @@ namespace FSO.Client.UI.Panels
             ChatColor.CaptionStyle.Shadow = true;
             ChatColor.Caption = "#" + col.R.ToString("x2") + col.G.ToString("x2") + col.B.ToString("x2");
 
-            var changeBtn = new UIButton();
-            changeBtn.Caption = GameFacade.Strings.GetString("f113", "6");
-            changeBtn.Position = new Microsoft.Xna.Framework.Vector2(155 + 100, 74-7);
+            var changeBtn = new UIButton
+            {
+                Caption = GameFacade.Strings.GetString("f113", "6"),
+                Position = new Vector2(155 + 100, 74 - 7)
+            };
             Add(changeBtn);
             changeBtn.OnButtonClick += (btn1) =>
             {
@@ -246,18 +252,22 @@ namespace FSO.Client.UI.Panels
             var chatTimestampContainer = new UIHBoxContainer();
             chatTimestampContainer.Add(new UILabel() { Caption = GameFacade.Strings.GetString("f113", "44") });
             var chatShowTimestamp = GlobalSettings.Default.ChatShowTimestamp;
-            var radioChatTSOff = new UIRadioButton();
-            radioChatTSOff.RadioData = false;
-            radioChatTSOff.RadioGroup = "chatTSToggle";
+            var radioChatTSOff = new UIRadioButton
+            {
+                RadioData = false,
+                RadioGroup = "chatTSToggle"
+            };
             radioChatTSOff.OnButtonClick += ChatTsOptSet;
             radioChatTSOff.Tooltip = GameFacade.Strings.GetString("f113", "45");
             radioChatTSOff.Selected = chatShowTimestamp == false;
             chatTimestampContainer.Add(radioChatTSOff);
             chatTimestampContainer.Add(new UILabel() { Caption = radioChatTSOff.Tooltip });
 
-            var radioChatTSOn = new UIRadioButton();
-            radioChatTSOn.RadioData = true;
-            radioChatTSOn.RadioGroup = "chatTSToggle";
+            var radioChatTSOn = new UIRadioButton
+            {
+                RadioData = true,
+                RadioGroup = "chatTSToggle"
+            };
             radioChatTSOn.OnButtonClick += ChatTsOptSet;
             radioChatTSOn.Tooltip = GameFacade.Strings.GetString("f113", "46");
             radioChatTSOn.Selected = chatShowTimestamp == true;
@@ -268,32 +278,38 @@ namespace FSO.Client.UI.Panels
             Add(chatTimestampContainer);
             chatTimestampContainer.AutoSize();
 
-            var chatOpacityContainer = new UIHBoxContainer();
-            chatOpacityContainer.Position = new Vector2(368, 32);
+            var chatOpacityContainer = new UIHBoxContainer
+            {
+                Position = new Vector2(368, 32)
+            };
             var chatOpacityLabel = new UILabel() { Caption = GameFacade.Strings.GetString("f113", "47") };
             chatOpacityContainer.Add(chatOpacityLabel);
             var chatOpacity = GlobalSettings.Default.ChatWindowsOpacity;
-            var chatOpacitySlider = new UISlider();
-            chatOpacitySlider.Orientation = 0;
-            chatOpacitySlider.Texture = GetTexture(0x42500000001);
-            chatOpacitySlider.MinValue = 20;
-            chatOpacitySlider.MaxValue = 100;
-            chatOpacitySlider.AllowDecimals = false;
-            chatOpacitySlider.Position = chatOpacityLabel.Position + new Vector2(115, 24);
-            chatOpacitySlider.Value = GlobalSettings.Default.ChatWindowsOpacity*100;
+            var chatOpacitySlider = new UISlider
+            {
+                Orientation = 0,
+                Texture = GetTexture(0x42500000001),
+                MinValue = 20,
+                MaxValue = 100,
+                AllowDecimals = false,
+                Position = chatOpacityLabel.Position + new Vector2(115, 24),
+                Value = GlobalSettings.Default.ChatWindowsOpacity * 100
+            };
             chatOpacitySlider.SetSize(140f, 0f);
             chatOpacityContainer.Add(chatOpacitySlider);
             Add(chatOpacityContainer);
             chatOpacityContainer.AutoSize();
 
-            PitchSlider = new UISlider();
-            PitchSlider.Orientation = 0;
-            PitchSlider.Texture = GetTexture(0x42500000001);
-            PitchSlider.MinValue = -100f;
-            PitchSlider.MaxValue = 100f;
-            PitchSlider.AllowDecimals = false;
-            PitchSlider.Position = EnterWordLabel.Position + new Vector2(115, 3);
-            PitchSlider.Value = GlobalSettings.Default.ChatTTSPitch;
+            PitchSlider = new UISlider
+            {
+                Orientation = 0,
+                Texture = GetTexture(0x42500000001),
+                MinValue = -100f,
+                MaxValue = 100f,
+                AllowDecimals = false,
+                Position = EnterWordLabel.Position + new Vector2(115, 3),
+                Value = GlobalSettings.Default.ChatTTSPitch
+            };
             PitchSlider.SetSize(150f, 0f);
             Add(PitchSlider);
 
@@ -473,14 +489,18 @@ namespace FSO.Client.UI.Panels
             TerrainDetailMedButton.Tooltip = GameFacade.Strings.GetString("f103", "9");
             TerrainDetailHighButton.Tooltip = GameFacade.Strings.GetString("f103", "10");
 
-            Wall3DButton = new UIButton(AntiAliasCheckButton.Texture);
-            Wall3DButton.Position = AntiAliasCheckButton.Position + new Microsoft.Xna.Framework.Vector2(110, 0);
+            Wall3DButton = new UIButton(AntiAliasCheckButton.Texture)
+            {
+                Position = AntiAliasCheckButton.Position + new Vector2(110, 0)
+            };
             Wall3DButton.OnButtonClick += new ButtonClickDelegate(FlipSetting);
             Add(Wall3DButton);
-            Wall3DLabel = new UILabel();
-            Wall3DLabel.Caption = GameFacade.Strings.GetString("f103", (FSOEnvironment.Enable3D)?"12":"11");
-            Wall3DLabel.CaptionStyle = UIEffectsLabel.CaptionStyle;
-            Wall3DLabel.Position = AntiAliasCheckButton.Position + new Microsoft.Xna.Framework.Vector2(134, 0);
+            Wall3DLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f103", (FSOEnvironment.Enable3D) ? "12" : "11"),
+                CaptionStyle = UIEffectsLabel.CaptionStyle,
+                Position = AntiAliasCheckButton.Position + new Vector2(134, 0)
+            };
             Add(Wall3DLabel);
             Wall3DButton.Visible = FSOEnvironment.Enable3D;
             Wall3DLabel.Visible = FSOEnvironment.Enable3D;
@@ -495,13 +515,15 @@ namespace FSO.Client.UI.Panels
             UIEffectsCheckButton.Position = ltLoc;
             LightingCheckButton.Visible = false;
 
-            LightingSlider = new UISlider();
-            LightingSlider.Orientation = 0;
-            LightingSlider.Texture = GetTexture(0x42500000001);
-            LightingSlider.MinValue = 0f;
-            LightingSlider.MaxValue = 3f;
-            LightingSlider.AllowDecimals = false;
-            LightingSlider.Position = LightingCheckButton.Position + new Microsoft.Xna.Framework.Vector2(96, 4);
+            LightingSlider = new UISlider
+            {
+                Orientation = 0,
+                Texture = GetTexture(0x42500000001),
+                MinValue = 0f,
+                MaxValue = 3f,
+                AllowDecimals = false,
+                Position = LightingCheckButton.Position + new Vector2(96, 4)
+            };
             LightingSlider.SetSize(96f, 0f);
             Add(LightingSlider);
             LightingLabel.X -= 24;

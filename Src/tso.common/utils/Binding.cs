@@ -214,12 +214,12 @@ namespace FSO.Common.Utils
 
         public DotPathBinding(object target, string targetProperty, PropertyInfo[] path, Func<object, object> converter) : this(target, targetProperty, path)
         {
-            this.Converter = converter;
+            Converter = converter;
         }
 
         public DotPathBinding(object target, string targetProperty, PropertyInfo[] path) : base(target, targetProperty)
         {
-            this.Path = path;
+            Path = path;
         }
 
         public override void Digest(object source){

@@ -75,7 +75,7 @@ namespace FSO.Client.Controllers.Panels
 
         private void ChangeTopic()
         {
-            List<ITopic> topics = new List<ITopic>();
+            var topics = new List<ITopic>();
             if (View.Visible && LotId != 0)
             {
                 topics.Add(Topics.For(MaskedStruct.PropertyPage_LotInfo, LotId));

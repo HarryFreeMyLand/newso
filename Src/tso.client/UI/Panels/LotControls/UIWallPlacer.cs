@@ -29,7 +29,7 @@ namespace FSO.Client.UI.Panels.LotControls
     {
         VMMultitileGroup WallCursor;
         VM vm;
-        LotView.World World;
+        World World;
         UILotControl Parent;
 
         private bool Drawing;
@@ -58,7 +58,7 @@ namespace FSO.Client.UI.Panels.LotControls
             new Point(1, -1),
         };
 
-        public UIWallPlacer(VM vm, LotView.World world, UILotControl parent, List<int> parameters)
+        public UIWallPlacer(VM vm, World world, UILotControl parent, List<int> parameters)
         {
             Pattern = (ushort)parameters[0];
             Style = (ushort)parameters[1];

@@ -298,7 +298,7 @@ namespace FSO.Client.Rendering.City
         {
             double length = Math.Sqrt(Math.Pow(End.X - Start.X, 2) + Math.Pow(End.Y - Start.Y, 2));
             float direction = (float)Math.Atan2(End.Y - Start.Y, End.X - Start.X);
-            Color tint = new Color(1f, 1f, 1f, 1f) * opacity;
+            var tint = new Color(1f, 1f, 1f, 1f) * opacity;
             spriteBatch.Draw(Fill, new Rectangle((int)Start.X, (int)Start.Y-(int)(lineWidth/2), (int)length, lineWidth), null, tint, direction, new Vector2(0, 0.5f), SpriteEffects.None, 0); //
         }
 
@@ -318,36 +318,44 @@ namespace FSO.Client.Rendering.City
 
             if (x < 511)
             {
-                var vec = new Vector3();
-                vec.X = 1;
-                vec.Y = GetElevationPoint(x + 1, y) - GetElevationPoint(x, y);
+                var vec = new Vector3
+                {
+                    X = 1,
+                    Y = GetElevationPoint(x + 1, y) - GetElevationPoint(x, y)
+                };
                 vec = Vector3.Transform(vec, rotToNormalXY);
                 sum += vec;
             }
 
             if (x > 1)
             {
-                var vec = new Vector3();
-                vec.X = 1;
-                vec.Y = GetElevationPoint(x, y) - GetElevationPoint(x-1, y);
+                var vec = new Vector3
+                {
+                    X = 1,
+                    Y = GetElevationPoint(x, y) - GetElevationPoint(x - 1, y)
+                };
                 vec = Vector3.Transform(vec, rotToNormalXY);
                 sum += vec;
             }
 
             if (y < 511)
             {
-                var vec = new Vector3();
-                vec.Z = 1;
-                vec.Y = GetElevationPoint(x, y + 1) - GetElevationPoint(x, y);
+                var vec = new Vector3
+                {
+                    Z = 1,
+                    Y = GetElevationPoint(x, y + 1) - GetElevationPoint(x, y)
+                };
                 vec = Vector3.Transform(vec, rotToNormalZY);
                 sum += vec;
             }
 
             if (y > 1)
             {
-                var vec = new Vector3();
-                vec.Z = 1;
-                vec.Y = GetElevationPoint(x, y) - GetElevationPoint(x, y - 1);
+                var vec = new Vector3
+                {
+                    Z = 1,
+                    Y = GetElevationPoint(x, y) - GetElevationPoint(x, y - 1)
+                };
                 vec = Vector3.Transform(vec, rotToNormalZY);
                 sum += vec;
             }
@@ -385,8 +393,8 @@ namespace FSO.Client.Rendering.City
             var isoScale = GetIsoScale();
             double width = m_ScrWidth;
             float iScale = (float)(1/(isoScale*2));
-            
-            Vector2 mid = Camera.CalculateR();
+
+            var mid = Camera.CalculateR();
             mid.X -= 6;
             mid.Y += 6;
             double[] bounds = new double[] {Math.Round(mid.X-19), Math.Round(mid.Y-19), Math.Round(mid.X+19), Math.Round(mid.Y+19)};
@@ -498,7 +506,7 @@ namespace FSO.Client.Rendering.City
                     {
                         if (y < 0 || y > 511) continue;
 
-                        Vector2 mousedist = m_VecSelTile.Value - new Vector2(x+0.5f, y+0.5f);
+                        var mousedist = m_VecSelTile.Value - new Vector2(x+0.5f, y+0.5f);
 
                         var vxy = transformSpr3(new Vector3(x+0, MapData.ElevationData[(y * 512 + x)] / 12.0f, y + 0));
                         var vxy2 = transformSpr3(new Vector3(x + 1, MapData.ElevationData[(y * 512 + Math.Min(x + 1, 511))] / 12.0f, y + 0));
@@ -575,15 +583,15 @@ namespace FSO.Client.Rendering.City
             {
                 if ((lots[i].flags & LotTileFlags.Spotlight) > 0)
                 {
-                    Vector2 pos = new Vector2(lots[i].x, lots[i].y);
-                    Vector4 xy = transformSpr4(new Vector3(pos.X + 0.5f, MapData.ElevationData[((int)pos.Y * 512 + (int)pos.X)] / 12.0f, pos.Y + 0.5f)); //get position to place spotlight
-                    Vector3 xyz = new Vector3(xy.X, xy.Y, 1);
+                    var pos = new Vector2(lots[i].x, lots[i].y);
+                    var xy = transformSpr4(new Vector3(pos.X + 0.5f, MapData.ElevationData[((int)pos.Y * 512 + (int)pos.X)] / 12.0f, pos.Y + 0.5f)); //get position to place spotlight
+                    var xyz = new Vector3(xy.X, xy.Y, 1);
 
                     if (xy.Z < 0) continue;
 
                     if (Camera is CityCamera3D) spotlightScale = 240 / xy.W;
 
-                    Matrix trans = Matrix.Identity;
+                    var trans = Matrix.Identity;
                     trans = Matrix.CreateRotationZ((float)(0.33 * Math.Sin(2.0 * Math.PI * ((m_SpotOsc + i * 0.43) % 1)))); //makes spotlight sway back and forth!
 
                     m_2DVerts.Add(new VertexPositionColor(xyz, new Color(1, 1, 1, 0.5f))); //bottom point of spotlight, set to 0.5 opacity
@@ -620,9 +628,9 @@ namespace FSO.Client.Rendering.City
             for (int i=0; i<lots.Length; i++) {
 				short x = lots[i].x;
 				short y = lots[i].y;
-				Vector2 xy = transformSpr(iScale, new Vector3(x+0.5f, MapData.ElevationData[(y*512+x)]/12.0f, y+0.5f));
+                var xy = transformSpr(iScale, new Vector3(x+0.5f, MapData.ElevationData[(y*512+x)]/12.0f, y+0.5f));
                 bool online = ((lots[i].flags & LotTileFlags.Online) > 0);
-                Texture2D img = (online) ? Content.LotOnline : Content.LotOffline; //if house is online, use red house instead of gray one
+                var img = (online) ? Content.LotOnline : Content.LotOffline; //if house is online, use red house instead of gray one
 				double alpha = online?(0.5+Math.Sin(4*Math.PI*(m_SpotOsc%1))/2.0):1; //if house is online, flash the opacity using the oscillator variable.
 				spriteBatch.Draw(img, new Rectangle((int)Math.Round(xy.X-1), (int)Math.Round(xy.Y-2), 4, 3), Color.White*(float)alpha);
 			}
@@ -727,10 +735,10 @@ namespace FSO.Client.Rendering.City
         }
 
         internal void PathTile(int x, int y, float iScale, Color color) { //quick and dirty function to fill a tile with white using the 2DVerts system. Used in near view for online houses.
-            Vector4 vxy = transformSpr4(new Vector3(x + 0, MapData.ElevationData[(y * 512 + x)] / 12.0f, y + 0));
-            Vector4 vxy2 = transformSpr4(new Vector3(x + 1, MapData.ElevationData[(y * 512 + Math.Min(x + 1, 511))] / 12.0f, y + 0));
-            Vector4 vxy3 = transformSpr4(new Vector3(x + 1, MapData.ElevationData[(Math.Min(y + 1, 511) * 512 + Math.Min(x + 1, 511))] / 12.0f, y + 1));
-            Vector4 vxy4 = transformSpr4(new Vector3(x + 0, MapData.ElevationData[(Math.Min(y + 1, 511) * 512 + x)] / 12.0f, y + 1));
+            var vxy = transformSpr4(new Vector3(x + 0, MapData.ElevationData[(y * 512 + x)] / 12.0f, y + 0));
+            var vxy2 = transformSpr4(new Vector3(x + 1, MapData.ElevationData[(y * 512 + Math.Min(x + 1, 511))] / 12.0f, y + 0));
+            var vxy3 = transformSpr4(new Vector3(x + 1, MapData.ElevationData[(Math.Min(y + 1, 511) * 512 + Math.Min(x + 1, 511))] / 12.0f, y + 1));
+            var vxy4 = transformSpr4(new Vector3(x + 0, MapData.ElevationData[(Math.Min(y + 1, 511) * 512 + x)] / 12.0f, y + 1));
 
             var zOff = -0.12f;
             var xy = new Vector3(vxy.X, vxy.Y, (vxy.Z+zOff/vxy.Z)/ vxy.W);
@@ -776,12 +784,12 @@ namespace FSO.Client.Rendering.City
 		    float treeWidth = (float)(Math.Sqrt(2)*(128.0/144.0));
 		    float treeHeight = treeWidth*(80/128);
 
-		    Vector2 mid = Camera.CalculateR(); //determine approximate tile position at center of screen
+            var mid = Camera.CalculateR(); //determine approximate tile position at center of screen
 		    mid.X -= 6;
 		    mid.Y += 6;
             float[] bounds = new float[] { (float)Math.Round(mid.X - 19), (float)Math.Round(mid.Y - 19), (float)Math.Round(mid.X + 19), (float)Math.Round(mid.Y + 19) };
-    		
-		    Texture2D img = Content.Forest;
+
+            var img = Content.Forest;
 		    float fade = Math.Max(0, Math.Min(1, (m_ZoomProgress - 0.4f) * 2));
 
             var scrollVel = 0;// (new Vector2(m_TargVOffX, m_TargVOffY) - LastTargOff).Length();
@@ -802,7 +810,7 @@ namespace FSO.Client.Rendering.City
                     if (xy.X > -64 && xy.X < m_ScrWidth + 64 && xy.Y > -40 && xy.Y < m_ScrHeight + 40) //is inside screen
                     {
 
-                        Vector2 loc = new Vector2( x, y );
+                        var loc = new Vector2( x, y );
                         LotTileEntry house;
 
                         if (LotTileLookup.ContainsKey(loc))
@@ -856,7 +864,7 @@ namespace FSO.Client.Rendering.City
 
         public Vector2 transformSpr(float iScale, Vector3 pos) 
         { //transform 3d position to view.
-            Vector4 temp = Vector4.Transform(pos, m_MovMatrix);
+            var temp = Vector4.Transform(pos, m_MovMatrix);
             temp.X /= temp.W;
             temp.Y /= -temp.W;
             int width = m_ScrWidth;
@@ -866,7 +874,7 @@ namespace FSO.Client.Rendering.City
 
         public Vector3 transformSpr3(Vector3 pos)
         { //transform 3d position to view.
-            Vector4 temp = Vector4.Transform(pos, m_MovMatrix);
+            var temp = Vector4.Transform(pos, m_MovMatrix);
             temp.X /= temp.W;
             temp.Y /= -temp.W;
             if (temp.Z < 0) return new Vector3(0, 0, -1);
@@ -878,7 +886,7 @@ namespace FSO.Client.Rendering.City
 
         public Vector4 transformSpr4(Vector3 pos)
         { //transform 3d position to view.
-            Vector4 temp = Vector4.Transform(pos, m_MovMatrix);
+            var temp = Vector4.Transform(pos, m_MovMatrix);
             temp.X /= temp.W;
             temp.Y /= -temp.W;
             int width = m_ScrWidth;
@@ -888,7 +896,7 @@ namespace FSO.Client.Rendering.City
 
         public Vector2 transformSprFar(float iScale, Vector3 pos)
         { //transform 3d position to view.
-            Vector3 temp = Vector3.Transform(pos, m_MovMatrix);
+            var temp = Vector3.Transform(pos, m_MovMatrix);
             int width = m_ScrWidth;
             int height = m_ScrHeight;
             return new Vector2((temp.X) * iScale + width / 2, (-(temp.Y) * iScale) + height / 2);
@@ -947,7 +955,7 @@ namespace FSO.Client.Rendering.City
         {
             ITime++;
             if (!(GameFacade.Screens.CurrentUIScreen is CoreGameScreen)) return;
-            CoreGameScreen CurrentUIScr = (CoreGameScreen)GameFacade.Screens.CurrentUIScreen;
+            var CurrentUIScr = (CoreGameScreen)GameFacade.Screens.CurrentUIScreen;
 
             if (Visible)
             { //if we're not visible, do not update CityRenderer state...
@@ -1031,8 +1039,8 @@ namespace FSO.Client.Rendering.City
         {
             time = Math.Min(0.999999999, time);
             Time = (float)time;
-            Color col1 = m_TimeColors[(int)Math.Floor(time * (m_TimeColors.Length - 1))]; //first colour
-            Color col2 = m_TimeColors[(int)Math.Floor(time * (m_TimeColors.Length - 1))+1]; //second colour
+            var col1 = m_TimeColors[(int)Math.Floor(time * (m_TimeColors.Length - 1))]; //first colour
+            var col2 = m_TimeColors[(int)Math.Floor(time * (m_TimeColors.Length - 1))+1]; //second colour
             double Progress = (time * (m_TimeColors.Length - 1)) % 1; //interpolation progress (mod 1)
 
             m_TintColor = Color.Lerp(col1, col2, (float)Progress); //linearly interpolate between the two colours for this specific time.
@@ -1047,7 +1055,7 @@ namespace FSO.Client.Rendering.City
 
 
             m_LightPosition = new Vector3(0, 0, -263);
-            Matrix Transform = Matrix.Identity;
+            var Transform = Matrix.Identity;
 
             double modTime;
             var offStart = 1 - (DayOffset + DayDuration);
@@ -1136,7 +1144,7 @@ namespace FSO.Client.Rendering.City
                 ShadowTarget = new RenderTarget2D(m_GraphicsDevice, ShadowRes, ShadowRes, false, SurfaceFormat.Single, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents);
                 OldShadowRes = ShadowRes;
             }
-            RenderTarget2D RTarget = ShadowTarget;
+            var RTarget = ShadowTarget;
             m_GraphicsDevice.SetRenderTarget(RTarget);
 
             m_GraphicsDevice.Clear(Color.CornflowerBlue);
@@ -1156,12 +1164,12 @@ namespace FSO.Client.Rendering.City
             VertexPositionColor[] Vert2D = new VertexPositionColor[m_2DVerts.Count];
             m_2DVerts.CopyTo(Vert2D);
 
-            Matrix View = new Matrix(1.0f, 0.0f, 0.0f, 0.0f,
+            var View = new Matrix(1.0f, 0.0f, 0.0f, 0.0f,
             0.0f, -1.0f, 0.0f, 0.0f,
             0.0f, 0.0f, -1.0f, 0.0f,
             0.0f, 0.0f, 0.0f, 1.0f);
 
-            Matrix Projection = Matrix.CreateOrthographicOffCenter(0, (float)m_ScrWidth, -(float)m_ScrHeight, 0, 0, 1);
+            var Projection = Matrix.CreateOrthographicOffCenter(0, (float)m_ScrWidth, -(float)m_ScrHeight, 0, 0, 1);
 
             Shader2D.CurrentTechnique = Shader2D.Techniques[0];
             Shader2D.Parameters["Projection"].SetValue(Projection);
@@ -1169,7 +1177,7 @@ namespace FSO.Client.Rendering.City
 
             Shader2D.CurrentTechnique.Passes[0].Apply();
 
-            m_GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleList, Vert2D, 0, Vert2D.Length/3); //draw 2d coloured triangle array (for spotlights etc)
+            m_GraphicsDevice.DrawUserPrimitives(PrimitiveType.TriangleList, Vert2D, 0, Vert2D.Length/3); //draw 2d coloured triangle array (for spotlights etc)
 
             m_GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
@@ -1212,10 +1220,10 @@ namespace FSO.Client.Rendering.City
 
             if (FSOEnvironment.Enable3D && m_LotZoomProgress > 0.0001f) return;
 
-            Matrix ProjectionMatrix = Camera.Projection;
+            var ProjectionMatrix = Camera.Projection;
 
-            Matrix ViewMatrix = Camera.View;
-            Matrix WorldMatrix = Matrix.Identity;
+            var ViewMatrix = Camera.View;
+            var WorldMatrix = Matrix.Identity;
 
             VertexShader.CurrentTechnique = VertexShader.Techniques[2];
             var mv = WorldMatrix * ViewMatrix;
@@ -1262,12 +1270,12 @@ namespace FSO.Client.Rendering.City
             {
                 if (--ShadowRegenTimer < 0 || (m_ZoomProgress > 0.1f && m_ZoomProgress < 0.9f))
                 {
-                    Matrix LightView = Matrix.CreateLookAt(m_LightPosition, new Vector3(256, 0, 256), new Vector3(0, 1, 0)); //Create light view - looks from light position to center of mesh.
-                    Vector2 pos = Camera.CalculateRShadow();
-                    Vector3 LightOff = Vector3.Transform(new Vector3(pos.X, 0, pos.Y), LightView); //finds position in light space of approximate center of camera (to be used for only shadowing near the camera in near view)
+                    var LightView = Matrix.CreateLookAt(m_LightPosition, new Vector3(256, 0, 256), new Vector3(0, 1, 0)); //Create light view - looks from light position to center of mesh.
+                    var pos = Camera.CalculateRShadow();
+                    var LightOff = Vector3.Transform(new Vector3(pos.X, 0, pos.Y), LightView); //finds position in light space of approximate center of camera (to be used for only shadowing near the camera in near view)
 
                     float size = (1 - m_ZoomProgress) * 262 + (m_ZoomProgress * 40); //size of draw window to use for shadowing. 40 is good for near view, it could be less but that wouldn't work correctly on higher ground.
-                    Matrix LightProject = Matrix.CreateOrthographicOffCenter(-size + LightOff.X, size + LightOff.X, -size + LightOff.Y, size + LightOff.Y, 0.1f, 524); //create light projection using offsets + size.
+                    var LightProject = Matrix.CreateOrthographicOffCenter(-size + LightOff.X, size + LightOff.X, -size + LightOff.Y, size + LightOff.Y, 0.1f, 524); //create light projection using offsets + size.
 
                     m_LightMatrix = (WorldMatrix * LightView) * LightProject;
                     VertexShader.Parameters["LightMatrix"].SetValue(m_LightMatrix);
@@ -1418,9 +1426,9 @@ namespace FSO.Client.Rendering.City
             {
                 var wc = (WorldCamera3D)camera;
 
-                Matrix ProjectionMatrix = Camera.Projection;
+                var ProjectionMatrix = Camera.Projection;
 
-                Matrix ViewMatrix = Camera.View;
+                var ViewMatrix = Camera.View;
 
                 ViewMatrix = Matrix.Invert(world) * ViewMatrix;
 
@@ -1625,7 +1633,7 @@ namespace FSO.Client.Rendering.City
 
                         //if (LotPosition.X == x + 1 && LotPosition.Z == y && Camera.Zoomed == TerrainZoomMode.Lot) continue;
 
-                        Vector2 loc = new Vector2(x, y);
+                        var loc = new Vector2(x, y);
                         LotTileEntry house;
 
                         if (LotTileLookup.ContainsKey(loc))

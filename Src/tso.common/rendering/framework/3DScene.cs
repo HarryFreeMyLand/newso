@@ -30,7 +30,7 @@ namespace FSO.Common.Rendering.Framework
         /// <param name="camera">A camera inheriting from ICamera used for rendering.</param>
         public _3DScene(GraphicsDevice Device, ICamera camera) : base(Device)
         {
-            this.Camera = camera;
+            Camera = camera;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace FSO.Common.Rendering.Framework
 
         public override void Initialize(_3DLayer layer)
         {
-            this.Parent = layer;
+            Parent = layer;
 
             foreach (var element in m_Elements)
             {
@@ -93,7 +93,7 @@ namespace FSO.Common.Rendering.Framework
         {
             m_Elements.Add(item);
             item.Scene = this;
-            if (this.Parent != null)
+            if (Parent != null)
             {
                 item.Initialize();
             }

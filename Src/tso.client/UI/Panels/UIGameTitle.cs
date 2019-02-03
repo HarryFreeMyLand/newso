@@ -31,8 +31,10 @@ namespace FSO.Client.UI.Panels
             this.AddAt(0, Background);
             Background.BlockInput();
 
-            Label = new UILabel();
-            Label.CaptionStyle = TextStyle.DefaultLabel.Clone();
+            Label = new UILabel
+            {
+                CaptionStyle = TextStyle.DefaultLabel.Clone()
+            };
             Label.CaptionStyle.Size = 11;
             Label.Alignment = TextAlignment.Middle;
             this.Add(Label);

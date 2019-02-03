@@ -60,8 +60,10 @@ namespace FSO.Client.UI.Panels
             InnerBackground.SetSize(510, 230);
             AddAt(3, InnerBackground);
 
-            ResultsBox = new UIListBox();
-            ResultsBox.Columns = new UIListBoxColumnCollection();
+            ResultsBox = new UIListBox
+            {
+                Columns = new UIListBoxColumnCollection()
+            };
             for (int i = 0; i < 3; i++) ResultsBox.Columns.Add(new UIListBoxColumn() { Width = 170 });
             ResultsBox.Position = new Vector2(25, 82);
             ResultsBox.SetSize(510, 230);
@@ -70,63 +72,85 @@ namespace FSO.Client.UI.Panels
             ResultsBox.SelectionFillColor = Color.TransparentBlack;
             Add(ResultsBox);
 
-            var seat = new UIImage(GetTexture(0x19700000002));
-            seat.Position = new Vector2(28, 28);
+            var seat = new UIImage(GetTexture(0x19700000002))
+            {
+                Position = new Vector2(28, 28)
+            };
             Add(seat);
 
-            IncomingButton = new UIButton(GetTexture((ulong)0x1972454856DDBAC));
-            IncomingButton.Position = new Vector2(33, 33);
-            IncomingButton.Tooltip = GameFacade.Strings.GetString("f106", "12");
+            IncomingButton = new UIButton(GetTexture((ulong)0x1972454856DDBAC))
+            {
+                Position = new Vector2(33, 33),
+                Tooltip = GameFacade.Strings.GetString("f106", "12")
+            };
             Add(IncomingButton);
-            OutgoingButton = new UIButton(GetTexture((ulong)0x3D3AEF0856DDBAC));
-            OutgoingButton.Position = new Vector2(33, 33);
-            OutgoingButton.Tooltip = GameFacade.Strings.GetString("f106", "13");
+            OutgoingButton = new UIButton(GetTexture((ulong)0x3D3AEF0856DDBAC))
+            {
+                Position = new Vector2(33, 33),
+                Tooltip = GameFacade.Strings.GetString("f106", "13")
+            };
             Add(OutgoingButton);
 
-            SearchBox = new UITextBox();
-            SearchBox.Position = new Vector2(550 - 170, 37);
+            SearchBox = new UITextBox
+            {
+                Position = new Vector2(550 - 170, 37)
+            };
             SearchBox.SetSize(150, 25);
             SearchBox.OnEnterPress += SearchBox_OnEnterPress;
             Add(SearchBox);
 
-            SortLabel = new UILabel();
-            SortLabel.Caption = GameFacade.Strings.GetString("f106", "1");
-            SortLabel.Position = new Vector2(95, 30);
+            SortLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f106", "1"),
+                Position = new Vector2(95, 30)
+            };
             SortLabel.CaptionStyle = SortLabel.CaptionStyle.Clone();
             SortLabel.CaptionStyle.Size = 8;
             Add(SortLabel);
 
-            SearchLabel = new UILabel();
-            SearchLabel.Caption = GameFacade.Strings.GetString("f106", "14");
-            SearchLabel.Alignment = Framework.TextAlignment.Right;
-            SearchLabel.Position = new Vector2(550 - 230, 38);
-            SearchLabel.Size = new Vector2(50, 1);
+            SearchLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f106", "14"),
+                Alignment = Framework.TextAlignment.Right,
+                Position = new Vector2(550 - 230, 38),
+                Size = new Vector2(50, 1)
+            };
             Add(SearchLabel);
 
-            SortFriendButton = new UIButton(GetTexture((ulong)0xCE300000001)); //gizmo_friendliestthumb = 0xCE300000001,
-            SortFriendButton.Tooltip = GameFacade.Strings.GetString("f106", "2");
-            SortFriendButton.Position = new Vector2(95, 47);
+            SortFriendButton = new UIButton(GetTexture((ulong)0xCE300000001))
+            {
+                Tooltip = GameFacade.Strings.GetString("f106", "2"),
+                Position = new Vector2(95, 47)
+            }; //gizmo_friendliestthumb = 0xCE300000001,
             Add(SortFriendButton);
 
-            SortEnemyButton = new UIButton(GetTexture((ulong)0xCE600000001)); //gizmo_meanestthumb = 0xCE600000001,
-            SortEnemyButton.Tooltip = GameFacade.Strings.GetString("f106", "3");
+            SortEnemyButton = new UIButton(GetTexture((ulong)0xCE600000001))
+            {
+                Tooltip = GameFacade.Strings.GetString("f106", "3")
+            }; //gizmo_meanestthumb = 0xCE600000001,
             SortEnemyButton.Position = new Vector2(115, 47) + (new Vector2(17 / 2f, 14) - new Vector2(SortEnemyButton.Texture.Width / 8, SortEnemyButton.Texture.Height));
             Add(SortEnemyButton);
 
-            SortAlmostFriendButton = new UIButton(GetTexture((ulong)0x31600000001)); //gizmo_top100defaultthumb = 0x31600000001,
-            SortAlmostFriendButton.Tooltip = GameFacade.Strings.GetString("f106", "4");
+            SortAlmostFriendButton = new UIButton(GetTexture((ulong)0x31600000001))
+            {
+                Tooltip = GameFacade.Strings.GetString("f106", "4")
+            }; //gizmo_top100defaultthumb = 0x31600000001,
             SortAlmostFriendButton.Position = new Vector2(135, 47)
                 + (new Vector2(17 / 2f, 14) - new Vector2(SortAlmostFriendButton.Texture.Width / 8, SortAlmostFriendButton.Texture.Height));
             Add(SortAlmostFriendButton);
 
-            SortAlmostEnemyButton = new UIButton(GetTexture((ulong)0xCE400000001)); //gizmo_infamousthumb = 0xCE400000001,
-            SortAlmostEnemyButton.Tooltip = GameFacade.Strings.GetString("f106", "5");
+            SortAlmostEnemyButton = new UIButton(GetTexture((ulong)0xCE400000001))
+            {
+                Tooltip = GameFacade.Strings.GetString("f106", "5")
+            }; //gizmo_infamousthumb = 0xCE400000001,
             SortAlmostEnemyButton.Position = new Vector2(155, 47)
                 + (new Vector2(17 / 2f, 14) - new Vector2(SortAlmostEnemyButton.Texture.Width / 8, SortAlmostEnemyButton.Texture.Height));
             Add(SortAlmostEnemyButton);
 
-            SortRoommateButton = new UIButton(GetTexture((ulong)0x4B700000001)); //ucp far zoom
-            SortRoommateButton.Tooltip = GameFacade.Strings.GetString("f106", "6");
+            SortRoommateButton = new UIButton(GetTexture((ulong)0x4B700000001))
+            {
+                Tooltip = GameFacade.Strings.GetString("f106", "6")
+            }; //ucp far zoom
             SortRoommateButton.Position = new Vector2(175, 47)
                 + (new Vector2(17 / 2f, 14) - new Vector2(SortRoommateButton.Texture.Width / 8, SortRoommateButton.Texture.Height));
             Add(SortRoommateButton);
@@ -135,22 +159,28 @@ namespace FSO.Client.UI.Panels
             //gizmo_scrolldownbtn = 0x31100000001,
             //gizmo_scrollupbtn = 0x31200000001,
 
-            ResultsSlider = new UISlider();
-            ResultsSlider.Orientation = 1;
-            ResultsSlider.Texture = GetTexture(0x31000000001);
-            ResultsSlider.MinValue = 0;
-            ResultsSlider.MaxValue = 2;
+            ResultsSlider = new UISlider
+            {
+                Orientation = 1,
+                Texture = GetTexture(0x31000000001),
+                MinValue = 0,
+                MaxValue = 2,
 
-            ResultsSlider.X = 529;
-            ResultsSlider.Y = 72;
+                X = 529,
+                Y = 72
+            };
             ResultsSlider.SetSize(0, 214f);
             Add(ResultsSlider);
 
-            SliderUpButton = new UIButton(GetTexture(0x31200000001));
-            SliderUpButton.Position = new Vector2(526, 65);
+            SliderUpButton = new UIButton(GetTexture(0x31200000001))
+            {
+                Position = new Vector2(526, 65)
+            };
             Add(SliderUpButton);
-            SliderDownButton = new UIButton(GetTexture(0x31100000001));
-            SliderDownButton.Position = new Vector2(526, 287);
+            SliderDownButton = new UIButton(GetTexture(0x31100000001))
+            {
+                Position = new Vector2(526, 287)
+            };
             Add(SliderDownButton);
 
             ResultsSlider.AttachButtons(SliderUpButton, SliderDownButton, 1f);
@@ -169,21 +199,27 @@ namespace FSO.Client.UI.Panels
             IncomingButton.OnButtonClick += (btn) => SetOutgoing(false);
             OutgoingButton.OnButtonClick += (btn) => SetOutgoing(true);
 
-            TargetIcon = new UIPersonButton();
-            TargetIcon.FrameSize = UIPersonButtonSize.SMALL;
-            TargetIcon.Position = new Vector2(72, 35);
+            TargetIcon = new UIPersonButton
+            {
+                FrameSize = UIPersonButtonSize.SMALL,
+                Position = new Vector2(72, 35)
+            };
             Add(TargetIcon);
 
             CloseButton.OnButtonClick += CloseButton_OnButtonClick;
 
-            FriendLabel = new UILabel();
-            FriendLabel.Position = new Vector2(35, 292);
+            FriendLabel = new UILabel
+            {
+                Position = new Vector2(35, 292)
+            };
             Add(FriendLabel);
 
-            IncomingLabel = new UILabel();
-            IncomingLabel.Position = new Vector2(540 - 36, 292);
-            IncomingLabel.Size = new Vector2(1, 1);
-            IncomingLabel.Alignment = TextAlignment.Right;
+            IncomingLabel = new UILabel
+            {
+                Position = new Vector2(540 - 36, 292),
+                Size = new Vector2(1, 1),
+                Alignment = TextAlignment.Right
+            };
             Add(IncomingLabel);
 
             SetOutgoing(true);
@@ -360,9 +396,11 @@ namespace FSO.Client.UI.Panels
         public void Init()
         {
             if (Icon != null) return;
-            Icon = new UIPersonButton();
-            Icon.FrameSize = UIPersonButtonSize.LARGE;
-            Icon.AvatarId = Rel.Relationship_TargetID;
+            Icon = new UIPersonButton
+            {
+                FrameSize = UIPersonButtonSize.LARGE,
+                AvatarId = Rel.Relationship_TargetID
+            };
             Add(Icon);
         }
 

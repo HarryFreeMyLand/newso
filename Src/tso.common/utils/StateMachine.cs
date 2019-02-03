@@ -15,7 +15,7 @@ namespace FSO.Common.Utils
 
         public StateMachine(STATES startState)
         {
-            this.CurrentState = startState;
+            CurrentState = startState;
         }
 
 
@@ -39,7 +39,7 @@ namespace FSO.Common.Utils
                 }*/
 
                 var previousState = CurrentState;
-                this.CurrentState = state;
+                CurrentState = state;
                 if (OnTransition != null)
                 {
                     OnTransition(previousState, CurrentState);

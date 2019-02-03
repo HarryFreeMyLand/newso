@@ -34,8 +34,10 @@ namespace FSO.Client.UI.Panels
         {
             var buttonTexture = Button.Texture;
 
-            SimBox = new UISim();
-            SimBox.Position = new Microsoft.Xna.Framework.Vector2(16, 8); //new Microsoft.Xna.Framework.Vector2((buttonTexture.Width / 4) / 2.0f, buttonTexture.Height - 20.0f);
+            SimBox = new UISim
+            {
+                Position = new Microsoft.Xna.Framework.Vector2(16, 8) //new Microsoft.Xna.Framework.Vector2((buttonTexture.Width / 4) / 2.0f, buttonTexture.Height - 20.0f);
+            };
             SimBox.Avatar.BodyOutfitId = 2611340115981;
             SimBox.Avatar.HeadOutfitId = 5076651343885;
             SimBox.Size = new Microsoft.Xna.Framework.Vector2(75,140);
@@ -43,7 +45,7 @@ namespace FSO.Client.UI.Panels
             this.Add(SimBox);
         }
 
-        [UIAttribute("buttonImage")]
+        [UI("buttonImage")]
         public Texture2D ButtonImage
         {
             set
@@ -52,7 +54,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        [UIAttribute("maskImage")]
+        [UI("maskImage")]
         public Texture2D MaskImage
         {
             set

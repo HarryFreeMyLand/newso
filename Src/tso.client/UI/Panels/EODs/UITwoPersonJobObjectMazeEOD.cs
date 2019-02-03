@@ -488,8 +488,10 @@ namespace FSO.Client.UI.Panels.EODs
                 // now draw the path with remaining coordinates
                 for (int x = 3; x < solutionPathCoords.Length - 1; x++)
                 {
-                    var track = new UIImage(MazeXTrackTexture);
-                    track.Position = NWCellOriginOffset;
+                    var track = new UIImage(MazeXTrackTexture)
+                    {
+                        Position = NWCellOriginOffset
+                    };
                     track.Y += solutionPathCoords[x++] * CellOffsetY;
                     track.X += solutionPathCoords[x] * CellOffsetX;
                     SolutionPathContainer.Add(track);
@@ -651,8 +653,10 @@ namespace FSO.Client.UI.Panels.EODs
             {
                 if (isSouth)
                     row++;
-                UIHighlightSprite hwall = new UIHighlightSprite((int)HWall.Width, (int)HWall.Height, 0.95f);
-                hwall.Position = NWWallOriginOffset;
+                UIHighlightSprite hwall = new UIHighlightSprite((int)HWall.Width, (int)HWall.Height, 0.95f)
+                {
+                    Position = NWWallOriginOffset
+                };
                 hwall.Y += row * CellOffsetY;
                 hwall.X += column * CellOffsetX;
                 WallContainer.Add(hwall);
@@ -680,8 +684,10 @@ namespace FSO.Client.UI.Panels.EODs
             {
                 if (isEast)
                     column++;
-                UIHighlightSprite vwall = new UIHighlightSprite((int)VWall.Width, (int)VWall.Height, 0.95f);
-                vwall.Position = NWWallOriginOffset;
+                UIHighlightSprite vwall = new UIHighlightSprite((int)VWall.Width, (int)VWall.Height, 0.95f)
+                {
+                    Position = NWWallOriginOffset
+                };
                 vwall.Y += row * CellOffsetY;
                 vwall.X += column * CellOffsetX;
                 WallContainer.Add(vwall);

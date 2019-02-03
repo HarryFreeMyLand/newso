@@ -160,7 +160,7 @@ namespace FSO.Client.UI.Panels.EODs
         /// Stock the selected outfit
         /// </summary>
         /// <param name="button"></param>
-        private void BtnStock_OnButtonClick(Framework.UIElement button)
+        private void BtnStock_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOwnerOutfit();
             if (selectedOutfit == null) { return; }
@@ -178,7 +178,7 @@ namespace FSO.Client.UI.Panels.EODs
             }, true);
         }
 
-        private void ToggleGender(Framework.UIElement button)
+        private void ToggleGender(UIElement button)
         {
             if(button == btnMale){
                 SelectedGender = RackOutfitGender.Male;
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(outfit.AssetID);
                 if (TmpOutfit == null) continue;
                 Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
-                FSO.Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
+                Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
                 
                 dataProvider.Add(new UIGridViewerItem
                 {

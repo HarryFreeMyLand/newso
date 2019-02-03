@@ -17,12 +17,13 @@ namespace FSO.Client.Controllers
 
         public LoadingScreenController(LoadingScreen view, Content.Content content, ICache cache)
         {
-            Loader = new ContentPreloader();
-
-            Loader.MainContentAction = (Action donePart) =>
+            Loader = new ContentPreloader
             {
-                FSO.Content.Content.Init(GlobalSettings.Default.StartupPath, GameFacade.GraphicsDevice);
-                VMContext.InitVMConfig();
+                MainContentAction = (Action donePart) =>
+                {
+                    FSO.Content.Content.Init(GlobalSettings.Default.StartupPath, GameFacade.GraphicsDevice);
+                    VMContext.InitVMConfig();
+                }
             };
 
             /** Init cache **/

@@ -91,7 +91,8 @@ namespace FSO.Client.Regulators
 
                 case "FindLot":
                     //LotId = ((JoinLotRequest)data).LotId;
-                    City.Write(new FSO.Server.Protocol.Electron.Packets.FindLotRequest {
+                    City.Write(new FindLotRequest
+                    {
                         LotId = ((JoinLotRequest)data).LotId
                     });
                     break;

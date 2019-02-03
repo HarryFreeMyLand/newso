@@ -63,7 +63,7 @@ namespace FSO.Client.Rendering.City
 
         public void LoadContent(GraphicsDevice gd, int cityNumber)
         {
-            String gamepath = GameFacade.GameFilePath("");
+            var gamepath = GameFacade.GameFilePath("");
 
             string CityStr = "city_" + cityNumber.ToString("0000");
             string ext = "bmp";
@@ -252,7 +252,7 @@ namespace FSO.Client.Rendering.City
             var sizeX = source[index].Width;
             var sizeY = source[index].Height;
 
-            RenderTarget2D RTarget = new RenderTarget2D(gd, sizeX * 7, sizeY * 3, false, SurfaceFormat.Color, DepthFormat.Depth16, 0, RenderTargetUsage.PreserveContents);
+            var RTarget = new RenderTarget2D(gd, sizeX * 7, sizeY * 3, false, SurfaceFormat.Color, DepthFormat.Depth16, 0, RenderTargetUsage.PreserveContents);
             gd.SetRenderTarget(RTarget);
 
             gd.Clear(Color.Black);
@@ -266,8 +266,8 @@ namespace FSO.Client.Rendering.City
                 spriteBatch.Draw(source[index + i * 2], new Rectangle(x * sizeX, y * sizeY, sizeX, sizeY), Color.White);
             }
 
-            Texture2D black = new Texture2D(gd, 1, 1);
-            black.SetData<Color>(new Color[] { Color.Black });
+            var black = new Texture2D(gd, 1, 1);
+            black.SetData(new Color[] { Color.Black });
             spriteBatch.Draw(black, new Rectangle(1024 - 64, 0, 64, 256), Color.Black);
             //fill far end with black to cause no blend if adjacency bitmask is "0000"
 
@@ -285,7 +285,7 @@ namespace FSO.Client.Rendering.City
             var sizeX = Roads[0].Width;
             var sizeY = Roads[0].Height;
 
-            RenderTarget2D RTarget = new RenderTarget2D(gd, sizeX * RoadWidth, sizeY * RoadHeight, false, SurfaceFormat.Color, DepthFormat.Depth16, 0, RenderTargetUsage.PreserveContents);
+            var RTarget = new RenderTarget2D(gd, sizeX * RoadWidth, sizeY * RoadHeight, false, SurfaceFormat.Color, DepthFormat.Depth16, 0, RenderTargetUsage.PreserveContents);
             gd.SetRenderTarget(RTarget);
 
             gd.Clear(Color.TransparentBlack);

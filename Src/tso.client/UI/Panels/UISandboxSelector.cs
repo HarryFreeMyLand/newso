@@ -75,8 +75,10 @@ namespace FSO.Client.UI.Panels
 
             populateWithXMLHouses();
 
-            var joinButton = new UIButton();
-            joinButton.Caption = "Join a server";
+            var joinButton = new UIButton
+            {
+                Caption = "Join a server"
+            };
             joinButton.OnButtonClick += (btn) =>
             {
                 UIAlert alert = null;
@@ -107,8 +109,10 @@ namespace FSO.Client.UI.Panels
             joinButton.Y = 500 - 50;
             Add(joinButton);
 
-            var casButton = new UIButton();
-            casButton.Caption = "CAS";
+            var casButton = new UIButton
+            {
+                Caption = "CAS"
+            };
             casButton.OnButtonClick += (btn) =>
             {
                 if (UIScreen.Current is SandboxGameScreen)

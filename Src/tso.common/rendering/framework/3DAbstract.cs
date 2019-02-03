@@ -72,7 +72,7 @@ namespace FSO.Common.Rendering.Framework
         
         public void SetController(object controller)
         {
-            this.Controller = controller;
+            Controller = controller;
         }
 
         public T FindController<T>()

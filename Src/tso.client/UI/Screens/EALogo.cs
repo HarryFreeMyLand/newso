@@ -36,8 +36,10 @@ namespace FSO.Client.UI.Screens
 
             this.Add(BackgroundCtnr);
 
-            m_CheckProgressTimer = new Timer();
-            m_CheckProgressTimer.Interval = 5000;
+            m_CheckProgressTimer = new Timer
+            {
+                Interval = 5000
+            };
             m_CheckProgressTimer.Elapsed += new ElapsedEventHandler(m_CheckProgressTimer_Elapsed);
             m_CheckProgressTimer.Start();
         }

@@ -165,10 +165,12 @@ namespace FSO.Client.UI.Screens
              */
             HIT.HITVM.Get().PlaySoundEvent(UIMusic.CAS);
 
-            SimBox = new UISim();
-            SimBox.Position = new Vector2(offset.X + 70, offset.Y + 88);
-            SimBox.Size = new Vector2(140,200);
-            SimBox.AutoRotate = true;
+            SimBox = new UISim
+            {
+                Position = new Vector2(offset.X + 70, offset.Y + 88),
+                Size = new Vector2(140, 200),
+                AutoRotate = true
+            };
             this.Add(SimBox);
 
             /**
@@ -460,7 +462,7 @@ namespace FSO.Client.UI.Screens
                 var purchasable = Content.Content.Get().AvatarPurchasables.Get(outfit.PurchasableOutfitId);
                 Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(purchasable.OutfitID);
                 Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(AppearanceType));
-                FSO.Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
+                Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem {
                     Data = outfit,

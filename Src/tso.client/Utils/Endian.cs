@@ -39,7 +39,7 @@ namespace FSO.Client.Utils
 
         public static long SwapInt64(long v)
         {
-            UInt64 uvalue = ((0x00000000000000FF) & ((ulong)v >> 56)
+            var uvalue = ((0x00000000000000FF) & ((ulong)v >> 56)
 
             | (0x000000000000FF00) & ((ulong)v >> 40)
 
@@ -60,7 +60,7 @@ namespace FSO.Client.Utils
 
         public static ulong SwapUInt64(ulong v)
         {
-            UInt64 uvalue = ( (0x00000000000000FF) & (v >> 56)
+            var uvalue = ( (0x00000000000000FF) & (v >> 56)
 
             | (0x000000000000FF00) & (v >> 40)
 

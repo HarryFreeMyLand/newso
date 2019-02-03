@@ -23,8 +23,10 @@ namespace FSO.Client.UI.Panels.Chat
             Caption = GameFacade.Strings.GetString("f113", "21") + cat.ID;
             var topVbox = new UIVBoxContainer();
 
-            var nameLabel = new UILabel();
-            nameLabel.Caption = GameFacade.Strings.GetString("f113", "22");
+            var nameLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f113", "22")
+            };
             topVbox.Add(nameLabel);
 
             NameEdit = new UITextBox();
@@ -33,21 +35,27 @@ namespace FSO.Client.UI.Panels.Chat
             NameEdit.MaxChars = 8;
             topVbox.Add(NameEdit);
 
-            var descLabel = new UILabel();
-            descLabel.Caption = GameFacade.Strings.GetString("f113", "23");
+            var descLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f113", "23")
+            };
             topVbox.Add(descLabel);
 
-            DescEdit = new UITextEdit();
-            DescEdit.BackgroundTextureReference = UITextBox.StandardBackground;
-            DescEdit.TextMargin = new Rectangle(8, 2, 8, 3);
+            DescEdit = new UITextEdit
+            {
+                BackgroundTextureReference = UITextBox.StandardBackground,
+                TextMargin = new Rectangle(8, 2, 8, 3)
+            };
             DescEdit.SetSize(400, 100);
             DescEdit.CurrentText = cat.Description;
             DescEdit.MaxChars = 256;
             DescEdit.MaxLines = 5;
             topVbox.Add(DescEdit);
 
-            var flagLabel = new UILabel();
-            flagLabel.Caption = GameFacade.Strings.GetString("f113", "24");
+            var flagLabel = new UILabel
+            {
+                Caption = GameFacade.Strings.GetString("f113", "24")
+            };
             topVbox.Add(flagLabel);
 
             var flagbox = new UIHBoxContainer();
@@ -55,8 +63,10 @@ namespace FSO.Client.UI.Panels.Chat
             for (var i = 0; i < 2; i++)
             {
                 var caption = GameFacade.Strings.GetString("f113", (25+i).ToString());
-                var check = new UIButton(GetTexture(0x0000083600000001));
-                check.Tooltip = caption;
+                var check = new UIButton(GetTexture(0x0000083600000001))
+                {
+                    Tooltip = caption
+                };
                 var flag = (VMTSOChatChannelFlags)(1 << i);
                 check.OnButtonClick += x => {
                     check.Selected = !check.Selected;
@@ -89,11 +99,13 @@ namespace FSO.Client.UI.Panels.Chat
                 for (uint i = 0; i < 4; i++)
                 {
                     var hbox = new UIHBoxContainer();
-                    var radio = new UIRadioButton();
-                    radio.RadioGroup = (j == 0) ? "viewPerm" : "showPerm";
-                    radio.RadioData = (VMTSOAvatarPermissions)i;
-                    radio.Selected = (viewMin)?(i == (int)cat.ViewPermMin): (i == (int)cat.SendPermMin);
-                    radio.Tooltip = GameFacade.Strings.GetString("f113", (37 + i).ToString());
+                    var radio = new UIRadioButton
+                    {
+                        RadioGroup = (j == 0) ? "viewPerm" : "showPerm",
+                        RadioData = (VMTSOAvatarPermissions)i,
+                        Selected = (viewMin) ? (i == (int)cat.ViewPermMin) : (i == (int)cat.SendPermMin),
+                        Tooltip = GameFacade.Strings.GetString("f113", (37 + i).ToString())
+                    };
                     radio.OnButtonClick += (btn) =>
                     {
                         if (viewMin)
@@ -121,8 +133,10 @@ namespace FSO.Client.UI.Panels.Chat
 
             var buttonsHbox = new UIHBoxContainer();
             if (!isNew) {
-                var deleteButton = new UIButton();
-                deleteButton.Caption = GameFacade.Strings.GetString("f113", "33");
+                var deleteButton = new UIButton
+                {
+                    Caption = GameFacade.Strings.GetString("f113", "33")
+                };
                 deleteButton.OnButtonClick += (btn) =>
                 {
                     UIScreen.RemoveDialog(this);
@@ -132,8 +146,10 @@ namespace FSO.Client.UI.Panels.Chat
                 buttonsHbox.Add(deleteButton);
             }
 
-            var setColorButton = new UIButton();
-            setColorButton.Caption = GameFacade.Strings.GetString("f113", "34");
+            var setColorButton = new UIButton
+            {
+                Caption = GameFacade.Strings.GetString("f113", "34")
+            };
             setColorButton.CaptionStyle = setColorButton.CaptionStyle.Clone();
             setColorButton.CaptionStyle.Color = cat.TextColor;
             setColorButton.CaptionStyle.Shadow = true;

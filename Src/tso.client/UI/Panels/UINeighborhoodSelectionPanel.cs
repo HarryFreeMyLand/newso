@@ -109,8 +109,10 @@ namespace FSO.Client.UI.Panels
             for (int i = 0; i < locations.Length; i++)
             {
                 var loc = locations.GetString(i).Split(',');
-                var button = new UINeighborhoodHouseButton(int.Parse(loc[0].TrimStart()), SelectHouse, config.Scale);
-                button.Position = new Vector2(int.Parse(loc[1].TrimStart()), int.Parse(loc[2].TrimStart()));
+                var button = new UINeighborhoodHouseButton(int.Parse(loc[0].TrimStart()), SelectHouse, config.Scale)
+                {
+                    Position = new Vector2(int.Parse(loc[1].TrimStart()), int.Parse(loc[2].TrimStart()))
+                };
                 buttons.Add(button);
             }
 
@@ -119,8 +121,10 @@ namespace FSO.Client.UI.Panels
 
             foreach (var layer in config.FullImageAnimations)
             {
-                var lelem = new UINeighborhoodAnimationLayer(layer, config.Pulsate, config.FrameDuration);
-                lelem.Position = layer.Position;
+                var lelem = new UINeighborhoodAnimationLayer(layer, config.Pulsate, config.FrameDuration)
+                {
+                    Position = layer.Position
+                };
                 Add(lelem);
             }
 

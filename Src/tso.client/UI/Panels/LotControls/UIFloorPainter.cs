@@ -29,7 +29,7 @@ namespace FSO.Client.UI.Panels.LotControls
     {
 
         VM vm;
-        LotView.World World;
+        World World;
         UILotControl Parent;
 
         bool Drawing;
@@ -41,7 +41,7 @@ namespace FSO.Client.UI.Panels.LotControls
 
         ushort Pattern;
 
-        public UIFloorPainter (VM vm, LotView.World world, UILotControl parent, List<int> parameters)
+        public UIFloorPainter (VM vm, World world, UILotControl parent, List<int> parameters)
         {
             Pattern = (ushort)parameters[0];
 

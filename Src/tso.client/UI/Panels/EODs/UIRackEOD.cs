@@ -27,7 +27,7 @@ namespace FSO.Client.UI.Panels.EODs
             btnPurchase.OnButtonClick += BtnPurchase_OnButtonClick;
         }
 
-        private void BtnPurchase_OnButtonClick(Framework.UIElement button)
+        private void BtnPurchase_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOutfit();
             if (selectedOutfit == null) { return; }
@@ -53,7 +53,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         }
 
-        private void BtnTryOn_OnButtonClick(Framework.UIElement button)
+        private void BtnTryOn_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOutfit();
             if (selectedOutfit == null) { return; }

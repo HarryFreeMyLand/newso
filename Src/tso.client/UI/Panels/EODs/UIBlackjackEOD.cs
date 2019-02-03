@@ -1534,8 +1534,10 @@ namespace FSO.Client.UI.Panels.EODs
             };
             Add(Player4SplitLetter);
 
-            DealerPos = new UIImage(imagePlayerBox);
-            DealerPos.Position = new Vector2(playerPos1.X - (playerPos2.X - playerPos1.X), (playerPos1.Y + playerPos3.Y) / 2);
+            DealerPos = new UIImage(imagePlayerBox)
+            {
+                Position = new Vector2(playerPos1.X - (playerPos2.X - playerPos1.X), (playerPos1.Y + playerPos3.Y) / 2)
+            };
             Add(DealerPos);
             DealerHead = new UIImage(PlayerPicturePlaceHolder)
             {

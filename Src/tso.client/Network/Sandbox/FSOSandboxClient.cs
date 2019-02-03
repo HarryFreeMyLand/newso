@@ -38,10 +38,12 @@ namespace FSO.Client.Network.Sandbox
 
         public void Connect(IPEndPoint target)
         {
-            Connector = new AsyncSocketConnector();
-            Connector.ConnectTimeoutInMillis = 10000;
+            Connector = new AsyncSocketConnector
+            {
+                ConnectTimeoutInMillis = 10000,
 
-            Connector.Handler = this;
+                Handler = this
+            };
             Connector.FilterChain.AddLast("protocol", new ProtocolCodecFilter(new FSOSandboxProtocol()));
             Connector.Connect(target, new Action<IoSession, IConnectFuture>(OnConnect));
         }
@@ -75,7 +77,7 @@ namespace FSO.Client.Network.Sandbox
         {
             string[] ep = endPoint.Split(':');
             if (ep.Length != 2) throw new FormatException("Invalid endpoint format");
-            System.Net.IPAddress ip;
+            IPAddress ip;
             if (!System.Net.IPAddress.TryParse(ep[0], out ip))
             {
                 var addrs = Dns.GetHostEntry(ep[0]).AddressList;

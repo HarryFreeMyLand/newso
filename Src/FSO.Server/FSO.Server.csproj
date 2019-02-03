@@ -282,6 +282,7 @@
     <Compile Include="Servers\Tasks\TaskEngine.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="Admin\bower.json" />
     <None Include="Admin\package.json" />
     <None Include="Admin\src\app\index.scss" />

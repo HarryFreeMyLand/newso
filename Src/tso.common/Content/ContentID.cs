@@ -30,19 +30,19 @@ namespace FSO.Common.Content
         /// <param name="fileID">The FileID of the content resource.</param>
         public ContentID(uint typeID, uint fileID)
         {
-            this.TypeID = typeID;
-            this.FileID = fileID;
+            TypeID = typeID;
+            FileID = fileID;
         }
 
         public ContentID(string name)
         {
-            this.FileName = name;
+            FileName = name;
         }
 
         public ContentID(long v)
         {
-            this.TypeID = (uint)v;
-            this.FileID = (uint)(v >> 32);
+            TypeID = (uint)v;
+            FileID = (uint)(v >> 32);
         }
 
         public ulong Shift()

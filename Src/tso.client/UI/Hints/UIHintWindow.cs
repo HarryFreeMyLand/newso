@@ -46,12 +46,16 @@ namespace FSO.Client.UI.Hints
             int index = 0;
             foreach (var cat in cats)
             {
-                var item = new UIHintListItem(true, cat.FirstOrDefault().Category, 0);
-                item.ChildItems = new List<UIHintListItem>();
+                var item = new UIHintListItem(true, cat.FirstOrDefault().Category, 0)
+                {
+                    ChildItems = new List<UIHintListItem>()
+                };
                 foreach (var hint in cat)
                 {
-                    var subitem = new UIHintListItem(false, hint.Title, index++);
-                    subitem.Hint = hint;
+                    var subitem = new UIHintListItem(false, hint.Title, index++)
+                    {
+                        Hint = hint
+                    };
                     item.ChildItems.Add(subitem);
                 }
                 Categories.Add(item);
@@ -65,37 +69,47 @@ namespace FSO.Client.UI.Hints
             ListBox.SelectionFillColor = new Color(250, 200, 140);
             ListBox.OnChange += ListBox_OnChange;
             Add(ListBox);
-            
-            ResultsSlider = new UISlider();
-            ResultsSlider.Orientation = 1;
-            ResultsSlider.Texture = GetTexture(0x31000000001);
-            ResultsSlider.MinValue = 0;
-            ResultsSlider.MaxValue = 2;
 
-            ResultsSlider.X = 260;
-            ResultsSlider.Y = 51;
+            ResultsSlider = new UISlider
+            {
+                Orientation = 1,
+                Texture = GetTexture(0x31000000001),
+                MinValue = 0,
+                MaxValue = 2,
+
+                X = 260,
+                Y = 51
+            };
             ResultsSlider.SetSize(0, 514f);
             Add(ResultsSlider);
 
-            SliderUpButton = new UIButton(GetTexture(0x31200000001));
-            SliderUpButton.Position = new Vector2(257, 44);
+            SliderUpButton = new UIButton(GetTexture(0x31200000001))
+            {
+                Position = new Vector2(257, 44)
+            };
             Add(SliderUpButton);
-            SliderDownButton = new UIButton(GetTexture(0x31100000001));
-            SliderDownButton.Position = new Vector2(257, 566);
+            SliderDownButton = new UIButton(GetTexture(0x31100000001))
+            {
+                Position = new Vector2(257, 566)
+            };
             Add(SliderDownButton);
 
             ResultsSlider.AttachButtons(SliderUpButton, SliderDownButton, 1f);
             ListBox.AttachSlider(ResultsSlider);
 
-            Icon = new UIImage();
-            Icon.Position = new Vector2(290, 65);
+            Icon = new UIImage
+            {
+                Position = new Vector2(290, 65)
+            };
             Icon.SetSize(0, 0);
             Add(Icon);
 
-            Title = new UILabel();
-            Title.Position = Icon.Position = new Vector2(290, 40);
-            Title.Size = new Vector2(492, 15);
-            Title.CaptionStyle = TextStyle.DefaultTitle;
+            Title = new UILabel
+            {
+                Position = Icon.Position = new Vector2(290, 40),
+                Size = new Vector2(492, 15),
+                CaptionStyle = TextStyle.DefaultTitle
+            };
             Title.CaptionStyle = Title.CaptionStyle.Clone();
             Title.CaptionStyle.Color = Color.White;
             Title.CaptionStyle.Size = 14;

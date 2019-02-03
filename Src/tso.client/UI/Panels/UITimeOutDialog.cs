@@ -52,7 +52,7 @@ namespace FSO.Client.UI.Panels
             CounterText.Caption = (Timer/(60*60)).ToString().PadLeft(2, '0') + ":"+((Timer/60)%60).ToString().PadLeft(2, '0')+":"+(Timer%60).ToString().PadLeft(2, '0');
         }
 
-        private void CloseButton_OnButtonClick(Framework.UIElement button)
+        private void CloseButton_OnButtonClick(UIElement button)
         {
             CallingVM.SendCommand(new VMNetTimeoutNotifyCmd());
             UIScreen.RemoveDialog(this);

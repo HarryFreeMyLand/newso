@@ -50,7 +50,7 @@ namespace FSO.Common.Rendering.Framework
 
         public void Initialize(Microsoft.Xna.Framework.Graphics.GraphicsDevice device)
         {
-            this.Device = device;
+            Device = device;
             foreach (var scene in Scenes)
             {
                 scene.Initialize(this);
@@ -64,7 +64,7 @@ namespace FSO.Common.Rendering.Framework
         public void Add(_3DAbstract scene)
         {
             Scenes.Add(scene);
-            if (this.Device != null)
+            if (Device != null)
             {
                 scene.Initialize(this);
             }
@@ -91,7 +91,7 @@ namespace FSO.Common.Rendering.Framework
         /// <param name="scene"></param>
         public void AddExternal(_3DAbstract scene){
             External.Add(scene);
-            if (this.Device != null)
+            if (Device != null)
             {
                 scene.Initialize(this);
             }

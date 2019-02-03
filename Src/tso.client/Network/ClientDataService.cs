@@ -364,7 +364,7 @@ namespace FSO.Common.DataService
             foreach (var item in input)
             {
                 var itemId = idFunction(item);
-                DSENTITY dsItem = default(DSENTITY);
+                var dsItem = default(DSENTITY);
                 if(itemId != null && itemId.HasValue){
                     dsItem = idMap[itemId.Value];
                 }

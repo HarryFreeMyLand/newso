@@ -60,8 +60,10 @@ namespace FSO.Client.UI.Panels
             var useSmall = true;  //(FSOEnvironment.UIZoomFactor > 1f || GlobalSettings.Default.GraphicsWidth < 1024);
             var script = this.RenderScript("housepanel.uis");
 
-            Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002));
-            Background.Y = 9;
+            Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
+            {
+                Y = 9
+            };
             Background.BlockInput();
             this.AddAt(0, Background);
 
@@ -94,11 +96,11 @@ namespace FSO.Client.UI.Panels
             LotControl = lotController;
         }
 
-        private void SetMode(Framework.UIElement button)
+        private void SetMode(UIElement button)
         {
             if (button == HouseInfoButton)
             {
-                var controller = GameFacade.Screens.CurrentUIScreen.FindController<FSO.Client.Controllers.CoreGameScreenController>();
+                var controller = GameFacade.Screens.CurrentUIScreen.FindController<CoreGameScreenController>();
                 if (controller != null)
                 {
                     controller.ShowLotPage(controller.GetCurrentLotID());
@@ -138,9 +140,11 @@ namespace FSO.Client.UI.Panels
                         var ctr = ControllerUtils.BindController<LotAdmitController>(Panel);
                         break;
                     case 5:
-                        Panel = new UIEnvPanel(LotControl);
-                        Panel.X = 232;
-                        Panel.Y = 0;
+                        Panel = new UIEnvPanel(LotControl)
+                        {
+                            X = 232,
+                            Y = 0
+                        };
                         break;
                     case 7:
                         Panel = new UIBuildableAreaPanel(LotControl);
@@ -212,9 +216,11 @@ namespace FSO.Client.UI.Panels
             TitleLabel.Alignment = TextAlignment.Left;
             TitleLabel.Y -= 8;
 
-            var buildico = new UIImage(BuildIconImage);
-            buildico.Position = new Vector2(30-18, 30+34+8); //to the left of all the checkboxes
-            buildico.Tooltip = GameFacade.Strings.GetString("178", "2");
+            var buildico = new UIImage(BuildIconImage)
+            {
+                Position = new Vector2(30 - 18, 30 + 34 + 8), //to the left of all the checkboxes
+                Tooltip = GameFacade.Strings.GetString("178", "2")
+            };
             UIUtils.GiveTooltip(buildico);
             Add(buildico);
             UpdateList();
@@ -271,17 +277,21 @@ namespace FSO.Client.UI.Panels
             }
             while (roommates.Count > RoommateButtons.Count)
             {
-                var btn = new UIPersonButton();
-                btn.FrameSize = UIPersonButtonSize.LARGE;
-                btn.X = RoommateButtons.Count * (34 + 6); //6 is gutter size
+                var btn = new UIPersonButton
+                {
+                    FrameSize = UIPersonButtonSize.LARGE,
+                    X = RoommateButtons.Count * (34 + 6) //6 is gutter size
+                };
                 Add(btn);
                 RoommateButtons.Add(btn);
 
-                var cbt = new UIButton();
-                cbt.ImageStates = 6;
-                cbt.Texture = GetTexture(0x0000049400000001);
-                cbt.X = CheckButtons.Count * (34 + 6) + 9; //6 is gutter size, 10 is margin for checkbutton
-                cbt.Y = 34 + 8;
+                var cbt = new UIButton
+                {
+                    ImageStates = 6,
+                    Texture = GetTexture(0x0000049400000001),
+                    X = CheckButtons.Count * (34 + 6) + 9, //6 is gutter size, 10 is margin for checkbutton
+                    Y = 34 + 8
+                };
                 cbt.OnButtonClick += (e) => { OnCheckChange?.Invoke(CheckButtons.IndexOf((UIButton)e)); };
                 Add(cbt);
                 CheckButtons.Add(cbt);
@@ -453,8 +463,10 @@ namespace FSO.Client.UI.Panels
 
         public UIAdmitList()
         {
-            List1 = new UIListBox();
-            List1.X = -15;
+            List1 = new UIListBox
+            {
+                X = -15
+            };
             List1.SetSize(100, 20 * 4);
             List1.NumVisibleRows = 4;
             List1.RowHeight = 20;
@@ -474,8 +486,10 @@ namespace FSO.Client.UI.Panels
             List1.Columns.Add(new UIListBoxColumn() { Width = 100 });
             List1.SelectionFillColor = new Color(250, 200, 140);
             Add(List1);
-            List2 = new UIListBox();
-            List2.X = 85;
+            List2 = new UIListBox
+            {
+                X = 85
+            };
             List2.SetSize(100, 20 * 4);
             List2.NumVisibleRows = 4;
             List2.RowHeight = 20;
@@ -605,8 +619,10 @@ namespace FSO.Client.UI.Panels
             sizeLabel.Caption = "Size";
             Add(sizeLabel);
 
-            var floorsLabel = new UILabel();
-            floorsLabel.CaptionStyle = sizeLabel.CaptionStyle.Clone();
+            var floorsLabel = new UILabel
+            {
+                CaptionStyle = sizeLabel.CaptionStyle.Clone()
+            };
             floorsLabel.CaptionStyle.Shadow = true;
             floorsLabel.CaptionStyle.Size = 6;
             floorsLabel.Position = new Vector2(FloorsLargerButton.X + 3, FloorsLargerButton.Y + 11);
@@ -623,8 +639,10 @@ namespace FSO.Client.UI.Panels
     (GlobalSettings.Default.AntiAlias) ? 4 : 0, RenderTargetUsage.PreserveContents);
             Batch = new SpriteBatch(GameFacade.GraphicsDevice);
 
-            PreviewImage = new UIImage(PreviewTarget);
-            PreviewImage.Position = BuildableAreaBackground.Position + new Vector2(2);
+            PreviewImage = new UIImage(PreviewTarget)
+            {
+                Position = BuildableAreaBackground.Position + new Vector2(2)
+            };
             Add(PreviewImage);
 
             UpdateCost();

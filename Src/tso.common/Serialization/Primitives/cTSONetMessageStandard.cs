@@ -34,33 +34,33 @@ namespace FSO.Common.Serialization.Primitives
 
         public void Deserialize(IoBuffer input, ISerializationContext context)
         {
-            this.Unknown_1 = input.GetUInt32();
-            this.SendingAvatarID = input.GetUInt32();
+            Unknown_1 = input.GetUInt32();
+            SendingAvatarID = input.GetUInt32();
             var flagsByte = input.Get();
-            this.Flags = (cTSOParameterizedEntityFlags)flagsByte;
-            this.MessageID = input.GetUInt32();
+            Flags = (cTSOParameterizedEntityFlags)flagsByte;
+            MessageID = input.GetUInt32();
 
-            if ((this.Flags & cTSOParameterizedEntityFlags.HAS_DS_TYPE) == cTSOParameterizedEntityFlags.HAS_DS_TYPE)
+            if ((Flags & cTSOParameterizedEntityFlags.HAS_DS_TYPE) == cTSOParameterizedEntityFlags.HAS_DS_TYPE)
             {
-                this.DataServiceType = input.GetUInt32();
-            }else if ((this.Flags & cTSOParameterizedEntityFlags.HAS_DB_TYPE) == cTSOParameterizedEntityFlags.HAS_DB_TYPE){
-                this.DatabaseType = input.GetUInt32();
+                DataServiceType = input.GetUInt32();
+            }else if ((Flags & cTSOParameterizedEntityFlags.HAS_DB_TYPE) == cTSOParameterizedEntityFlags.HAS_DB_TYPE){
+                DatabaseType = input.GetUInt32();
             }
 
-            if ((this.Flags & cTSOParameterizedEntityFlags.HAS_BASIC_PARAMETER) == cTSOParameterizedEntityFlags.HAS_BASIC_PARAMETER)
+            if ((Flags & cTSOParameterizedEntityFlags.HAS_BASIC_PARAMETER) == cTSOParameterizedEntityFlags.HAS_BASIC_PARAMETER)
             {
-                this.Parameter = input.GetUInt32();
+                Parameter = input.GetUInt32();
             }
 
-            if ((this.Flags & cTSOParameterizedEntityFlags.UNKNOWN) == cTSOParameterizedEntityFlags.UNKNOWN)
+            if ((Flags & cTSOParameterizedEntityFlags.UNKNOWN) == cTSOParameterizedEntityFlags.UNKNOWN)
             {
-                this.Unknown_2 = input.GetUInt32();
+                Unknown_2 = input.GetUInt32();
             }
 
-            if ((this.Flags & cTSOParameterizedEntityFlags.HAS_COMPLEX_PARAMETER) == cTSOParameterizedEntityFlags.HAS_COMPLEX_PARAMETER)
+            if ((Flags & cTSOParameterizedEntityFlags.HAS_COMPLEX_PARAMETER) == cTSOParameterizedEntityFlags.HAS_COMPLEX_PARAMETER)
             {
                 uint typeId = DatabaseType.HasValue ? DatabaseType.Value : DataServiceType.Value;
-                this.ComplexParameter = context.ModelSerializer.Deserialize(typeId, input, context);
+                ComplexParameter = context.ModelSerializer.Deserialize(typeId, input, context);
             }
         }
 
@@ -70,38 +70,38 @@ namespace FSO.Common.Serialization.Primitives
             output.PutUInt32(SendingAvatarID);
 
             byte flags = 0;
-            if (this.DatabaseType.HasValue){
+            if (DatabaseType.HasValue){
                 flags |= (byte)cTSOParameterizedEntityFlags.HAS_DB_TYPE;
             }
 
-            if (this.DataServiceType.HasValue){
+            if (DataServiceType.HasValue){
                 flags |= (byte)cTSOParameterizedEntityFlags.HAS_DB_TYPE;
                 flags |= (byte)cTSOParameterizedEntityFlags.HAS_DS_TYPE;
             }
 
-            if (this.Parameter != null){
+            if (Parameter != null){
                 flags |= (byte)cTSOParameterizedEntityFlags.HAS_BASIC_PARAMETER;
             }
 
-            if(this.ComplexParameter != null){
+            if(ComplexParameter != null){
                 flags |= (byte)cTSOParameterizedEntityFlags.HAS_COMPLEX_PARAMETER;
             }
 
             output.Put(flags);
             output.PutUInt32(MessageID);
 
-            if (this.DataServiceType.HasValue)
+            if (DataServiceType.HasValue)
             {
-                output.PutUInt32(this.DataServiceType.Value);
-            }else if (this.DatabaseType.HasValue){
-                output.PutUInt32(this.DatabaseType.Value);
+                output.PutUInt32(DataServiceType.Value);
+            }else if (DatabaseType.HasValue){
+                output.PutUInt32(DatabaseType.Value);
             }
 
-            if (this.Parameter.HasValue){
-                output.PutUInt32(this.Parameter.Value);
+            if (Parameter.HasValue){
+                output.PutUInt32(Parameter.Value);
             }
 
-            if (this.ComplexParameter != null){
+            if (ComplexParameter != null){
                 context.ModelSerializer.Serialize(output, ComplexParameter, context, false);
             }
         }

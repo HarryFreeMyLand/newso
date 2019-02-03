@@ -66,7 +66,7 @@ namespace FSO.Common.Rendering
                 else
                 {
                     BeingDisposed = true;
-                    GameThread.NextUpdate(x => this.Dispose());
+                    GameThread.NextUpdate(x => Dispose());
                     GC.ReRegisterForFinalize(this);
                     Resurrect = true; //one more final
                 }

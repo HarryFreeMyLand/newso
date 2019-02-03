@@ -14,7 +14,7 @@ namespace FSO.Common.Utils.Cache
 
         protected CacheKey(string[] components)
         {
-            this.Components = components;
+            Components = components;
         }
 
         public override int GetHashCode()

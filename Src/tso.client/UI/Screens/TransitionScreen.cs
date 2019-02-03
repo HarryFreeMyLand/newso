@@ -36,10 +36,12 @@ namespace FSO.Client.UI.Screens
             GameFacade.Cursor.SetCursor(Common.Rendering.Framework.CursorType.Hourglass);
             m_Background = new UISetupBackground();
 
-            var lbl = new UILabel();
-            lbl.Caption = "Version " + GlobalSettings.Default.ClientVersion;
-            lbl.X = 20;
-            lbl.Y = 558;
+            var lbl = new UILabel
+            {
+                Caption = "Version " + GlobalSettings.Default.ClientVersion,
+                X = 20,
+                Y = 558
+            };
             m_Background.BackgroundCtnr.Add(lbl);
             this.Add(m_Background);
 

@@ -30,7 +30,7 @@ namespace FSO.Client.UI.Panels
     public class UIObjectHolder //controls the object holder interface
     {
         public VM vm;
-        public LotView.World World;
+        public World World;
         public UILotControl ParentControl;
 
         public Direction Rotation;
@@ -53,7 +53,7 @@ namespace FSO.Client.UI.Panels
 
         public UIObjectSelection Holding;
 
-        public UIObjectHolder(VM vm, LotView.World World, UILotControl parent)
+        public UIObjectHolder(VM vm, World World, UILotControl parent)
         {
             this.vm = vm;
             this.World = World;
@@ -63,8 +63,10 @@ namespace FSO.Client.UI.Panels
         public void SetSelected(VMMultitileGroup Group)
         {
             if (Holding != null) ClearSelected();
-            Holding = new UIObjectSelection();
-            Holding.Group = Group;
+            Holding = new UIObjectSelection
+            {
+                Group = Group
+            };
             Holding.PreviousTile = Holding.Group.BaseObject.Position;
             Holding.Dir = Group.Objects[0].Direction;
             VMEntity[] CursorTiles = new VMEntity[Group.Objects.Count];

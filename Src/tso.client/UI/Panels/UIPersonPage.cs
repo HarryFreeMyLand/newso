@@ -486,8 +486,10 @@ namespace FSO.Client.UI.Panels
         {
             if (CurrentAvatar.Value != null)
             {
-                var modMenu = new UIModMenu();
-                modMenu.AvatarID = CurrentAvatar.Value.Avatar_Id;
+                var modMenu = new UIModMenu
+                {
+                    AvatarID = CurrentAvatar.Value.Avatar_Id
+                };
                 UIScreen.GlobalShowDialog(modMenu, true);
             }
         }

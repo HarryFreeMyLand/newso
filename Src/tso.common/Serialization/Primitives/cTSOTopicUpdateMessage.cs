@@ -70,7 +70,7 @@ namespace FSO.Common.Serialization.Primitives
             }
 
             var valueType = input.GetUInt32();
-            this.Value = context.ModelSerializer.Deserialize(valueType, input, context);
+            Value = context.ModelSerializer.Deserialize(valueType, input, context);
             //this.ReasonText = input.GetPascalVLCString();
         }
     }

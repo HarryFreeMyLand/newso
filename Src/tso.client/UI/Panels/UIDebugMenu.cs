@@ -36,20 +36,24 @@ namespace FSO.Client.UI.Panels
                 Position = new Microsoft.Xna.Framework.Vector2(40, 95)
             });
 
-            ContentBrowserBtn = new UIButton();
-            ContentBrowserBtn.Caption = "Browse Content";
-            ContentBrowserBtn.Position = new Microsoft.Xna.Framework.Vector2(160, 50);
-            ContentBrowserBtn.Width = 300;
+            ContentBrowserBtn = new UIButton
+            {
+                Caption = "Browse Content",
+                Position = new Microsoft.Xna.Framework.Vector2(160, 50),
+                Width = 300
+            };
             ContentBrowserBtn.OnButtonClick += x =>
             {
                 //ShowTool(new ContentBrowser());
             };
             Add(ContentBrowserBtn);
 
-            var connectLocalBtn = new UIButton();
-            connectLocalBtn.Caption = (GlobalSettings.Default.UseCustomServer) ? "Use default server (TSO)" : "Use custom defined server";
-            connectLocalBtn.Position = new Microsoft.Xna.Framework.Vector2(160, 90);
-            connectLocalBtn.Width = 300;
+            var connectLocalBtn = new UIButton
+            {
+                Caption = (GlobalSettings.Default.UseCustomServer) ? "Use default server (TSO)" : "Use custom defined server",
+                Position = new Microsoft.Xna.Framework.Vector2(160, 90),
+                Width = 300
+            };
             connectLocalBtn.OnButtonClick += x =>
             {
                 GlobalSettings.Default.UseCustomServer = !GlobalSettings.Default.UseCustomServer;
@@ -58,10 +62,12 @@ namespace FSO.Client.UI.Panels
             };
             Add(connectLocalBtn);
 
-            var cityPainterBtn = new UIButton();
-            cityPainterBtn.Caption = "Toggle City Painter";
-            cityPainterBtn.Position = new Microsoft.Xna.Framework.Vector2(160, 130);
-            cityPainterBtn.Width = 300;
+            var cityPainterBtn = new UIButton
+            {
+                Caption = "Toggle City Painter",
+                Position = new Microsoft.Xna.Framework.Vector2(160, 130),
+                Width = 300
+            };
             cityPainterBtn.OnButtonClick += x =>
             {
                 var core = (GameFacade.Screens.CurrentUIScreen as CoreGameScreen);
@@ -79,10 +85,12 @@ namespace FSO.Client.UI.Panels
             };
             Add(cityPainterBtn);
 
-            var benchmarkBtn = new UIButton();
-            benchmarkBtn.Caption = "VM Performance Benchmark (100k ticks)";
-            benchmarkBtn.Position = new Microsoft.Xna.Framework.Vector2(160, 170);
-            benchmarkBtn.Width = 300;
+            var benchmarkBtn = new UIButton
+            {
+                Caption = "VM Performance Benchmark (100k ticks)",
+                Position = new Microsoft.Xna.Framework.Vector2(160, 170),
+                Width = 300
+            };
             benchmarkBtn.OnButtonClick += x =>
             {
                 var core = (GameFacade.Screens.CurrentUIScreen as IGameScreen);
@@ -113,10 +121,12 @@ namespace FSO.Client.UI.Panels
             };
             Add(benchmarkBtn);
 
-            var resyncBtn = new UIButton();
-            resyncBtn.Caption = "Force Resync";
-            resyncBtn.Position = new Microsoft.Xna.Framework.Vector2(160, 210);
-            resyncBtn.Width = 300;
+            var resyncBtn = new UIButton
+            {
+                Caption = "Force Resync",
+                Position = new Microsoft.Xna.Framework.Vector2(160, 210),
+                Width = 300
+            };
             resyncBtn.OnButtonClick += x =>
             {
                 var core = (GameFacade.Screens.CurrentUIScreen as IGameScreen);
@@ -132,9 +142,11 @@ namespace FSO.Client.UI.Panels
             };
             Add(resyncBtn);
 
-            serverNameBox = new UITextBox();
-            serverNameBox.X = 50;
-            serverNameBox.Y = 300 - 54;
+            serverNameBox = new UITextBox
+            {
+                X = 50,
+                Y = 300 - 54
+            };
             serverNameBox.SetSize(500 - 100, 25);
             serverNameBox.CurrentText = GlobalSettings.Default.GameEntryUrl;
 
