@@ -169,7 +169,9 @@
     <Content Include="Content\UI\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\UI\uitext\credits.txt" />
+    <Content Include="Content\UI\uitext\credits.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\UI\uitext\english.dir\_f107_custombuildstrings.cst">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -653,308 +655,912 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Content\UI\uitext\english.dir\_f114_jobstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_128_pickfamilystrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_129_designfamilystrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_130_designcharstrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_131_evictmodestrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_132_moveinmodestrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_133_regularmodestrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_134_nghrollover.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_136_disposebuttonstrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_137_placementerrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_138_vctltips.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_139_bldtips.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_142_objdialogs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_145_optionstrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_146_budgetstrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_147_roofpanelstrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_148_pause.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_149_dirttoolerrs.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_150_buymodecatalogsorttips.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_152_defaultdialogbuttons.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_153_appstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_154_miscstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_155_splashprogress.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_156_pipstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_157_configstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_159_objecttts.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_160_catalogratings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_161_localkeys.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_169_pickasimstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_170_createasimstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_171_ucpstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_172_buildpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_173_buypanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_174_livepanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_175_housepanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_176_admitbanpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_177_logpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_178_roommatespanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_179_statisticspanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_180_envpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_181_lightingpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_182_timeofdaypanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_183_soundspanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_184_graphicspanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_185_optionspanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_186_playpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_187_soundpanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_188_gizmostrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_189_personpagestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_190_housepagestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_191_gmpetitionstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_192_doorpermissioneodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_193_signseodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_194_bookmarksstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_195_messagestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_196_messageiconstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_197_trunkeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_198_timereodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_199_scoreboardeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_200_messageinboxstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_201_messageinboxmenustrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_202_buildableareapanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_203_gamecompdrawacardeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_204_jobobjectpizzaeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_205_banignoredialogstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_206_querypanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_207_danceflooreodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_208_roommateprotocolstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_209_logindlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_210_cityselprotocolstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_211_housesimloginstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_212_housepagestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_213_datahandler.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_214_winskinbrowser.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_215_matchmakerclosezoom.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_216_buildableareapanel.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_217_personicon.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_218_neighborhood.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_219_searchresultsvec.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_220_lotreserves.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_221_cpstate.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_222_loginprotocol.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_223_hostvisitorprotocol.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_224_securetrading.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_225_messagemanager.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_226_skillprogressheadline.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_227_friendshipweb.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_228_exitdialog.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_229_pphelptoc.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_230_ppshared.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_231_pppetitionformdlg.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_232_ppcomplaindlg.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_233_profanitypanelstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_234_cityselector.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_235_twopersonjobobjectmazeeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_236_paperchaseeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_237_passworddlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_238_citydescriptionstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_239_asyncsale.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_240_timeoutdlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_241_creditsdlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_242_creditsstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_243_csrtools.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_244_csreject.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_245_buybuildmodestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_246_lotpurchasedlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_247_lotnameeditdlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_248_hintsstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_249_userinputdlg.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_250_doorcodedlg.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_251_connectprogressdialog.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_252_lotcategoryselectiondlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_253_jobobjband.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_254_bookmarkerrorstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_255_fwebcommenteditdlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_256_visitorbonusdialog.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_257_neighborhooddlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_258_roulettetableeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_259_slotseodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_260_neighborhooddlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_261_chatdlgstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_262_carddeckstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_263_blackjackeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_264_rackeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_265_rackownereodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_266_dressereodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_267_incomeexpensecategorystrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_268_offlottransactiondialogstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_269_headhunterstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_270_djstationstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_272_jobtitlestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_273_wargameeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_274_fwebstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_275_lmsonlinejobsglobals.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_276_lmsroommateprotocolstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_277_lms_miscstring.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_278_miscstring.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_279_lms_petletters.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f100_genericstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f101_updaterstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f102_motivestrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f103_optionsstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f104_citydescriptions.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f105_devstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f106_relationshipdialog.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f107_custombuildstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f108_newspapereodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f109_newgameplaystrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f110_manageeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f111_casinoeodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f112_misceodstrings.cst" />
-    <None Include="Content\UI\uitext\portuguese.dir\_f113_chatexpansionstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_128_pickfamilystrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_129_designfamilystrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_130_designcharstrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_131_evictmodestrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_132_moveinmodestrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_133_regularmodestrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_134_nghrollover.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_136_disposebuttonstrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_137_placementerrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_138_vctltips.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_139_bldtips.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_142_objdialogs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_145_optionstrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_146_budgetstrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_147_roofpanelstrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_148_pause.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_149_dirttoolerrs.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_150_buymodecatalogsorttips.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_152_defaultdialogbuttons.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_153_appstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_154_miscstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_155_splashprogress.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_156_pipstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_157_configstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_159_objecttts.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_160_catalogratings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_161_localkeys.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_169_pickasimstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_170_createasimstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_171_ucpstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_172_buildpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_173_buypanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_174_livepanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_175_housepanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_176_admitbanpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_177_logpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_178_roommatespanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_179_statisticspanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_180_envpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_181_lightingpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_182_timeofdaypanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_183_soundspanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_184_graphicspanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_185_optionspanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_186_playpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_187_soundpanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_188_gizmostrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_189_personpagestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_190_housepagestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_191_gmpetitionstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_192_doorpermissioneodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_193_signseodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_194_bookmarksstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_195_messagestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_196_messageiconstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_197_trunkeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_198_timereodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_199_scoreboardeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_200_messageinboxstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_201_messageinboxmenustrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_202_buildableareapanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_203_gamecompdrawacardeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_204_jobobjectpizzaeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_205_banignoredialogstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_206_querypanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_207_danceflooreodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_208_roommateprotocolstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_209_logindlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_210_cityselprotocolstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_211_housesimloginstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_212_housepagestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_213_datahandler.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_214_winskinbrowser.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_215_matchmakerclosezoom.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_216_buildableareapanel.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_217_personicon.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_218_neighborhood.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_219_searchresultsvec.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_220_lotreserves.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_221_cpstate.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_222_loginprotocol.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_223_hostvisitorprotocol.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_224_securetrading.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_225_messagemanager.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_226_skillprogressheadline.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_227_friendshipweb.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_228_exitdialog.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_229_pphelptoc.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_230_ppshared.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_231_pppetitionformdlg.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_232_ppcomplaindlg.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_233_profanitypanelstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_234_cityselector.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_235_twopersonjobobjectmazeeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_236_paperchaseeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_237_passworddlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_238_citydescriptionstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_239_asyncsale.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_240_timeoutdlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_241_creditsdlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_242_creditsstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_243_csrtools.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_244_csreject.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_245_buybuildmodestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_246_lotpurchasedlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_247_lotnameeditdlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_248_hintsstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_249_userinputdlg.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_250_doorcodedlg.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_251_connectprogressdialog.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_252_lotcategoryselectiondlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_253_jobobjband.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_254_bookmarkerrorstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_255_fwebcommenteditdlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_256_visitorbonusdialog.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_257_neighborhooddlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_258_roulettetableeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_259_slotseodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_260_neighborhooddlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_261_chatdlgstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_262_carddeckstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_263_blackjackeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_264_rackeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_265_rackownereodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_266_dressereodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_267_incomeexpensecategorystrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_268_offlottransactiondialogstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_269_headhunterstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_270_djstationstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_272_jobtitlestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_273_wargameeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_274_fwebstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_275_lmsonlinejobsglobals.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_276_lmsroommateprotocolstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_277_lms_miscstring.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_278_miscstring.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_279_lms_petletters.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f100_genericstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f101_updaterstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f102_motivestrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f103_optionsstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f104_citydescriptions.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f105_devstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f106_relationshipdialog.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f107_custombuildstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f108_newspapereodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f109_newgameplaystrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f110_manageeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f111_casinoeodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f112_misceodstrings.cst" />
-    <None Include="Content\UI\uitext\spanish.dir\_f113_chatexpansionstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_128_pickfamilystrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_129_designfamilystrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_130_designcharstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_131_evictmodestrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_132_moveinmodestrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_133_regularmodestrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_134_nghrollover.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_136_disposebuttonstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_137_placementerrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_138_vctltips.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_139_bldtips.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_142_objdialogs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_145_optionstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_146_budgetstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_147_roofpanelstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_148_pause.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_149_dirttoolerrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_150_buymodecatalogsorttips.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_152_defaultdialogbuttons.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_153_appstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_154_miscstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_155_splashprogress.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_156_pipstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_157_configstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_159_objecttts.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_160_catalogratings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_161_localkeys.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_169_pickasimstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_170_createasimstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_171_ucpstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_172_buildpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_173_buypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_174_livepanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_175_housepanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_176_admitbanpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_177_logpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_178_roommatespanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_179_statisticspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_180_envpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_181_lightingpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_182_timeofdaypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_183_soundspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_184_graphicspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_185_optionspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_186_playpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_187_soundpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_188_gizmostrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_189_personpagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_190_housepagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_191_gmpetitionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_192_doorpermissioneodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_193_signseodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_194_bookmarksstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_195_messagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_196_messageiconstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_197_trunkeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_198_timereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_199_scoreboardeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_200_messageinboxstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_201_messageinboxmenustrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_202_buildableareapanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_203_gamecompdrawacardeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_204_jobobjectpizzaeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_205_banignoredialogstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_206_querypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_207_danceflooreodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_208_roommateprotocolstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_209_logindlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_210_cityselprotocolstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_211_housesimloginstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_212_housepagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_213_datahandler.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_214_winskinbrowser.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_215_matchmakerclosezoom.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_216_buildableareapanel.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_217_personicon.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_218_neighborhood.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_219_searchresultsvec.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_220_lotreserves.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_221_cpstate.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_222_loginprotocol.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_223_hostvisitorprotocol.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_224_securetrading.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_225_messagemanager.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_226_skillprogressheadline.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_227_friendshipweb.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_228_exitdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_229_pphelptoc.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_230_ppshared.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_231_pppetitionformdlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_232_ppcomplaindlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_233_profanitypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_234_cityselector.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_235_twopersonjobobjectmazeeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_236_paperchaseeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_237_passworddlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_238_citydescriptionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_239_asyncsale.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_240_timeoutdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_241_creditsdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_242_creditsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_243_csrtools.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_244_csreject.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_245_buybuildmodestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_246_lotpurchasedlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_247_lotnameeditdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_248_hintsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_249_userinputdlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_250_doorcodedlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_251_connectprogressdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_252_lotcategoryselectiondlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_253_jobobjband.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_254_bookmarkerrorstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_255_fwebcommenteditdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_256_visitorbonusdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_257_neighborhooddlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_258_roulettetableeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_259_slotseodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_260_neighborhooddlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_261_chatdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_262_carddeckstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_263_blackjackeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_264_rackeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_265_rackownereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_266_dressereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_267_incomeexpensecategorystrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_268_offlottransactiondialogstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_269_headhunterstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_270_djstationstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_272_jobtitlestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_273_wargameeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_274_fwebstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_275_lmsonlinejobsglobals.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_276_lmsroommateprotocolstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_277_lms_miscstring.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_278_miscstring.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_279_lms_petletters.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f100_genericstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f101_updaterstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f102_motivestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f103_optionsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f104_citydescriptions.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f105_devstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f106_relationshipdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f107_custombuildstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f108_newspapereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f109_newgameplaystrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f110_manageeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f111_casinoeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f112_misceodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\portuguese.dir\_f113_chatexpansionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_128_pickfamilystrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_129_designfamilystrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_130_designcharstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_131_evictmodestrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_132_moveinmodestrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_133_regularmodestrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_134_nghrollover.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_136_disposebuttonstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_137_placementerrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_138_vctltips.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_139_bldtips.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_142_objdialogs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_145_optionstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_146_budgetstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_147_roofpanelstrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_148_pause.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_149_dirttoolerrs.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_150_buymodecatalogsorttips.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_152_defaultdialogbuttons.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_153_appstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_154_miscstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_155_splashprogress.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_156_pipstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_157_configstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_159_objecttts.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_160_catalogratings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_161_localkeys.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_169_pickasimstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_170_createasimstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_171_ucpstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_172_buildpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_173_buypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_174_livepanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_175_housepanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_176_admitbanpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_177_logpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_178_roommatespanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_179_statisticspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_180_envpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_181_lightingpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_182_timeofdaypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_183_soundspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_184_graphicspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_185_optionspanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_186_playpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_187_soundpanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_188_gizmostrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_189_personpagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_190_housepagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_191_gmpetitionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_192_doorpermissioneodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_193_signseodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_194_bookmarksstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_195_messagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_196_messageiconstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_197_trunkeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_198_timereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_199_scoreboardeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_200_messageinboxstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_201_messageinboxmenustrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_202_buildableareapanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_203_gamecompdrawacardeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_204_jobobjectpizzaeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_205_banignoredialogstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_206_querypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_207_danceflooreodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_208_roommateprotocolstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_209_logindlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_210_cityselprotocolstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_211_housesimloginstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_212_housepagestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_213_datahandler.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_214_winskinbrowser.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_215_matchmakerclosezoom.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_216_buildableareapanel.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_217_personicon.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_218_neighborhood.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_219_searchresultsvec.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_220_lotreserves.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_221_cpstate.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_222_loginprotocol.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_223_hostvisitorprotocol.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_224_securetrading.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_225_messagemanager.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_226_skillprogressheadline.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_227_friendshipweb.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_228_exitdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_229_pphelptoc.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_230_ppshared.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_231_pppetitionformdlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_232_ppcomplaindlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_233_profanitypanelstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_234_cityselector.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_235_twopersonjobobjectmazeeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_236_paperchaseeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_237_passworddlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_238_citydescriptionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_239_asyncsale.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_240_timeoutdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_241_creditsdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_242_creditsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_243_csrtools.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_244_csreject.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_245_buybuildmodestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_246_lotpurchasedlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_247_lotnameeditdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_248_hintsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_249_userinputdlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_250_doorcodedlg.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_251_connectprogressdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_252_lotcategoryselectiondlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_253_jobobjband.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_254_bookmarkerrorstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_255_fwebcommenteditdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_256_visitorbonusdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_257_neighborhooddlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_258_roulettetableeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_259_slotseodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_260_neighborhooddlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_261_chatdlgstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_262_carddeckstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_263_blackjackeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_264_rackeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_265_rackownereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_266_dressereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_267_incomeexpensecategorystrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_268_offlottransactiondialogstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_269_headhunterstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_270_djstationstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_272_jobtitlestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_273_wargameeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_274_fwebstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_275_lmsonlinejobsglobals.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_276_lmsroommateprotocolstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_277_lms_miscstring.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_278_miscstring.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_279_lms_petletters.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f100_genericstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f101_updaterstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f102_motivestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f103_optionsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f104_citydescriptions.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f105_devstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f106_relationshipdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f107_custombuildstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f108_newspapereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f109_newgameplaystrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f110_manageeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f111_casinoeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f112_misceodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\spanish.dir\_f113_chatexpansionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

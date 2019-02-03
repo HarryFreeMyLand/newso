@@ -1,4 +1,4 @@
-﻿CREATE TABLE IF NOT EXISTS `fso_avatars` (
+CREATE TABLE IF NOT EXISTS `fso_avatars` (
   `avatar_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `shard_id` int(11) NOT NULL,
   `user_id` int(10) unsigned NOT NULL,
@@ -12,7 +12,7 @@
   `body_sleepwear` bigint(20) unsigned NOT NULL DEFAULT '2980707303437',
   `body_current` bigint(20) unsigned NOT NULL DEFAULT '0',
   `description` varchar(500) NOT NULL,
-  `budget` int(11) NOT NULL DEFAULT '0',
+  `budget` int(11) NOT NULL DEFAULT '10000',
   `privacy_mode` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `motive_data` binary(32) NOT NULL DEFAULT '0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0',
   `skilllock` tinyint(3) unsigned NOT NULL DEFAULT '0',
