@@ -14,6 +14,18 @@ using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
+    struct LoadingScreens
+    {
+        static string _uigraphicsHolidayDir = $"{GlobalSettings.Default.StartupPath}uigraphics/holiday/";
+
+        public static string customLoadingScreen = "Content/setup.png";
+        public static string vdayLoadingScreen = $"{_uigraphicsHolidayDir}setup_valentine.png";
+        public static string thanksgivingLoadingScreen = $"{_uigraphicsHolidayDir}setup_thanksgiving.bmp";
+        public static string holloweenLoadingScreen = $"{_uigraphicsHolidayDir}setup_halloween.bmp";
+        public static string xmasLoadingScreen = $"{_uigraphicsHolidayDir}setup_xmas.png";
+        public static string paddysDayLoadingScrn = $"{_uigraphicsHolidayDir}setup_paddys_day.png";
+    }
+
     public class UISetupBackground : UIContainer
     {
         public UIContainer BackgroundCtnr;
@@ -30,12 +42,21 @@ namespace FSO.Client.UI.Panels
 
             /** Background image **/
             Texture2D setupTex;
-            if (File.Exists("Content/setup.png"))
+
+            if (File.Exists(LoadingScreens.customLoadingScreen))
             {
-                using (var logostrm = File.Open("Content/setup.png", FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var logostrm = File.Open(LoadingScreens.customLoadingScreen, FileMode.Open, FileAccess.Read, FileShare.Read))
+                    setupTex = ImageLoader.FromStream(GameFacade.GraphicsDevice, logostrm);
+            }
+            // In the future servers should be allowed to have their own custom holiday splash screens
+            else if (DateTime.UtcNow.Month == 12 && File.Exists(LoadingScreens.xmasLoadingScreen)
+                && GlobalSettings.Default.HolidayLoadingScreens == true)
+            {
+                using (var logostrm = File.Open(LoadingScreens.xmasLoadingScreen, FileMode.Open, FileAccess.Read, FileShare.Read))
                     setupTex = ImageLoader.FromStream(GameFacade.GraphicsDevice, logostrm);
             }
             else setupTex = GetTexture((ulong)FileIDs.UIFileIDs.setup);
+
             Background = new UIImage(setupTex);
             var bgScale = 600f / setupTex.Height;
             Background.SetSize(setupTex.Width * bgScale, 600);

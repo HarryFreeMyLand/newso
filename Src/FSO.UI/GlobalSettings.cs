@@ -60,6 +60,7 @@ namespace FSO.Client
             { "GraphicsWidth", "1024"},
             { "GraphicsHeight", "768"},
             { "LastUser", ""},
+            { "HolidayLoadingScreens", "false" },
             { "SkipIntro", "true"},
             { "DebugHead", "0"},
             { "DebugBody", "0"},
@@ -124,6 +125,7 @@ namespace FSO.Client
         public int GraphicsWidth { get; set; }
         public int GraphicsHeight { get; set; }
         public string LastUser { get; set; }
+        public bool HolidayLoadingScreens { get; set; }
         public bool SkipIntro { get; set; }
         public ulong DebugHead { get; set; }
         public ulong DebugBody { get; set; }
