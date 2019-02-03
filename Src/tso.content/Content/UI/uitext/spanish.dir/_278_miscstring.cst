@@ -13,7 +13,7 @@
 // SimsApp - PlatformMessageBox
 8 ^Error inicializando sistema de gráficos.  Clic en OK para salir.^
 9 ^Error^
-10 ^FreeSO solo se ejecuta en modo ventana
+10 ^NSO solo se ejecuta en modo ventana
 si el escritorio está en 15 o 16 bits.
 Podemos ajustarlo todo automáticamente
 ¿Quieres hacerlo?
