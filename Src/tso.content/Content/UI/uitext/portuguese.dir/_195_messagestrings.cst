@@ -1,0 +1,47 @@
+1 ^Fechar^
+2 ^Minimizar^
+3 ^Enviar Mensagem^
+4 ^Erro^
+5 ^A mensagem não pôde ser entregue, pois destinatário está offline...Mas você pode enviar uma carta ao vez disso.^
+6 ^Enviar Carta^
+7 ^Responder^
+8 ^Assunto da Carta^
+9 ^Corpo da Carta^
+10 ^A mensagem não pôde ser entregue. Você está silenciado. Por favor, tente novamente mais tarde...^
+11 ^A mensagem não pôde ser entregue. Um erro desconhecido ocorreu. Por favor, tente novamente...^
+12 ^A mensagem não pôde ser entregue. Você enviou mensagens muito rapidamente. Por favor, aguarde alguns segundos...^
+13 ^Desconhecido^
+14 ^Houve um erro no envio da mensagem^
+15 ^O Sim para o qual você está tentando enviar mensagens não existe.^
+16 ^O Sim para o qual você está tentando enviar uma mensagens não pôde recebe-la, pois sua caixa de entrada está cheia.^
+17 ^Mensagem do Dia^    Message of the Day dialog Title - Used in SystemMessageRegulator.cpp	JPS 6/16/2002
+18 ^A Mensagem não pôde ser entregue. Você está está ignorando o Sim.^
+19 ^A Mensagem não pôde ser entregue. Você está sendo ignorado pelo destinatário.^
+20 ^Você não pode enviar uma mensagem para este Sim.  Você está o ignorando.^
+21 ^Você não pode enviar uma mensagem para este Sim.  Ele esta ignorando você.^
+22 ^Você foi expulso.^  Used when CSR Ejects an Avatar dialog title - Used in SystemMessageRegulator.cpp
+23 ^Subir^
+24 ^Descer^
+
+25 ^Mensagem do Dia^  Message of the Day dialog title for city specific MotD -ADD (didn't know if 17 was going away) **DO NOT USE (AWC 6/2004)**
+26 ^Há uma mensagem do dia para ^  City specific MotD message
+27 ^Você ainda quer criar um Sim nesta cidade?^  
+28 ^De: ^
+29 ^Assunto: ^
+
+30 ^Mensagem para ^
+
+// Already replied yes or no to a roommate invitation letter.
+31 ^Você já respondeu esta mensagem, não foi possível responde-la novamente.^
+32 ^Resposta Desativada^
+
+33 ^Representante da EA^  // CSR
+34 ^Maxis^              // system
+35 ^The Sims Online^    // game
+36 ^Clube^
+37 ^Avatar^
+38 ^Propriedade^
+39 ^Vizinhança^
+
+40 ^RE:^
+

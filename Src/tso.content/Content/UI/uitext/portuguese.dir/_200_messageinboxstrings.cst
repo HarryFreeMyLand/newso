@@ -1,0 +1,38 @@
+1 ^Fechar^
+2 ^Enviar mensagem^
+3 ^Ajuda^
+4 ^Classificar por Assunto^
+5 ^Classificar por Destinatário^
+6 ^Classificar por Data^
+7 ^Classificar por Tipo^
+8 ^Classificar por Urgência^
+9 ^Deletar^
+10 ^Selecionar Destinátario^
+11 ^Subir^
+12 ^Descer^
+13 ^Deletar Mensagem^
+14 ^Tem certeza que deseja deletar esta mensagem?^
+15 ^Deletar^
+16 ^Responder^
+17 ^RE: ^
+18 ^Sim Não Encontrado^
+19 ^O Sim selecionado não existe, por isso não é possivel enviar mensagens...^
+20 ^Dom^
+21 ^Seg^
+22 ^Ter^
+23 ^Qua^
+24 ^Qui^
+25 ^Sex^
+26 ^Sáb^
+27 ^Recebendo novas mensagens...^
+28 ^Progresso Geral:^
+29 ^Tarefa Atual:^
+30 ^Recebendo mensagem %d / %d^
+31 ^Total de Mensagens: %d / Mensagens não lidas: %d^
+32 ^EA_REP_^
+33 ^Deletar todas as mensagens deste tipo^
+34 ^Deletar todas as mensagens deste Remetente ^
+35 ^Você tem certeza que deseja apagar todas as mensagens deste tipo?^
+36 ^Você tem certeza que deseja apagar todas as mensagens deste remetente?^
+
+

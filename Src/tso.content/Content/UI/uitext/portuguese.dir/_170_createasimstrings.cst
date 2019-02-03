@@ -1,0 +1,29 @@
+﻿1  ^Cancelar^
+2  ^Aceitar^
+3  ^Digite um nome para este Sim. Ele será visto por todos os jogadores e não poderá ser alterado posteriormente!^
+4  ^Qualquer jogador poderá ler a descrição de seu Sim. Não se preocupe em terminá-la agora, você poderá editar a qualquer momento.^
+5  ^Sair do Jogo^
+6  ^Mulher^
+7  ^Homem^
+8  ^Branco^
+9  ^Pardo^
+10 ^Negro^
+11 ^O nome digitado é inválido. O seguinte problema foi encontrado: ^
+12 ^- Nome muito curto. É necessário pelo menos três caracteres.^
+13 ^- Nome muito longo. Há um limite de 24 caracteres.^
+14 ^- Numéricos (0-9) não são permitidos.^
+15 ^- Apenas um apostrofo (') é permitido.^
+16 ^- Apenas um traço (-) é permitido.^
+17 ^- Apenas dois espaços são permitidos.^
+18 ^- Caracteres especiais não são permitidos.^
+19 ^- Um nome já utilizado ou impróprio foi detectado.^
+20 ^Subir^
+21 ^Descer^
+22 ^Criar um Sim^
+23 ^Musica: 
+Filme: 
+Signo: 
+Gosto: 
+Odeio: ^
+24 ^Criando Sim...^
+25 ^Aguarde enquanto seu novo Sim é criado...^

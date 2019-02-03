@@ -1,0 +1,72 @@
+1 ^Informação Geral^
+2 ^Informação Específica^
+3 ^Just a long text to test the stuff - This highlights phase B - new architecture: items in the yellow section minus tasks marked "temporary" (items related to UI and Permissions); Multiple players in B/B mode while others on lot; Functional Catalog view and General Object Info panel as they exist.; Some indicator of Roommates objects^
+
+4  ^Fome: %d^
+5  ^Conforto: %d^
+6  ^Higiene: %d^
+7  ^Bexiga: %d^
+8  ^Energia: %d^
+9  ^Diversão: %d^
+10 ^Decoração: %d^
+
+11 ^+Culinária^
+12 ^+Mecânica^
+13 ^+Lógica^
+14 ^+Físico^
+15 ^+Criatividade^
+16 ^+Carisma^
+17 ^+Estudo^
+
+18 ^Atividade do Grupo^
+19 ^Preço de Varejo: ^
+20 ^Vender^
+21 ^Adicionar Ao Seu Inventário^
+22 ^Comprar do Proprietário^
+23 ^Desgaste^
+24 ^Adquirido Por: %s^
+25 ^Valor Atual: %s^
+26 ^Preço de Venda^
+27 ^Definir Objeto Para Venda^
+28 ^Cancelar Venda^
+29 ^Editar Preço de Venda^
+30 ^À Venda:^
+
+31 ^Subir^
+32 ^Descer^
+
+33 ^Ninguém^
+
+34 ^Quebrado!^
+35 ^Precisa de uma Melhoria!^
+
+36 ^Desconto: %d%% off^
+37 ^Preço Final: ^
+38 ^Custo Original: ^
+
+39 ^Caixa: ^
+
+40 ^Item à Venda^
+41 ^Objeto: ^
+42 ^Desgaste: %d%%^
+43 ^Valor Atual: ^
+44 ^Dinheiro No Objeto: ^
+45 ^Este objeto está QUEBRADO e irá precisar de reparos para ser utilizado. (Repará-lo também irá aumentar o valor do objeto.)^
+46 ^Preço: ^
+47 ^Você quer comprar este objeto?^
+
+48 ^Preço desvalorizado e dinheiro no objeto^
+49 ^Preço Desvalorizado^
+
+50 ^Você não pode comprar isso agora, pois seu inventário está cheio demais!^
+51 ^Você não pode comprar esse objeto, pois você não tem Simoleons suficientes^
+52 ^O vendedor está revendo o preço e status de venda deste objeto.^
+
+53 ^Desativado^
+54 ^Este objeto está TEMPORARIAMENTE DESATIVADO.^
+
+55 ^Este objeto PRECICA SER MELHORADO antes do uso. (Melhorias também aumentam o valor do objeto.)^
+
+56 ^Valor Atual: %s (Reembolso Total)^
+
+57 ^Produzido por: %s^

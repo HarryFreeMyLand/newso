@@ -1,0 +1,24 @@
+1  ^Feito^
+2  ^Cancelar^
+3  ^Fechar^
+4  ^Petição Tipo Assédio^
+5  ^Petição Tipo Preso^
+6  ^Petição Tipo Outro^
+7  ^Petição Descrição^
+8  ^Contato de Atendimento ao Cliente^
+9  ^Por favor, descreva o seu problema no espaço abaixo:^
+10 ^Tipo de problema:^
+11 ^Assédio^
+12 ^Preso^
+13 ^Outro^
+14 ^Notificação de Atendimento ao Cliente^    Disciplinary Action dialog Title - Used in SystemMessageRegulator.cpp	JPS 6/16/2002
+
+Below strings are for the Global Petitioning System. Added by adavies@ea.com 7/1/2002
+
+15 ^Petição Apresentada^  
+16 ^Envio de Petição Falhou^  
+17 ^Seu incidente foi registrado e vamos tomar as medidas adequadas. Por favor, note que qualquer Sim que você se queixar adicione ele em sua lista de ignorar. Obrigado.^
+18 ^Houve um problema registrando o incidente. Entre em contato com o suporte ao cliente EA. Por favor, note que qualquer Sim que você se queixar adicione ele em sua lista de ignorar. Obrigado.^
+
+19 ^Petição Resolvida^
+20 ^Sua petição foi resolvida em ^

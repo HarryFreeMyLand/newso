@@ -1,0 +1,389 @@
+// case kMSGID_ConfirmMoveOutAvatarRequest:
+   // in house or from person page kickout confirmation dialog seen by the kicker-outter (yes/no)
+
+   // N.B. The text for the in house kick out confirmation exists in the social2siminteractions.iff string table.
+
+   1 ^Expulsar Colega de Quarto^
+   2 ^Quer mesmo expulsar este Sim? Perder um Colega de Quarto tem algumas consequências...Todos os objetos dele serão desativados e removidos de sua propriedade.^
+
+// case kMSGID_ConfirmRoommateInviteRequest:
+   // in house invite confirmation dialog seen by the inviter (yes/no)
+
+   // N.B. The text for the in house invite confirmation exists in the social2siminteractions.iff string table.
+
+   3 ^^
+   4 ^^
+
+// case kMSGID_RoommateAddPersonPage:
+   // person page invite confirmation dialog seen by the inviter (yes/no)
+   5 ^Adicionar Colega de Quarto^
+   6 ^Deseja enviar um convite para este Sim se tornar seu Colega de Quarto?^
+
+// case kMSGID_ConfirmMoveOutAvatarRequest: 
+//    when kicker and kickee are the same avatar (YDA)
+   7 ^Sair Desta Propriedade^
+   8 ^Você quer mesmo sair daqui? Todos os seus pertences serão movidos para seu inventário.^
+   9 ^^
+
+// case kMSGID_AskInviteeToAcceptRMInvite:
+
+   // N.B. The text for the in house invite confirmation exists in the social2siminteractions.iff string table.
+
+   // popup dialog box title
+	10 ^Convite para ser Colega de Quarto^
+
+	// popup dialog box with yes/no button			
+	11 ^%s lhe convitou para ser seu Colega de Quarto! Se aceitar, você poderá entrar e sair do lote sempre que quiser, além de poder utilizar livremente o Modo Compra (para poder utilizar o Modo Construção, o proprietário deverá dar permissão para você através do Menu da Propriedade). Se algum dia você for expulso da propriedade, todos os seus pertences serão movidos para seu inventário. 
+Quer aceitar o convite?^
+	12 ^^	
+
+	// flash txt
+	13 ^^
+	14 ^^
+	15 ^^
+
+	// letter subject
+	16 ^<cst><cst_id>276</cst_id><string_id>1</string_id></cst>^
+
+	// letter txt
+	// You have been invited to become %s's roommate while you were offline!
+	// To learn more about what this invitation means, and to accept or reject 
+	// this offer, please click on the "Reply" button for details
+	17 ^<cst><cst_id>276</cst_id><string_id>2</string_id><string arg="1">%s</string></cst>^
+
+	// letter from
+	18 ^<cst><cst_id>276</cst_id><string_id>3</string_id></cst>^
+	19 ^^
+
+//case kMSGID_TellInviterInviteeRejectedRMInvite:
+	// popup dialog box title
+	20 ^Convite Rejeitado^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)		
+	21 ^%s recusou seu convite, e portanto, não irá se tornar seu Colega de Quarto.^
+	22 ^^	
+
+	// flash txt
+	23 ^Este Sim recusou seu convite, e portanto, não irá se tornar seu Colega de Quarto.^
+	24 ^^
+	25 ^^
+
+	// letter subject
+	// Roommate Invitation Rejected
+	26 ^<cst><cst_id>276</cst_id><string_id>4</string_id></cst>^   
+
+	// letter txt
+	// Este Sim recusou seu convite. Talvez outro amigo confiável esteja disponível.
+	27 ^<cst><cst_id>276</cst_id><string_id>5</string_id></cst>^   
+
+	// letter from
+	// Inviter
+	28 ^<cst><cst_id>276</cst_id><string_id>6</string_id></cst>^   
+	29 ^^
+
+
+// case kMSGID_TellInviteeSetAcceptRMFailed:
+	// popup dialog box title
+	30 ^Falha ao Convidar^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	31 ^Ocorreu um erro ao tentar tornar %s seu Colega de Quarto.^
+	32 ^^	
+
+	// flash txt
+	33 ^Ocorreu um erro ao tentar tornar este Sim seu Colega de Quarto.^
+	34 ^^
+	35 ^^
+
+	// letter subject
+	// Roommate Invitation Canceled
+	36 ^<cst><cst_id>276</cst_id><string_id>7</string_id></cst>^   
+
+	// letter txt
+	// There was an error when trying to make you this Sim's roommate. Roommate invitation was canceled.
+	37 ^<cst><cst_id>276</cst_id><string_id>8</string_id></cst>^
+
+	// letter from
+	// Inviter
+	38 ^<cst><cst_id>276</cst_id><string_id>9</string_id></cst>^
+	39 ^^
+
+
+// case kMSGID_TellInviterSetAcceptRMFailed:
+// case kMSGID_TellInviterSetAcceptRMFailed_NumRM:
+// case kMSGID_TellInviterSetAcceptRMFailed_NoOwnerLot:
+// case kMSGID_TellInviterSetPendingRMFailed:
+// case kMSGID_TellInviterSetPendingRMFailed_RMHistory:
+// case kMSGID_TellInviterSetPendingRMFailed_NumRM:
+// case kMSGID_TellInviterSetPendingRMFailed_AlreadyRM:
+// case kMSGID_TellInviterSetPendingRMFailed_NoOwnerLot:
+	// popup dialog box title
+	40 ^Falha ao Convidar^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	41 ^Ocorreu um erro ao tentar tornar %s seu Colega de Quarto.^
+	42 ^^	
+
+	// flash txt
+	43 ^Ocorreu um erro ao tentar tornar este Sim seu Colega de Quarto.^
+	44 ^^
+	45 ^^
+
+	// letter subject
+	// Roommate Invitation Canceled
+	46 ^<cst><cst_id>276</cst_id><string_id>10</string_id></cst>^
+
+	// letter txt
+	// There was an error when trying to make you this Sim's roommate. Roommate invitation was canceled.
+	47 ^<cst><cst_id>276</cst_id><string_id>11</string_id></cst>^
+
+	// letter from
+	// Invitee
+	48 ^<cst><cst_id>276</cst_id><string_id>12</string_id></cst>^
+	49 ^^
+
+
+// case kMSGID_TellInviteeSetAcceptRMSucceeded:
+	// popup dialog box title
+	50 ^Convite Aceito!^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	51 ^Agora você é um Colega de Quarto! Você pode entrar e sair do lote sempre que quiser, além de poder utilizar livremente o Modo Compra (para poder utilizar o Modo Construção, o proprietário deverá dar permissão para você através do Menu da Propriedade). Se algum dia você for expulso da propriedade, todos os seus pertences serão movidos para seu inventário.^
+	52 ^^	
+
+	// flash txt
+	53 ^Agora você é um Colega de Quarto! Há vários benefícios em ter Colegas de Quarto. Por exemplo, agora é mais barato atualizar o tamanho do seu terreno!^
+	54 ^^
+	55 ^^
+
+	// letter subject
+	// Roommate Invitation Complete
+	56 ^<cst><cst_id>276</cst_id><string_id>13</string_id></cst>^
+
+	// letter txt
+	// You are now this Sim's roommate! Many benefits come from having additional roommates. For example, it is now cheaper to upgrade your buildable space. Enjoy having a new roommate!
+	57 ^<cst><cst_id>276</cst_id><string_id>14</string_id></cst>^
+
+	// letter from
+	// Inviter
+	58 ^<cst><cst_id>276</cst_id><string_id>15</string_id></cst>^
+	59 ^^
+
+
+// case kMSGID_TellInviterSetAcceptRMSucceeded:
+	// popup dialog box title
+	60 ^Convite Aceito!^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	61 ^%s tornou-se seu Colega de Quarto! Há vários benefícios em ter Colegas de Quarto. Por exemplo, agora é mais barato atualizar o tamanho do seu terreno!^
+
+	62 ^^	
+
+	// flash txt
+	63 ^Este Sim agora é seu Colega de Quarto! Há vários benefícios em ter Colegas de Quarto. Por exemplo, agora é mais barato atualizar o tamanho do seu terreno!^
+	64 ^^
+	65 ^^
+
+	// letter subject
+	// Roommate Invitation Complete
+	66 ^<cst><cst_id>276</cst_id><string_id>16</string_id></cst>^
+
+	// letter txt
+	// This Sim is now your roommate! Many benefits come from having additional roommates. For example, it is now cheaper to upgrade your buildable space. Enjoy having a new roommate! And don't forget that the property owner has kick-out power and control over build privilege for each roommate.
+	67 ^<cst><cst_id>276</cst_id><string_id>17</string_id></cst>^
+
+	// letter from
+	// Invitee
+	68 ^<cst><cst_id>276</cst_id><string_id>18</string_id></cst>^
+	69 ^^
+
+
+// case kMSGID_TellOwnerKickoutRMSucceeded:
+	// popup dialog box title
+	70 ^Expulsão de Colega de Quarto^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	71 ^Colega de Quarto expulso com sucesso! Porém, há algumas consequências por ter feito isso...Todos os objetos dele serão desativados e removidos de sua propriedade.^
+	72 ^^	
+
+	// flash txt
+	73 ^Você expulsou este Sim com sucesso! Porém, há algumas consequências por terfeito isso...Todos os objetos dele serão desativados e removidos de sua propriedade.^
+	74 ^^
+	75 ^^
+
+	// letter subject
+	// Roommate Kick-out Complete
+	76 ^<cst><cst_id>276</cst_id><string_id>19</string_id></cst>^
+
+	// letter txt
+	// You have successfully kicked out this Sim. There are some game play consequences to kicking out a roommate. Their objects will be slated for deletion and removed from your lot. Perhaps another trustworthy friend can move in.
+	77 ^<cst><cst_id>276</cst_id><string_id>20</string_id></cst>^
+
+	// letter from
+	// Former Roommate
+	78 ^<cst><cst_id>276</cst_id><string_id>21</string_id></cst>^
+	79 ^^
+
+
+// case kMSGID_TellOwnerKickoutRMFailed:
+	// popup dialog box title
+	80 ^Expulsão do Colega de Quarto Cancelada^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	81 ^Ocorreu um erro ao tentar expulsar este Sim^
+	82 ^^	
+
+	// flash txt
+	83 ^Ocorreu um erro ao tentar expulsar este Sim.^
+	84 ^^
+	85 ^^
+
+	// letter subject
+	// Roommate Kickout Canceled
+	86 ^<cst><cst_id>276</cst_id><string_id>22</string_id></cst>^
+
+	// letter txt
+	// There was an error when trying to kick-out this Sim. Kick-out aborted.
+	87 ^<cst><cst_id>276</cst_id><string_id>23</string_id></cst>^
+
+
+	// letter from
+	// Roommate
+	88 ^<cst><cst_id>276</cst_id><string_id>24</string_id></cst>^
+	89 ^^
+
+
+// case kMSGID_TellRoommateTheyWereKickedout:
+	// popup dialog box title
+	90 ^Colega de Quarto Expulso!^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	91 ^Seu status de Colega de Quarto foi revogado! Você não é mais um Colega de Quarto (agora é um sem teto!) Todos os seus objetos que estavam no lote estão desativados e foram automaticamente movidos para o seu inventário. Se você estiver precisando ganhar dinheiro, pode vendê-los. Você pode escolher tornar-se Colega de Quarto em outro lote, ou comprar uma propriedade de sua preferência. No entanto, você ainda pode visitar outras propriedades na cidade sem ser um proprietário ou Colega de Quarto.^
+	92 ^^	
+
+	// flash txt
+	93 ^Seu status de Colega de Quarto foi revogado! Você não é mais um Colega de Quarto (agora é um sem teto!) Todos os seus objetos que estavam no lote estão desativados e foram automaticamente movidos para o seu inventário. Se você estiver precisando ganhar dinheiro, pode vendê-los. Você pode escolher tornar-se Colega de Quarto em outro lote, ou comprar uma propriedade de sua preferência. No entanto, você ainda pode visitar outras propriedades na cidade sem ser um proprietário ou Colega de Quarto.^
+	94 ^^
+	95 ^^
+
+	// letter subject
+	// Roommate Kickout Complete
+	96 ^<cst><cst_id>276</cst_id><string_id>25</string_id></cst>^
+
+	// letter txt
+	// Your roommate status has been revoked by the lot owner! You are no longer a roommate - you are now homeless. All of your objects that were in the lot have been automatically moved to your inventory. If you are in need of money, you can sell-off objects in your inventory. You can choose to become roommates on another lot, or start a property of your own. However, you can still visit other properties in the city without being an owner or roommate.
+	97 ^<cst><cst_id>276</cst_id><string_id>26</string_id></cst>^
+
+
+	// letter from
+	// Owner
+	98 ^<cst><cst_id>276</cst_id><string_id>27</string_id></cst>^
+	99 ^^
+
+
+// case kMSGID_TellRMThatRMMovedOut:
+	// popup dialog box title
+	100 ^Saída de um Colega de Quarto^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	101 ^%s saiu de sua propriedade e não é mais seu Colega de Quarto. Existem algumas consequências por isso...Os objetos dele serão excluídos e removidos do seu lote.^
+	102 ^^	
+
+	// flash txt
+	103 ^Este Sim saiu de sua propriedade e não é mais seu Colega de Quarto. Existem algumas consequências por isso...Os objetos dele serão excluídos e removidos do seu lote.^
+	104 ^^
+	105 ^^
+
+	// letter subject
+	// Roommate Moveout Complete
+	106 ^<cst><cst_id>276</cst_id><string_id>28</string_id></cst>^
+
+	// letter txt
+	// This Sim has moved out of your property and is no longer a roommate. There are some game play consequences when a roommate moves out. Their objects will be slated for deletion and removed from your lot. Perhaps another trustworthy friend can move in.
+	107 ^<cst><cst_id>276</cst_id><string_id>29</string_id></cst>^
+
+	// letter from
+	// Former Roommate
+	108 ^<cst><cst_id>276</cst_id><string_id>30</string_id></cst>^
+	109 ^^
+
+
+// case kMSGID_TellRMKickoutRM:
+	// popup dialog box title
+	110 ^Explusão do Colega de Quarto^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	111 ^%s foi expulso da propriedade e não é mais um Colega de Quarto. Existem algumas consequências quando um Colega de Quarto é Expulso...Os objetos dele serão excluídos e removidos do seu lote.^
+	112 ^^	
+
+	// flash txt
+	113 ^Este Sim foi expulso da propriedade pelo proprietário do lote e não é mais um Colega de Quarto...Existem algumas consequências quando um Colega de Quarto é Expulso...Os objetos dele serão excluídos e removidos do seu lote.^
+	114 ^^
+	115 ^^
+
+	// letter subject
+	// Roommate Kickout Complete
+	116 ^<cst><cst_id>276</cst_id><string_id>31</string_id></cst>^
+
+	// letter txt
+	// This Sim has been kicked out of your property by the lot ownerand is no longer a roommate. There are some game play consequences when a roommate is kicked out. Their objects will be slated for deletion and removed from your lot. Perhaps another trustworthy friend can move in.
+	117 ^<cst><cst_id>276</cst_id><string_id>32</string_id></cst>^
+
+	// letter from
+	// Former Roommate
+	118 ^<cst><cst_id>276</cst_id><string_id>33</string_id></cst>^
+	119 ^^
+
+
+// case kMSGID_TellRMNewRM:
+	// popup dialog box title
+	120 ^Convite para ser Colega de Quarto^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	121 ^%s agora é um Colega de Quarto em sua propriedade. Há vários benefícios em ter Colegas de Quarto. Por exemplo, agora é mais barato atualizar o tamanho do seu terreno!^
+	122 ^^	
+
+	// flash txt
+	123 ^Este Sim agora é um Colega de Quarto em sua propriedade. Há vários benefícios em ter Colegas de Quarto. Por exemplo, agora é mais barato atualizar o tamanho do seu terreno!^
+	124 ^^
+	125 ^^
+
+	// letter subject
+	// Roommate Invite Complete
+	126 ^<cst><cst_id>276</cst_id><string_id>34</string_id></cst>^
+
+	// letter txt
+	// This Sim has joined your property as a roommate. Many benefits come from having additional roommates. For example, it is now cheaper to upgrade your buildable space. Enjoy having a new roommate!
+	127 ^<cst><cst_id>276</cst_id><string_id>35</string_id></cst>^
+
+	// letter from
+	// New Roommate
+	128 ^<cst><cst_id>276</cst_id><string_id>36</string_id></cst>^
+	129 ^^
+// case kMSGID_TellRoommateMoveOutSucceeded:
+	// popup dialog box title
+	130 ^Saiu da Propriedade!^
+
+	// popup dialog box if avatar name is known (we're in a house with that avatar)			
+	131 ^Agora você não é mais um Colega de Quarto ou dono de uma propriedade. Todos os seus objetos que estavam no lote serão desativados e movidos para o seu inventário. Sinta-se livre para se tornar um Colega de Quarto de alguém ou comprar uma nova propriedade. Se precisar de dinheiro, visite qualquer propriedade na cidade e vá para o Modo Compra vender seus objetos que estão no inventário. Se você era o único proprietário do lote, será pago pelo terreno, embora possa haver um atraso nisso enquanto a MOMI cuida da documentação...^
+	132 ^^	
+
+	// flash txt
+	133 ^Agora você não é mais um Colega de Quarto ou dono de uma propriedade. Todos os seus objetos que estavam no lote serão desativados e movidos para o seu inventário. Sinta-se livre para se tornar um Colega de Quarto de alguém ou comprar uma nova propriedade. Se precisar de dinheiro, visite qualquer propriedade na cidade e vá para o Modo Compra vender seus objetos que estão no inventário. Se você era o único proprietário do lote, será pago pelo terreno, embora possa haver um atraso nisso enquanto a MOMI cuida da documentação...^
+	134 ^^
+	135 ^^
+
+	// letter subject
+	// Roommate Move-out Complete
+	136 ^<cst><cst_id>276</cst_id><string_id>37</string_id></cst>^
+
+	// letter txt
+	// You have successfully moved yourself out! You are no longer a roommate or a property owner. If you were the owner, and you had roommates, the longest-standing roommate is now the owner of the lot. All of your objects that were in the lot have been automatically moved to your inventory. Someone can now invite you to become a roommate, or you can purchase a property of your own. You can still visit other properties in the city without being an owner or roommate. If you need money, visit any property in the city and go to Buy mode to sell objects in your inventory.
+	137 ^<cst><cst_id>276</cst_id><string_id>38</string_id></cst>^
+
+
+	// letter from
+	// Self
+	138 ^<cst><cst_id>276</cst_id><string_id>39</string_id></cst>^
+	139 ^^
+

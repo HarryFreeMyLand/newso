@@ -1,0 +1,35 @@
+// OJGlobals
+// 309  Maxis Letter Subject Strings
+1 ^Falta Justificada?^
+2 ^Onde você estava?^
+3 ^Nossas sinceras condolências^
+4 ^Segurança Primeiro^
+5 ^Rever Perfomance de Trabalho^
+
+// 310  Maxis Letter Body Strings
+6 ^Percebemos que você saiu de seu trabalho durante uma rodada. Acreditamos que tenha ido para casa devido a uma doença, um ataque de pandas, ou por algum ocorrido inesperado.
+Você tem %s faltas justificadas neste mês.
+Você usa uma falta justificada quando você sair do trabalho antes da rodada acabar. Se você usar mais que %s, você terá dificuldade para ser promovido. Podendo até ser rebaixado. As faltas justificadas são repostas no primeiro dia de cada mês.
+LEMBRE-SE: Você pode sair do trabalho durante o intervalo, assim não havendo penalidades.^
+//$Local:1  $Local:2
+
+7 ^Fantasma do Grande César! Suas faltas saíram de controle. Você saiu o trabalho mais cedo %s vezes neste mês. Espero que você saiba que isso vai direto para sua carta de recomendações.
+Você não tem nenhuma falta justificada para usar este mês. Se você acha que não vai conseguir completar uma rodada, saia do lote durante o intervalo. Se você tiver muitas faltas, dificilmente será promovido. Você pode até ser rebaixado. As faltas justificadas são repostas no primeiro de cada mês.^
+// $Local:3 
+
+8 ^Lamentamos muito a perda súbita e inesperada de sua vida ou de membros em seu local de trabalho. Quando você estiver entre os vivos novamente, poderá continuar com seu emprego atual.
+Você foi expulso do local de trabalho porque você é um fantasma. Se visitar um(a) Shaman ou esperar algumas horas, você será revitalizado. Você pode aproveitar esta oportunidade para visitar outros lotes. No entanto, não poderá trabalhar enquanto estiver morto.^
+
+9 ^Você foi expulso do local de trabalho porque você estava dormindo em serviço! Você não pode trabalhar enquanto está dormindo. Recomendamos que para de dormir no trabalho!^
+
+
+10 ^Você foi expulso do local de trabalho porque você foi rebaixado. Suas habilidades, experiência e amizades já não são suficientes para este cargo.^
+
+11 ^Informações sobre seu novo trabalho^
+
+12 ^Você pode consultar estas informações a qualquer momento.
+Trabalho Atual:  %s %s
+Cargo: %s
+Horário: %s de %s para %s, o carro chega às %s
+Próxima Promoção: %s^
+

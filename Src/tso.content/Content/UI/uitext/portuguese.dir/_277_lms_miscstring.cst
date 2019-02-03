@@ -1,0 +1,16 @@
+// Language Markup Strings for Miscellaneous CST
+
+// _195_MessageStrings : 28, 29
+1 ^De: ^
+2 ^Assunto: ^
+
+// _239_AsyncSales : 10, 11, 12
+3 ^Esta mensagem foi enviada em nome de um cliente. Um objeto que você colocou à venda foi comprado. 
+O '%s' que originalmente custa %s foi vendido por %s para %s.^
+4 ^Transação Finalizada^
+5 ^Contabilidade^
+
+
+
+
+

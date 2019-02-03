@@ -1,0 +1,15 @@
+// Async Sale String
+1 ^Objeto à Venda^
+2 ^Você definiu o seu %s para venda.^
+3 ^Digite o seu preço de venda.^
+4 ^Aumentar preço de venda^
+5 ^Diminuir preço de venda^
+6 ^Preço de venda^
+7 ^Aceitar Alterações^
+8 ^Fechar a janela e cancelar as alterações^
+9 ^$^
+10 ^Esta Mensagem foi enviada por um cliente. Um objeto que estava à venda foi comprado. 
+O '%s' que originalmente custa %s está sendo vendido por %s para %s.^
+11 ^Transação de venda com sucesso^
+12 ^Lojas de Contabilidade^
+13 ^Desculpe, sua compra não pode ser concluída. Possivelmente o objeto não está mais disponível, ou o seu pedido atualmente está sob revisão pelo vendedor.^

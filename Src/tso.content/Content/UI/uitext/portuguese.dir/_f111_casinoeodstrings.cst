@@ -1,0 +1,35 @@
+﻿1 ^Roleta^
+2 ^Blackjack^
+3 ^mesa^
+4 ^%s faliu!^
+5 ^%s tem blackjack!^
+6 ^%s ficou em %d.^
+7 ^%s não tem blackjack.^
+8 ^Seguro^
+9 ^Segurado!^
+10 ^Erro^
+11 ^Deseja fazer um seguro?^
+12 ^O seguro custa metade do valor de sua aposta, que é $%d.^
+13 ^Se você comprar seguro e o crupiê tiver um blackjack, você receberá todo o valor da sua aposta de volta.^
+14 ^Você comprou um seguro de $%d.^
+15 ^Erro na aposta^
+16 ^Essa mensagem de erro nunca deve aparecer. Por favor, comunique o que você fez para obtê-la!^
+17 ^Não é a sua vez.^
+18 ^Você não pode dar um hit agora.^
+19 ^Você não pode dobrar sua aposta agora.^
+20 ^Você não pode fazer um split agora.^
+21 ^Sua aposta deve ser pelo menos $%d.^
+22 ^Sua aposta não pode ser maior que $%d.^
+23 ^Você não tem dinheiro suficiente para fazer essa aposta.^
+24 ^Você não tem dinheiro suficiente para dobrar sua aposta.^
+25 ^Você não tem dinheiro suficiente para fazer um split.^
+26 ^Você pode assistir esta rodada, mas só poderá jogar na próxima.^
+27 ^Você foi removido da mesa devido a inatividade.^
+28 ^A mesa teve que fechar porquê ela ficou sem dinheiro. Talvez você deva avisar o proprietário...^
+29 ^Tabela de pagamento "O X marca o lugar"^
+30 ^Tabela de pagamento "Bolada da Sorte LLC"^
+31 ^Não volte aqui até que você tenha mais Simoleons!^
+32 ^Você não pode colocar outra ficha nesse monte.^
+33 ^$%d fichas estariam acima da aposta máxima permitida.^
+34 ^Isso seria mais do que a aposta máxima permitida.^
+35 ^Ocorreu um erro desconhecido. Sua última aposta não foi aceita.^

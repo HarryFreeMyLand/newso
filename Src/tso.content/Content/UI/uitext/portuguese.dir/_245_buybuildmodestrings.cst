@@ -1,0 +1,9 @@
+// BuyBuild mode strings strings
+1 ^Você só pode possuir ^
+2 ^Objetos em sua propriedade. Você está a cinco objetos desse limite. Com o tempo, você poderá ter mais objetos.^
+3 ^Oops, você atingiu o limite de objetos. Melhor fazer uma limpeza...^
+4 ^Você atingiu o número máximo de objetos permitidos em sua propriedade. Limitar o número de objetos em uma propriedade permite-nos a manter a estabilidade do jogo. Se Deseja adicionar mais objetos no futuro, você precisará remover alguns dos objetos existentes em sua propriedade.^
+5 ^Categoria da Propriedade^
+6 ^A categoria atual da propriedade não permite interações com este objeto. Tem certeza que quer comprá-lo?^
+7 ^A categoria atual da propriedade não permite interações com este objeto. Deseja movê-lo do seu inventário?^
+

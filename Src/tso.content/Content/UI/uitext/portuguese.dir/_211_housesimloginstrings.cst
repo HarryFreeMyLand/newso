@@ -1,0 +1,64 @@
+1 ^Entrando na Propriedade...^
+2 ^Progresso Geral^
+3 ^Progresso Atual^
+4 ^Configurando Host...^
+5 ^A criação do Sim falhou^
+6 ^Talvez este nome já esteja em uso.^
+7 ^O lote está offline^
+8 ^Você não pode entrar nesta propriedade, pois nenhum dos proprietários estão nela no momento.^
+9 ^O Host saiu deste lote.^
+10 ^Impossível entrar na propriedade.^
+11 ^Falha ao visitar propriedade^
+12 ^Não foi possível abrir seu lote, pois a cidade está muito ocupada no momento. Por favor, tente novamente mais tarde.^
+13 ^Erro na visualização do Mapa^
+14 ^Você não pode vender esta propriedade enquanto tem Colegas de Quarto.^
+15 ^Transação bem sucedida!^
+16 ^Propriedade comprada com sucesso. Aproveite!^
+17 ^Falha ao comprar lote^
+18 ^Não foi possível comprar o lote. Possíveis causas: 1) O nome que você selecionou já esta em uso, 2) Alguém já comprou esta propriedade, ou  3) Seus fundos são insuficientes. Por favor, tente outro nome para propriedade e verifique se você tem fundos suficientes para concluir a transação.^
+19 ^Venda do Lote^
+20 ^Se você vender seu lote, ele será transferido para seu Colega de Quarto %s, e todas as suas posses antigas serão movidas para seu inventário. Deseja fazer isso?^
+21 ^Você ainda tem Colegas de Quarto, se vender seu lote, todas as suas posses antigas serão movidos para seu inventário e a propriedade será transferida para um de seus Colegas de Quarto. Deseja fazer isso?^
+22 ^Propriedade Localizada...^
+23 ^Verificando permissões...^
+24 ^Atento para entrar no lote...^
+25 ^Conectado. Solicitando dados da propriedade...^
+26 ^Recuperando Dados Da Propriedade...^
+27 ^Dados Recuperados. Entrando no Lote...^
+28 ^Falha ao entrar no lote, esta propriedade não está carregou pra você, tente novamente mais tarde^
+29 ^Falha ao entrar no lote, o sistema não permite que você alterne entre lotes tão rapidamente^
+30 ^Falha ao entrar no lote, algo está te impedindo de entrar neste lote^
+31 ^Falha ao entrar no lote - Esta propriedade está cheia atualmente.^
+32 ^Falha ao entrar no lote - Esta propriedade não foi encontrada. É provável que ela não esteja online.^
+33 ^Falha ao entrar no lote - Esta propriedade exige uma senha para entrar.^
+34 ^Falha ao entrar no lote - Você forneceu uma senha incorreta.^
+35 ^Falha ao entrar no lote - Saída não definida?^
+36 ^Falha ao entrar no lote - Nome do Lote Bloqueado^
+37 ^Falha ao entrar no lote - Dados do Lote Inválidos^
+38 ^Falha ao entrar no lote - Não é possível entrar na propriedade várias vezes.^
+39 ^Falha ao entrar no lote - Este lote é somente para familiares e amigos^
+40 ^Falha ao entrar no lote - Esta Propriedade já está on-line.^
+41 ^Esta propriedade está bloqueada. Por favor, tente novamente mais tarde.^
+42 ^Esta propriedade requer permissões especiais, as quais você não possui.^
+43 ^Falha desconhecida ao entrar no lote: %d^
+44 ^CreateRoomResponse != status_SUCCESS %s.^
+45 ^Impossivel Entrar no Lote^
+46 ^Não foi possível comprar este lote, pois outro jogador comprou antes você!^
+47 ^Alguns objetos estão faltando^
+48 ^Alguns objetos podem ter ido para o inventário de seus respectivos proprietários.^
+49 ^Um ou mais objetos podem ter sido perdidos. Desculpe!^
+50 ^Não foi possível mover o seu lote^
+51 ^Não foi possível mover a sua propriedade. O local selecionado já foi ocupado.^
+52 ^Não foi possível mover a sua propriedade. Parece que você não é mais o proprietário do lote que está tentando mover.^
+53 ^Não foi possível mover a sua propriedade. A propriedade está online, ela precisa estar offline para ser movida.^
+54 ^Não foi possível mover a sua propriedade. Parece que você já não possui uma propriedade.^
+55 ^Não foi possível mover a sua propriedade. Um erro desconhecido ocorreu. Por favor, tente novamente.^
+56 ^Movendo Propriedade...^
+57 ^Por favor aguarde enquanto a sua propriedade está sendo movida para a nova localização...^
+58 ^Propriedade Movida com Sucesso!^
+59 ^Sua propriedade foi transferida com sucesso para o novo local.^
+60 ^Falha ao Mover Propriedade^
+61 ^A tentativa de mover sua propriedade para o novo local falhou. Talvez o novo local já tenha sido ocupado, ou ocorreu um erro desconhecido. Por favor, tente novamente ou escolha um local diferente.^
+62 ^A tentativa de mover sua propriedade para o novo local falhou. Parece que você não tem fundos suficientes para fazer isso.^
+63 ^Alguns objetos em sua propriedade foram colocados por alguém que não é um Colega de Quarto. Eles foram removidos.^
+64 ^Não foi possível comprar o lote. Saia do atual e tente novamente.^

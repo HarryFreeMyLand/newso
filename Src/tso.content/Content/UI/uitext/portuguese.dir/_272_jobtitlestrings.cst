@@ -1,0 +1,70 @@
+// Job title strings. These are looked up programatically by generating 
+// the string ID from the work type and work grade.  Because this damn
+// mickey mouse file format just assigns string IDs sequentially the
+// formula for generating these is a total hack:
+// stringId = ((workType - 1) * 11) + workGrade + 1
+
+// robot factory worker
+1 ^Operário Aprendiz^
+2 ^Montador de Golens^
+3 ^Montador de Máquinas^
+4 ^Construtor de Plumbots^
+5 ^Construtor de Futurebots^
+6 ^Designer de Droids^
+7 ^Montador de Sondas^
+8 ^Engenheiro De Silício^
+9 ^Pesquisador De Dados^
+10 ^Criador de Androids^
+11 ^Gênio Supremo^
+
+// waiter
+12 ^Garçom Descuidado^
+13 ^Garçom Competente^
+14 ^Feitor de Jantares^
+15 ^Garçom Adequado^
+16 ^Garçom Astuto^
+17 ^Garçom Superior^
+18 ^Servente Cabeça^
+19 ^Servente Arrogante^
+20 ^Sommelier^
+21 ^Maitre^
+22 ^Mestre Maitre^
+
+// cook
+23 ^Cozinheiro Nível 0^
+24 ^Cozinheiro Nível 1^
+25 ^Cozinheiro Nível 2^
+26 ^Cozinheiro Nível 3^
+27 ^Cozinheiro Nível 4^
+28 ^Cozinheiro Nível 5^
+29 ^Cozinheiro Nível 6^
+30 ^Cozinheiro Nível 7^
+31 ^Cozinheiro Nível 8^
+32 ^Cozinheiro Nível 9^
+33 ^Cozinheiro Nível 10^
+
+// dj
+34 ^Lagarto de Salão^
+35 ^DJ^
+36 ^Talento Local^
+37 ^Club Kid^
+38 ^DJ Bem-Visto^
+39 ^Girador de Pratos^
+40 ^Herói do Guetto^
+41 ^VJ^
+42 ^DJ Prime^
+43 ^Mixmaster^
+44 ^Super Estrela^
+
+// dancer
+45 ^Hoofer^
+46 ^Pés Trapaçeiros^
+47 ^Talento Local^
+48 ^Dançarino^
+49 ^Corta Tapetes^
+50 ^Dançarino de Vídeos^
+51 ^Dançarino Nobre^
+52 ^Coreógrafo^
+53 ^Estrela de TV^
+54 ^Chefe Coreógrafo^
+55 ^Super Estrela^

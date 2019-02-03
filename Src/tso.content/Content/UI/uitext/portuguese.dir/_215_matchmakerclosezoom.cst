@@ -1,0 +1,69 @@
+1  ^Saindo da Propriedade^
+2  ^Você está prestes a sair do lote em que está. Deseja continuar?^
+3  ^Nome da Propriedade: %s^
+4  ^Sims na Propriedade: %d^
+5  ^Esta é a sua propriedade^
+6  ^Offline^
+7  ^Você não pode construir aqui.^
+8  ^Controle dos Pais estão bloqueando este texto.^
+9  ^Lote Vago: $%d^
+10 ^Mover Propriedade^
+11 ^Comprar Propriedade^
+
+// Leader with roommates move/buy lot dialog ***********************************
+
+12 ^Você deseja mover sua propriedade e seus Colegas de Quarto existentes para esta nova localização? 
+
+Custa %s e você possui %s em caixa. 
+
+Se você mover, pagará %s - o custo dessa propriedade, mais %s pela taxa de movimentação, mas será reembolsado em %s - o valor da sua antiga propriedade.
+
+Atenção: a propriedade tem que estar offline para ser movida.
+
+Se você deseja comprar esta propriedade e começar do zero, deverá sair da que está primeiro.^ 
+
+13 ^Começar do Zero^
+14 ^Mover^
+15 ^Cancelar^
+
+// Leader with no roommates move/buy lot dialog *********************************
+
+16 ^Você deseja mover sua propriedade existente para esta nova localização?
+
+Custa %s e você possui %s em caixa.
+
+Se você mover, pagará %s - o custo dessa propriedade, mais %s pela taxa de movimentação, mas será reembolsado em %s - o valor da sua antiga propriedade.
+
+Atenção: a propriedade tem que estar offline para ser movida.
+
+Se você deseja comprar esta propriedade e começar do zero, deverá sair da que está primeiro.^
+
+17 ^Mover^
+18 ^Demolir e Comprar^
+19 ^Cancelar^
+
+// Roommate buy lot dialog ******************************************************
+
+20 ^Você gostaria de deixar sua propriedade atual e comprar outra? (seus objetos serão mantidos)
+
+Custa %s e você possui %s em caixa.^
+
+21 ^Sim^
+22 ^Não^
+
+// Buy lot dialog ***************************************************************
+
+23 ^Antes de comprar sua própria propriedade, considere encontrar outras que estejam precisando de Colegas de Quarto. Ter Colegas de Quarto permite que você compre mais objetos, expanda o espaço do lote, e hospede mais visitantes (que lhe gera dinheiro). 
+
+Esta propriedade custa %s e você possui %s em caixa. Deseja comprar esta propriedade?^
+
+24 ^Sim^
+25 ^Não^
+
+26 ^Você não tem fundos suficientes para comprar esta propriedade.^
+27 ^Você não tem fundos suficientes para mover sua propriedade.^
+28 ^Sua propriedade tem que estar offline para ser movida.^
+29 ^Mover Propriedade^
+30 ^Tem certeza de que deseja mover sua propriedade para o novo local?^
+31 ^Se você gostaria de comprar esta propriedade, deverá sair da que está primeiro.^
+

@@ -1,0 +1,22 @@
+// kTSOAssetStringNeighborhoodDialog
+1 ^Vizinhança Afiliação^
+2 ^Vizinhanças permitem que propriedades se unam para uma maior presença nas visualizações no mapa . Digite o nome de uma nova vizinhança que você gostaria de começar , ou selecione outra vizinhança para participar. Esse nome será exibido localmente , desde que há pelo menos três membros com propriedades , incluindo o seu.^
+3 ^Ok^
+4 ^Cancelar^
+5 ^Sem Vizinhança^
+6 ^Vizinhança Erro^
+7 ^O nome de vizinhança que você digitou já está em uso. Tente um nome diferente.^
+8 ^Criar uma nova vizinhança^
+9 ^Entrar nesta vizinhança^
+10 ^Digite um nome aqui ou selecione um da lista abaixo.^
+11 ^Sem Afiliação de Vizinhança^
+12 ^Sem Alteração^
+13 ^O Nome digitado é invalido. O Problema seguinte foi encontrado:^
+14 ^- Nome muito curto. Necessario pelo menos três caracteres.^
+15 ^- Nome muito longo. Há um limite de 24 caracteres.^
+16 ^- Numericos (0-9) não são permítidos.^
+17 ^- Apenas um apostrofo (') permitido.^
+18 ^- Apenas um traço (-) permitido.^
+19 ^- Apenas dois espaços permitidos.^
+20 ^- Caracteres especiais não são permitidos.^
+21 ^- Um Nome reservado ou Impróprio foi detectado.^

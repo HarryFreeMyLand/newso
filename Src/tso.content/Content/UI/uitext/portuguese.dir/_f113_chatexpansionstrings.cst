@@ -1,0 +1,67 @@
+﻿//Chat Panel
+
+1 ^Texto Falado: ^
+2 ^Desativar^
+3 ^Permitir^
+4 ^Forçar^
+
+5 ^Tom da Fala:^
+6 ^Mudar...^
+7 ^Aleatório^
+
+8 ^Selecione uma cor para o texto do Chat:^
+
+//default channels
+9 ^Chat^
+10 ^Canal Padrão^
+11 ^Administrador^
+12 ^Somente Administradores^
+
+//channel management buttons (strings here should be VERY SHORT)
+13 ^Editar^
+14 ^+^
+15 ^Pronto^
+
+//tooltips
+16 ^Adicionar um novo canal.^
+17 ^Sair do modo de edição.^
+18 ^Não é possível modificar o canal padrão.^
+19 ^Clique para modificar este canal.^
+20 ^Adicionar ou modificar canais de chat.^
+
+//edit dialog
+21 ^Editando Canal ^
+22 ^Nome:^
+23 ^Descrição:^
+24 ^Opções:^
+
+25 ^Ativar Texto Falado^
+26 ^Exibir por padrão^
+//
+//
+//
+//
+//
+//
+
+33 ^Deletar^
+34 ^Definir Cor^
+
+35 ^Podem Ler:^
+36 ^Podem Enviar Mensagens:^
+
+37 ^Visitantes^
+38 ^Colegas de Quarto^
+39 ^Colegas de Construção^
+40 ^Somente Proprietário^
+
+41 ^Chat^
+42 ^Canal de Chat personalizado.^
+
+43 ^Fechar Chat. Para reabrir, pressione Ctrl-H^
+
+44 ^Exibir Hora no Chat:^
+45 ^Não^
+46 ^Sim^
+
+47 ^Transparência:^

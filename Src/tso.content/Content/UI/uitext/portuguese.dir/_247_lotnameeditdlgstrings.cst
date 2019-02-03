@@ -1,0 +1,18 @@
+1  ^Alterar nome da propriedade^
+2  ^Insita um novo nome à sua propriedade. Ele deve ser único, e poderá ser alterado posteriormente.^
+3  ^O nome digitado é inválido, pois ele é:^
+4  ^- Muito Curto. Mínimo: 3 caracteres.^
+5  ^- Muito Longo. Máximo: 24 caracteres.^
+6  ^- Numéricos (0-9) não são permitidos.^
+7  ^- Somente um apostrofo (') é permitido.^
+8  ^- Somente um traço (-) é permitido.^
+9  ^- Somente dois espaços são permitidos.^
+10 ^- Caracteres especiais não são permitidos.^
+11 ^- Um nome reservado ou improprio foi detectado.^
+12 ^Cancelar Alterações^
+13 ^Salvar Novo Nome^
+14 ^Falha ao Mudar Nome!^
+15 ^O Nome que você digitou não pôde ser definido, pois o mesmo já está em uso...^
+16 ^Digite a Senha do Controle de Pais para alterar o Nome da propriedade.^
+17 ^Senha Incorreta. Por favor, tente novamente.^
+18 ^Senha Incorreta.^

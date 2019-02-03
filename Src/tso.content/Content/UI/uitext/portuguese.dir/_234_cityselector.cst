@@ -1,0 +1,26 @@
+1 ^Em qual cidade você deseja viver?^
+2 ^Ok^
+3 ^Cancelar^
+4 ^Subir^
+5 ^Descer^
+6 ^Nome^
+7 ^Online^
+8 ^Sims Online^
+9 ^Status^
+10 ^Classificar por Nome da Cidade^
+11 ^Classificar por Status da Cidade^
+12 ^Classificar por Número de Sims Online^
+13 ^Classificar por Status da Cidade^
+14 ^Sim^
+15 ^Não^
+16 ^Manutenção^
+17 ^Cheia^
+18 ^Manutenção/Cheia^
+19 ^Ok^
+20 ^Cidade não disponível^
+21 ^Você já tem um Sim criado nesta cidade. Você está autorizado a ter apenas um Sim por cidade. Para criar outro Sim nesta cidade, você precisa deletar o Sim anterior...^
+22 ^Cidade Cheia^
+23 ^Esta Cidade está cheia, desculpe! Ninguém pode criar novos Sims nesta cidade...^
+24 ^Cidade em Manutenção^
+25 ^Esta cidade está temporariamente em manutenção e não pode aceitar novas conexões. Por favor, tente novamente em alguns minutos...^
+26 ^Fechado^

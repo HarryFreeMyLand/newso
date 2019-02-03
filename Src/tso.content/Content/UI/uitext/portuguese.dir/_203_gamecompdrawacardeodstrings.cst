@@ -1,0 +1,102 @@
+1  ^Editar cartas do baralho^
+2  ^Editar informações do jogo^
+3  ^StringViewGameInfo-unused^
+4  ^Nova carta^
+5  ^Editar carta anterior^
+6  ^Editar próxima carta^
+7  ^Diminuir repetição da carta^
+8  ^Aumentar repetição da carta^
+9  ^Excluir carta(s)^
+10 ^Salvar^
+11 ^Sair^
+12 ^Clique duas vezes em uma carta para editá-la:^
+13 ^StringDeckName-unused^
+14 ^StringDeckOriginalOwner-unused^
+15 ^StringDeckLastEdit^
+16 ^Cartas únicas:^
+17 ^Total de cópias:^
+18 ^Cópias da carta^
+19 ^Carta padrão do baralho^
+20 ^Este baralho de cartas é completamente personalizável. Você pode editar este texto para criar suas próprias regras de jogo.^
+21 ^O amor está no ar...
+Faça alguém dizer "amor". (2 pontos por cada).
+Se alguém disser "ódio", você não ganhará nenhum ponto.
+Se disserem "quero casar!", ganhará 10 pontos (por cada).
+Se for rejeitado ou propor esta carta à outro Sim, não ganhará nenhum ponto.^
+22 ^Troca!
+Se você estiver jogando em equipes, troque de lugar com alguém da outra equipe.
+Depois, faça uma pergunta para todos os jogadores. Você ganhará 1 ponto para cada resposta "sim", -1 para cada "não" e 0 pontos se responderem outra coisa.^
+23 ^Looney Tunes
+Sem conversar ou enviar mensagens de texto, peça para alguém escolher um personagem de desenho animado e dar dicas sobre ele (4 pontos).
+Quem adivinhar, ganhará 2 pontos.^
+24 ^Marcha ré!
+Hora de virar este jogo de cabeça para baixo! Pegue outra carta, e faça o contrário do que lhe foi proposto!^
+25 ^Gooool!
+Coloque uma bola no gol. Você não pode carregá-la.
+Cada um tem 5 pontos, e perderá 1 à cada chute. Quem ficar sem pontos será desclassificado, o ganhador será quem conseguir fazer um gol antes de ficar sem pontos.^
+26 ^Duelo!
+Escolha um adversário e um tema: Filmes, Jogos, Sobremesas...
+Veja quem consegue citar mais nomes relacionados ao tema, cada nome deve ser maior que o anterior. 
+O jogo acaba se não conseguir citar nenhum nome em 3 minutos. Ganha 3 pontos.^
+27 ^Celebridades...
+Você tem cinco minutos (horário do jogo) para citar o nome de quatro celebridades com mesma letra inicial de seu nome. Se conseguir, ganhará 2 pontos.^
+28 ^Dan dan dan dan dançando!
+Faça uma dança maluca. (1 ponto)
+Ou...Dance em dupla com alguém (se o Sim aceitar, você e seu parceiro ganharão 2 pontos, caso contrário, não ganharão nada).^
+29 ^Alguém está com fome?
+Todos os jogadores devem inventar um nome para um lanche.
+Depois, todos deverão votar no seu favorito (mas você não pode votar no seu próprio lanche).
+O dono do lanche mais votado ganhará 2 pontos.^
+30 ^Diga a verdade!
+Você já...
+Gritou com algum objeto? Por quê? (1 ponto)
+Mentiu para alguém de sua família? Qual era a mentira? (2 pontos)
+Beijou alguém que não gostava? Quem? (3 pontos)
+Você só ganhará pontos se a maioria dos jogadores acreditar em você.^
+31 ^Amigo ou inimigo?
+Pegue outra carta e escolha um jogador para lê-la e lhe ajudar.
+Os pontos ganhos deverão ser dividos entre vocês dois.^
+32 ^Hora do Show!
+Escolha alguém ou alguma coisa para imitar, os outros jogadores deverão adivinhar o que é.
+Idéias: monstro, celebridade, jogador, animal...
+Se alguém acertar o palpite, você ganhará 2 pontos. Se errarem 5 vezes, você não receberá nada.^
+33 ^Passando a bola!
+Escolha um jogador. Ele deverá escolher outra carta.
+Se ele vencer o jogo proposto na carta, ganhará 3 pontos.
+Se ele perder o jogo proposto na carta, não ganhará nenhum ponto.^
+34 ^Definições patetas!
+Pense em uma palavra, ou escolha uma abaixo:
+Catástrofe
+Lembrança
+Megabyte
+Oxímoro
+Compreenção
+Asteróide
+Todo mundo deverá dar uma definição criativa. Vote na melhor!
+O vencedor ganha 3 pontos.^
+35 ^Problemas em dobro!
+Escolha outra carta. Todos os pontos ganhos no jogo proposto serão dobrados! Mas cuidado, se você não ganhar nenhum ponto, perderá 5 dos que já tem!^
+36 ^O que eu sou?
+Um dos jogadores deverá escolher um animal, dizer onde ele mora, o que come e com que letra começa.
+Cada um pode dar 3 palpites. O primeiro que acertar ganhará 2 pontos.
+Se ninguém acertar, você ganhará 2 pontos.^
+37 ^Era uma vez...
+Conte o começo de uma história. Em ordem, outro jogador deverá continuá-la. Quando for sua vez de novo, termine ou continue a história.
+Você ganhará 2 pontos por começar e/ou terminar a história. Todo mundo receberá 1 ponto por cada ajuda.^
+38 ^Siga o Mestre!
+Você é o mestre. Todos devem te imitar!
+Se alguém errar, sua rodada acaba e você ganha 3 pontos.
+Se ninguém errar em 5 minutos, você ganha 1 ponto.^
+39 ^Pense rápido!
+Peça para um oponente escolher uma cor, uma letra e um lugar.
+Depois, cite até 3 coisas que começam com essa letra, podem ser encontradas naquele lugar e são daquela cor. Você ganhará 1 ponto por cada coisa.^
+
+40 ^Nome do jogo: ^
+41 ^Proprietário: ^
+42 ^Modificado por último por: ^
+43 ^Descrição do jogo: ^
+44 ^Deseja salvar suas alterações antes de continuar?^
+45 ^Não há cartas neste baralho.^
+46 ^Você quer mesmo excluir todas as cartas deste baralho?^
+47 ^Sua nova carta foi salva. Agora você atingiu o número máximo de cartas (individuais) permitidas neste baralho.^
+48 ^Não há cartas para escolher neste baralho.^

@@ -1,0 +1,154 @@
+kPErrLocationOutOfBounds
+^Local fora dos limites!^
+
+kPErrLevelOutOfBounds
+^Nível fora dos limites^
+
+kPErrMustBeAtTileCenter
+^Deve estar no centro do ladrilho^
+
+kPErrMustBeInCorner
+^Deve estar no canto^
+
+kPErrCantBeInCorner
+^Não pode ser no canto^
+
+kPErrMustBeAgainstWall
+^Deve ser colocado em uma parede!^
+
+kPErrCantBeThroughWall
+^Não pode ser colocado através de paredes!^
+
+kPErrMustBeOnUpstairsFloorHole
+^Deve ser mais adepto ao chão^
+
+kPErrMustBeOutside
+^Deve estar fora^
+
+kPErrMustBeInside
+^Deve estar dentro^
+
+kPErrCantIntersectOtherObjects
+^Não pode ser colocado no mesmo local que outros objetos!^
+
+kPErrMustBeOnGround
+^Deve estar no seu próprio ladrilho^
+
+kPErrCantFindSlot
+^Não consigo encontrar um lugar para colocá-lo^
+
+kPErrCantSupportWeight
+^Não pode suportar o peso^
+
+kPErrCantSupportSize
+^Não pode suportar o tamanho^
+
+kPErrCantPlaceOnTop
+^Não pode colocar no topo^
+
+kPErrCantPlaceOnSlope
+^Não pode ser colocado sobre um declive!^
+
+kPErrCantPlaceInAir
+^Você precisa colocar isso em um piso^
+
+kPErrNotAllowedOnFloor
+^Deve ser colocado no terreno!^
+
+kPErrNotAllowedOnTerrain
+^Deve ser colocado sobre o piso do segundo andar!^
+
+kPErrCantAfford
+^Fundos insuficientes^
+
+kPErrMustBeAgainstUnusedWall
+^Deve ser colocado em uma parede ainda não usada!^
+
+kPErrMustBeOnDiagonal
+^Deve estar na diagonal^
+
+kPErrHeightNotAllowed
+^Deve ser colocado em uma altura diferente!^
+
+kPErrInsufficientFunds
+^Fundos insuficientes^
+
+kPErrSpecialShowMoneyError
+^O usuário nunca deve ver esta mensagem^
+
+kPErrHasWater
+^Não é possível adicionar mais água^
+
+kPErrNoWater
+^Não há água para ser removida^
+
+kPErrCantPlaceOnWater
+^Não pode ser colocado sobre a água!^
+
+kPErrMustPlaceOnWater
+^Deve ser colocado na água^
+
+kPErrMustPlaceOnPool
+^Deve ser colocado dentro ou próximo à piscina!^
+
+kPErrMustBeOnFirstLevel
+^Deve estar no primeiro andar^
+
+// wall-specific
+kPErr2ndFloorNeedsSupport,
+^Paredes no segundo andar precisam de suporte^
+
+kPErrMustRemoveObjectsOnWall,
+^Precisa remover os objetos na parede primeiro^
+
+// wallpaper-specific
+kMustBeAgainst2ndFloorWall
+^Deve ser colocado sobre o piso do segundo andar^
+
+kPErrCannotDeleteObject
+^Não é possível deletar um objeto em uso!^
+
+kPErrObjectNotOwnedByYou
+^Você não é dono disso!^
+
+kPErrCounterHeight
+^Deve ser colocado no balcão^
+
+kPErrCantBePickedup
+^Não é possivel pegar o objeto^
+
+kPErrInUse
+^Não é possível selecionar um objeto em uso!^
+
+kPErrCantBePickedupOutOfBounds
+^Não é possível pegar este objeto. --Área fora de alcance^
+
+kPErrCantEffectFirstLevelFromSecondLevel
+^Não é possível efetuar o primeiro nível do segundo nível^
+
+kPErrCantPlaceInAirOtherLevel
+^Deve se conectar ao segundo andar^
+
+kPErrNotAllowedOnFloorOtherLevel
+^Não é possível cruzar o objeto do segundo andar^
+
+kPErrCannotPlaceComputerOnEndTable,
+^Não pode colocar na mesa final^
+
+kPErrCannotDeletePoolWhilePeopleAreInIt
+^Não é possível excluir a piscina enquanto há gente nadando nela^
+
+kPErrMustRemoveLadderOrDivingBoardBeforeDeletingPool
+^Deve primeiro excluir escada ou prancha de mergulho^
+
+kPErrCannotWallpaperFence
+^Não é possível colocar papel de parede em cercas^
+
+kPErrMustHaveMoreSpaceFromCeiling
+^Deve ter mais espaço do teto^
+
+kPErrTooManyObjectsOnTheLot
+^Limite de Objetos Excedidos^
+
+kpErrCantPlaceOnForSaleObject
+^Não é possível colocar no objeto para venda^

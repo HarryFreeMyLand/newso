@@ -1,0 +1,31 @@
+﻿1 ^Lotes ao Redor^
+2 ^Sombras na Cidade^
+3 ^Iluminação Avançada^
+4 ^Qualidade da Sombra^
+5 ^Forçar Z-Order^
+6 ^Zoom Suave^	
+7 ^Sombra de Objetos^
+
+8 ^Sem lotes ao redor. Haverá apenas uma área cinza em torno do lote.^
+9 ^Somente Paisagem^
+10 ^Lotes e Paisagem^
+
+11 ^Sombras 3D^
+12 ^Céu Detalhado^
+
+13 ^Ajustar DPI^
+14 ^Alternar para o Modo 3D^
+15 ^Alternar para o Modo 2D^
+
+16 ^Iluminação Avançada:^
+17 ^Desligada/FSO/+Paredes/+Objetos^
+18 ^Iluminação Direcional (Somente no Modo 3D)^
+
+19 ^Configurações:^
+20 ^Clima^
+21 ^Opções Gráficas^
+22 ^Detalhes:^
+
+23 ^Compressão de Texturas^
+24 ^Permite a compactação de texturas DXT5 em paredes, pisos e objetos. Sprites ocupam 1/4 da VRAM (memória de vídeo), em detrimento a qualidade visual. Pode ser útil para evitar falhas em GPUs da Intel ou antigas.^
+25 ^Você precisa reiniciar o jogo para que esta opção tenha efeito!^

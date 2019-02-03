@@ -1,0 +1,46 @@
+1 ^The Sims Online Login^
+2 ^Progresso Geral^
+3 ^Progresso Atual^
+4 ^Autorização. Solicitando usuário e senha...^
+5 ^Tentativa de autorização com EA.COM...^
+6 ^Autorização em EA.COM com sucesso.^
+7 ^Conexão Iniciada. Autorizando usuário...^
+8 ^Conectado ao servidor. Usuário autorizado.^
+9 ^Atualização necessária. Por favor, pressione OK para atualizar o jogo...^
+10 ^Atualização de Jogo Disponível^
+11 ^Certifique-se de que o seguinte arquivo existe e pode ser aberto: %s\%s^
+12 ^Erro ao abrir o Patcher^
+13 ^Erro na instalação do Patcher. Certifique-se de que você tem bastante espaço livre em seu HD.^
+14 ^Erro na instalação do Patcher^
+15 ^A cidade deste Sim está indisponível no momento.^
+16 ^Cidade Indisponível^
+17 ^Um Erro interno ocorreu. Entre em contato com o suporte técnico.^
+18 ^Erro Interno^
+19 ^Sua sessão expirou. Por favor faça login novamente.^
+20 ^Sessão Expirou^
+21 ^Erro no Login^
+22 ^Carregando Dados do Sim e Cidade...^
+23 ^Dados Carregados.^
+24 012 ^EA.com está atualmente passando por dificuldades técnicas e este jogo está temporariamente indisponível. Por favor, tente novamente mais tarde.^ 
+25 020 ^Digite seu nome de membro EA e senha. Se você esqueceu sua senha, poderá recuperá-la em www.EA.com.^
+26 110 ^O usuário ou a senha que você digitou estão incorretos. Por favor, tente novamente.^ 
+27 120 ^Lamentamos, mas você ainda não se registrou ou se inscreveu para jogar este jogo. Por favor,se registre em www.EA.com e tente novamente.^
+28 121 ^Lamentamos, mas a sua assinatura foi suspensa ou cancelada. Se você precisar de ajuda, vá para http://accountadmin.custhelp.com^
+29 122 ^Lamentamos, mas  você ainda não está registrado para jogar este jogo. Por favor, visite http://eamembers.custhelp.com para mais informações.^
+30 123 ^Lamentamos, mas este registro ou código de produto não é mais válido.^
+31 150 ^Lamentamos, mas a sua conta foi suspensa ou cancelada. Se você precisar de ajuda, va para http://accountadmin.custhelp.com .^
+32 160 ^EA.com está atualmente passando por dificuldades técnicas e este jogo está temporariamente indisponível. Por favor, tente novamente mais tarde^
+33 170 ^EA.com está atualmente passando por dificuldades técnicas e este jogo está temporariamente indisponível. Por favor, tente novamente mais tarde^
+34 180 ^EA.com está atualmente passando por dificuldades técnicas e este jogo está temporariamente indisponível. Por favor, tente novamente mais tarde^
+35 300 ^Não foi possível verificar a conexão com EA.com. Por favor, verifique sua conexão de Internet e certifique-se de que seu navegador está configurado para aceitar cookies .Se isso não resolver o problema, por favor, tente novamente mais tarde.^
+36 301 ^EA.com está temporariamente indisponível. Isto pode ser devido a uma manutenção de rotina do servidor, ou a outros problemas de rede. Por favor, tente novamente mais tarde.^
+37 302 ^O jogo apresentou um erro interno. Por favor, tente novamente.^
+38 Unk ^ Um Erro de Login desconhecido ocorreu. O seguinte problema foi encontrado: %s^
+39 ^A autorização com EA.COM falhou.^
+40 ^Erro de Rede^
+41 ^Falha na Conexão.^
+42 ^Autorização Falhou. Isto pode significar que você tem cookies desativados em suas configurações de internet . Certifique-se de que os cookies estão habilitados para tso.ea.com .^
+43 ^Erro Encontrado^
+44 ^Erro: %d Mensagem do Erro: %s^
+45 ^Erro ao selecionar cidade. Por favor, clique em "OK" para fazer login novamente.^
+46 ^O jogo apresentou um erro interno.^

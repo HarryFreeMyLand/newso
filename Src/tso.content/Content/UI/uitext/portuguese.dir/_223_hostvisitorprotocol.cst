@@ -1,0 +1,26 @@
+1 ^Enviando AvatarID para hospedeiro...^
+2 ^Mensagem Genérica^
+3 ^Visita Recusada. %s^
+4 ^Visita Recusada. Propriedade Trancada...^
+5 ^Visita Aceita. Solicitando dados...^
+6 ^Falha ao visitar propriedade^
+7 ^O Proprietário está fazendo algumas alterações. Volte mais tarde.^
+8 ^Você foi expulso da propriedade. Clique em OK para retornar ao mapa.^
+9 ^Desconectado da Propriedade^
+10 ^Você não é mais um Colega de Quarto, você está agora sem casa. Você pode tornar-se um Colega de Quarto em outra propriedade, ou pode comprar a sua. Mas você ainda pode visitar outras propriedades no mapa sem possuir a sua própria. Voltando ao mapa...^
+11 ^Volte a tentar em breve.^
+12 ^O propertySim acredita que seu Sim ainda está presente nesta propriedade. Clique em OK para retornar ao mapa.^
+13 ^Você foi desconectado da propriedade. Clique em OK para retornar ao mapa.^
+14 ^Não é possível resincronizar enquanto outros têm diálogos persistentes.^
+15 ^Propriedade Cheia.^
+16 ^O lote contém o número máximo de Sims. Clique em OK para retornar ao mapa.^
+17 ^Você foi desconectado da propriedade por um sysop. Clique em OK para retornar ao mapa.^
+18 ^Você foi expulso da propriedade por um sysop. Clique em OK para retornar ao mapa.^
+19 ^Você foi desconectado da propriedade por um motivo desconhecido. Clique em OK para retornar ao mapa.^
+20 ^Nenhum dos companheiros está disponível para hospedar esta propriedade. Por favor, tente novamente mais tarde. Obrigado!^
+21 ^Sem Colegas de Quarto.^
+22 ^Ops! Todos os Colegas de Quarto deixaram a propriedade. Por favor, tente novamente mais tarde. Obrigado!^
+23 ^Fechando Propriedade^
+24 ^A propriedade está sendo fechada. Por favor, dê-nos um segundo, OK? Talvez possamos encontrar algum lugar atrás da cozinha...^
+25 ^Propriedade Fechada^
+26 ^Você tentou entrar no lote enquanto estava no meio de uma ação. Aguarde um momento antes de tentar novamente adentrar ao lote. (Avatar Leasing Error)^

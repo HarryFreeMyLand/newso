@@ -1,0 +1,16 @@
+1  ^Comprar Propriedade^
+2  ^Digite um nome para sua nova propriedade. Ele deve ser único, e poderá ser alterado posteriormente.^
+3  ^O nome digitado é inválido, pois ele é:^
+4  ^- Muito Curto. Mínimo: 3 caracteres.^
+5  ^- Muito Longo. Máximo: 24 caracteres.^
+6  ^- Numéricos (0-9) não são permitidos.^
+7  ^- Somente um apostrofo (') é permitido.^
+8  ^- Somente um traço (-) é permitido.^
+9  ^- Somente dois espaços são permitidos.^
+10 ^- Caracteres especiais não são permitidos.^
+11 ^- Um nome reservado ou improprio foi detectado.^
+12 ^Cancelar a Compra^
+13 ^Comprar Propriedade^
+14 ^Entre com a senha de Controle de Pais para inserir o nome da Propriedade.^
+15 ^Senha Incorreta.  Tente Novamente.^
+16 ^Senha Incorreta.^

@@ -1,0 +1,35 @@
+1  ^Items que você está trocando^
+2  ^Items para serem recebidos^
+3  ^Cancelar negociação segura^
+4  ^Dinheiro que você vai dar^
+5  ^Valor que você irá receber^
+6  ^Aceitar acordo^
+7  ^Diminuir Valor^
+8  ^Aumentar Valor^
+9  ^Se o outro Sim aceitou o acordo^
+10 ^0^
+11 ^$^
+12 ^Remover da Negociação^
+13 ^Adicionar a Negociação^
+14 ^Negociação Realizada!^
+15 ^Negociação cancelada pelo usuário!^
+16 ^Erro! Transação cancelada pelo servidor!^
+17 ^Tempo Excedido!^
+18 ^Negociação Segura:^
+19 ^O outro sim não pode receber os objetos!^
+20 ^Este objeto não pode ser trocado!^
+21 ^Página Anterior^
+22 ^Próxima Página^
+23 ^Desculpe, trocas foram temporariamente desativadas^
+24 ^Lamentamos, você não pode vender o seu lote enquanto o seu inventário está totalmente cheio^
+25 ^Lamentamos, mas o vendedor não pode vender seu lote enquanto está com o inventário totalmente cheio^
+26 ^Tem certeza? Você perderá seus %d mais baratos objetos se você vender o seu lote, pois você não tem espaço suficiente em seu inventário para armazenar todos eles^
+27 ^Tem certeza? Você vai perder alguns dos seus objetos mais baratos se você vender o seu lote, pois você não tem espaço suficiente em seu inventário para armazenar todos eles^
+28 ^Desculpe, o comprador alcançou seu limite de objetos. Você pode querer vender apenas a escritura^
+29 ^Desculpe, você não pode comprar o lote e seus objetos, pois você ficara com %d objetos acima do limite.^
+30 ^Desculpe, você não pode comprar o lote e seus objetos, pois você estaria acima de seus limites.^
+31 ^Desculpe, você não pode vender a escritura do lote e a escritura dos objetos.^
+32 ^Desculpe, Esta negociação não pode acontecer porque o limite do inventário seria excedido.^
+33 ^Opps! Esta negociação não pode ocorrer porque o limite do inventário foi excedido.^
+34 ^Opps! Esta negociação não pode acontecer porque o limite do inventário dos Sims foram excedidos.^
+

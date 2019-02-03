@@ -1,0 +1,40 @@
+1  ^Fechar^
+2  ^Entrar na Propriedade^
+3  ^Esquerda^
+4  ^Direita^
+5  ^Nome da Propriedade^
+6  ^Descrição da Propriedade^
+7  ^Fechar^
+8  ^Expandir^
+9  ^Subir^
+10 ^Descer^
+11 ^A propriedade está Offline^
+12 ^Digite a senha para alterar a descrição da propriedade.^
+13 ^A senha está incorreta.^
+14 ^Senha Incorreta^
+15 ^O Nome digitado é inválido. O seguinte problema foi encontrado:^
+16 ^- Nome muito curto. É necessário pelo menos 3 caracteres.^
+17 ^- Nome muito longo. Há um limite de 24 caracteres.^
+18 ^- Numéricos (0-9) não são permítidos.^
+19 ^- Apenas um apostrofo (') é permitido.^
+20 ^- Apenas um traço (-) é permitido.^
+21 ^- Apenas dois espaços são permitidos.^
+22 ^- Caracteres especiais não são permitidos.^
+23 ^- Um nome já utilizado ou impróprio foi detectado.^
+24 ^Clique para editar o nome da propriedade^
+25 ^Numero de Sims na propriedade^
+26 ^Categoria: %s^
+27 ^ - Clique Para Mudar^
+28 ^Valor da Propriedade^
+29 ^A categoria da propriedade só pode ser alterada pelo dono.^
+30 ^A sua propriedade deve estar offline para que você possa alterar a categoria.^
+31 ^A categoria desta propriedade não pode ser alterada novamente por %d dia(s).^
+32 ^Verificando se sua propriedade está desocupada e fechada...Por favor tente novamente em %d segundos.^
+33 ^Afiliação à Vizinhança ^
+34 ^Clique para editar sua afiliação na vizinhança^
+35 ^Vizinhança^
+36 ^Você criou uma vizinhança pendente. Seus vizinhos verão esta vizinhança como uma opção em suas páginas de propriedade. O nome da vizinhança aparecerá na tela quando houver pelo menos três propriedades nela. Para aparecer na visão da cidade, seu bairro precisa ser um dos maiores da cidade.^
+37 ^Vizinhança Criada!^
+38 ^Você se juntou com sucesso a uma vizinhança. Certifique-se de conversar com o líder do bairro para entender quais são seus objetivos para ajudar a vizinhança. Se um bairro tem pelo menos três propriedades de membros, seu nome aparece no zoom de mapa fechado. Para aparecer na visão da cidade, seu bairro precisa ser um dos maiores da cidade.^
+39 ^Entrou na Vizinhança^
+

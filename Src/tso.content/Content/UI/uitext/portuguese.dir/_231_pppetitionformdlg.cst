@@ -1,0 +1,47 @@
+1  ^Reclamação^
+2  ^Denúncia de Assédio^
+3  ^Engano/Queixa de Exploração^
+4  ^Atividade Ilegal Reclamação^
+5  ^Linguagem de Odio Comportamental^
+6  ^Propriedade/Sim/Entrada Nomes Impróprios^
+7  ^Para enviar uma petição, preencha todas as informações solicitadas. Utilize esta ferramenta apenas para reclamações legítimas. O uso indevido pode resultar em ações contra sua conta.^
+8  ^Qual é a sua queixa?^
+9  ^Por favor Note: Nós não aceitamos petições sobre Obscenidade, Palavores no Chat, Chamadas ou Correio. Use o recurso "Ignorar" para evitar ser incomodado.^
+10 ^Breve descrição do problema.^
+11 ^Descrição Detalhada do Problema. Certifique-se de descrever exatamente como tudo aconteceu.^
+12 ^Selecione os %d Sims ou as %d Propriedade da lista abaixo (use Ctrl-clique para seleçoes múltiplas). Se o Sim ofensor não estiver na lista, você pode adicioná-los usando a caixa de edição abaixo.^
+13 ^Objetos no jogo (algo escrito ou criado usando objetos)^
+14 ^Alertas de texto (descrições, nomes, sinais ou notas)^
+15 ^Sim (Chat, Mensagens , Descrição Do Sim ou Nome)^
+16 ^Cancelar^
+17 ^Sair de Volta para o Jogo^
+18 ^Cannot find Sim^
+19 ^O Sim que você tentou adicionar não foi encontrado.^
+20 ^Add^
+21 ^Adicionar propriedade ou Sim à lista acima^
+22 ^Voltar^
+23 ^Voltar para o dialogo anterior^
+24 ^Enviar^
+25 ^Enviar a petição^
+26 ^Subir^
+27 ^Descer^
+28 ^Reclamar em relação aos objetos^
+29 ^Reclamar em relação aos textos^
+30 ^Reclamar em relação aos sims^
+31 ^^
+32 ^^
+33 ^^
+34 ^^
+
+These strings have constants in the code.  If their ID changes then the code needs to be updated and compiled.
+35 ^Formulario de Petição^
+36 ^Digite o nome do Sim que você gostaria de adicionar à caixa de edição ao lado do botão Adicionar.^
+37 ^Essa entrada já existe. Somente adicione nomes de Sim único.^
+38 ^^
+39 ^^
+
+These are tooltips for the submit button
+40 ^Necessita de um tipo de complemento^
+41 ^Necessita de um sim ou propriedade^
+42 ^Necessita de uma breve descrição^
+43 ^Necessita de uma descrição detalhadada^

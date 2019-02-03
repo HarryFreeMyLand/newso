@@ -1,0 +1,22 @@
+﻿1 ^Atualizando FreeSO^
+2 ^Baixando %s, (%s/%s, %s/%s arquivo(s)) ^
+
+3 ^Atualização Necessária^
+4 ^O servidor em que você está se conectando requer a versão %s do ramo %s (você possui atualmente a versão %s do ramo %s). O servidor forneceu um local do qual você pode fazer o download desta versão. Gostaria de baixar e aplicar essa atualização agora?
+
+Lembre-se de que você só deve instalar atualizações e pacotes de conteúdo de servidores confiáveis! Se você não quiser instalar esta atualização, você voltará à tela de login.^
+
+5 ^Pacotes de Conteúdo Necessários^
+6 ^O servidor em que você está se conectando requer esses pacotes de conteúdo: %s
+
+Eles podem ser baixados do servidor. Deseja continuar?
+Lembre-se de que você só deve instalar atualizações e pacotes de conteúdo de servidores confiáveis! Se você não quiser instalar esta atualização, você voltará à tela de login.^
+
+7 ^Reinicialização Necessária^
+8 ^Você está entrando em um servidor com um conjunto diferente de pacotes de conteúdo (você está com os do último servidor em que se conectou). O jogo precisa ser reiniciado para limpar os dados do último servidor.^
+
+9 ^Baixando Arquivos...^
+10 ^Atualização^
+11 ^Alerta Sobre a Versão^
+12 ^Você optou por ignorar a diferença de versão. Observe que isso não afetará a jogabilidade no servidor, mas poderá causar grandes problemas na sincronização, falhas no Cliente e comportamento inesperado. Você só deve fazer isso para fins de desenvolvimento!^
+13 ^O jogo será reiniciado agora. Clique em OK para iniciar a atualização.^

@@ -1,0 +1,35 @@
+﻿1 ^Fazer Transação^
+2 ^O que você gostaria de fazer?^
+3 ^Retirar^
+4 ^Depositar^
+5 ^Simoleons^
+6 ^Este objeto está atualmente abastecido com: $%d^
+7 ^Este objeto não pode conter mais que: $%d^
+8 ^Para os jogadores usarem este objeto, você deve manter um saldo mínimo de: $%d^
+9 ^Quanto você quer retirar?^
+10 ^Quanto você quer depositar?^
+11 ^Mínimo^
+12 ^Máximo^
+13 ^Aposta mín^
+14 ^Aposta máx^
+15 ^Editar ^
+16 ^Mesas de Roleta precisam cobrir 35 vezes qualquer aposta para 4 jogadores simultâneos, então deve haver, em dinheiro, pelo menos 140 vezes a aposta máxima na máquina^
+17 ^Por exemplo: Se a sua aposta máxima for de $100, você precisa ter pelo menos $14000 nesta máquina.^
+18 ^O pagamento do Blackjack é de 3:2 ou uma vez e meia de qualquer aposta. As mesas precisam cobrir até 4 blackjacks por rodada.^
+19 ^Você deve estocar, pelo menos, 6 vezes a aposta máxima.^
+20 ^(Nota: As apostas mínimas não podem ser inferiores a $%d)^
+21 ^(Nota: As apostas máximas não podem ser maiores que $%d)^
+22 ^O que você gostaria de definir como seu ^
+23 ^Erro na Transação^
+24 ^Esse não é um número válido!^
+25 ^Você não pode retirar mais do que o saldo da máquina!^
+26 ^Você não tem simoleons suficientes para depositar: $%d^
+27 ^Você não pode depositar tantos simoleons, pois a máquina só pode conter: $%d^
+28 ^A aposta mínima não pode ser menor que $%d.^
+29 ^A aposta máxima não pode ser menor que a aposta mínima.^
+30 ^A aposta máxima não pode ser maior que $%d.^
+31 ^A aposta mínima não pode ser maior que a aposta máxima.^
+32 ^Você não tem dinheiro suficiente neste objeto para cobrir o valor da aposta.^
+33 ^Você deve estocar, pelo menos, 140 vezes a aposta máxima.^
+34 ^Ocorreu um erro desconhecido.^
+35 ^Dinheiro no objeto^

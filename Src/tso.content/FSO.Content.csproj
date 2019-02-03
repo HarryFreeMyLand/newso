@@ -1,0 +1,978 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C0068DF7-F2E8-4399-846D-556BF9A35C00}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FSO.Content</RootNamespace>
+    <AssemblyName>FSO.Content</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ServerRelease|x86'">
+    <OutputPath>bin\x86\ServerRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ServerRelease|AnyCPU'">
+    <OutputPath>bin\ServerRelease\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="OpenTK, Version=1.1.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4, processorArchitecture=MSIL">
+      <HintPath>..\packages\MonoGame.Framework.WindowsGL.3.4.0.459\lib\net40\OpenTK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio.cs" />
+    <Compile Include="AvatarAnimationProvider.cs" />
+    <Compile Include="AvatarAppearanceProvider.cs" />
+    <Compile Include="AvatarBindingProvider.cs" />
+    <Compile Include="AvatarCollectionsProvider.cs" />
+    <Compile Include="AvatarOutfitProvider.cs" />
+    <Compile Include="AvatarPurchasables.cs" />
+    <Compile Include="AvatarSkeletonProvider.cs" />
+    <Compile Include="AvatarThumbnailProvider.cs" />
+    <Compile Include="AvatarTextureProvider.cs" />
+    <Compile Include="ChangeManager.cs" />
+    <Compile Include="Codecs\AnimationCodec.cs" />
+    <Compile Include="Codecs\AppearanceCodec.cs" />
+    <Compile Include="Codecs\CFPCodec.cs" />
+    <Compile Include="Codecs\BCFCodec.cs" />
+    <Compile Include="Codecs\BindingCodec.cs" />
+    <Compile Include="Codecs\CMXCodex.cs" />
+    <Compile Include="Codecs\CollectionCodec.cs" />
+    <Compile Include="Codecs\HandgroupCodec.cs" />
+    <Compile Include="Codecs\IffCodec.cs" />
+    <Compile Include="Codecs\IniCodec.cs" />
+    <Compile Include="Codecs\BMFCodec.cs" />
+    <Compile Include="Codecs\MeshCodec.cs" />
+    <Compile Include="Codecs\OTFCodec.cs" />
+    <Compile Include="Codecs\OutfitCodec.cs" />
+    <Compile Include="Codecs\PurchasableOutfitCodec.cs" />
+    <Compile Include="Codecs\SFXCodec.cs" />
+    <Compile Include="Codecs\SkeletonCodec.cs" />
+    <Compile Include="Codecs\SKNCodec.cs" />
+    <Compile Include="Codecs\SmartCodec.cs" />
+    <Compile Include="Codecs\TextureCodec.cs" />
+    <Compile Include="ContentPreloader.cs" />
+    <Content Include="ContentSrc\Effects\2DWorldBatchiOS.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContentSrc\Effects\LightingCommon.fx" />
+    <Content Include="ContentSrc\Effects\ParticleShader.fx" />
+    <Content Include="ContentSrc\Effects\SSAA.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContentSrc\Effects\GrassShaderiOS.fx" />
+    <Content Include="ContentSrc\Effects\GrassShader.fx" />
+    <Content Include="ContentSrc\Effects\LightMap2D.fx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\smoke.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\TEX_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContentSrc\Effects\VitaboyiOS.fx" />
+    <Content Include="Content\uigraphics\chat\chat_cat.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\uigraphics\hcat_expand.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\uigraphics\hcat_hidden.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\LICENSE.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\credits.txt" />
+    <Content Include="Content\UI\uitext\english.dir\_f107_custombuildstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContentSrc\Effects\RCObject.fx" />
+    <Content Include="Content\UI\uitext\english.dir\_f109_newgameplaystrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f113_chatexpansionstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Compile Include="Framework\CompositeProvider.cs" />
+    <Compile Include="Framework\FAR1Provider.cs" />
+    <Compile Include="Framework\FAR3Provider.cs" />
+    <Compile Include="Framework\FileProvider.cs" />
+    <Compile Include="Framework\IContentCodec.cs" />
+    <Compile Include="Framework\PackingslipProvider.cs" />
+    <Compile Include="Content.cs" />
+    <Compile Include="AvatarMeshProvider.cs" />
+    <Compile Include="Framework\TS1Provider.cs" />
+    <Compile Include="HandgroupProvider.cs" />
+    <Compile Include="IniProvider.cs" />
+    <Compile Include="CityMapsProvider.cs" />
+    <Compile Include="Interfaces\AbstractObjectProvider.cs" />
+    <Compile Include="Interfaces\IAudioProvider.cs" />
+    <Compile Include="Interfaces\IObjectCatalog.cs" />
+    <Compile Include="Interfaces\IObjectProvider.cs" />
+    <Compile Include="Model\AudioReference.cs" />
+    <Compile Include="Model\AudioType.cs" />
+    <Compile Include="Model\CityMap.cs" />
+    <Compile Include="Model\HITEventRegistration.cs" />
+    <Compile Include="Model\HITResourceGroup.cs" />
+    <Compile Include="Model\RackOutfit.cs" />
+    <Compile Include="Model\RackOutfits.cs" />
+    <Compile Include="Model\TextureRef.cs" />
+    <Compile Include="Model\WallStyle.cs" />
+    <Compile Include="Model\Floor.cs" />
+    <Compile Include="Model\Wall.cs" />
+    <Compile Include="RackOutfitsProvider.cs" />
+    <Compile Include="RCMeshProvider.cs" />
+    <Compile Include="ResAction.cs" />
+    <Compile Include="TS1\CustomUIProvider.cs" />
+    <Compile Include="TS1\TS1Audio.cs" />
+    <Compile Include="TS1\TS1AvatarTextureProvider.cs" />
+    <Compile Include="TS1\TS1BCFProvider.cs" />
+    <Compile Include="TS1\TS1BMFProvider.cs" />
+    <Compile Include="TS1\TS1JobProvider.cs" />
+    <Compile Include="TS1\TS1NeighbourProvider.cs" />
+    <Compile Include="TS1\TS1ObjectProvider.cs" />
+    <Compile Include="WorldFloorProvider.cs" />
+    <Compile Include="WorldGlobalProvider.cs" />
+    <Compile Include="WorldObjectCatalog.cs" />
+    <Compile Include="WorldObjectGlobals.cs" />
+    <Compile Include="WorldObjectProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIGraphicsProvider.cs" />
+    <Compile Include="WorldRoofProvider.cs" />
+    <Compile Include="WorldWallProvider.cs" />
+    <Content Include="Content\uigraphics\eod\eod_news_bar.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\uigraphics\eod\eod_news_line.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Other\libs\TargaImage\TargaImage.csproj">
+      <Project>{56f4bd87-2404-4263-80d5-6fa2161eb0a4}</Project>
+      <Name>TargaImage</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Other\libs\FSOMonoGame\MonoGame.Framework\MonoGame.Framework.Windows.csproj">
+      <Project>{7de47032-a904-4c29-bd22-2d235e8d91ba}</Project>
+      <Name>MonoGame.Framework.Windows</Name>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\tso.common\FSO.Common.csproj">
+      <Project>{C42962A1-8796-4F47-9DCD-79ED5904D8CA}</Project>
+      <Name>FSO.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tso.files\FSO.Files.csproj">
+      <Project>{18583453-A970-4AC5-83B1-2D6BFDF94C24}</Project>
+      <Name>FSO.Files</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\tso.vitaboy.model\FSO.Vitaboy.csproj">
+      <Project>{9D9558A9-755E-43F9-8BB6-B26F365F5042}</Project>
+      <Name>FSO.Vitaboy</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ContentSrc\Effects\gradpoly2D.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Blueprints\empty_lot_fso.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\elevation.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\forestdensity.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\foresttype.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\roadmap.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\terraintype.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\thumbnail.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Cities\city_0100\vertexcolor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\2DWorldBatch.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\colorpoly2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\GrassShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\PixShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\VerShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\Vitaboy.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\FreeSO_10px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\FreeSO_12px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\FreeSO_14px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\FreeSO_16px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\Trebuchet_12px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\Trebuchet_14px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Globals\readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\2DWorldBatch.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\colorpoly2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\GrassShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\PixShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\VerShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\Vitaboy.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\FreeSO_10px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\FreeSO_12px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\FreeSO_14px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\FreeSO_16px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\Trebuchet_12px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\Trebuchet_14px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContentSrc\Effects\2DWorldBatch.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="app.config" />
+    <None Include="ContentSrc\Effects\2dWorldBatch.mgfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ContentSrc\Effects\colorpoly2D.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ContentSrc\Effects\colorpoly2D.mgfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="ContentSrc\Effects\compileForMono.bat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ContentSrc\Effects\PixShader.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ContentSrc\Effects\PixShader.mgfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ContentSrc\Effects\VerShader.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="ContentSrc\Effects\VerShader.mgfx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="ContentSrc\Effects\Vitaboy.fx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ContentSrc\TSOClientContent.mgcb" />
+    <Content Include="Content\iOS\Effects\2DWorldBatch.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\2DWorldBatchiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\colorpoly2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\Effects.zip">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\GrassShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\GrassShaderiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\PixShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\VerShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\Vitaboy.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Fonts\FreeSO_10px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Fonts\FreeSO_12px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Fonts\FreeSO_14px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Fonts\FreeSO_16px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Fonts\Trebuchet_12px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Fonts\Trebuchet_14px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="ContentSrc\TSOClientContentDX.mgcb" />
+    <None Include="ContentSrc\TSOClientContentiOS.mgcb" />
+    <Content Include="Content\OGL\Effects\gradpoly2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\gradpoly2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\LightMap2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\LightMap2D.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\iOS\Effects\VitaboyiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\Mobile_15px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\Mobile_20px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\Mobile_25px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Fonts\Mobile_50px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\RCObject.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\RCObject.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\SSAA.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\SSAA.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Effects\ParticleShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\cactus1.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\cactus2.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\cactus3.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\palm1.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\palm2.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\palm3.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\palm4.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\pine1.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\pine2.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\pine3.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\pine4.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\snow1.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\snow2.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\snow3.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\tree1.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\tree2.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\tree3.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\tree4.obj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\3D\defaulthouse.fsof">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\Mobile_15px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\Mobile_20px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\Mobile_25px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\DX\Fonts\Mobile_50px.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\RCObjectiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\VitaboyiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Content\iOS\Textures\gridTexture.xnb" />
+    <Content Include="Content\OGL\Effects\2DWorldBatchiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\GrassShaderiOS.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f100_genericstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f101_updaterstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f102_motivestrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f103_optionsstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f104_citydescriptions.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f105_devstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f106_relationshipdialog.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UIScript.egt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\OGL\Effects\ParticleShader.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\uitext\english.dir\_f108_newspapereodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Content\UI\uitext\english.dir\_f110_manageeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\english.dir\_f111_casinoeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\english.dir\_f112_misceodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Content\UI\emojis.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\UI\customemojis.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Content\UI\uitext\english.dir\_f110_manageeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\english.dir\_f111_casinoeodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\UI\uitext\english.dir\_f112_misceodstrings.cst">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="Content\MeshReplace\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Objects\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Patch\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\**\*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="Content\UI\uitext\english.dir\_f114_jobstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_128_pickfamilystrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_129_designfamilystrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_130_designcharstrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_131_evictmodestrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_132_moveinmodestrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_133_regularmodestrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_134_nghrollover.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_136_disposebuttonstrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_137_placementerrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_138_vctltips.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_139_bldtips.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_142_objdialogs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_145_optionstrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_146_budgetstrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_147_roofpanelstrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_148_pause.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_149_dirttoolerrs.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_150_buymodecatalogsorttips.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_152_defaultdialogbuttons.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_153_appstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_154_miscstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_155_splashprogress.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_156_pipstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_157_configstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_159_objecttts.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_160_catalogratings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_161_localkeys.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_169_pickasimstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_170_createasimstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_171_ucpstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_172_buildpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_173_buypanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_174_livepanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_175_housepanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_176_admitbanpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_177_logpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_178_roommatespanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_179_statisticspanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_180_envpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_181_lightingpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_182_timeofdaypanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_183_soundspanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_184_graphicspanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_185_optionspanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_186_playpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_187_soundpanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_188_gizmostrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_189_personpagestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_190_housepagestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_191_gmpetitionstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_192_doorpermissioneodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_193_signseodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_194_bookmarksstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_195_messagestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_196_messageiconstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_197_trunkeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_198_timereodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_199_scoreboardeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_200_messageinboxstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_201_messageinboxmenustrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_202_buildableareapanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_203_gamecompdrawacardeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_204_jobobjectpizzaeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_205_banignoredialogstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_206_querypanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_207_danceflooreodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_208_roommateprotocolstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_209_logindlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_210_cityselprotocolstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_211_housesimloginstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_212_housepagestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_213_datahandler.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_214_winskinbrowser.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_215_matchmakerclosezoom.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_216_buildableareapanel.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_217_personicon.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_218_neighborhood.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_219_searchresultsvec.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_220_lotreserves.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_221_cpstate.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_222_loginprotocol.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_223_hostvisitorprotocol.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_224_securetrading.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_225_messagemanager.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_226_skillprogressheadline.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_227_friendshipweb.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_228_exitdialog.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_229_pphelptoc.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_230_ppshared.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_231_pppetitionformdlg.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_232_ppcomplaindlg.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_233_profanitypanelstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_234_cityselector.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_235_twopersonjobobjectmazeeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_236_paperchaseeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_237_passworddlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_238_citydescriptionstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_239_asyncsale.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_240_timeoutdlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_241_creditsdlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_242_creditsstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_243_csrtools.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_244_csreject.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_245_buybuildmodestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_246_lotpurchasedlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_247_lotnameeditdlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_248_hintsstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_249_userinputdlg.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_250_doorcodedlg.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_251_connectprogressdialog.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_252_lotcategoryselectiondlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_253_jobobjband.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_254_bookmarkerrorstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_255_fwebcommenteditdlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_256_visitorbonusdialog.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_257_neighborhooddlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_258_roulettetableeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_259_slotseodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_260_neighborhooddlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_261_chatdlgstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_262_carddeckstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_263_blackjackeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_264_rackeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_265_rackownereodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_266_dressereodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_267_incomeexpensecategorystrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_268_offlottransactiondialogstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_269_headhunterstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_270_djstationstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_272_jobtitlestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_273_wargameeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_274_fwebstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_275_lmsonlinejobsglobals.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_276_lmsroommateprotocolstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_277_lms_miscstring.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_278_miscstring.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_279_lms_petletters.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f100_genericstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f101_updaterstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f102_motivestrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f103_optionsstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f104_citydescriptions.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f105_devstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f106_relationshipdialog.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f107_custombuildstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f108_newspapereodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f109_newgameplaystrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f110_manageeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f111_casinoeodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f112_misceodstrings.cst" />
+    <None Include="Content\UI\uitext\portuguese.dir\_f113_chatexpansionstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_128_pickfamilystrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_129_designfamilystrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_130_designcharstrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_131_evictmodestrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_132_moveinmodestrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_133_regularmodestrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_134_nghrollover.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_136_disposebuttonstrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_137_placementerrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_138_vctltips.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_139_bldtips.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_142_objdialogs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_145_optionstrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_146_budgetstrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_147_roofpanelstrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_148_pause.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_149_dirttoolerrs.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_150_buymodecatalogsorttips.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_152_defaultdialogbuttons.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_153_appstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_154_miscstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_155_splashprogress.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_156_pipstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_157_configstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_159_objecttts.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_160_catalogratings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_161_localkeys.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_169_pickasimstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_170_createasimstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_171_ucpstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_172_buildpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_173_buypanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_174_livepanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_175_housepanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_176_admitbanpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_177_logpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_178_roommatespanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_179_statisticspanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_180_envpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_181_lightingpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_182_timeofdaypanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_183_soundspanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_184_graphicspanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_185_optionspanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_186_playpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_187_soundpanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_188_gizmostrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_189_personpagestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_190_housepagestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_191_gmpetitionstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_192_doorpermissioneodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_193_signseodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_194_bookmarksstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_195_messagestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_196_messageiconstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_197_trunkeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_198_timereodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_199_scoreboardeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_200_messageinboxstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_201_messageinboxmenustrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_202_buildableareapanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_203_gamecompdrawacardeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_204_jobobjectpizzaeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_205_banignoredialogstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_206_querypanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_207_danceflooreodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_208_roommateprotocolstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_209_logindlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_210_cityselprotocolstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_211_housesimloginstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_212_housepagestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_213_datahandler.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_214_winskinbrowser.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_215_matchmakerclosezoom.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_216_buildableareapanel.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_217_personicon.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_218_neighborhood.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_219_searchresultsvec.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_220_lotreserves.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_221_cpstate.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_222_loginprotocol.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_223_hostvisitorprotocol.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_224_securetrading.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_225_messagemanager.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_226_skillprogressheadline.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_227_friendshipweb.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_228_exitdialog.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_229_pphelptoc.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_230_ppshared.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_231_pppetitionformdlg.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_232_ppcomplaindlg.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_233_profanitypanelstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_234_cityselector.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_235_twopersonjobobjectmazeeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_236_paperchaseeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_237_passworddlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_238_citydescriptionstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_239_asyncsale.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_240_timeoutdlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_241_creditsdlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_242_creditsstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_243_csrtools.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_244_csreject.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_245_buybuildmodestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_246_lotpurchasedlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_247_lotnameeditdlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_248_hintsstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_249_userinputdlg.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_250_doorcodedlg.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_251_connectprogressdialog.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_252_lotcategoryselectiondlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_253_jobobjband.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_254_bookmarkerrorstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_255_fwebcommenteditdlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_256_visitorbonusdialog.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_257_neighborhooddlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_258_roulettetableeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_259_slotseodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_260_neighborhooddlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_261_chatdlgstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_262_carddeckstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_263_blackjackeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_264_rackeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_265_rackownereodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_266_dressereodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_267_incomeexpensecategorystrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_268_offlottransactiondialogstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_269_headhunterstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_270_djstationstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_272_jobtitlestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_273_wargameeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_274_fwebstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_275_lmsonlinejobsglobals.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_276_lmsroommateprotocolstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_277_lms_miscstring.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_278_miscstring.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_279_lms_petletters.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f100_genericstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f101_updaterstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f102_motivestrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f103_optionsstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f104_citydescriptions.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f105_devstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f106_relationshipdialog.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f107_custombuildstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f108_newspapereodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f109_newgameplaystrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f110_manageeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f111_casinoeodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f112_misceodstrings.cst" />
+    <None Include="Content\UI\uitext\spanish.dir\_f113_chatexpansionstrings.cst" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Blueprints\empty_lot.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ContentSrc\Fonts\" />
+    <Folder Include="ContentSrc\obj\" />
+    <Folder Include="Content\DX\Textures\" />
+    <Folder Include="Content\OGL\Textures\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

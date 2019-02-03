@@ -1,0 +1,32 @@
+1  ^Façam suas apostas... ^
+2  ^Girando.  Apostas encerradas...^
+3  ^Vermelho ^
+4  ^Preto ^
+5  ^ venceu!  ^
+6  ^Você ganhou $%d!^
+7  ^%s ganhou $%d.^
+8  ^Clique para selecionar uma ficha de $%d para apostar^
+9  ^Qualquer número entre 35-1 paga^
+10 ^Quaisquer dois números entre 17-1 pagam^
+11 ^Três números entre 11-1 pagam^
+12 ^Quaisquer quatro números entre 8-1 pagam^
+13 ^Cinco números entre 6-1 pagam^
+14 ^Entre 2-1 pagam^
+15 ^Entre 1-1 pagam^
+16 ^Apostas encerradas^
+17 ^Espere um pouco para apostar...^
+18 ^Segure clicado para mostrar todas as apostas^
+19 ^Total de Apostas: $%d^
+20 ^Apostas externas exigem pelo menos a aposta mínima (por ficha)^
+21 ^A aposta máxima é $%d.^
+22 ^A aposta mínima é $%d.^
+23 ^Total de apostas: $%d.^
+24 ^Você perdeu $%d.^
+25 ^$%d fichas ficariam acima da aposta máxima permitida^
+26 ^Depois desta rodada, a mesa será fechada.^
+27 ^%s perdeu $%d.^
+28 ^Esperando os jogadores entrarem^
+29 ^O Crupiê não pode apostar^
+30 ^Ganhos totais: $%d^
+31 ^Perdas totais: $%d^
+32 ^Seis número entre 5-1 pagam^

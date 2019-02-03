@@ -1,0 +1,27 @@
+1 ^Erro de Rede^
+2 ^Conexão Perdida. Possíveis causas: o cliente pode ter sido desconectado ou o servidor pode ter deixado de funcionar ( Erro: %d )^
+3 ^Conexão Encerrada.^
+4 ^Falha ao criar Sim^
+5 ^O nome do seu Sim já está em uso. Por favor, escolha outro.^
+6 ^Erro no Bando de Dados^
+7 ^Não foi possível criar um novo Sim.^
+8 ^Não foi possível definir o caracter blob.^
+9 ^Não foi possível definir campos de dinheiro.^
+10 ^Seu último bônus de visitante^
+11 ^O último bônus de visitante que você recebeu foi %lu Simoleon(s). Esse bônus é pago diariamente. (Esta mensagem não será atualizada se o bônus de visitantes que você recebeu é zero.)^
+12 ^Desconexão por Inatividade^
+13 ^Você foi automaticamente desconectado do servidor devido à inatividade.^
+14 ^Erro - O nome do seu Sim é inválido. Por favor insira um novo nome.^
+15 ^Erro - Cabeça Inválida.^
+16 ^Erro - Roupa do Dia Inválida.^
+17 ^Erro - Corpo Nu inválido.^
+18 ^Erro - Roupa de Banho Inválida.^
+19 ^Erro - Roupa de Dormir Inválida.^
+20 ^Erro - Sexo inválido.^
+21 ^Erro - Tom de Pele Inválido.^
+22 ^Erro - Faltam Dados no Pedido.^
+23 ^Erro - Insersão no Banco de Dados Falhou.^
+24 ^Você foi suspenso.^
+25 ^Lamentamos informar, mas sua conta foi suspensa devido a violações dos Termos de serviço. Uma mensagem de e-mail sobre este incidente foi enviado para o endereço usado para registrar sua conta do jogo. Você também pode visitar 'Game Help' no site oficial e pesquisar a palavra ' suspender ' para obter informações sobre contas suspensas .^
+26 ^Você foi desconectado porque outro usuário entrou no jogo com o mesmo nome da conta. Se você acha que alguém está usando ilegalmente sua conta visite http://thesimsonline.custhelp.com para obter ajuda.^
+27 ^Você foi desconectado porque outro usuário tomou posse com o mesmo nome da conta e tomou posse deste Sim. Se você acha que alguém está usando ilegalmente sua conta visite http://thesimsonline.custhelp.com para obter ajuda.^

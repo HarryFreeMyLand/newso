@@ -1,0 +1,31 @@
+1  ^Modo Simulação - F1^
+2  ^Modo Compra - F2^
+3  ^Modo Construção - F3^
+4  ^Menu da Propriedade - F4^
+5  ^Menu de Opções - F5^
+6  ^Descer um Andar^
+7  ^Subir um Andar^
+8  ^Sem Paredes^
+9  ^Paredes Cortadas^
+10 ^Com Paredes^
+11 ^Telhado^
+12 ^Zoom Baixo^
+13 ^Zoom Médio^
+14 ^Zoom Alto^
+15 ^Vizinhança^
+16 ^Cidade^
+17 ^Mais Zoom^
+18 ^Menos Zoom^
+19 ^Girar para Esquerda^
+20 ^Girar para Direita^
+21 ^Relacionamentos^
+22 ^Caixa de Mensagens^
+23 ^Ajuda^
+24 ^Orçamento^
+25 ^Selecionar Imóvel^
+26 ^Nome^
+27 ^Hora Atual^
+28 ^Fundos Disponíveis^
+29 ^Favoritos^
+30 ^Você tem %d nova(s) mensagem(ns)^
+31 ^> ^
