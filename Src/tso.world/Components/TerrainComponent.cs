@@ -59,7 +59,8 @@ namespace FSO.LotView.Components
         private Blueprint Bp;
         public bool _3D = false;
 
-        public TerrainComponent(Rectangle size, Blueprint blueprint) {
+        public TerrainComponent(Rectangle size, Blueprint blueprint)
+        {
             this.Size = size;
             this.Effect = WorldContent.GrassEffect;
             this.Bp = blueprint;
@@ -69,10 +70,12 @@ namespace FSO.LotView.Components
 
         public void UpdateTerrain(TerrainType light, TerrainType dark, short[] heights, byte[] grass)
         {
-            //DECEMBER TEMP: snow replace
-            //TODO: tie to tuning, or serverside weather system.
-            if (light == TerrainType.GRASS || light == TerrainType.SAND) light = TerrainType.SNOW;
-            if (dark == TerrainType.SAND) dark = TerrainType.SNOW;
+            if (DateTime.UtcNow.Month == 12 || DateTime.UtcNow.Month == 1)
+            {
+                if (light == TerrainType.GRASS || light == TerrainType.SAND) light = TerrainType.SNOW;
+                if (dark == TerrainType.SAND) dark = TerrainType.SNOW;
+            }
+
             LightType = light;
             DarkType = dark;
             GrassState = grass;
@@ -328,10 +331,10 @@ namespace FSO.LotView.Components
         private int[] GetGridIndicesForFine(bool[] area, int quads)
         {
             List<int> GridIndices = new List<int>();
-            var i = quads+1;
-            for (var y = 1; y < quads-1; y++)
+            var i = quads + 1;
+            for (var y = 1; y < quads - 1; y++)
             {
-                for (var x = 1; x < quads-1; x++)
+                for (var x = 1; x < quads - 1; x++)
                 {
                     var tile = area[i];
 
@@ -348,7 +351,7 @@ namespace FSO.LotView.Components
                             GridIndices.Add(tileOff + 1); //+x
                             GridIndices.Add(tileOff + 2); //+x+y
                         }
-                        if (y == quads - 1 || !area[i+quads])
+                        if (y == quads - 1 || !area[i + quads])
                         {
                             GridIndices.Add(tileOff + 3); //+y
                             GridIndices.Add(tileOff + 2); //+x+y
@@ -376,7 +379,8 @@ namespace FSO.LotView.Components
         /// </summary>
         /// <param name="device"></param>
         /// <param name="world"></param>
-        public override void Draw(GraphicsDevice device, WorldState world){
+        public override void Draw(GraphicsDevice device, WorldState world)
+        {
             if (TerrainDirty || VertexBuffer == null) RegenTerrain(device, Bp);
             if (VertexBuffer == null) return;
             if (world.Light != null) LightVec = world.Light.LightVec;
@@ -388,116 +392,116 @@ namespace FSO.LotView.Components
             device.RasterizerState = RasterizerState.CullNone;
             PPXDepthEngine.RenderPPXDepth(Effect, true, (depthMode) =>
             {
-            Effect.Parameters["LightGreen"].SetValue(LightGreen.ToVector4());
-            Effect.Parameters["DarkGreen"].SetValue(DarkGreen.ToVector4());
-            Effect.Parameters["DarkBrown"].SetValue(DarkBrown.ToVector4());
-            Effect.Parameters["LightBrown"].SetValue(LightBrown.ToVector4());
+                Effect.Parameters["LightGreen"].SetValue(LightGreen.ToVector4());
+                Effect.Parameters["DarkGreen"].SetValue(DarkGreen.ToVector4());
+                Effect.Parameters["DarkBrown"].SetValue(DarkBrown.ToVector4());
+                Effect.Parameters["LightBrown"].SetValue(LightBrown.ToVector4());
                 var light = new Vector3(0.3f, 1, -0.3f);
 
-            Effect.Parameters["LightVec"]?.SetValue(LightVec);
-            Effect.Parameters["UseTexture"].SetValue(false);
-            Effect.Parameters["ScreenSize"].SetValue(new Vector2(device.Viewport.Width, device.Viewport.Height) / world.PreciseZoom);
-            Effect.Parameters["TerrainNoise"].SetValue(TextureGenerator.GetTerrainNoise(device));
-            Effect.Parameters["TerrainNoiseMip"].SetValue(TextureGenerator.GetTerrainNoise(device));
-            Effect.Parameters["GrassFadeMul"].SetValue((float)Math.Sqrt(device.Viewport.Width/1920f));
+                Effect.Parameters["LightVec"]?.SetValue(LightVec);
+                Effect.Parameters["UseTexture"].SetValue(false);
+                Effect.Parameters["ScreenSize"].SetValue(new Vector2(device.Viewport.Width, device.Viewport.Height) / world.PreciseZoom);
+                Effect.Parameters["TerrainNoise"].SetValue(TextureGenerator.GetTerrainNoise(device));
+                Effect.Parameters["TerrainNoiseMip"].SetValue(TextureGenerator.GetTerrainNoise(device));
+                Effect.Parameters["GrassFadeMul"].SetValue((float)Math.Sqrt(device.Viewport.Width / 1920f));
 
-            Effect.Parameters["FadeRectangle"].SetValue(new Vector4(77*3/2f + SubworldOff.X, 77*3/ 2f + SubworldOff.Y, 77*3, 77*3));
-            Effect.Parameters["FadeWidth"].SetValue(35f*3);
+                Effect.Parameters["FadeRectangle"].SetValue(new Vector4(77 * 3 / 2f + SubworldOff.X, 77 * 3 / 2f + SubworldOff.Y, 77 * 3, 77 * 3));
+                Effect.Parameters["FadeWidth"].SetValue(35f * 3);
 
-            Effect.Parameters["TileSize"].SetValue(new Vector2(1f / Bp.Width, 1f / Bp.Height));
-            Effect.Parameters["RoomMap"].SetValue(world.Rooms.RoomMaps[0]);
-            Effect.Parameters["RoomLight"].SetValue(world.AmbientLight);
-            Effect.Parameters["Alpha"].SetValue(Alpha);
-            //Effect.Parameters["depthOutMode"].SetValue(DepthMode && (!FSOEnvironment.UseMRT));
-
-            var offset = -world.WorldSpace.GetScreenOffset();
-
-            Effect.Parameters["Projection"].SetValue(world.Camera.Projection);
-            var view = world.Camera.View;
-            var _3d = _3D;
-            if (!_3d) view = view * Matrix.CreateTranslation(0, 0, -0.25f);
-            Effect.Parameters["View"].SetValue(view);
-            //world._3D.ApplyCamera(Effect);
-            var translation = ((world.Zoom == WorldZoom.Far) ? -7 : ((world.Zoom == WorldZoom.Medium) ? -5 : -3)) * (20 / 522f);
-            if (world.PreciseZoom < 1) translation /= world.PreciseZoom;
-            else translation *= world.PreciseZoom;
-            var altOff = Bp.BaseAlt * Bp.TerrainFactor * 3;
-            var worldmat = Matrix.Identity * Matrix.CreateTranslation(0, translation - altOff, 0);
-            Effect.Parameters["World"].SetValue(worldmat);
-            if ((world as RC.WorldStateRC)?.Use2DCam == false) Effect.Parameters["CamPos"]?.SetValue(world.Camera.Position + world.Camera.Translation);
-            else Effect.Parameters["CamPos"]?.SetValue(new Vector3(0, 9999, 0));
-            Effect.Parameters["GrassShininess"].SetValue((float)0.25);
-            Effect.Parameters["DiffuseColor"].SetValue(world.OutsideColor.ToVector4() * Color.Lerp(LightGreen, Color.White, 0.25f).ToVector4());
-
-            device.SetVertexBuffer(VertexBuffer);
-            device.Indices = IndexBuffer;
-
-            Effect.Parameters["UseTexture"].SetValue(true);
-            Effect.Parameters["IgnoreColor"].SetValue(true);
-            Effect.CurrentTechnique = Effect.Techniques["DrawBase"];
-
-            var floors = new HashSet<sbyte>();
-            for (sbyte f = 0; f < world.Level; f++) floors.Add(f);
-            var pass = Effect.CurrentTechnique.Passes[(_3d) ? 2 : WorldConfig.Current.PassOffset];
-            Bp.FloorGeom.DrawFloor(device, Effect, world.Zoom, world.Rotation, world.Rooms.RoomMaps, floors, pass, state: world);
-
-            pass.Apply();
-            //device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, NumPrimitives);
-
-            int grassScale;
-            float grassDensity;
-            switch (world.Zoom)
-            {
-                case WorldZoom.Far:
-                    grassScale = 4;
-                    grassDensity = 0.56f;
-                    break;
-                case WorldZoom.Medium:
-                    grassScale = 2;
-                    grassDensity = 0.50f;
-                    break;
-                default:
-                    grassScale = 1;
-                    grassDensity = 0.43f;
-                    break;
-            }
-
-            //    grassScale = 0;
-
-            grassDensity *= GrassDensityScale;
-            var primitives = Bp.FloorGeom.SetGrassIndices(device, Effect, world);
-
-            if (primitives > 0 && _3D == _3d)
-            {
-                Effect.Parameters["Alpha"].SetValue((Alpha-0.75f) * 4);
-                Effect.Parameters["Level"].SetValue((float)0.0001f);
+                Effect.Parameters["TileSize"].SetValue(new Vector2(1f / Bp.Width, 1f / Bp.Height));
                 Effect.Parameters["RoomMap"].SetValue(world.Rooms.RoomMaps[0]);
-                Effect.CurrentTechnique = Effect.Techniques["DrawBlades"];
-                int grassNum = (int)Math.Ceiling(GrassHeight / (float)grassScale);
-                
-                RenderTargetBinding[] rts = null;
-                if (FSOEnvironment.UseMRT)
+                Effect.Parameters["RoomLight"].SetValue(world.AmbientLight);
+                Effect.Parameters["Alpha"].SetValue(Alpha);
+                //Effect.Parameters["depthOutMode"].SetValue(DepthMode && (!FSOEnvironment.UseMRT));
+
+                var offset = -world.WorldSpace.GetScreenOffset();
+
+                Effect.Parameters["Projection"].SetValue(world.Camera.Projection);
+                var view = world.Camera.View;
+                var _3d = _3D;
+                if (!_3d) view = view * Matrix.CreateTranslation(0, 0, -0.25f);
+                Effect.Parameters["View"].SetValue(view);
+                //world._3D.ApplyCamera(Effect);
+                var translation = ((world.Zoom == WorldZoom.Far) ? -7 : ((world.Zoom == WorldZoom.Medium) ? -5 : -3)) * (20 / 522f);
+                if (world.PreciseZoom < 1) translation /= world.PreciseZoom;
+                else translation *= world.PreciseZoom;
+                var altOff = Bp.BaseAlt * Bp.TerrainFactor * 3;
+                var worldmat = Matrix.Identity * Matrix.CreateTranslation(0, translation - altOff, 0);
+                Effect.Parameters["World"].SetValue(worldmat);
+                if ((world as RC.WorldStateRC)?.Use2DCam == false) Effect.Parameters["CamPos"]?.SetValue(world.Camera.Position + world.Camera.Translation);
+                else Effect.Parameters["CamPos"]?.SetValue(new Vector3(0, 9999, 0));
+                Effect.Parameters["GrassShininess"].SetValue((float)0.25);
+                Effect.Parameters["DiffuseColor"].SetValue(world.OutsideColor.ToVector4() * Color.Lerp(LightGreen, Color.White, 0.25f).ToVector4());
+
+                device.SetVertexBuffer(VertexBuffer);
+                device.Indices = IndexBuffer;
+
+                Effect.Parameters["UseTexture"].SetValue(true);
+                Effect.Parameters["IgnoreColor"].SetValue(true);
+                Effect.CurrentTechnique = Effect.Techniques["DrawBase"];
+
+                var floors = new HashSet<sbyte>();
+                for (sbyte f = 0; f < world.Level; f++) floors.Add(f);
+                var pass = Effect.CurrentTechnique.Passes[(_3d) ? 2 : WorldConfig.Current.PassOffset];
+                Bp.FloorGeom.DrawFloor(device, Effect, world.Zoom, world.Rotation, world.Rooms.RoomMaps, floors, pass, state: world);
+
+                pass.Apply();
+                //device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, NumPrimitives);
+
+                int grassScale;
+                float grassDensity;
+                switch (world.Zoom)
                 {
-                    rts = device.GetRenderTargets();
-                    if (rts.Length > 1)
-                    {
-                        device.SetRenderTarget((RenderTarget2D)rts[0].RenderTarget);
-                    }
+                    case WorldZoom.Far:
+                        grassScale = 4;
+                        grassDensity = 0.56f;
+                        break;
+                    case WorldZoom.Medium:
+                        grassScale = 2;
+                        grassDensity = 0.50f;
+                        break;
+                    default:
+                        grassScale = 1;
+                        grassDensity = 0.43f;
+                        break;
                 }
-                var depth = device.DepthStencilState;
-                device.DepthStencilState = DepthStencilState.DepthRead;
-                for (int i = 0; i < grassNum; i++)
+
+                //    grassScale = 0;
+
+                grassDensity *= GrassDensityScale;
+                var primitives = Bp.FloorGeom.SetGrassIndices(device, Effect, world);
+
+                if (primitives > 0 && _3D == _3d)
                 {
-                    Effect.Parameters["World"].SetValue(Matrix.Identity * Matrix.CreateTranslation(0, i * (20 / 522f) * grassScale - altOff, 0));
-                    Effect.Parameters["GrassProb"].SetValue(grassDensity * ((grassNum - (i / (2f * grassNum))) / (float)grassNum));
-                    offset += new Vector2(0, 1);
-                        
-                    var off2 = new Vector2(world.WorldSpace.WorldPxWidth, world.WorldSpace.WorldPxHeight);
-                    off2 = (off2 / world.PreciseZoom - off2) / 2;
+                    Effect.Parameters["Alpha"].SetValue((Alpha - 0.75f) * 4);
+                    Effect.Parameters["Level"].SetValue((float)0.0001f);
+                    Effect.Parameters["RoomMap"].SetValue(world.Rooms.RoomMaps[0]);
+                    Effect.CurrentTechnique = Effect.Techniques["DrawBlades"];
+                    int grassNum = (int)Math.Ceiling(GrassHeight / (float)grassScale);
+
+                    RenderTargetBinding[] rts = null;
+                    if (FSOEnvironment.UseMRT)
+                    {
+                        rts = device.GetRenderTargets();
+                        if (rts.Length > 1)
+                        {
+                            device.SetRenderTarget((RenderTarget2D)rts[0].RenderTarget);
+                        }
+                    }
+                    var depth = device.DepthStencilState;
+                    device.DepthStencilState = DepthStencilState.DepthRead;
+                    for (int i = 0; i < grassNum; i++)
+                    {
+                        Effect.Parameters["World"].SetValue(Matrix.Identity * Matrix.CreateTranslation(0, i * (20 / 522f) * grassScale - altOff, 0));
+                        Effect.Parameters["GrassProb"].SetValue(grassDensity * ((grassNum - (i / (2f * grassNum))) / (float)grassNum));
+                        offset += new Vector2(0, 1);
+
+                        var off2 = new Vector2(world.WorldSpace.WorldPxWidth, world.WorldSpace.WorldPxHeight);
+                        off2 = (off2 / world.PreciseZoom - off2) / 2;
 
                         Effect.Parameters["ScreenOffset"].SetValue(offset - off2);
 
-                        pass = Effect.CurrentTechnique.Passes[(_3d)?2:WorldConfig.Current.PassOffset];
+                        pass = Effect.CurrentTechnique.Passes[(_3d) ? 2 : WorldConfig.Current.PassOffset];
                         pass.Apply();
                         device.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, primitives);
                     }
@@ -519,7 +523,7 @@ namespace FSO.LotView.Components
                             device.SetRenderTarget((RenderTarget2D)rts[0].RenderTarget);
                         }
                     }
-                    
+
                     var depth = device.DepthStencilState;
                     device.DepthStencilState = DepthStencilState.DepthRead;
                     Effect.CurrentTechnique = Effect.Techniques["DrawGrid"];
@@ -530,7 +534,7 @@ namespace FSO.LotView.Components
                         //draw target size in red, below old size
                         device.Indices = TGridIndexBuffer;
                         Effect.Parameters["DiffuseColor"].SetValue(new Vector4(0.5f, 1f, 0.5f, 1.0f));
-                        pass = Effect.CurrentTechnique.Passes[(_3d)?1:0];
+                        pass = Effect.CurrentTechnique.Passes[(_3d) ? 1 : 0];
                         pass.Apply();
                         device.DrawIndexedPrimitives(PrimitiveType.LineList, 0, 0, TGridPrimitives);
                     }
@@ -603,47 +607,47 @@ namespace FSO.LotView.Components
             else gd.DepthStencilState = DepthStencilState.None;
             //PPXDepthEngine.RenderPPXDepth(Effect, true, (depthMode) =>
             //{
-                Effect.Parameters["UseTexture"].SetValue(false);
-                Effect.Parameters["Projection"].SetValue(projection);
-                Effect.Parameters["Level"].SetValue((float)0.0001f);
-                Effect.Parameters["RoomMap"].SetValue(world.Rooms.RoomMaps[0]);
+            Effect.Parameters["UseTexture"].SetValue(false);
+            Effect.Parameters["Projection"].SetValue(projection);
+            Effect.Parameters["Level"].SetValue((float)0.0001f);
+            Effect.Parameters["RoomMap"].SetValue(world.Rooms.RoomMaps[0]);
 
-                var _3d = _3D;
-                if (!_3d) view = view * Matrix.CreateTranslation(0, 0, -0.25f);
-                Effect.Parameters["View"].SetValue(view);
-                //world._3D.ApplyCamera(Effect);
-                var translation = (0 * (20 / 522f));
-                if (world.PreciseZoom < 1) translation /= world.PreciseZoom;
-                else translation *= world.PreciseZoom;
-                var altOff = Bp.BaseAlt * Bp.TerrainFactor * 3;
-                var worldmat = Matrix.Identity * Matrix.CreateTranslation(0, translation - altOff, 0);
-                Effect.Parameters["World"].SetValue(worldmat);
+            var _3d = _3D;
+            if (!_3d) view = view * Matrix.CreateTranslation(0, 0, -0.25f);
+            Effect.Parameters["View"].SetValue(view);
+            //world._3D.ApplyCamera(Effect);
+            var translation = (0 * (20 / 522f));
+            if (world.PreciseZoom < 1) translation /= world.PreciseZoom;
+            else translation *= world.PreciseZoom;
+            var altOff = Bp.BaseAlt * Bp.TerrainFactor * 3;
+            var worldmat = Matrix.Identity * Matrix.CreateTranslation(0, translation - altOff, 0);
+            Effect.Parameters["World"].SetValue(worldmat);
 
-                gd.SetVertexBuffer(VertexBuffer);
-                gd.Indices = IndexBuffer;
+            gd.SetVertexBuffer(VertexBuffer);
+            gd.Indices = IndexBuffer;
 
-                Effect.Parameters["UseTexture"].SetValue(false);
-                Effect.Parameters["IgnoreColor"].SetValue(false);
-                Effect.CurrentTechnique = Effect.Techniques["DrawMask"];
+            Effect.Parameters["UseTexture"].SetValue(false);
+            Effect.Parameters["IgnoreColor"].SetValue(false);
+            Effect.CurrentTechnique = Effect.Techniques["DrawMask"];
 
-                Effect.Parameters["LightVec"].SetValue(LightVec);
-                Effect.Parameters["MulRange"].SetValue(3f);
-                Effect.Parameters["MulBase"].SetValue(0.15f);
-                Effect.Parameters["BlurBounds"].SetValue(new Vector4(6, 6, 68, 68));
+            Effect.Parameters["LightVec"].SetValue(LightVec);
+            Effect.Parameters["MulRange"].SetValue(3f);
+            Effect.Parameters["MulBase"].SetValue(0.15f);
+            Effect.Parameters["BlurBounds"].SetValue(new Vector4(6, 6, 68, 68));
 
 
-                var pass = Effect.CurrentTechnique.Passes[0];
-                pass.Apply();
-                var primitives = Bp.FloorGeom.SetGrassIndices(gd, Effect, world);
-                var blendstate = gd.BlendState;
-                if (primitives > 0)
-                {
-                    gd.BlendState = Multiply;
-                    if (!gd.RasterizerState.ScissorTestEnable) gd.DepthStencilState = DepthStencilState.Default;
-                    gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, primitives);
-                    gd.BlendState = blendstate;
-                    gd.DepthStencilState = DepthStencilState.Default;
-                }
+            var pass = Effect.CurrentTechnique.Passes[0];
+            pass.Apply();
+            var primitives = Bp.FloorGeom.SetGrassIndices(gd, Effect, world);
+            var blendstate = gd.BlendState;
+            if (primitives > 0)
+            {
+                gd.BlendState = Multiply;
+                if (!gd.RasterizerState.ScissorTestEnable) gd.DepthStencilState = DepthStencilState.Default;
+                gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, primitives);
+                gd.BlendState = blendstate;
+                gd.DepthStencilState = DepthStencilState.Default;
+            }
             //});
         }
 

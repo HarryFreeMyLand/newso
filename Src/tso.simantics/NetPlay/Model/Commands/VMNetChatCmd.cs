@@ -54,7 +54,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                     case "banlist":
                         string result = "";
                         foreach (var ban in server.SandboxBans.List()) result += ban + "\r\n";
-                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "==== BANNED IPS: ==== \r\n"+result));
+                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "==== BANNED IPS: ==== \r\n" + result));
                         break;
                     case "builder":
                         sim = vm.Entities.Where(x => x is VMAvatar && x.ToString().ToLowerInvariant().Trim(' ') == args.ToLowerInvariant().Trim(' ')).FirstOrDefault();
@@ -114,11 +114,11 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                         break;
                     case "qtrday":
                         var count = int.Parse(args);
-                        for (int i=0; i<count; i++)
+                        for (int i = 0; i < count; i++)
                         {
                             vm.ProcessQTRDay();
                         }
-                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "Ran "+count+" quarter days."));
+                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "Ran " + count + " quarter days."));
                         break;
                     case "setjob":
                         var jobsplit = args.Split(' ');
@@ -127,7 +127,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                         var jobgrade = short.Parse(jobsplit[1]);
                         avatar.SetPersonData(SimAntics.Model.VMPersonDataVariable.OnlineJobID, jobid);
                         avatar.SetPersonData(SimAntics.Model.VMPersonDataVariable.OnlineJobGrade, jobgrade);
-                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "Set "+avatar.ToString()+" job grade/type to "+jobgrade+"/"+jobid+"."));
+                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "Set " + avatar.ToString() + " job grade/type to " + jobgrade + "/" + jobid + "."));
                         break;
                     case "trace":
                         //enables desync tracing
@@ -162,6 +162,27 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                             Tuning = vm.Tuning
                         });
                         break;
+                    case "fixall":
+                        var fixCount = 0;
+                        foreach (var ent in vm.Entities)
+                        {
+                            if (ent is VMGameObject && ent == ent.MultitileGroup.BaseObject)
+                            {
+                                var state = (VMTSOObjectState)ent.TSOState;
+                                if (state.Broken)
+                                {
+                                    foreach (var objr in ent.MultitileGroup.Objects)
+                                    {
+                                        ((VMGameObject)objr).DisableParticle(256);
+                                    }
+                                    fixCount++;
+                                }
+                                state.QtrDaysSinceLastRepair = 0;
+                                state.Wear = 0;
+                            }
+                        }
+                        vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, "Fixed " + fixCount + " objects."));
+                        break;
                 }
                 return true;
             }
@@ -191,7 +212,8 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                     //need to direct send to eligible sims
                     ChannelID |= 0x80; //do not play in VM, only send the chat event
                     Verified = true;
-                    foreach (var avatar in vm.Context.ObjectQueries.AvatarsByPersist) {
+                    foreach (var avatar in vm.Context.ObjectQueries.AvatarsByPersist)
+                    {
                         if (avatar.Value.AvatarState.Permissions >= channel.ViewPermMin)
                             vm.Driver.SendDirectCommand(avatar.Key, this);
                     }

@@ -40,7 +40,7 @@ namespace FSO.Client
         public UILayer uiLayer;
         public _3DLayer SceneMgr;
 
-		public TSOGame() : base()
+        public TSOGame() : base()
         {
             GameFacade.Game = this;
             //if (GameFacade.DirectX) TimedReferenceController.SetMode(CacheType.PERMANENT);
@@ -67,7 +67,8 @@ namespace FSO.Client
             {
                 GameThread.Game = Thread.CurrentThread;
                 Thread.CurrentThread.Name = "Game";
-            } catch
+            }
+            catch
             {
                 //fails on android
             }
@@ -197,10 +198,12 @@ namespace FSO.Client
 
             GraphicsDevice.RasterizerState = new RasterizerState() { CullMode = CullMode.None };
 
-            try {
+            try
+            {
                 var audioTest = new SoundEffect(new byte[2], 44100, AudioChannels.Mono); //initialises XAudio.
                 audioTest.CreateInstance().Play();
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
                 FSOProgram.ShowDialog("Failed to initialize audio: \r\n\r\n" + e.StackTrace);
             }
@@ -224,7 +227,7 @@ namespace FSO.Client
             var ds = kernel.Get<DataService>();
             ds.AddProvider(new ClientAvatarProvider());
 
-            this.Window.Title = "FreeSO";
+            this.Window.Title = "NSO";
             DiscordRpcEngine.Init();
 
             if (!GlobalSettings.Default.Windowed && !GameFacade.GraphicsDeviceManager.IsFullScreen)
@@ -286,16 +289,16 @@ namespace FSO.Client
                 GameFacade.EdithFont.AddSize(12, Content.Load<SpriteFont>("Fonts/Trebuchet_12px"));
                 GameFacade.EdithFont.AddSize(14, Content.Load<SpriteFont>("Fonts/Trebuchet_14px"));
 
-                vitaboyEffect = Content.Load<Effect>((FSOEnvironment.GLVer == 2)?"Effects/VitaboyiOS":"Effects/Vitaboy");
+                vitaboyEffect = Content.Load<Effect>((FSOEnvironment.GLVer == 2) ? "Effects/VitaboyiOS" : "Effects/Vitaboy");
                 uiLayer = new UILayer(this, Content.Load<SpriteFont>("Fonts/FreeSO_12px"), Content.Load<SpriteFont>("Fonts/FreeSO_16px"));
             }
             catch (Exception e)
             {
-                FSOProgram.ShowDialog("Content could not be loaded. Make sure that the FreeSO content has been compiled! (ContentSrc/TSOClientContent.mgcb) \r\n\r\n"+e.ToString());
+                FSOProgram.ShowDialog("Content could not be loaded. Make sure that the FreeSO content has been compiled! (ContentSrc/TSOClientContent.mgcb) \r\n\r\n" + e.ToString());
                 Exit();
                 Environment.Exit(0);
             }
-            
+
             FSO.Vitaboy.Avatar.setVitaboyEffect(vitaboyEffect);
         }
 
@@ -307,7 +310,7 @@ namespace FSO.Client
         {
             // TODO: Unload any non ContentManager content here
         }
-       
+
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.

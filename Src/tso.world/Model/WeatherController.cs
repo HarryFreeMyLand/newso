@@ -33,7 +33,8 @@ namespace FSO.LotView.Model
             0f, 0.25f, 1f, //rain
         };
 
-        public WeatherController(Blueprint bp) {
+        public WeatherController(Blueprint bp)
+        {
             Bp = bp;
             Particles = bp.Particles;
         }
@@ -96,7 +97,7 @@ namespace FSO.LotView.Model
                 if (Current == null)
                 {
                     Current = new ParticleComponent(Bp, Particles);
-                    Current.Mode = (ParticleType)(curInt/3);
+                    Current.Mode = (ParticleType)(curInt / 3);
                     Current.FadeProgress = isFaded ? (float?)-1 : null;
                     Current.WeatherIntensity = WeatherIntensity;
                     Particles.Add(Current);
@@ -114,16 +115,16 @@ namespace FSO.LotView.Model
 
         private int GetWeatherIntensity(DateTime time)
         {
-            var distance = time - new DateTime(2018, 12, 6);
+            var distance = time - new DateTime(time.Year, 12, 6);
             var halfDay = (int)distance.TotalHours;
 
             var rand = new Random(389457023);
-            for (int i=0; i<halfDay; i++)
+            for (int i = 0; i < halfDay; i++)
             {
                 rand.Next();
             }
-            return rand.Next(3);
+            return Math.Max(3, rand.Next(7) - 4);
         }
-        
+
     }
 }

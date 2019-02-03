@@ -90,12 +90,14 @@ namespace FSO.SimAntics.Primitives
                                 if (curDialog.ResponseText.Length > 32) curDialog.ResponseText = curDialog.ResponseText.Substring(0, 32);
                                 context.StackObject.Name = curDialog.ResponseText;
                             }
-                                
+
                             return VMPrimitiveExitCode.GOTO_TRUE;
                         case VMDialogType.FSOChars:
                             context.StackObject.MyList.Clear();
                             var charR = (curDialog.ResponseText ?? "");
-                            if (charR != "") {
+                            if (charR != "")
+                            {
+                                charR = charR.Replace("\\n", "\n");
                                 context.StackObject.MyList.Clear();
                                 foreach (var c in charR)
                                     context.StackObject.MyList.AddLast((short)c);
@@ -153,7 +155,7 @@ namespace FSO.SimAntics.Primitives
         public byte NoStringID { get; set; } //button 2
         public VMDialogType Type { get; set; }
         public byte TitleStringID { get; set; }
-        public VMDialogFlags Flags; 
+        public VMDialogFlags Flags;
 
         public bool Continue
         {
@@ -196,7 +198,8 @@ namespace FSO.SimAntics.Primitives
         #region VMPrimitiveOperand Members
         public void Read(byte[] bytes)
         {
-            using (var io = IoBuffer.FromBytes(bytes, ByteOrder.LITTLE_ENDIAN)){
+            using (var io = IoBuffer.FromBytes(bytes, ByteOrder.LITTLE_ENDIAN))
+            {
                 CancelStringID = io.ReadByte();
                 IconNameStringID = io.ReadByte();
                 MessageStringID = io.ReadByte();
@@ -208,7 +211,8 @@ namespace FSO.SimAntics.Primitives
             }
         }
 
-        public void Write(byte[] bytes) {
+        public void Write(byte[] bytes)
+        {
             using (var io = new BinaryWriter(new MemoryStream(bytes)))
             {
                 io.Write(CancelStringID);
@@ -269,7 +273,7 @@ namespace FSO.SimAntics.Primitives
         TS1Magictown = 13,
         TS1TransformMe = 14,
         TS1Cookbook = 15,
-        
+
         FSOColor = 128,
         FSOChars = 129
     }
@@ -290,7 +294,7 @@ namespace FSO.SimAntics.Primitives
             base.SerializeInto(writer);
             writer.Write(Timeout);
             writer.Write(ResponseCode);
-            writer.Write((ResponseText == null)?"":ResponseText);
+            writer.Write((ResponseText == null) ? "" : ResponseText);
             writer.Write((byte)Type);
         }
 

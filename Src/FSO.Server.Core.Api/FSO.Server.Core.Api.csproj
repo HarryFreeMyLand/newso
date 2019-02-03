@@ -18,11 +18,4 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.0.2105168" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\FSO.Server.Common\FSO.Server.Common.csproj" />
-    <ProjectReference Include="..\FSO.Server.Database\FSO.Server.Database.csproj" />
-    <ProjectReference Include="..\FSO.Server.Debug\FSO.Server.Debug.csproj" />
-    <ProjectReference Include="..\FSO.Server.Domain\FSO.Server.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

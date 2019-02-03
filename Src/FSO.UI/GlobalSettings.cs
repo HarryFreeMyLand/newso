@@ -69,8 +69,8 @@ namespace FSO.Client
             { "SurroundingLotMode", "2" },
 
             { "UseCustomServer", "true" },
-            { "GameEntryUrl", "http://api.freeso.org" },
-            { "CitySelectorUrl", "http://api.freeso.org" },
+            { "GameEntryUrl", "http://localhost:9000" },
+            { "CitySelectorUrl", "http://localhost:9000" },
 
             { "TargetRefreshRate", "60" },
 

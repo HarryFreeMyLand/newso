@@ -142,6 +142,7 @@
     <Compile Include="Enum\LotCategory.cs" />
     <Compile Include="Enum\Top100Category.cs" />
     <Compile Include="FSOEnvironment.cs" />
+    <Compile Include="GameConsts.cs" />
     <Compile Include="IniConfig.cs" />
     <Compile Include="Enum\UserReferenceType.cs" />
     <Compile Include="MeshSimplify\MSRef.cs" />
@@ -152,6 +153,11 @@
     <Compile Include="Model\DynamicTuning.cs" />
     <Compile Include="Model\DynTuningEntry.cs" />
     <Compile Include="Model\IntersectRectSet.cs" />
+    <Compile Include="Properties\AssemblyDynamicInfo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssemblyDynamicInfo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\CachableTexture2D.cs" />
     <Compile Include="Rendering\Emoji\EmojiCache.cs" />
@@ -258,6 +264,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\SDL2.dll" />
+    <Content Include="Properties\AssemblyDynamicInfo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>AssemblyDynamicInfo.cs</LastGenOutput>
+    </Content>
     <Content Include="version.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -288,7 +298,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
