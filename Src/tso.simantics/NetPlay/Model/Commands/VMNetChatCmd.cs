@@ -132,7 +132,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                     case "trace":
                         //enables desync tracing
                         vm.UseSchedule = false;
-                        vm.Trace = new Engine.Debug.VMSyncTrace();
+                        vm.Trace = new Engine.Debugger.VMSyncTrace();
                         break;
                     case "reload":
                         //enables desync tracing

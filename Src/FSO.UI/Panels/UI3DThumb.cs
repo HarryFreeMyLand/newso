@@ -3,7 +3,7 @@ using FSO.Common.Rendering.Framework;
 using FSO.Common.Rendering.Framework.Camera;
 using FSO.Content;
 using FSO.LotView.Components;
-using FSO.LotView.Debug;
+using FSO.LotView.Debugger;
 using FSO.SimAntics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;

@@ -92,7 +92,7 @@
     <Compile Include="Components\SubWorldComponent.cs" />
     <Compile Include="Components\TerrainComponent.cs" />
     <Compile Include="Components\WallComponent.cs" />
-    <Compile Include="Debug\Debug3DDGRPComponent.cs" />
+    <Compile Include="Debugger\Debug3DDGRPComponent.cs" />
     <Compile Include="Facade\LotFacadeGenerator.cs" />
     <Compile Include="LMap\GPURoomMaps.cs" />
     <Compile Include="LMap\GradVertex.cs" />

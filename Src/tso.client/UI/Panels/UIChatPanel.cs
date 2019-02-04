@@ -176,7 +176,7 @@ namespace FSO.Client.UI.Panels
                     if (message == "/trace")
                     {
                         vm.UseSchedule = false;
-                        vm.Trace = new SimAntics.Engine.Debug.VMSyncTrace();
+                        vm.Trace = new SimAntics.Engine.Debugger.VMSyncTrace();
                     }
                     vm.SendCommand(new VMNetChatCmd
                     {

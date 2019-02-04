@@ -1,5 +1,5 @@
 ﻿using FSO.Common.Utils;
-using FSO.SimAntics.Engine.Debug;
+using FSO.SimAntics.Engine.Debugger;
 using FSO.SimAntics.Marshals;
 using FSO.SimAntics.Utils;
 using System;
