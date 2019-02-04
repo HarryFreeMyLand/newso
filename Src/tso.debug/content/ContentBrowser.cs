@@ -31,7 +31,7 @@ namespace FSO.Debug.Content
         }
 
         private void RefreshItems(){
-            var content = FSO.Content.Content.Get();
+            var content = FSO.Content.GameContent.Get;
 
             List<ContentReference> items = new List<ContentReference>();
 

@@ -20,7 +20,7 @@ namespace FSO.Content
     /// </summary>
     public class AvatarOutfitProvider : FAR3Provider<Outfit>
     {
-        public AvatarOutfitProvider(Content contentManager)
+        public AvatarOutfitProvider(GameContent contentManager)
             : base(contentManager, new OutfitCodec(), new Regex(".*/outfits/.*\\.dat"))
         {
         }

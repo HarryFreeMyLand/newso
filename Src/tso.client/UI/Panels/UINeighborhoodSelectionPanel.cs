@@ -77,7 +77,7 @@ namespace FSO.Client.UI.Panels
         public HITSound BgSound;
         public UINeighborhoodSelectionPanel(ushort mode)
         {
-            Provider = Content.Content.Get().TS1Global;
+            Provider = Content.GameContent.Get.TS1Global;
             PopulateScreen(mode);
             GameResized();
         }
@@ -100,7 +100,7 @@ namespace FSO.Client.UI.Panels
             var bg = new UIImage(((ITextureRef)Provider.Get(config.Graphic)).Get(GameFacade.GraphicsDevice));
             Add(bg);
             bg.BlockInput();
-            var locationIff = Content.Content.Get().Neighborhood.LotLocations;
+            var locationIff = Content.GameContent.Get.Neighborhood.LotLocations;
             var locations = locationIff.Get<STR>(mode);
             if (locations == null) return;
 
@@ -161,7 +161,7 @@ namespace FSO.Client.UI.Panels
 
         public UINeighborhoodAnimationLayer(NeighborhoodImageAnim anim, bool pulsate, int frameTime)
         {
-            var provider = Content.Content.Get().TS1Global;
+            var provider = Content.GameContent.Get.TS1Global;
             Frames = anim.Frames.Select(x=> ((ITextureRef)provider.Get(x)).Get(GameFacade.GraphicsDevice)).ToArray();
             SubFrame = frameTime;
             FrameTime = frameTime;
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Panels
 
         public UINeighborhoodHouseButton(int houseNumber, Action<int> selectionCallback, float scale)
         {
-            var house = Content.Content.Get().Neighborhood.GetHouse(houseNumber);
+            var house = Content.GameContent.Get.Neighborhood.GetHouse(houseNumber);
             HouseTex = house.Get<BMP>(513).GetTexture(GameFacade.GraphicsDevice);
             ManualTextureMask(ref HouseTex, new Color(248, 0, 248, 255));
             HouseOpenTex = house.Get<BMP>(512).GetTexture(GameFacade.GraphicsDevice);

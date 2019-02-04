@@ -96,7 +96,7 @@ namespace FSO.SimAntics.Primitives
                     }
                 }
 
-                var rels = Content.Content.Get().Neighborhood.GetNeighborByID(myNID).Relationships;
+                var rels = Content.GameContent.Get.Neighborhood.GetNeighborByID(myNID).Relationships;
                 if (!rels.ContainsKey(targNID))
                 {
                     if (operand.FailIfTooSmall) return VMPrimitiveExitCode.GOTO_FALSE;

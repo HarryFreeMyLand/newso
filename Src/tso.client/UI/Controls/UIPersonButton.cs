@@ -104,11 +104,11 @@ namespace FSO.Client.UI.Controls
 
                 if(_Size == UIPersonButtonSize.SMALL)
                 {
-                    _Button.Texture = FSO.Content.Content.Get().UIGraphics.Get(2564095475713).Get(GameFacade.GraphicsDevice);
+                    _Button.Texture = FSO.Content.GameContent.Get.UIGraphics.Get(2564095475713).Get(GameFacade.GraphicsDevice);
                 }
                 else
                 {
-                    _Button.Texture = FSO.Content.Content.Get().UIGraphics.Get(2551210573825).Get(GameFacade.GraphicsDevice);
+                    _Button.Texture = FSO.Content.GameContent.Get.UIGraphics.Get(2551210573825).Get(GameFacade.GraphicsDevice);
                 }
             }
         }

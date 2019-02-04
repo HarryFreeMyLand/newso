@@ -89,7 +89,7 @@ namespace FSO.HIT.Events
         {
             this.VM = vm;
             Station = new string(new char[] { (char)(TrackID & 0xFF), (char)((TrackID>>8) & 0xFF), (char)((TrackID>>16) & 0xFF), (char)((TrackID>>24) & 0xFF) });
-            var paths = Content.Content.Get().Audio.StationPaths;
+            var paths = Content.GameContent.Get.Audio.StationPaths;
             if (paths.ContainsKey(Station)) LoadStation(CleanPath(paths[Station]));
         }
 
@@ -101,7 +101,7 @@ namespace FSO.HIT.Events
             if (id == 5)
             {
                 //loadloop. load direct sound...
-                var sfx = Content.Content.Get().Audio.GetSFX(new Patch(0x00004f85));
+                var sfx = Content.GameContent.Get.Audio.GetSFX(new Patch(0x00004f85));
                 if (sfx == null) return;
                 SFXCache.Add("loadloop", sfx);
                 Instance = new SFXDecor(sfx.CreateInstance());
@@ -111,7 +111,7 @@ namespace FSO.HIT.Events
             }
             else
             {
-                var aud = Content.Content.Get().Audio;
+                var aud = Content.GameContent.Get.Audio;
                 if (aud.MusicModes.TryGetValue((int)id, out Station))
                 {
                     if (aud.StationPaths.ContainsKey(Station)) LoadStation(CleanPath(aud.StationPaths[Station]));
@@ -121,7 +121,7 @@ namespace FSO.HIT.Events
 
         private string CleanPath(string path)
         {
-            return (Content.Content.Get().TS1) ? path : path.ToLowerInvariant();
+            return (Content.GameContent.Get.TS1) ? path : path.ToLowerInvariant();
         }
 
         public void Fade()
@@ -131,7 +131,7 @@ namespace FSO.HIT.Events
 
         private void LoadStation(string path)
         {
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             var statBase = (content.TS1)?Path.Combine(content.TS1BasePath, path):content.GetPath(path);
             var files = Directory.GetFiles(statBase, "*.xa", SearchOption.AllDirectories);
             var rand = new Random();

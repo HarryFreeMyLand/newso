@@ -45,10 +45,10 @@ namespace FSO.SimAntics.Utils
                 }
             }
             
-            var col = Content.Content.Get().BCFGlobal.CollectionsByName[collectionType];
+            var col = Content.GameContent.Get.BCFGlobal.CollectionsByName[collectionType];
             var bodies = col.ClothesByAvatarType[simtype];
 
-            var tex = (TS1AvatarTextureProvider)Content.Content.Get().AvatarTextures;
+            var tex = (TS1AvatarTextureProvider)Content.GameContent.Get.AvatarTextures;
             var texnames = tex.GetAllNames();
 
             var bodyTex = bodies.Select(x => RemoveExt(texnames.FirstOrDefault(y => y.StartsWith(ExtractID(x, skin))))).ToList();
@@ -108,7 +108,7 @@ namespace FSO.SimAntics.Utils
                 bodyStrings.SetString(22, TilEQ(bodyStrings.GetString(22, STRLangCode.EnglishUS)) + "huac" + hg, STRLangCode.EnglishUS);
             }
 
-            Content.Content.Get().Neighborhood.AvatarChanged(avatar.Object.OBJ.GUID);
+            Content.GameContent.Get.Neighborhood.AvatarChanged(avatar.Object.OBJ.GUID);
 
             return (short)prevInd;
         }

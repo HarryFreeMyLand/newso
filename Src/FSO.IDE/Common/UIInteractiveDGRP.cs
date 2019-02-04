@@ -42,7 +42,7 @@ namespace FSO.IDE.Common
             {
                 if (TargetOBJ != null) TargetOBJ.Delete(TempVM.Context);
                 //create our master, center camera on target object
-                var objDefinition = FSO.Content.Content.Get().WorldObjects.Get(GUID);
+                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(GUID);
 
                 if (objDefinition != null)
                 {

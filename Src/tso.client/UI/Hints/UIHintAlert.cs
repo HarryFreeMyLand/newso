@@ -98,7 +98,7 @@ namespace FSO.Client.UI.Hints
                         if (hint.Image.Length > 0 && hint.Image[0] == '@')
                         {
 
-                            using (var strm = File.Open(Content.Content.Get().GetPath("uigraphics/hints/" + hint.Image.Substring(1)), FileMode.Open, FileAccess.Read, FileShare.Read))
+                            using (var strm = File.Open(Content.GameContent.Get.GetPath("uigraphics/hints/" + hint.Image.Substring(1)), FileMode.Open, FileAccess.Read, FileShare.Read))
                             {
                                 var tex = ImageLoader.FromStream(GameFacade.GraphicsDevice, strm);
                                 SetIcon(tex, tex.Width, tex.Height);

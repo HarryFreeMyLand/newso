@@ -178,13 +178,13 @@ namespace FSO.Client.UI.Screens
             WindowContainer = new UIContainer();
             Add(WindowContainer);
 
-            if (Content.Content.Get().TS1)
+            if (Content.GameContent.Get.TS1)
             {
                 TS1NeighPanel = new UINeighborhoodSelectionPanel(4);
                 TS1NeighPanel.OnHouseSelect += (house) =>
                 {
-                    ActiveFamily = Content.Content.Get().Neighborhood.GetFamilyForHouse((short)house);
-                    InitializeLot(Path.Combine(Content.Content.Get().TS1BasePath, "UserData/Houses/House" + house.ToString().PadLeft(2, '0') + ".iff"), false);// "UserData/Houses/House21.iff"
+                    ActiveFamily = Content.GameContent.Get.Neighborhood.GetFamilyForHouse((short)house);
+                    InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, "UserData/Houses/House" + house.ToString().PadLeft(2, '0') + ".iff"), false);// "UserData/Houses/House21.iff"
                 Remove(TS1NeighPanel);
                 };
                 Add(TS1NeighPanel);
@@ -313,7 +313,7 @@ namespace FSO.Client.UI.Screens
             if (SwitchLot > 0)
             {
 
-                InitializeLot(Path.Combine(Content.Content.Get().TS1BasePath, "UserData/Houses/House" + SwitchLot.ToString().PadLeft(2, '0') + ".iff"), false);
+                InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, "UserData/Houses/House" + SwitchLot.ToString().PadLeft(2, '0') + ".iff"), false);
                 SwitchLot = -1;
             }
             if (vm != null) vm.Update();

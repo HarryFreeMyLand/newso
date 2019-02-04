@@ -79,7 +79,7 @@ namespace FSO.SimAntics.Model
 
         public virtual void Load(VMAnimationStateMarshal input)
         {
-            Anim = FSO.Content.Content.Get().AvatarAnimations.Get(input.Anim + ".anim");
+            Anim = FSO.Content.GameContent.Get.AvatarAnimations.Get(input.Anim + ".anim");
             CurrentFrame = input.CurrentFrame;
             EventQueue = new List<short>(input.EventQueue);
             EventsRun = input.EventsRun;

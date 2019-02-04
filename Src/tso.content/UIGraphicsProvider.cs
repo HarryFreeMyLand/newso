@@ -37,7 +37,7 @@ namespace FSO.Content
         private Dictionary<ulong, ulong> Pointers = new Dictionary<ulong, ulong>();
 
 
-        public UIGraphicsProvider(Content contentManager)
+        public UIGraphicsProvider(GameContent contentManager)
             : base(contentManager, new TextureCodec(MASK_COLORS), new Regex("uigraphics/.*\\.dat"))
         {
             Files[0x00000Cb800000002] = "uigraphics/friendshipweb/friendshipwebalpha.tga";

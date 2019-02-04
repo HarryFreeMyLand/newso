@@ -28,7 +28,7 @@ namespace FSO.LotView.RC
         {
             if (_Dirty && DrawGroup != null)
             {
-                Mesh = Content.Content.Get().RCMeshes.Get(DrawGroup, Source);
+                Mesh = Content.GameContent.Get.RCMeshes.Get(DrawGroup, Source);
                 _Dirty = false;
             }
             return Mesh?.Bounds;
@@ -117,7 +117,7 @@ namespace FSO.LotView.RC
             if (DrawGroup == null) return;
             if (_Dirty)
             {
-                Mesh = Content.Content.Get().RCMeshes.Get(DrawGroup, Source);
+                Mesh = Content.GameContent.Get.RCMeshes.Get(DrawGroup, Source);
                 _Dirty = false;
             }
 
@@ -214,7 +214,7 @@ namespace FSO.LotView.RC
             if (DrawGroup == null) return;
             if (_Dirty)
             {
-                Mesh = Content.Content.Get().RCMeshes.Get(DrawGroup, Source);
+                Mesh = Content.GameContent.Get.RCMeshes.Get(DrawGroup, Source);
                 _Dirty = false;
             }
 
@@ -254,7 +254,7 @@ namespace FSO.LotView.RC
         {
             if (_Dirty)
             {
-                Mesh = Content.Content.Get().RCMeshes.Get(DrawGroup, Source);
+                Mesh = Content.GameContent.Get.RCMeshes.Get(DrawGroup, Source);
                 _Dirty = false;
             }
         }

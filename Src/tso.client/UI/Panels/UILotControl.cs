@@ -473,7 +473,7 @@ namespace FSO.Client.UI.Panels
                                 //for sale
                                 //try to get catalog price
                                 var guid = obj.MasterDefinition?.GUID ?? obj.Object.OBJ.GUID;
-                                var item = Content.Content.Get().WorldCatalog.GetItemByGUID(guid);
+                                var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID(guid);
 
                                 var retailPrice = (int?)(item?.Price) ?? obj.MultitileGroup.Price;
                                 var salePrice = obj.MultitileGroup.SalePrice;
@@ -616,7 +616,7 @@ namespace FSO.Client.UI.Panels
                                     //for sale
                                     //try to get catalog price
                                     var guid = obj.MasterDefinition?.GUID ?? obj.Object.OBJ.GUID;
-                                    var item = Content.Content.Get().WorldCatalog.GetItemByGUID(guid);
+                                    var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID(guid);
 
                                     var retailPrice = (int?)(item?.Price) ?? obj.MultitileGroup.Price;
                                     var salePrice = obj.MultitileGroup.SalePrice;

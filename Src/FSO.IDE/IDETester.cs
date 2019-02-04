@@ -23,7 +23,7 @@ namespace FSO.IDE
         public void StartIDE(VM vm)
         {
             EditorResource.Get().Init(GameFacade.GraphicsDevice);
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             EditorScope.Behaviour = new Files.Formats.IFF.IffFile(
                 content.TS1?Path.Combine(content.TS1BasePath, "GameData/Behavior.iff"):content.GetPath("objectdata/globals/behavior.iff"));
             EditorScope.Globals = content.WorldObjectGlobals.Get("global");

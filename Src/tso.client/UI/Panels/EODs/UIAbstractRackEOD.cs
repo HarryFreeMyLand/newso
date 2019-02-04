@@ -102,13 +102,13 @@ namespace FSO.Client.UI.Panels.EODs
 
             foreach (var outfit in Stock){
                 //TODO: Use current avatars appearance type
-                Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(outfit.asset_id);
-                Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
+                Outfit TmpOutfit = Content.GameContent.Get.AvatarOutfits.Get(outfit.asset_id);
+                Appearance TmpAppearance = Content.GameContent.Get.AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
                 Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem {
                     Data = outfit,
-                    Thumb = new Promise<Texture2D>(x => Content.Content.Get().AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
+                    Thumb = new Promise<Texture2D>(x => Content.GameContent.Get.AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
                 });
             }
             OutfitBrowser.DataProvider = dataProvider;

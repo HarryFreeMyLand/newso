@@ -11,7 +11,7 @@ namespace FSO.Common.DataService
     public class NullDataService : DataService
     {
         public NullDataService(IModelSerializer serializer,
-                                FSO.Content.Content content,
+                                FSO.Content.GameContent content,
                                 IKernel kernel) : base(serializer, content)
         {
         }

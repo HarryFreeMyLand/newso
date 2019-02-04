@@ -82,7 +82,7 @@ namespace FSO.IDE
         public void ChangeActiveObject(ObjectRegistryEntry obj)
         {
             ActiveObjTable = obj;
-            var objd = Content.Content.Get().WorldObjects.Get(obj.GUID);
+            var objd = Content.GameContent.Get.WorldObjects.Get(obj.GUID);
             if (objd == null) return;
             SetTargetObject(objd);
         }
@@ -146,7 +146,7 @@ namespace FSO.IDE
 
         private void SemiGlobalButton_Click(object sender, EventArgs e)
         {
-            var sg = FSO.Content.Content.Get().WorldObjectGlobals.Get(SemiglobalName);
+            var sg = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(SemiglobalName);
             if (sg == null)
             {
                 MessageBox.Show("Error: Semi-Global iff '"+sg+"' could not be found!");
@@ -197,7 +197,7 @@ namespace FSO.IDE
             if (objDialog.DialogResult == DialogResult.OK)
             {
                 RegenObjMeta(ActiveIff);
-                MainWindow.Instance.IffManager.OpenResourceWindow(Content.Content.Get().WorldObjects.Get(objDialog.ResultGUID));
+                MainWindow.Instance.IffManager.OpenResourceWindow(Content.GameContent.Get.WorldObjects.Get(objDialog.ResultGUID));
             }
         }
 
@@ -208,11 +208,11 @@ namespace FSO.IDE
                 "Confirm Deletion?", MessageBoxButtons.YesNo);
             if (confirm == DialogResult.Yes)
             {
-                Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveObj.OBJ.ChunkParent.FullRemoveChunk(ActiveObj.OBJ);
-                    Content.Content.Get().Changes.ChunkChanged(ActiveObj.OBJ);
-                    Content.Content.Get().WorldObjects.RemoveObject(ActiveObj.OBJ.GUID);
+                    Content.GameContent.Get.Changes.ChunkChanged(ActiveObj.OBJ);
+                    Content.GameContent.Get.WorldObjects.RemoveObject(ActiveObj.OBJ.GUID);
                 }));
 
                 if (!RegenObjMeta(ActiveIff))
@@ -234,7 +234,7 @@ namespace FSO.IDE
                 if (sgs != null && sgs.Count > 0)
                 {
                     //modify existing
-                    Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                    Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                     {
                         sgs[0].Name = name;
                     }, sgs[0]));
@@ -242,7 +242,7 @@ namespace FSO.IDE
                 {
                     //make one!
 
-                    Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                    Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                     {
                         var glob = new GLOB()
                         {
@@ -256,7 +256,7 @@ namespace FSO.IDE
                         };
 
                         ActiveObj.Resource.MainIff.AddChunk(glob);
-                        Content.Content.Get().Changes.ChunkChanged(glob);
+                        Content.GameContent.Get.Changes.ChunkChanged(glob);
                     }));
                 }
 

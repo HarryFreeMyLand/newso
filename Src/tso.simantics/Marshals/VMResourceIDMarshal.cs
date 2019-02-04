@@ -30,7 +30,7 @@ namespace FSO.SimAntics.Marshals
         public VMResourceIDMarshal(VM vm)
         {
             var arch = vm.Context.Architecture;
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             var floorids = new HashSet<ushort>();
             foreach (var level in arch.Floors)
             {
@@ -87,10 +87,10 @@ namespace FSO.SimAntics.Marshals
         {
             var failures = VMArchLoadFailure.SUCCESS;
             int failCount = 0;
-            var wallMap = BuildDict(WallNamesByID, Content.Content.Get().WorldWalls.DynamicWallFromID, ref failCount);
+            var wallMap = BuildDict(WallNamesByID, Content.GameContent.Get.WorldWalls.DynamicWallFromID, ref failCount);
             if (failCount > 0) failures |= VMArchLoadFailure.WALL_MISSING;
             failCount = 0;
-            var floorMap = BuildDict(FloorNamesByID, Content.Content.Get().WorldFloors.DynamicFloorFromID, ref failCount);
+            var floorMap = BuildDict(FloorNamesByID, Content.GameContent.Get.WorldFloors.DynamicFloorFromID, ref failCount);
             if (failCount > 0) failures |= VMArchLoadFailure.FLOOR_MISSING;
 
             var arch = vm.Context.Architecture;
@@ -156,7 +156,7 @@ namespace FSO.SimAntics.Marshals
                 }
             }
 
-            arch.RoofStyle = (uint)Content.Content.Get().WorldRoofs.NameToID(Roof);
+            arch.RoofStyle = (uint)Content.GameContent.Get.WorldRoofs.NameToID(Roof);
             if (arch.RoofStyle == int.MaxValue)
             {
                 failures |= VMArchLoadFailure.ROOF_MISSING;

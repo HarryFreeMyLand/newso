@@ -20,7 +20,7 @@ namespace FSO.Content
     /// Provides access to avatar thumbnail data in FAR3 archives.
     /// </summary>
     public class AvatarThumbnailProvider : FAR3Provider<ITextureRef> {
-        public AvatarThumbnailProvider(Content contentManager)
+        public AvatarThumbnailProvider(GameContent contentManager)
             : base(contentManager, new TextureCodec(), new Regex(".*/thumbnails/.*\\.dat"))
         {
         }

@@ -29,11 +29,11 @@ namespace FSO.SimAntics.Utils
 
         public static void PrepareTemplatePerson(uint guid, SimTemplateCreateInfo info)
         {
-            var neigh = Content.Content.Get().Neighborhood;
+            var neigh = Content.GameContent.Get.Neighborhood;
             //userid
             var userid = neigh.NextSim;
 
-            var tempObj = Content.Content.Get().WorldObjects.Get(info.CustomGUID ?? TEMPLATE_GUID);
+            var tempObj = Content.GameContent.Get.WorldObjects.Get(info.CustomGUID ?? TEMPLATE_GUID);
             tempObj.OBJ.ChunkParent.RetainChunkData = true;
             tempObj.OBJ.GUID = guid;
             tempObj.OBJ.ChunkLabel = "user" + userid.ToString().PadLeft(5, '0') + " - " + info.Name;
@@ -80,7 +80,7 @@ namespace FSO.SimAntics.Utils
                 PrepareTemplatePerson(guid, info);
                 AddNeighbor(guid, 9, info.MakePersonData());
             }
-            Content.Content.Get().Neighborhood.SaveNeighbourhood(true);
+            Content.GameContent.Get.Neighborhood.SaveNeighbourhood(true);
             return fami;
         }
 
@@ -92,7 +92,7 @@ namespace FSO.SimAntics.Utils
 
         public static FAMI CreateFamily(string name, int count)
         {
-            var neigh = Content.Content.Get().Neighborhood;
+            var neigh = Content.GameContent.Get.Neighborhood;
             var families = neigh.MainResource.List<FAMI>() ?? new List<FAMI>();
             families = families.OrderBy(x => x.ChunkID).ToList();
             ushort newID = 0;
@@ -141,7 +141,7 @@ namespace FSO.SimAntics.Utils
 
         public static uint GenerateGUID(uint[] avoid)
         {
-            var objProvider = Content.Content.Get().WorldObjects;
+            var objProvider = Content.GameContent.Get.WorldObjects;
             lock (objProvider.Entries)
             {
                 var rand = new Random();
@@ -158,7 +158,7 @@ namespace FSO.SimAntics.Utils
 
         public static Neighbour AddNeighbor(uint guid, int personMode, short[] personData)
         {
-            var neigh = Content.Content.Get().Neighborhood;
+            var neigh = Content.GameContent.Get.Neighborhood;
             var ns = neigh.Neighbors.Entries;
             //find the lowest id that is free
             short newID = 1;

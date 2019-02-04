@@ -35,9 +35,9 @@ namespace FSO.Client
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class TSOGame : Common.Rendering.Framework.Game
+    public class TSOGame : AGame
     {
-        public UILayer uiLayer;
+        public UILayer UiLayer;
         public _3DLayer SceneMgr;
 
         public TSOGame() : base()
@@ -74,14 +74,14 @@ namespace FSO.Client
             }
         }
 
-        bool newChange = false;
+        bool _newChange = false;
         void Window_ClientSizeChanged(object sender, EventArgs e)
         {
-            if (newChange || !GlobalSettings.Default.Windowed)
+            if (_newChange || !GlobalSettings.Default.Windowed)
                 return;
             if (Window.ClientBounds.Width == 0 || Window.ClientBounds.Height == 0)
                 return;
-            newChange = true;
+            _newChange = true;
             var width = Math.Max(1, Window.ClientBounds.Width);
             var height = Math.Max(1, Window.ClientBounds.Height);
             Graphics.PreferredBackBufferWidth = width;
@@ -91,14 +91,14 @@ namespace FSO.Client
             GlobalSettings.Default.GraphicsWidth = width;
             GlobalSettings.Default.GraphicsHeight = height;
 
-            newChange = false;
-            if (uiLayer?.CurrentUIScreen == null)
+            _newChange = false;
+            if (UiLayer?.CurrentUIScreen == null)
                 return;
 
-            uiLayer.SpriteBatch.ResizeBuffer(GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight);
+            UiLayer.SpriteBatch.ResizeBuffer(GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight);
             GlobalSettings.Default.GraphicsWidth = (int)(width / FSOEnvironment.DPIScaleFactor);
             GlobalSettings.Default.GraphicsHeight = (int)(height / FSOEnvironment.DPIScaleFactor);
-            uiLayer.CurrentUIScreen.GameResized();
+            UiLayer.CurrentUIScreen.GameResized();
         }
 
         /// <summary>
@@ -162,11 +162,11 @@ namespace FSO.Client
 
             var os = Environment.OSVersion;
             var pid = os.Platform;
-            GameFacade.Linux = (pid == PlatformID.MacOSX || pid == PlatformID.Unix);
+            GameFacade.Unix = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
 
-            FSO.Content.Content.TS1Hybrid = GlobalSettings.Default.TS1HybridEnable;
-            FSO.Content.Content.TS1HybridBasePath = GlobalSettings.Default.TS1HybridPath;
-            FSO.Content.Content.InitBasic(GlobalSettings.Default.StartupPath, GraphicsDevice);
+            FSO.Content.GameContent.TS1Hybrid = GlobalSettings.Default.TS1HybridEnable;
+            FSO.Content.GameContent.TS1HybridBasePath = GlobalSettings.Default.TS1HybridPath;
+            FSO.Content.GameContent.InitBasic(GlobalSettings.Default.StartupPath, GraphicsDevice);
             //VMContext.InitVMConfig();
             base.Initialize();
 
@@ -177,15 +177,15 @@ namespace FSO.Client
 
             FSOFacade.Controller = kernel.Get<GameController>();
             FSOFacade.Hints = new UI.Hints.UIHintManager();
-            GameFacade.Screens = uiLayer;
+            GameFacade.Screens = UiLayer;
             GameFacade.Scenes = SceneMgr;
             GameFacade.GraphicsDevice = GraphicsDevice;
             GameFacade.GraphicsDeviceManager = Graphics;
             GameFacade.Emojis = new Common.Rendering.Emoji.EmojiProvider(GraphicsDevice);
             CurLoader.BmpLoaderFunc = Files.ImageLoader.FromStream;
             GameFacade.Cursor = new CursorManager(GraphicsDevice);
-            if (!GameFacade.Linux)
-                GameFacade.Cursor.Init(FSO.Content.Content.Get().GetPath(""), false);
+            if (!GameFacade.Unix)
+                GameFacade.Cursor.Init(FSO.Content.GameContent.Get.GetPath(""), false);
 
             /** Init any computed values **/
             GameFacade.Init();
@@ -221,10 +221,10 @@ namespace FSO.Client
             if (!(FSOEnvironment.SoftwareKeyboard && FSOEnvironment.SoftwareDepth))
                 AddTextInput();
             base.Screen.Layers.Add(SceneMgr);
-            base.Screen.Layers.Add(uiLayer);
+            base.Screen.Layers.Add(UiLayer);
             GameFacade.LastUpdateState = base.Screen.State;
             //Bind ninject objects
-            kernel.Bind<Content.Content>().ToConstant(FSO.Content.Content.Get());
+            kernel.Bind<Content.GameContent>().ToConstant(FSO.Content.GameContent.Get);
             kernel.Load(new ClientDomainModule());
 
             //Have to be eager with this, it sets a singleton instance on itself to avoid packets having
@@ -296,7 +296,7 @@ namespace FSO.Client
                 GameFacade.EdithFont.AddSize(14, Content.Load<SpriteFont>("Fonts/Trebuchet_14px"));
 
                 vitaboyEffect = Content.Load<Effect>((FSOEnvironment.GLVer == 2) ? "Effects/VitaboyiOS" : "Effects/Vitaboy");
-                uiLayer = new UILayer(this, Content.Load<SpriteFont>("Fonts/FreeSO_12px"), Content.Load<SpriteFont>("Fonts/FreeSO_16px"));
+                UiLayer = new UILayer(this, Content.Load<SpriteFont>("Fonts/FreeSO_12px"), Content.Load<SpriteFont>("Fonts/FreeSO_16px"));
             }
             catch (Exception e)
             {

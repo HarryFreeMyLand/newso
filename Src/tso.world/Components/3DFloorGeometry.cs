@@ -233,7 +233,7 @@ namespace FSO.LotView.Components
         {
             //assumes the effect and all its parameters have been set up already
             //we just need to get the right texture and offset
-            var flrContent = Content.Content.Get().WorldFloors;
+            var flrContent = Content.GameContent.Get.WorldFloors;
 
             e.Parameters["TexOffset"].SetValue(new Vector2());// TexOffset[zoom]*-1f);
             var tmat = TexMat[rot];

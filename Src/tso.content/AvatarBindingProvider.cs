@@ -20,7 +20,7 @@ namespace FSO.Content
     /// </summary>
     public class AvatarBindingProvider : FAR3Provider<Binding>
     {
-        public AvatarBindingProvider(Content contentManager)
+        public AvatarBindingProvider(GameContent contentManager)
             : base(contentManager, new BindingCodec(), new Regex(".*/bindings/.*\\.dat"))
         {
         }

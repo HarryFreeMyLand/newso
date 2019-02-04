@@ -242,7 +242,7 @@ namespace FSO.SimAntics
             }
 
 
-            MotiveDecay = (Content.Content.Get().TS1) ? (VMIMotiveDecay)new VMTS1MotiveDecay() : new VMAvatarMotiveDecay();
+            MotiveDecay = (Content.GameContent.Get.TS1) ? (VMIMotiveDecay)new VMTS1MotiveDecay() : new VMAvatarMotiveDecay();
             for (int i = 0; i < 16; i++)
             {
                 MotiveChanges[i] = new VMMotiveChange();
@@ -265,21 +265,21 @@ namespace FSO.SimAntics
                 else if (type == "dog") AvatarType = VMAvatarType.Dog;
             }
 
-            Avatar = new SimAvatar(FSO.Content.Content.Get().AvatarSkeletons.Get((data?.GetString(0)??"adult")+".skel"));
-            if (UseWorld && !FSO.Content.Content.Get().TS1)
+            Avatar = new SimAvatar(FSO.Content.GameContent.Get.AvatarSkeletons.Get((data?.GetString(0)??"adult")+".skel"));
+            if (UseWorld && !FSO.Content.GameContent.Get.TS1)
             {
                 switch (AvatarType)
                 {
                     case VMAvatarType.Adult:
-                        Avatar.Head = FSO.Content.Content.Get().AvatarOutfits.Get(0x000003a00000000D); //default to bob newbie, why not
-                        Avatar.Body = FSO.Content.Content.Get().AvatarOutfits.Get("mab002_slob.oft");
+                        Avatar.Head = FSO.Content.GameContent.Get.AvatarOutfits.Get(0x000003a00000000D); //default to bob newbie, why not
+                        Avatar.Body = FSO.Content.GameContent.Get.AvatarOutfits.Get("mab002_slob.oft");
                         Avatar.Handgroup = Avatar.Body;
                         break;
                     case VMAvatarType.Cat:
-                        Avatar.Body = FSO.Content.Content.Get().AvatarOutfits.Get("uaa002cat_calico.oft");
+                        Avatar.Body = FSO.Content.GameContent.Get.AvatarOutfits.Get("uaa002cat_calico.oft");
                         break;
                     case VMAvatarType.Dog:
-                        Avatar.Body = FSO.Content.Content.Get().AvatarOutfits.Get("uaa012dog_scottish.oft"); //;)
+                        Avatar.Body = FSO.Content.GameContent.Get.AvatarOutfits.Get("uaa012dog_scottish.oft"); //;)
                         break;
                     case VMAvatarType.Child:
                         break;
@@ -425,7 +425,7 @@ namespace FSO.SimAntics
                 foreach (var aprName in BoundAppearances)
                 {
                     //remove all appearances, so we don't have stuff stuck to us.
-                    var apr = FSO.Content.Content.Get().AvatarAppearances.Get(aprName);
+                    var apr = FSO.Content.GameContent.Get.AvatarAppearances.Get(aprName);
                     Avatar.RemoveAccessory(apr);
                 }
             }
@@ -506,7 +506,7 @@ namespace FSO.SimAntics
             if (Thread != null)
             {
                 MotiveDecay.Tick(this, Thread.Context);
-                if (Position == LotTilePos.OUT_OF_WORLD && (PersistID > 0 || IsPet) && !Content.Content.Get().TS1)
+                if (Position == LotTilePos.OUT_OF_WORLD && (PersistID > 0 || IsPet) && !Content.GameContent.Get.TS1)
                 {
                     //uh oh!
                     var mailbox = Thread.Context.VM.Entities.FirstOrDefault(x => (x.Object.OBJ.GUID == 0xEF121974 || x.Object.OBJ.GUID == 0x1D95C9B0));
@@ -943,7 +943,7 @@ namespace FSO.SimAntics
             {
                 HandObject = obj;
 
-                CarryAnimationState = new VMAnimationState(FSO.Content.Content.Get().AvatarAnimations.Get("a2o-rarm-carry-loop.anim"), false); //set default carry animation
+                CarryAnimationState = new VMAnimationState(FSO.Content.GameContent.Get.AvatarAnimations.Get("a2o-rarm-carry-loop.anim"), false); //set default carry animation
 
                 obj.Container = this;
                 obj.ContainerSlot = (short)slot;
@@ -1006,14 +1006,14 @@ namespace FSO.SimAntics
         public override Texture2D GetIcon(GraphicsDevice gd, int store)
         {
             if (Avatar.Head == null && Avatar.Body == null) return null;
-            var content = FSO.Content.Content.Get();
+            var content = FSO.Content.GameContent.Get;
             if (content.TS1) return null;
             Outfit ThumbOutfit = (Avatar.Head == null) ? Avatar.Body : Avatar.Head;
             var AppearanceID = ThumbOutfit.GetAppearance(Avatar.Appearance);
             var Appearance = content.AvatarAppearances.Get(AppearanceID);
 
             if (Appearance == null) return null;
-            var ico = FSO.Content.Content.Get().AvatarThumbnails.Get(Appearance.ThumbnailTypeID, Appearance.ThumbnailFileID)?.Get(gd);
+            var ico = FSO.Content.GameContent.Get.AvatarThumbnails.Get(Appearance.ThumbnailTypeID, Appearance.ThumbnailFileID)?.Get(gd);
 
             //todo: better dispose handling for these icons
             return (store > 0 && ico != null)?TextureUtils.Decimate(ico, gd, 1<<(2-store), false):ico;
@@ -1082,11 +1082,11 @@ namespace FSO.SimAntics
             {
                 foreach (var aprN in BoundAppearances)
                 {
-                    var apr = FSO.Content.Content.Get().AvatarAppearances.Get(aprN);
+                    var apr = FSO.Content.GameContent.Get.AvatarAppearances.Get(aprN);
                     if (apr != null) Avatar.AddAccessory(apr);
                 }
 
-                var oftProvider = Content.Content.Get().AvatarOutfits;
+                var oftProvider = Content.GameContent.Get.AvatarOutfits;
                 if (oftProvider != null) { 
                     if (Decoration.Back != 0) Avatar.DecorationBack = oftProvider.Get(Decoration.Back);
                     if (Decoration.Head != 0) Avatar.DecorationHead = oftProvider.Get(Decoration.Head);

@@ -88,7 +88,7 @@ namespace FSO.Client.UI.Screens
             /**
             * Data
             */
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             MaleHeads = content.AvatarCollections.Get("ea_male_heads.col");
             MaleOutfits = content.AvatarCollections.Get("ea_male.col");
 
@@ -277,7 +277,7 @@ namespace FSO.Client.UI.Screens
             get
             {
                 var selectedHead = (CollectionItem)((UIGridViewerItem)m_HeadSkinBrowser.SelectedItem).Data;
-                var headPurchasable = Content.Content.Get().AvatarPurchasables.Get(selectedHead.PurchasableOutfitId);
+                var headPurchasable = Content.GameContent.Get.AvatarPurchasables.Get(selectedHead.PurchasableOutfitId);
                 return headPurchasable.OutfitID;
             }
         }
@@ -287,7 +287,7 @@ namespace FSO.Client.UI.Screens
             get
             {
                 var selectedBody = (CollectionItem)((UIGridViewerItem)m_BodySkinBrowser.SelectedItem).Data;
-                var bodyPurchasable = Content.Content.Get().AvatarPurchasables.Get(selectedBody.PurchasableOutfitId);
+                var bodyPurchasable = Content.GameContent.Get.AvatarPurchasables.Get(selectedBody.PurchasableOutfitId);
                 return bodyPurchasable.OutfitID;
             }
         }
@@ -315,8 +315,8 @@ namespace FSO.Client.UI.Screens
             {
                 var selectedHead = (CollectionItem)((UIGridViewerItem)m_HeadSkinBrowser.SelectedItem).Data;
                 var selectedBody = (CollectionItem)((UIGridViewerItem)m_BodySkinBrowser.SelectedItem).Data;
-                var headPurchasable = Content.Content.Get().AvatarPurchasables.Get(selectedHead.PurchasableOutfitId);
-                var bodyPurchasable = Content.Content.Get().AvatarPurchasables.Get(selectedBody.PurchasableOutfitId);
+                var headPurchasable = Content.GameContent.Get.AvatarPurchasables.Get(selectedHead.PurchasableOutfitId);
+                var bodyPurchasable = Content.GameContent.Get.AvatarPurchasables.Get(selectedBody.PurchasableOutfitId);
 
                 GlobalSettings.Default.DebugBody = bodyPurchasable.OutfitID;
                 GlobalSettings.Default.DebugHead = headPurchasable.OutfitID;
@@ -348,11 +348,11 @@ namespace FSO.Client.UI.Screens
             var selectedHead = (CollectionItem)((UIGridViewerItem)m_HeadSkinBrowser.SelectedItem).Data;
             var selectedBody = (CollectionItem)((UIGridViewerItem)m_BodySkinBrowser.SelectedItem).Data;
 
-            var headPurchasable = Content.Content.Get().AvatarPurchasables.Get(selectedHead.PurchasableOutfitId);
-            var bodyPurchasable = Content.Content.Get().AvatarPurchasables.Get(selectedBody.PurchasableOutfitId);
+            var headPurchasable = Content.GameContent.Get.AvatarPurchasables.Get(selectedHead.PurchasableOutfitId);
+            var bodyPurchasable = Content.GameContent.Get.AvatarPurchasables.Get(selectedBody.PurchasableOutfitId);
             
-            var headOutfit = Content.Content.Get().AvatarOutfits.Get(headPurchasable.OutfitID);
-            var bodyOutfit = Content.Content.Get().AvatarOutfits.Get(bodyPurchasable.OutfitID);
+            var headOutfit = Content.GameContent.Get.AvatarOutfits.Get(headPurchasable.OutfitID);
+            var bodyOutfit = Content.GameContent.Get.AvatarOutfits.Get(bodyPurchasable.OutfitID);
 
             SimBox.Avatar.Appearance = AppearanceType;
             SimBox.Avatar.Head = headOutfit;
@@ -431,7 +431,7 @@ namespace FSO.Client.UI.Screens
 
         private void SearchCollectionForInitID(ulong headID, ulong bodyID)
         {
-            var purchs = Content.Content.Get().AvatarPurchasables;
+            var purchs = Content.GameContent.Get.AvatarPurchasables;
 
             int index = m_BodySkinBrowser.DataProvider.FindIndex(x =>
                 purchs.Get(
@@ -459,14 +459,14 @@ namespace FSO.Client.UI.Screens
             var dataProvider = new List<object>();
             foreach (var outfit in collection)
             {
-                var purchasable = Content.Content.Get().AvatarPurchasables.Get(outfit.PurchasableOutfitId);
-                Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(purchasable.OutfitID);
-                Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(AppearanceType));
+                var purchasable = Content.GameContent.Get.AvatarPurchasables.Get(outfit.PurchasableOutfitId);
+                Outfit TmpOutfit = Content.GameContent.Get.AvatarOutfits.Get(purchasable.OutfitID);
+                Appearance TmpAppearance = Content.GameContent.Get.AvatarAppearances.Get(TmpOutfit.GetAppearance(AppearanceType));
                 Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem {
                     Data = outfit,
-                    Thumb = new Promise<Texture2D>(x => Content.Content.Get().AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
+                    Thumb = new Promise<Texture2D>(x => Content.GameContent.Get.AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
                 });
             }
             return dataProvider;

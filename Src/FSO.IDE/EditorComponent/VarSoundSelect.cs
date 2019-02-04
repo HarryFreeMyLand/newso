@@ -54,7 +54,7 @@ namespace FSO.IDE.EditorComponent
             var searchString = new Regex(".*" + SearchBox.Text.ToLowerInvariant() + ".*");
 
             AllList.Items.Clear();
-            var events = Content.Content.Get().Audio.Events.Keys.OrderBy(x => x);
+            var events = Content.GameContent.Get.Audio.Events.Keys.OrderBy(x => x);
             foreach (var sound in events)
             {
                 var name = sound;
@@ -113,7 +113,7 @@ namespace FSO.IDE.EditorComponent
             fwav.ChunkParent = SourceIff;
             fwav.ChunkProcessed = true;
 
-            Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ushort resultID = 0;
                 for (ushort i=1; i<ushort.MaxValue; i++)
@@ -144,10 +144,10 @@ namespace FSO.IDE.EditorComponent
             int id = MyList.SelectedIndex;
             FWAVTable.Remove(chunk);
 
-            Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 chunk.ChunkParent.FullRemoveChunk(chunk);
-                Content.Content.Get().Changes.ChunkChanged(chunk);
+                Content.GameContent.Get.Changes.ChunkChanged(chunk);
             }));
 
             MyList.SelectedIndex--;

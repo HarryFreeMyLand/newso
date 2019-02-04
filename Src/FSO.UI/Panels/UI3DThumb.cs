@@ -54,7 +54,7 @@ namespace FSO.UI.Panels
             {
                 var c = new Debug3DDGRPComponent();
                 var dgrp = ((ObjectComponent)obj.WorldUI).DGRP;
-                c.Mesh = (dgrp == null) ? null : Content.Content.Get().RCMeshes.Get(dgrp, obj.Object.OBJ); //new DGRP3DMesh(((ObjectComponent)obj.WorldUI).DGRP, obj.Object.OBJ, GameFacade.GraphicsDevice, null);
+                c.Mesh = (dgrp == null) ? null : Content.GameContent.Get.RCMeshes.Get(dgrp, obj.Object.OBJ); //new DGRP3DMesh(((ObjectComponent)obj.WorldUI).DGRP, obj.Object.OBJ, GameFacade.GraphicsDevice, null);
                 Scene.Add(c);
                 if (c.Mesh == null) continue;
 

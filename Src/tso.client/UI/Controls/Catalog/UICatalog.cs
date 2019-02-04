@@ -59,7 +59,7 @@ namespace FSO.Client.UI.Controls.Catalog
                     _Catalog = new List<UICatalogElement>[30];
                     for (int i = 0; i < 30; i++) _Catalog[i] = new List<UICatalogElement>();
 
-                    foreach (var obj in Content.Content.Get().WorldCatalog.All())
+                    foreach (var obj in Content.GameContent.Get.WorldCatalog.All())
                     {
                         _Catalog[obj.Category].Add(new UICatalogElement()
                         {
@@ -85,7 +85,7 @@ namespace FSO.Client.UI.Controls.Catalog
         {
             var res = new UICatalogWallpaperResProvider();
 
-            var walls = Content.Content.Get().WorldWalls.List();
+            var walls = Content.GameContent.Get.WorldWalls.List();
 
             for (int i = 0; i < walls.Count; i++)
             {
@@ -113,7 +113,7 @@ namespace FSO.Client.UI.Controls.Catalog
         {
             var res = new UICatalogFloorResProvider();
 
-            var floors = Content.Content.Get().WorldFloors.List();
+            var floors = Content.GameContent.Get.WorldFloors.List();
 
             for (int i = 0; i < floors.Count; i++)
             {
@@ -142,7 +142,7 @@ namespace FSO.Client.UI.Controls.Catalog
         {
             var res = new UICatalogRoofResProvider();
 
-            var total = Content.Content.Get().WorldRoofs.Count;
+            var total = Content.GameContent.Get.WorldRoofs.Count;
 
             for (int i = 0; i < total; i++)
             {
@@ -172,7 +172,7 @@ namespace FSO.Client.UI.Controls.Catalog
 
             for (int i = 0; i < WallStyleIDs.Length; i++)
             {
-                var walls = Content.Content.Get().WorldWalls;
+                var walls = Content.GameContent.Get.WorldWalls;
                 var style = walls.GetWallStyle((ulong)WallStyleIDs[i]);
                 _Catalog[7].Insert(0, new UICatalogElement
                 {
@@ -349,7 +349,7 @@ namespace FSO.Client.UI.Controls.Catalog
         public Texture2D GetObjIcon(uint GUID)
         {
             if (!IconCache.ContainsKey(GUID)) {
-                var obj = Content.Content.Get().WorldObjects.Get(GUID);
+                var obj = Content.GameContent.Get.WorldObjects.Get(GUID);
                 if (obj == null)
                 {
                     IconCache[GUID] = null;

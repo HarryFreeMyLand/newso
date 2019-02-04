@@ -30,7 +30,7 @@ namespace FSO.IDE.EditorComponent.Primitives
             result.Append("Object with ID: ");
             result.Append(scope.GetVarName(op.IdOwner, (short)op.IdData));
             result.Append("\r\n has (master) type ");
-            var obj = Content.Content.Get().WorldObjects.Get(op.GUID);
+            var obj = Content.GameContent.Get.WorldObjects.Get(op.GUID);
 
             result.Append((obj == null) ? ("0x" + Convert.ToString(op.GUID.ToString("x8"))) : obj.OBJ.ChunkLabel);
 

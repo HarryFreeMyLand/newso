@@ -109,7 +109,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
             }
             else
             {
-                var catalog = Content.Content.Get().WorldCatalog;
+                var catalog = Content.GameContent.Get.WorldCatalog;
                 var item = catalog.GetItemByGUID(GUID);
 
                 CreatedGroup = vm.Context.CreateObjectInstance(GUID, LotTilePos.OUT_OF_WORLD, dir);

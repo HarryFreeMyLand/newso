@@ -51,7 +51,7 @@ namespace FSO.Client.UI.Panels
         public UIChatBalloon(UIChatPanel owner)
         {
             Owner = owner;
-            var gfx = Content.Content.Get().UIGraphics;
+            var gfx = Content.GameContent.Get.UIGraphics;
             //TODO: switch entire ui onto real content system
 
             BPointerBottom = GetTexture(0x1AF0856DDBAC);

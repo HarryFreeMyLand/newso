@@ -22,12 +22,12 @@ namespace FSO.Client.Controllers
         private IClientDataService DataService;
         private Top100Category Category;
         private ITop100Domain Domain;
-        private Content.Content Content;
+        private Content.GameContent Content;
 
         private Top100Category LastLotCategory = Top100Category.lot_money;
         private Top100Category LastAvatarCategory = Top100Category.avatar_most_famous;
 
-        public GizmoTop100Controller(UIGizmoTop100 view, IDatabaseService databaseService, IClientDataService dataService, ITop100Domain top100, Content.Content content)
+        public GizmoTop100Controller(UIGizmoTop100 view, IDatabaseService databaseService, IClientDataService dataService, ITop100Domain top100, Content.GameContent content)
         {
             this.View = view;
             this.DatabaseService = databaseService;

@@ -16,7 +16,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         public override bool Execute(VM vm, VMAvatar caller)
         {
             if (!vm.TS1 && (caller == null || caller.AvatarState.Permissions < VMTSOAvatarPermissions.Owner)) return false;
-            if (Style >= Content.Content.Get().WorldRoofs.Count) return false;
+            if (Style >= Content.GameContent.Get.WorldRoofs.Count) return false;
             Pitch = Math.Max(0f, Math.Min(1.25f, Pitch));
             vm.Context.Architecture.SetRoof(Pitch, Style);
             return true;

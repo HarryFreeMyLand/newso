@@ -106,7 +106,7 @@ namespace FSO.SimAntics.Engine.Primitives
             var guid = operand.GUID;
             Neighbour neigh = null;
             if (operand.UseNeighbor && context.VM.TS1) {
-                neigh = Content.Content.Get().Neighborhood.GetNeighborByID(context.StackObjectID);
+                neigh = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
                 if (neigh == null) return VMPrimitiveExitCode.GOTO_FALSE;
                 guid = neigh.GUID;
             }

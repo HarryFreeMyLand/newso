@@ -21,7 +21,7 @@ namespace FSO.Content.Framework
     /// <typeparam name="T">The type of file to provide access to.</typeparam>
     public class FileProvider<T> : IContentProvider<T>
     {
-        protected Content ContentManager;
+        protected GameContent ContentManager;
         protected Dictionary<string, string> EntriesByName;
         protected IContentCodec<T> Codec;
         protected Dictionary<string, T> Cache;
@@ -36,7 +36,7 @@ namespace FSO.Content.Framework
         /// <param name="contentManager">A Content instance.</param>
         /// <param name="codec">The codec of the filetype of which to provide access.</param>
         /// <param name="filePattern">Filepattern used to search for files of this type.</param>
-        public FileProvider(Content contentManager, IContentCodec<T> codec, Regex filePattern)
+        public FileProvider(GameContent contentManager, IContentCodec<T> codec, Regex filePattern)
         {
             this.ContentManager = contentManager;
             this.Codec = codec;

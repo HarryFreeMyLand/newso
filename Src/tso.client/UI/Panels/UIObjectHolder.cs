@@ -87,7 +87,7 @@ namespace FSO.Client.UI.Panels
             var bobj = Group.BaseObject;
             guid = bobj.Object.OBJ.GUID;
             if (bobj.MasterDefinition != null) guid = bobj.MasterDefinition.GUID;
-            var catalogItem = Content.Content.Get().WorldCatalog.GetItemByGUID(guid);
+            var catalogItem = Content.GameContent.Get.WorldCatalog.GetItemByGUID(guid);
             if (catalogItem != null)
             {
                 var price = (int)catalogItem.Value.Price;

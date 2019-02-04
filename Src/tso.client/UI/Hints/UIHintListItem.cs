@@ -55,7 +55,7 @@ namespace FSO.Client.UI.Hints
             Label.Alignment = TextAlignment.Middle | TextAlignment.Left;
             Add(Label);
 
-            var ui = Content.Content.Get().CustomUI;
+            var ui = Content.GameContent.Get.CustomUI;
             ContractedIcon = ui.Get("hcat_hidden.png").Get(GameFacade.GraphicsDevice);
             ExpandedIcon = ui.Get("hcat_expand.png").Get(GameFacade.GraphicsDevice);
         }

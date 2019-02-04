@@ -52,7 +52,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Expandable = false
             });
             // get the collection using the directory
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             TrunkOutfits = content.AvatarCollections.Get(collectionPath);
 
             // get the skin color of the user
@@ -96,7 +96,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             else
             {
-                var costumePurchasable = Content.Content.Get().AvatarPurchasables.Get(SelectedOutfit.PurchasableOutfitId);
+                var costumePurchasable = Content.GameContent.Get.AvatarPurchasables.Get(SelectedOutfit.PurchasableOutfitId);
                 SelectedOutfitID = costumePurchasable.OutfitID;
             }
             LargeThumbnail.Texture = ((UIGridViewerItem)CostumeOptions.SelectedItem).Thumb.Get();
@@ -114,29 +114,29 @@ namespace FSO.Client.UI.Panels.EODs
             var dataProvider = new List<object>();
             foreach (var outfit in collection)
             {
-                var purchasable = Content.Content.Get().AvatarPurchasables.Get(outfit.PurchasableOutfitId);
-                Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(purchasable.OutfitID);
-                Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(UserAppearanceType));
+                var purchasable = Content.GameContent.Get.AvatarPurchasables.Get(outfit.PurchasableOutfitId);
+                Outfit TmpOutfit = Content.GameContent.Get.AvatarOutfits.Get(purchasable.OutfitID);
+                Appearance TmpAppearance = Content.GameContent.Get.AvatarAppearances.Get(TmpOutfit.GetAppearance(UserAppearanceType));
                 Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem
                 {
                     Data = outfit,
-                    Thumb = new Promise<Texture2D>(x => Content.Content.Get().AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
+                    Thumb = new Promise<Texture2D>(x => Content.GameContent.Get.AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
                 });
             }
             // special case for skeleton costume added 23.10.18
             if (IsCostumeTrunk)
             {
-                var skeletonBodyPurchaseable = Content.Content.Get().AvatarPurchasables.Get(6000069312525);
-                var skeletonBodyOutfit = Content.Content.Get().AvatarOutfits.Get(6000069312525);
-                Appearance TempAppearance = Content.Content.Get().AvatarAppearances.Get(skeletonBodyOutfit.GetAppearance(UserAppearanceType));
+                var skeletonBodyPurchaseable = Content.GameContent.Get.AvatarPurchasables.Get(6000069312525);
+                var skeletonBodyOutfit = Content.GameContent.Get.AvatarOutfits.Get(6000069312525);
+                Appearance TempAppearance = Content.GameContent.Get.AvatarAppearances.Get(skeletonBodyOutfit.GetAppearance(UserAppearanceType));
                 Common.Content.ContentID thumbnailID = TempAppearance.ThumbnailID;
 
                 dataProvider.Add(new UIGridViewerItem
                 {
                     Data = skeletonBodyPurchaseable,
-                    Thumb = new Promise<Texture2D>(x => Content.Content.Get().AvatarThumbnails.Get(thumbnailID).Get(GameFacade.GraphicsDevice))
+                    Thumb = new Promise<Texture2D>(x => Content.GameContent.Get.AvatarThumbnails.Get(thumbnailID).Get(GameFacade.GraphicsDevice))
                 });
             }
             return dataProvider;

@@ -167,7 +167,7 @@ namespace FSO.Client.UI.Screens
 
         public override void Update(UpdateState state)
         {
-            if (!PlayedLoadLoop && ((Audio)Content.Content.Get().Audio).Initialized)
+            if (!PlayedLoadLoop && ((Audio)Content.GameContent.Get.Audio).Initialized)
             {
                 HITVM.Get().PlaySoundEvent(UIMusic.LoadLoop);
                 PlayedLoadLoop = true;

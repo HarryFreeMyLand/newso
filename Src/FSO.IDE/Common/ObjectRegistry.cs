@@ -19,7 +19,7 @@ namespace FSO.IDE.Common
 
             MastersByFilename = new Dictionary<string, List<ObjectRegistryEntry>>();
 
-            var objProvider = Content.Content.Get().WorldObjects;
+            var objProvider = Content.GameContent.Get.WorldObjects;
 
             lock (objProvider.Entries)
             {

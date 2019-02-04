@@ -17,7 +17,7 @@ namespace FSO.Content.TS1
 {
     public class TS1Audio : IAudioProvider
     {
-        private Content ContentManager;
+        private GameContent ContentManager;
 
         private Dictionary<uint, Track> TracksById = new Dictionary<uint, Track>();
         private Dictionary<uint, Hitlist> HitlistsById = new Dictionary<uint, Hitlist>();
@@ -127,7 +127,7 @@ namespace FSO.Content.TS1
             return new string(new char[] { (char)(id & 0xFF), (char)((id >> 8) & 0xFF), (char)((id >> 16) & 0xFF), (char)((id >> 24) & 0xFF) });
         }
 
-        public TS1Audio(Content contentManager)
+        public TS1Audio(GameContent contentManager)
         {
             this.ContentManager = contentManager;
             WAVSounds = new TS1SubProvider<DecodedSFX>(ContentManager.TS1Global, ".wav");

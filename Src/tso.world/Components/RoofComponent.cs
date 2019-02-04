@@ -43,7 +43,7 @@ namespace FSO.LotView.Components
 
         public void RegenRoof(GraphicsDevice device)
         {
-            var roofs = Content.Content.Get().WorldRoofs;
+            var roofs = Content.GameContent.Get.WorldRoofs;
             Texture = roofs.Get(roofs.IDToName((int)RoofStyle)).Get(device);
             for (int i = 1; i <= blueprint.Stories; i++)
             {
@@ -53,7 +53,7 @@ namespace FSO.LotView.Components
 
         public void RemeshRoof(GraphicsDevice device)
         {
-            var roofs = Content.Content.Get().WorldRoofs;
+            var roofs = Content.GameContent.Get.WorldRoofs;
             Texture = roofs.Get(roofs.IDToName((int)RoofStyle)).Get(device);
             for (int i = 1; i < blueprint.Stories; i++)
             {

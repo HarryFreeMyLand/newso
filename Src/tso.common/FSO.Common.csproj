@@ -172,7 +172,7 @@
     <Compile Include="Rendering\Framework\Camera\ManualCamera.cs" />
     <Compile Include="Rendering\Framework\Camera\OrthographicCamera.cs" />
     <Compile Include="Rendering\Framework\CursorManager.cs" />
-    <Compile Include="Rendering\Framework\Game.cs" />
+    <Compile Include="Rendering\Framework\AGame.cs" />
     <Compile Include="Rendering\Framework\GameScreen.cs" />
     <Compile Include="Rendering\Framework\I3DGeometry.cs" />
     <Compile Include="Rendering\Framework\IGraphicsLayer.cs" />

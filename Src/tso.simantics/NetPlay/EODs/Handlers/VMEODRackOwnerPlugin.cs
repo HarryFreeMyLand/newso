@@ -109,7 +109,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             if (!valid)
                 return;
 
-            var outfit = Content.Content.Get().RackOutfits.GetByRackType(RackType).Outfits.FirstOrDefault(x => x.AssetID == outfitAssetId);
+            var outfit = Content.GameContent.Get.RackOutfits.GetByRackType(RackType).Outfits.FirstOrDefault(x => x.AssetID == outfitAssetId);
             if (outfit == null) { return; }
 
             var VM = client.vm;

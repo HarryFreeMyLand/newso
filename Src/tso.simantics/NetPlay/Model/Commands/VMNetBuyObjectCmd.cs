@@ -47,7 +47,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
 
         public override bool Execute(VM vm, VMAvatar caller)
         {
-            var catalog = Content.Content.Get().WorldCatalog;
+            var catalog = Content.GameContent.Get.WorldCatalog;
             var item = catalog.GetItemByGUID(GUID);
             if (!vm.TS1 && (Blacklist.Contains(GUID) || caller == null)) return false;
 
@@ -89,7 +89,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         private bool TryPlace(VM vm, VMAvatar caller)
         {
             if (!vm.PlatformState.CanPlaceNewUserObject(vm)) return false;
-            var catalog = Content.Content.Get().WorldCatalog;
+            var catalog = Content.GameContent.Get.WorldCatalog;
             var item = catalog.GetItemByGUID(GUID);
 
             var group = vm.Context.CreateObjectInstance(GUID, LotTilePos.OUT_OF_WORLD, dir);
@@ -133,7 +133,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
             }
             //get entry in catalog. first verify if it can be bought at all. (if not, error out)
             //TODO: error feedback for client
-            var catalog = Content.Content.Get().WorldCatalog;
+            var catalog = Content.GameContent.Get.WorldCatalog;
             var item = catalog.GetItemByGUID(GUID);
 
             if (!vm.TS1)

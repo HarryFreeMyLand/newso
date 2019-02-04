@@ -54,7 +54,7 @@ namespace FSO.IDE.Managers
             var objs = res.List<OBJD>();
             if (objs != null && objs.Count > 0 && res is GameObjectResource)
             {
-                window = new ObjectWindow(res, (target == null) ? Content.Content.Get().WorldObjects.Get(objs[0].GUID) : target);
+                window = new ObjectWindow(res, (target == null) ? Content.GameContent.Get.WorldObjects.Get(objs[0].GUID) : target);
             }
             else
             {

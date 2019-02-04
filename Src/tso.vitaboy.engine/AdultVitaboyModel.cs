@@ -19,7 +19,7 @@ namespace FSO.Vitaboy
         /// <summary>
         /// Constructs a new AdultVitaboyModel instance with a default skeleton, "adult.skel".
         /// </summary>
-        public AdultVitaboyModel() : base(FSO.Content.Content.Get().AvatarSkeletons.Get("adult.skel"))
+        public AdultVitaboyModel() : base(FSO.Content.GameContent.Get.AvatarSkeletons.Get("adult.skel"))
         {
         }
 

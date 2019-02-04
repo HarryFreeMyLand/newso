@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
@@ -34,35 +34,36 @@ namespace FSO.Content
     /// <summary>
     /// Content is a singleton responsible for loading data.
     /// </summary>
-    public class Content
+    public class GameContent
     {
         public static ContentLoadingProgress LoadProgress;
 
-        public static void Init(string basepath, GraphicsDevice device){
-            if (INSTANCE != null) {
-                if (!INSTANCE.Inited) INSTANCE.Init();
+        public static void Init(string basepath, GraphicsDevice device)
+        {
+            if (Get != null)
+            {
+                if (!Get.Inited)
+                    Get.Init();
                 return;
             }
-            INSTANCE = new Content(basepath, ContentMode.CLIENT, device, true);
+            Get = new GameContent(basepath, ContentMode.CLIENT, device, true);
         }
 
         public static void Init(string basepath, ContentMode mode)
         {
-            if (INSTANCE != null) return;
-            INSTANCE = new Content(basepath, mode, null, true);
+            if (Get != null)
+                return;
+            Get = new GameContent(basepath, mode, null, true);
         }
 
         public static void InitBasic(string basepath, GraphicsDevice device)
         {
-            if (INSTANCE != null) return;
-            INSTANCE = new Content(basepath, ContentMode.CLIENT, device, false);
+            if (Get != null)
+                return;
+            Get = new GameContent(basepath, ContentMode.CLIENT, device, false);
         }
 
-        private static Content INSTANCE;
-        public static Content Get()
-        {
-            return INSTANCE;
-        }
+        public static GameContent Get { get; private set; }
 
         //for debugging TS1 content system
         public static bool TS1Hybrid
@@ -86,7 +87,7 @@ namespace FSO.Content
         public string[] AllFiles;
         public string[] TS1AllFiles;
         public string[] ContentFiles;
-        private GraphicsDevice Device;
+        private readonly GraphicsDevice _device;
         public ContentMode Mode;
         public bool TS1 = TS1Hybrid;
         public TS1Provider TS1Global;
@@ -101,12 +102,12 @@ namespace FSO.Content
         /// </summary>
         /// <param name="basePath">Path to client directory.</param>
         /// <param name="device">A GraphicsDevice instance.</param>
-        private Content(string basePath, ContentMode mode, GraphicsDevice device, bool init)
+        private GameContent(string basePath, ContentMode mode, GraphicsDevice device, bool init)
         {
             LoadProgress = ContentLoadingProgress.Started;
-            this.BasePath = basePath;
-            this.Device = device;
-            this.Mode = mode;
+            BasePath = basePath;
+            _device = device;
+            Mode = mode;
 
             ImageLoader.PremultiplyPNG = 1;// (FSOEnvironment.DirectX)?0:1;
 
@@ -123,7 +124,7 @@ namespace FSO.Content
                 else
                 {
                     AvatarTextures = new AvatarTextureProvider(this);
-                    AvatarMeshes = new AvatarMeshProvider(this, Device);
+                    AvatarMeshes = new AvatarMeshProvider(this, _device);
                 }
                 AvatarHandgroups = new HandgroupProvider(this);
                 AbstractTextureRef.FetchDevice = device;
@@ -142,7 +143,8 @@ namespace FSO.Content
                 AvatarSkeletons = new TS1BCFSkeletonProvider(BCFGlobal);
                 AvatarAppearances = new TS1BCFAppearanceProvider(BCFGlobal);
                 Audio = new TS1Audio(this);
-            } else
+            }
+            else
             {
                 AvatarBindings = new AvatarBindingProvider(this);
                 AvatarAppearances = new AvatarAppearanceProvider(this);
@@ -168,7 +170,8 @@ namespace FSO.Content
             WorldRoofs = new WorldRoofProvider(this);
 
             InitBasic();
-            if (init) Init();
+            if (init)
+                Init();
         }
 
         /// <summary>
@@ -188,7 +191,7 @@ namespace FSO.Content
             }
             else
             {
-                ((WorldObjectProvider)WorldObjects).Init((Device != null));
+                ((WorldObjectProvider)WorldObjects).Init((_device != null));
                 ((WorldObjectCatalog)WorldCatalog).Init(this);
                 WorldObjectGlobals.Init();
                 LoadProgress = ContentLoadingProgress.InitArch;
@@ -226,7 +229,8 @@ namespace FSO.Content
         private void Init()
         {
             Inited = true;
-            if (!TS1) Audio.Init();
+            if (!TS1)
+                Audio.Init();
             /** Scan system for files **/
             if (AllFiles == null)
             {
@@ -252,11 +256,13 @@ namespace FSO.Content
             LoadProgress = ContentLoadingProgress.InitBCF;
             BCFGlobal?.Init();
 
-            if (!TS1) PIFFRegistry.Init(Path.Combine(FSOEnvironment.ContentDir, "Patch/"));
-            else PIFFRegistry.Init(Path.Combine(FSOEnvironment.ContentDir, "TS1Patch/"));
+            if (!TS1)
+                PIFFRegistry.Init(Path.Combine(FSOEnvironment.ContentDir, "Patch/"));
+            else
+                PIFFRegistry.Init(Path.Combine(FSOEnvironment.ContentDir, "TS1Patch/"));
 
             LoadProgress = ContentLoadingProgress.InitAvatars;
-            Archives = new Dictionary<string, FAR3Archive>();
+            _archives = new Dictionary<string, FAR3Archive>();
             if (Target != FSOEngineMode.TS1 && Mode == ContentMode.CLIENT)
             {
                 UIGraphics.Init();
@@ -268,9 +274,11 @@ namespace FSO.Content
                 ((TS1BMFProvider)AvatarMeshes)?.Init();
                 Jobs = new TS1JobProvider(TS1Global);
                 Neighborhood = new TS1NeighborhoodProvider(this);
-            } else
+            }
+            else
             {
-                if (Mode == ContentMode.CLIENT) AvatarHandgroups.Init();
+                if (Mode == ContentMode.CLIENT)
+                    AvatarHandgroups.Init();
                 AvatarBindings.Init();
                 AvatarOutfits.Init();
                 AvatarPurchasables.Init();
@@ -287,7 +295,8 @@ namespace FSO.Content
             }
 
             LoadProgress = ContentLoadingProgress.InitAudio;
-            if (TS1) Audio.Init();
+            if (TS1)
+                Audio.Init();
 
             InitWorld();
         }
@@ -323,7 +332,7 @@ namespace FSO.Content
             return Path.Combine(BasePath, path);
         }
 
-        private Dictionary<string, FAR3Archive> Archives;
+        private Dictionary<string, FAR3Archive> _archives;
 
         /// <summary>
         /// Gets a resource using a path and ID.
@@ -336,18 +345,19 @@ namespace FSO.Content
             if (path.EndsWith(".dat"))
             {
                 /** Archive **/
-                if (!Archives.ContainsKey(path))
+                if (!_archives.ContainsKey(path))
                 {
                     FAR3Archive newArchive = new FAR3Archive(GetPath(path));
-                    Archives.Add(path, newArchive);
+                    _archives.Add(path, newArchive);
                 }
 
-                var archive = Archives[path];
+                var archive = _archives[path];
                 var bytes = archive.GetItemByID(assetID);
                 return new MemoryStream(bytes, false);
             }
 
-            if (path.EndsWith(".bmp") || path.EndsWith(".png") || path.EndsWith(".tga")) path = "uigraphics/" + path;
+            if (path.EndsWith(".bmp") || path.EndsWith(".png") || path.EndsWith(".tga"))
+                path = $"uigraphics/{path}";
 
             return File.OpenRead(GetPath(path));
         }
@@ -362,7 +372,7 @@ namespace FSO.Content
 
         public UIGraphicsProvider UIGraphics;
         public CustomUIProvider CustomUI;
-        
+
         /** Avatar **/
         public IContentProvider<Mesh> AvatarMeshes;
         public AvatarBindingProvider AvatarBindings;

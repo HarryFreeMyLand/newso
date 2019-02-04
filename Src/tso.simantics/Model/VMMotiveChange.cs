@@ -38,7 +38,7 @@ namespace FSO.SimAntics.Model
             {
                 
                 double rate = (PerHourChange/60.0)/(30.0); //timed for 5 second minutes
-                if (!Content.Content.Get().TS1) rate /= 5;
+                if (!Content.GameContent.Get.TS1) rate /= 5;
                 fractional += rate;
                 if (Math.Abs(fractional) >= 1)
                 {
@@ -66,7 +66,7 @@ namespace FSO.SimAntics.Model
             } else
             {
                 if (rate < 0) return rate;
-                if (LotMotives == null) LotMotives = Content.Content.Get().GlobalTuning.EntriesByName["lotmotives"];
+                if (LotMotives == null) LotMotives = Content.GameContent.Get.GlobalTuning.EntriesByName["lotmotives"];
                 if (vm.TSOState.PropertyCategory == 4 && type > 0) rate = (rate * 3) / 2; //1.5x gain multiplier on services lots
                 if (VMMotive.Comfort == type) return rate;
                 var ind = Array.IndexOf(VMAvatarMotiveDecay.DecrementMotives, type);

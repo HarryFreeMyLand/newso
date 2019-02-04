@@ -424,7 +424,7 @@ namespace FSO.SimAntics
                         WallsDownMedium = sprs[4],
                         WallsDownNear = sprs[5]
                     };
-                    Object.OBJ.WallStyle = FSO.Content.Content.Get().WorldWalls.AddDynamicWallStyle(style);
+                    Object.OBJ.WallStyle = FSO.Content.GameContent.Get.WorldWalls.AddDynamicWallStyle(style);
                 }
 
                 var placeFlags = (WallPlacementFlags)ObjectData[(int)VMStackObjectVariable.WallPlacementFlags];
@@ -458,7 +458,7 @@ namespace FSO.SimAntics
                     part.Mode = ParticleType.GENERIC_BOX;
                     GameThread.InUpdate(() =>
                     {
-                        part.Tex = Content.Content.Get().RCMeshes.GetTex("FSO_smoke.png");
+                        part.Tex = Content.GameContent.Get.RCMeshes.GetTex("FSO_smoke.png");
                         WorldUI.blueprint.ObjectParticles.Add(part);
                     });
                     ((ObjectComponent)WorldUI).Particles.Add(part);
@@ -552,7 +552,7 @@ namespace FSO.SimAntics
 
             if (input.MasterGUID != 0)
             {
-                var masterDef = FSO.Content.Content.Get().WorldObjects.Get(input.MasterGUID);
+                var masterDef = FSO.Content.GameContent.Get.WorldObjects.Get(input.MasterGUID);
                 MasterDefinition = masterDef.OBJ;
                 UseTreeTableOf(masterDef);
             }

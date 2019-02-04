@@ -27,10 +27,10 @@ namespace FSO.Content
     public class WorldGlobalProvider
     {
         private Dictionary<string, GameGlobal> Cache; //indexed by lowercase filename, minus directory and extension.
-        private Content ContentManager;
+        private GameContent ContentManager;
         private FAR1Archive TS1Provider;
 
-        public WorldGlobalProvider(Content contentManager)
+        public WorldGlobalProvider(GameContent contentManager)
         {
             this.ContentManager = contentManager;
         }
@@ -85,12 +85,12 @@ namespace FSO.Content
                 }
                 else
                 { 
-                    var iff = new IffFile(Path.Combine(Content.Get().BasePath, "objectdata/globals/" + filename + ".iff"));
+                    var iff = new IffFile(Path.Combine(GameContent.Get.BasePath, "objectdata/globals/" + filename + ".iff"));
                     OTFFile otf = null;
                     try
                     {
                         var rewrite = PIFFRegistry.GetOTFRewrite(filename + ".otf");
-                        otf = new OTFFile(rewrite ?? Path.Combine(Content.Get().BasePath, ("objectdata/globals/" + filename + ".otf")));
+                        otf = new OTFFile(rewrite ?? Path.Combine(GameContent.Get.BasePath, ("objectdata/globals/" + filename + ".otf")));
                     }
                     catch (IOException)
                     {

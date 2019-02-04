@@ -294,7 +294,7 @@ namespace FSO.Client.UI.Panels
                     CurrentInventory.Clear();
                     foreach (var item in inventory)
                     {
-                        var catItem = Content.Content.Get().WorldCatalog.GetItemByGUID(item.GUID);
+                        var catItem = Content.GameContent.Get.WorldCatalog.GetItemByGUID(item.GUID);
                         if (catItem == null) { catItem = GenCatItem(item.GUID); }
 
                         var obj = catItem.Value;
@@ -317,7 +317,7 @@ namespace FSO.Client.UI.Panels
 
         private ObjectCatalogItem GenCatItem(uint GUID)
         {
-            var obj = Content.Content.Get().WorldObjects.Get(GUID);
+            var obj = Content.GameContent.Get.WorldObjects.Get(GUID);
             if (obj == null)
             {
                 return new ObjectCatalogItem()

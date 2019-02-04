@@ -119,7 +119,7 @@ namespace FSO.SimAntics
 
         public VMArchitecture(int width, int height, Blueprint blueprint, VMContext context)
         {
-            if (Content.Content.Get().TS1)
+            if (Content.GameContent.Get.TS1)
             {
                 DisableClip = true;
                 TerrainLimit = new Rectangle(1, 1, width - 2, height - 2);
@@ -478,7 +478,7 @@ namespace FSO.SimAntics
                 var avatar = (transient)? null : (VMAvatar)avaEnt;
                 lastAvatar = avatar;
                 var styleInd = -1;
-                var walls = Content.Content.Get().WorldWalls;
+                var walls = Content.GameContent.Get.WorldWalls;
                 walls.WallStyleToIndex.TryGetValue(com.style, out styleInd);
                 //if patterns are invalid, don't do anything.
                 switch (com.Type)
@@ -628,7 +628,7 @@ namespace FSO.SimAntics
         private WallReference GetPatternRef(ushort id)
         {
             WallReference result = null;
-            var wallEntries = Content.Content.Get().WorldWalls.Entries;
+            var wallEntries = Content.GameContent.Get.WorldWalls.Entries;
             wallEntries.TryGetValue(id, out result);
             return result;
         }
@@ -637,7 +637,7 @@ namespace FSO.SimAntics
         private FloorReference GetFloorRef(ushort id)
         {
             FloorReference result = null;
-            Content.Content.Get().WorldFloors.Entries.TryGetValue(id, out result);
+            Content.GameContent.Get.WorldFloors.Entries.TryGetValue(id, out result);
             return result;
         }
 

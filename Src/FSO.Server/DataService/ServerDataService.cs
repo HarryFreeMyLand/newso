@@ -13,7 +13,7 @@ namespace FSO.Server.DataService
     public class ServerDataService : FSO.Common.DataService.DataService
     {
         public ServerDataService(IModelSerializer serializer, 
-                                FSO.Content.Content content,
+                                FSO.Content.GameContent content,
                                 IKernel kernel) : base(serializer, content)
         {
             AddProvider(kernel.Get<ServerAvatarProvider>());

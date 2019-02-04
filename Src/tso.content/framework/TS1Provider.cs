@@ -13,7 +13,7 @@ namespace FSO.Content.Framework
     public class TS1Provider
     {
         private FAR1Provider<object> FarProvider;
-        private Content Manager;
+        private GameContent Manager;
         private Dictionary<string, string[]> BareFoldersByExtension = new Dictionary<string, string[]>()
         {
             { ".bmp", new string[] { "GameData/Skins/", "ExpansionShared/SkinsBuy/" } },
@@ -23,7 +23,7 @@ namespace FSO.Content.Framework
 
         private Dictionary<string, FileProvider<object>> FileProvidersByRegex = new Dictionary<string, FileProvider<object>>();
 
-        public TS1Provider(Content contentManager)
+        public TS1Provider(GameContent contentManager)
         {
             FarProvider = new FAR1Provider<object>(contentManager, null, new Regex(@".*\.far"), true);
             Manager = contentManager;

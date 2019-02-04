@@ -14,11 +14,11 @@ namespace FSO.Content.Interfaces
     public abstract class AbstractObjectProvider : IContentProvider<GameObject>
     {
         protected TimedReferenceCache<ulong, GameObject> Cache = new TimedReferenceCache<ulong, GameObject>();
-        protected Content ContentManager;
+        protected GameContent ContentManager;
 
         public Dictionary<ulong, GameObjectReference> Entries;
 
-        public AbstractObjectProvider(Content contentManager)
+        public AbstractObjectProvider(GameContent contentManager)
         {
             this.ContentManager = contentManager;
         }

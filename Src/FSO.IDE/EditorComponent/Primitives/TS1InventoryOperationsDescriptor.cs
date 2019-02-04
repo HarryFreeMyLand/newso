@@ -22,7 +22,7 @@ namespace FSO.IDE.EditorComponent.Primitives
             var op = (VMTS1InventoryOperationsOperand)Operand;
             var result = new StringBuilder();
 
-            var obj = Content.Content.Get().WorldObjects.Get(op.GUID);
+            var obj = Content.GameContent.Get.WorldObjects.Get(op.GUID);
             result.Append("Mode: " + op.Mode.ToString() + "\r\n");
             result.Append("Type: " + op.TokenType.ToString() + "\r\n");
 

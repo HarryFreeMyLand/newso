@@ -213,7 +213,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         private void SetOwnerOutfits()
         {
-            var outfits = Content.Content.Get().RackOutfits.GetByRackType(RackType);
+            var outfits = Content.GameContent.Get.RackOutfits.GetByRackType(RackType);
             OutfitBrowserOwner.DataProvider = RackOutfitsToDataProvider(outfits);
             OutfitBrowserOwner.SelectedIndex = 0;
         }
@@ -226,15 +226,15 @@ namespace FSO.Client.UI.Panels.EODs
             {
                 if (outfit.Gender != SelectedGender) { continue; }
 
-                Outfit TmpOutfit = Content.Content.Get().AvatarOutfits.Get(outfit.AssetID);
+                Outfit TmpOutfit = Content.GameContent.Get.AvatarOutfits.Get(outfit.AssetID);
                 if (TmpOutfit == null) continue;
-                Appearance TmpAppearance = Content.Content.Get().AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
+                Appearance TmpAppearance = Content.GameContent.Get.AvatarAppearances.Get(TmpOutfit.GetAppearance(appearanceType));
                 Common.Content.ContentID thumbID = TmpAppearance.ThumbnailID;
                 
                 dataProvider.Add(new UIGridViewerItem
                 {
                     Data = outfit,
-                    Thumb = new Promise<Texture2D>(x => Content.Content.Get().AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
+                    Thumb = new Promise<Texture2D>(x => Content.GameContent.Get.AvatarThumbnails.Get(thumbID).Get(GameFacade.GraphicsDevice))
                 });
             }
             return dataProvider;

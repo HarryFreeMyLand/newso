@@ -13,8 +13,8 @@ namespace FSO.IDE.Common
     {
         private Queue<string> AnimationRequests = new Queue<string>();
 
-        public UIAvatarAnimator() : base(Content.Content.Get().TS1?
-            (uint)Content.Content.Get().WorldObjects.Entries.FirstOrDefault(x => x.Value.Source == Content.GameObjectSource.User).Key
+        public UIAvatarAnimator() : base(Content.GameContent.Get.TS1?
+            (uint)Content.GameContent.Get.WorldObjects.Entries.FirstOrDefault(x => x.Value.Source == Content.GameObjectSource.User).Key
             : VMAvatar.TEMPLATE_PERSON)
         {
 
@@ -29,7 +29,7 @@ namespace FSO.IDE.Common
                 {
                     var anim = AnimationRequests.Dequeue();
 
-                    var animation = FSO.Content.Content.Get().AvatarAnimations.Get(anim + ".anim");
+                    var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(anim + ".anim");
                     if (animation != null)
                     {
                         var astate = new VMAnimationState(animation, false);

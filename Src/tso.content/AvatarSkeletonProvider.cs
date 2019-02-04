@@ -20,7 +20,7 @@ namespace FSO.Content
     /// </summary>
     public class AvatarSkeletonProvider : FAR3Provider<Skeleton>
     {
-        public AvatarSkeletonProvider(Content contentManager)
+        public AvatarSkeletonProvider(GameContent contentManager)
             : base(contentManager, new SkeletonCodec(), new Regex(".*/skeletons/.*\\.dat"))
         {
         }

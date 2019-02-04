@@ -24,7 +24,7 @@ namespace FSO.IDE.Common
         private void OKButton_Click(object sender, EventArgs e)
         {
             var name = Path.Combine(FSOEnvironment.ContentDir, "Objects/" +NameEntry.Text+".iff");
-            var objProvider = Content.Content.Get().WorldObjects;
+            var objProvider = Content.GameContent.Get.WorldObjects;
             if (NameEntry.Text == "")
             {
                 MessageBox.Show("Name cannot be empty!", "Invalid IFF Name");

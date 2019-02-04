@@ -16,9 +16,9 @@ namespace FSO.Content
     public class RackOutfitsProvider
     {
         private Dictionary<RackType, RackOutfits> Racks = new Dictionary<RackType, RackOutfits>();
-        private Content Content;
+        private GameContent Content;
 
-        public RackOutfitsProvider(Content contentManager)
+        public RackOutfitsProvider(GameContent contentManager)
         {
             this.Content = contentManager;
         }

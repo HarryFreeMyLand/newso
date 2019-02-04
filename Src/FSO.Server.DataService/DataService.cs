@@ -32,7 +32,7 @@ namespace FSO.Common.DataService
         private IModelSerializer Serializer;
         private TSODataDefinition DataDefinition;
 
-        public DataService(IModelSerializer serializer, FSO.Content.Content content){
+        public DataService(IModelSerializer serializer, FSO.Content.GameContent content){
             this.Serializer = serializer;
             this.DataDefinition = content.DataDefinition;
 

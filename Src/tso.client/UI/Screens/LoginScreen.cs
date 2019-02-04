@@ -59,7 +59,7 @@ namespace FSO.Client.UI.Screens
             HITVM.Get().PlaySoundEvent(UIMusic.None);
             GlobalSettings.Default.Save();
 
-            if (Content.Content.Get().TS1)
+            if (Content.GameContent.Get.TS1)
             {
                 //load the sandbox screen in neighbourhood view mode
                 GameThread.NextUpdate(x =>

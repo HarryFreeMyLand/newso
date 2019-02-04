@@ -108,7 +108,7 @@ namespace FSO.HIT
 
         public static uint PCTrans(uint id, HITThread thread)
         {
-            if (Content.Content.Get().TS1)
+            if (Content.GameContent.Get.TS1)
             {
                 //dunno why this is ts1 specific, but whatever
                 //need to remap from the call id to the function offset

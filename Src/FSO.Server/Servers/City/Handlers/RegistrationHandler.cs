@@ -37,7 +37,7 @@ namespace FSO.Server.Servers.City.Handlers
 
         private CityServerContext Context;
         private IDAFactory DAFactory;
-        private Content.Content Content;
+        private Content.GameContent Content;
         
         /// <summary>
         /// Used for validation
@@ -45,7 +45,7 @@ namespace FSO.Server.Servers.City.Handlers
         private Dictionary<uint, PurchasableOutfit> ValidFemaleOutfits = new Dictionary<uint, PurchasableOutfit>();
         private Dictionary<uint, PurchasableOutfit> ValidMaleOutfits = new Dictionary<uint, PurchasableOutfit>();
 
-        public RegistrationHandler(CityServerContext context, IDAFactory daFactory, Content.Content content)
+        public RegistrationHandler(CityServerContext context, IDAFactory daFactory, Content.GameContent content)
         {
             this.Context = context;
             this.DAFactory = daFactory;

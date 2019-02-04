@@ -159,7 +159,7 @@ namespace FSO.SimAntics
             Scheduler = new VMScheduler(this);
             GameTickRate = FSOEnvironment.RefreshRate;
 
-            TS1 = Content.Content.Get().TS1;
+            TS1 = Content.GameContent.Get.TS1;
             GlobTS1 = TS1;
         }
 
@@ -705,7 +705,7 @@ namespace FSO.SimAntics
             foreach (var ent in input.Entities)
             {
                 VMEntity realEnt;
-                var objDefinition = FSO.Content.Content.Get().WorldObjects.Get(ent.GUID);
+                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(ent.GUID);
                 if (ent is VMAvatarMarshal)
                 {
                     var avatar = new VMAvatar(objDefinition);
@@ -849,7 +849,7 @@ namespace FSO.SimAntics
             foreach (var ent in input.Entities)
             {
                 VMEntity realEnt;
-                var objDefinition = FSO.Content.Content.Get().WorldObjects.Get(ent.GUID);
+                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(ent.GUID);
 
                 var worldObject = Context.MakeObjectComponent(objDefinition);
                 var obj = new VMGameObject(objDefinition, worldObject);

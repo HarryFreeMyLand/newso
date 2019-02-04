@@ -11,7 +11,7 @@ namespace FSO.Client.UI.Controls.Catalog
     {
         public override Texture2D GetIcon(ulong id)
         {
-            var roofs = Content.Content.Get().WorldRoofs;
+            var roofs = Content.GameContent.Get.WorldRoofs;
             return roofs.Get(roofs.IDToName((int)id)).Get(GameFacade.GraphicsDevice);
         }
 

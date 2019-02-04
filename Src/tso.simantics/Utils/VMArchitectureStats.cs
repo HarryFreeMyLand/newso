@@ -15,8 +15,8 @@ namespace FSO.SimAntics.Utils
 
         public static int GetArchValue(VMArchitecture arch)
         {
-            Floors = Content.Content.Get().WorldFloors;
-            Walls = Content.Content.Get().WorldWalls;
+            Floors = Content.GameContent.Get.WorldFloors;
+            Walls = Content.GameContent.Get.WorldWalls;
 
             int value = 0;
             for (int level = 0; level < arch.Stories; level++)

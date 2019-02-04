@@ -57,13 +57,14 @@ namespace FSO.UI.Model
 
             if (!Active)
                 return; // RPC not active
-            var presence = new RichPresence();
+            var presence = new RichPresence
+            {
+                largeImageKey = "sunrise_crater",
+                largeImageText = "Sunrise Crater",
 
-            presence.largeImageKey = "sunrise_crater";
-            presence.largeImageText = "Sunrise Crater";
-
-            presence.state = state;
-            presence.details = details == null ? "" : details;
+                state = state,
+                details = details ?? ""
+            };
 
             UpdatePresence(ref presence);
         }

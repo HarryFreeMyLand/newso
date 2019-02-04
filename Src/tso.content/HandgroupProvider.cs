@@ -21,7 +21,7 @@ namespace FSO.Content
     /// </summary>
     public class HandgroupProvider : FAR3Provider<HandGroup>
     {
-        public HandgroupProvider(Content contentManager)
+        public HandgroupProvider(GameContent contentManager)
             : base(contentManager, new HandgroupCodec(), new Regex(".*/hands/groups/.*\\.dat"))
         {
         }

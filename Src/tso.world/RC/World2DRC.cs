@@ -401,7 +401,7 @@ namespace FSO.LotView.RC
             state.Zoom = WorldZoom.Far;
             state.Rotation = WorldRotation.TopLeft;
             state.Level = Blueprint.Stories;
-            var ts1 = Content.Content.Get().TS1;
+            var ts1 = Content.GameContent.Get.TS1;
             state.PreciseZoom = ts1? (1 / 2f):(1 / 4f);
             var size = ts1 ? (Blueprint.Width*16):(576);
             state._2D.PreciseZoom = state.PreciseZoom;

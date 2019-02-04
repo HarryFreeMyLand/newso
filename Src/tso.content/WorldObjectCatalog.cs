@@ -14,7 +14,7 @@ namespace FSO.Content
         private static List<ObjectCatalogItem>[] ItemsByCategory;
         private static Dictionary<uint, ObjectCatalogItem> ItemsByGUID;
 
-        public void Init(Content content)
+        public void Init(GameContent content)
         {
             //load and build catalog
             ItemsByGUID = new Dictionary<uint, ObjectCatalogItem>();

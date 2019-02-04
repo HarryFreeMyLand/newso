@@ -84,7 +84,7 @@ namespace FSO.IDE.ResourceBrowser
                     {
                         var prop = sel2.FieldName;
 
-                        Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                        Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                         {
                             def.SetPropertyByName(prop, 0);
                         }, def));
@@ -98,7 +98,7 @@ namespace FSO.IDE.ResourceBrowser
                 {
                     var prop = sel.FieldName;
 
-                    Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                    Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                     {
                         def.SetPropertyByName(prop, id);
                     }, def));
@@ -116,7 +116,7 @@ namespace FSO.IDE.ResourceBrowser
                 var prop = sel.FieldName;
                 var id = Active.ChunkID;
                 var def = Definition;
-                Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     def.SetPropertyByName(prop, id);
                 }, def));

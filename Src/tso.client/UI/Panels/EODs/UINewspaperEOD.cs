@@ -88,7 +88,7 @@ namespace FSO.Client.UI.Panels.EODs
             FrontTabBtn.Tooltip = GameFacade.Strings.GetString("f108", "14");
             Add(FrontTabBtn);
 
-            var ui = Content.Content.Get().CustomUI;
+            var ui = Content.GameContent.Get.CustomUI;
             BarTabBtn = new UIButton(ui.Get("eod_news_bar.png").Get(GameFacade.GraphicsDevice))
             {
                 Position = new Vector2(33, 55 + 37 + 187),

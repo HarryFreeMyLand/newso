@@ -42,7 +42,7 @@ namespace FSO.Content
 
         public void UnregisterObjects(IffFile file)
         {
-            var objRegistry = Content.Get().WorldObjects;
+            var objRegistry = GameContent.Get.WorldObjects;
             var defs = file.List<OBJD>();
             if (defs != null)
             {
@@ -55,7 +55,7 @@ namespace FSO.Content
 
         public void RegisterObjects(IffFile file)
         {
-            var objRegistry = Content.Get().WorldObjects;
+            var objRegistry = GameContent.Get.WorldObjects;
             var defs = file.List<OBJD>();
             if (defs != null)
             {

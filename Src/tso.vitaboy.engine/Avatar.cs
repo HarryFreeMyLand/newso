@@ -127,14 +127,14 @@ namespace FSO.Vitaboy
             int i = 0;
             int replaced = 0;
             var realBindings = appearance.Bindings.Select(bindingReference =>
-                bindingReference.RealBinding ?? FSO.Content.Content.Get().AvatarBindings?.Get(bindingReference.TypeID, bindingReference.FileID)).ToList();
+                bindingReference.RealBinding ?? FSO.Content.GameContent.Get.AvatarBindings?.Get(bindingReference.TypeID, bindingReference.FileID)).ToList();
 
-            if (Content.Content.Get().TS1)
+            if (Content.GameContent.Get.TS1)
             {
                 foreach (var binding in realBindings)
                 {
                     if (binding == null) { continue; }
-                    var mesh = Content.Content.Get().AvatarMeshes.Get(binding.MeshName);
+                    var mesh = Content.GameContent.Get.AvatarMeshes.Get(binding.MeshName);
                     if (texOverride != null &&
                             mesh.TextureName.ToLowerInvariant() == texOverride.ToLowerInvariant()
                             .Replace("lgt", "")
@@ -187,7 +187,7 @@ namespace FSO.Vitaboy
         /// <returns>An AvatarBindingInstance instance.</returns>
         protected AvatarBindingInstance AddBinding(Binding binding)
         {
-            var content = FSO.Content.Content.Get();
+            var content = FSO.Content.GameContent.Get;
             var instance = new AvatarBindingInstance();
             if (binding.MeshName != null)
             {

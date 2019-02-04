@@ -57,8 +57,8 @@ namespace FSO.SimAntics.Entities
         public short[] MotiveFractions = new short[7]; //in 1/1000ths
         public int LastMinute;
 
-        TuningEntry LotMotives = Content.Content.Get().GlobalTuning.EntriesByName["lotmotives"];
-        TuningEntry SimMotives = Content.Content.Get().GlobalTuning.EntriesByName["simmotives"];
+        TuningEntry LotMotives = Content.GameContent.Get.GlobalTuning.EntriesByName["lotmotives"];
+        TuningEntry SimMotives = Content.GameContent.Get.GlobalTuning.EntriesByName["simmotives"];
 
         public int LastCategory = -1;
         public int[] LotMuls;

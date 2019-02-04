@@ -455,7 +455,7 @@ namespace FSO.Client.UI.Panels
             var def = entity.MasterDefinition;
             if (def == null) def = entity.Object.OBJ;
 
-            var item = Content.Content.Get().WorldCatalog.GetItemByGUID(def.GUID);
+            var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID(def.GUID);
 
             CTSS catString = obj.Resource.Get<CTSS>(def.CatalogStringsID);
             if (catString != null)
@@ -477,7 +477,7 @@ namespace FSO.Client.UI.Panels
             var def = entity.MasterDefinition;
             if (def == null) def = entity.Object.OBJ;
 
-            var item = Content.Content.Get().WorldCatalog.GetItemByGUID(def.GUID);
+            var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID(def.GUID);
 
             var ndesc = GetObjName(entity);
 

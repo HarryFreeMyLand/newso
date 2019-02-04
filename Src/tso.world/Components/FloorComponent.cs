@@ -54,7 +54,7 @@ namespace FSO.LotView.Components
             if (ArchZBuffers == null) ArchZBuffers = TextureGenerator.GetWallZBuffer(device);
 
             var pxOffset = world.WorldSpace.GetScreenOffset();
-            var floorContent = Content.Content.Get().WorldFloors;
+            var floorContent = Content.GameContent.Get.WorldFloors;
 
             Rectangle db;
             if (DrawBound == null) db = new Rectangle(0, 0, blueprint.Width, blueprint.Height);

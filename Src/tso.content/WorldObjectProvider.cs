@@ -33,7 +33,7 @@ namespace FSO.Content
         private FAR1Provider<IffFile> Sprites;
         private FAR1Provider<OTFFile> TuningTables;
 
-        public WorldObjectProvider(Content contentManager) : base(contentManager)
+        public WorldObjectProvider(GameContent contentManager) : base(contentManager)
         {
         }
 
@@ -290,7 +290,7 @@ namespace FSO.Content
             var GLOBChunks = iff.List<GLOB>();
             if (GLOBChunks != null && GLOBChunks[0].Name != "")
             {
-                var sg = FSO.Content.Content.Get().WorldObjectGlobals.Get(GLOBChunks[0].Name);
+                var sg = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(GLOBChunks[0].Name);
                 if (sg != null) SemiGlobal = sg.Resource; //used for tuning constant fetching.
             }
 

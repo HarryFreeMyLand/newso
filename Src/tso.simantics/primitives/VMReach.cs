@@ -70,7 +70,7 @@ namespace FSO.SimAntics.Primitives
             else animationName = "a2o-reach-tableht.anim";
 
 
-            var animation = FSO.Content.Content.Get().AvatarAnimations.Get(animationName);
+            var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(animationName);
             if (animation == null) {
                 return VMPrimitiveExitCode.GOTO_FALSE;
             }

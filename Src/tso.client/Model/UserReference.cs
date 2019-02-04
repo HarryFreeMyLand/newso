@@ -94,7 +94,7 @@ namespace FSO.Client.Model
         {
             _Type = type;
 
-            var content = FSO.Content.Content.Get();
+            var content = FSO.Content.GameContent.Get;
             switch (type)
             {
                 case UserReferenceType.EA:
@@ -174,7 +174,7 @@ namespace FSO.Client.Model
             var avatar = CurrentAvatar.Value;
             if (avatar != null)
             {
-                var content = FSO.Content.Content.Get();
+                var content = FSO.Content.GameContent.Get;
                 var outfit = content.AvatarOutfits.Get(_HeadOutfitId);
                 var appearanceId = outfit.GetAppearance((Vitaboy.AppearanceType)avatar.Avatar_Appearance.AvatarAppearance_SkinTone);
                 var appearance = content.AvatarAppearances.Get(appearanceId);

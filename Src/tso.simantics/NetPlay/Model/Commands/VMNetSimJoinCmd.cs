@@ -34,7 +34,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
             if (vm.TS1)
             {
                 if (vm.TS1State.CurrentFamily == null) return true;
-                var gameState = Content.Content.Get().Neighborhood.GameState;
+                var gameState = Content.GameContent.Get.Neighborhood.GameState;
                 var control = vm.Entities.FirstOrDefault(x => x is VMAvatar && !((VMAvatar)x).IsPet && ((VMAvatar)x).GetPersonData(VMPersonDataVariable.TS1FamilyNumber) == vm.TS1State.CurrentFamily?.ChunkID);
                 if (control == null)
                 {

@@ -157,7 +157,7 @@ namespace FSO.SimAntics.Utils
             arch.Terrain.GrassState = ResizeGrass(arch.Terrain.GrassState, size);
             arch.Terrain.Heights = Array.ConvertAll(ResizeGrass(DecodeHeights(iff.Get<ARRY>(0).TransposeData), size), x=>(short)(x*10));
             arch.Terrain.RegenerateCenters();
-            arch.RoofStyle = (uint)Content.Content.Get().WorldRoofs.NameToID(hous.RoofName.ToLowerInvariant()+".bmp");
+            arch.RoofStyle = (uint)Content.GameContent.Get.WorldRoofs.NameToID(hous.RoofName.ToLowerInvariant()+".bmp");
 
             if (VM.UseWorld)
             {
@@ -211,7 +211,7 @@ namespace FSO.SimAntics.Utils
                 }
             }
 
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             foreach (var controller in ControllerObjects)
             {
                 VM.Context.CreateObjectInstance(controller, LotTilePos.OUT_OF_WORLD, Direction.NORTH);
@@ -459,7 +459,7 @@ namespace FSO.SimAntics.Utils
 
         private Dictionary<byte, ushort> BuildFloorDict (List<WALmEntry> entries)
         {
-            var c = Content.Content.Get().WorldFloors.DynamicFloorFromID;
+            var c = Content.GameContent.Get.WorldFloors.DynamicFloorFromID;
             var result = new Dictionary<byte, ushort>();
             foreach (var entry in entries)
             {
@@ -473,7 +473,7 @@ namespace FSO.SimAntics.Utils
 
         private Dictionary<byte, ushort> BuildWallDict(List<WALmEntry> entries)
         {
-            var c = Content.Content.Get().WorldWalls.DynamicWallFromID;
+            var c = Content.GameContent.Get.WorldWalls.DynamicWallFromID;
             var result = new Dictionary<byte, ushort>();
             foreach (var entry in entries)
             {

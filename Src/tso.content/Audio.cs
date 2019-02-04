@@ -29,7 +29,7 @@ namespace FSO.Content
     /// </summary>
     public class Audio : IAudioProvider
     {
-        private Content ContentManager;
+        private GameContent ContentManager;
         public bool Initialized;
 
         /** Stations **/
@@ -116,7 +116,7 @@ namespace FSO.Content
             }
         }
 
-        public Audio(Content contentManager)
+        public Audio(GameContent contentManager)
         {
             this.ContentManager = contentManager;
         }

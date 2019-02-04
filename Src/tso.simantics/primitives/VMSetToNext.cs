@@ -108,20 +108,20 @@ namespace FSO.SimAntics.Primitives
                 return VMPrimitiveExitCode.GOTO_FALSE;
             } else if (operand.SearchType == VMSetToNextSearchType.Career)
             {
-                var next = Content.Content.Get().Jobs.SetToNext(targetValue);
+                var next = Content.GameContent.Get.Jobs.SetToNext(targetValue);
                 if (next < 0) return VMPrimitiveExitCode.GOTO_FALSE;
                 VMMemory.SetVariable(context, operand.TargetOwner, operand.TargetData, next);
                 return VMPrimitiveExitCode.GOTO_TRUE;
             } else if (operand.SearchType == VMSetToNextSearchType.NeighborId)
             {
-                var next = Content.Content.Get().Neighborhood.SetToNext(targetValue);
+                var next = Content.GameContent.Get.Neighborhood.SetToNext(targetValue);
                 if (next < 0) return VMPrimitiveExitCode.GOTO_FALSE;
                 VMMemory.SetVariable(context, operand.TargetOwner, operand.TargetData, next);
                 return VMPrimitiveExitCode.GOTO_TRUE;
             }
             else if (operand.SearchType == VMSetToNextSearchType.NeighborOfType)
             {
-                var next = Content.Content.Get().Neighborhood.SetToNext(targetValue, operand.GUID);
+                var next = Content.GameContent.Get.Neighborhood.SetToNext(targetValue, operand.GUID);
                 if (next < 0) return VMPrimitiveExitCode.GOTO_FALSE;
                 VMMemory.SetVariable(context, operand.TargetOwner, operand.TargetData, next);
                 return VMPrimitiveExitCode.GOTO_TRUE;

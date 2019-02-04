@@ -384,7 +384,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             //the values of the objects on this lot may be invalid.
 
-            var catalog = Content.Content.Get().WorldCatalog;
+            var catalog = Content.GameContent.Get.WorldCatalog;
             var store = Lot.TSOState.PropertyCategory == 5;
             foreach (var obj in Lot.Entities)
             {
@@ -597,7 +597,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 var randomChance = (jobType > 2 && jobLevel > 6) ? 2 : 1;
                 var lotID = JobMatchmaker.JobGradeToLotGroup[jobType][jobLevel] + (new Random()).Next(randomChance);
 
-                path = Content.Content.Get().GetPath("housedata/blueprints/" + JobMatchmaker.JobXMLName[jobType]
+                path = Content.GameContent.Get.GetPath("housedata/blueprints/" + JobMatchmaker.JobXMLName[jobType]
                     + lotID.ToString().PadLeft(2, '0') + "_"
                     + "00"
                     + ".xml");

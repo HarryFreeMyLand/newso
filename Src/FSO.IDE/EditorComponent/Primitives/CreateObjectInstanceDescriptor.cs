@@ -27,7 +27,7 @@ namespace FSO.IDE.EditorComponent.Primitives
             var op = (VMCreateObjectInstanceOperand)Operand;
             var result = new StringBuilder();
 
-            var obj = Content.Content.Get().WorldObjects.Get(op.GUID);
+            var obj = Content.GameContent.Get.WorldObjects.Get(op.GUID);
             
             result.Append((obj == null)?("0x" + Convert.ToString(op.GUID.ToString("x8"))):obj.OBJ.ChunkLabel);
             result.Append("\r\n");

@@ -41,13 +41,13 @@ namespace FSO.SimAntics.Primitives
                 var skin = ColorNames[color];
                 var code = simtype;
 
-                var heads = Content.Content.Get().BCFGlobal.CollectionsByName["c"].ClothesByAvatarType[simtype];
+                var heads = Content.GameContent.Get.BCFGlobal.CollectionsByName["c"].ClothesByAvatarType[simtype];
                 if (simtype[1] == 'c') simtype += "chd";
-                var bodies = Content.Content.Get().BCFGlobal.CollectionsByName["b"].ClothesByAvatarType[simtype];
+                var bodies = Content.GameContent.Get.BCFGlobal.CollectionsByName["b"].ClothesByAvatarType[simtype];
 
                 //pick a random head and body.
 
-                var tex = (TS1AvatarTextureProvider)Content.Content.Get().AvatarTextures;
+                var tex = (TS1AvatarTextureProvider)Content.GameContent.Get.AvatarTextures;
                 var texnames = tex.GetAllNames();
 
                 var headTex = heads.Select(x => RemoveExt(texnames.FirstOrDefault(y => y.StartsWith(ExtractID(x, skin))))).ToList();

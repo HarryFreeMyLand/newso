@@ -15,9 +15,9 @@ namespace FSO.Content
     {
         private ConcurrentDictionary<int, CityMap> Cache;
         private Dictionary<int, string> DirCache;
-        private Content Content;
+        private GameContent Content;
         
-        public CityMapsProvider(Content content)
+        public CityMapsProvider(GameContent content)
         {
             this.Content = content;
         }

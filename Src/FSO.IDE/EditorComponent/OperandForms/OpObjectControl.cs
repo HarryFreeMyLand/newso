@@ -43,7 +43,7 @@ namespace FSO.IDE.EditorComponent.OperandForms
         public void OperandUpdated()
         {
             uint guid = Convert.ToUInt32(OpUtils.GetOperandProperty(Operand, GUIDProperty));
-            var obj = Content.Content.Get().WorldObjects.Get(guid);
+            var obj = Content.GameContent.Get.WorldObjects.Get(guid);
             ObjectLabel.Text = (obj == null) ? ("0x"+guid.ToString("X8")) : obj.OBJ.ChunkLabel;
         }
 

@@ -48,7 +48,7 @@ namespace FSO.Content
         {
             get
             {
-                return ((double)Completed + (int)Content.LoadProgress) / ((double)Total);
+                return ((double)Completed + (int)GameContent.LoadProgress) / ((double)Total);
             }
         }
 
@@ -56,7 +56,7 @@ namespace FSO.Content
         {
             get
             {
-                return (Completed + (int)Content.LoadProgress) < Total;
+                return (Completed + (int)GameContent.LoadProgress) < Total;
             }
         }
 

@@ -82,8 +82,8 @@ namespace FSO.Server
 
             //TODO: Some content preloading
             LOG.Info("Scanning content");
-            Content.Content.Init(Config.GameLocation, Content.ContentMode.SERVER);
-            Kernel.Bind<Content.Content>().ToConstant(Content.Content.Get());
+            Content.GameContent.Init(Config.GameLocation, Content.ContentMode.SERVER);
+            Kernel.Bind<Content.GameContent>().ToConstant(Content.GameContent.Get);
             VMContext.InitVMConfig();
             Kernel.Bind<MemoryCache>().ToConstant(new MemoryCache("fso_server"));
 

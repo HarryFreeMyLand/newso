@@ -18,9 +18,9 @@ namespace FSO.Common.Domain.Realestate
 
         private Dictionary<int, ShardRealestateDomain> _ByShard;
         private IShardsDomain _Shards;
-        private FSO.Content.Content _Content;
+        private FSO.Content.GameContent _Content;
 
-        public RealestateDomain(IShardsDomain shards, FSO.Content.Content content)
+        public RealestateDomain(IShardsDomain shards, FSO.Content.GameContent content)
         {
             _Shards = shards;
             _Content = content;

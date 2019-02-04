@@ -29,13 +29,13 @@ namespace FSO.LotView.RC
 
         private Wall GetPattern(ushort id)
         {
-            if (!WallCache.ContainsKey(id)) WallCache.Add(id, Content.Content.Get().WorldWalls.Get(id));
+            if (!WallCache.ContainsKey(id)) WallCache.Add(id, Content.GameContent.Get.WorldWalls.Get(id));
             return WallCache[id];
         }
 
         private WallStyle GetStyle(ushort id)
         {
-            if (!WallStyleCache.ContainsKey(id)) WallStyleCache.Add(id, Content.Content.Get().WorldWalls.GetWallStyle(id));
+            if (!WallStyleCache.ContainsKey(id)) WallStyleCache.Add(id, Content.GameContent.Get.WorldWalls.GetWallStyle(id));
             return WallStyleCache[id];
         }
 
@@ -49,8 +49,8 @@ namespace FSO.LotView.RC
 
         public void Generate(GraphicsDevice device, WorldState world, bool cutaway)
         {
-            var wallContent = Content.Content.Get().WorldWalls;
-            var floorContent = Content.Content.Get().WorldFloors;
+            var wallContent = Content.GameContent.Get.WorldWalls;
+            var floorContent = Content.GameContent.Get.WorldFloors;
             if (!cutaway) Dispose();
             var white = Color.White.ToVector4();
             var whitepx = Common.Utils.TextureGenerator.GetPxWhite(device);

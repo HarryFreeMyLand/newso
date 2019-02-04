@@ -215,7 +215,7 @@ namespace FSO.HIT
             Owners = new List<int>();
 
             Stack = new Stack<int>();
-            audContent = Content.Content.Get().Audio;
+            audContent = Content.GameContent.Get.Audio;
         }
 
         public HITThread(uint TrackID, HITVM VM, HITResourceGroup Src)
@@ -226,7 +226,7 @@ namespace FSO.HIT
             Notes = new List<HITNoteEntry>();
             NotesByChannel = new Dictionary<SoundEffectInstance, HITNoteEntry>();
 
-            audContent = Content.Content.Get().Audio;
+            audContent = Content.GameContent.Get.Audio;
             SetTrack(TrackID);
 
             SimpleMode = true;

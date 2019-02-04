@@ -23,7 +23,7 @@ namespace FSO.Content.Framework
     /// </summary>
     public class FAR3Provider <T> : IContentProvider<T>
     {
-        protected Content ContentManager;
+        protected GameContent ContentManager;
         protected Dictionary<ulong, Far3ProviderEntry<T>> EntriesById;
         protected Dictionary<string, Far3ProviderEntry<T>> EntriesByName;
 
@@ -38,7 +38,7 @@ namespace FSO.Content.Framework
         /// <param name="ContentManager">A Content instance.</param>
         /// <param name="Codec">A content codec.</param>
         /// <param name="FarFiles">A list of FAR3 filenames.</param>
-        public FAR3Provider(Content ContentManager, IContentCodec<T> Codec, params string[] FarFiles)
+        public FAR3Provider(GameContent ContentManager, IContentCodec<T> Codec, params string[] FarFiles)
         {
             this.ContentManager = ContentManager;
             this.Codec = Codec;
@@ -51,7 +51,7 @@ namespace FSO.Content.Framework
         /// <param name="ContentManager">A Content instance.</param>
         /// <param name="Codec">A content codec.</param>
         /// <param name="FarFilePattern">Which FAR file types to use.</param>
-        public FAR3Provider(Content ContentManager, IContentCodec<T> Codec, Regex FarFilePattern)
+        public FAR3Provider(GameContent ContentManager, IContentCodec<T> Codec, Regex FarFilePattern)
         {
             this.ContentManager = ContentManager;
             this.Codec = Codec;

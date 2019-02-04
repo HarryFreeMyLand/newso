@@ -332,7 +332,7 @@ namespace FSO.Client.UI.Panels.EODs
             foreach (var item in inventory)
             {
                 if (item.ObjectPID == DragUID || Array.FindIndex(MyOffer.ObjectOffer, x=> x != null && x.PID == item.ObjectPID) > -1) continue;
-                var catItem = Content.Content.Get().WorldCatalog.GetItemByGUID(item.GUID);
+                var catItem = Content.GameContent.Get.WorldCatalog.GetItemByGUID(item.GUID);
                 if (catItem == null) { catItem = GenCatItem(item.GUID); }
 
                 var obj = catItem.Value;
@@ -371,7 +371,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }
                 else
                 {
-                    catItem = Content.Content.Get().WorldCatalog.GetItemByGUID(item.GUID);
+                    catItem = Content.GameContent.Get.WorldCatalog.GetItemByGUID(item.GUID);
                     if (catItem == null) { catItem = GenCatItem(item.GUID); }
                     tag = item.PID;
                 }
@@ -396,7 +396,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         private ObjectCatalogItem GenCatItem(uint GUID)
         {
-            var obj = Content.Content.Get().WorldObjects.Get(GUID);
+            var obj = Content.GameContent.Get.WorldObjects.Get(GUID);
             if (obj == null)
             {
                 return new ObjectCatalogItem()

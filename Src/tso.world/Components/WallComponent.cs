@@ -133,8 +133,8 @@ namespace FSO.LotView.Components
             if (WallZBuffers == null) WallZBuffers = TextureGenerator.GetWallZBuffer(device);
 
             var pxOffset = world.WorldSpace.GetScreenOffset();
-            var wallContent = Content.Content.Get().WorldWalls;
-            var floorContent = Content.Content.Get().WorldFloors;
+            var wallContent = Content.GameContent.Get.WorldWalls;
+            var floorContent = Content.GameContent.Get.WorldFloors;
 
             //draw walls
             for (sbyte level = 1; level <= world.Level; level++)
@@ -827,13 +827,13 @@ namespace FSO.LotView.Components
 
         private Wall GetPattern(ushort id)
         {
-            if (!WallCache.ContainsKey(id)) WallCache.Add(id, Content.Content.Get().WorldWalls.Get(id));
+            if (!WallCache.ContainsKey(id)) WallCache.Add(id, Content.GameContent.Get.WorldWalls.Get(id));
             return WallCache[id];
         }
 
         private WallStyle GetStyle(ushort id)
         {
-            if (!WallStyleCache.ContainsKey(id)) WallStyleCache.Add(id, Content.Content.Get().WorldWalls.GetWallStyle(id));
+            if (!WallStyleCache.ContainsKey(id)) WallStyleCache.Add(id, Content.GameContent.Get.WorldWalls.GetWallStyle(id));
             return WallStyleCache[id];
         }
 

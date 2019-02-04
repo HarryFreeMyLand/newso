@@ -22,10 +22,10 @@ namespace FSO.Content.TS1
         public Dictionary<string, string> AnimHostBCF = new Dictionary<string, string>();
         public Dictionary<string, string> SkinHostBCF = new Dictionary<string, string>();
         public Dictionary<string, string> SkelHostBCF = new Dictionary<string, string>();
-        public Content ContentManager;
+        public GameContent ContentManager;
         public Dictionary<string, TS1ClothingCollection> CollectionsByName = new Dictionary<string, TS1ClothingCollection>();
 
-        public TS1BCFProvider(Content contentManager, TS1Provider provider)
+        public TS1BCFProvider(GameContent contentManager, TS1Provider provider)
         {
             ContentManager = contentManager;
             BaseProvider = provider;

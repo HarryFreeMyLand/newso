@@ -60,7 +60,7 @@ namespace FSO.SimAntics.Primitives
             //types:
             // SKILL   SOUVENIR    PURCHASE    SIMDATA     DATE    INGREDIENT  MAGIC   GIFT
 
-            var neighbourhood = Content.Content.Get().Neighborhood;
+            var neighbourhood = Content.GameContent.Get.Neighborhood;
             var inTarget = (operand.UseObjectInTemp4) ? context.VM.GetObjectById(context.Thread.TempRegisters[4]) : context.Caller;
             if (inTarget is VMGameObject) { }
             var target = (VMAvatar)(inTarget);
@@ -162,7 +162,7 @@ namespace FSO.SimAntics.Primitives
         {
             if (inventory == null)
             {
-                var neighbourhood = Content.Content.Get().Neighborhood;
+                var neighbourhood = Content.GameContent.Get.Neighborhood;
                 //set up this neighbour's inventory...
                 inventory = new List<InventoryItem>();
                 neighbourhood.SetInventoryForNID(neighbour, inventory);

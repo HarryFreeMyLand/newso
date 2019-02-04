@@ -25,7 +25,7 @@ namespace FSO.Content.Framework
     /// </summary>
     public class FAR1Provider <T> : IContentProvider<T>
     {
-        protected Content ContentManager;
+        protected GameContent ContentManager;
         protected Dictionary<string, Far1ProviderEntry<T>> EntriesByName;
         protected Dictionary<string, List<Far1ProviderEntry<T>>> EntriesOfType; //based on file extension
 
@@ -40,7 +40,7 @@ namespace FSO.Content.Framework
         /// <param name="contentManager">A Content instance.</param>
         /// <param name="codec">The codec of the type of file in the FAR1 archive for which to provide access.</param>
         /// <param name="farFiles">A list of FAR1 archives with files of the specified codec.</param>
-        public FAR1Provider(Content contentManager, IContentCodec<T> codec, params string[] farFiles)
+        public FAR1Provider(GameContent contentManager, IContentCodec<T> codec, params string[] farFiles)
         {
             this.ContentManager = contentManager;
             this.Codec = codec;
@@ -53,7 +53,7 @@ namespace FSO.Content.Framework
         /// <param name="contentManager">A Content instance.</param>
         /// <param name="codec">The codec of the type of file in the FAR1 archive for which to provide access.</param>
         /// <param name="farFilePattern">A regular expression of FAR1 archives with files of the specified codec.</param>
-        public FAR1Provider(Content contentManager, IContentCodec<T> codec, Regex farFilePattern)
+        public FAR1Provider(GameContent contentManager, IContentCodec<T> codec, Regex farFilePattern)
         {
             this.ContentManager = contentManager;
             this.Codec = codec;
@@ -62,7 +62,7 @@ namespace FSO.Content.Framework
 
         private bool TS1; //temporary testing var for hybrid content system
 
-        public FAR1Provider(Content contentManager, IContentCodec<T> codec, Regex farFilePattern, bool ts1) : this(contentManager,codec,farFilePattern)
+        public FAR1Provider(GameContent contentManager, IContentCodec<T> codec, Regex farFilePattern, bool ts1) : this(contentManager,codec,farFilePattern)
         {
             TS1 = ts1;
         }

@@ -26,14 +26,14 @@ namespace FSO.Content.TS1
         public NGBH Neighborhood;
         public TATT TypeAttributes;
         public Dictionary<short, FAMI> FamilyForHouse = new Dictionary<short, FAMI>();
-        public Content ContentManager;
+        public GameContent ContentManager;
         public TS1GameState GameState = new TS1GameState();
         public string UserPath;
         public int NextSim;
 
         public HashSet<uint> DirtyAvatars = new HashSet<uint>();
 
-        public TS1NeighborhoodProvider(Content contentManager)
+        public TS1NeighborhoodProvider(GameContent contentManager)
         {
             ContentManager = contentManager;
             InitSpecific(1);

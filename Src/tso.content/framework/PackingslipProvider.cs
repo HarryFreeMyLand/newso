@@ -20,7 +20,7 @@ namespace FSO.Content.Framework
     /// <typeparam name="T">The type of file for which to provide access.</typeparam>
     public abstract class PackingslipProvider<T> : IContentProvider<T>
     {
-        protected Content ContentManager;
+        protected GameContent ContentManager;
         private string PackingSlipFile;
         protected Dictionary<ulong, PackingslipEntry<T>> Entries;
         protected IContentCodec<T> Codec;
@@ -32,7 +32,7 @@ namespace FSO.Content.Framework
         /// <param name="contentManager">A Content instance.</param>
         /// <param name="packingslip">The name of a packingslip (xml) file.</param>
         /// <param name="codec">The codec of the file for which to provide access.</param>
-        public PackingslipProvider(Content contentManager, string packingslip, IContentCodec<T> codec)
+        public PackingslipProvider(GameContent contentManager, string packingslip, IContentCodec<T> codec)
         {
             this.ContentManager = contentManager;
             this.PackingSlipFile = packingslip;

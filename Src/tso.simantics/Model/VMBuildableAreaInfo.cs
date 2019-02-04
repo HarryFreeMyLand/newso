@@ -119,7 +119,7 @@ namespace FSO.SimAntics.Model
         {
             if (vm == null || vm.TS1 || vm.TSOState.PropertyCategory != 5) return 0;
             var guid = item.GUID;
-            var catalog = Content.Content.Get().WorldCatalog;
+            var catalog = Content.GameContent.Get.WorldCatalog;
             var sameItem = vm.Entities.Count(x => x == x.MultitileGroup.BaseObject && (x.Object.OBJ.GUID == guid || x.MasterDefinition?.GUID == guid));
             var catItems = vm.Entities.Count(x => x == x.MultitileGroup.BaseObject && item.Category == catalog.GetItemByGUID((x.MasterDefinition == null) ? x.Object.OBJ.GUID : x.MasterDefinition.GUID)?.Category);
             sameItem = Math.Min(3, sameItem);

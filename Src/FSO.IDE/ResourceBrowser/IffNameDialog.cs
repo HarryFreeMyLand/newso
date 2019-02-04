@@ -49,7 +49,7 @@ namespace FSO.IDE.ResourceBrowser
             {
                 var id = (ushort)ChunkIDEntry.Value;
                 var label = ChunkLabelEntry.Text;
-                Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     Chunk.ChunkID = id;
                     Chunk.ChunkLabel = label;

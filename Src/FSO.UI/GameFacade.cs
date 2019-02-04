@@ -1,4 +1,4 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
@@ -35,7 +35,7 @@ namespace FSO.Client
         public static GraphicsDevice GraphicsDevice;
         public static EmojiProvider Emojis;
         public static GraphicsDeviceManager GraphicsDeviceManager;
-        public static Common.Rendering.Framework.Game Game;
+        public static AGame Game;
         //public static TSOClientTools DebugWindow;
         public static Font MainFont;
         public static Font EdithFont;
@@ -44,7 +44,7 @@ namespace FSO.Client
         public static bool Focus = true;
         public static string CurrentCityName = "Sandbox";
 
-        public static bool Linux;
+        public static bool Unix;
         public static bool DirectX;
         public static bool EnableMod;
 
@@ -70,7 +70,7 @@ namespace FSO.Client
             Game.Exit();
             Process.GetCurrentProcess().Kill();
         }
-        
+
         public static TimeSpan GameRunTime
         {
             get

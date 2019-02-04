@@ -45,7 +45,7 @@ namespace FSO.IDE
             else
                 GUID = Browser.SelectedObj.GUID;
 
-            IffManager.OpenResourceWindow(Content.Content.Get().WorldObjects.Get(GUID));
+            IffManager.OpenResourceWindow(Content.GameContent.Get.WorldObjects.Get(GUID));
         }
 
         private void CreateButton_Click(object sender, EventArgs e)
@@ -134,7 +134,7 @@ namespace FSO.IDE
             SelectedIffs.Clear();
             ResNodes.Clear();
             UpdateSelectedRes();
-            var mod = Content.Content.Get().Changes;
+            var mod = Content.GameContent.Get.Changes;
             var changes = mod.GetChangeList();
 
             int chunkChange = 0;
@@ -176,7 +176,7 @@ namespace FSO.IDE
 
         private void SaveAll_Click(object sender, EventArgs e)
         {
-            var mod = Content.Content.Get().Changes;
+            var mod = Content.GameContent.Get.Changes;
             var changes = mod.GetChangeList();
             Action<IEnumerable<IffFile>> func = mod.SaveChanges;
             mod.Invoke(func, changes);
@@ -185,7 +185,7 @@ namespace FSO.IDE
 
         private void DiscardAll_Click(object sender, EventArgs e)
         {
-            var mod = Content.Content.Get().Changes;
+            var mod = Content.GameContent.Get.Changes;
             var changes = mod.GetChangeList();
             Action<IEnumerable<IffFile>> func = mod.DiscardChanges;
             mod.Invoke(func, changes);
@@ -258,7 +258,7 @@ namespace FSO.IDE
 
         private void IffSave_Click(object sender, EventArgs e)
         {
-            var changes = Content.Content.Get().Changes;
+            var changes = Content.GameContent.Get.Changes;
             Action<IEnumerable<IffFile>> func = changes.SaveChanges;
             changes.Invoke(func, new List<IffFile>(SelectedIffs));
             RefreshResourceView();
@@ -266,7 +266,7 @@ namespace FSO.IDE
 
         private void IffDiscard_Click(object sender, EventArgs e)
         {
-            var changes = Content.Content.Get().Changes;
+            var changes = Content.GameContent.Get.Changes;
             Action<IEnumerable<IffFile>> func = changes.DiscardChanges;
             changes.Invoke(func, new List<IffFile>(SelectedIffs));
             RefreshResourceView();
@@ -274,7 +274,7 @@ namespace FSO.IDE
 
         private void ChunkDiscard_Click(object sender, EventArgs e)
         {
-            var changes = Content.Content.Get().Changes;
+            var changes = Content.GameContent.Get.Changes;
             Action<IEnumerable<IffChunk>> func = changes.DiscardChanges;
             changes.Invoke(func, new List<IffChunk>(SelectedChunks));
             RefreshResourceView();
@@ -298,7 +298,7 @@ namespace FSO.IDE
                 if (objDialog.DialogResult == DialogResult.OK)
                 {
                     Browser.ObjectsModified();
-                    IffManager.OpenResourceWindow(Content.Content.Get().WorldObjects.Get(objDialog.ResultGUID));
+                    IffManager.OpenResourceWindow(Content.GameContent.Get.WorldObjects.Get(objDialog.ResultGUID));
                 }
                 else
                     MessageBox.Show("Object creation cancelled! Iff will not be created.");

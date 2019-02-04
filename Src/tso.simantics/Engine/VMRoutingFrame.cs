@@ -677,7 +677,7 @@ namespace FSO.SimAntics.Engine
 
                             var anims = InPool ? avatar.SwimAnimations : avatar.WalkAnimations;
 
-                            var animation = FSO.Content.Content.Get().AvatarAnimations.Get(anims[3] + ".anim");
+                            var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(anims[3] + ".anim");
                             var state = new VMAnimationState(animation, false);
                             state.Loop = true;
                             avatar.Animations.Add(state);
@@ -1100,7 +1100,7 @@ namespace FSO.SimAntics.Engine
 
         private VMAnimationState PlayAnim(string name, VMAvatar avatar)
         {
-            var animation = FSO.Content.Content.Get().AvatarAnimations.Get(name + ".anim");
+            var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(name + ".anim");
             var state = new VMAnimationState(animation, false);
             avatar.Animations.Add(state);
             return state;

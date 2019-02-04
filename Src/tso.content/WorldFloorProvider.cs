@@ -27,7 +27,7 @@ namespace FSO.Content
     /// </summary>
     public class WorldFloorProvider : IContentProvider<Floor>
     {
-        private Content ContentManager;
+        private GameContent ContentManager;
         private Dictionary<ushort, Floor> ById;
 
         public Dictionary<ushort, FloorReference> Entries;
@@ -38,7 +38,7 @@ namespace FSO.Content
         private IffFile BuildGlobals;
         public int NumFloors;
 
-        public WorldFloorProvider(Content contentManager)
+        public WorldFloorProvider(GameContent contentManager)
         {
             this.ContentManager = contentManager;
 

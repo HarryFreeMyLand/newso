@@ -42,7 +42,7 @@ namespace FSO.IDE
                 Application.Exit();
                 return;
             }
-            Content.Content.Get().Changes.Invoke((Action<List<InspectorEntityMeta>>)GetEntityList, EntityList);
+            Content.GameContent.Get.Changes.Invoke((Action<List<InspectorEntityMeta>>)GetEntityList, EntityList);
             EntityView.Items.Clear();
 
             foreach (var ent in EntityList)
@@ -84,7 +84,7 @@ namespace FSO.IDE
             if (EntityView.SelectedIndices == null || EntityView.SelectedIndices.Count == 0) return;
             var item = ItemToEnt[EntityView.SelectedItems[0]];
 
-            Content.Content.Get().Changes.Invoke((Action<VMEntity>)SetBreak, item.Entity);
+            Content.GameContent.Get.Changes.Invoke((Action<VMEntity>)SetBreak, item.Entity);
         }
 
         private void SetBreak(VMEntity entity)
@@ -97,7 +97,7 @@ namespace FSO.IDE
         {
             if (EntityView.SelectedIndices == null || EntityView.SelectedIndices.Count == 0) return;
             var item = ItemToEnt[EntityView.SelectedItems[0]];
-            Content.Content.Get().Changes.Invoke((Action<bool, VMContext>)item.Entity.Delete, true, item.Entity.Thread.Context);
+            Content.GameContent.Get.Changes.Invoke((Action<bool, VMContext>)item.Entity.Delete, true, item.Entity.Thread.Context);
             RefreshView();
         }
     }

@@ -11,7 +11,7 @@ namespace FSO.Content
 {
     public class IniProvider : FileProvider<IniFile>
     {
-        public IniProvider(Content content) : base(content, new IniCodec(), new Regex("^sys/.*\\.ini"))
+        public IniProvider(GameContent content) : base(content, new IniCodec(), new Regex("^sys/.*\\.ini"))
         {
         }
     }

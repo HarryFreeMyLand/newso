@@ -47,7 +47,7 @@ namespace FSO.SimAntics.Primitives
                 case VMGenericTS1CallMode.AddToFamily: //4
                     if (context.VM.TS1State.CurrentFamily == null || context.VM.TS1State.CurrentFamily.FamilyGUIDs.Length >= 8)
                         return VMPrimitiveExitCode.GOTO_FALSE;
-                    var fneigh = Content.Content.Get().Neighborhood.GetNeighborByID(context.StackObjectID);
+                    var fneigh = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
                     if (fneigh == null) return VMPrimitiveExitCode.GOTO_FALSE;
                     AddToFamily(context.VM.TS1State.CurrentFamily, fneigh, context.VM);
                     var runtime = context.VM.TS1State.CurrentFamily.RuntimeSubset.ToList();
@@ -56,13 +56,13 @@ namespace FSO.SimAntics.Primitives
                     return VMPrimitiveExitCode.GOTO_TRUE;
                 case VMGenericTS1CallMode.CombineAssetsOfFamilyInTemp0: //5
                     //adds the family in temp 0's assets to our budget. (for move in)
-                    var family = Content.Content.Get().Neighborhood.GetFamily((ushort)context.Thread.TempRegisters[0]);
+                    var family = Content.GameContent.Get.Neighborhood.GetFamily((ushort)context.Thread.TempRegisters[0]);
                     context.VM.TS1State.CurrentFamily.Budget += family.ValueInArch + family.Budget;
                     return VMPrimitiveExitCode.GOTO_TRUE;
                 case VMGenericTS1CallMode.RemoveFromFamily: //6
                     if (context.VM.TS1State.CurrentFamily == null)
                         return VMPrimitiveExitCode.GOTO_FALSE;
-                    fneigh = Content.Content.Get().Neighborhood.GetNeighborByID(context.StackObjectID);
+                    fneigh = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
                     if (fneigh == null) return VMPrimitiveExitCode.GOTO_FALSE;
                     fneigh.PersonData[(int)VMPersonDataVariable.TS1FamilyNumber] = 0;
                     var runtimef = GetRuntimeNeigh(context.VM, (ushort)context.StackObjectID);
@@ -99,7 +99,7 @@ namespace FSO.SimAntics.Primitives
                 // 16. Change Normal Outfit
                 case VMGenericTS1CallMode.ChangeToLotInTemp0: //17
                     //-1 is this family's home lot
-                    var crossData = Content.Content.Get().Neighborhood.GameState;
+                    var crossData = Content.GameContent.Get.Neighborhood.GameState;
                     crossData.ActiveFamily = context.VM.TS1State.CurrentFamily;
                     crossData.DowntownSimGUID = context.Caller.Object.OBJ.GUID;
                     crossData.LotTransitInfo = context.VM.GetGlobalValue(34);
@@ -148,7 +148,7 @@ namespace FSO.SimAntics.Primitives
                 case VMGenericTS1CallMode.BuildTheDowntownSimAndPlaceObjIDInTemp0: //18
                     //spawn downtown sim out of world
 
-                    var crossDataDT = Content.Content.Get().Neighborhood.GameState;
+                    var crossDataDT = Content.GameContent.Get.Neighborhood.GameState;
 
                     var control = context.VM.Context.CreateObjectInstance(crossDataDT.DowntownSimGUID, LotTilePos.OUT_OF_WORLD, Direction.NORTH)?.BaseObject;
                     ((VMAvatar)control).AvatarState.Permissions = Model.TSOPlatform.VMTSOAvatarPermissions.Owner;
@@ -162,7 +162,7 @@ namespace FSO.SimAntics.Primitives
                     break;
                 case VMGenericTS1CallMode.SpawnDowntownDateOfPersonInTemp0: //18
                     //spawn our autofollow sim
-                    var neighbourhood = Content.Content.Get().Neighborhood;
+                    var neighbourhood = Content.GameContent.Get.Neighborhood;
                     var ntarget = (VMAvatar)context.VM.GetObjectById(context.Thread.TempRegisters[0]);
                     context.Thread.TempRegisters[0] = -1;
                     if (ntarget == null) return VMPrimitiveExitCode.GOTO_FALSE; //vacation?
@@ -230,7 +230,7 @@ namespace FSO.SimAntics.Primitives
                     return VMPrimitiveExitCode.GOTO_TRUE;
                 case VMGenericTS1CallMode.BuildVacationFamilyPutFamilyNumInTemp0: //26
                     //in our implementation, vacation lots build the family in the same way as normal lots.
-                    var crossData2 = Content.Content.Get().Neighborhood.GameState;
+                    var crossData2 = Content.GameContent.Get.Neighborhood.GameState;
                     if (crossData2.LotTransitInfo >= 1)
                     {
                         crossData2.ActiveFamily.SelectWholeFamily();
@@ -263,7 +263,7 @@ namespace FSO.SimAntics.Primitives
                     context.Thread.TempRegisters[0] = 9;
                     break;
                 case VMGenericTS1CallMode.ReturnZoningTypeOfLotInTemp0: //28
-                    var zones = Content.Content.Get().Neighborhood.ZoningDictionary;
+                    var zones = Content.GameContent.Get.Neighborhood.ZoningDictionary;
                     short result = 1;
                     if (zones.TryGetValue(context.Thread.TempRegisters[0], out result))
                         context.Thread.TempRegisters[0] = result;
@@ -289,10 +289,10 @@ namespace FSO.SimAntics.Primitives
                     context.VM.TS1State.VerifyFamily(context.VM);
                     return VMPrimitiveExitCode.GOTO_TRUE;
                 case VMGenericTS1CallMode.AddToFamilyInTemp0:
-                    family = Content.Content.Get().Neighborhood.GetFamily((ushort)context.Thread.TempRegisters[0]);
+                    family = Content.GameContent.Get.Neighborhood.GetFamily((ushort)context.Thread.TempRegisters[0]);
                     if (family == null || family.FamilyGUIDs.Length >= 8)
                         return VMPrimitiveExitCode.GOTO_FALSE;
-                    fneigh = Content.Content.Get().Neighborhood.GetNeighborByID(context.StackObjectID);
+                    fneigh = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
                     if (fneigh == null) return VMPrimitiveExitCode.GOTO_FALSE;
                     AddToFamily(context.VM.TS1State.CurrentFamily, fneigh, context.VM);
                     return VMPrimitiveExitCode.GOTO_TRUE;
@@ -330,7 +330,7 @@ namespace FSO.SimAntics.Primitives
 
         private List<InventoryItem> InitInventory(short neighbour)
         {
-            var neighbourhood = Content.Content.Get().Neighborhood;
+            var neighbourhood = Content.GameContent.Get.Neighborhood;
             var inventory = neighbourhood.GetInventoryByNID(neighbour);
             if (inventory == null)
             {
@@ -355,7 +355,7 @@ namespace FSO.SimAntics.Primitives
             //was the neighbor already in a family?
             if (neigh.PersonData != null) {
                 var famID = neigh.PersonData[(int)VMPersonDataVariable.TS1FamilyNumber];
-                var oldFam = Content.Content.Get().Neighborhood.GetFamily((ushort)famID);
+                var oldFam = Content.GameContent.Get.Neighborhood.GetFamily((ushort)famID);
                 if (oldFam != null && oldFam.ChunkID != 0)
                 {
                     var oguids = oldFam.FamilyGUIDs.ToList();

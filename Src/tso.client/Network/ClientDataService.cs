@@ -35,7 +35,7 @@ namespace FSO.Common.DataService
         private Dictionary<Type, MaskedStruct> DefaultDataStruct = new Dictionary<Type, MaskedStruct>();
         
         public ClientDataService(IModelSerializer serializer,
-                                FSO.Content.Content content,
+                                FSO.Content.GameContent content,
                                 IKernel kernel) : base(serializer, content)
         {
             AddProvider(kernel.Get<ClientAvatarProvider>());

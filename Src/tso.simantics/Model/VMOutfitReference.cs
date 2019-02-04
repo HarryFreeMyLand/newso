@@ -65,7 +65,7 @@ namespace FSO.SimAntics.Model
         public Outfit GetContent()
         {
             if (OftData != null) return OftData;
-            var content = Content.Content.Get().AvatarOutfits;
+            var content = Content.GameContent.Get.AvatarOutfits;
             if (ID == uint.MaxValue)
                 return content.Get(Name);
             else

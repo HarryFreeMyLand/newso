@@ -42,7 +42,7 @@ namespace FSO.Content
                     try
                     {
                         if (CausesChange)
-                            Content.Get().Changes.ChunkChanged(Chunk);
+                            GameContent.Get.Changes.ChunkChanged(Chunk);
                         Action();
                     }
                     catch (Exception)

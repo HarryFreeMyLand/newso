@@ -342,10 +342,10 @@ namespace FSO.IDE.ResourceBrowser
             var chunk = (IffChunk)generic.Invoke(ActiveIff, new object[] { ((ObjectResourceEntry)ResList.SelectedItem).ID });
             if (chunk == null) return;
 
-            Content.Content.Get().Changes.BlockingResMod(new ResAction(() =>
+            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 chunk.ChunkParent.FullRemoveChunk(chunk);
-                Content.Content.Get().Changes.ChunkChanged(chunk);
+                Content.GameContent.Get.Changes.ChunkChanged(chunk);
             }));
         }
     }

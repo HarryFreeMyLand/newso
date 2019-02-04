@@ -18,22 +18,22 @@ namespace FSO.Client.UI.Controls.Catalog
 
         public override Texture2D GetIcon(ulong id)
         {
-            return Content.Content.Get().WorldWalls.GetWallStyleIcon((ushort)id).GetTexture(GameFacade.GraphicsDevice);
+            return Content.GameContent.Get.WorldWalls.GetWallStyleIcon((ushort)id).GetTexture(GameFacade.GraphicsDevice);
         }
 
         public override string GetName(ulong id)
         {
-            return Content.Content.Get().WorldWalls.GetWallStyle(id).Name;
+            return Content.GameContent.Get.WorldWalls.GetWallStyle(id).Name;
         }
 
         public override string GetDescription(ulong id)
         {
-            return Content.Content.Get().WorldWalls.GetWallStyle(id).Description;
+            return Content.GameContent.Get.WorldWalls.GetWallStyle(id).Description;
         }
 
         public override int GetPrice(ulong id)
         {
-            return Content.Content.Get().WorldWalls.GetWallStyle(id).Price;
+            return Content.GameContent.Get.WorldWalls.GetWallStyle(id).Price;
         }
     }
 }

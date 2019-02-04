@@ -155,7 +155,7 @@ namespace FSO.SimAntics.Engine
 
         public virtual void Load(VMStackFrameMarshal input, VMContext context)
         {
-            CodeOwner = FSO.Content.Content.Get().WorldObjects.Get(input.CodeOwnerGUID);
+            CodeOwner = FSO.Content.GameContent.Get.WorldObjects.Get(input.CodeOwnerGUID);
 
             Routine = null;
             if (input.RoutineID >= 8192) Routine = (VMRoutine)ScopeResource.SemiGlobal.GetRoutine(input.RoutineID);

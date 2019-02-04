@@ -205,14 +205,14 @@ namespace FSO.SimAntics.Engine
                                     output.Append(suffix);
                                     break;
                                 case "JobOffer:":
-                                    output.Append(Content.Content.Get().Jobs.JobOffer(
+                                    output.Append(Content.GameContent.Get.Jobs.JobOffer(
                                         (short)VMMemory.GetBigVariable(context, Scopes.VMVariableScope.Local, values[0]),
                                         VMMemory.GetBigVariable(context, Scopes.VMVariableScope.Local, values[1])));
                                     break;
                                 case "Job:":
                                 case "JobDesc:":
                                     var level = VMMemory.GetBigVariable(context, Scopes.VMVariableScope.Local, values[1]);
-                                    var jobStr = Content.Content.Get().Jobs.JobStrings(
+                                    var jobStr = Content.GameContent.Get.Jobs.JobStrings(
                                         (short)VMMemory.GetBigVariable(context, Scopes.VMVariableScope.Local, values[0]));
                                     if (jobStr != null) output.Append(jobStr.GetString(level*3+((cmdString=="JobDesc:")?3:4)));
                                     break;
@@ -223,8 +223,8 @@ namespace FSO.SimAntics.Engine
                                 case "Neighbor":
                                     //neighbour in stack object id
                                     if (!context.VM.TS1) break;
-                                    var guid = Content.Content.Get().Neighborhood.GetNeighborByID(context.StackObjectID)?.GUID ?? 0;
-                                    var gobj = Content.Content.Get().WorldObjects.Get(guid);
+                                    var guid = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID)?.GUID ?? 0;
+                                    var gobj = Content.GameContent.Get.WorldObjects.Get(guid);
                                     if (gobj == null) output.Append("Unknown");
                                     else output.Append(gobj.Resource.Get<FSO.Files.Formats.IFF.Chunks.CTSS>(gobj.OBJ.CatalogStringsID)?.GetString(0) ?? "Unknown");
                                     break;

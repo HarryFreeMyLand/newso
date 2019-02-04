@@ -49,7 +49,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             string collectionPath = typeString + (isMale ? "_" : "_fe" ) + "male.col";
 
             // get the matching trunk collection
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
             TrunkOutfits = content.AvatarCollections.Get(collectionPath);
 
             client.Send("trunk_fill_UI", collectionPath);
@@ -93,7 +93,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         {
             foreach (var outfit in TrunkOutfits)
             {
-                var purchasable = Content.Content.Get().AvatarPurchasables.Get(outfit.PurchasableOutfitId);
+                var purchasable = Content.GameContent.Get.AvatarPurchasables.Get(outfit.PurchasableOutfitId);
                 if (purchasable.OutfitID == outfitID)
                     return purchasable.OutfitID;
             }

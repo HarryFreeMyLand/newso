@@ -14,7 +14,7 @@ namespace FSO.Server.Debug.PacketAnalyzer
 
         public ContentPacketAnalyzer()
         {
-            var content = Content.Content.Get();
+            var content = Content.GameContent.Get;
 
             /** Avatar Collections **/
             foreach(var collection in content.AvatarCollections.List())

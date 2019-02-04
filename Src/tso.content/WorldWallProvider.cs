@@ -27,7 +27,7 @@ namespace FSO.Content
     /// </summary>
     public class WorldWallProvider : IContentProvider<Wall>
     {
-        private Content ContentManager;
+        private GameContent ContentManager;
         public Wall Junctions;
         private List<WallStyle> WallStyles;
         private Dictionary<ushort, Wall> ById;
@@ -42,7 +42,7 @@ namespace FSO.Content
 
         public int NumWalls;
 
-        public WorldWallProvider(Content contentManager)
+        public WorldWallProvider(GameContent contentManager)
         {
             this.ContentManager = contentManager;
 

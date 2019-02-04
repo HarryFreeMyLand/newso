@@ -926,7 +926,7 @@ namespace FSO.SimAntics.Utils
         public PatternReplaceCount(bool floor) {
             if (Floors == null)
             {
-                var content = Content.Content.Get();
+                var content = Content.GameContent.Get;
                 Walls = content.WorldWalls;
                 Floors = content.WorldFloors;
             }

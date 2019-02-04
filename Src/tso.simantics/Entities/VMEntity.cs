@@ -277,7 +277,7 @@ namespace FSO.SimAntics
             var GLOBChunks = obj.Resource.List<GLOB>();
             GameGlobal SemiGlobal = null;
 
-            if (GLOBChunks != null && GLOBChunks[0].Name != "") SemiGlobal = FSO.Content.Content.Get().WorldObjectGlobals.Get(GLOBChunks[0].Name);
+            if (GLOBChunks != null && GLOBChunks[0].Name != "") SemiGlobal = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(GLOBChunks[0].Name);
 
             TreeTable = obj.Resource.Get<TTAB>(obj.OBJ.TreeTableID);
             if (TreeTable != null) TreeTableStrings = obj.Resource.Get<TTAs>(obj.OBJ.TreeTableID);
@@ -290,7 +290,7 @@ namespace FSO.SimAntics
 
         public void UseSemiGlobalTTAB(string sgFile, ushort id)
         {
-            GameGlobal obj = FSO.Content.Content.Get().WorldObjectGlobals.Get(sgFile);
+            GameGlobal obj = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(sgFile);
             if (obj == null) return;
 
             TreeTable = obj.Resource.Get<TTAB>(id);
@@ -1475,7 +1475,7 @@ namespace FSO.SimAntics
 
             if (input.MasterGUID != 0)
             {
-                var masterDef = FSO.Content.Content.Get().WorldObjects.Get(input.MasterGUID);
+                var masterDef = FSO.Content.GameContent.Get.WorldObjects.Get(input.MasterGUID);
                 MasterDefinition = masterDef.OBJ;
                 UseTreeTableOf(masterDef);
             }

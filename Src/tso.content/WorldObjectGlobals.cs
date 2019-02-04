@@ -20,7 +20,7 @@ namespace FSO.Content
     /// </summary>
     public class WorldObjectGlobals : FileProvider<IffFile>
     {
-        public WorldObjectGlobals(Content contentManager)
+        public WorldObjectGlobals(GameContent contentManager)
             : base(contentManager, new IffCodec(), new Regex(".*/globals/.*\\.iff"))
         {
         }

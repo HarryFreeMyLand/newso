@@ -18,7 +18,7 @@ namespace FSO.Content.TS1
         private static List<ObjectCatalogItem>[] ItemsByCategory;
         private static Dictionary<uint, ObjectCatalogItem> ItemsByGUID;
 
-        public TS1ObjectProvider(Content contentManager, TS1Provider provider) : base(contentManager)
+        public TS1ObjectProvider(GameContent contentManager, TS1Provider provider) : base(contentManager)
         {
             GameObjects = new TS1SubProvider<IffFile>(provider, ".iff");
         }

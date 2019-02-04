@@ -12,7 +12,7 @@ namespace FSO.Content.TS1
 {
     public class CustomUIProvider : FileProvider<ITextureRef>
     {
-        public CustomUIProvider(Content contentManager)
+        public CustomUIProvider(GameContent contentManager)
             : base(contentManager, new TextureCodec(), new Regex("uigraphics/.*\\.png"))
         {
             UseContent = true;

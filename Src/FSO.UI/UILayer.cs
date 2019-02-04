@@ -321,7 +321,7 @@ namespace FSO.Client.UI
             state.MouseEvents.Clear();
 
             state.InputManager = inputManager;
-            Content.Content.Get()?.Changes.RunResModifications();
+            Content.GameContent.Get?.Changes.RunResModifications();
             mainUI.Update(state);
 
             if (state.AltDown && state.NewKeys.Contains(Microsoft.Xna.Framework.Input.Keys.Enter))

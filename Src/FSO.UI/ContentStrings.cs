@@ -126,7 +126,7 @@ namespace FSO.Client.GameContent
 
         public void LoadTS1()
         {
-            var path = Path.Combine(Content.Content.TS1HybridBasePath, "GameData/UIText.iff");
+            var path = Path.Combine(Content.GameContent.TS1HybridBasePath, "GameData/UIText.iff");
             var iff = new IffFile(path);
 
             var dirName = "UIText";

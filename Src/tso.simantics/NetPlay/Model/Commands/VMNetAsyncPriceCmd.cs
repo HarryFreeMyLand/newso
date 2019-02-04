@@ -26,7 +26,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
 
             if (NewPrice >= 0) {
                 //get catalog item for the object
-                var item = Content.Content.Get().WorldCatalog.GetItemByGUID((obj.MasterDefinition ?? obj.Object.OBJ).GUID);
+                var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID((obj.MasterDefinition ?? obj.Object.OBJ).GUID);
                 if (item != null && item.Value.DisableLevel > 1) return false;
                 foreach (var o in obj.MultitileGroup.Objects) ((VMGameObject)o).Disabled |= VMGameObjectDisableFlags.ForSale;
                 obj.MultitileGroup.SalePrice = NewPrice;

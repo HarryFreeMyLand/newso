@@ -29,7 +29,7 @@ namespace FSO.Content
             }
         }
 
-        public AvatarAnimationProvider(Content contentManager)
+        public AvatarAnimationProvider(GameContent contentManager)
             : base(contentManager, new AnimationCodec(), new Regex(".*/animations/.*\\.dat"))
         {
         }

@@ -20,7 +20,7 @@ namespace FSO.Content
     /// Provides access to texture (*.jpg) data in FAR3 archives.
     /// </summary>
     public class AvatarTextureProvider : FAR3Provider<ITextureRef> {
-        public AvatarTextureProvider(Content contentManager)
+        public AvatarTextureProvider(GameContent contentManager)
             : base(contentManager, new TextureCodec(), new Regex(".*/textures/.*\\.dat"))
         {
         }

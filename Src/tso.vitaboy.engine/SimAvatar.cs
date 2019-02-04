@@ -145,7 +145,7 @@ namespace FSO.Vitaboy
                 {
                     var HandgroupID = m_Handgroup.GetHandgroup();
                     if (HandgroupID.FileID == 0) HandgroupID.FileID = (int)(158913789970 >> 32);
-                    hgroup = FSO.Content.Content.Get().AvatarHandgroups.Get(HandgroupID.TypeID, HandgroupID.FileID);
+                    hgroup = FSO.Content.GameContent.Get.AvatarHandgroups.Get(HandgroupID.TypeID, HandgroupID.FileID);
                 }
 
                 FSO.Vitaboy.HandSet HSet = null;
@@ -203,8 +203,8 @@ namespace FSO.Vitaboy
                             break;
                     }
 
-                    LeftApr = FSO.Content.Content.Get().AvatarAppearances.Get(LeftID);
-                    RightApr = FSO.Content.Content.Get().AvatarAppearances.Get(RightID);
+                    LeftApr = FSO.Content.GameContent.Get.AvatarAppearances.Get(LeftID);
+                    RightApr = FSO.Content.GameContent.Get.AvatarAppearances.Get(RightID);
                 }
                 else
                 {
@@ -237,8 +237,8 @@ namespace FSO.Vitaboy
                             break;
                     }
 
-                    LeftApr = FSO.Content.Content.Get().AvatarAppearances.Get(LeftID);
-                    RightApr = FSO.Content.Content.Get().AvatarAppearances.Get(RightID);
+                    LeftApr = FSO.Content.GameContent.Get.AvatarAppearances.Get(LeftID);
+                    RightApr = FSO.Content.GameContent.Get.AvatarAppearances.Get(RightID);
                 }
 
                 if (LeftApr != null)
@@ -259,7 +259,7 @@ namespace FSO.Vitaboy
             if (m_Head != null)
             {
                 var AppearanceID = m_Head.GetAppearance(m_Appearance);
-                var Appearance = FSO.Content.Content.Get().AvatarAppearances.Get(AppearanceID);
+                var Appearance = FSO.Content.GameContent.Get.AvatarAppearances.Get(AppearanceID);
                 if (Appearance != null)
                 {
                     m_HeadInstance = base.AddAppearance(Appearance, m_Head.TS1TextureID);
@@ -382,7 +382,7 @@ namespace FSO.Vitaboy
             if (m_Body != null)
             {
                 var AppearanceID = m_Body.GetAppearance(m_Appearance);
-                var Appearance = FSO.Content.Content.Get().AvatarAppearances.Get(AppearanceID);
+                var Appearance = FSO.Content.GameContent.Get.AvatarAppearances.Get(AppearanceID);
                 if (Appearance != null)
                 {
                     m_BodyInstance = base.AddAppearance(Appearance, m_Body.TS1TextureID);
@@ -393,14 +393,14 @@ namespace FSO.Vitaboy
         public void AddAccessory(Outfit oft)
         {
             var aprId = oft.GetAppearance(m_Appearance);
-            var appearance = FSO.Content.Content.Get().AvatarAppearances.Get(aprId);
+            var appearance = FSO.Content.GameContent.Get.AvatarAppearances.Get(aprId);
             this.AddAccessory(appearance);
         }
 
         public void RemoveAccessory(Outfit oft)
         {
             var aprId = oft.GetAppearance(m_Appearance);
-            var appearance = FSO.Content.Content.Get().AvatarAppearances.Get(aprId);
+            var appearance = FSO.Content.GameContent.Get.AvatarAppearances.Get(aprId);
             this.RemoveAccessory(appearance);
         }
 
@@ -428,7 +428,7 @@ namespace FSO.Vitaboy
             set
             {
                 _BodyOutfitId = value;
-                var outfit = Content.Content.Get().AvatarOutfits?.Get(value);
+                var outfit = Content.GameContent.Get.AvatarOutfits?.Get(value);
                 this.Body = outfit;
                 this.Handgroup = outfit;
             }
@@ -444,7 +444,7 @@ namespace FSO.Vitaboy
             set
             {
                 _HeadOutfitId = value;
-                var outfit = Content.Content.Get().AvatarOutfits?.Get(value);
+                var outfit = Content.GameContent.Get.AvatarOutfits?.Get(value);
                 this.Head = outfit;
             }
             get

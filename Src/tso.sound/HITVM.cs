@@ -54,7 +54,7 @@ namespace FSO.HIT
 
         public HITVM()
         {
-            var content = FSO.Content.Content.Get();
+            var content = FSO.Content.GameContent.Get;
 
             Globals = new int[36];
             Sounds = new List<HITSound>();
@@ -189,7 +189,7 @@ namespace FSO.HIT
                 }
             }
 
-            var content = FSO.Content.Content.Get();
+            var content = FSO.Content.GameContent.Get;
             var evts = content.Audio.Events;
 
             if (evts.ContainsKey(evt))

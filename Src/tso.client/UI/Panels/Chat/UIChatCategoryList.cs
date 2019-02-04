@@ -67,7 +67,7 @@ namespace FSO.Client.UI.Panels.Chat
             var channels = new List<VMTSOChatChannel>();
             var perm = ((Dialog.Owner.ActiveEntity as VMAvatar)?.AvatarState?.Permissions ?? VMTSOAvatarPermissions.Visitor);
 
-            var ui = Content.Content.Get().CustomUI;
+            var ui = Content.GameContent.Get.CustomUI;
             var btnTex = ui.Get("chat_cat.png").Get(GameFacade.GraphicsDevice);
 
             channels.Add(VMTSOChatChannel.MainChannel);

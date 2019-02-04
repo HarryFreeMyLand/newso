@@ -121,7 +121,7 @@ namespace FSO.SimAntics.Engine
                     var jtype = avatar.GetPersonData(FSO.SimAntics.Model.VMPersonDataVariable.JobType);
                     var level = avatar.GetPersonData(FSO.SimAntics.Model.VMPersonDataVariable.JobPromotionLevel);
 
-                    var job = Content.Content.Get().Jobs.GetJobLevel(jtype, level);
+                    var job = Content.GameContent.Get.Jobs.GetJobLevel(jtype, level);
 
                     var bskn = job.MaleUniformMesh;
                     if (bskn == "") return new VMOutfitReference(bodyStrings, false);
