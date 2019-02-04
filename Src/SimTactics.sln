@@ -91,10 +91,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSOiOS", "FSO.iOS\FSOiOS.csproj", "{0A47E415-19C0-4007-A6DA-EE330BFA4430}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Windows", "FSO.Windows\FSO.Windows.csproj", "{39201960-F96F-4039-84B1-1331D5DDE3C2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8F125201-FDF0-4A13-886F-19662707D34D} = {8F125201-FDF0-4A13-886F-19662707D34D}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSODroid", "FSODroid\FSODroid.csproj", "{E55C12A4-84C8-482C-B132-932C0180FA44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Server.Core.Api", "FSO.Server.Core.Api\FSO.Server.Core.Api.csproj", "{94A00BA1-8795-493A-9F02-2BFABA97ECED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSO.Server.Core.Api", "FSO.Server.Core.Api\FSO.Server.Core.Api.csproj", "{94A00BA1-8795-493A-9F02-2BFABA97ECED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
