@@ -60,8 +60,8 @@ namespace FSO.Client
                 Graphics.ApplyChanges();
             }
 
-            this.Window.AllowUserResizing = true;
-            this.Window.ClientSizeChanged += new EventHandler<EventArgs>(Window_ClientSizeChanged);
+            Window.AllowUserResizing = true;
+            Window.ClientSizeChanged += new EventHandler<EventArgs>(Window_ClientSizeChanged);
 
             try
             {
@@ -213,10 +213,10 @@ namespace FSO.Client
                 FSOProgram.ShowDialog("Failed to initialize audio: \r\n\r\n" + e.StackTrace);
             }
 
-            this.IsMouseVisible = true;
-            this.IsFixedTimeStep = true;
+            IsMouseVisible = true;
+            IsFixedTimeStep = true;
 
-            WorldContent.Init(this.Services, Content.RootDirectory);
+            WorldContent.Init(Services, Content.RootDirectory);
             DGRP3DMesh.InitRCWorkers();
             if (!(FSOEnvironment.SoftwareKeyboard && FSOEnvironment.SoftwareDepth))
                 AddTextInput();
@@ -233,7 +233,7 @@ namespace FSO.Client
             var ds = kernel.Get<DataService>();
             ds.AddProvider(new ClientAvatarProvider());
 
-            this.Window.Title = "NSO";
+            Window.Title = GameConsts.GameName;
             DiscordRpcEngine.Init();
 
             if (!GlobalSettings.Default.Windowed && !GameFacade.GraphicsDeviceManager.IsFullScreen)
@@ -255,7 +255,7 @@ namespace FSO.Client
         /// </summary>
         void AddTextInput()
         {
-            this.Window.GetType().GetEvent("TextInput")?.AddEventHandler(this.Window, (EventHandler<TextInputEventArgs>)GameScreen.TextInput);
+            Window.GetType().GetEvent("TextInput")?.AddEventHandler(Window, (EventHandler<TextInputEventArgs>)GameScreen.TextInput);
         }
 
         void RegainFocus(object sender, EventArgs e)

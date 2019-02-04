@@ -1,4 +1,4 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
@@ -64,7 +64,8 @@ namespace FSO.Client.UI.Panels
         public VM vm;
         public World World;
         public VMEntity ActiveEntity;
-        public uint SelectedSimID {
+        public uint SelectedSimID
+        {
             get
             {
                 return (vm == null) ? 0 : vm.MyUID;
@@ -144,7 +145,7 @@ namespace FSO.Client.UI.Panels
             this.World = World;
 
             ActiveEntity = vm.Entities.FirstOrDefault(x => x is VMAvatar);
-            MouseEvt = this.ListenForMouse(new Rectangle(0, 0, 
+            MouseEvt = this.ListenForMouse(new Rectangle(0, 0,
                 GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight), OnMouse);
 
             Queue = new UIInteractionQueue(ActiveEntity, vm);
@@ -188,7 +189,8 @@ namespace FSO.Client.UI.Panels
             QueryPanel.X = 0;
             QueryPanel.Y = -114;
 
-            if (parent != null) parent.Add(QueryPanel);
+            if (parent != null)
+                parent.Add(QueryPanel);
         }
 
         public override void GameResized()
@@ -203,7 +205,8 @@ namespace FSO.Client.UI.Panels
         private void Vm_OnChatEvent(VMChatEvent evt)
         {
             UpdateChatTitle();
-            if (evt.Type == VMChatEventType.Message && evt.SenderUID == SelectedSimID) evt.Type = VMChatEventType.MessageMe;
+            if (evt.Type == VMChatEventType.Message && evt.SenderUID == SelectedSimID)
+                evt.Type = VMChatEventType.MessageMe;
             ChatPanel.ReceiveEvent(evt);
         }
 
@@ -221,7 +224,8 @@ namespace FSO.Client.UI.Panels
 
         private void Vm_OnBreakpoint(VMEntity entity)
         {
-            if (IDEHook.IDE != null) IDEHook.IDE.IDEBreakpointHit(vm, entity);
+            if (IDEHook.IDE != null)
+                IDEHook.IDE.IDEBreakpointHit(vm, entity);
         }
 
         public string GetLotTitle()
@@ -232,7 +236,8 @@ namespace FSO.Client.UI.Panels
         void vm_OnDialog(SimAntics.Model.VMDialogInfo info)
         {
             if (info != null && ((info.DialogID == LastDialogID && info.DialogID != 0 && info.Block)
-                || info.Caller != null && info.Caller != ActiveEntity)) return;
+                || info.Caller != null && info.Caller != ActiveEntity))
+                return;
             //return if same dialog as before, or not ours
             if ((info == null || info.Block) && BlockingDialog != null)
             {
@@ -241,9 +246,11 @@ namespace FSO.Client.UI.Panels
                 LastDialogID = 0;
                 BlockingDialog = null;
             }
-            if (info == null) return; //return if we're just clearing a dialog.
+            if (info == null)
+                return; //return if we're just clearing a dialog.
 
-            var options = new UIAlertOptions {
+            var options = new UIAlertOptions
+            {
                 Title = info.Title,
                 Message = info.Message,
                 Width = 325 + (int)(info.Message.Length / 3.5f),
@@ -252,7 +259,8 @@ namespace FSO.Client.UI.Panels
                 AllowEmojis = true
             };
 
-            if (info.Block && vm.TS1) vm.SpeedMultiplier = 0;
+            if (info.Block && vm.TS1)
+                vm.SpeedMultiplier = 0;
             var b0Event = (info.Block) ? new ButtonClickDelegate(DialogButton0) : null;
             var b1Event = (info.Block) ? new ButtonClickDelegate(DialogButton1) : null;
             var b2Event = (info.Block) ? new ButtonClickDelegate(DialogButton2) : null;
@@ -264,6 +272,7 @@ namespace FSO.Client.UI.Panels
                 default:
                 case VMDialogType.Message:
                     options.Buttons = new UIAlertButton[] { new UIAlertButton(UIAlertButtonType.OK, b0Event, info.Yes) };
+                    // ClipboardHandler.Default.Set(info.Message);
                     break;
                 case VMDialogType.YesNo:
                     options.Buttons = new UIAlertButton[]
@@ -283,12 +292,15 @@ namespace FSO.Client.UI.Panels
                 case VMDialogType.TextEntry:
                 case VMDialogType.FSOChars:
                     options.Buttons = new UIAlertButton[] { new UIAlertButton(UIAlertButtonType.OK, b0Event, info.Yes) };
-                    if (type == VMDialogType.FSOChars) options.MaxChars = 99999;
+                    if (type == VMDialogType.FSOChars)
+                        options.MaxChars = 99999;
                     options.TextEntry = true;
                     break;
                 case VMDialogType.NumericEntry:
-                    if (!vm.TS1) goto case VMDialogType.TextEntry;
-                    else goto case VMDialogType.TS1Neighborhood;
+                    if (!vm.TS1)
+                        goto case VMDialogType.TextEntry;
+                    else
+                        goto case VMDialogType.TS1Neighborhood;
                 case VMDialogType.TS1Vacation:
                 case VMDialogType.TS1Neighborhood:
                 case VMDialogType.TS1StudioTown:
@@ -327,7 +339,8 @@ namespace FSO.Client.UI.Panels
 
         private void HouseSelected(int house)
         {
-            if (ActiveEntity == null || TS1NeighSelector == null) return;
+            if (ActiveEntity == null || TS1NeighSelector == null)
+                return;
             vm.SendCommand(new VMNetDialogResponseCmd
             {
                 ActorUID = ActiveEntity.PersistID,
@@ -335,7 +348,8 @@ namespace FSO.Client.UI.Panels
                 ResponseText = house.ToString()
             });
             Parent.Remove(TS1NeighSelector);
-            if (vm.SpeedMultiplier == 0) vm.SpeedMultiplier = 1;
+            if (vm.SpeedMultiplier == 0)
+                vm.SpeedMultiplier = 1;
             TS1NeighSelector = null;
         }
 
@@ -345,25 +359,30 @@ namespace FSO.Client.UI.Panels
 
         private void DialogResponse(byte code)
         {
-            if (BlockingDialog == null || ActiveEntity == null) return;
+            if (BlockingDialog == null || ActiveEntity == null)
+                return;
             UIScreen.RemoveDialog(BlockingDialog);
             LastDialogID = 0;
-            vm.SendCommand(new VMNetDialogResponseCmd {
+            vm.SendCommand(new VMNetDialogResponseCmd
+            {
                 ActorUID = ActiveEntity.PersistID,
                 ResponseCode = code,
                 ResponseText = (BlockingDialog.ResponseText == null) ? "" : BlockingDialog.ResponseText
             });
-            if (vm.SpeedMultiplier == 0) vm.SpeedMultiplier = 1;
+            if (vm.SpeedMultiplier == 0)
+                vm.SpeedMultiplier = 1;
             BlockingDialog = null;
         }
 
         private void OnMouse(UIMouseEventType type, UpdateState state)
         {
-            if (!vm.Ready) return;
+            if (!vm.Ready)
+                return;
 
             if (type == UIMouseEventType.MouseOver)
             {
-                if (QueryPanel.Mode == 1) QueryPanel.Active = false;
+                if (QueryPanel.Mode == 1)
+                    QueryPanel.Active = false;
                 MouseIsOn = true;
             }
             else if (type == UIMouseEventType.MouseOut)
@@ -382,8 +401,10 @@ namespace FSO.Client.UI.Panels
                 Touch.MiceDown.Remove(state.CurrentMouseID);
                 if (!LiveMode)
                 {
-                    if (CustomControl != null) CustomControl.MouseUp(state);
-                    else ObjectHolder.MouseUp(state);
+                    if (CustomControl != null)
+                        CustomControl.MouseUp(state);
+                    else
+                        ObjectHolder.MouseUp(state);
                     return;
                 }
                 state.UIState.TooltipProperties.Show = false;
@@ -397,8 +418,10 @@ namespace FSO.Client.UI.Panels
         {
             if (!LiveMode)
             {
-                if (CustomControl != null) CustomControl.MouseDown(state);
-                else ObjectHolder.MouseDown(state);
+                if (CustomControl != null)
+                    CustomControl.MouseDown(state);
+                else
+                    ObjectHolder.MouseDown(state);
                 return;
             }
             if (PieMenu == null && ActiveEntity != null)
@@ -408,7 +431,8 @@ namespace FSO.Client.UI.Panels
                 var tilePos = World.EstTileAtPosWithScroll(new Vector2(pt.X, pt.Y) / FSOEnvironment.DPIScaleFactor);
 
                 LotTilePos targetPos = LotTilePos.FromBigTile((short)tilePos.X, (short)tilePos.Y, World.State.Level);
-                if (vm.Context.SolidToAvatars(targetPos).Solid) targetPos = LotTilePos.OUT_OF_WORLD;
+                if (vm.Context.SolidToAvatars(targetPos).Solid)
+                    targetPos = LotTilePos.OUT_OF_WORLD;
 
                 GotoObject.SetPosition(targetPos, Direction.NORTH, vm.Context);
 
@@ -475,7 +499,8 @@ namespace FSO.Client.UI.Panels
                                 PieMenu.X = state.MouseState.X / FSOEnvironment.DPIScaleFactor;
                                 PieMenu.Y = state.MouseState.Y / FSOEnvironment.DPIScaleFactor;
                                 PieMenu.UpdateHeadPosition(state.MouseState.X, state.MouseState.Y);
-                            } else
+                            }
+                            else
                             {
                                 ShowErrorTooltip(state, 0, true);
                             }
@@ -490,7 +515,8 @@ namespace FSO.Client.UI.Panels
             }
             else
             {
-                if (PieMenu != null) PieMenu.RemoveSimScene();
+                if (PieMenu != null)
+                    PieMenu.RemoveSimScene();
                 this.Remove(PieMenu);
                 PieMenu = null;
             }
@@ -498,7 +524,8 @@ namespace FSO.Client.UI.Panels
 
         private void ShowErrorTooltip(UpdateState state, uint id, bool playSound, params string[] args)
         {
-            if (playSound) HITVM.Get().PlaySoundEvent(UISounds.Error);
+            if (playSound)
+                HITVM.Get().PlaySoundEvent(UISounds.Error);
             state.UIState.TooltipProperties.Show = true;
             state.UIState.TooltipProperties.Color = Color.Black;
             state.UIState.TooltipProperties.Opacity = 1;
@@ -510,9 +537,9 @@ namespace FSO.Client.UI.Panels
             TipIsError = true;
         }
 
-        public void ClosePie() 
+        public void ClosePie()
         {
-            if (PieMenu != null) 
+            if (PieMenu != null)
             {
                 PieMenu.RemoveSimScene();
                 Queue.PieMenuClickPos = PieMenu.Position;
@@ -545,8 +572,8 @@ namespace FSO.Client.UI.Panels
                     OldMX = state.MouseState.X;
                     OldMY = state.MouseState.Y;
                     var scaled = GetScaledPoint(state.MouseState.Position);
-                    var newHover = World.GetObjectIDAtScreenPos(scaled.X, 
-                        scaled.Y, 
+                    var newHover = World.GetObjectIDAtScreenPos(scaled.X,
+                        scaled.Y,
                         GameFacade.GraphicsDevice);
 
                     if (ObjectHover != newHover)
@@ -563,7 +590,8 @@ namespace FSO.Client.UI.Panels
                         }
                     }
 
-                    if (!TipIsError) ShowTooltip = false;
+                    if (!TipIsError)
+                        ShowTooltip = false;
                     if (ObjectHover > 0)
                     {
                         var obj = vm.GetObjectById(ObjectHover);
@@ -625,19 +653,22 @@ namespace FSO.Client.UI.Panels
                     {
                         if (InteractionsAvailable)
                         {
-                            if (vm.GetObjectById(ObjectHover) is VMAvatar) cursor = CursorType.LivePerson;
-                            else cursor = CursorType.LiveObjectAvail;
+                            if (vm.GetObjectById(ObjectHover) is VMAvatar)
+                                cursor = CursorType.LivePerson;
+                            else
+                                cursor = CursorType.LiveObjectAvail;
                         }
                         else
                         {
                             cursor = CursorType.LiveObjectUnavail;
                         }
                     }
-                } else
+                }
+                else
                 {
 
                     cursor = CursorType.Normal;
-                } 
+                }
 
                 CursorManager.INSTANCE.SetCursor(cursor);
             }
@@ -647,18 +678,26 @@ namespace FSO.Client.UI.Panels
         private string GetAvatarString(VMAvatar ava)
         {
             int prefixNum = 3;
-            if (ava.IsPet) prefixNum = 5;
-            else if (ava.PersistID == 0) prefixNum = 4;
+            if (ava.IsPet)
+                prefixNum = 5;
+            else if (ava.PersistID == 0)
+                prefixNum = 4;
             else
             {
                 var permissionsLevel = ((VMTSOAvatarState)ava.TSOState).Permissions;
                 switch (permissionsLevel)
                 {
-                    case VMTSOAvatarPermissions.Visitor: prefixNum = 3; break;
+                    case VMTSOAvatarPermissions.Visitor:
+                        prefixNum = 3;
+                        break;
                     case VMTSOAvatarPermissions.Roommate:
-                    case VMTSOAvatarPermissions.BuildBuyRoommate: prefixNum = 2; break;
+                    case VMTSOAvatarPermissions.BuildBuyRoommate:
+                        prefixNum = 2;
+                        break;
                     case VMTSOAvatarPermissions.Admin:
-                    case VMTSOAvatarPermissions.Owner: prefixNum = 1; break;
+                    case VMTSOAvatarPermissions.Owner:
+                        prefixNum = 1;
+                        break;
                 }
             }
             return GameFacade.Strings.GetString("217", prefixNum.ToString()) + ava.ToString();
@@ -694,8 +733,8 @@ namespace FSO.Client.UI.Panels
 
             //todo: land special objects
 
-            if (vm.TSOState.SkillMode > 1 && 
-                !(vm.TSOState.PropertyCategory == (byte)LotCategory.welcome 
+            if (vm.TSOState.SkillMode > 1 &&
+                !(vm.TSOState.PropertyCategory == (byte)LotCategory.welcome
                 && ((ActiveEntity?.TSOState as VMTSOAvatarState)?.Flags ?? 0).HasFlag(VMTSOAvatarFlags.NewPlayer)))
                 hints.TriggerHint("land:skilldisabled");
             HasLanded = true;
@@ -719,7 +758,7 @@ namespace FSO.Client.UI.Panels
         {
             if (RMBScroll)
             {
-                DrawLocalTexture(batch, RMBCursor, new Vector2(RMBScrollX - RMBCursor.Width/2, RMBScrollY - RMBCursor.Height / 2));
+                DrawLocalTexture(batch, RMBCursor, new Vector2(RMBScrollX - RMBCursor.Width / 2, RMBScrollY - RMBCursor.Height / 2));
             }
             base.Draw(batch);
         }
@@ -729,11 +768,14 @@ namespace FSO.Client.UI.Panels
             switch (zoom)
             {
                 case WorldZoom.Near:
-                    TargetZoom = 1f; break;
+                    TargetZoom = 1f;
+                    break;
                 case WorldZoom.Medium:
-                    TargetZoom = 0.5f; break;
+                    TargetZoom = 0.5f;
+                    break;
                 case WorldZoom.Far:
-                    TargetZoom = 0.25f; break;
+                    TargetZoom = 0.25f;
+                    break;
             }
             LastZoom = World.State.Zoom;
         }
@@ -743,7 +785,8 @@ namespace FSO.Client.UI.Panels
         {
             base.Update(state);
 
-            if (!vm.Ready || vm.Context.Architecture == null) return;
+            if (!vm.Ready || vm.Context.Architecture == null)
+                return;
 
             //handling smooth scaled zoom
             if (FSOEnvironment.Enable3D)
@@ -789,7 +832,8 @@ namespace FSO.Client.UI.Panels
                     BaseScale = 1f;
                 }
                 World.BackbufferScale = TargetZoom / BaseScale;
-                if (World.State.Zoom != targetZoom) World.State.Zoom = targetZoom;
+                if (World.State.Zoom != targetZoom)
+                    World.State.Zoom = targetZoom;
                 LastZoom = targetZoom;
                 WorldConfig.Current.SmoothZoom = false;
             }
@@ -799,7 +843,8 @@ namespace FSO.Client.UI.Panels
             if (ActiveEntity == null || ActiveEntity.Dead || ActiveEntity.PersistID != SelectedSimID)
             {
                 ActiveEntity = vm.Entities.FirstOrDefault(x => x is VMAvatar && x.PersistID == SelectedSimID); //try and hook onto a sim if we have none selected.
-                if (ActiveEntity == null) ActiveEntity = vm.Entities.FirstOrDefault(x => x is VMAvatar && x.PersistID > 0);
+                if (ActiveEntity == null)
+                    ActiveEntity = vm.Entities.FirstOrDefault(x => x is VMAvatar && x.PersistID > 0);
                 else if (!HasInitUserProps)
                 {
                     InitUserProps();
@@ -814,7 +859,8 @@ namespace FSO.Client.UI.Panels
                 Queue.QueueOwner = ActiveEntity;
             }
 
-            if (GotoObject == null) GotoObject = vm.Context.CreateObjectInstance(GOTO_GUID, LotTilePos.OUT_OF_WORLD, Direction.NORTH, true).Objects[0];
+            if (GotoObject == null)
+                GotoObject = vm.Context.CreateObjectInstance(GOTO_GUID, LotTilePos.OUT_OF_WORLD, Direction.NORTH, true).Objects[0];
 
             if (ActiveEntity != null && BlockingDialog != null)
             {
@@ -829,9 +875,11 @@ namespace FSO.Client.UI.Panels
 
             if (Visible)
             {
-                if (!HasLanded) Landed();
+                if (!HasLanded)
+                    Landed();
                 UpdateChatTitle();
-                if (ShowTooltip) state.UIState.TooltipProperties.UpdateDead = false;
+                if (ShowTooltip)
+                    state.UIState.TooltipProperties.UpdateDead = false;
 
                 bool scrolled = false;
                 if (KBScroll)
@@ -840,10 +888,14 @@ namespace FSO.Client.UI.Panels
                     int KeyboardAxisX = 0;
                     int KeyboardAxisY = 0;
                     Vector2 scrollBy = new Vector2();
-                    if (state.KeyboardState.IsKeyDown(Keys.Up) || state.KeyboardState.IsKeyDown(Keys.W)) KeyboardAxisY -= 1;
-                    if (state.KeyboardState.IsKeyDown(Keys.Left) || state.KeyboardState.IsKeyDown(Keys.A)) KeyboardAxisX -= 1;
-                    if (state.KeyboardState.IsKeyDown(Keys.Down) || state.KeyboardState.IsKeyDown(Keys.S)) KeyboardAxisY += 1;
-                    if (state.KeyboardState.IsKeyDown(Keys.Right) || state.KeyboardState.IsKeyDown(Keys.D)) KeyboardAxisX += 1;
+                    if (state.KeyboardState.IsKeyDown(Keys.Up) || state.KeyboardState.IsKeyDown(Keys.W))
+                        KeyboardAxisY -= 1;
+                    if (state.KeyboardState.IsKeyDown(Keys.Left) || state.KeyboardState.IsKeyDown(Keys.A))
+                        KeyboardAxisX -= 1;
+                    if (state.KeyboardState.IsKeyDown(Keys.Down) || state.KeyboardState.IsKeyDown(Keys.S))
+                        KeyboardAxisY += 1;
+                    if (state.KeyboardState.IsKeyDown(Keys.Right) || state.KeyboardState.IsKeyDown(Keys.D))
+                        KeyboardAxisX += 1;
                     scrollBy = new Vector2(KeyboardAxisX, KeyboardAxisY);
                     scrollBy *= 0.05f;
                     World.Scroll(scrollBy * (60f / FSOEnvironment.RefreshRate));
@@ -859,26 +911,43 @@ namespace FSO.Client.UI.Panels
                         RMBScrollY = state.MouseState.Y;
                         scrollBy /= 128f;
                         scrollBy /= FSOEnvironment.DPIScaleFactor;
-                    } else
+                    }
+                    else
                     {
                         scrollBy = new Vector2(state.MouseState.X - RMBScrollX, state.MouseState.Y - RMBScrollY);
                         scrollBy *= 0.0005f;
 
-                        var angle = (Math.Atan2(state.MouseState.X - RMBScrollX, (RMBScrollY - state.MouseState.Y)*2) / Math.PI) * 4;
+                        var angle = (Math.Atan2(state.MouseState.X - RMBScrollX, (RMBScrollY - state.MouseState.Y) * 2) / Math.PI) * 4;
                         angle += 8;
                         angle %= 8;
 
                         CursorType type = CursorType.ArrowUp;
                         switch ((int)Math.Round(angle))
                         {
-                            case 0: type = CursorType.ArrowUp; break;
-                            case 1: type = CursorType.ArrowUpRight; break;
-                            case 2: type = CursorType.ArrowRight; break;
-                            case 3: type = CursorType.ArrowDownRight; break;
-                            case 4: type = CursorType.ArrowDown; break;
-                            case 5: type = CursorType.ArrowDownLeft; break;
-                            case 6: type = CursorType.ArrowLeft; break;
-                            case 7: type = CursorType.ArrowUpLeft; break;
+                            case 0:
+                                type = CursorType.ArrowUp;
+                                break;
+                            case 1:
+                                type = CursorType.ArrowUpRight;
+                                break;
+                            case 2:
+                                type = CursorType.ArrowRight;
+                                break;
+                            case 3:
+                                type = CursorType.ArrowDownRight;
+                                break;
+                            case 4:
+                                type = CursorType.ArrowDown;
+                                break;
+                            case 5:
+                                type = CursorType.ArrowDownLeft;
+                                break;
+                            case 6:
+                                type = CursorType.ArrowLeft;
+                                break;
+                            case 7:
+                                type = CursorType.ArrowUpLeft;
+                                break;
                         }
                         GameFacade.Cursor.SetCursor(type);
                     }
@@ -892,7 +961,7 @@ namespace FSO.Client.UI.Panels
                     KBScroll = true;
                 else
                     KBScroll = false;
-                    if (MouseIsOn)
+                if (MouseIsOn)
                 {
                     if (state.MouseState.RightButton == ButtonState.Pressed)
                     {
@@ -906,22 +975,26 @@ namespace FSO.Client.UI.Panels
                     }
                     else
                     {
-                        if (!scrolled && GlobalSettings.Default.EdgeScroll && !state.TouchMode) scrolled = World.TestScroll(state);
+                        if (!scrolled && GlobalSettings.Default.EdgeScroll && !state.TouchMode)
+                            scrolled = World.TestScroll(state);
                     }
                 }
 
                 if (state.MouseState.RightButton != ButtonState.Pressed)
                 {
-                    if (RMBScroll) GameFacade.Cursor.SetCursor(CursorType.Normal);
+                    if (RMBScroll)
+                        GameFacade.Cursor.SetCursor(CursorType.Normal);
                     RMBScroll = false;
                 }
 
-                if (LiveMode) LiveModeUpdate(state, scrolled);
+                if (LiveMode)
+                    LiveModeUpdate(state, scrolled);
                 else if (CustomControl != null)
                 {
                     CustomControl.Update(state, scrolled);
                 }
-                else ObjectHolder.Update(state, scrolled);
+                else
+                    ObjectHolder.Update(state, scrolled);
 
                 //set cutaway around mouse
                 UpdateCutaway(state);
@@ -929,12 +1002,14 @@ namespace FSO.Client.UI.Panels
                 if (state.NewKeys.Contains(Keys.S) && state.KeyboardState.IsKeyDown(Keys.LeftControl))
                 {
                     //save lot
-                    if (LotSaveDialog == null) SaveLot();
+                    if (LotSaveDialog == null)
+                        SaveLot();
                 }
                 else if (state.NewKeys.Contains(Keys.F) && state.KeyboardState.IsKeyDown(Keys.LeftControl))
                 {
                     //save facade
-                    if (LotSaveDialog == null) SaveFacade(state.KeyboardState.IsKeyDown(Keys.LeftAlt));
+                    if (LotSaveDialog == null)
+                        SaveFacade(state.KeyboardState.IsKeyDown(Keys.LeftAlt));
                 }
             }
         }
@@ -1078,7 +1153,8 @@ namespace FSO.Client.UI.Panels
                 var outside = (vm.Context.RoomInfo[roomHover].Room.IsOutside);
                 if (!outside && !CutRooms.Contains(roomHover))
                     CutRooms.Add(roomHover); //outside hover should not persist like with other rooms.
-                while (CutRooms.Count > 3) CutRooms.Remove(CutRooms.ElementAt(0));
+                while (CutRooms.Count > 3)
+                    CutRooms.Remove(CutRooms.ElementAt(0));
 
                 if (LastWallMode != WallsMode)
                 {
@@ -1087,7 +1163,8 @@ namespace FSO.Client.UI.Panels
                         LastCuts = new bool[vm.Context.Architecture.Width * vm.Context.Architecture.Height];
                         vm.Context.Blueprint.Cutaway = LastCuts;
                         vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
-                        for (int i = 0; i < LastCuts.Length; i++) LastCuts[i] = true;
+                        for (int i = 0; i < LastCuts.Length; i++)
+                            LastCuts[i] = true;
                     }
                     else if (WallsMode == 1)
                     {
@@ -1105,7 +1182,8 @@ namespace FSO.Client.UI.Panels
 
                 if (WallsMode == 1)
                 {
-                    if (RMBScroll || !MouseIsOn) return;
+                    if (RMBScroll || !MouseIsOn)
+                        return;
                     int recut = 0;
                     var finalRooms = new HashSet<uint>(CutRooms);
 

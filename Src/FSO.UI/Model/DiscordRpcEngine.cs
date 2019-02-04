@@ -1,4 +1,4 @@
-﻿using FSO.Client;
+using FSO.Client;
 using FSO.Common.Enum;
 using System;
 using System.Collections.Generic;
@@ -29,7 +29,7 @@ namespace FSO.UI.Model
                 handlers.requestCallback += Request;
                 Events = handlers;
 
-                DiscordRpc.Initialize("378352963468525569", ref handlers, true, null);
+                Initialize("541327324092563458", ref handlers, true, null);
             }
             catch (Exception)
             {
@@ -39,10 +39,11 @@ namespace FSO.UI.Model
 
         public static void Update()
         {
-            if (Disable) return;
+            if (Disable)
+                return;
             try
             {
-                DiscordRpc.RunCallbacks();
+                RunCallbacks();
             }
             catch (Exception)
             {
@@ -54,8 +55,9 @@ namespace FSO.UI.Model
         public static void SendFSOPresence(string state, string details = null)
         {
 
-            if (!Active) return; // RPC not active
-            var presence = new DiscordRpc.RichPresence();
+            if (!Active)
+                return; // RPC not active
+            var presence = new RichPresence();
 
             presence.largeImageKey = "sunrise_crater";
             presence.largeImageText = "Sunrise Crater";
@@ -63,13 +65,14 @@ namespace FSO.UI.Model
             presence.state = state;
             presence.details = details == null ? "" : details;
 
-            DiscordRpc.UpdatePresence(ref presence);
+            UpdatePresence(ref presence);
         }
         // Standard DiscordRpc presence method
         public static void SendFSOPresence(string activeSim, string lotName, int lotID, int players, int maxSize, int catID, bool isPrivate = false)
         {
-            if (!Active) return;
-            var presence = new DiscordRpc.RichPresence();
+            if (!Active)
+                return;
+            var presence = new RichPresence();
 
             if (!isPrivate)
             {
@@ -98,7 +101,8 @@ namespace FSO.UI.Model
                     }
                     else
                         jobStr = GameFacade.Strings.GetString("f114", "1");
-                    if (activeSim != null) presence.details = "Playing as " + activeSim;
+                    if (activeSim != null)
+                        presence.details = "Playing as " + activeSim;
                     presence.state = jobStr;
                 }
                 else
@@ -139,7 +143,7 @@ namespace FSO.UI.Model
                 presence.largeImageText = CapFirstWord(((LotCategory)catID).ToString());
             }
 
-            DiscordRpc.UpdatePresence(ref presence);
+            UpdatePresence(ref presence);
         }
 
         private static string CapFirstWord(string cat)
@@ -172,7 +176,7 @@ namespace FSO.UI.Model
 
         }
 
-        public static void Request(DiscordRpc.JoinRequest request)
+        public static void Request(JoinRequest request)
         {
 
         }

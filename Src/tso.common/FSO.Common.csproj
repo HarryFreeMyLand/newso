@@ -268,7 +268,7 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>AssemblyDynamicInfo.cs</LastGenOutput>
     </Content>
-    <Content Include="version.txt" />
+    <Content Include="branch.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
