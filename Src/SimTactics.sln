@@ -26,6 +26,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TargaImage", "..\Other\libs\TargaImage\TargaImage.csproj", "{56F4BD87-2404-4263-80D5-6FA2161EB0A4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Server", "FSO.Server\FSO.Server.csproj", "{8F125201-FDF0-4A13-886F-19662707D34D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0C1B3F53-1A8B-45D9-BD7E-D60AED50250C} = {0C1B3F53-1A8B-45D9-BD7E-D60AED50250C}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Server.Protocol", "FSO.Server.Protocol\FSO.Server.Protocol.csproj", "{A08ADE32-27E2-44F4-BC52-11A16C56BAA8}"
 EndProject

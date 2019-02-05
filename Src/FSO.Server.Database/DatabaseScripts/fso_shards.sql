@@ -1,4 +1,4 @@
-﻿CREATE TABLE IF NOT EXISTS `fso_shards` (
+CREATE TABLE IF NOT EXISTS `fso_shards` (
   `shard_id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `rank` int(11) NOT NULL,
@@ -12,7 +12,7 @@ COLLATE='utf8_general_ci'
 ENGINE=InnoDB;
 
 -- Default shard
-INSERT INTO fso_shards VALUES (1, 'Blazing Falls', 1, '0001', 'up', '127.0.0.1:33', '127.0.0.1:33') ON DUPLICATE KEY UPDATE shard_id = shard_id;
+INSERT INTO fso_shards VALUES (1, 'Sunrise Crater', 1, '0100', 'up', '127.0.0.1:33', '127.0.0.1:33') ON DUPLICATE KEY UPDATE shard_id = shard_id;
 
 CREATE TABLE IF NOT EXISTS `fso_shard_tickets` (
 	`ticket_id` VARCHAR(36) NOT NULL,

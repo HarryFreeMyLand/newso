@@ -1,4 +1,4 @@
-﻿using FSO.Common.Utils;
+using FSO.Common.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -27,12 +27,12 @@ namespace FSO.Client.Rendering.City
         public int Ready = -1;
         public int CurrentSlice = -1;
 
-        private float GetElevationPoint(int x, int y)
+        float GetElevationPoint(int x, int y)
         {
-            return MapData.ElevationData[(y * 512 + x)] / 6.0f;
+            return MapData.ElevationData[y * 512 + x] / 6.0f;
         }
 
-        private Blend GetBlend(byte[] TerrainTypeData, int i, int j)
+        Blend GetBlend(byte[] TerrainTypeData, int i, int j)
         {
             int[] edges;
             int sample;
@@ -42,14 +42,18 @@ namespace FSO.Client.Rendering.City
             sample = TerrainTypeData[i * 512 + j];
             t = TerrainTypeData[Math.Abs((i - 1) * 512 + j)];
 
-            if ((i - 1 >= 0) && (t > sample) && t != 255) edges[0] = t;
+            if ((i - 1 >= 0) && (t > sample) && t != 255)
+                edges[0] = t;
             t = TerrainTypeData[i * 512 + j + 1];
-            if ((j + 1 < 512) && (t > sample) && t != 255) edges[1] = t;
-            t = TerrainTypeData[Math.Min((i + 1), 511) * 512 + j];
-            if ((i + 1 < 512) && (t > sample) && t != 255) edges[2] = t;
+            if ((j + 1 < 512) && (t > sample) && t != 255)
+                edges[1] = t;
+            t = TerrainTypeData[Math.Min(i + 1, 511) * 512 + j];
+            if ((i + 1 < 512) && (t > sample) && t != 255)
+                edges[2] = t;
             t = TerrainTypeData[i * 512 + j - 1];
-            if ((j - 1 >= 0) && (t > sample) && t != 255) edges[3] = t;
-            
+            if ((j - 1 >= 0) && (t > sample) && t != 255)
+                edges[3] = t;
+
 
             int binary =
             ((edges[0] > -1) ? 0 : 2) |
@@ -58,12 +62,13 @@ namespace FSO.Client.Rendering.City
             ((edges[3] > -1) ? 0 : 4);
 
             int remap = CityContent.FlagLayout[binary];
-            var atlasPos = new Vector2( (remap%7)/7f, (remap / 7) / 3f );
+            var atlasPos = new Vector2(remap % 7 / 7f, remap / 7 / 3f);
 
             int maxEdge = 4;
 
             for (int x = 0; x < 4; x++)
-                if (edges[x] < maxEdge && edges[x] != -1) maxEdge = edges[x];
+                if (edges[x] < maxEdge && edges[x] != -1)
+                    maxEdge = edges[x];
 
             var ReturnBlend = new Blend
             {
@@ -75,7 +80,7 @@ namespace FSO.Client.Rendering.City
             return ReturnBlend;
         }
 
-        private Vector3 GetNormalAt(int x, int y)
+        Vector3 GetNormalAt(int x, int y)
         {
             var sum = new Vector3();
             var rotToNormalXY = Matrix.CreateRotationZ((float)(Math.PI / 2));
@@ -124,7 +129,8 @@ namespace FSO.Client.Rendering.City
                 vec = Vector3.Transform(vec, rotToNormalZY);
                 sum += vec;
             }
-            if (sum != Vector3.Zero) sum.Normalize();
+            if (sum != Vector3.Zero)
+                sum.Normalize();
             return sum;
         }
 
@@ -136,7 +142,7 @@ namespace FSO.Client.Rendering.City
 
             float mu2 = mu * mu;
             float mu3 = mu2 * mu;
-            float m0 = (v1 - v0) * (1 + bias) * (1 - tension) * (1+continuity) / 2;
+            float m0 = (v1 - v0) * (1 + bias) * (1 - tension) * (1 + continuity) / 2;
             m0 += (v2 - v1) * (1 - bias) * (1 - tension) * (1 - continuity) / 2;
             float m1 = (v2 - v1) * (1 + bias) * (1 - tension) * (1 - continuity) / 2;
             m1 += (v3 - v2) * (1 - bias) * (1 - tension) * (1 + continuity) / 2;
@@ -145,7 +151,7 @@ namespace FSO.Client.Rendering.City
             float a2 = mu3 - mu2;
             float a3 = -2 * mu3 + 3 * mu2;
 
-            return (a0 * v1 + a1 * m0 + a2 * m1 + a3 * v2);
+            return a0 * v1 + a1 * m0 + a2 * m1 + a3 * v2;
 
             /*
             float A = (v3 - v2) - (v0 - v1);
@@ -170,7 +176,7 @@ namespace FSO.Client.Rendering.City
             var bDelta = new Vector2(1 / 7f, 1 / 3f);
             var rDelta = new Vector2(1f / CityContent.RoadWidth, 1f / CityContent.RoadHeight);
 
-            for (int i=0; i<5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 indices[i] = new List<int>();
                 vertices[i] = new List<TLayerVertex>();
@@ -182,72 +188,81 @@ namespace FSO.Client.Rendering.City
             int xStart, xEnd;
 
             int chunkSize = 16;
-            
+
             int yStart = 0, yEnd = 512;
 
             var chunkWidth = 512 / chunkSize;
             var chunkCount = chunkWidth * chunkWidth;
-            for (int i=0; i<5; i++)
+            for (int i = 0; i < 5; i++)
                 LayerSubPrims[i] = new int[chunkCount];
             RoadSubPrims = new int[chunkCount];
 
             var ci = 0;
-            for (int cy = 0; cy<chunkWidth; cy++)
+            for (int cy = 0; cy < chunkWidth; cy++)
             {
                 for (int cx = 0; cx < chunkWidth; cx++)
                 {
                     yStart = cy * chunkSize;
-                    yEnd = (cy+1) * chunkSize;
+                    yEnd = (cy + 1) * chunkSize;
                     var xLim = cx * chunkSize;
                     var xLimEnd = (cx + 1) * chunkSize;
 
                     for (int i = yStart; i < yEnd; i++)
                     {
-                        if (i < 306) xStart = 306 - i;
-                        else xStart = i - 306;
-                        if (i < 205) xEnd = 307 + i;
-                        else xEnd = 512 - (i - 205);
+                        if (i < 306)
+                            xStart = 306 - i;
+                        else
+                            xStart = i - 306;
+                        if (i < 205)
+                            xEnd = 307 + i;
+                        else
+                            xEnd = 512 - (i - 205);
                         var rXE = xEnd;
                         var rXS = xStart;
 
                         int rXE2, rXS2;
                         int i2 = i + 1;
-                        if (i2 < 306) rXS2 = 306 - i2;
-                        else rXS2 = i2 - 306;
-                        if (i2 < 205) rXE2 = 307 + i2;
-                        else rXE2 = 512 - (i2 - 205);
+                        if (i2 < 306)
+                            rXS2 = 306 - i2;
+                        else
+                            rXS2 = i2 - 306;
+                        if (i2 < 205)
+                            rXE2 = 307 + i2;
+                        else
+                            rXE2 = 512 - (i2 - 205);
 
                         var fadeRange = 10;
                         var fR = 1 / 9f;
                         xStart = Math.Max(xStart - fadeRange, xLim);
                         xEnd = Math.Min(xLimEnd, xEnd + fadeRange);
 
-                        if (xEnd <= xStart) continue;
+                        if (xEnd <= xStart)
+                            continue;
 
                         for (int j = xStart; j < xEnd; j++)
                         { //where the magic happens
                             var ex = Math.Min(Math.Max(rXS, j), rXE - 1);
                             var blendData = GetBlend(MapData.TerrainType, i, ex); //gets information on what this tile blends into and what blend image to use for the alpha.
-                            var type = MapData.TerrainType[((i * 512) + ex)];
-                            byte roadByte = MapData.RoadData[(i * 512 + ex)];
+                            var type = MapData.TerrainType[(i * 512) + ex];
+                            byte roadByte = MapData.RoadData[i * 512 + ex];
 
                             //huge segment of code for generating triangles incoming
                             var norm1 = GetNormalAt(Math.Min(rXE, Math.Max(rXS, j)), i);
-                            var norm2 = GetNormalAt(Math.Min(rXE, Math.Max(rXS, j+1)), i);
-                            var norm3 = GetNormalAt(Math.Min(rXE2, Math.Max(rXS2, j+1)), Math.Min(511, i + 1));
+                            var norm2 = GetNormalAt(Math.Min(rXE, Math.Max(rXS, j + 1)), i);
+                            var norm3 = GetNormalAt(Math.Min(rXE2, Math.Max(rXS2, j + 1)), Math.Min(511, i + 1));
                             var norm4 = GetNormalAt(Math.Min(rXE2, Math.Max(rXS2, j)), Math.Min(511, i + 1));
 
-                            var pos1 = new Vector3(j, MapData.ElevationData[(i * 512 + Math.Min(rXE, Math.Max(rXS, j)))] / 12.0f, i);
-                            var pos2 = new Vector3(j + 1, MapData.ElevationData[(i * 512 + Math.Min(rXE, Math.Max(rXS, j + 1)))] / 12.0f, i);
-                            var pos3 = new Vector3(j + 1, MapData.ElevationData[(Math.Min(511, i + 1) * 512 + Math.Min(rXE2, Math.Max(rXS2, j + 1)))] / 12.0f, i + 1);
-                            var pos4 = new Vector3(j, MapData.ElevationData[(Math.Min(511, i + 1) * 512 + Math.Min(rXE2, Math.Max(rXS2, j)))] / 12.0f, i + 1);
+                            var pos1 = new Vector3(j, MapData.ElevationData[i * 512 + Math.Min(rXE, Math.Max(rXS, j))] / 12.0f, i);
+                            var pos2 = new Vector3(j + 1, MapData.ElevationData[i * 512 + Math.Min(rXE, Math.Max(rXS, j + 1))] / 12.0f, i);
+                            var pos3 = new Vector3(j + 1, MapData.ElevationData[Math.Min(511, i + 1) * 512 + Math.Min(rXE2, Math.Max(rXS2, j + 1))] / 12.0f, i + 1);
+                            var pos4 = new Vector3(j, MapData.ElevationData[Math.Min(511, i + 1) * 512 + Math.Min(rXE2, Math.Max(rXS2, j))] / 12.0f, i + 1);
 
                             var trans1 = Math.Min(1, Math.Max(0, Math.Max(rXS - j, j - rXE) * fR));
-                            var trans2 = Math.Min(1, Math.Max(0, Math.Max(rXS - (j + 1), (j + 1) - rXE) * fR));
-                            var trans3 = Math.Min(1, Math.Max(0, Math.Max(rXS2 - (j + 1), (j + 1) - rXE2) * fR));
+                            var trans2 = Math.Min(1, Math.Max(0, Math.Max(rXS - (j + 1), j + 1 - rXE) * fR));
+                            var trans3 = Math.Min(1, Math.Max(0, Math.Max(rXS2 - (j + 1), j + 1 - rXE2) * fR));
                             var trans4 = Math.Min(1, Math.Max(0, Math.Max(rXS2 - j, j - rXE2) * fR));
 
-                            var baseInd = vertices[type].Count;
+                            var baseInd = vertices[type].Count; // TODO: some legacy cities seem to break at this point.
                             vertices[type].Add(new TLayerVertex()
                             {
                                 Position = pos1,
@@ -351,8 +366,8 @@ namespace FSO.Client.Rendering.City
                                     //add a road face on top of this face
                                     var roadInd = CityContent.RoadLayout[normalRoad];
                                     var roadOff = new Vector2(
-                                        (roadInd % CityContent.RoadWidth) / (float)CityContent.RoadWidth,
-                                        (roadInd / CityContent.RoadWidth) / (float)CityContent.RoadHeight
+                                        roadInd % CityContent.RoadWidth / (float)CityContent.RoadWidth,
+                                        roadInd / CityContent.RoadWidth / (float)CityContent.RoadHeight
                                         );
                                     baseInd = roadVertices.Count;
                                     roadVertices.Add(new TLayerVertex()
@@ -400,8 +415,8 @@ namespace FSO.Client.Rendering.City
                                     //add a road face on top of this face
                                     var roadInd = CityContent.RoadCLayout[cornerRoad];
                                     var roadOff = new Vector2(
-                                        (roadInd % CityContent.RoadWidth) / (float)CityContent.RoadWidth,
-                                        (roadInd / CityContent.RoadWidth) / (float)CityContent.RoadHeight
+                                        roadInd % CityContent.RoadWidth / (float)CityContent.RoadWidth,
+                                        roadInd / CityContent.RoadWidth / (float)CityContent.RoadHeight
                                         );
                                     baseInd = roadVertices.Count;
                                     roadVertices.Add(new TLayerVertex()
@@ -457,7 +472,7 @@ namespace FSO.Client.Rendering.City
             }
 
             //upload to gpu
-            for (int i=0; i<5; i++)
+            for (int i = 0; i < 5; i++)
             {
                 LayerIndices[i]?.Dispose();
                 LayerVertices[i]?.Dispose();
@@ -485,9 +500,9 @@ namespace FSO.Client.Rendering.City
             RoadPrims = roadIndices.Count / 3;
         }
 
-        private int O(int x, int y, int minx, int maxx)
+        int O(int x, int y, int minx, int maxx)
         {
-            return (Math.Max(0, Math.Min(511, y)) * 512 + Math.Max(minx, Math.Min(maxx, x)));
+            return Math.Max(0, Math.Min(511, y)) * 512 + Math.Max(minx, Math.Min(maxx, x));
         }
 
         public void SubRegenMeshVerts(GraphicsDevice gd, Rectangle? range, int subdiv, int cpos)
@@ -513,8 +528,8 @@ namespace FSO.Client.Rendering.City
             int index = 0;
             int yStart = 0, yEnd = 512;
             int subd1 = subdiv + 1;
-            float subd1f = 1f/subdiv;
-            int vertCount = subd1*subd1;
+            float subd1f = 1f / subdiv;
+            int vertCount = subd1 * subd1;
 
             if (range.HasValue)
             {
@@ -540,10 +555,14 @@ namespace FSO.Client.Rendering.City
 
                     int rXE2, rXS2;
                     int i2 = i + 1;
-                    if (i2 < 306) rXS2 = 306 - i2;
-                    else rXS2 = i2 - 306;
-                    if (i2 < 205) rXE2 = 307 + i2;
-                    else rXE2 = 512 - (i2 - 205);
+                    if (i2 < 306)
+                        rXS2 = 306 - i2;
+                    else
+                        rXS2 = i2 - 306;
+                    if (i2 < 205)
+                        rXE2 = 307 + i2;
+                    else
+                        rXE2 = 512 - (i2 - 205);
 
                     var fadeRange = 10;
                     var fR = 1 / 9f;
@@ -561,18 +580,18 @@ namespace FSO.Client.Rendering.City
                     { //where the magic happens
                         var ex = Math.Min(Math.Max(rXS, j), rXE - 1);
                         var blendData = GetBlend(MapData.TerrainType, i, ex); //gets information on what this tile blends into and what blend image to use for the alpha.
-                        var type = MapData.TerrainType[((i * 512) + ex)];
-                        byte roadByte = MapData.RoadData[(i * 512 + ex)];
+                        var type = MapData.TerrainType[(i * 512) + ex];
+                        byte roadByte = MapData.RoadData[i * 512 + ex];
 
                         //huge segment of code for generating triangles incoming
                         var norm1 = GetNormalAt(Math.Min(rXE, Math.Max(rXS, j)), i);
                         var norm2 = GetNormalAt(Math.Min(rXE, Math.Max(rXS, j + 1)), i);
                         var norm3 = GetNormalAt(Math.Min(rXE2, Math.Max(rXS2, j + 1)), Math.Min(511, i + 1));
                         var norm4 = GetNormalAt(Math.Min(rXE2, Math.Max(rXS2, j)), Math.Min(511, i + 1));
-                        
+
                         var trans1 = Math.Min(1, Math.Max(0, Math.Max(rXS - j, j - rXE) * fR));
-                        var trans2 = Math.Min(1, Math.Max(0, Math.Max(rXS - (j + 1), (j + 1) - rXE) * fR));
-                        var trans3 = Math.Min(1, Math.Max(0, Math.Max(rXS2 - (j + 1), (j + 1) - rXE2) * fR));
+                        var trans2 = Math.Min(1, Math.Max(0, Math.Max(rXS - (j + 1), j + 1 - rXE) * fR));
+                        var trans3 = Math.Min(1, Math.Max(0, Math.Max(rXS2 - (j + 1), j + 1 - rXE2) * fR));
                         var trans4 = Math.Min(1, Math.Max(0, Math.Max(rXS2 - j, j - rXE2) * fR));
 
                         var md = MapData.ElevationData;
@@ -601,7 +620,7 @@ namespace FSO.Client.Rendering.City
                             md[O(j + 2, i - 1, rXS, rXE)], md[O(j + 2, i, rXS, rXE)], md[O(j + 2, i + 1, rXS2, rXE2)], md[O(j + 2, i + 2, rXS2, rXE2)],
                         };
 
-                        var normalTile = (j > rXS && j < rXE);
+                        var normalTile = j > rXS && j < rXE;
 
                         var yi = 0f;
                         for (int y = 0; y < subd1; y++)
@@ -625,10 +644,10 @@ namespace FSO.Client.Rendering.City
                                 float lerpT = 0;
                                 if (!normalTile)
                                 {
-                                    var lerpTX = trans1*(1-xi)+trans2*xi;
-                                    var lerpTX2 = trans4*(1-xi)+trans3*xi;
+                                    var lerpTX = trans1 * (1 - xi) + trans2 * xi;
+                                    var lerpTX2 = trans4 * (1 - xi) + trans3 * xi;
 
-                                    lerpT = lerpTX*(1-yi)+lerpTX2*yi;
+                                    lerpT = lerpTX * (1 - yi) + lerpTX2 * yi;
                                 }
 
                                 var pos = new Vector3(j + xi, h / 12f, i + yi);
@@ -687,8 +706,8 @@ namespace FSO.Client.Rendering.City
                                         //add a road face on top of this face
                                         var roadIndi = CityContent.RoadLayout[normalRoad];
                                         var roadOff = new Vector2(
-                                            (roadIndi % CityContent.RoadWidth) / (float)CityContent.RoadWidth,
-                                            (roadIndi / CityContent.RoadWidth) / (float)CityContent.RoadHeight
+                                            roadIndi % CityContent.RoadWidth / (float)CityContent.RoadWidth,
+                                            roadIndi / CityContent.RoadWidth / (float)CityContent.RoadHeight
                                             );
 
                                         roadVertices.Add(new TLayerVertex()
@@ -719,8 +738,8 @@ namespace FSO.Client.Rendering.City
                                         //add a road face on top of this face
                                         var roadIndi = CityContent.RoadCLayout[cornerRoad];
                                         var roadOff = new Vector2(
-                                            (roadIndi % CityContent.RoadWidth) / (float)CityContent.RoadWidth,
-                                            (roadIndi / CityContent.RoadWidth) / (float)CityContent.RoadHeight
+                                            roadIndi % CityContent.RoadWidth / (float)CityContent.RoadWidth,
+                                            roadIndi / CityContent.RoadWidth / (float)CityContent.RoadHeight
                                             );
 
                                         roadVertices.Add(new TLayerVertex()
@@ -761,18 +780,22 @@ namespace FSO.Client.Rendering.City
                         LayerIndices[i]?.Dispose();
                         LayerVertices[i]?.Dispose();
                         LayerIndices[i] = new IndexBuffer(gd, IndexElementSize.ThirtyTwoBits, Math.Max(1, indices[i].Count), BufferUsage.None);
-                        if (indices[i].Count > 0) LayerIndices[i].SetData(indices[i].ToArray());
+                        if (indices[i].Count > 0)
+                            LayerIndices[i].SetData(indices[i].ToArray());
                         LayerVertices[i] = new VertexBuffer(gd, typeof(TLayerVertex), Math.Max(3, vertices[i].Count), BufferUsage.None);
-                        if (vertices[i].Count > 0) LayerVertices[i].SetData(vertices[i].ToArray());
+                        if (vertices[i].Count > 0)
+                            LayerVertices[i].SetData(vertices[i].ToArray());
                         LayerPrims[i] = indices[i].Count / 3;
                     }
 
                     RoadIndices?.Dispose();
                     RoadVertices?.Dispose();
                     RoadIndices = new IndexBuffer(gd, IndexElementSize.ThirtyTwoBits, Math.Max(1, roadIndices.Count), BufferUsage.None);
-                    if (roadIndices.Count > 0) RoadIndices.SetData(roadIndices.ToArray());
+                    if (roadIndices.Count > 0)
+                        RoadIndices.SetData(roadIndices.ToArray());
                     RoadVertices = new VertexBuffer(gd, typeof(TLayerVertex), Math.Max(3, roadVertices.Count), BufferUsage.None);
-                    if (roadVertices.Count > 0) RoadVertices.SetData(roadVertices.ToArray());
+                    if (roadVertices.Count > 0)
+                        RoadVertices.SetData(roadVertices.ToArray());
                     RoadPrims = roadIndices.Count / 3;
                     Ready = cpos;
                 });
@@ -795,12 +818,12 @@ namespace FSO.Client.Rendering.City
             ps.Parameters["VertexColorTex"].SetValue(content.VertexColor);
             ps.Parameters["UseVertexColor"].SetValue(true);
             vs.Parameters["DepthBias"].SetValue(0f);
-            
+
             for (int i = 0; i < 5; i++)
             {
                 ps.Parameters["TextureAtlasTex"].SetValue(content.TerrainTextures[i]);
                 var trans = (1 - (i - 1) / 2) * 2 + ((4 - i) % 2);
-                ps.Parameters["TransAtlasTex"].SetValue((i==0)?null:content.TransAtlas[trans]);
+                ps.Parameters["TransAtlasTex"].SetValue((i == 0) ? null : content.TransAtlas[trans]);
 
                 if (i == 4)
                 {
@@ -814,10 +837,11 @@ namespace FSO.Client.Rendering.City
 
                 gd.SamplerStates[0] = SamplerState.LinearWrap;
                 gd.SamplerStates[1] = SamplerState.LinearClamp;
-                
+
                 gd.SetVertexBuffer(LayerVertices[i]);
                 gd.Indices = LayerIndices[i];
-                if (LayerPrims[i] > 0) gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, LayerPrims[i]);
+                if (LayerPrims[i] > 0)
+                    gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, LayerPrims[i]);
                 if (i == 4)
                 {
                     //HACK HACK HACK HACK
@@ -842,21 +866,23 @@ namespace FSO.Client.Rendering.City
 
             gd.SetVertexBuffer(RoadVertices);
             gd.Indices = RoadIndices;
-            if (RoadPrims > 0) gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, RoadPrims);
+            if (RoadPrims > 0)
+                gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, RoadPrims);
 
             var rts = gd.GetRenderTargets();
             gd.SetRenderTargets(rts);
             //gd.SetRenderTarget((RenderTarget2D)rts.FirstOrDefault()?.RenderTarget);
         }
 
-        private void DrawChunk(GraphicsDevice gd, int ind, int chunkWidth, int[] ranges, int primCount)
+        void DrawChunk(GraphicsDevice gd, int ind, int chunkWidth, int[] ranges, int primCount)
         {
 
             //before double chunk size block
             if (ind != 0)
             {
                 var end = ranges[ind - 1];
-                if (end != 0) gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, end / 3);
+                if (end != 0)
+                    gd.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, end / 3);
             }
 
             //after row 1 of the chunk block, and before row 2
@@ -892,11 +918,12 @@ namespace FSO.Client.Rendering.City
 
             for (int i = 0; i < 5; i++)
             {
-                if (LayerVertices[i] == null) continue;
+                if (LayerVertices[i] == null)
+                    continue;
                 ps.Parameters["TextureAtlasTex"].SetValue(content.TerrainTextures[i]);
                 var trans = (1 - (i - 1) / 2) * 2 + ((4 - i) % 2);
                 ps.Parameters["TransAtlasTex"].SetValue((i == 0) ? null : content.TransAtlas[trans]);
-                
+
                 if (i == 4)
                 {
                     ps.CurrentTechnique = ps.Techniques[3];
@@ -945,9 +972,12 @@ namespace FSO.Client.Rendering.City
             DrawChunk(gd, ind, chunkWidth, RoadSubPrims, RoadPrims);
         }
 
-        public void Dispose() {
-            foreach (var buf in LayerIndices) buf?.Dispose();
-            foreach (var buf in LayerVertices) buf?.Dispose();
+        public void Dispose()
+        {
+            foreach (var buf in LayerIndices)
+                buf?.Dispose();
+            foreach (var buf in LayerVertices)
+                buf?.Dispose();
             RoadIndices?.Dispose();
             RoadVertices?.Dispose();
         }
