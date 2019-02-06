@@ -1,4 +1,4 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
@@ -27,16 +27,16 @@ namespace Charvatia
 {
     public class CVMInstance
     {
-        public VM state;
-        private Stopwatch timeKeeper;
-        private int TicksSinceSave;
-        private static int SaveTickFreq = 60 * 60; //save every minute for safety
-        private int Port;
+        public VM State;
+        Stopwatch _timeKeeper;
+        int _ticksSinceSave;
+        static readonly int _saveTickFreq = 60 * 60; //save every minute for safety
+        readonly int _port;
 
         public CVMInstance(int port)
         {
             VM.UseWorld = false;
-            Port = port;
+            _port = port;
             ResetVM();
         }
 
@@ -55,10 +55,10 @@ namespace Charvatia
         public void ResetVM()
         {
             VMNetDriver driver;
-            driver = new VMServerDriver(Port, NetClosed);
+            driver = new VMServerDriver(_port, NetClosed);
 
             var vm = new VM(new VMContext(null), driver, new VMNullHeadlineProvider());
-            state = vm;
+            State = vm;
             vm.Init();
             vm.OnChatEvent += Vm_OnChatEvent;
 
@@ -74,7 +74,7 @@ namespace Charvatia
                 try
                 {
                     Console.WriteLine("Failed FSOV load... Trying Backup");
-                    LoadState(vm, "Content/LocalHouse/" + filename.Substring(0, filename.Length - 4) + "_backup.fsov");
+                    LoadState(vm, $"Content/LocalHouse/{filename.Substring(0, filename.Length - 4)}_backup.fsov");
                 }
                 catch (Exception)
                 {
@@ -100,7 +100,7 @@ namespace Charvatia
                     vm.Context.Clock.Hours = 10;
                 }
             }
-            vm.MyUID = uint.MaxValue-1;
+            vm.MyUID = uint.MaxValue - 1;
             vm.SendCommand(new VMNetSimJoinCmd
             {
                 ActorUID = uint.MaxValue - 1,
@@ -108,14 +108,14 @@ namespace Charvatia
             });
         }
 
-        private void CleanLot()
+        void CleanLot()
         {
             Console.WriteLine("Cleaning up the lot...");
-            var avatars = new List<VMEntity>(state.Entities.Where(x => x is VMAvatar && x.PersistID > 65535));
+            var avatars = new List<VMEntity>(State.Entities.Where(x => x is VMAvatar && x.PersistID > 65535));
             //TODO: all avatars with persist ID are not npcs in TSO. right now though everything has a persist ID...
             //step 1, force everyone to leave.
             foreach (var avatar in avatars)
-                state.ForwardCommand(new VMNetSimLeaveCmd()
+                State.ForwardCommand(new VMNetSimLeaveCmd()
                 {
                     ActorUID = avatar.PersistID,
                     FromNet = false
@@ -124,45 +124,55 @@ namespace Charvatia
             //simulate for a bit to try get rid of the avatars on the lot
             try
             {
-                for (int i = 0; i < 30 * 60 && state.Entities.FirstOrDefault(x => x is VMAvatar && x.PersistID > 65535) != null; i++)
+                for (int i = 0; i < 30 * 60 && State.Entities.FirstOrDefault(x => x is VMAvatar && x.PersistID > 65535) != null; i++)
                 {
-                    if (i == 30 * 60 - 1) Console.WriteLine("Failed to clean lot...");
-                    state.Update();
+                    if (i == 30 * 60 - 1)
+                        Console.WriteLine("Failed to clean lot...");
+                    State.Update();
                 }
             }
             catch (Exception) { } //if something bad happens just immediately try to delete everyone
 
-            avatars = new List<VMEntity>(state.Entities.Where(x => x is VMAvatar && (x.PersistID > 65535 || (!(x as VMAvatar).IsPet))));
-            foreach (var avatar in avatars) avatar.Delete(true, state.Context);
+            avatars = new List<VMEntity>(State.Entities.Where(x => x is VMAvatar && (x.PersistID > 65535 || (!(x as VMAvatar).IsPet))));
+            foreach (var avatar in avatars)
+                avatar.Delete(true, State.Context);
         }
 
-        private void NetClosed(VMCloseNetReason reason)
+        void NetClosed(VMCloseNetReason reason)
         {
-            if (reason != VMCloseNetReason.ServerShutdown) return; //only handle clean closes
-            var server = state.GetObjectByPersist(uint.MaxValue - 1);
-            if (server != null) server.Delete(true, state.Context);
+            if (reason != VMCloseNetReason.ServerShutdown)
+                return; //only handle clean closes
+            var server = State.GetObjectByPersist(uint.MaxValue - 1);
+            if (server != null)
+                server.Delete(true, State.Context);
             CleanLot();
             SaveLot();
-            System.Environment.Exit(0);
+            Environment.Exit(0);
         }
 
-        private void Vm_OnChatEvent(FSO.SimAntics.NetPlay.Model.VMChatEvent evt)
+        void Vm_OnChatEvent(VMChatEvent evt)
         {
             var print = "";
             switch (evt.Type)
             {
                 case VMChatEventType.Message:
-                    print = "<%> says: ".Replace("%", evt.Text[0]) + evt.Text[1]; break;
+                    print = "<%> says: ".Replace("%", evt.Text[0]) + evt.Text[1];
+                    break;
                 case VMChatEventType.MessageMe:
-                    print = "You say: " + evt.Text[1]; break;
+                    print = "You say: " + evt.Text[1];
+                    break;
                 case VMChatEventType.Join:
-                    print = "<%> has entered the property.".Replace("%", evt.Text[0]); break;
+                    print = "<%> has entered the property.".Replace("%", evt.Text[0]);
+                    break;
                 case VMChatEventType.Leave:
-                    print = "<%> has left the property.".Replace("%", evt.Text[0]); break;
+                    print = "<%> has left the property.".Replace("%", evt.Text[0]);
+                    break;
                 case VMChatEventType.Arch:
-                    print = "<" + evt.Text[0] + " (" + evt.Text[1] + ")" + "> " + evt.Text[2]; break;
+                    print = "<" + evt.Text[0] + " (" + evt.Text[1] + ")" + "> " + evt.Text[2];
+                    break;
                 case VMChatEventType.Generic:
-                    print = evt.Text[0]; break;
+                    print = evt.Text[0];
+                    break;
             }
 
             Console.WriteLine(print);
@@ -170,7 +180,7 @@ namespace Charvatia
 
         public void SendMessage(string msg)
         {
-            state.SendCommand(new VMNetChatCmd
+            State.SendCommand(new VMNetChatCmd
             {
                 ActorUID = uint.MaxValue - 1,
                 Message = msg
@@ -179,7 +189,7 @@ namespace Charvatia
 
         public void Start()
         {
-            Thread oThread = new Thread(new ThreadStart(TickVM));
+            var oThread = new Thread(new ThreadStart(TickVM));
             oThread.Start();
         }
 
@@ -187,38 +197,41 @@ namespace Charvatia
         {
             string filename = Path.GetFileName(Settings.Default.DebugLot);
             var exporter = new VMWorldExporter();
-            exporter.SaveHouse(state, Path.Combine(Settings.Default.GamePath + "housedata/blueprints/" + filename));
+            exporter.SaveHouse(State, Path.Combine(Settings.Default.GamePath + "housedata/blueprints/" + filename));
 
-            var marshal = state.Save();
+            var marshal = State.Save();
             Directory.CreateDirectory("Content/LocalHouse/");
             var extensionless = filename.Substring(0, filename.Length - 4);
 
             //backup old state
-            try { File.Copy("Content/LocalHouse/" + extensionless + ".fsov", "Content/LocalHouse/" + extensionless + "_backup.fsov", true); }
+            try
+            { File.Copy("Content/LocalHouse/" + extensionless + ".fsov", "Content/LocalHouse/" + extensionless + "_backup.fsov", true); }
             catch (Exception) { }
 
-            using (var output = new FileStream("Content/LocalHouse/"+extensionless+".fsov", FileMode.Create))
+            using (var output = new FileStream("Content/LocalHouse/" + extensionless + ".fsov", FileMode.Create))
             {
                 marshal.SerializeInto(new BinaryWriter(output));
             }
 
-            ((VMTSOGlobalLinkStub)state.GlobalLink).Database.Save();
+            ((VMTSOGlobalLinkStub)State.GlobalLink).Database.Save();
         }
 
-        private void TickVM()
+        void TickVM()
         {
-            timeKeeper = new Stopwatch();
-            timeKeeper.Start();
+            _timeKeeper = new Stopwatch();
+            _timeKeeper.Start();
             long lastMs = 0;
             while (true)
             {
                 lastMs += 16;
-                TicksSinceSave++;
-                try {
-                    state.Update();
-                } catch (Exception e)
+                _ticksSinceSave++;
+                try
                 {
-                    state.CloseNet(VMCloseNetReason.Unspecified);
+                    State.Update();
+                }
+                catch (Exception e)
+                {
+                    State.CloseNet(VMCloseNetReason.Unspecified);
                     Console.WriteLine(e.ToString());
                     SaveLot();
                     Thread.Sleep(500);
@@ -228,14 +241,14 @@ namespace Charvatia
                     //just for people who like 24/7 servers.
                 }
 
-                if (TicksSinceSave > SaveTickFreq)
+                if (_ticksSinceSave > _saveTickFreq)
                 {
                     //quick and dirty periodic save
                     SaveLot();
-                    TicksSinceSave = 0;
+                    _ticksSinceSave = 0;
                 }
 
-                Thread.Sleep((int)Math.Max(0, (lastMs + 16)-timeKeeper.ElapsedMilliseconds));
+                Thread.Sleep((int)Math.Max(0, (lastMs + 16) - _timeKeeper.ElapsedMilliseconds));
             }
         }
     }

@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Charvatia</RootNamespace>
     <AssemblyName>Charvatia</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,6 +35,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Charvatia.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Charvatia.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.4.0.459, Culture=neutral, processorArchitecture=MSIL">
@@ -64,8 +68,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include=".editorconfig" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -80,19 +89,19 @@
       <Project>{07f742c5-c66a-4d1e-a761-458e08d4e302}</Project>
       <Name>ProtocolAbstractionLibraryD</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TSOClient\tso.common\FSO.Common.csproj">
+    <ProjectReference Include="..\..\Src\tso.common\FSO.Common.csproj">
       <Project>{c42962a1-8796-4f47-9dcd-79ed5904d8ca}</Project>
       <Name>FSO.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TSOClient\tso.content\FSO.Content.csproj">
+    <ProjectReference Include="..\..\Src\tso.content\FSO.Content.csproj">
       <Project>{c0068df7-f2e8-4399-846d-556bf9a35c00}</Project>
       <Name>FSO.Content</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TSOClient\tso.simantics\FSO.SimAntics.csproj">
+    <ProjectReference Include="..\..\Src\tso.simantics\FSO.SimAntics.csproj">
       <Project>{5eddefd2-c850-49c1-812d-ddeff09125ef}</Project>
       <Name>FSO.SimAntics</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\TSOClient\tso.world\FSO.LotView.csproj">
+    <ProjectReference Include="..\..\Src\tso.world\FSO.LotView.csproj">
       <Project>{B1A6E4C2-E080-4C34-A604-D11B5296A9B8}</Project>
       <Name>FSO.LotView</Name>
     </ProjectReference>

@@ -1,10 +1,11 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
 using Charvatia.Properties;
+using FSO.Common;
 using GonzoNet;
 using ProtocolAbstractionLibraryD;
 using System;
@@ -19,18 +20,19 @@ namespace Charvatia
 {
     class Program
     {
-        private static CVMInstance inst;
+        static CVMInstance _inst;
+
         static void Main(string[] args)
         {
             AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-            Console.Title = "Charvatia 1.1.1";
+            Console.Title = $"Charvatia {GameConsts.FullVersion}";
             Init();
         }
 
         static void Init()
         {
             Console.WriteLine("Loading Content...");
-            FSO.Content.Content.Init(Settings.Default.GamePath, null);
+            FSO.Content.GameContent.Init(Settings.Default.GamePath, null);
             Console.WriteLine("Success!");
 
             Console.WriteLine("Starting VM server...");
@@ -38,13 +40,13 @@ namespace Charvatia
             PacketHandlers.Register((byte)PacketType.VM_PACKET, false, 0, new OnPacketReceive(VMPacket));
 
             StartVM();
-            Stream inputStream = Console.OpenStandardInput();
+            var inputStream = Console.OpenStandardInput();
 
             while (true)
-                inst.SendMessage(Console.ReadLine());
+                _inst.SendMessage(Console.ReadLine());
         }
 
-        private static System.Reflection.Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
+        static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
         {
             try
             {
@@ -65,9 +67,9 @@ namespace Charvatia
 
         static void StartVM()
         {
-            inst = new CVMInstance(37564);
+            _inst = new CVMInstance(37564);
             Console.WriteLine("Stunning success.");
-            inst.Start();
+            _inst.Start();
         }
     }
 }
