@@ -30,8 +30,8 @@ namespace FSO.Client.UI.Controls
         public int FreeLocks;
         public int SkillID;
 
-        private int m_Width;
-        private int m_Height;
+        int m_Width;
+        int m_Height;
 
         public float Width
         {
@@ -73,9 +73,9 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private UIMouseEventRef ClickHandler;
-        private UITooltipHandler m_TooltipHandler;
-        private bool m_isOver;
+        UIMouseEventRef ClickHandler;
+        UITooltipHandler m_TooltipHandler;
+        bool m_isOver;
 
         public UISkillBar()
         {
@@ -121,7 +121,7 @@ namespace FSO.Client.UI.Controls
             ClickHandler.Region.Height = m_Height;
         }
 
-        private void OnMouseEvent(UIMouseEventType type, UpdateState state)
+        void OnMouseEvent(UIMouseEventType type, UpdateState state)
         {
             switch (type)
             {
@@ -151,7 +151,7 @@ namespace FSO.Client.UI.Controls
             if (!Visible) return;
             for (int i=0; i<20; i++)
             {
-                var tex = SkillLevelTex[Math.Min((i * 8) / 20, 8)];
+                var tex = SkillLevelTex[Math.Min(i * 8 / 20, 8)];
 
                 DrawLocalTexture(batch, tex, new Rectangle(18, 0, 6, 18), new Vector2(i * 6, 0), new Vector2(1));
                 Rectangle src;
@@ -172,7 +172,7 @@ namespace FSO.Client.UI.Controls
                     continue;
                 }
 
-                if (i >= SkillLevel / 100) src.Width = ((SkillLevel%100) * 6) / 100;
+                if (i >= SkillLevel / 100) src.Width = SkillLevel%100 * 6 / 100;
                 DrawLocalTexture(batch, tex, src, new Vector2(i * 6, 0), new Vector2(1));
             }
         }

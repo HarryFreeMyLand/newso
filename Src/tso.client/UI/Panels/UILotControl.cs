@@ -30,7 +30,7 @@ using Microsoft.Xna.Framework.Input;
 using FSO.LotView.Model;
 using FSO.SimAntics.Primitives;
 using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.Client.IDE;
+using FSO.Client.Diagnostics;
 using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.Client.UI.Panels.EODs;
@@ -49,17 +49,17 @@ namespace FSO.Client.UI.Panels
     /// </summary>
     public class UILotControl : UIContainer, IDisposable, ITouchable
     {
-        private UIMouseEventRef MouseEvt;
+        UIMouseEventRef MouseEvt;
         public bool MouseIsOn;
 
-        private UIPieMenu PieMenu;
+        UIPieMenu PieMenu;
         public UIChatPanel ChatPanel;
-        private UIAlert LotSaveDialog;
-        private bool HasInitUserProps;
+        UIAlert LotSaveDialog;
+        bool HasInitUserProps;
 
-        private bool ShowTooltip;
-        private bool TipIsError;
-        private Texture2D RMBCursor;
+        bool ShowTooltip;
+        bool TipIsError;
+        Texture2D RMBCursor;
 
         public VM vm;
         public World World;
@@ -87,15 +87,15 @@ namespace FSO.Client.UI.Panels
 
         public int WallsMode = 1;
 
-        private int OldMX;
-        private int OldMY;
-        private bool FoundMe; //if false and avatar changes, center. Should center on join lot.
+        int OldMX;
+        int OldMY;
+        bool FoundMe; //if false and avatar changes, center. Should center on join lot.
 
         public bool KBScroll;
 
         public bool RMBScroll;
-        private int RMBScrollX;
-        private int RMBScrollY;
+        int RMBScrollX;
+        int RMBScrollY;
 
         public UICheatHandler Cheats;
         public UIAvatarDataServiceUpdater AvatarDS;
@@ -117,22 +117,22 @@ namespace FSO.Client.UI.Panels
         // NOTE: Blocking dialog system assumes that nothing goes wrong with data transmission (which it shouldn't, because we're using TCP)
         // and that the code actually blocks further dialogs from appearing while waiting for a response.
         // If we are to implement controlling multiple sims, this must be changed.
-        private UIAlert BlockingDialog;
-        private UINeighborhoodSelectionPanel TS1NeighSelector;
-        private ulong LastDialogID;
+        UIAlert BlockingDialog;
+        UINeighborhoodSelectionPanel TS1NeighSelector;
+        ulong LastDialogID;
 
-        private static uint GOTO_GUID = 0x000007C4;
+        static uint GOTO_GUID = 0x000007C4;
         public VMEntity GotoObject;
 
-        private Rectangle MouseCutRect = new Rectangle(-4, -4, 4, 4);
-        private List<uint> CutRooms = new List<uint>();
-        private HashSet<uint> LastCutRooms = new HashSet<uint>(); //final rooms, including those outside. used to detect dirty.
+        Rectangle MouseCutRect = new Rectangle(-4, -4, 4, 4);
+        List<uint> CutRooms = new List<uint>();
+        HashSet<uint> LastCutRooms = new HashSet<uint>(); //final rooms, including those outside. used to detect dirty.
         public sbyte LastFloor = -1;
         public WorldRotation LastRotation = WorldRotation.TopLeft;
-        private bool[] LastCuts; //cached roomcuts, to apply rect cut to.
-        private int LastWallMode = -1; //invalidates last roomcuts
-        private bool LastRectCutNotable = false; //set if the last rect cut made a noticable change to the cuts array. If true refresh regardless of new cut effect.
-        private bool HasLanded = false;
+        bool[] LastCuts; //cached roomcuts, to apply rect cut to.
+        int LastWallMode = -1; //invalidates last roomcuts
+        bool LastRectCutNotable = false; //set if the last rect cut made a noticable change to the cuts array. If true refresh regardless of new cut effect.
+        bool HasLanded = false;
 
         /// <summary>
         /// Creates a new UILotControl instance.
@@ -202,7 +202,7 @@ namespace FSO.Client.UI.Panels
             SetupQuery();
         }
 
-        private void Vm_OnChatEvent(VMChatEvent evt)
+        void Vm_OnChatEvent(VMChatEvent evt)
         {
             UpdateChatTitle();
             if (evt.Type == VMChatEventType.Message && evt.SenderUID == SelectedSimID)
@@ -210,8 +210,8 @@ namespace FSO.Client.UI.Panels
             ChatPanel.ReceiveEvent(evt);
         }
 
-        private int LastVisitorCount = 0;
-        private void UpdateChatTitle()
+        int LastVisitorCount = 0;
+        void UpdateChatTitle()
         {
             var visitors = vm.Context.ObjectQueries.Avatars.Count(x => x.PersistID != 0);
             if (LastVisitorCount != visitors)
@@ -222,7 +222,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void Vm_OnBreakpoint(VMEntity entity)
+        void Vm_OnBreakpoint(VMEntity entity)
         {
             if (IDEHook.IDE != null)
                 IDEHook.IDE.IDEBreakpointHit(vm, entity);
@@ -261,9 +261,9 @@ namespace FSO.Client.UI.Panels
 
             if (info.Block && vm.TS1)
                 vm.SpeedMultiplier = 0;
-            var b0Event = (info.Block) ? new ButtonClickDelegate(DialogButton0) : null;
-            var b1Event = (info.Block) ? new ButtonClickDelegate(DialogButton1) : null;
-            var b2Event = (info.Block) ? new ButtonClickDelegate(DialogButton2) : null;
+            var b0Event = info.Block ? new ButtonClickDelegate(DialogButton0) : null;
+            var b1Event = info.Block ? new ButtonClickDelegate(DialogButton1) : null;
+            var b2Event = info.Block ? new ButtonClickDelegate(DialogButton2) : null;
 
             VMDialogType type = (info.Operand == null) ? VMDialogType.Message : info.Operand.Type;
 
@@ -337,7 +337,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void HouseSelected(int house)
+        void HouseSelected(int house)
         {
             if (ActiveEntity == null || TS1NeighSelector == null)
                 return;
@@ -353,11 +353,11 @@ namespace FSO.Client.UI.Panels
             TS1NeighSelector = null;
         }
 
-        private void DialogButton0(UIElement button) { DialogResponse(0); }
-        private void DialogButton1(UIElement button) { DialogResponse(1); }
-        private void DialogButton2(UIElement button) { DialogResponse(2); }
+        void DialogButton0(UIElement button) { DialogResponse(0); }
+        void DialogButton1(UIElement button) { DialogResponse(1); }
+        void DialogButton2(UIElement button) { DialogResponse(2); }
 
-        private void DialogResponse(byte code)
+        void DialogResponse(byte code)
         {
             if (BlockingDialog == null || ActiveEntity == null)
                 return;
@@ -374,7 +374,7 @@ namespace FSO.Client.UI.Panels
             BlockingDialog = null;
         }
 
-        private void OnMouse(UIMouseEventType type, UpdateState state)
+        void OnMouse(UIMouseEventType type, UpdateState state)
         {
             if (!vm.Ready)
                 return;
@@ -475,7 +475,7 @@ namespace FSO.Client.UI.Panels
                                 var guid = obj.MasterDefinition?.GUID ?? obj.Object.OBJ.GUID;
                                 var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID(guid);
 
-                                var retailPrice = (int?)(item?.Price) ?? obj.MultitileGroup.Price;
+                                var retailPrice = (int?)item?.Price ?? obj.MultitileGroup.Price;
                                 var salePrice = obj.MultitileGroup.SalePrice;
                                 ShowErrorTooltip(state, 22, true, "$" + retailPrice.ToString("##,#0"), "$" + salePrice.ToString("##,#0"));
                             }
@@ -522,7 +522,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void ShowErrorTooltip(UpdateState state, uint id, bool playSound, params string[] args)
+        void ShowErrorTooltip(UpdateState state, uint id, bool playSound, params string[] args)
         {
             if (playSound)
                 HITVM.Get().PlaySoundEvent(UISounds.Error);
@@ -585,7 +585,7 @@ namespace FSO.Client.UI.Panels
                             if (obj != null)
                             {
                                 var menu = obj.GetPieMenu(vm, ActiveEntity, false, true);
-                                InteractionsAvailable = (menu.Count > 0);
+                                InteractionsAvailable = menu.Count > 0;
                             }
                         }
                     }
@@ -618,7 +618,7 @@ namespace FSO.Client.UI.Panels
                                     var guid = obj.MasterDefinition?.GUID ?? obj.Object.OBJ.GUID;
                                     var item = Content.GameContent.Get.WorldCatalog.GetItemByGUID(guid);
 
-                                    var retailPrice = (int?)(item?.Price) ?? obj.MultitileGroup.Price;
+                                    var retailPrice = (int?)item?.Price ?? obj.MultitileGroup.Price;
                                     var salePrice = obj.MultitileGroup.SalePrice;
                                     ShowErrorTooltip(state, 22, false, "$" + retailPrice.ToString("##,#0"), "$" + salePrice.ToString("##,#0"));
                                     TipIsError = false;
@@ -675,7 +675,7 @@ namespace FSO.Client.UI.Panels
 
         }
 
-        private string GetAvatarString(VMAvatar ava)
+        string GetAvatarString(VMAvatar ava)
         {
             int prefixNum = 3;
             if (ava.IsPet)
@@ -780,7 +780,7 @@ namespace FSO.Client.UI.Panels
             LastZoom = World.State.Zoom;
         }
 
-        private WorldZoom LastZoom;
+        WorldZoom LastZoom;
         public override void Update(UpdateState state)
         {
             base.Update(state);
@@ -791,7 +791,7 @@ namespace FSO.Client.UI.Panels
             //handling smooth scaled zoom
             if (FSOEnvironment.Enable3D)
             {
-                var s3d = ((WorldStateRC)World.State);
+                var s3d = (WorldStateRC)World.State;
                 if (TargetZoom < -0.65f)
                 {
                     //switch to city
@@ -802,7 +802,7 @@ namespace FSO.Client.UI.Panels
                 {
                     TargetZoom -= (TargetZoom - 0.25f) * (1f - (float)Math.Pow(0.975f, 60f / FSOEnvironment.RefreshRate));
                 }
-                s3d.Zoom3D += ((9.75f - (TargetZoom - 0.25f) * 5.7f) - s3d.Zoom3D) / 10;
+                s3d.Zoom3D += (9.75f - (TargetZoom - 0.25f) * 5.7f - s3d.Zoom3D) / 10;
 
             }
             else
@@ -917,7 +917,7 @@ namespace FSO.Client.UI.Panels
                         scrollBy = new Vector2(state.MouseState.X - RMBScrollX, state.MouseState.Y - RMBScrollY);
                         scrollBy *= 0.0005f;
 
-                        var angle = (Math.Atan2(state.MouseState.X - RMBScrollX, (RMBScrollY - state.MouseState.Y) * 2) / Math.PI) * 4;
+                        var angle = Math.Atan2(state.MouseState.X - RMBScrollX, (RMBScrollY - state.MouseState.Y) * 2) / Math.PI * 4;
                         angle += 8;
                         angle %= 8;
 
@@ -957,7 +957,7 @@ namespace FSO.Client.UI.Panels
                 var nofocus = state.InputManager.GetFocus() == null;
                 var keyst = state.KeyboardState;
                 if (nofocus && (keyst.IsKeyDown(Keys.Up) || keyst.IsKeyDown(Keys.Left) || keyst.IsKeyDown(Keys.Down) || keyst.IsKeyDown(Keys.Right) ||
-                    (keyst.IsKeyDown(Keys.W) || keyst.IsKeyDown(Keys.A) || keyst.IsKeyDown(Keys.S) || keyst.IsKeyDown(Keys.D))))
+                    keyst.IsKeyDown(Keys.W) || keyst.IsKeyDown(Keys.A) || keyst.IsKeyDown(Keys.S) || keyst.IsKeyDown(Keys.D)))
                     KBScroll = true;
                 else
                     KBScroll = false;
@@ -1014,7 +1014,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void InitUserProps()
+        void InitUserProps()
         {
             if (GlobalSettings.Default.ChatColor == 0)
             {
@@ -1039,7 +1039,7 @@ namespace FSO.Client.UI.Panels
             HasInitUserProps = true;
         }
 
-        private void SaveLot()
+        void SaveLot()
         {
             LotSaveDialog = new UIAlert(new UIAlertOptions
             {
@@ -1054,7 +1054,7 @@ namespace FSO.Client.UI.Panels
                     {
                         try {
                             var exporter = new VMWorldExporter();
-                            exporter.SaveHouse(vm, Path.Combine(FSOEnvironment.UserDir, ("Blueprints/"+LotSaveDialog.ResponseText+".xml")));
+                            exporter.SaveHouse(vm, Path.Combine(FSOEnvironment.UserDir, "Blueprints/"+LotSaveDialog.ResponseText+".xml"));
                             var marshal = vm.Save();
                             Directory.CreateDirectory(Path.Combine(FSOEnvironment.UserDir, "LocalHouse/"));
                             using (var output = new FileStream(Path.Combine(FSOEnvironment.UserDir, "LocalHouse/"+LotSaveDialog.ResponseText+".fsov"), FileMode.Create))
@@ -1078,7 +1078,7 @@ namespace FSO.Client.UI.Panels
             UIScreen.GlobalShowDialog(LotSaveDialog, true);
         }
 
-        private void SaveFacade(bool toObject)
+        void SaveFacade(bool toObject)
         {
             LotSaveDialog = new UIAlert(new UIAlertOptions
             {
@@ -1135,22 +1135,22 @@ namespace FSO.Client.UI.Panels
             UIScreen.GlobalShowDialog(LotSaveDialog, true);
         }
 
-        private static void SetOutsideTime(GraphicsDevice gd, VM vm, World world, float time, bool lightsOn)
+        static void SetOutsideTime(GraphicsDevice gd, VM vm, World world, float time, bool lightsOn)
         {
             vm.Context.Architecture.SetTimeOfDay(time);
             world.Force2DPredraw(gd);
             vm.Context.Architecture.SetTimeOfDay();
         }
 
-        private void UpdateCutaway(UpdateState state)
+        void UpdateCutaway(UpdateState state)
         {
             if (vm.Context.Blueprint != null)
             {
-                World.State.DynamicCutaway = (WallsMode == 1);
+                World.State.DynamicCutaway = WallsMode == 1;
                 //first we need to cycle the rooms that are being cutaway. Keep this up even if we're in all-cut mode.
                 var mouseTilePos = World.EstTileAtPosWithScroll(GetScaledPoint(state.MouseState.Position).ToVector2() / FSOEnvironment.DPIScaleFactor);
-                var roomHover = vm.Context.GetRoomAt(LotTilePos.FromBigTile((short)(mouseTilePos.X), (short)(mouseTilePos.Y), World.State.Level));
-                var outside = (vm.Context.RoomInfo[roomHover].Room.IsOutside);
+                var roomHover = vm.Context.GetRoomAt(LotTilePos.FromBigTile((short)mouseTilePos.X, (short)mouseTilePos.Y, World.State.Level));
+                var outside = vm.Context.RoomInfo[roomHover].Room.IsOutside;
                 if (!outside && !CutRooms.Contains(roomHover))
                     CutRooms.Add(roomHover); //outside hover should not persist like with other rooms.
                 while (CutRooms.Count > 3)

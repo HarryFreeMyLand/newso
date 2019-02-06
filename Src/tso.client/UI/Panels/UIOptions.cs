@@ -41,8 +41,8 @@ namespace FSO.Client.UI.Panels
         public Texture2D BackgroundGameImage { get; set; }
         public Texture2D DividerImage { get; set; }
 
-        private UIContainer Panel;
-        private int CurrentPanel;
+        UIContainer Panel;
+        int CurrentPanel;
 
         public UIOptions()
         {
@@ -113,27 +113,27 @@ namespace FSO.Client.UI.Panels
 
         }
 
-        private void ExitButton_OnButtonClick(UIElement button)
+        void ExitButton_OnButtonClick(UIElement button)
         {
             UIScreen.ShowDialog(new UIExitDialog(), true);
         }
 
-        private void GraphicsButton_OnButtonClick(UIElement button)
+        void GraphicsButton_OnButtonClick(UIElement button)
         {
             SetPanel(0);
         }
 
-        private void ProfanityButton_OnButtonClick(UIElement button)
+        void ProfanityButton_OnButtonClick(UIElement button)
         {
             SetPanel(1);
         }
 
-        private void SoundButton_OnButtonClick(UIElement button)
+        void SoundButton_OnButtonClick(UIElement button)
         {
             SetPanel(2);
         }
 
-        private void SelectSimButton_OnButtonClick(UIElement button)
+        void SelectSimButton_OnButtonClick(UIElement button)
         {
             UIAlert alert = null;
             var options = new UIAlertOptions
@@ -317,7 +317,7 @@ namespace FSO.Client.UI.Panels
             PitchSlider.OnChange += PitchSlider_OnChange;
         }
 
-        private void chatOpacitySlider_OnChange(UIElement element)
+        void chatOpacitySlider_OnChange(UIElement element)
         {
             var data = (int)((UISlider)element).Value/100f;
             GlobalSettings.Default.ChatWindowsOpacity = data;
@@ -325,7 +325,7 @@ namespace FSO.Client.UI.Panels
 
         }
 
-        private void ChatTsOptSet(UIElement button)
+        void ChatTsOptSet(UIElement button)
         {
             var data = (bool)((UIRadioButton)button).RadioData;
             if (GlobalSettings.Default.ChatShowTimestamp == data) return;
@@ -333,13 +333,13 @@ namespace FSO.Client.UI.Panels
             GlobalSettings.Default.ChatShowTimestamp = data;
             GlobalSettings.Default.Save();
 
-            var response = "Chat timestamps " + ((data) ? "enabled" : "disabled") + ".";
+            var response = "Chat timestamps " + (data ? "enabled" : "disabled") + ".";
 
             var vm = ((IGameScreen)GameFacade.Screens.CurrentUIScreen)?.vm;
             if (vm != null) vm.SignalChatEvent(new VMChatEvent(null, VMChatEventType.Generic, response));
         }
 
-        private void TTSOptSet(UIElement button)
+        void TTSOptSet(UIElement button)
         {
             GlobalSettings.Default.TTSMode = (int)((UIRadioButton)button).RadioData;
             GlobalSettings.Default.Save();
@@ -364,13 +364,13 @@ namespace FSO.Client.UI.Panels
             if (PitchTimer > 0) SetChatParams();
         }
 
-        private void PitchSlider_OnChange(UIElement element)
+        void PitchSlider_OnChange(UIElement element)
         {
             GlobalSettings.Default.ChatTTSPitch = (int)PitchSlider.Value;
             PitchTimer = FSOEnvironment.RefreshRate / 2;
         }
 
-        private void SetChatParams()
+        void SetChatParams()
         {
             var col = new Color(GlobalSettings.Default.ChatColor);
             ChatColor.CaptionStyle.Color = col;
@@ -454,7 +454,7 @@ namespace FSO.Client.UI.Panels
         public UILabel Wall3DLabel { get; set; }
 
         public UISlider LightingSlider;
-        private bool InternalChange;
+        bool InternalChange;
 
         public UIGraphicOptions()
         {
@@ -497,7 +497,7 @@ namespace FSO.Client.UI.Panels
             Add(Wall3DButton);
             Wall3DLabel = new UILabel
             {
-                Caption = GameFacade.Strings.GetString("f103", (FSOEnvironment.Enable3D) ? "12" : "11"),
+                Caption = GameFacade.Strings.GetString("f103", FSOEnvironment.Enable3D ? "12" : "11"),
                 CaptionStyle = UIEffectsLabel.CaptionStyle,
                 Position = AntiAliasCheckButton.Position + new Vector2(134, 0)
             };
@@ -540,14 +540,14 @@ namespace FSO.Client.UI.Panels
             };
         }
 
-        private void FlipSetting(UIElement button)
+        void FlipSetting(UIElement button)
         {
             var settings = GlobalSettings.Default;
-            if (button == AntiAliasCheckButton) settings.AntiAlias = !(settings.AntiAlias);
-            else if (button == ShadowsCheckButton) settings.SmoothZoom = !(settings.SmoothZoom);
-            else if (button == LightingCheckButton) settings.Lighting = !(settings.Lighting);
-            else if (button == UIEffectsCheckButton) settings.CityShadows = !(settings.CityShadows);
-            else if (button == EdgeScrollingCheckButton) settings.EdgeScroll = !(settings.EdgeScroll);
+            if (button == AntiAliasCheckButton) settings.AntiAlias = !settings.AntiAlias;
+            else if (button == ShadowsCheckButton) settings.SmoothZoom = !settings.SmoothZoom;
+            else if (button == LightingCheckButton) settings.Lighting = !settings.Lighting;
+            else if (button == UIEffectsCheckButton) settings.CityShadows = !settings.CityShadows;
+            else if (button == EdgeScrollingCheckButton) settings.EdgeScroll = !settings.EdgeScroll;
             else if (button == Wall3DButton)
             {
                 if (FSOEnvironment.Enable3D) settings.CitySkybox = !settings.CitySkybox;
@@ -557,7 +557,7 @@ namespace FSO.Client.UI.Panels
             SettingsChanged();
         }
 
-        private void ChangeShadowDetail(UIElement button)
+        void ChangeShadowDetail(UIElement button)
         {
             var settings = GlobalSettings.Default;
             if (button == CharacterDetailLowButton) settings.ShadowQuality = 512;
@@ -567,7 +567,7 @@ namespace FSO.Client.UI.Panels
             SettingsChanged();
         }
 
-        private void ChangeSurroundingDetail(UIElement button)
+        void ChangeSurroundingDetail(UIElement button)
         {
             var settings = GlobalSettings.Default;
             if (button == TerrainDetailLowButton) settings.SurroundingLotMode = 0;
@@ -577,7 +577,7 @@ namespace FSO.Client.UI.Panels
             SettingsChanged();
         }
 
-        private void SettingsChanged()
+        void SettingsChanged()
         {
             var settings = GlobalSettings.Default;
             AntiAliasCheckButton.Selected = settings.AntiAlias; //antialias for render targets
@@ -587,20 +587,20 @@ namespace FSO.Client.UI.Panels
             EdgeScrollingCheckButton.Selected = settings.EdgeScroll;
 
             // Character detail changed for city shadow detail.
-            CharacterDetailLowButton.Selected = (settings.ShadowQuality <= 512);
-            CharacterDetailMedButton.Selected = (settings.ShadowQuality > 512 && settings.ShadowQuality <= 1024);
-            CharacterDetailHighButton.Selected = (settings.ShadowQuality > 1024);
+            CharacterDetailLowButton.Selected = settings.ShadowQuality <= 512;
+            CharacterDetailMedButton.Selected = settings.ShadowQuality > 512 && settings.ShadowQuality <= 1024;
+            CharacterDetailHighButton.Selected = settings.ShadowQuality > 1024;
 
             //not used right now! We need to determine if this should be ingame or not... It affects the density of grass blades on the simulation terrain.
-            TerrainDetailLowButton.Selected = (settings.SurroundingLotMode == 0);
-            TerrainDetailMedButton.Selected = (settings.SurroundingLotMode == 1);
-            TerrainDetailHighButton.Selected = (settings.SurroundingLotMode == 2);
+            TerrainDetailLowButton.Selected = settings.SurroundingLotMode == 0;
+            TerrainDetailMedButton.Selected = settings.SurroundingLotMode == 1;
+            TerrainDetailHighButton.Selected = settings.SurroundingLotMode == 2;
 
             InternalChange = true;
             LightingSlider.Value = settings.LightingMode;
             InternalChange = false;
 
-            Wall3DButton.Selected = (FSOEnvironment.Enable3D)?settings.CitySkybox:settings.Shadows3D;
+            Wall3DButton.Selected = FSOEnvironment.Enable3D?settings.CitySkybox:settings.Shadows3D;
 
             var oldSurrounding = LotView.WorldConfig.Current.SurroundingLots;
             LotView.WorldConfig.Current = new LotView.WorldConfig()

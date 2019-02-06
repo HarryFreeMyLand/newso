@@ -13,7 +13,7 @@ namespace FSO.Client.Regulators
 {
     public class CreateASimRegulator : AbstractRegulator, IAriesMessageSubscriber
     {
-        private AriesClient City;
+        AriesClient City;
 
         public CreateASimRegulator([Named("City")] AriesClient cityClient)
         {

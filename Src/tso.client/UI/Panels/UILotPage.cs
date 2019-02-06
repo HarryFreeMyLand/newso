@@ -24,14 +24,14 @@ namespace FSO.Client.UI.Panels
 {
     public class UILotPage : UIContainer
     {
-        private UIImage BackgroundDescriptionImage;
-        private UIImage BackgroundDescriptionEditImage;
-        private UIImage BackgroundHouseLeaderThumbImage;
-        private UIImage BackgroundHouseCategoryThumbImage;
-        private UIImage BackgroundNumOccupantsImage;
+        UIImage BackgroundDescriptionImage;
+        UIImage BackgroundDescriptionEditImage;
+        UIImage BackgroundHouseLeaderThumbImage;
+        UIImage BackgroundHouseCategoryThumbImage;
+        UIImage BackgroundNumOccupantsImage;
 
-        private UIImage BackgroundContractedImage;
-        private UIImage BackgroundExpandedImage;
+        UIImage BackgroundContractedImage;
+        UIImage BackgroundExpandedImage;
 
         public Texture2D ContractedBackgroundImage { get; set; }
         public Texture2D ExpandedBackgroundImage { get; set; }
@@ -72,19 +72,19 @@ namespace FSO.Client.UI.Panels
         public Texture2D RoommateThumbButtonImage { get; set; }
         public Texture2D VisitorThumbButtonImage { get; set; }
 
-        private UILotThumbButton LotThumbnail { get; set; }
-        private UIRoommateList RoommateList { get; set; }
-        private UIClickableLabel SkillGameplayLabel { get; set; }
-        private UIPersonButton OwnerButton { get; set; }
-        private Texture2D DefaultThumb;
-        private string OriginalDescription;
+        UILotThumbButton LotThumbnail { get; set; }
+        UIRoommateList RoommateList { get; set; }
+        UIClickableLabel SkillGameplayLabel { get; set; }
+        UIPersonButton OwnerButton { get; set; }
+        Texture2D DefaultThumb;
+        string OriginalDescription;
 
-        private LotThumbEntry ThumbLock;
+        LotThumbEntry ThumbLock;
 
         public Binding<Lot> CurrentLot;
         public override Vector2 Size { get; set; }
 
-        private bool _Open;
+        bool _Open;
 
         public UILotPage()
         {
@@ -209,7 +209,7 @@ namespace FSO.Client.UI.Panels
             SendToFront(ExpandButton, ContractButton);
         }
 
-        private void SkillGameplayLabel_OnButtonClick(UIElement button)
+        void SkillGameplayLabel_OnButtonClick(UIElement button)
         {
             if (HouseCategoryButton.Disabled) return;
 
@@ -245,7 +245,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void ChangeName(UIElement button)
+        void ChangeName(UIElement button)
         {
             var lotName = new UILotPurchaseDialog();
             lotName.OnNameChosen += (name) =>
@@ -269,7 +269,7 @@ namespace FSO.Client.UI.Panels
             });
         }
 
-        private void ChangeCategory(UIElement button)
+        void ChangeCategory(UIElement button)
         {
             string error = null;
             if (CurrentLot != null && CurrentLot.Value != null)
@@ -305,7 +305,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void ChangeCategory(LotCategory cat)
+        void ChangeCategory(LotCategory cat)
         {
             if (CurrentLot != null && CurrentLot.Value != null && FindController<CoreGameScreenController>().IsMe(CurrentLot.Value.Lot_LeaderID))
             {
@@ -324,12 +324,12 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void JoinLot(UIElement e) {
+        void JoinLot(UIElement e) {
             FindController<CoreGameScreenController>().JoinLot(CurrentLot.Value.Id);
             Close(e);
         }
 
-        private uint _Lot_LeaderID;
+        uint _Lot_LeaderID;
         public uint Lot_LeaderID
         {
             get { return _Lot_LeaderID; }
@@ -339,7 +339,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void Close(UIElement button)
+        void Close(UIElement button)
         {
             FindController<LotPageController>().Close();
         }
@@ -364,7 +364,7 @@ namespace FSO.Client.UI.Panels
             base.Update(state);
         }
 
-        private Texture2D LastThumb = null;
+        Texture2D LastThumb = null;
         public void AsyncAPIThumb(uint lotID)
         {
             if (ThumbLock != null) ThumbLock.Held--;
@@ -372,7 +372,7 @@ namespace FSO.Client.UI.Panels
             ThumbLock = FindController<CoreGameScreenController>().Terrain.LockLotThumb(lotID);
         }
 
-        private void RefreshUI()
+        void RefreshUI()
         {
             var isOpen = _Open == true;
             var isClosed = _Open == false;
@@ -423,7 +423,7 @@ namespace FSO.Client.UI.Panels
 
             BackgroundDescriptionImage.Visible = isOpen && !isMyProperty;
             BackgroundDescriptionEditImage.Visible = isOpen && isMyProperty;
-            HouseDescriptionTextEdit.Mode = (isMyProperty) ? UITextEditMode.Editor : UITextEditMode.ReadOnly;
+            HouseDescriptionTextEdit.Mode = isMyProperty ? UITextEditMode.Editor : UITextEditMode.ReadOnly;
 
             HouseDescriptionSlider.Visible =
                 HouseDescriptionTextEdit.Visible =
@@ -457,7 +457,7 @@ namespace FSO.Client.UI.Panels
 
     public class UIRoommateList : UIContainer
     {
-        private List<UIPersonButton> RoommateButtons = new List<UIPersonButton>();
+        List<UIPersonButton> RoommateButtons = new List<UIPersonButton>();
         public UIRoommateList() : base()
         {
         }
@@ -487,13 +487,13 @@ namespace FSO.Client.UI.Panels
 
     public class UILotThumbButton : UIContainer
     {
-        private UIButton RoommateButton;
-        private UIButton VisitorButton;
-        private UIImage Thumbnail;
+        UIButton RoommateButton;
+        UIButton VisitorButton;
+        UIImage Thumbnail;
         public ButtonClickDelegate OnLotClick;
         public uint CurrentLotThumb;
 
-        private UILotRelationship _Mode;
+        UILotRelationship _Mode;
 
         public UILotThumbButton()
         {

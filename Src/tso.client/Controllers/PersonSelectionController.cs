@@ -17,10 +17,10 @@ namespace FSO.Client.Controllers
 {
     public class PersonSelectionController
     {
-        private PersonSelection View;
-        private LoginRegulator Regulator;
-        private IShardsDomain Shards;
-        private ICache Cache;
+        PersonSelection View;
+        LoginRegulator Regulator;
+        IShardsDomain Shards;
+        ICache Cache;
 
         public PersonSelectionController(PersonSelection view, LoginRegulator regulator, IShardsDomain shards, ICache cache)
         {

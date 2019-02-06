@@ -11,10 +11,10 @@ namespace FSO.Client.UI.Panels
 {
     public class UIWebDownloaderDialog : UILoginProgress
     {
-        private WebClient DownloadClient;
-        private DownloadItem[] Items;
-        private int CurrentItem;
-        private DownloadItem ItemMeta;
+        WebClient DownloadClient;
+        DownloadItem[] Items;
+        int CurrentItem;
+        DownloadItem ItemMeta;
 
         public event Callback<bool> OnComplete;
 
@@ -30,7 +30,7 @@ namespace FSO.Client.UI.Panels
             AdvanceDownloader();
         }
 
-        private void DownloadClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        void DownloadClient_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             GameThread.NextUpdate(x =>
             {
@@ -45,7 +45,7 @@ namespace FSO.Client.UI.Panels
             });
         }
 
-        private void DownloadClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        void DownloadClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
         {
             if (e.Error != null || e.Cancelled)
             {

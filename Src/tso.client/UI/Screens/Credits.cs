@@ -25,8 +25,8 @@ namespace FSO.Client.UI.Screens
         {
             var ui = this.RenderScript("credits.uis");
 
-            this.X = (float)((double)(ScreenWidth - 800)) / 2;
-            this.Y = (float)((double)(ScreenHeight - 600)) / 2;
+            this.X = (float)(double)(ScreenWidth - 800) / 2;
+            this.Y = (float)(double)(ScreenHeight - 600) / 2;
 
             this.AddAt(0, new UIImage(BackgroundImage));
             this.Add(ui.Create<UIImage>("TSOLogoImage"));

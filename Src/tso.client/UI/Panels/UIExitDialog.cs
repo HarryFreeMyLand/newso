@@ -33,17 +33,17 @@ namespace FSO.Client.UI.Panels
             ReLoginButton.OnButtonClick += new ButtonClickDelegate(ReLoginButton_OnButtonClick);
         }
 
-        private void ExitButton_OnButtonClick(UIElement button)
+        void ExitButton_OnButtonClick(UIElement button)
         {
             GameFacade.Kill();
         }
 
-        private void CancelButton_OnButtonClick(UIElement button)
+        void CancelButton_OnButtonClick(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }
 
-        private void ReLoginButton_OnButtonClick(UIElement button)
+        void ReLoginButton_OnButtonClick(UIElement button)
         {
             FSOFacade.Controller.Disconnect(true);
         }

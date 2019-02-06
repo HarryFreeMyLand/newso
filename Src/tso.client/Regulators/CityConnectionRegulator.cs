@@ -29,12 +29,12 @@ namespace FSO.Client.Regulators
         public AriesClient Client { get; internal set; }
         public CityConnectionMode Mode { get; internal set; } = CityConnectionMode.NORMAL;
 
-        private CityClient CityApi;
-        private ShardSelectorServletResponse ShardSelectResponse;
+        CityClient CityApi;
+        ShardSelectorServletResponse ShardSelectResponse;
         public ShardSelectorServletRequest CurrentShard;
-        private IDatabaseService DB;
-        private IClientDataService DataService;
-        private IShardsDomain Shards;
+        IDatabaseService DB;
+        IClientDataService DataService;
+        IShardsDomain Shards;
 
         public CityConnectionRegulator(CityClient cityApi, [Named("City")] AriesClient cityClient, IDatabaseService db, IClientDataService ds, IKernel kernel, IShardsDomain shards)
         {

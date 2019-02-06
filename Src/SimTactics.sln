@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Client", "tso.client\FSO.Client.csproj", "{635E68FA-3905-4943-B4F5-D463A8C02E87}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Core", "tso.client\FSO.Core.csproj", "{635E68FA-3905-4943-B4F5-D463A8C02E87}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Common", "tso.common\FSO.Common.csproj", "{C42962A1-8796-4F47-9DCD-79ED5904D8CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Content", "tso.content\FSO.Content.csproj", "{C0068DF7-F2E8-4399-846D-556BF9A35C00}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Debug", "tso.debug\FSO.Debug.csproj", "{43FBD6A2-4C4D-479C-A1A8-ED4CB591BDE4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Diagnostics", "tso.debug\FSO.Diagnostics.csproj", "{43FBD6A2-4C4D-479C-A1A8-ED4CB591BDE4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSO.Files", "tso.files\FSO.Files.csproj", "{18583453-A970-4AC5-83B1-2D6BFDF94C24}"
 EndProject

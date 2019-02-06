@@ -30,7 +30,7 @@ using FSO.SimAntics.NetPlay.EODs;
 using FSO.SimAntics.NetPlay.Drivers;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Marshals.Hollow;
-using FSO.SimAntics.Engine.Debugger;
+using FSO.SimAntics.Engine.Diagnostics;
 using FSO.Common;
 using FSO.SimAntics.Primitives;
 using FSO.LotView.Model;

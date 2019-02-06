@@ -22,9 +22,9 @@ namespace FSO.Client.Rendering.City
     public class CityCamera3D : BasicCamera, ICityCamera, I3DRotate, ITouchable
     {
         public Vector2 CenterTile = new Vector2(184, 328);
-        private Point LastMouse;
-        private bool MouseWasDown;
-        private UILotControlTouchHelper Touch;
+        Point LastMouse;
+        bool MouseWasDown;
+        UILotControlTouchHelper Touch;
 
         public float LotZoomProgress
         {
@@ -66,7 +66,7 @@ namespace FSO.Client.Rendering.City
             }
         }
 
-        private TerrainZoomMode _Zoomed;
+        TerrainZoomMode _Zoomed;
         public TerrainZoomMode Zoomed
         {
             get
@@ -123,8 +123,8 @@ namespace FSO.Client.Rendering.City
             return 1f;
         }
 
-        private float TargRX;
-        private float TargRY;
+        float TargRX;
+        float TargRY;
         public void InheritPosition(Terrain parent, World lotWorld, CoreGameScreenController controller)
         {
             if (controller != null)
@@ -149,13 +149,13 @@ namespace FSO.Client.Rendering.City
                     parent.LotPosition = new Vector3((float)(x + 1), elev / 12.0f, (float)(y + 0));
 
                     CenterTile += (new Vector2((float)(x + 1) - tile.Y, (float)(y + 0) + tile.X) - CenterTile) * (1f - (float)Math.Pow(0.975f, 60f / FSOEnvironment.RefreshRate));
-                    TargRX = (((WorldStateRC)lotWorld.State).RotationX - (float)Math.PI / 2);
-                    TargRY = (((WorldStateRC)lotWorld.State).RotationY);
+                    TargRX = ((WorldStateRC)lotWorld.State).RotationX - (float)Math.PI / 2;
+                    TargRY = ((WorldStateRC)lotWorld.State).RotationY;
 
                     if (LotZoomProgress == 0)
                     {
                         ((WorldStateRC)lotWorld.State).RotationX = RotationX + (float)Math.PI / 2;
-                        (((WorldStateRC)lotWorld.State).RotationY) = (RotationY - 1.10f) / (1.10f / (float)(Math.PI / 2));
+                        ((WorldStateRC)lotWorld.State).RotationY = (RotationY - 1.10f) / (1.10f / (float)(Math.PI / 2));
                     }
                     else if (LotZoomProgress != 1)
                     {
@@ -191,7 +191,7 @@ namespace FSO.Client.Rendering.City
         public Vector2[] GetScrollBasis(bool multiplied)
         {
             var mat = Matrix.CreateRotationZ(-RotationX);
-            var z = multiplied ? ((0.25f + Zoom3D)) : 1;
+            var z = multiplied ? (0.25f + Zoom3D) : 1;
             return new Vector2[] {
                 Vector2.Transform(new Vector2(0, -1), mat) * z,
                 Vector2.Transform(new Vector2(1, 0), mat) * z
@@ -202,12 +202,12 @@ namespace FSO.Client.Rendering.City
         public bool UserModZoom { get; set; }
         public int? LastWheelPos;
 
-        private bool RMBScroll;
-        private int RMBScrollX;
-        private int RMBScrollY;
-        private bool LastFP;
-        private Vector3 FPCamVelocity;
-        private Terrain Parent;
+        bool RMBScroll;
+        int RMBScrollX;
+        int RMBScrollY;
+        bool LastFP;
+        Vector3 FPCamVelocity;
+        Terrain Parent;
 
         public void Update(UpdateState state, Terrain city)
         {
@@ -218,7 +218,7 @@ namespace FSO.Client.Rendering.City
             if (TargetZoom > 2.3f)
             {
                 //to lot view
-                var screen = (GameFacade.Screens.CurrentUIScreen as UI.Screens.CoreGameScreen);
+                var screen = GameFacade.Screens.CurrentUIScreen as UI.Screens.CoreGameScreen;
                 if (screen.vm != null && screen.vm.Ready && screen.WorldLoaded)
                 {
                     var controller = screen.FindController<CoreGameScreenController>();
@@ -235,7 +235,7 @@ namespace FSO.Client.Rendering.City
                 }
             }
             if (TargetZoom > 2f && inCity) TargetZoom -= (TargetZoom - 2f) * (1f - (float)Math.Pow(0.975f, 60f / FSOEnvironment.RefreshRate));
-            Zoom3D += ((12f - (TargetZoom - 0.25f) * 6.8571428571428571428571428571429f) - Zoom3D) / 10;
+            Zoom3D += (12f - (TargetZoom - 0.25f) * 6.8571428571428571428571428571429f - Zoom3D) / 10;
 
             /*
              * replaced by touch helper
@@ -288,7 +288,7 @@ namespace FSO.Client.Rendering.City
                     scrollBy = new Vector2(state.MouseState.X - RMBScrollX, state.MouseState.Y - RMBScrollY);
                     scrollBy *= 0.0005f;
 
-                    var angle = (Math.Atan2(state.MouseState.X - RMBScrollX, (RMBScrollY - state.MouseState.Y) * 2) / Math.PI) * 4;
+                    var angle = Math.Atan2(state.MouseState.X - RMBScrollX, (RMBScrollY - state.MouseState.Y) * 2) / Math.PI * 4;
                     angle += 8;
                     angle %= 8;
 
@@ -313,7 +313,7 @@ namespace FSO.Client.Rendering.City
 
             float terrainHeight = 0;
 
-            terrainHeight = (city.InterpElevationAt(CenterTile));
+            terrainHeight = city.InterpElevationAt(CenterTile);
             var targHeight = terrainHeight;
             targHeight = Math.Max(city.InterpElevationAt(new Vector2(Position.X, Position.Z)), terrainHeight);
             CamHeight += (targHeight - CamHeight) * (1f - (float)Math.Pow(0.8f, 60f / FSOEnvironment.RefreshRate));
@@ -342,7 +342,7 @@ namespace FSO.Client.Rendering.City
                     }
                     Mouse.SetPosition(mx, my);
 
-                    var speed = (state.KeyboardState.IsKeyDown(Keys.LeftShift)) ? 1.5f : 0.5f;
+                    var speed = state.KeyboardState.IsKeyDown(Keys.LeftShift) ? 1.5f : 0.5f;
                     speed *= 1+FPCamHeight/10f;
 
                     if (state.KeyboardState.IsKeyDown(Keys.W))
@@ -365,7 +365,7 @@ namespace FSO.Client.Rendering.City
                 }
                 
                 Scroll(new Vector2(FPCamVelocity.X / FSOEnvironment.RefreshRate, FPCamVelocity.Z / FSOEnvironment.RefreshRate), false);
-                FPCamHeight = Math.Min(600, Math.Max((terrainHeight - CamHeight) - 0.25f, FPCamHeight + (FPCamVelocity.Y * 3) / FSOEnvironment.RefreshRate));
+                FPCamHeight = Math.Min(600, Math.Max(terrainHeight - CamHeight - 0.25f, FPCamHeight + FPCamVelocity.Y * 3 / FSOEnvironment.RefreshRate));
                 for (int i = 0; i < FSOEnvironment.RefreshRate / 60; i++)
                     FPCamVelocity *= 0.9f;
 
@@ -437,9 +437,9 @@ namespace FSO.Client.Rendering.City
             CenterTile = new Vector2(trans.X - trans.Y, trans.X + trans.Y);
         }
 
-        private float _RotationX = -(float)(Math.PI*3 / 4);
-        private float _RotationY = 0f;
-        private float _Zoom3D = 3.7f;
+        float _RotationX = -(float)(Math.PI*3 / 4);
+        float _RotationY = 0f;
+        float _Zoom3D = 3.7f;
 
         public float RotationX
         {
@@ -459,7 +459,7 @@ namespace FSO.Client.Rendering.City
             set { value = Math.Min(100, Math.Max(0, value)); _Zoom3D = value; InvalidateCamera(); }
         }
 
-        private float _CamHeight;
+        float _CamHeight;
         public float CamHeight
         {
             get
@@ -473,10 +473,10 @@ namespace FSO.Client.Rendering.City
         }
 
         public float FPCamHeight;
-        private float SavedYRot;
+        float SavedYRot;
 
-        private bool _CameraMode;
-        private bool _SwitchingMode;
+        bool _CameraMode;
+        bool _SwitchingMode;
         public bool CameraMode
         {
             get

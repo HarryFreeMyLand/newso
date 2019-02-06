@@ -19,7 +19,7 @@ namespace FSO.Client.Rendering.City
         public Color[] TerrainTypeColorData;
         public byte[] TerrainType;
 
-        private Dictionary<Color, byte> TerrainTypeMap = new Dictionary<Color, byte>()
+        Dictionary<Color, byte> TerrainTypeMap = new Dictionary<Color, byte>()
         {
             { new Color(0, 255, 0), 0 },     //grass
             {new Color(12, 0, 255), 4 },    //water
@@ -84,7 +84,7 @@ namespace FSO.Client.Rendering.City
         }
 
 
-        private Tuple<int, int> InBounds(int x, int y)
+        Tuple<int, int> InBounds(int x, int y)
         {
             int xStart, xEnd;
             if (y < 306)

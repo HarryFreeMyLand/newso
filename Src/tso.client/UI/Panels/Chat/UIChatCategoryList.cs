@@ -37,7 +37,7 @@ namespace FSO.Client.UI.Panels.Chat
         {
             base.Update(state);
             var dirty = false;
-            var owner = ((Dialog.Owner.ActiveEntity as VMAvatar)?.AvatarState?.Permissions ?? VMTSOAvatarPermissions.Visitor);
+            var owner = (Dialog.Owner.ActiveEntity as VMAvatar)?.AvatarState?.Permissions ?? VMTSOAvatarPermissions.Visitor;
 
             if (owner != LastPerm) dirty = true;
             if (!dirty && Dialog.Owner.vm.Ready)
@@ -65,7 +65,7 @@ namespace FSO.Client.UI.Panels.Chat
             foreach (var child in childCopy)
                 Remove(child);
             var channels = new List<VMTSOChatChannel>();
-            var perm = ((Dialog.Owner.ActiveEntity as VMAvatar)?.AvatarState?.Permissions ?? VMTSOAvatarPermissions.Visitor);
+            var perm = (Dialog.Owner.ActiveEntity as VMAvatar)?.AvatarState?.Permissions ?? VMTSOAvatarPermissions.Visitor;
 
             var ui = Content.GameContent.Get.CustomUI;
             var btnTex = ui.Get("chat_cat.png").Get(GameFacade.GraphicsDevice);
@@ -95,7 +95,7 @@ namespace FSO.Client.UI.Panels.Chat
                 var btn = new UIButton(btnTex);
                 if (!EditMode)
                 {
-                    btn.Selected = (channel.ID == active);
+                    btn.Selected = channel.ID == active;
                     if ((Dialog.ShowChannels & (1 << channel.ID)) == 0) btn.ForceState = 3;
                 }
                 if (EditMode && channel.ID == 0)
@@ -105,7 +105,7 @@ namespace FSO.Client.UI.Panels.Chat
                 }
                 else
                 {
-                    btn.Tooltip = (EditMode) ? GameFacade.Strings.GetString("f113", "19") : channel.Description;
+                    btn.Tooltip = EditMode ? GameFacade.Strings.GetString("f113", "19") : channel.Description;
                 }
 
                 btn.Caption = channel.Name;
@@ -168,19 +168,19 @@ namespace FSO.Client.UI.Panels.Chat
             Invalidate();
         }
 
-        private void EditButton(UIElement button)
+        void EditButton(UIElement button)
         {
             EditMode = true;
             Populate();
         }
 
-        private void CancelEditButton(UIElement button)
+        void CancelEditButton(UIElement button)
         {
             EditMode = false;
             Populate();
         }
 
-        private void NewButton(UIElement button)
+        void NewButton(UIElement button)
         {
             //make a new chat channel with a free id
             var channels = Dialog.Owner.vm.TSOState.ChatChannels;
@@ -189,7 +189,7 @@ namespace FSO.Client.UI.Panels.Chat
             int i = 0;
             foreach (var chan in channels.OrderBy(x => x.ID))
             {
-                if (freeID + 1 + (i++) < chan.ID)
+                if (freeID + 1 + i++ < chan.ID)
                 {
                     freeID = chan.ID;
                     break;
@@ -212,7 +212,7 @@ namespace FSO.Client.UI.Panels.Chat
             };
         }
 
-        private void ChannelSelect(VMTSOChatChannel chan)
+        void ChannelSelect(VMTSOChatChannel chan)
         {
             if (EditMode)
             {
@@ -241,7 +241,7 @@ namespace FSO.Client.UI.Panels.Chat
                 if (chan.ID == active)
                 {
                     //they're toggling this chat to invisible
-                    Dialog.ShowChannels &= (byte)(~(1<<chan.ID));
+                    Dialog.ShowChannels &= (byte)~(1<<chan.ID);
                     if (Dialog.ShowChannels != 0)
                     {
                         for (int i=0; i<5; i++)

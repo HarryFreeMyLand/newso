@@ -1,4 +1,4 @@
-﻿using FSO.Common.Utils;
+using FSO.Common.Utils;
 using FSO.Files.RC;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -37,11 +37,11 @@ namespace FSO.Client.Rendering.City
         public CityFoliage()
         {
             TreeVerts = new DGRP3DVert[18][];
-            TreeInds = new int[18][]; 
-            for (int i=0; i<18; i++)
+            TreeInds = new int[18][];
+            for (int i = 0; i < 18; i++)
             {
-                var snow = (i >= 15);
-                var model = LoadModel(TreeGroups[(snow)?(4):(i / 4)] + (snow?(i-14):((i % 4) + 1)) + ".obj");
+                var snow = i >= 15;
+                var model = LoadModel(TreeGroups[snow ? 4 : (i / 4)] + (snow ? (i - 14) : ((i % 4) + 1)) + ".obj");
                 //var tree = Content.Content.Get().RCMeshes.Get(TreeGroups[i/4]+((i%4)+1)+".fsom");
 
                 //var geom = tree.Geoms[0].ElementAt(0).Value;
@@ -54,7 +54,7 @@ namespace FSO.Client.Rendering.City
         public Tuple<DGRP3DVert[], int[]> LoadModel(string model)
         {
             OBJ obj;
-            using (var str = File.Open("Content/3D/" + model, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+            using (var str = File.Open($"Content/3D/{model}", FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {
                 obj = new OBJ(str);
             }
@@ -81,16 +81,18 @@ namespace FSO.Client.Rendering.City
             }
 
             var triBase = new int[outInds.Count / 3][];
-            for (int i = 0; i < triBase.Length; i++) triBase[i] = new int[] { outInds[i * 3], outInds[i * 3 + 1], outInds[i * 3 + 2] };
+            for (int i = 0; i < triBase.Length; i++)
+                triBase[i] = new int[] { outInds[i * 3], outInds[i * 3 + 1], outInds[i * 3 + 2] };
 
             var ordered = triBase.OrderBy(x => outVerts[x[0]].Position.Y + outVerts[x[1]].Position.Y + outVerts[x[2]].Position.Y);
             outInds.Clear();
-            foreach (var item in ordered) outInds.AddRange(item);
+            foreach (var item in ordered)
+                outInds.AddRange(item);
 
             return new Tuple<DGRP3DVert[], int[]>(outVerts.ToArray(), outInds.ToArray());
         }
 
-        private Dictionary<Color, int> ForestTypes = new Dictionary<Color, int>()
+        Dictionary<Color, int> ForestTypes = new Dictionary<Color, int>()
         {
             { new Color(0, 0x6A, 0x28), 0 },   //heavy forest
             { new Color(0, 0xEB, 0x42), 1},   //light forest
@@ -101,9 +103,9 @@ namespace FSO.Client.Rendering.City
 
         public int[] TreeCounts = new int[] { 1, 4, 7, 15 };
 
-        private int O(int x, int y)
+        int O(int x, int y)
         {
-            return (Math.Max(0, Math.Min(511, y)) * 512 + Math.Max(0, Math.Min(511, x)));
+            return Math.Max(0, Math.Min(511, y)) * 512 + Math.Max(0, Math.Min(511, x));
         }
 
         public void Draw(Terrain terrain, GraphicsDevice gd, CityContent content, Effect VertexShader, Effect PixelShader, int passIndex, int size, BoundingFrustum frustrum)
@@ -129,8 +131,8 @@ namespace FSO.Client.Rendering.City
 
             gd.RasterizerState = RasterizerState.CullNone;
             gd.BlendState = BlendState.NonPremultiplied;
-            var genScale = 1/((terrain.Camera.LotSquish - 1)/2 + 1);
-            VertexShader.Parameters["ObjModel"].SetValue(Matrix.CreateScale(genScale, genScale*terrain.Camera.LotSquish, genScale));
+            var genScale = 1 / ((terrain.Camera.LotSquish - 1) / 2 + 1);
+            VertexShader.Parameters["ObjModel"].SetValue(Matrix.CreateScale(genScale, genScale * terrain.Camera.LotSquish, genScale));
             VertexShader.Parameters["DepthBias"].SetValue(-0.12f * terrain.Camera.DepthBiasScale);
             VertexShader.Parameters["HeightVScale"].SetValue(1f);// 1f / terrain.Camera.LotSquish);
 
@@ -144,15 +146,16 @@ namespace FSO.Client.Rendering.City
             VertexShader.CurrentTechnique = VertexShader.Techniques[1];
             VertexShader.CurrentTechnique.Passes[5].Apply();
 
-            var copy = new HashSet<int>(terrain.LotTileLookup.Keys.Select(i => (int)i.Y*512+(int)i.X));
+            var copy = new HashSet<int>(terrain.LotTileLookup.Keys.Select(i => (int)i.Y * 512 + (int)i.X));
 
-            for (int y = Math.Max(0, cy-size); y<= Math.Min(31, cy + size); y++)
+            for (int y = Math.Max(0, cy - size); y <= Math.Min(31, cy + size); y++)
             {
-                for (int x = Math.Max(0, cx - size); x<= Math.Min(31, cx + size); x++)
+                for (int x = Math.Max(0, cx - size); x <= Math.Min(31, cx + size); x++)
                 {
                     var ind = y * 32 + x;
                     CityFoliageChunk chunk;
-                    if (!Chunks.TryGetValue(ind, out chunk)) {
+                    if (!Chunks.TryGetValue(ind, out chunk))
+                    {
                         chunk = GenerateChunk(gd, x, y, copy);
                         Chunks.Add(chunk.Ind, chunk);
                     }
@@ -200,9 +203,11 @@ namespace FSO.Client.Rendering.City
                         var forestType = ForestTypes[MapData.ForestTypeData[ind]];
                         if (forestType != -1 && !noTrees.Contains(ind))
                         {
-                            if (forestType == 0 && MapData.TerrainType[ind] == 3) forestType = 4;
-                            var densityN = ((MapData.ForestDensityData[ind] * 4) / 255);
-                            if (densityN == 0) continue;
+                            if (forestType == 0 && MapData.TerrainType[ind] == 3)
+                                forestType = 4;
+                            var densityN = MapData.ForestDensityData[ind] * 4 / 255;
+                            if (densityN == 0)
+                                continue;
                             var density = TreeCounts[densityN - 1];
                             var rand = new Random(ind);
 
@@ -261,7 +266,8 @@ namespace FSO.Client.Rendering.City
                                     verts.Add(vCopy);
                                 }
 
-                                foreach (var tind in TreeInds[model]) inds.Add(tind + baseV);
+                                foreach (var tind in TreeInds[model])
+                                    inds.Add(tind + baseV);
                             }
                         }
                     }

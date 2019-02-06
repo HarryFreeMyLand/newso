@@ -18,21 +18,21 @@ namespace FSO.Client.UI.Panels.EODs
     public class UISlotsEOD : UIEOD
     {
         public UIScript Script;
-        private UIManageEODObjectPanel OwnerPanel;
-        private bool IsManaging;
-        private byte MachineOdds { get; set; }
-        private int EachBet;
-        private int CurrentBet;
-        private int DisplayedBet;
-        private int MachineBalance;
-        private int WheelSpinTickCounter = 0;
-        private int MachineMinimumBalance;
-        private int MachineMaximumBalance;
-        private WheelStopsList WheelListOne;
-        private WheelStopsList WheelListTwo;
-        private WheelStopsList WheelListThree;
-        private UILabel ActivePayoutTable;
-        private Texture2D ActiveWheelTexture;
+        UIManageEODObjectPanel OwnerPanel;
+        bool IsManaging;
+        byte MachineOdds { get; set; }
+        int EachBet;
+        int CurrentBet;
+        int DisplayedBet;
+        int MachineBalance;
+        int WheelSpinTickCounter = 0;
+        int MachineMinimumBalance;
+        int MachineMaximumBalance;
+        WheelStopsList WheelListOne;
+        WheelStopsList WheelListTwo;
+        WheelStopsList WheelListThree;
+        UILabel ActivePayoutTable;
+        Texture2D ActiveWheelTexture;
 
         /*
          * Owner UI Elements (deprecated)
@@ -86,8 +86,8 @@ namespace FSO.Client.UI.Panels.EODs
         public UILabel PayoutTable1 { get; set; }
         public UILabel PayoutTable2 { get; set; }
         public UILabel PayoutTable3 { get; set; }
-        private UILabel PayoutTable4;
-        private UILabel PayoutTable5;
+        UILabel PayoutTable4;
+        UILabel PayoutTable5;
         public UITextEdit BetText { get; set; }
         public UITextEdit PayoutText1 { get; set; }
         public UITextEdit PayoutText2 { get; set; }
@@ -103,16 +103,16 @@ namespace FSO.Client.UI.Panels.EODs
         public Texture2D Wheel1Image { get; set; }
         public Texture2D Wheel2Image { get; set; }
         public Texture2D Wheel3Image { get; set; }
-        private Texture2D Wheel4Image;
-        private Texture2D Wheel5Image = GetTexture(0x00000C9C00000001);
+        Texture2D Wheel4Image;
+        Texture2D Wheel5Image = GetTexture(0x00000C9C00000001);
         public Texture2D MoneyChipsImage { get; set; }
         public Texture2D LightsFrame1Image { get; set; }
         public Texture2D LightsFrame2Image { get; set; }
         public Texture2D Wheel1LegendImage { get; set; }
         public Texture2D Wheel2LegendImage { get; set; }
         public Texture2D Wheel3LegendImage { get; set; }
-        private Texture2D Wheel4LegendImage;
-        private Texture2D Wheel5LegendImage = GetTexture(0x00000CA700000001);
+        Texture2D Wheel4LegendImage;
+        Texture2D Wheel5LegendImage = GetTexture(0x00000CA700000001);
 
         // texutre constants including positions of each slot stop in the texture file
         public const int WHEEL_TEXTURE_WIDTH_AND_HEIGHT = 58;
@@ -121,9 +121,9 @@ namespace FSO.Client.UI.Panels.EODs
         public const int WHEEL_FRAME_CONSTANT = 5;
 
         // timers for animations
-        private Timer OfflineMessageTimer;
-        private Timer LightsTimer;
-        private Timer WheelsSpinTimer;
+        Timer OfflineMessageTimer;
+        Timer LightsTimer;
+        Timer WheelsSpinTimer;
 
         public UISlotsEOD(UIEODController controller) : base(controller)
         {
@@ -260,7 +260,7 @@ namespace FSO.Client.UI.Panels.EODs
             CloseInteraction();
             base.OnClose();
         }
-        private void PlayerInitHandler(string evt, byte[] args)
+        void PlayerInitHandler(string evt, byte[] args)
         {
             Controller.ShowEODMode(new EODLiveModeOpt
             {
@@ -448,7 +448,7 @@ namespace FSO.Client.UI.Panels.EODs
             WheelsSpinTimer.Elapsed += new ElapsedEventHandler(AnimateWheelsHandler);
         }
 
-        private void OwnerInitHandler(string evt, string paybackBalanceTypeIsOn)
+        void OwnerInitHandler(string evt, string paybackBalanceTypeIsOn)
         {
             IsManaging = true;
 
@@ -555,36 +555,36 @@ namespace FSO.Client.UI.Panels.EODs
 
             SetTip(GameFacade.Strings["UIText", "259", "24"]); // "Slot Machine Management"
         }
-        private void SendByteMessage(EODMessageNode node)
+        void SendByteMessage(EODMessageNode node)
         {
             Send("slots_" + node.EventName, node.EventByteData);
         }
-        private void SendStringMessage(EODMessageNode node)
+        void SendStringMessage(EODMessageNode node)
         {
             Send("slots_" + node.EventName, node.EventStringData);
         }
-        private void ResumeManageHandler(string evt, string message)
+        void ResumeManageHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromMachineBalance(evt, message);
             }
         }
-        private void DepositFailHandler(string evt, string message)
+        void DepositFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.DepositFailHandler(evt, message);
             }
         }
-        private void InputFailHandler(string evt, string message)
+        void InputFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.InputFailHandler(evt.Remove(0,6), message); // truncate "slots_"
             }
         }
-        private void NewGameHandler(string evt, string message)
+        void NewGameHandler(string evt, string message)
         {
             if (!IsManaging)
             {
@@ -600,7 +600,7 @@ namespace FSO.Client.UI.Panels.EODs
                 SetTip(GameFacade.Strings["UIText", "259", "18"]); // "Bet a coin and click Spin to play"
             }
         }
-        private void BetIncreaseButtonPressedHandler(UIElement targetButton)
+        void BetIncreaseButtonPressedHandler(UIElement targetButton)
         {
             RemovePlayerListeners();
             if (CurrentBet == 5)
@@ -614,7 +614,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             AddPlayerListeners();
         }
-        private void BetDecreaseButtonPressedHandler(UIElement targetButton)
+        void BetDecreaseButtonPressedHandler(UIElement targetButton)
         {
             RemovePlayerListeners();
             if (CurrentBet == 1)
@@ -628,12 +628,12 @@ namespace FSO.Client.UI.Panels.EODs
             }
             AddPlayerListeners();
         }
-        private void SpinButtonPressedHandler(UIElement targetButton)
+        void SpinButtonPressedHandler(UIElement targetButton)
         {
             RemovePlayerListeners();
             Send("slots_execute_bet", "" + DisplayedBet);
         }
-        private void SlotsSpinHandler(string evt, Byte[] TargetStops)
+        void SlotsSpinHandler(string evt, Byte[] TargetStops)
         {
             LightsTimer.Interval = 500;
 
@@ -644,12 +644,12 @@ namespace FSO.Client.UI.Panels.EODs
             WheelListThree.TargetStop = (VMEODSlotsStops)Enum.ToObject(typeof(VMEODSlotsStops), TargetStops[2]);
             WheelsSpinTimer.Start();
         }
-        private void DisplayLossHandler(string evt, string stringNumber)
+        void DisplayLossHandler(string evt, string stringNumber)
         {
             LightsTimer.Interval = 666 + (2 / 3);
             SetTip(GameFacade.Strings["UIText", "259", stringNumber]); // losing strings 30-34
         }
-        private void DisplayWinHandler(string evt, string stringNumber)
+        void DisplayWinHandler(string evt, string stringNumber)
         {
             LightsTimer.Interval = 100;
             if (stringNumber != null)
@@ -659,7 +659,7 @@ namespace FSO.Client.UI.Panels.EODs
                     SetTip(GameFacade.Strings["UIText", "259", data[0]].Replace("%i", data[1])); // winning strings 25-29
             }
         }
-        private void AnimateWheelsHandler(object source, ElapsedEventArgs args)
+        void AnimateWheelsHandler(object source, ElapsedEventArgs args)
         {
             WheelSpinTickCounter++;
 
@@ -703,7 +703,7 @@ namespace FSO.Client.UI.Panels.EODs
                 DrawWheelStops(WheelListOne.IsSpinFinished, WheelListTwo.IsSpinFinished, WheelListThree.IsSpinFinished);
             }
         }
-        private void CloseMachineHandler(string evt, string msg)
+        void CloseMachineHandler(string evt, string msg)
         {
             if (!IsManaging)
             {
@@ -713,7 +713,7 @@ namespace FSO.Client.UI.Panels.EODs
                 SetTip(GameFacade.Strings["UIText", "259", "22"]); // "Closed for Maintenance"
             }
         }
-        private void LightsHandler(object source, ElapsedEventArgs args)
+        void LightsHandler(object source, ElapsedEventArgs args)
         {
             Parent.Invalidate();
             if (LightsFrame2 == null) { return; }
@@ -722,7 +722,7 @@ namespace FSO.Client.UI.Panels.EODs
             else
                 LightsFrame2.Visible = true;
         }
-        private void OfflineMessageHandler(object source, ElapsedEventArgs args)
+        void OfflineMessageHandler(object source, ElapsedEventArgs args)
         {
             Parent.Invalidate();
             if (!IsManaging)
@@ -733,14 +733,14 @@ namespace FSO.Client.UI.Panels.EODs
                 SetTip(GameFacade.Strings["UIText", "259", "22"]); // "Closed for Maintenance"
             }
         }
-        private void DrawWheelStops(bool wheelOneAlreadyDone, bool wheelTwoAlreadyDone, bool wheelThreeAlreadyDone)
+        void DrawWheelStops(bool wheelOneAlreadyDone, bool wheelTwoAlreadyDone, bool wheelThreeAlreadyDone)
         {
             if (wheelOneAlreadyDone == false)  // do not redraw if wheel hasn't moved
             {
                 Remove(Wheel1);
                 Wheel1 = new UISlotsImage(ActiveWheelTexture).DoubleTextureDraw(0, WheelListOne.Next.MyStartingY +
                     (WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListOne.OffsetY), WHEEL_TEXTURE_WIDTH_AND_HEIGHT, WheelListOne.OffsetY,
-                    0, WheelListOne.Current.MyStartingY, WHEEL_TEXTURE_WIDTH_AND_HEIGHT, (WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListOne.OffsetY),
+                    0, WheelListOne.Current.MyStartingY, WHEEL_TEXTURE_WIDTH_AND_HEIGHT, WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListOne.OffsetY,
                     false, true);
                 Wheel1.X = 167;
                 Wheel1.Y = 265;
@@ -751,7 +751,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Remove(Wheel2);
                 Wheel2 = new UISlotsImage(ActiveWheelTexture).DoubleTextureDraw(0, WheelListTwo.Next.MyStartingY +
                 (WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListTwo.OffsetY), WHEEL_TEXTURE_WIDTH_AND_HEIGHT, WheelListTwo.OffsetY,
-                0, WheelListTwo.Current.MyStartingY, WHEEL_TEXTURE_WIDTH_AND_HEIGHT, (WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListTwo.OffsetY),
+                0, WheelListTwo.Current.MyStartingY, WHEEL_TEXTURE_WIDTH_AND_HEIGHT, WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListTwo.OffsetY,
                 false, true);
                 Wheel2.X = 236;
                 Wheel2.Y = 265;
@@ -762,7 +762,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Remove(Wheel3);
                 Wheel3 = new UISlotsImage(ActiveWheelTexture).DoubleTextureDraw(0, WheelListThree.Next.MyStartingY +
                  (WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListThree.OffsetY), WHEEL_TEXTURE_WIDTH_AND_HEIGHT, WheelListThree.OffsetY,
-                 0, WheelListThree.Current.MyStartingY, WHEEL_TEXTURE_WIDTH_AND_HEIGHT, (WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListThree.OffsetY),
+                 0, WheelListThree.Current.MyStartingY, WHEEL_TEXTURE_WIDTH_AND_HEIGHT, WHEEL_TEXTURE_WIDTH_AND_HEIGHT - WheelListThree.OffsetY,
                  false, true);
                 Wheel3.X = 305;
                 Wheel3.Y = 265;
@@ -772,7 +772,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * @param machineGrade: '0' is $1 slot machine, '1' is $5, '2' is $10
          */
-        private void MachineTypeInit(byte machineGrade)
+        void MachineTypeInit(byte machineGrade)
         {
             // customise wheel textures by machine type
             switch (machineGrade)
@@ -898,19 +898,19 @@ namespace FSO.Client.UI.Panels.EODs
             CurrentBet = 1;
             UpdateBetText();
         }
-        private void UpdateBetText()
+        void UpdateBetText()
         {
             DisplayedBet = CurrentBet * EachBet;
             BetText.CurrentText = "$" + DisplayedBet;
         }
-        private void RemovePlayerListeners()
+        void RemovePlayerListeners()
         {
             ArmButton.OnButtonClick -= SpinButtonPressedHandler;
             SpinButton.OnButtonClick -= SpinButtonPressedHandler;
             SpinnerIncreaseBet.OnButtonClick -= BetIncreaseButtonPressedHandler;
             SpinnerDecreaseBet.OnButtonClick -= BetDecreaseButtonPressedHandler;
         }
-        private void AddPlayerListeners()
+        void AddPlayerListeners()
         {
             ArmButton.OnButtonClick += SpinButtonPressedHandler;
             SpinButton.OnButtonClick += SpinButtonPressedHandler;
@@ -921,7 +921,7 @@ namespace FSO.Client.UI.Panels.EODs
             SpinnerIncreaseBet.Disabled = false;
             SpinnerDecreaseBet.Disabled = false;
         }
-        private void CleanUpHandler(string evt, string nothing)
+        void CleanUpHandler(string evt, string nothing)
         {
             OfflineMessageTimer?.Stop();
             SetTip("");
@@ -940,17 +940,17 @@ namespace FSO.Client.UI.Panels.EODs
         public WheelStopNode Current;
         public WheelStopNode Next;
         public WheelStopNode Previous;
-        private int MyOffsetY = 0;
-        private int CurrentSpeedCounter = 0;
-        private int CurrentSpeed = 0;
-        private int TicksToStop = 36;
-        private int TargetStopsAway = 0;
-        private int DistanceToTarget = -1;
-        private Random RandomLeftover = new Random();
-        private int LeftoverY = 0;
+        int MyOffsetY = 0;
+        int CurrentSpeedCounter = 0;
+        int CurrentSpeed = 0;
+        int TicksToStop = 36;
+        int TargetStopsAway = 0;
+        int DistanceToTarget = -1;
+        Random RandomLeftover = new Random();
+        int LeftoverY = 0;
         public VMEODSlotsStops TargetStop;
         public UISlotsEODSlotWheelStates State;
-        private bool HasStarted;
+        bool HasStarted;
         public bool IsSpinFinished;
 
         public WheelStopsList()
@@ -1063,7 +1063,7 @@ namespace FSO.Client.UI.Panels.EODs
                     }
                 case UISlotsEODSlotWheelStates.Stopping:
                     {
-                        if ((TicksToStop == 0))
+                        if (TicksToStop == 0)
                         {
                             MyOffsetY = LeftoverY = 0;
                             State = UISlotsEODSlotWheelStates.Stopped;
@@ -1071,7 +1071,7 @@ namespace FSO.Client.UI.Panels.EODs
                         }
                         else if (TicksToStop % 2 == 1)
                         {
-                            MyOffsetY = LeftoverY = (LeftoverY / 2);
+                            MyOffsetY = LeftoverY = LeftoverY / 2;
                         }
                         TicksToStop--;
                         break;
@@ -1108,7 +1108,7 @@ namespace FSO.Client.UI.Panels.EODs
                 TargetStopsAway += 12;
             }
             // calculate distance away
-            DistanceToTarget = ((TargetStopsAway * UISlotsEOD.WHEEL_TEXTURE_WIDTH_AND_HEIGHT) - MyOffsetY);
+            DistanceToTarget = (TargetStopsAway * UISlotsEOD.WHEEL_TEXTURE_WIDTH_AND_HEIGHT) - MyOffsetY;
             State = UISlotsEODSlotWheelStates.Slowing;
         }
         public void Reset()

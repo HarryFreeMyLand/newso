@@ -14,8 +14,8 @@ namespace FSO.Client.UI.Panels.EODs
     /// </summary>
     public class UIDebugEOD : UIEOD
     {
-        private UIHBoxContainer Container;
-        private EODLiveModeOpt Options;
+        UIHBoxContainer Container;
+        EODLiveModeOpt Options;
         
 
         public UIDebugEOD(UIEODController controller) : base(controller)
@@ -26,7 +26,7 @@ namespace FSO.Client.UI.Panels.EODs
             SetMode();
         }
 
-        private void InitUI()
+        void InitUI()
         {
             Container = new UIHBoxContainer() {
                 Spacing = 10
@@ -57,7 +57,7 @@ namespace FSO.Client.UI.Panels.EODs
             Container.AutoSize();
         }
 
-        private void SetOption(string group, object value)
+        void SetOption(string group, object value)
         {
             switch (group)
             {
@@ -83,7 +83,7 @@ namespace FSO.Client.UI.Panels.EODs
             SetMode();
         }
 
-        private void AddCheckBox(UIContainer parent, string caption, string groupName)
+        void AddCheckBox(UIContainer parent, string caption, string groupName)
         {
             var formField = new UIHBoxContainer();
             parent.Add(formField);
@@ -104,7 +104,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void AddRadioGroup(string title, string groupName, string[] optionLabels, object[] optionValues)
+        void AddRadioGroup(string title, string groupName, string[] optionLabels, object[] optionValues)
         {
             var vbox = new UIVBoxContainer();
             vbox.Add(new UILabel(){
@@ -134,13 +134,13 @@ namespace FSO.Client.UI.Panels.EODs
             Container.Add(vbox);
         }
 
-        private void Radio_OnButtonClick(UIElement button)
+        void Radio_OnButtonClick(UIElement button)
         {
             var radio = (UIRadioButton)button;
             SetOption(radio.RadioGroup, radio.RadioData);
         }
 
-        private void SetMode()
+        void SetMode()
         {
             Controller.ShowEODMode(new EODLiveModeOpt {
                 Buttons = Options.Buttons,

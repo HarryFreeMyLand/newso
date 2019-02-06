@@ -25,7 +25,7 @@ namespace FSO.Client.UI.Panels
     {
         public List<UIMessageGroup> MessageWindows;
         public List<EmailStore> PendingEmails;
-        private bool soundAlt = true;
+        bool soundAlt = true;
 
         /// <summary>
         /// Fired when an IM UIMessage element sends a message. Should be wired up to the server. 
@@ -119,7 +119,7 @@ namespace FSO.Client.UI.Panels
         /// <summary>
         /// Get the first message group with the specified recipient name and type.
         /// </summary>
-        private UIMessageGroup GetMessageGroup(string name, UIMessageType type)
+        UIMessageGroup GetMessageGroup(string name, UIMessageType type)
         {
             for (int i = 0; i < MessageWindows.Count; i++)
             {

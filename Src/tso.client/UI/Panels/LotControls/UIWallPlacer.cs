@@ -32,21 +32,21 @@ namespace FSO.Client.UI.Panels.LotControls
         World World;
         UILotControl Parent;
 
-        private bool Drawing;
-        private Point StartPosition;
-        private int DrawDir;
-        private int DrawLength;
-        private Point EndPosition;
+        bool Drawing;
+        Point StartPosition;
+        int DrawDir;
+        int DrawLength;
+        Point EndPosition;
 
-        private ushort DrawPattern;
-        private ushort DrawStyle;
-        private ushort Pattern;
-        private ushort Style;
+        ushort DrawPattern;
+        ushort DrawStyle;
+        ushort Pattern;
+        ushort Style;
 
-        private VMArchitectureCommand LastCmd;
-        private bool WasDown;
+        VMArchitectureCommand LastCmd;
+        bool WasDown;
 
-        private Point[] DirUnits =
+        Point[] DirUnits =
         {
             new Point(1, 0),
             new Point(1, 1),
@@ -132,7 +132,7 @@ namespace FSO.Client.UI.Panels.LotControls
                 else
                 {
                     if (DrawLength > 0) cmds.Add(new VMArchitectureCommand {
-                        Type = (state.CtrlDown) ?
+                        Type = state.CtrlDown ?
                             VMArchitectureCommandType.WALL_DELETE:VMArchitectureCommandType.WALL_LINE,
                         level = World.State.Level, pattern = Pattern, style = Style, x = StartPosition.X, y = StartPosition.Y, x2 = DrawLength, y2 = DrawDir });
                 }
@@ -179,7 +179,7 @@ namespace FSO.Client.UI.Panels.LotControls
                 else
                 {
                     cursor = StartPosition + new Point(DirUnits[DrawDir].X * DrawLength, DirUnits[DrawDir].Y * DrawLength);
-                    cmds.Add(new VMArchitectureCommand { Type = (state.CtrlDown) ?
+                    cmds.Add(new VMArchitectureCommand { Type = state.CtrlDown ?
                             VMArchitectureCommandType.WALL_DELETE : VMArchitectureCommandType.WALL_LINE,
                         level = World.State.Level, pattern = DrawPattern, style = DrawStyle, x = StartPosition.X, y = StartPosition.Y, x2 = DrawLength, y2 = DrawDir });
                 }

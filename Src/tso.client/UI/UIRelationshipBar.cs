@@ -24,8 +24,8 @@ namespace FSO.Client.UI
 
         public int Value = 50;
 
-        private int m_Width;
-        private int m_Height;
+        int m_Width;
+        int m_Height;
 
         public float Width
         {
@@ -88,7 +88,7 @@ namespace FSO.Client.UI
             DrawLocalTexture(batch, ctr, null, new Vector2(8, 0), new Vector2(m_Width-15, 1));
             DrawLocalTexture(batch, right, new Vector2(m_Width-7, 0));
 
-            var interpWidth = (((m_Width - 16) * Math.Abs(Value)) / 100) + 16;
+            var interpWidth = ((m_Width - 16) * Math.Abs(Value) / 100) + 16;
 
             DrawLocalTexture(batch, bar, new Rectangle(0, 0, 8, 15), new Vector2());
             DrawLocalTexture(batch, bar, new Rectangle(8, 0, 1, 15), new Vector2(8,0), new Vector2(interpWidth - 15, 1));

@@ -13,11 +13,11 @@ namespace FSO.Client.Controllers.Panels
 {
     public class LotAdmitController
     {
-        private Network.Network Network;
-        private IClientDataService DataService;
-        private UIAdmitBanPanel View;
-        private Binding<Lot> Binding;
-        private bool ShowBans;
+        Network.Network Network;
+        IClientDataService DataService;
+        UIAdmitBanPanel View;
+        Binding<Lot> Binding;
+        bool ShowBans;
 
         public LotAdmitController(UIAdmitBanPanel view, IClientDataService dataService, Network.Network network)
         {
@@ -29,7 +29,7 @@ namespace FSO.Client.Controllers.Panels
             Init();
         }
 
-        private void Init()
+        void Init()
         {
             DataService.Request(MaskedStruct.AdmitInfo_Lot, View.LotID).ContinueWith(x =>
             {

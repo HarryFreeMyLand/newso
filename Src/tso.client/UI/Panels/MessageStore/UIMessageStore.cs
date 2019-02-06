@@ -15,7 +15,7 @@ namespace FSO.Client.UI.Panels.MessageStore
         public List<MessageItem> Items;
         public long LastMessageTime;
 
-        private static UIMessageStore _store;
+        static UIMessageStore _store;
         public static UIMessageStore Store
         {
             get

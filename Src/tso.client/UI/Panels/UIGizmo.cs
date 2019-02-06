@@ -95,17 +95,17 @@ namespace FSO.Client.UI.Panels
         public UILabel NoSearchResultsText { get; set; }
         public UIListBoxTextStyle ListBoxColors { get; set; }
 
-        private UIImage Background;
-        private UIGizmoTab _Tab = UIGizmoTab.Property;
+        UIImage Background;
+        UIGizmoTab _Tab = UIGizmoTab.Property;
 
-        private bool PendingSimSearch;
-        private bool PendingLotSearch;
+        bool PendingSimSearch;
+        bool PendingLotSearch;
 
-        private string SimQuery = "";
-        private string LotQuery = "";
+        string SimQuery = "";
+        string LotQuery = "";
 
-        private List<GizmoAvatarSearchResult> SimResults;
-        private List<GizmoLotSearchResult> LotResults;
+        List<GizmoAvatarSearchResult> SimResults;
+        List<GizmoLotSearchResult> LotResults;
 
         public UIGizmoSearch(UIScript script, UIGizmo parent)
         {
@@ -127,7 +127,7 @@ namespace FSO.Client.UI.Panels
             ListBoxColors = script.Create<UIListBoxTextStyle>("ListBoxColors", SearchResult.FontStyle);
         }
 
-        private void SearchResult_OnDoubleClick(UIElement button)
+        void SearchResult_OnDoubleClick(UIElement button)
         {
             if (SearchResult.SelectedItem == null) { return; }
             var item = SearchResult.SelectedItem.Data as SearchResponseItem;
@@ -163,7 +163,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void SendSearch(UIElement button)
+        void SendSearch(UIElement button)
         {
             var exact = button == NarrowSearchButton;
             var type = _Tab == UIGizmoTab.Property ? SearchType.LOTS : SearchType.SIMS;
@@ -178,7 +178,7 @@ namespace FSO.Client.UI.Panels
             ((GizmoSearchController)Controller).Search(SearchText.CurrentText, type, exact);
         }
 
-        private void UpdateUI()
+        void UpdateUI()
         {
             SearchResult.Items.Clear();
 
@@ -191,7 +191,7 @@ namespace FSO.Client.UI.Panels
                 {
                     SearchResult.Items.AddRange(SimResults.Select(x =>
                     {
-                        return new UIListBoxItem(x.Result, new object[] { (rank++).ToString(), x.Result.Name }) {
+                        return new UIListBoxItem(x.Result, new object[] { rank++.ToString(), x.Result.Name }) {
                             CustomStyle = ListBoxColors,
                             UseDisabledStyleByDefault = new ValuePointer(x, "IsOffline")
                         };
@@ -204,7 +204,7 @@ namespace FSO.Client.UI.Panels
                 {
                     SearchResult.Items.AddRange(LotResults.Select(x =>
                     {
-                        return new UIListBoxItem(x.Result, new object[] { (rank++).ToString(), x.Result.Name })
+                        return new UIListBoxItem(x.Result, new object[] { rank++.ToString(), x.Result.Name })
                         {
                             CustomStyle = ListBoxColors,
                             UseDisabledStyleByDefault = new ValuePointer(x, "IsOffline")
@@ -241,13 +241,13 @@ namespace FSO.Client.UI.Panels
         public UIListBox Top100SubList { get; set; }
         public UIListBox Top100ResultList { get; set; }
 
-        private UIListBoxTextStyle ListBoxColors;
-        private int UpdateCooldown;
+        UIListBoxTextStyle ListBoxColors;
+        int UpdateCooldown;
 
         public UIImage Background; //public so we can disable visibility when not selected... workaround to stop background mouse blocking still happening when panel is hidden
-        private UISlider HiddenSubSlider;
+        UISlider HiddenSubSlider;
 
-        private UIGizmoTab _Tab;
+        UIGizmoTab _Tab;
 
         public UIGizmoTop100(UIScript script, UIGizmo parent)
         {
@@ -288,7 +288,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void Top100ResultList_OnDoubleClick(UIElement button)
+        void Top100ResultList_OnDoubleClick(UIElement button)
         {
             if (Top100ResultList.SelectedItem == null) { return; }
 
@@ -308,7 +308,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void Top100SubList_OnChange(UIElement element)
+        void Top100SubList_OnChange(UIElement element)
         {
             if (Top100SubList.SelectedItem == null) { return; }
 
@@ -385,7 +385,7 @@ namespace FSO.Client.UI.Panels
             Top100ResultList.Items = xmlHouses.Select(x => new UIListBoxItem(x, x.Filename)).ToList();
         }
 
-        private void Top100ItemSelect(UIElement button)
+        void Top100ItemSelect(UIElement button)
         {
             //((CoreGameScreen)(Parent.Parent)).InitTestLot(((UIXMLLotEntry)Top100ResultList.SelectedItem.Data).Path, true);
         }
@@ -412,11 +412,11 @@ namespace FSO.Client.UI.Panels
 
     public class UIGizmo : UIContainer
     {
-        private UIImage BackgroundImageGizmo;
-        private UIImage BackgroundImageGizmoPanel;
-        private UIImage BackgroundImagePanel;
+        UIImage BackgroundImageGizmo;
+        UIImage BackgroundImageGizmoPanel;
+        UIImage BackgroundImagePanel;
 
-        private UIContainer ButtonContainer;
+        UIContainer ButtonContainer;
 
         public UIButton ExpandButton { get; set; }
         public UIButton ContractButton { get; set; }
@@ -439,9 +439,9 @@ namespace FSO.Client.UI.Panels
         public UIGizmoSearch Search;
         public UIGizmoTop100 Top100;
 
-        private UIGizmoPIP PIP;
+        UIGizmoPIP PIP;
 
-        private ImmutableList<uint> _FilterList;
+        ImmutableList<uint> _FilterList;
         public ImmutableList<uint> FilterList {
             get
             {
@@ -454,7 +454,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private bool ShownWelcome;
+        bool ShownWelcome;
         public uint SimAge
         {
             set
@@ -469,7 +469,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private List<UILotButton> Btns = new List<UILotButton>();
+        List<UILotButton> Btns = new List<UILotButton>();
         public void RegisterFilters()
         {
             ClearFilters();
@@ -482,7 +482,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void ClearFilters()
+        void ClearFilters()
         {
             foreach (var btn in Btns)
             {
@@ -496,7 +496,7 @@ namespace FSO.Client.UI.Panels
             base.Update(state);
             if (Btns.Count > 0)
             {
-                var gamescreen = (GameFacade.Screens.CurrentUIScreen as CoreGameScreen);
+                var gamescreen = GameFacade.Screens.CurrentUIScreen as CoreGameScreen;
                 bool visible = true;
                 if (gamescreen != null && gamescreen.ZoomLevel != 5)
                 {
@@ -512,11 +512,11 @@ namespace FSO.Client.UI.Panels
         {
             var ui = this.RenderScript("gizmo.uis");
 
-            AddAt(0, (PeopleTab = ui.Create<UIImage>("PeopleTab")));
-            AddAt(0, (HousesTab = ui.Create<UIImage>("HousesTab")));
+            AddAt(0, PeopleTab = ui.Create<UIImage>("PeopleTab"));
+            AddAt(0, HousesTab = ui.Create<UIImage>("HousesTab"));
             
-            AddAt(0, (PeopleTabBackground = ui.Create<UIImage>("PeopleTabBackground")));
-            AddAt(0, (HousesTabBackground = ui.Create<UIImage>("HousesTabBackground")));
+            AddAt(0, PeopleTabBackground = ui.Create<UIImage>("PeopleTabBackground"));
+            AddAt(0, HousesTabBackground = ui.Create<UIImage>("HousesTabBackground"));
 
             BackgroundImageGizmo = ui.Create<UIImage>("BackgroundImageGizmo");
             this.AddAt(0, BackgroundImageGizmo);
@@ -580,7 +580,7 @@ namespace FSO.Client.UI.Panels
             CurrentAvatar = new Binding<Avatar>()
                 .WithBinding(PIP, "SimBox.Avatar.BodyOutfitId", "Avatar_Appearance.AvatarAppearance_BodyOutfitID")
                 .WithBinding(PIP, "SimBox.Avatar.HeadOutfitId", "Avatar_Appearance.AvatarAppearance_HeadOutfitID")
-                .WithBinding(PIP, "SimBox.Avatar.Appearance", "Avatar_Appearance.AvatarAppearance_SkinTone", (x) => (Vitaboy.AppearanceType)((byte)x))
+                .WithBinding(PIP, "SimBox.Avatar.Appearance", "Avatar_Appearance.AvatarAppearance_SkinTone", (x) => (Vitaboy.AppearanceType)(byte)x)
                 .WithBinding(this, "SimAge", "Avatar_Age")
                 .WithBinding(this, "FilterList", "Avatar_Top100ListFilter.Top100ListFilter_ResultsVec");
 
@@ -630,10 +630,10 @@ namespace FSO.Client.UI.Panels
             SetOpen(true);
         }
 
-        private bool m_Open = false;
-        private UIGizmoView View = UIGizmoView.Filters;
-        private UIGizmoTab _Tab;
-        private UIGizmoTab Tab
+        bool m_Open = false;
+        UIGizmoView View = UIGizmoView.Filters;
+        UIGizmoTab _Tab;
+        UIGizmoTab Tab
         {
             get { return _Tab; }
             set
@@ -644,7 +644,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void SetOpen(bool open)
+        void SetOpen(bool open)
         {
             if (m_Open != open)
             {
@@ -655,7 +655,7 @@ namespace FSO.Client.UI.Panels
             Redraw();
         }
 
-        private void Redraw()
+        void Redraw()
         {
             var isOpen = m_Open;
             var isClosed = !m_Open;

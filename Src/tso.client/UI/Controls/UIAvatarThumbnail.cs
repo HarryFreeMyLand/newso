@@ -12,8 +12,8 @@ namespace FSO.Client.UI.Controls
     public class UIAvatarThumbnail : UIElement
     {
         public ITextureRef Icon;
-        private ITextureRef Background;
-        private UIMouseEventRef ClickHandler;
+        ITextureRef Background;
+        UIMouseEventRef ClickHandler;
 
         public UIAvatarThumbnail()
         {

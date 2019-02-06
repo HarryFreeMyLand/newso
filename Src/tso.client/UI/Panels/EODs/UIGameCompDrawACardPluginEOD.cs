@@ -50,24 +50,24 @@ namespace FSO.Client.UI.Panels.EODs
         public UIButton EditCardBtn { get; set; }
         public UIButton EditGameBtn { get; set; }
         public UIButton NewCardBtn { get; set; }
-        private UITextEdit BetterLabel { get; set; }
-        private string BetterLabelDeckString;
-        private string ZeroCardMessage;
-        private string LoadingString;
-        private string ConfirmDelete;
-        private string SaveChangesPrompt;
-        private UIGameCompDrawACardPluginEODStates State;
-        private int TotalUniqueCards;
-        private int GrandTotalCards;
-        private string[] CurrentDeckListBox;
-        private string CurrentCardTextFromServer;
-        private int CurrentCardFrequencyFromServer;
-        private int CurrentCardIndex = -1;
-        private string CurrentGameTitle;
-        private string CurrentGameDescription;
-        private bool CurrentCardInfoChanged;
-        private bool NumCardsChanged;
-        private bool GameInfoChanged;
+        UITextEdit BetterLabel { get; set; }
+        string BetterLabelDeckString;
+        string ZeroCardMessage;
+        string LoadingString;
+        string ConfirmDelete;
+        string SaveChangesPrompt;
+        UIGameCompDrawACardPluginEODStates State;
+        int TotalUniqueCards;
+        int GrandTotalCards;
+        string[] CurrentDeckListBox;
+        string CurrentCardTextFromServer;
+        int CurrentCardFrequencyFromServer;
+        int CurrentCardIndex = -1;
+        string CurrentGameTitle;
+        string CurrentGameDescription;
+        bool CurrentCardInfoChanged;
+        bool NumCardsChanged;
+        bool GameInfoChanged;
         public UIScript Script;
 
         // misc texture
@@ -93,7 +93,7 @@ namespace FSO.Client.UI.Panels.EODs
             CloseInteraction();
         }
 
-        private void BuildUI()
+        void BuildUI()
         {
             Script = RenderScript("gamecompdrawacardeod.uis");
 
@@ -158,7 +158,7 @@ namespace FSO.Client.UI.Panels.EODs
             State = UIGameCompDrawACardPluginEODStates.ViewSingleCard;
         }
 
-        private void PleaseWaitHandler(string evt, byte[] mode)
+        void PleaseWaitHandler(string evt, byte[] mode)
         {
             DisableButtons();
             BetterLabel.CurrentText = LoadingString;
@@ -172,7 +172,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void DeleteFailHander(string evt, string msg)
+        void DeleteFailHander(string evt, string msg)
         {
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -183,21 +183,21 @@ namespace FSO.Client.UI.Panels.EODs
                 Alignment = TextAlignment.Center,
                 TextEntry = false,
                 Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.OK, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.OK, (btn1) =>
                             {
                                 UpdateCurrentCardHandler(evt,
                                     VMEODGameCompDrawACardData.SerializeStrings(CurrentCardTextFromServer, CurrentCardFrequencyFromServer + ""));
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
             }, true);
         }
 
-        private void EditCardPrevBtnClickedHandler(UIElement target)
+        void EditCardPrevBtnClickedHandler(UIElement target)
         {
             DisableButtons();
             UIAlert alert = null;
-            if ((CurrentCardInfoChanged) || (NumCardsChanged))
+            if (CurrentCardInfoChanged || NumCardsChanged)
             {
                 if (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
                 {
@@ -209,18 +209,18 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveNewCard();
                                 GotoPreviousCard();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelNewCard();
                                 GotoPreviousCard();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -234,17 +234,17 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveCardChanges();
                                 GotoPreviousCard();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 GotoPreviousCard();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -253,11 +253,11 @@ namespace FSO.Client.UI.Panels.EODs
                 GotoPreviousCard();
         }
 
-        private void EditCardNextBtnHandler(UIElement target)
+        void EditCardNextBtnHandler(UIElement target)
         {
             DisableButtons();
             UIAlert alert = null;
-            if ((CurrentCardInfoChanged) || (NumCardsChanged))
+            if (CurrentCardInfoChanged || NumCardsChanged)
             {
                 if (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
                 {
@@ -269,18 +269,18 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveNewCard();
                                 GotoNextCard();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelNewCard();
                                 GotoNextCard();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -294,17 +294,17 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveCardChanges();
                                 GotoNextCard();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 GotoNextCard();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -313,7 +313,7 @@ namespace FSO.Client.UI.Panels.EODs
                 GotoNextCard();
         }
 
-        private void SpinnerMinusBtnHandler(UIElement target)
+        void SpinnerMinusBtnHandler(UIElement target)
         {
             DisableButtons();
             int newFrequency = 1;
@@ -329,7 +329,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableButtons();
         }
 
-        private void SpinnerPlusBtnHandler(UIElement target)
+        void SpinnerPlusBtnHandler(UIElement target)
         {
             DisableButtons();
             int newFrequency = 100;
@@ -345,7 +345,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableButtons();
         }
 
-        private void DeleteBtnHandler(UIElement target)
+        void DeleteBtnHandler(UIElement target)
         {
             DisableButtons();
             UIAlert alert = null;
@@ -359,16 +359,16 @@ namespace FSO.Client.UI.Panels.EODs
                     Alignment = TextAlignment.Center,
                     TextEntry = false,
                     Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 DeleteCardHandler();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                 }, true);
             }
@@ -382,18 +382,18 @@ namespace FSO.Client.UI.Panels.EODs
                     Alignment = TextAlignment.Center,
                     TextEntry = false,
                     Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 CancelNewCard();
                                 SwitchToEditDeck();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                 }, true);
             }
@@ -401,12 +401,12 @@ namespace FSO.Client.UI.Panels.EODs
                 EnableButtons();
         }
 
-        private void SaveBtnHandler(UIElement target)
+        void SaveBtnHandler(UIElement target)
         {
             DisableButtons();
             if (State.Equals(UIGameCompDrawACardPluginEODStates.EditSingleCard))
             {
-                if ((CurrentCardInfoChanged) || (NumCardsChanged))
+                if (CurrentCardInfoChanged || NumCardsChanged)
                 {
                     SaveCardChanges();
                     EnableButtons();
@@ -414,7 +414,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             else if (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
             {
-                if ((CurrentCardInfoChanged) || (NumCardsChanged))
+                if (CurrentCardInfoChanged || NumCardsChanged)
                 {
                     if (TotalUniqueCards == VMEODGameCompDrawACardPlugin.MAXIMUM_UNIQUE_CARDS - 1)
                     {
@@ -428,10 +428,10 @@ namespace FSO.Client.UI.Panels.EODs
                             Alignment = TextAlignment.Center,
                             TextEntry = false,
                             Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.OK, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.OK, (btn1) =>
                             {
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                         }, true);
                         SaveNewCard();
@@ -448,13 +448,13 @@ namespace FSO.Client.UI.Panels.EODs
                             Alignment = TextAlignment.Center,
                             TextEntry = false,
                             Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.OK, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.OK, (btn1) =>
                             {
                                 CancelNewCard();
                                 SwitchToEditDeck();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                         }, true);
                     }
@@ -473,11 +473,11 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void EditCardBtnHandler(UIElement target)
+        void EditCardBtnHandler(UIElement target)
         {
             DisableButtons();
             UIAlert alert = null;
-            if ((CurrentCardInfoChanged) || (NumCardsChanged))
+            if (CurrentCardInfoChanged || NumCardsChanged)
             {
                 if (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
                 {
@@ -489,19 +489,19 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveNewCard();
                                 SwitchToEditDeck();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelNewCard();
                                 SwitchToEditDeck();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -515,20 +515,20 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveCardChanges();
                                 SwitchToEditDeck();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelEditCard();
                                 SwitchToEditDeck();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -540,11 +540,11 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void EditGameBtnHandler(UIElement target)
+        void EditGameBtnHandler(UIElement target)
         {
             DisableButtons();
             UIAlert alert = null;
-            if ((CurrentCardInfoChanged) || (NumCardsChanged))
+            if (CurrentCardInfoChanged || NumCardsChanged)
             {
                 if (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
                 {
@@ -556,19 +556,19 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveNewCard();
                                 SwitchToEditGame();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelNewCard();
                                 SwitchToEditGame();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -582,20 +582,20 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveCardChanges();
                                 SwitchToEditGame();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelEditCard();
                                 SwitchToEditGame();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -607,7 +607,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void NewCardBtnHandler(UIElement target)
+        void NewCardBtnHandler(UIElement target)
         {
             UIAlert alert = null;
             if (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
@@ -627,20 +627,20 @@ namespace FSO.Client.UI.Panels.EODs
                         Alignment = TextAlignment.Center,
                         TextEntry = false,
                         Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.Yes, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.Yes, (btn1) =>
                             {
                                 SaveCardChanges();
                                 SwitchToMakeNewCard();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            })),
-                            new UIAlertButton (UIAlertButtonType.No, ((btn2) =>
+                            }),
+                            new UIAlertButton (UIAlertButtonType.No, (btn2) =>
                             {
                                 CancelEditCard();
                                 SwitchToMakeNewCard();
                                 EnableButtons();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                     }, true);
                 }
@@ -658,7 +658,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void CardClickedHandler(UIElement list)
+        void CardClickedHandler(UIElement list)
         {
             DisableButtons();
             BetterLabel.CurrentText = LoadingString;
@@ -667,7 +667,7 @@ namespace FSO.Client.UI.Panels.EODs
             SwitchToEditCard();
         }
 
-        private void UpdateDeckHandler(string evt, byte[] deckListBoxData)
+        void UpdateDeckHandler(string evt, byte[] deckListBoxData)
         {
             if (deckListBoxData[0] == 0)
             {
@@ -706,7 +706,7 @@ namespace FSO.Client.UI.Panels.EODs
             Add(SelectCardList);
         }
 
-        private void DeckNumbersHandler(string evt, byte[] numbersData)
+        void DeckNumbersHandler(string evt, byte[] numbersData)
         {
             if (numbersData == null) return;
             var split = VMEODGameCompDrawACardData.DeserializeStrings(numbersData);
@@ -717,7 +717,7 @@ namespace FSO.Client.UI.Panels.EODs
                 NumCardsTextEdit.CurrentText = "" + GrandTotalCards;
         }
 
-        private void UpdateCurrentCardHandler(string evt, byte[] cardAndFrequencyData)
+        void UpdateCurrentCardHandler(string evt, byte[] cardAndFrequencyData)
         {
             if (cardAndFrequencyData == null)
             {
@@ -778,7 +778,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void DeckInfoUI(string evt, byte[] gameData)
+        void DeckInfoUI(string evt, byte[] gameData)
         {
             State = UIGameCompDrawACardPluginEODStates.ViewDeck;
 
@@ -845,7 +845,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void DrawViewCardUI(string evt, byte[] cardData)
+        void DrawViewCardUI(string evt, byte[] cardData)
         {
             State = UIGameCompDrawACardPluginEODStates.ViewSingleCard;
 
@@ -903,7 +903,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void ManageDeckUI(string evt, byte[] gameData)
+        void ManageDeckUI(string evt, byte[] gameData)
         {
             // add backgrounds, even more tweaks
             SelectCardBack = Script.Create<UIImage>("SelectCardBack");
@@ -951,7 +951,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableButtons();
         }
 
-        private void SaveNewCard()
+        void SaveNewCard()
         {
             string newCardText = NewCardTextEdit.CurrentText;
             if (newCardText.Length > 257)
@@ -973,7 +973,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("DrawCard_Add_Card", VMEODGameCompDrawACardData.SerializeStrings(newCardText, newFrequency + ""));
         }
 
-        private void SaveCardChanges()
+        void SaveCardChanges()
         {
             if (NumCardsChanged)
             {
@@ -1002,7 +1002,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void DeleteCardHandler()
+        void DeleteCardHandler()
         {
             // deleting last card
             if (TotalUniqueCards == 1)
@@ -1019,7 +1019,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("DrawCard_Delete_Card", new byte[] { 0 });
         }
 
-        private void GotoPreviousCard()
+        void GotoPreviousCard()
         {
             if (CurrentCardIndex == 0)
                 CurrentCardIndex = TotalUniqueCards - 1;
@@ -1030,7 +1030,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("DrawCard_Goto_Card", new byte[] { (byte)CurrentCardIndex });
         }
 
-        private void GotoNextCard()
+        void GotoNextCard()
         {
             if (CurrentCardIndex == TotalUniqueCards - 1)
                 CurrentCardIndex = 0;
@@ -1041,14 +1041,14 @@ namespace FSO.Client.UI.Panels.EODs
             Send("DrawCard_Goto_Card", new byte[] { (byte)CurrentCardIndex });
         }
 
-        private void CancelNewCard()
+        void CancelNewCard()
         {
             NewCardTextEdit.CurrentText = "";
             CurrentCardInfoChanged = false;
             NumCardsChanged = false;
         }
 
-        private void CancelEditCard()
+        void CancelEditCard()
         {
             if (CurrentCardInfoChanged)
             {
@@ -1062,7 +1062,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void SwitchToEditGame()
+        void SwitchToEditGame()
         {
             State = UIGameCompDrawACardPluginEODStates.EditGame;
 
@@ -1116,7 +1116,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void SwitchToEditDeck()
+        void SwitchToEditDeck()
         {
             State = UIGameCompDrawACardPluginEODStates.EditDeck;
 
@@ -1168,7 +1168,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void SwitchToEditCard()
+        void SwitchToEditCard()
         {
             State = UIGameCompDrawACardPluginEODStates.EditSingleCard;
 
@@ -1220,7 +1220,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void SwitchToMakeNewCard()
+        void SwitchToMakeNewCard()
         {
             if (TotalUniqueCards == VMEODGameCompDrawACardPlugin.MAXIMUM_UNIQUE_CARDS)
             {
@@ -1233,11 +1233,11 @@ namespace FSO.Client.UI.Panels.EODs
                     Alignment = TextAlignment.Center,
                     TextEntry = false,
                     Buttons = new UIAlertButton[] {
-                            new UIAlertButton (UIAlertButtonType.OK, ((btn1) =>
+                            new UIAlertButton (UIAlertButtonType.OK, (btn1) =>
                             {
                                 SwitchToEditDeck();
                                 UIScreen.RemoveDialog(alert);
-                            }))
+                            })
                         }
                 }, true);
                 return;
@@ -1297,7 +1297,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private string[] DefaultCardTextReplacer(string[] rawListBoxStrings)
+        string[] DefaultCardTextReplacer(string[] rawListBoxStrings)
         {
             string[] processedStrings = new string[rawListBoxStrings.Length];
             for (var index = 0; index < rawListBoxStrings.Length; index++)
@@ -1310,12 +1310,12 @@ namespace FSO.Client.UI.Panels.EODs
             return processedStrings;
         }
 
-        private string DefaultCardTextReplacer(string rawString)
+        string DefaultCardTextReplacer(string rawString)
         {
             string replacedString = rawString;
             int stringOffSetValue = 20;
             VMEODGameCompDrawACardTypes type;
-            if ((rawString.Length > 0) && (rawString[0].Equals('V')) && (Enum.TryParse(rawString, out type)))
+            if ((rawString.Length > 0) && rawString[0].Equals('V') && Enum.TryParse(rawString, out type))
             {
                 // In order to avoid trying to save blank strings to the server, this enum replaces all empty strings sent to the server
                 if (type == VMEODGameCompDrawACardTypes.VMEODGameCompDrawACardCustom)
@@ -1330,7 +1330,7 @@ namespace FSO.Client.UI.Panels.EODs
             return replacedString;
         }
 
-        private void SaveNewGameData()
+        void SaveNewGameData()
         {
             if ((!ManageGameTitleTextEdit.CurrentText.Equals(CurrentGameTitle)) || (!ManageGameDescripTextEdit.CurrentText.Equals(CurrentGameDescription)))
             {
@@ -1341,7 +1341,7 @@ namespace FSO.Client.UI.Panels.EODs
             GameInfoChanged = false;
         }
 
-        private void UpdateGameData(byte[] gameDataByteArray)
+        void UpdateGameData(byte[] gameDataByteArray)
         {
             // 3 characters are required to make both the title and description valid, as they are separated by a % for split parsing
             if (gameDataByteArray == null)
@@ -1378,7 +1378,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (State.Equals(UIGameCompDrawACardPluginEODStates.ViewDeck))
                 ManageGameDescripTextEdit.Slider.X -= 20;
         }
-        private void DisableButtons()
+        void DisableButtons()
         {
             EditCardPrevBtn.Disabled = true;
             EditCardNextBtn.Disabled = true;
@@ -1396,7 +1396,7 @@ namespace FSO.Client.UI.Panels.EODs
             EditCardTextEdit.Mode = UITextEditMode.ReadOnly;
             SelectCardList.OnDoubleClick -= CardClickedHandler;
         }
-        private void EnableButtons()
+        void EnableButtons()
         {
             EditCardPrevBtn.Disabled = false;
             EditCardNextBtn.Disabled = false;
@@ -1414,10 +1414,10 @@ namespace FSO.Client.UI.Panels.EODs
             if (SelectCardList.Visible == true)
                 SelectCardList.OnDoubleClick += CardClickedHandler;
 
-            if ((State.Equals(UIGameCompDrawACardPluginEODStates.EditSingleCard)) || (State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard)))
+            if (State.Equals(UIGameCompDrawACardPluginEODStates.EditSingleCard) || State.Equals(UIGameCompDrawACardPluginEODStates.MakeNewCard))
             {
                 DeleteBtn.Disabled = false;
-                if ((CurrentCardInfoChanged) || (NumCardsChanged))
+                if (CurrentCardInfoChanged || NumCardsChanged)
                     SaveBtn.Disabled = false;
             }
             else if (State.Equals(UIGameCompDrawACardPluginEODStates.EditGame)) {

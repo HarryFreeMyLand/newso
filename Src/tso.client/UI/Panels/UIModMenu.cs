@@ -13,8 +13,8 @@ namespace FSO.Client.UI.Panels
 {
     public class UIModMenu : UIDialog
     {
-        private UIImage Background;
-        private UIButton IPBanButton;
+        UIImage Background;
+        UIButton IPBanButton;
 
         public uint AvatarID;
 
@@ -76,7 +76,7 @@ namespace FSO.Client.UI.Panels
             CloseButton.OnButtonClick += CloseButton_OnButtonClick;
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }

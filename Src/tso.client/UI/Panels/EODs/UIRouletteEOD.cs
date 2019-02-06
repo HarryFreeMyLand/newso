@@ -23,27 +23,27 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Chips and Betting
          */
-        private readonly int[] BlackNumbersArray = { 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 };
-        private readonly int[] RedNumbersArray = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
-        private List<ChipStack> MyChipsInPlay = new List<ChipStack>();
-        private List<ChipStack> NeighborChipsInPlay = new List<ChipStack>(); // other players' chips
-        private UIRouletteEODStates GameUIState = UIRouletteEODStates.Initializing;
-        private int MinBet;
-        private int MaxBet;
-        private int PlayerBalance;
-        private int RoundTimeRemaining;
-        private int CurrentRoundTotalBets;
+        readonly int[] BlackNumbersArray = { 2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35 };
+        readonly int[] RedNumbersArray = { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
+        List<ChipStack> MyChipsInPlay = new List<ChipStack>();
+        List<ChipStack> NeighborChipsInPlay = new List<ChipStack>(); // other players' chips
+        UIRouletteEODStates GameUIState = UIRouletteEODStates.Initializing;
+        int MinBet;
+        int MaxBet;
+        int PlayerBalance;
+        int RoundTimeRemaining;
+        int CurrentRoundTotalBets;
         // boxes for shading
-        private UIHighlightSprite DoubleZeroBox;
-        private UIHighlightSprite ZeroBox;
-        private ShadowBox[,] ShadowBoxArray;
+        UIHighlightSprite DoubleZeroBox;
+        UIHighlightSprite ZeroBox;
+        ShadowBox[,] ShadowBoxArray;
         // images
-        private PlayChip CurrentDraggingChip;
-        private UISlotsImage FakeChipBtn1;
-        private UISlotsImage FakeChipBtn2;
-        private UISlotsImage FakeChipBtn3;
-        private UISlotsImage FakeChipBtn4;
-        private UISlotsImage FakeChipBtn5;
+        PlayChip CurrentDraggingChip;
+        UISlotsImage FakeChipBtn1;
+        UISlotsImage FakeChipBtn2;
+        UISlotsImage FakeChipBtn3;
+        UISlotsImage FakeChipBtn4;
+        UISlotsImage FakeChipBtn5;
         // textures
         public Texture2D imageChip_001 { get; set; } // draggable chip sprite
         public Texture2D imageChip_005 { get; set; }
@@ -61,7 +61,7 @@ namespace FSO.Client.UI.Panels.EODs
         public UIButton btnChip3 { get; set; } // §10
         public UIButton btnChip4 { get; set; } // §25
         public UIButton btnChip5 { get; set; } // §100
-        private UIButton[] btnChipsArray;
+        UIButton[] btnChipsArray;
         // constants for easy access/tweaking/customization or future updates
         public const int CHIP_TGA_HEIGHT = 25;
         public const int CHIP_TGA_WIDTH = 26;
@@ -74,23 +74,23 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * General EOD
          */
-        private UIScript Script;
-        private UIManageEODObjectPanel OwnerPanel;
-        private UIMouseEventRef RouletteGraphMouseHandler;
-        private Timer WheelSpinTimer = new Timer(333);
-        private int WheelSpinElapsedCounter = 0;
+        UIScript Script;
+        UIManageEODObjectPanel OwnerPanel;
+        UIMouseEventRef RouletteGraphMouseHandler;
+        Timer WheelSpinTimer = new Timer(333);
+        int WheelSpinElapsedCounter = 0;
         // Text fields
         public UILabel labelNumber { get; set; }
         public UILabel labelTotalBets { get; set; }
-        private string ResultsString = "";
+        string ResultsString = "";
         // images
-        private UIImage RouletteTable;
-        private UIImage ScriptedRouletteWheel;
-        private UISlotsImage RouletteWheel;
-        private UIImage RouletteBall;
-        private RouletteWheelStateList WheelStateList;
-        private RouletteWheelStateNode[] UltimateStopsArray = new RouletteWheelStateNode[3];
-        private byte UltimateStopColor;
+        UIImage RouletteTable;
+        UIImage ScriptedRouletteWheel;
+        UISlotsImage RouletteWheel;
+        UIImage RouletteBall;
+        RouletteWheelStateList WheelStateList;
+        RouletteWheelStateNode[] UltimateStopsArray = new RouletteWheelStateNode[3];
+        byte UltimateStopColor;
         // buttons
         public UIButton btnShowAllBets { get; set; }
 
@@ -194,7 +194,7 @@ namespace FSO.Client.UI.Panels.EODs
             base.OnClose();
         }
         // Server sends EOD time remaining as a string. Ignore this if in Managing State.
-        private void TimeHandler(string evt, string timeString)
+        void TimeHandler(string evt, string timeString)
         {
             if (!GameUIState.Equals(UIRouletteEODStates.Managing) && !GameUIState.Equals(UIRouletteEODStates.GameOver))
             {
@@ -218,7 +218,7 @@ namespace FSO.Client.UI.Panels.EODs
         /* After 333 milliseconds elapses 9 times, try to stop the roulette wheel from spinning by checking if the next spin is the correct stop that
          * matches the winning number's color sent from the server and saved in this.UltimateStopColor:byte - 0 for black, 1 for red, 2 for green
          */
-        private void WheelSpinTimerHandler(object source, ElapsedEventArgs args)
+        void WheelSpinTimerHandler(object source, ElapsedEventArgs args)
         {
             var newX = 0;
             // ~10 seconds originally
@@ -240,7 +240,7 @@ namespace FSO.Client.UI.Panels.EODs
          * This UI is just for players. Since a game might already be running, SetTip will say "Wait to bet" and the player won't be able to
          * bet until the server event is handled by TimeHandler, wherein the state will change to Idle aka betting.
          */
-        private void ShowPlayerUIHandler(string evt, byte[] minMaxBetPlayerBalance)
+        void ShowPlayerUIHandler(string evt, byte[] minMaxBetPlayerBalance)
         {
             if (NewGame(minMaxBetPlayerBalance))
             {
@@ -275,7 +275,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The UI for the owner
          */
-        private void ShowManageUIHandler(string evt, string balanceMinMaxBet)
+        void ShowManageUIHandler(string evt, string balanceMinMaxBet)
         {
             GameUIState = UIRouletteEODStates.Managing;
             if (balanceMinMaxBet == null)
@@ -309,43 +309,43 @@ namespace FSO.Client.UI.Panels.EODs
                 }
             }
         }
-        private void SendByteMessage(EODMessageNode node)
+        void SendByteMessage(EODMessageNode node)
         {
             Send("roulette_" + node.EventName, node.EventByteData);
         }
-        private void SendStringMessage(EODMessageNode node)
+        void SendStringMessage(EODMessageNode node)
         {
             Send("roulette_" + node.EventName, node.EventStringData);
         }
-        private void ResumeManageHandler(string evt, string message)
+        void ResumeManageHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromMachineBalance(evt, message);
             }
         }
-        private void ResumeFromBetAmountHandler(string evt, string minOrMaxBetString)
+        void ResumeFromBetAmountHandler(string evt, string minOrMaxBetString)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromBetAmount(evt.Remove(0, 9), minOrMaxBetString); // truncate "roulette_"
             }
         }
-        private void DepositFailHandler(string evt, string message)
+        void DepositFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.DepositFailHandler(evt, message);
             }
         }
-        private void InputFailHandler(string evt, string message)
+        void InputFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.InputFailHandler(evt.Remove(0, 9), message); // truncate "roulette_"
             }
         }
-        private void AlertHandler(string evt, byte[] alertCode)
+        void AlertHandler(string evt, byte[] alertCode)
         {
             UIAlert alert = null;
             string alertMessage = AlertStrings[alertCode[0]];
@@ -362,7 +362,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void ChipStackOverFlowHandler(string evt, byte[] attemptedBet)
+        void ChipStackOverFlowHandler(string evt, byte[] attemptedBet)
         {
             // show an alert that tells the user that they can't have that many chips on the stack
             UIAlert alert = null;
@@ -379,7 +379,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void GameOverNSFHandler(string evt, byte[] minBet)
+        void GameOverNSFHandler(string evt, byte[] minBet)
         {
             GameOverNSF();
             int? sentMinBet;
@@ -403,7 +403,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void OverMaxBetHandler(string evt, byte[] sentAttemptedBet)
+        void OverMaxBetHandler(string evt, byte[] sentAttemptedBet)
         {
             int? attemptedBet;
             if (sentAttemptedBet != null && sentAttemptedBet.Length > 0)
@@ -418,8 +418,8 @@ namespace FSO.Client.UI.Panels.EODs
                 TextSize = 12,
                 Title = GameFacade.Strings.GetString("f111", "15"), // "Betting Error"
                 // "$%d of chips would be over the maximum allowed bet." or "That would be over the maximum allowed bet."
-                Message = ((attemptedBet != null) ?
-                    GameFacade.Strings.GetString("f111", "33").Replace("%d", "" + attemptedBet) : GameFacade.Strings.GetString("f111", "34")),
+                Message = (attemptedBet != null) ?
+                    GameFacade.Strings.GetString("f111", "33").Replace("%d", "" + attemptedBet) : GameFacade.Strings.GetString("f111", "34"),
                 Alignment = TextAlignment.Center,
                 TextEntry = false,
                 Buttons = UIAlertButton.Ok((btn) =>
@@ -428,7 +428,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void NSFBetFailedHandler(string evt, string playerBalance)
+        void NSFBetFailedHandler(string evt, string playerBalance)
         {
             // show an alert that tells the user that they can't afford their most recent bet
             UIAlert alert = null;
@@ -450,7 +450,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (playerBalance != null && Int32.TryParse(playerBalance, out balance))
                 PlayerBalance = balance;
         }
-        private void UnknownErrorHandler(string evt, string uselessString)
+        void UnknownErrorHandler(string evt, string uselessString)
         {
             // show an alert that tells the user that an unknown error prevented them from making their last bet
             UIAlert alert = null;
@@ -467,7 +467,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void UnderMinBetHandler(string evt, string lowBet)
+        void UnderMinBetHandler(string evt, string lowBet)
         {
             // show an alert that tells the user that they did not meet the table's minimum bet
             UIAlert alert = null;
@@ -484,7 +484,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void SoundEffectHandler(string evt, string soundString)
+        void SoundEffectHandler(string evt, string soundString)
         {
             HIT.HITVM.Get().PlaySoundEvent(soundString);
         }
@@ -492,7 +492,7 @@ namespace FSO.Client.UI.Panels.EODs
          * Checking to make sure that the user has enough money to keep playing makes the UI look clean by disallowing them to interact with the bet
          * buttons. Obviously the server actually decides if they have enough money to keep playing. It also makes sure they can cover any bets.
          */
-        private void NewGameHandler(string evt, byte[] minMaxBetPlayerBalance)
+        void NewGameHandler(string evt, byte[] minMaxBetPlayerBalance)
         {
             if (!NewGame(minMaxBetPlayerBalance))
             {
@@ -508,7 +508,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The server sends the winning number and this player's winnings in a string separated by a '%' due to byte constraints possibly limiting winnings
          */
-        private void SpinHandler(string evt, string winningNumberPercentWinnings)
+        void SpinHandler(string evt, string winningNumberPercentWinnings)
         {
             var split = winningNumberPercentWinnings.Split('%');
             int winningNumber = -1;
@@ -539,7 +539,7 @@ namespace FSO.Client.UI.Panels.EODs
                 if (labelNumber != null)
                 {
                     labelNumber.Visible = false;
-                    labelNumber.Caption = ((winningNumber == 100) ? "00" : "" + winningNumber);
+                    labelNumber.Caption = (winningNumber == 100) ? "00" : "" + winningNumber;
                 }
                 /*
                  * Prepare the string for SetTip once the wheel stops spinning. NOTE: If the player wins ANYTHING, the win is displayed, regardless if the
@@ -565,7 +565,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Each of the next 5 methods are for each of the 5 buttons, allowing the user to pick up a chip texture matching the button texture
          */
-        private void ButtonChip1ClickedHandler(UIElement btn)
+        void ButtonChip1ClickedHandler(UIElement btn)
         {
             if (GameUIState.Equals(UIRouletteEODStates.Idle))
             {
@@ -578,7 +578,7 @@ namespace FSO.Client.UI.Panels.EODs
                 ResumeBetting();
             }
         }
-        private void ButtonChip2ClickedHandler(UIElement btn)
+        void ButtonChip2ClickedHandler(UIElement btn)
         {
             if (GameUIState.Equals(UIRouletteEODStates.Idle))
             {
@@ -591,7 +591,7 @@ namespace FSO.Client.UI.Panels.EODs
                 ResumeBetting();
             }
         }
-        private void ButtonChip3ClickedHandler(UIElement btn)
+        void ButtonChip3ClickedHandler(UIElement btn)
         {
             if (GameUIState.Equals(UIRouletteEODStates.Idle))
             {
@@ -604,7 +604,7 @@ namespace FSO.Client.UI.Panels.EODs
                 ResumeBetting();
             }
         }
-        private void ButtonChip4ClickedHandler(UIElement btn)
+        void ButtonChip4ClickedHandler(UIElement btn)
         {
             if (GameUIState.Equals(UIRouletteEODStates.Idle))
             {
@@ -617,7 +617,7 @@ namespace FSO.Client.UI.Panels.EODs
                 ResumeBetting();
             }
         }
-        private void ButtonChip5ClickedHandler(UIElement btn)
+        void ButtonChip5ClickedHandler(UIElement btn)
         {
             if (GameUIState.Equals(UIRouletteEODStates.Idle))
             {
@@ -634,7 +634,7 @@ namespace FSO.Client.UI.Panels.EODs
          * This event listens for the user's mouse to leave the table area, or for a click somewhere on it. The Vector2 of the click is sent to determine the
          * bet type that the user most likely is attempting to make.
          */
-        private void OnTableMouseEvent(UIMouseEventType type, UpdateState update)
+        void OnTableMouseEvent(UIMouseEventType type, UpdateState update)
         {
             if (GameUIState.Equals(UIRouletteEODStates.Dragging))
             {
@@ -717,7 +717,7 @@ namespace FSO.Client.UI.Panels.EODs
          * Total Number of Unique Bets, Bet1 Amount, Bet1 Type, 1-18 numbers involved in Bet1 each separated by %, Bet2 Amount, Bet2 Type, Bet2 Numbers, etc.
          * Given the complexity of handling data of drastically varying length (determined by Bet Type), a string event seemed to be the simplest approach.
          */
-        private void MyBetsSyncHandler(string evt, string myBets)
+        void MyBetsSyncHandler(string evt, string myBets)
         {
             if (myBets != null)
             {
@@ -777,7 +777,7 @@ namespace FSO.Client.UI.Panels.EODs
          * 2) If multiple players have bets on the same place (Vector 2) on the table, the first one is accepted and the rest are ignored. This is because
          * of the foolish design to make the casino chips way larger than the betting table space, making it impossible to have multiple stacks there.
          */
-        private void NeighborBetsSyncHandler(string evt, string neighborBets)
+        void NeighborBetsSyncHandler(string evt, string neighborBets)
         {
             if (neighborBets != null)
             {
@@ -837,7 +837,7 @@ namespace FSO.Client.UI.Panels.EODs
          * The custom made textures use a mask to hide the alpha shadows inherent in the assets, allowing them to stack onto other chip textures and look
          * as if they belong on a stack, as opposed to being the bottom chip casting a shadow on the table. Thus they must be disposed of when not in use.
          */
-        private void DisposeOfChips(bool disposeMychips, bool disposeNeighborChips)
+        void DisposeOfChips(bool disposeMychips, bool disposeNeighborChips)
         {
             // dispose of any chips leftover from previous round
             var imagesToRemove = new List<UISlotsImage>();
@@ -881,7 +881,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             UpdateTotalBets();
         }
-        private void InitUI()
+        void InitUI()
         {
             // Identify and parse script
             Script = RenderScript("rouletteeod.uis");
@@ -896,7 +896,7 @@ namespace FSO.Client.UI.Panels.EODs
             // put the buttons in an array for ubiquitious access—an idiosyncratic necessity for multiple user EODs
             btnChipsArray = new UIButton[] { btnChip1, btnChip2, btnChip3, btnChip4, btnChip5, btnShowAllBets };
         }
-        private void AddListeners()
+        void AddListeners()
         {
             btnChip1.OnButtonClick += ButtonChip1ClickedHandler;
             btnChip2.OnButtonClick += ButtonChip2ClickedHandler;
@@ -913,7 +913,7 @@ namespace FSO.Client.UI.Panels.EODs
                 (int)(RouletteTable.Height + RouletteTable.Y - 10)), OnTableMouseEvent);
         }
         // hide the stacks belonging to this player and display the bets from other player (if there are any), synchronized by the server
-        private void ShowOnlyNeighborBets()
+        void ShowOnlyNeighborBets()
         {
             // hide my bets
             foreach (var stack in MyChipsInPlay)
@@ -923,7 +923,7 @@ namespace FSO.Client.UI.Panels.EODs
                 stack.Show();
         }
         // only the stacks belonging to this player
-        private void ShowOnlyMyBets()
+        void ShowOnlyMyBets()
         {
             // show my bets
             foreach (var stack in MyChipsInPlay)
@@ -937,7 +937,7 @@ namespace FSO.Client.UI.Panels.EODs
          * [0][1] Table's Minimum Bet, [2][3] Table's Maximum Bet, [4][5] Player's Simoleon Balance (up to $65279 which is well over maximum allowable)
          * @Returns false if the player doesn't have enough money to cover the Minimum Bet or if the data is invalid
          */
-        private bool NewGame(byte[] minMaxBetPlayerBalance)
+        bool NewGame(byte[] minMaxBetPlayerBalance)
         {
             if (minMaxBetPlayerBalance != null && minMaxBetPlayerBalance.Length > 5)
             {
@@ -958,7 +958,7 @@ namespace FSO.Client.UI.Panels.EODs
                 return false;
         }
         // Spinning disallows betting and animates the wheel, Idle is the betting phase, Dragging allows a chip to follow the user's mouse pointer
-        private void GotoState(UIRouletteEODStates state)
+        void GotoState(UIRouletteEODStates state)
         {
             Parent.Invalidate();
             // each state updates the SetTip field for the EOD
@@ -1012,7 +1012,7 @@ namespace FSO.Client.UI.Panels.EODs
          *  unless they were the very first client to join. Even moving the RenderScript to OnConnection doesn't seem to fix this. So the references
          *  need to be recovered.
          */
-        private void RecoverButtonRefs()
+        void RecoverButtonRefs()
         {
             btnChip1 = btnChipsArray[Array.LastIndexOf(btnChipsArray, btnChip1)];
             if (btnChip1 == null)
@@ -1041,7 +1041,7 @@ namespace FSO.Client.UI.Panels.EODs
         /* 
          * place non-button graphical elements
          */
-        private void CreateImages()
+        void CreateImages()
         {
             RouletteTable = Script.Create<UIImage>("rouletteTable");
             Add(RouletteTable);
@@ -1131,16 +1131,16 @@ namespace FSO.Client.UI.Panels.EODs
                 for (int y = 0; y < 12; y++)
                 {
                     // the number on the table
-                    number = (3 * (y + 1) - x);
+                    number = 3 * (y + 1) - x;
 
                     // is it a red number found in the array of red numbers?
-                    isRed = (Array.IndexOf(RedNumbersArray, number) != -1);
+                    isRed = Array.IndexOf(RedNumbersArray, number) != -1;
                     
                     // sprite
                     sprite = new UIHighlightSprite(20, 19)
                     {
-                        X = (RouletteTable.X + 22) + (y * 21),
-                        Y = (RouletteTable.Y + 2) + (x * 20),
+                        X = RouletteTable.X + 22 + (y * 21),
+                        Y = RouletteTable.Y + 2 + (x * 20),
                         Visible = false
                     };
                     Add(sprite);
@@ -1151,7 +1151,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // This method is a liason between a brand new player and their first chance to bet. It also is called after each placed bet. 
-        private void ResumeBetting()
+        void ResumeBetting()
         {
             // check the game timer to determine what state to set the EOD
             if (RoundTimeRemaining == 0)
@@ -1167,18 +1167,18 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The next two methods create images to continually update onto the player's mouse pointer. The first is called from the UIButtons exclusively.
          */
-        private void PickUpChip(int chipValue, UIButton button, Texture2D chipImage)
+        void PickUpChip(int chipValue, UIButton button, Texture2D chipImage)
         {
             CurrentDraggingChip = new PlayChip(chipValue, chipImage, button.Position, 0);
             Add(CurrentDraggingChip.ChipImage);
         }
-        private void PickUpChip(int chipValue, Vector2 position, Texture2D chipImage)
+        void PickUpChip(int chipValue, Vector2 position, Texture2D chipImage)
         {
             CurrentDraggingChip = new PlayChip(chipValue, chipImage, position, 0);
             Add(CurrentDraggingChip.ChipImage);
         }
         // Drops the chip by removing it. The texture does not need to be disposed of because it may be used again.
-        private void DropChip()
+        void DropChip()
         {
             if (CurrentDraggingChip != null)
             {
@@ -1187,7 +1187,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // Returns the texture matching the value of the chip stored in PlayChip
-        private Texture2D ChipValueToTexture(int value)
+        Texture2D ChipValueToTexture(int value)
         {
             if (value == 100)
                 return imageChip_100;
@@ -1204,7 +1204,7 @@ namespace FSO.Client.UI.Panels.EODs
          * The only option for this is to hardcode some ranges of x and y values in order to best assess which number(s) the user is hovering over. This
          * method checks every possible x and y combination and returns a list of all numbers represented by the bet type determined by the parameter.
          */
-        private int[] VectorToNumbersList(Vector2 coords)
+        int[] VectorToNumbersList(Vector2 coords)
         {
             int[] betNumbers = new int[0];
             int x = (int)coords.X;
@@ -1584,7 +1584,7 @@ namespace FSO.Client.UI.Panels.EODs
          * the bet type represented by the numbers in the parameter numbersList. An exact Vector2 is crucial for cleanliness as well as in order to
          * properly see if another bet already exists in that location.
          */
-        private Vector2 NumbersListToActualVector(int[] numbersList)
+        Vector2 NumbersListToActualVector(int[] numbersList)
         {
             Vector2 result = new Vector2();
             int numberOfNumbers = numbersList.Length;
@@ -1830,7 +1830,7 @@ namespace FSO.Client.UI.Panels.EODs
             return result + new Vector2(RouletteTable.X, RouletteTable.Y); // add the offset for the roulette table
         }
         // Returns the type of bet based on the length of the numbers list and in some cases its contents. The bet type must be sent to the server.
-        private VMEODRouletteBetTypes NumbersListToBetType(int[] numbersList)
+        VMEODRouletteBetTypes NumbersListToBetType(int[] numbersList)
         {
             var length = numbersList.Length;
             switch (length)
@@ -1894,7 +1894,7 @@ namespace FSO.Client.UI.Panels.EODs
          * which after the bets are synchronized, the very same bets don't need to be resent to the server for validation. It places the bet for the player
          * by checking if a bet already exists and imcrementing the stack or creating a new stack.
          */
-        private void PlaceBet(int chipValue, VMEODRouletteBetTypes type, Vector2 actualCoordinates, int[] numbersList, bool skipEvent)
+        void PlaceBet(int chipValue, VMEODRouletteBetTypes type, Vector2 actualCoordinates, int[] numbersList, bool skipEvent)
         {
             // will this bet put me over the max bet?
             if (CurrentRoundTotalBets + chipValue > MaxBet)
@@ -1960,7 +1960,7 @@ namespace FSO.Client.UI.Panels.EODs
          * Functions identically to Placebet() except it affects the neighbor bets chip stacks, unseen until the player holds down the button to show
          * all neighbor bets.
          */
-        private void PlaceNeighborBet(int chipValue, VMEODRouletteBetTypes type, Vector2 actualCoordinates, int[] numbersList)
+        void PlaceNeighborBet(int chipValue, VMEODRouletteBetTypes type, Vector2 actualCoordinates, int[] numbersList)
         {
             ChipStack existingChipStack = null;
             if (NeighborChipsInPlay.Count > 0)
@@ -2002,7 +2002,7 @@ namespace FSO.Client.UI.Panels.EODs
          * the exact location of where the chip would sit for the bet, as well as the bet amount based on the current dragged chip to the other
          * method of the same name.
          */
-        private void PlaceBet(Vector2 proposedCoordinates)
+        void PlaceBet(Vector2 proposedCoordinates)
         {
             var numbersList = VectorToNumbersList(proposedCoordinates);
             // actualCoordinates will be null if user clicked in bounds of the listening Rectangle, but not on the graph UIImage
@@ -2018,7 +2018,7 @@ namespace FSO.Client.UI.Panels.EODs
             ResumeBetting();
         }
         // A very appropriately named method to only set a select number of shadow box sprites to visible, by first making all visible, then some invisible
-        private void ThrowSomeShade(params int[] doNotShadeList)
+        void ThrowSomeShade(params int[] doNotShadeList)
         {
             AddAllShade();
             if (doNotShadeList == null)
@@ -2038,7 +2038,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // update the textfield "Total Bets: $###" by recursively the value of each stack of chips
-        private void UpdateTotalBets()
+        void UpdateTotalBets()
         {
             int totalBets = 0;
             foreach(var stack in MyChipsInPlay)
@@ -2050,7 +2050,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableChipButtons();
         }
         // set all shadow boxes textures to visible
-        private void AddAllShade()
+        void AddAllShade()
         {
             ZeroBox.Visible = true;
             DoubleZeroBox.Visible = true;
@@ -2060,7 +2060,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // set all shadow box textures to invisible
-        private void RemoveAllShade()
+        void RemoveAllShade()
         {
             ZeroBox.Visible = false;
             DoubleZeroBox.Visible = false;
@@ -2069,7 +2069,7 @@ namespace FSO.Client.UI.Panels.EODs
                 box.UIHighlightSprite.Visible = false;
             }
         }
-        private void DisableChipButtons()
+        void DisableChipButtons()
         {
             btnChip1.Visible = false;
             btnChip2.Visible = false;
@@ -2078,7 +2078,7 @@ namespace FSO.Client.UI.Panels.EODs
             btnChip5.Visible = false;
         }
         // Don't allow the player to click a bet button if they can't afford the bet amount, or doing so would be over the table Max limit
-        private void EnableChipButtons()
+        void EnableChipButtons()
         {
             if (GameUIState.Equals(UIRouletteEODStates.Idle)) // only in betting phase
             {
@@ -2129,7 +2129,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // Gameover due to non-sufficient funds.
-        private void GameOverNSF()
+        void GameOverNSF()
         {
             // while waiting for the server to send the alert that they're short on funds (non sufficient funds), disallow chip button interactions
             DisableChipButtons();
@@ -2147,9 +2147,9 @@ namespace FSO.Client.UI.Panels.EODs
      */
     public class ShadowBox
     {
-        private int _Number;
-        private bool _IsRed;
-        private UIHighlightSprite _UIHighlightSprite;
+        int _Number;
+        bool _IsRed;
+        UIHighlightSprite _UIHighlightSprite;
 
         public ShadowBox(int number, bool isRed, UIHighlightSprite highlightsprite)
         {
@@ -2178,11 +2178,11 @@ namespace FSO.Client.UI.Panels.EODs
      */ 
     public class ChipStack
     {
-        private Vector2 _Position;
-        private VMEODRouletteBetTypes _BetType;
-        private int _ChipCount;
-        private int _TotalStackValue;
-        private List<PlayChip> _Chips = new List<PlayChip>();
+        Vector2 _Position;
+        VMEODRouletteBetTypes _BetType;
+        int _ChipCount;
+        int _TotalStackValue;
+        List<PlayChip> _Chips = new List<PlayChip>();
 
         public ChipStack(Vector2 coords, VMEODRouletteBetTypes type)
         {
@@ -2282,9 +2282,9 @@ namespace FSO.Client.UI.Panels.EODs
      */
     public class PlayChip
     {
-        private int _ChipValue;
-        private UISlotsImage _ChipImage;
-        private bool _TextureNeedsDisposal = false;
+        int _ChipValue;
+        UISlotsImage _ChipImage;
+        bool _TextureNeedsDisposal = false;
 
         public PlayChip(int value, Texture2D texture, Vector2 origin, int stackPosition)
         {
@@ -2328,7 +2328,7 @@ namespace FSO.Client.UI.Panels.EODs
      */
     internal class RouletteWheelStateList
     {
-        private RouletteWheelStateNode _Current;
+        RouletteWheelStateNode _Current;
 
         public RouletteWheelStateList(RouletteWheelStateNode current)
         {
@@ -2353,9 +2353,9 @@ namespace FSO.Client.UI.Panels.EODs
      */
     internal class RouletteWheelStateNode
     {
-        private RouletteWheelStateNode _Next; // each X value points to a simulated spinning wheel graphic
-        private RouletteWheelStateNode _Ultimate; // one of the three X value options to show a non-spinning simulated graphic, for displaying the result
-        private int _X; 
+        RouletteWheelStateNode _Next; // each X value points to a simulated spinning wheel graphic
+        RouletteWheelStateNode _Ultimate; // one of the three X value options to show a non-spinning simulated graphic, for displaying the result
+        int _X; 
 
         public RouletteWheelStateNode(int x, RouletteWheelStateNode next)
         {

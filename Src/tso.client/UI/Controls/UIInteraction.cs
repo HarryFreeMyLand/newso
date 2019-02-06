@@ -27,11 +27,11 @@ namespace FSO.Client.UI.Controls
     public class UIInteraction : UIContainer
     {
         public Texture2D Icon;
-        private UITooltipHandler m_TooltipHandler;
-        private Texture2D Background;
-        private Texture2D Overlay;
-        private bool Active;
-        private UIMouseEventRef ClickHandler;
+        UITooltipHandler m_TooltipHandler;
+        Texture2D Background;
+        Texture2D Overlay;
+        bool Active;
+        UIMouseEventRef ClickHandler;
         public event ButtonClickDelegate OnMouseEvent;
         public delegate void InteractionResultDelegate(UIElement me, bool accepted);
         public event InteractionResultDelegate OnInteractionResult;
@@ -133,7 +133,7 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private void MouseEvt(UIMouseEventType type, UpdateState state)
+        void MouseEvt(UIMouseEventType type, UpdateState state)
         {
             if (type == UIMouseEventType.MouseDown) OnMouseEvent(this); //pass to parents to handle
         }

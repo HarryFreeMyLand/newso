@@ -30,16 +30,16 @@ namespace FSO.Client.UI.Controls
     public class UILotButton : UIContainer
     {
         public Binding<Lot> Target { get; internal set; }
-        private UITooltipHandler m_TooltipHandler;
+        UITooltipHandler m_TooltipHandler;
         public Texture2D ThumbImg { get; set; }
         public Texture2D BgImg { get; set; }
         public Texture2D HoverImg { get; set; }
         public UILabel NameLabel { get; set; }
 
         //Mixing concerns here but binding avatar id is much nicer than lots of plumbing each time
-        private IClientDataService DataService;
-        private UIMouseEventRef ClickHandler;
-        private LotThumbEntry Thumb;
+        IClientDataService DataService;
+        UIMouseEventRef ClickHandler;
+        LotThumbEntry Thumb;
 
         public UILotButton()
         {
@@ -62,12 +62,12 @@ namespace FSO.Client.UI.Controls
                 .WithBinding(this, "BgImg", "Lot_IsOnline", x =>
                 {
                     var online = (bool)x;
-                    return GetTexture((ulong)((online) ? 0xC000000002 : 0xC200000002));
+                    return GetTexture((ulong)(online ? 0xC000000002 : 0xC200000002));
                 })
                 .WithBinding(this, "HoverImg", "Lot_IsOnline", x =>
                 {
                     var online = (bool)x;
-                    return GetTexture((ulong)((online) ? 0xC100000002 : 0xC300000002));
+                    return GetTexture((ulong)(online ? 0xC100000002 : 0xC300000002));
                 });
             m_TooltipHandler = UIUtils.GiveTooltip(this);
 
@@ -75,15 +75,15 @@ namespace FSO.Client.UI.Controls
                 ListenForMouse(new Rectangle(0, 0, 80, 50), new UIMouseEvent(OnMouseEvent));
         }
 
-        private bool m_isOver;
-        private bool m_isDown;
+        bool m_isOver;
+        bool m_isDown;
 
         public void Dispose()
         {
             if (ThumbImg != null) ThumbImg.Dispose();
         }
 
-        private void OnMouseEvent(UIMouseEventType type, UpdateState state)
+        void OnMouseEvent(UIMouseEventType type, UpdateState state)
         {
             switch (type)
             {
@@ -110,7 +110,7 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private uint _LotId;
+        uint _LotId;
         public uint LotId
         {
             get { return _LotId; }
@@ -137,7 +137,7 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private void OnButtonClick()
+        void OnButtonClick()
         {
             FindController<CoreGameScreenController>().ShowLotPage(_LotId);
         }
@@ -200,7 +200,7 @@ namespace FSO.Client.UI.Controls
                     covered[item.X, item.Y - 1] = true;
                     if (!arry[item.X, item.Y - 1])
                     {//we found it
-                        Position = new Vector2((item.X) * 80, (item.Y - 1) * 100);
+                        Position = new Vector2(item.X * 80, (item.Y - 1) * 100);
                         return;
                     }
                     spread.Enqueue(new Point(item.X, item.Y - 1));
@@ -222,7 +222,7 @@ namespace FSO.Client.UI.Controls
                     covered[item.X, item.Y + 1] = true;
                     if (!arry[item.X, item.Y + 1])
                     {//we found it
-                        Position = new Vector2((item.X) * 80, (item.Y + 1) * 100);
+                        Position = new Vector2(item.X * 80, (item.Y + 1) * 100);
                         return;
                     }
 

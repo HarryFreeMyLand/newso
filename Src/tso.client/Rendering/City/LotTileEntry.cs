@@ -18,7 +18,7 @@ namespace FSO.Client.Rendering.City
         {
             get
             {
-                return ((x << 16) | y);
+                return (x << 16) | y;
             }
         }
         public short x;

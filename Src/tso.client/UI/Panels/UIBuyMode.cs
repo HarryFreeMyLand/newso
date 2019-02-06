@@ -80,28 +80,28 @@ namespace FSO.Client.UI.Panels
         public UIObjectHolder Holder;
         public UIQueryPanel QueryPanel { get { return LotController.QueryPanel; } }
         public UILotControl LotController;
-        private VMMultitileGroup BuyItem;
+        VMMultitileGroup BuyItem;
 
-        private Dictionary<UIButton, int> CategoryMap;
-        private List<UICatalogElement> CurrentCategory;
-        private List<VMInventoryItem> LastInventory;
-        private List<UICatalogElement> CurrentInventory;
+        Dictionary<UIButton, int> CategoryMap;
+        List<UICatalogElement> CurrentCategory;
+        List<VMInventoryItem> LastInventory;
+        List<UICatalogElement> CurrentInventory;
 
-        private UILabel ObjLimitLabel;
-        private int LastObjCount = -1;
+        UILabel ObjLimitLabel;
+        int LastObjCount = -1;
 
-        private bool RoomCategories = false;
-        private bool Roommate = true; //if false, shows visitor inventory only.
-        private int Mode = 0;
-        private int OldSelection = -1;
-        private bool UseSmall;
+        bool RoomCategories = false;
+        bool Roommate = true; //if false, shows visitor inventory only.
+        int Mode = 0;
+        int OldSelection = -1;
+        bool UseSmall;
 
         public UIBuyMode(UILotControl lotController) {
 
             LotController = lotController;
             Holder = LotController.ObjectHolder;
 
-            var useSmall = (FSOEnvironment.UIZoomFactor > 1f || GlobalSettings.Default.GraphicsWidth < 1024);
+            var useSmall = FSOEnvironment.UIZoomFactor > 1f || GlobalSettings.Default.GraphicsWidth < 1024;
             UseSmall = useSmall;
             var script = this.RenderScript("buypanel"+(useSmall?"":"1024")+".uis");
 
@@ -215,18 +215,18 @@ namespace FSO.Client.UI.Panels
             base.Removed();
         }
 
-        private void HolderPickup(UIObjectSelection holding, UpdateState state)
+        void HolderPickup(UIObjectSelection holding, UpdateState state)
         {
             QueryPanel.Mode = 0;
             QueryPanel.Active = true;
             QueryPanel.SetInfo(LotController.vm, holding.RealEnt ?? holding.Group.BaseObject, holding.IsBought);
             QueryPanel.Tab = 1;
         }
-        private void HolderPutDown(UIObjectSelection holding, UpdateState state)
+        void HolderPutDown(UIObjectSelection holding, UpdateState state)
         {
             if (OldSelection != -1)
             {
-                if (!holding.IsBought && holding.InventoryPID == 0 && (state.ShiftDown)) {
+                if (!holding.IsBought && holding.InventoryPID == 0 && state.ShiftDown) {
                     //place another
                     var prevDir = holding.Dir;
                     Catalog_OnSelectionChange(OldSelection);
@@ -239,7 +239,7 @@ namespace FSO.Client.UI.Panels
             QueryPanel.Active = false;
         }
 
-        private void HolderDelete(UIObjectSelection holding, UpdateState state)
+        void HolderDelete(UIObjectSelection holding, UpdateState state)
         {
             if (OldSelection != -1)
             {
@@ -315,7 +315,7 @@ namespace FSO.Client.UI.Panels
             base.Update(state);
         }
 
-        private ObjectCatalogItem GenCatItem(uint GUID)
+        ObjectCatalogItem GenCatItem(uint GUID)
         {
             var obj = Content.GameContent.Get.WorldObjects.Get(GUID);
             if (obj == null)
@@ -378,12 +378,12 @@ namespace FSO.Client.UI.Panels
 
         public void SetPage(int page)
         {
-            bool noPrev = (page == 0);
+            bool noPrev = page == 0;
             ProductCatalogPreviousPageButton.Disabled = noPrev;
             InventoryCatalogRoommatePreviousPageButton.Disabled = noPrev;
             InventoryCatalogVisitorPreviousPageButton.Disabled = noPrev;
 
-            bool noNext = (page + 1 == Catalog.TotalPages());
+            bool noNext = page + 1 == Catalog.TotalPages();
             ProductCatalogNextPageButton.Disabled = noNext;
             InventoryCatalogRoommateNextPageButton.Disabled = noNext;
             InventoryCatalogVisitorNextPageButton.Disabled = noNext;
@@ -447,9 +447,9 @@ namespace FSO.Client.UI.Panels
             InventoryCatalogVisitorSlider.MaxValue = total - 1;
             InventoryCatalogVisitorSlider.Value = 0;
 
-            ProductCatalogNextPageButton.Disabled = (total == 1);
-            InventoryCatalogRoommateNextPageButton.Disabled = (total == 1);
-            InventoryCatalogVisitorNextPageButton.Disabled = (total == 1);
+            ProductCatalogNextPageButton.Disabled = total == 1;
+            InventoryCatalogRoommateNextPageButton.Disabled = total == 1;
+            InventoryCatalogVisitorNextPageButton.Disabled = total == 1;
 
             ProductCatalogPreviousPageButton.Disabled = true;
             InventoryCatalogRoommatePreviousPageButton.Disabled = true;
@@ -461,27 +461,27 @@ namespace FSO.Client.UI.Panels
         public void SetMode(int mode)
         {
             if (!Roommate) mode = 2;
-            CatBg.Visible = (mode == 1);
-            ProductCatalogSlider.Visible = (mode == 1);
-            ProductCatalogNextPageButton.Visible = (mode == 1);
-            ProductCatalogPreviousPageButton.Visible = (mode == 1);
+            CatBg.Visible = mode == 1;
+            ProductCatalogSlider.Visible = mode == 1;
+            ProductCatalogNextPageButton.Visible = mode == 1;
+            ProductCatalogPreviousPageButton.Visible = mode == 1;
 
-            InventoryCatBg.Visible = (mode == 2 && Roommate);
-            InventoryCatalogRoommateSlider.Visible = (mode == 2 && Roommate);
-            InventoryCatalogRoommateNextPageButton.Visible = (mode == 2 && Roommate);
-            InventoryCatalogRoommatePreviousPageButton.Visible = (mode == 2 && Roommate);
+            InventoryCatBg.Visible = mode == 2 && Roommate;
+            InventoryCatalogRoommateSlider.Visible = mode == 2 && Roommate;
+            InventoryCatalogRoommateNextPageButton.Visible = mode == 2 && Roommate;
+            InventoryCatalogRoommatePreviousPageButton.Visible = mode == 2 && Roommate;
 
-            NonRMInventoryCatBg.Visible = (mode == 2 && !Roommate);
-            InventoryCatalogVisitorIcon.Visible = (mode == 2 && !Roommate);
-            InventoryCatalogVisitorSlider.Visible = (mode == 2 && !Roommate);
-            InventoryCatalogVisitorNextPageButton.Visible = (mode == 2 && !Roommate);
-            InventoryCatalogVisitorPreviousPageButton.Visible = (mode == 2 && !Roommate);
+            NonRMInventoryCatBg.Visible = mode == 2 && !Roommate;
+            InventoryCatalogVisitorIcon.Visible = mode == 2 && !Roommate;
+            InventoryCatalogVisitorSlider.Visible = mode == 2 && !Roommate;
+            InventoryCatalogVisitorNextPageButton.Visible = mode == 2 && !Roommate;
+            InventoryCatalogVisitorPreviousPageButton.Visible = mode == 2 && !Roommate;
 
             var useSmall = UseSmall;
 
-            if (mode == 1) { Catalog.X = 275; Catalog.PageSize = (useSmall)?14:24; }
-            else if (mode == 2 && Roommate) { Catalog.X = 272; Catalog.PageSize = (useSmall) ? 14 : 24; }
-            else if (mode == 2 && !Roommate) { Catalog.X = 98; Catalog.PageSize = (useSmall) ? 22 : 30; }
+            if (mode == 1) { Catalog.X = 275; Catalog.PageSize = useSmall?14:24; }
+            else if (mode == 2 && Roommate) { Catalog.X = 272; Catalog.PageSize = useSmall ? 14 : 24; }
+            else if (mode == 2 && !Roommate) { Catalog.X = 98; Catalog.PageSize = useSmall ? 22 : 30; }
 
             Catalog.SetPage(0);
 
@@ -512,7 +512,7 @@ namespace FSO.Client.UI.Panels
             InventoryButton.Visible = active;
             MapBuildingModeButton.Visible = false;
 
-            active = Roommate && (value);
+            active = Roommate && value;
             LivingRoomButton.Visible = active;
             DiningRoomButton.Visible = active;
             BedroomButton.Visible = active;

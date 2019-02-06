@@ -17,7 +17,7 @@ namespace FSO.Client.Model
     {
         public abstract UserReferenceType Type { get; }
 
-        private uint _Id;
+        uint _Id;
         public uint Id
         {
             get { return _Id; }
@@ -28,7 +28,7 @@ namespace FSO.Client.Model
             }
         }
 
-        private string _Name = "Retrieving...";
+        string _Name = "Retrieving...";
         public string Name
         {
             get { return _Name; }
@@ -39,7 +39,7 @@ namespace FSO.Client.Model
             }
         }
 
-        private ITextureRef _Icon;
+        ITextureRef _Icon;
         public ITextureRef Icon
         {
             get { return _Icon; }
@@ -50,7 +50,7 @@ namespace FSO.Client.Model
             }
         }
 
-        private static Dictionary<uint, UserReference> Cache = new Dictionary<uint, UserReference>();
+        static Dictionary<uint, UserReference> Cache = new Dictionary<uint, UserReference>();
 
         public static void ResetCache()
         {
@@ -88,7 +88,7 @@ namespace FSO.Client.Model
 
     public class BuiltInUserReference : UserReference
     {
-        private UserReferenceType _Type;
+        UserReferenceType _Type;
 
         public BuiltInUserReference(UserReferenceType type)
         {
@@ -127,7 +127,7 @@ namespace FSO.Client.Model
 
     public class AvatarUserReference : UserReference
     {
-        private Binding<Avatar> CurrentAvatar;
+        Binding<Avatar> CurrentAvatar;
 
         public AvatarUserReference(uint avatarId) : this()
         {
@@ -158,7 +158,7 @@ namespace FSO.Client.Model
             CurrentAvatar.Dispose();
         }
 
-        private ulong _HeadOutfitId;
+        ulong _HeadOutfitId;
         public ulong HeadOutfitId
         {
             get { return _HeadOutfitId; }
@@ -169,7 +169,7 @@ namespace FSO.Client.Model
             }
         }
 
-        private void RefreshHead()
+        void RefreshHead()
         {
             var avatar = CurrentAvatar.Value;
             if (avatar != null)

@@ -18,7 +18,7 @@ namespace FSO.Client.UI.Panels
     {
         public event HouseViewSelection OnModeSelection;
 
-        private UIImage Background;
+        UIImage Background;
         public UIButton WallsDownButton { get; set; }
         public UIButton WallsUpButton { get; set; }
         public UIButton WallsCutawayButton { get; set; }

@@ -20,13 +20,13 @@ namespace FSO.Client.Controllers
 {
     public class MessagingController : IAriesMessageSubscriber, IDisposable
     {
-        private CoreGameScreenController Game;
-        private List<Message> ActiveMessages = new List<Message>();
+        CoreGameScreenController Game;
+        List<Message> ActiveMessages = new List<Message>();
 
-        private Dictionary<Message, UIMessageWindow> MessageWindows = new Dictionary<Message, UIMessageWindow>();
-        private UIMessageTray Tray;
-        private Network.Network Network;
-        private IClientDataService DataService;
+        Dictionary<Message, UIMessageWindow> MessageWindows = new Dictionary<Message, UIMessageWindow>();
+        UIMessageTray Tray;
+        Network.Network Network;
+        IClientDataService DataService;
 
         public MessagingController(CoreGameScreenController game, UIMessageTray messageTray, Network.Network network, IClientDataService dataService){
             this.Game = game;
@@ -102,14 +102,14 @@ namespace FSO.Client.Controllers
             return MessageWindows[message];
         }
 
-        private Message GetMessageByUser(MessageType mtype, UserReferenceType type, uint id)
+        Message GetMessageByUser(MessageType mtype, UserReferenceType type, uint id)
         {
             var existing = ActiveMessages.FirstOrDefault(x => x.User.Type == type &&
                                                               x.User.Id == id && x.Type == mtype);
             return existing;
         }
 
-        private Message GetLetterByID(int id)
+        Message GetLetterByID(int id)
         {
             var existing = ActiveMessages.FirstOrDefault(x => x.LetterID == id);
             return existing;
@@ -125,7 +125,7 @@ namespace FSO.Client.Controllers
             UpdateTray();
         }
 
-        private Message AddMessage(Message message)
+        Message AddMessage(Message message)
         {
             if (ActiveMessages.Count(x => x.Type == message.Type) >= 3)
             {
@@ -150,7 +150,7 @@ namespace FSO.Client.Controllers
             return message;
         }
         
-        private void UpdateTray()
+        void UpdateTray()
         {
             var trayItems = new List<Message>();
             foreach (var m in MessageWindows)
@@ -161,7 +161,7 @@ namespace FSO.Client.Controllers
             Tray.SetItems(trayItems);
         }
 
-        private void HandleInstantMessage(InstantMessage message)
+        void HandleInstantMessage(InstantMessage message)
         {
             var sendAck = message.Type == InstantMessageType.MESSAGE;
 

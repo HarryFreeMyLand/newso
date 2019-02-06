@@ -29,11 +29,11 @@ namespace FSO.Client.Controllers
     public class CoreGameScreenController : IDisposable
     {
         public CoreGameScreen Screen;
-        private MessagingController Chat;
-        private RoommateRequestController RoommateProtocol;
-        private Network.Network Network;
-        private IClientDataService DataService;
-        private LotConnectionRegulator JoinLotRegulator;
+        MessagingController Chat;
+        RoommateRequestController RoommateProtocol;
+        Network.Network Network;
+        IClientDataService DataService;
+        LotConnectionRegulator JoinLotRegulator;
         /// <summary>
         /// Lot to connect to immediately after disconnecting. Used for job lots and switching lots.
         /// </summary>
@@ -79,7 +79,7 @@ namespace FSO.Client.Controllers
             Screen.WindowContainer.Remove(window);
         }
 
-        private void JoinLotRegulator_OnTransition(string transition, object data)
+        void JoinLotRegulator_OnTransition(string transition, object data)
         {
             GameThread.InUpdate(() =>
             {

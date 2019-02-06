@@ -23,10 +23,10 @@ namespace FSO.Client.UI.Controls
         public VMTSOAvatarPermissions LastPermissions;
         public bool Small;
 
-        private Texture2D Overlay;
-        private Texture2D Icon;
-        private Texture2D Target;
-        private bool RMB;
+        Texture2D Overlay;
+        Texture2D Icon;
+        Texture2D Target;
+        bool RMB;
 
         public UIVMPersonButton(VMAvatar ava, VM vm, bool small)
         {
@@ -38,11 +38,11 @@ namespace FSO.Client.UI.Controls
             OnButtonClick += CenterPerson;
         }
 
-        private void CenterPerson(UIElement button)
+        void CenterPerson(UIElement button)
         {
             if (RMB)
             {
-                vm.Context.World.State.ScrollAnchor = (AvatarComponent)(Avatar?.WorldUI);
+                vm.Context.World.State.ScrollAnchor = (AvatarComponent)Avatar?.WorldUI;
             }
             else
             {
@@ -113,7 +113,7 @@ namespace FSO.Client.UI.Controls
             Tooltip = GetAvatarString(Avatar);
         }
 
-        private string GetAvatarString(VMAvatar ava)
+        string GetAvatarString(VMAvatar ava)
         {
             int prefixNum = 3;
             if (ava.IsPet) prefixNum = 5;
@@ -140,13 +140,13 @@ namespace FSO.Client.UI.Controls
 
             if (Icon != null)
             {
-                var pos = (Small) ? new Vector2(1, 1) : new Vector2(2, 2);
-                var targetSize = (Small) ? new Vector2(18, 18) : new Vector2(30, 30);
+                var pos = Small ? new Vector2(1, 1) : new Vector2(2, 2);
+                var targetSize = Small ? new Vector2(18, 18) : new Vector2(30, 30);
                 if (Icon.Width <= 45)
                 {
                     DrawLocalTexture(SBatch, Icon, new Rectangle(0, 0, Icon.Width, Icon.Height), pos, targetSize / new Vector2(Icon.Width, Icon.Height));
                 }
-                else DrawLocalTexture(SBatch, Icon, new Rectangle(0, 0, Icon.Width / 2, Icon.Height), pos, targetSize / new Vector2((Icon.Width/2), Icon.Height));
+                else DrawLocalTexture(SBatch, Icon, new Rectangle(0, 0, Icon.Width / 2, Icon.Height), pos, targetSize / new Vector2(Icon.Width/2, Icon.Height));
             }
             if (Overlay != null)
             {

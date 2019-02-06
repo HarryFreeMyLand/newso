@@ -18,9 +18,9 @@ namespace FSO.Client.UI.Panels.EODs
 {
     public class UITwoPersonJobObjectMazeEOD : UIEOD
     {
-        private UIScript Script;
-        private Random Rand;
-        private UIAlert Alert;
+        UIScript Script;
+        Random Rand;
+        UIAlert Alert;
 
         // script stuff
         public string NorthString { get; set; }
@@ -48,32 +48,32 @@ namespace FSO.Client.UI.Panels.EODs
         public UIImage VWall { get; set; }
 
         // shared
-        private UIImage UIPlayBackground;
-        private UIImage UIWaitBackground;
+        UIImage UIPlayBackground;
+        UIImage UIWaitBackground;
         // logic player
-        private UIContainer WallContainer;
-        private UIContainer ColoredCellsContainer;
-        private UIContainer SolutionPathContainer;
-        private Texture2D MazeXTrackTexture;
+        UIContainer WallContainer;
+        UIContainer ColoredCellsContainer;
+        UIContainer SolutionPathContainer;
+        Texture2D MazeXTrackTexture;
         // charisma player
-        private UIImage NorthBack;
-        private UIImage SouthBack;
-        private UIImage EastBack;
-        private UIImage WestBack;
-        private UIImage NorthWall;
-        private UIImage SouthWall;
-        private UIImage WestWall;
-        private UIImage EastWall;
-        private UIImage[] ColoredBoxes;
+        UIImage NorthBack;
+        UIImage SouthBack;
+        UIImage EastBack;
+        UIImage WestBack;
+        UIImage NorthWall;
+        UIImage SouthWall;
+        UIImage WestWall;
+        UIImage EastWall;
+        UIImage[] ColoredBoxes;
 
         // positions
-        private Vector2 NWCellOriginOffset;
-        private Vector2 NWWallOriginOffset;
-        private float CellOffsetX;
-        private float CellOffsetY;
+        Vector2 NWCellOriginOffset;
+        Vector2 NWWallOriginOffset;
+        float CellOffsetX;
+        float CellOffsetY;
 
         // charisma player captions for color blind players
-        private string SquareColorCaption = GameFacade.Strings.GetString("f112", "11"); // "Cell color: "
+        string SquareColorCaption = GameFacade.Strings.GetString("f112", "11"); // "Cell color: "
         public static readonly byte BLUE_STRING_INDEX = 12; // "Blue"
         public static readonly byte GREEN_STRING_INDEX = 13; // "Green"
         public static readonly byte RED_STRING_INDEX = 14; // "Red"
@@ -108,7 +108,7 @@ namespace FSO.Client.UI.Panels.EODs
             CloseInteraction();
             base.OnClose();
         }
-        private void ShowCharismaPlayerHandler(string evt, byte[] data)
+        void ShowCharismaPlayerHandler(string evt, byte[] data)
         {
             Script = RenderScript("twopersonjobobjectmazecharisma.uis");
             // background images
@@ -150,7 +150,7 @@ namespace FSO.Client.UI.Panels.EODs
                 box.ScaleX = box.ScaleY = 5.0f;
                 box.Position = UIPlayBackground.Position + boxOffset;
                 box.Visible = false;
-                box.Tooltip = GameFacade.Strings.GetString("f112", (index + BLUE_STRING_INDEX) + "");
+                box.Tooltip = GameFacade.Strings.GetString("f112", index + BLUE_STRING_INDEX + "");
                 Add(box);
             }
             // the tooltip for the exit icon should be "Blue"
@@ -210,7 +210,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Expanded = false
             });
         }
-        private void ShowLogicPlayerHandler(string evt, byte[] data)
+        void ShowLogicPlayerHandler(string evt, byte[] data)
         {
             Script = RenderScript("twopersonjobobjectmazelogic.uis");
             UIWaitBackground = Script.Create<UIImage>("UIWaitBackground");
@@ -257,11 +257,11 @@ namespace FSO.Client.UI.Panels.EODs
                 Expanded = false
             });
         }
-        private void UpdateCellHandler(string evt, byte[] wallConfigAndColor)
+        void UpdateCellHandler(string evt, byte[] wallConfigAndColor)
         {
             evt = evt.Remove(0, 8); // remove "TSOMaze_"
-            bool enableButtons = (evt[0] == 'U'); // if "Update_Cell"
-            bool showExit = (evt[0] == 'F');
+            bool enableButtons = evt[0] == 'U'; // if "Update_Cell"
+            bool showExit = evt[0] == 'F';
             if (wallConfigAndColor.Length == 2)
             {
                 EnableAllButtons(); // enables directional buttons
@@ -283,7 +283,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Show "Waiting for Logic player" in the payout TextField, but only sets time to 0 for logic player
          */
-        private void ShowWaitingMessageHandler(string evt, byte[] nothing)
+        void ShowWaitingMessageHandler(string evt, byte[] nothing)
         {
             SetTime(0);
             if (PayoutField != null) // charisma player
@@ -297,7 +297,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Update the EODTimer and Tip
          */
-        private void UpdateTimerHandler(string evt, byte[] time)
+        void UpdateTimerHandler(string evt, byte[] time)
         {
             SetTime(BitConverter.ToInt32(time, 0));
             Parent.Invalidate();
@@ -305,7 +305,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Displays a UIAlert if the players solved the maze (win) or ran out of time (loss)
          */
-        private void ShowResultAlertHandler(string evt, byte[] result)
+        void ShowResultAlertHandler(string evt, byte[] result)
         {
             var randomMessageString = Rand.Next(0, 5);
             var successOrFailureTitle = 28; // "Success"
@@ -333,7 +333,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }),
             }, true);
         }
-        private void MarkCellHandler(string evt, byte[] coords)
+        void MarkCellHandler(string evt, byte[] coords)
         {
             UIContainer container = ColoredCellsContainer;
             evt = evt.Remove(0, 8); // remove "TSOMaze_"
@@ -391,7 +391,7 @@ namespace FSO.Client.UI.Panels.EODs
          * For odd rows, mark walls for odd columns
          * Special cases for outer maze walls which are north: row=0, south: row=MAX_ROWS, west: column=0, east: column=MAX_COLUMNS
          */
-        private void MarkWallsHandler(string evt, byte[] wallConfigCodes)
+        void MarkWallsHandler(string evt, byte[] wallConfigCodes)
         {
             // remove the old maze
             if (WallContainer != null)
@@ -440,7 +440,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Logic player only: removes colored cells and draws the path from the origin to the goal
          */
-        private void DrawSolutionHandler(string evt, byte[] solutionPathCoords)
+        void DrawSolutionHandler(string evt, byte[] solutionPathCoords)
         {
             ColoredCellsContainer.Visible = false;
             if (solutionPathCoords.Length > 2 && solutionPathCoords.Length % 2 == 1)
@@ -501,7 +501,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Makes visible the colored box matching the wallColor param, or makes all invisible if blank. Updates caption to match the color/none
          */
-        private void UpdateCellColorAndLabel(byte wallColor)
+        void UpdateCellColorAndLabel(byte wallColor)
         {
             // 0, 1, 2, 3, or 4 = blue, green, red, yellow, or none
             // if wallColor = 4, all boxes will be invisible
@@ -513,13 +513,13 @@ namespace FSO.Client.UI.Panels.EODs
                 else
                     ColoredBoxes[index].Visible = false;
             }
-            PayoutField.Caption = GameFacade.Strings.GetString("f112", (wallColor + BLUE_STRING_INDEX) + ""); // "Blue" | "Green" | "Red" | "Yellow" | "None"
+            PayoutField.Caption = GameFacade.Strings.GetString("f112", wallColor + BLUE_STRING_INDEX + ""); // "Blue" | "Green" | "Red" | "Yellow" | "None"
         }
         /*
          * For Logic Player: Based on wallCode, builds walls for cell found at row and column
          * For Charisma Player: Based on wallCode, makes each of the four walls and disables buttons for invalid directions
          */
-        private void AddWalls(int row, int column, byte wallCode)
+        void AddWalls(int row, int column, byte wallCode)
         {
             // get the wall configuration, really just for cleaner, better understood code
             MazeWallConfigCodes wallConfig = MazeWallConfigCodes.All;
@@ -634,7 +634,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Horizontal Walls: north and south
          */
-        private void AddHWall(int row, int column, bool isSouth)
+        void AddHWall(int row, int column, bool isSouth)
         {
             if (row == -1) // charisma player
             {
@@ -665,7 +665,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Vertical walls: west and east
          */
-        private void AddVWall(int row, int column, bool isEast)
+        void AddVWall(int row, int column, bool isEast)
         {
             if (row == -1) // charisma player
             {
@@ -696,7 +696,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Charisma Player only: enables all 4 directional buttons 
          */
-        private void EnableAllButtons()
+        void EnableAllButtons()
         {
             North.Disabled = false;
             North.CurrentFrame = 0;
@@ -710,7 +710,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Charisma Player only: disables all buttons when at the final solution/exit cell
          */
-        private void DisableAllButtons()
+        void DisableAllButtons()
         {
             North.Disabled = true;
             West.Disabled = true;

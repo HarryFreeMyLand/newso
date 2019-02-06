@@ -18,9 +18,9 @@ namespace FSO.Client.Controllers
 {
     public class RoommateRequestController : IAriesMessageSubscriber, IDisposable
     {
-        private CoreGameScreenController Game;
-        private Network.Network Network;
-        private IClientDataService DataService;
+        CoreGameScreenController Game;
+        Network.Network Network;
+        IClientDataService DataService;
         public Callback<bool> OnMoveoutResult;
 
         public RoommateRequestController(CoreGameScreenController game, Network.Network network, IClientDataService dataService)

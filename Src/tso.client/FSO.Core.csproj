@@ -638,9 +638,9 @@
       <Project>{C0068DF7-F2E8-4399-846D-556BF9A35C00}</Project>
       <Name>FSO.Content</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tso.debug\FSO.Debug.csproj">
+    <ProjectReference Include="..\tso.debug\FSO.Diagnostics.csproj">
       <Project>{43FBD6A2-4C4D-479C-A1A8-ED4CB591BDE4}</Project>
-      <Name>FSO.Debug</Name>
+      <Name>FSO.Diagnostics</Name>
     </ProjectReference>
     <ProjectReference Include="..\tso.files\FSO.Files.csproj">
       <Project>{18583453-A970-4AC5-83B1-2D6BFDF94C24}</Project>

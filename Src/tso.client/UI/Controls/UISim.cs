@@ -31,8 +31,8 @@ namespace FSO.Client.UI.Controls
     /// </summary>
     public class UISim : UIElement
     {
-        private _3DTargetScene Scene;
-        private WorldCamera Camera;
+        _3DTargetScene Scene;
+        WorldCamera Camera;
         public AdultVitaboyModel Avatar { get; internal set; }
 
         /** 45 degrees in either direction **/
@@ -44,7 +44,7 @@ namespace FSO.Client.UI.Controls
         protected string m_Timestamp;
         public float HeadXPos = 0.0f, HeadYPos = 0.0f;
 
-        private WorldZoom Zoom = WorldZoom.Near;
+        WorldZoom Zoom = WorldZoom.Near;
 
         /// <summary>
         /// When was this character last cached by the client?
@@ -55,9 +55,9 @@ namespace FSO.Client.UI.Controls
             set { m_Timestamp = value; }
         }
         
-        private void UISimInit()
+        void UISimInit()
         {
-            Vitaboy.Avatar.DefaultTechnique = (GlobalSettings.Default.Lighting) ? 3 : 0;
+            Vitaboy.Avatar.DefaultTechnique = GlobalSettings.Default.Lighting ? 3 : 0;
             Camera = new WorldCamera(GameFacade.GraphicsDevice)
             {
                 Zoom = Zoom,
@@ -65,7 +65,7 @@ namespace FSO.Client.UI.Controls
             };
             Scene = new _3DTargetScene(GameFacade.GraphicsDevice, Camera,
                 new Point((int)(140 * FSOEnvironment.DPIScaleFactor), (int)(200 * FSOEnvironment.DPIScaleFactor)),
-                (GlobalSettings.Default.AntiAlias) ? 8 : 0)
+                GlobalSettings.Default.AntiAlias ? 8 : 0)
             {
                 ID = "UISim"
             };
@@ -82,8 +82,8 @@ namespace FSO.Client.UI.Controls
             Scene.Add(Avatar);
         }
 
-        private Vector2 _Size;
-        private Vector2 _SimScale;
+        Vector2 _Size;
+        Vector2 _SimScale;
         [UI("size")]
         public override Vector2 Size
         {
@@ -126,7 +126,7 @@ namespace FSO.Client.UI.Controls
                 GameFacade.Scenes.AddExternal(Scene);
         }
 
-        private void GraphicsDevice_DeviceReset(object sender, EventArgs e)
+        void GraphicsDevice_DeviceReset(object sender, EventArgs e)
         {
             Scene.DeviceReset(GameFacade.GraphicsDevice);
         }
@@ -138,8 +138,8 @@ namespace FSO.Client.UI.Controls
             {
                 var startAngle = RotationStartAngle;
                 var time = state.Time.TotalGameTime.Ticks;
-                var phase = (time % RotationSpeed) / RotationSpeed;
-                var multiplier = Math.Sin((Math.PI * 2) * phase);
+                var phase = time % RotationSpeed / RotationSpeed;
+                var multiplier = Math.Sin(Math.PI * 2 * phase);
                 var newAngle = startAngle + (RotationRange * multiplier);
                 Avatar.RotationY = (float)MathUtils.DegreeToRadian(newAngle);
             }

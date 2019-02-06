@@ -16,9 +16,9 @@ namespace FSO.Client.UI.Screens
 {
     public class EALogo : GameScreen
     {
-        private UIImage m_EALogo;
-        private UIContainer BackgroundCtnr;
-        private Timer m_CheckProgressTimer;
+        UIImage m_EALogo;
+        UIContainer BackgroundCtnr;
+        Timer m_CheckProgressTimer;
 
         public EALogo()
             : base()
@@ -44,7 +44,7 @@ namespace FSO.Client.UI.Screens
             m_CheckProgressTimer.Start();
         }
 
-        private void m_CheckProgressTimer_Elapsed(object sender, ElapsedEventArgs e)
+        void m_CheckProgressTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             m_CheckProgressTimer.Stop();
             GameFacade.Screens.RemoveCurrent();

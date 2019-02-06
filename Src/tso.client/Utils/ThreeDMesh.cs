@@ -10,10 +10,10 @@ namespace FSO.Client.Utils
 {
     public class ThreeDMesh<T>
     {
-        private List<T> Vertexes = new List<T>();
-        private List<int> Indexes = new List<int>();
-        private int IndexOffset = 0;
-        private int _PrimitiveCount = 0;
+        List<T> Vertexes = new List<T>();
+        List<int> Indexes = new List<int>();
+        int IndexOffset = 0;
+        int _PrimitiveCount = 0;
 
         public void AddQuad(T tl, T tr, T br, T bl)
         {

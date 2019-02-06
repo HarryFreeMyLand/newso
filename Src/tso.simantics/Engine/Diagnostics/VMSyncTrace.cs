@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace FSO.SimAntics.Engine.Debugger
+namespace FSO.SimAntics.Engine.Diagnostics
 {
     public class VMSyncTrace
     {

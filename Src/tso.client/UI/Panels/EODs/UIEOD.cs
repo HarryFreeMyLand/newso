@@ -57,7 +57,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         public void SetTime(int time)
         {
-            Controller.EODTime = " "+((time<0)?"":((time/60)+":"+((time%60).ToString().PadLeft(2, '0'))));
+            Controller.EODTime = " "+((time<0)?"":((time/60)+":"+(time%60).ToString().PadLeft(2, '0')));
         }
 
         public void CloseInteraction()

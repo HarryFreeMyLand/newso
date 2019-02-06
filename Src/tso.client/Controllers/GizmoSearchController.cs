@@ -13,9 +13,9 @@ namespace FSO.Client.Controllers
 {
     public class GizmoSearchController
     {
-        private UIGizmoSearch View;
-        private IClientDataService DataService;
-        private IDatabaseService DatabaseService;
+        UIGizmoSearch View;
+        IClientDataService DataService;
+        IDatabaseService DatabaseService;
 
         public GizmoSearchController(UIGizmoSearch view, IClientDataService dataService, IDatabaseService database)
         {

@@ -18,12 +18,12 @@ namespace FSO.Client.Regulators
     {
         //Lot connection client
         public AriesClient Client { get; internal set; }
-        private AriesClient City;
-        private uint LotId;
-        private bool IsDisconnecting = true;
+        AriesClient City;
+        uint LotId;
+        bool IsDisconnecting = true;
 
-        private FindLotResponse FindLotResponse;
-        private IClientDataService DataService;
+        FindLotResponse FindLotResponse;
+        IClientDataService DataService;
 
         public LotConnectionRegulator([Named("City")] AriesClient cityClient, [Named("Lot")] AriesClient lotClient, IClientDataService dataService)
         {

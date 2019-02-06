@@ -18,7 +18,7 @@ namespace FSO.Client.UI.Panels
         {
             double length = Math.Sqrt(Math.Pow(End.X - Start.X, 2) + Math.Pow(End.Y - Start.Y, 2));
             float direction = (float)Math.Atan2(End.Y - Start.Y, End.X - Start.X);
-            var norm = (End - Start);
+            var norm = End - Start;
             norm.Normalize();
             //Start += norm*(lineWidth/2);
             spriteBatch.Draw(Fill, new Rectangle((int)Start.X, (int)Start.Y, (int)length, lineWidth), null, tint, direction, new Vector2(0, 0.5f), SpriteEffects.None, 0); //

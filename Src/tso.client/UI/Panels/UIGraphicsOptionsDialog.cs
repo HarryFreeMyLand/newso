@@ -55,7 +55,7 @@ namespace FSO.Client.UI.Panels
 
         public UIButton DPIButton { get; set; }
         public UISlider LightingSlider;
-        private bool InternalChange;
+        bool InternalChange;
 
         public UIGraphicsOptionsDialog() : base(UIDialogStyle.OK, true)
         {
@@ -129,7 +129,7 @@ namespace FSO.Client.UI.Panels
             int i = 0;
             foreach (var item in toggles)
             {
-                item.Key.Position = new Vector2(23, 65 + 22 * (i++));
+                item.Key.Position = new Vector2(23, 65 + 22 * i++);
                 item.Value.Alignment = TextAlignment.Left;
                 item.Value.Position = item.Key.Position + new Vector2(24, 0);
                 item.Key.OnButtonClick += new ButtonClickDelegate(FlipSetting);
@@ -214,7 +214,7 @@ namespace FSO.Client.UI.Panels
             };
         }
 
-        private void DPIButton_OnButtonClick(UIElement button)
+        void DPIButton_OnButtonClick(UIElement button)
         {
             UIScreen.GlobalShowDialog(new UIDPIScaleDialog(), true);
         }
@@ -232,7 +232,7 @@ namespace FSO.Client.UI.Panels
             return new Tuple<UIButton, UILabel>(check, label);
         }
 
-        private void ShowRestartWarning()
+        void ShowRestartWarning()
         {
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -244,15 +244,15 @@ namespace FSO.Client.UI.Panels
             }, true);
         }
 
-        private void FlipSetting(UIElement button)
+        void FlipSetting(UIElement button)
         {
             var settings = GlobalSettings.Default;
-            if (button == AntiAliasCheckButton) settings.AntiAlias = !(settings.AntiAlias);
-            else if (button == ShadowsCheckButton) settings.SmoothZoom = !(settings.SmoothZoom);
-            else if (button == LightingCheckButton) settings.Weather = !(settings.Weather);
-            else if (button == UIEffectsCheckButton) settings.CityShadows = !(settings.CityShadows);
-            else if (button == EdgeScrollingCheckButton) settings.EdgeScroll = !(settings.EdgeScroll);
-            else if (button == DirectionButton) settings.DirectionalLight3D = !(settings.DirectionalLight3D);
+            if (button == AntiAliasCheckButton) settings.AntiAlias = !settings.AntiAlias;
+            else if (button == ShadowsCheckButton) settings.SmoothZoom = !settings.SmoothZoom;
+            else if (button == LightingCheckButton) settings.Weather = !settings.Weather;
+            else if (button == UIEffectsCheckButton) settings.CityShadows = !settings.CityShadows;
+            else if (button == EdgeScrollingCheckButton) settings.EdgeScroll = !settings.EdgeScroll;
+            else if (button == DirectionButton) settings.DirectionalLight3D = !settings.DirectionalLight3D;
             else if (button == CompressionButton)
             {
                 settings.TexCompression = (((settings.TexCompression) & 1) ^ 1) | 2;
@@ -267,7 +267,7 @@ namespace FSO.Client.UI.Panels
             SettingsChanged();
         }
 
-        private void ChangeShadowDetail(UIElement button)
+        void ChangeShadowDetail(UIElement button)
         {
             var settings = GlobalSettings.Default;
             if (button == CharacterDetailLowButton) settings.ShadowQuality = 512;
@@ -277,7 +277,7 @@ namespace FSO.Client.UI.Panels
             SettingsChanged();
         }
 
-        private void ChangeSurroundingDetail(UIElement button)
+        void ChangeSurroundingDetail(UIElement button)
         {
             var settings = GlobalSettings.Default;
             if (button == TerrainDetailLowButton) settings.SurroundingLotMode = 0;
@@ -287,7 +287,7 @@ namespace FSO.Client.UI.Panels
             SettingsChanged();
         }
 
-        private void SettingsChanged()
+        void SettingsChanged()
         {
             var settings = GlobalSettings.Default;
             AntiAliasCheckButton.Selected = settings.AntiAlias; //antialias for render targets
@@ -298,20 +298,20 @@ namespace FSO.Client.UI.Panels
             DirectionButton.Selected = settings.DirectionalLight3D;
 
             // Character detail changed for city shadow detail.
-            CharacterDetailLowButton.Selected = (settings.ShadowQuality <= 512);
-            CharacterDetailMedButton.Selected = (settings.ShadowQuality > 512 && settings.ShadowQuality <= 1024);
-            CharacterDetailHighButton.Selected = (settings.ShadowQuality > 1024);
+            CharacterDetailLowButton.Selected = settings.ShadowQuality <= 512;
+            CharacterDetailMedButton.Selected = settings.ShadowQuality > 512 && settings.ShadowQuality <= 1024;
+            CharacterDetailHighButton.Selected = settings.ShadowQuality > 1024;
 
             //not used right now! We need to determine if this should be ingame or not... It affects the density of grass blades on the simulation terrain.
-            TerrainDetailLowButton.Selected = (settings.SurroundingLotMode == 0);
-            TerrainDetailMedButton.Selected = (settings.SurroundingLotMode == 1);
-            TerrainDetailHighButton.Selected = (settings.SurroundingLotMode == 2);
+            TerrainDetailLowButton.Selected = settings.SurroundingLotMode == 0;
+            TerrainDetailMedButton.Selected = settings.SurroundingLotMode == 1;
+            TerrainDetailHighButton.Selected = settings.SurroundingLotMode == 2;
 
             InternalChange = true;
             LightingSlider.Value = settings.LightingMode;
             InternalChange = false;
 
-            Wall3DButton.Selected = (FSOEnvironment.Enable3D) ? settings.CitySkybox : settings.Shadows3D;
+            Wall3DButton.Selected = FSOEnvironment.Enable3D ? settings.CitySkybox : settings.Shadows3D;
             FSOEnvironment.TexCompress = (settings.TexCompression & 1) > 0;
             CompressionButton.Selected = FSOEnvironment.TexCompress;
 
@@ -374,7 +374,7 @@ namespace FSO.Client.UI.Panels
             };
         }
 
-        private void DPISlider_OnChange(UIElement element)
+        void DPISlider_OnChange(UIElement element)
         {
             GameThread.NextUpdate((cb) =>
             {

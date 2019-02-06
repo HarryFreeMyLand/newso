@@ -40,12 +40,12 @@ namespace FSO.Client.Utils.GameLocator
             return @"C:\Program Files\Maxis\The Sims Online\TSOClient\".Replace('\\', '/');
         }
 
-        private static bool is64BitProcess = (IntPtr.Size == 8);
-        private static bool is64BitOperatingSystem = is64BitProcess || InternalCheckIsWow64();
+        static bool is64BitProcess = IntPtr.Size == 8;
+        static bool is64BitOperatingSystem = is64BitProcess || InternalCheckIsWow64();
 
         [DllImport("kernel32.dll", SetLastError = true, CallingConvention = CallingConvention.Winapi)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool IsWow64Process(
+        static extern bool IsWow64Process(
             [In] IntPtr hProcess,
             [Out] out bool wow64Process
         );

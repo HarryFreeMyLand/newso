@@ -140,7 +140,7 @@ namespace FSO.Client
                 Files.Formats.IFF.Chunks.STR.DefaultLangCode = (Files.Formats.IFF.Chunks.STRLangCode)GlobalSettings.Default.LanguageCode;
 
                 GlobalSettings.Default.StartupPath = path;
-                GlobalSettings.Default.ClientVersion = GetClientVersion();
+                GlobalSettings.Default.ClientVersion = ClientVersion;
                 return true;
             }
             else
@@ -150,7 +150,7 @@ namespace FSO.Client
             }
         }
 
-        private static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
+        static Assembly OnAssemblyResolve(object sender, ResolveEventArgs args)
         {
             try
             {
@@ -165,29 +165,32 @@ namespace FSO.Client
 
         }
 
-        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Console.WriteLine(e.ExceptionObject.ToString());
         }
 
-        private string GetClientVersion()
+        string ClientVersion
         {
-            /*
-            string ExeDir = GlobalSettings.Default.StartupPath;
+            get
+            {
+                /*
+                string ExeDir = GlobalSettings.Default.StartupPath;
 
-            if (File.Exists("version.txt"))
-            {
-                using (StreamReader Reader = new StreamReader(File.Open("version.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
+                if (File.Exists("version.txt"))
                 {
-                    return Reader.ReadLine();
+                    using (StreamReader Reader = new StreamReader(File.Open("version.txt", FileMode.Open, FileAccess.Read, FileShare.Read)))
+                    {
+                        return Reader.ReadLine();
+                    }
                 }
+                else
+                {
+                    return "(?)";
+                }
+                */
+                return GameConsts.TCVersion;
             }
-            else
-            {
-                return "(?)";
-            }
-            */
-            return GameConsts.TCVersion;
         }
     }
 }

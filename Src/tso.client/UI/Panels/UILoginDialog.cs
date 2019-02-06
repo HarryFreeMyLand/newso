@@ -17,8 +17,8 @@ namespace FSO.Client.UI.Panels
 {
     public class UILoginDialog : UIDialog
     {
-        private UITextEdit m_TxtAccName, m_TxtPass;
-        private Action Login;
+        UITextEdit m_TxtAccName, m_TxtPass;
+        Action Login;
 
         public UILoginDialog(Action login)
             : base(UIDialogStyle.Standard, true)
@@ -93,12 +93,12 @@ namespace FSO.Client.UI.Panels
             RefreshBlink();
         }
 
-        private void M_TxtAccName_OnChange(UIElement element)
+        void M_TxtAccName_OnChange(UIElement element)
         {
             RefreshBlink();
         }
 
-        private void RefreshBlink()
+        void RefreshBlink()
         {
             if(m_TxtAccName.CurrentText.Length == 0)
             {

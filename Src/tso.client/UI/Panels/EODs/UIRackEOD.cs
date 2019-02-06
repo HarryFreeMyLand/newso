@@ -27,7 +27,7 @@ namespace FSO.Client.UI.Panels.EODs
             btnPurchase.OnButtonClick += BtnPurchase_OnButtonClick;
         }
 
-        private void BtnPurchase_OnButtonClick(UIElement button)
+        void BtnPurchase_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOutfit();
             if (selectedOutfit == null) { return; }
@@ -53,7 +53,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         }
 
-        private void BtnTryOn_OnButtonClick(UIElement button)
+        void BtnTryOn_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOutfit();
             if (selectedOutfit == null) { return; }
@@ -94,7 +94,7 @@ namespace FSO.Client.UI.Panels.EODs
                 if (LotController != null && LotController.ActiveEntity is VMAvatar)
                 {
                     var avatar = (VMAvatar)LotController.ActiveEntity;
-                    bool male = (avatar.GetPersonData(VMPersonDataVariable.Gender) == 0);
+                    bool male = avatar.GetPersonData(VMPersonDataVariable.Gender) == 0;
 
                     //Is it for my gender?
                     var outfit = Content.GameContent.Get.RackOutfits.GetAllOutfits().FirstOrDefault(x => x.AssetID == selected.asset_id);

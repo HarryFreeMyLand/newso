@@ -24,7 +24,7 @@ namespace FSO.Client.Rendering.City
         {
         }
 
-        private Color[] Colours = new Color[] {
+        Color[] Colours = new Color[] {
             new Color(255, 255, 255),
             new Color(125, 255, 255),
             new Color(255, 125, 255),
@@ -197,7 +197,7 @@ namespace FSO.Client.Rendering.City
                 gd.BlendState = BlendState.AlphaBlend;
 
                 var screen = UIScreen.Current;
-                var aspect = screen.ScreenWidth / (float)(screen.ScreenHeight);
+                var aspect = screen.ScreenWidth / (float)screen.ScreenHeight;
                 var dat = new DGRP3DVert[]
                 {
                 new DGRP3DVert(new Vector3(-1, -1, 0f), Vector3.Zero, new Vector2(0, 0)),

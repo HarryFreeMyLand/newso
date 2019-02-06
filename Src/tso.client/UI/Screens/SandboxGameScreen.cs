@@ -1,4 +1,4 @@
-﻿using FSO.Client.IDE;
+using FSO.Client.Diagnostics;
 using FSO.Client.Network.Sandbox;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Model;
@@ -11,6 +11,7 @@ using FSO.Files.Formats.IFF.Chunks;
 using FSO.HIT;
 using FSO.LotView;
 using FSO.SimAntics;
+using FSO.Content;
 using FSO.SimAntics.Engine.TSOTransaction;
 using FSO.SimAntics.NetPlay;
 using FSO.SimAntics.NetPlay.Drivers;
@@ -38,13 +39,13 @@ namespace FSO.Client.UI.Screens
         public FSOSandboxClient SandCli;
         public UISandboxSelector SandSelect;
 
-        private Queue<SimConnectStateChange> StateChanges;
+        Queue<SimConnectStateChange> StateChanges;
 
         public UIJoinLotProgress JoinLotProgress;
         public bool Downtown;
 
         public UILotControl LotControl { get; set; } //world, lotcontrol and vm will be null if we aren't in a lot.
-        private World World;
+        World World;
         public VM vm { get; set; }
         public VMNetDriver Driver;
         public uint VisualBudget { get; set; }
@@ -57,11 +58,11 @@ namespace FSO.Client.UI.Screens
         {
             get
             {
-                return (vm != null);
+                return vm != null;
             }
         }
 
-        private int m_ZoomLevel;
+        int m_ZoomLevel;
         public int ZoomLevel
         {
             get
@@ -92,7 +93,8 @@ namespace FSO.Client.UI.Screens
                         LotControl.SetTargetZoom(targ);
                         if (!FSOEnvironment.Enable3D)
                         {
-                            if (m_ZoomLevel != value) vm.Context.World.InitiateSmoothZoom(targ);
+                            if (m_ZoomLevel != value)
+                                vm.Context.World.InitiateSmoothZoom(targ);
                         }
                         m_ZoomLevel = value;
                     }
@@ -106,7 +108,7 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private int _Rotation = 0;
+        int _Rotation = 0;
         public int Rotation
         {
             get
@@ -121,13 +123,17 @@ namespace FSO.Client.UI.Screens
                     switch (_Rotation)
                     {
                         case 0:
-                            World.State.Rotation = WorldRotation.TopLeft; break;
+                            World.State.Rotation = WorldRotation.TopLeft;
+                            break;
                         case 1:
-                            World.State.Rotation = WorldRotation.TopRight; break;
+                            World.State.Rotation = WorldRotation.TopRight;
+                            break;
                         case 2:
-                            World.State.Rotation = WorldRotation.BottomRight; break;
+                            World.State.Rotation = WorldRotation.BottomRight;
+                            break;
                         case 3:
-                            World.State.Rotation = WorldRotation.BottomLeft; break;
+                            World.State.Rotation = WorldRotation.BottomLeft;
+                            break;
                     }
                 }
             }
@@ -137,8 +143,10 @@ namespace FSO.Client.UI.Screens
         {
             get
             {
-                if (World == null) return 1;
-                else return World.State.Level;
+                if (World == null)
+                    return 1;
+                else
+                    return World.State.Level;
             }
             set
             {
@@ -153,7 +161,8 @@ namespace FSO.Client.UI.Screens
         {
             get
             {
-                if (World == null) return 2;
+                if (World == null)
+                    return 2;
                 return World.Stories;
             }
         }
@@ -184,8 +193,8 @@ namespace FSO.Client.UI.Screens
                 TS1NeighPanel.OnHouseSelect += (house) =>
                 {
                     ActiveFamily = Content.GameContent.Get.Neighborhood.GetFamilyForHouse((short)house);
-                    InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, "UserData/Houses/House" + house.ToString().PadLeft(2, '0') + ".iff"), false);// "UserData/Houses/House21.iff"
-                Remove(TS1NeighPanel);
+                    InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, $"UserData/Houses/House{house.ToString().PadLeft(2, '0')}.iff"), false);// "UserData/Houses/House21.iff"
+                    Remove(TS1NeighPanel);
                 };
                 Add(TS1NeighPanel);
             }
@@ -212,7 +221,7 @@ namespace FSO.Client.UI.Screens
             InitializeLot(propertyName, external);
         }
 
-        private int SwitchLot = -1;
+        int SwitchLot = -1;
 
         public void ChangeSpeedTo(int speed)
         {
@@ -221,7 +230,8 @@ namespace FSO.Client.UI.Screens
             //2 speed is 3x
             //3 speed is 10x
 
-            if (vm == null) return;
+            if (vm == null)
+                return;
 
             switch (vm.SpeedMultiplier)
             {
@@ -229,60 +239,80 @@ namespace FSO.Client.UI.Screens
                     switch (speed)
                     {
                         case 1:
-                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo1); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo1);
+                            break;
                         case 2:
-                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo2); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo2);
+                            break;
                         case 3:
-                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo3); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo3);
+                            break;
                     }
                     break;
                 case 1:
                     switch (speed)
                     {
                         case 0:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed1ToP); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed1ToP);
+                            break;
                         case 2:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed1To2); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed1To2);
+                            break;
                         case 3:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed1To3); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed1To3);
+                            break;
                     }
                     break;
                 case 3:
                     switch (speed)
                     {
                         case 0:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed2ToP); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed2ToP);
+                            break;
                         case 1:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed2To1); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed2To1);
+                            break;
                         case 3:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed2To3); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed2To3);
+                            break;
                     }
                     break;
                 case 10:
                     switch (speed)
                     {
                         case 0:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed3ToP); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed3ToP);
+                            break;
                         case 1:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed3To1); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed3To1);
+                            break;
                         case 2:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed3To2); break;
+                            HITVM.Get().PlaySoundEvent(UISounds.Speed3To2);
+                            break;
                     }
                     break;
             }
 
             switch (speed)
             {
-                case 0: vm.SpeedMultiplier = 0; break;
-                case 1: vm.SpeedMultiplier = 1; break;
-                case 2: vm.SpeedMultiplier = 3; break;
-                case 3: vm.SpeedMultiplier = 10; break;
+                case 0:
+                    vm.SpeedMultiplier = 0;
+                    break;
+                case 1:
+                    vm.SpeedMultiplier = 1;
+                    break;
+                case 2:
+                    vm.SpeedMultiplier = 3;
+                    break;
+                case 3:
+                    vm.SpeedMultiplier = 10;
+                    break;
             }
         }
 
         public override void Update(Common.Rendering.Framework.Model.UpdateState state)
         {
-            GameFacade.Game.IsFixedTimeStep = (vm == null || vm.Ready);
+            GameFacade.Game.IsFixedTimeStep = vm == null || vm.Ready;
 
             Visible = World?.Visible == true && (World?.State as LotView.RC.WorldStateRC)?.CameraMode != true;
             GameFacade.Game.IsMouseVisible = Visible;
@@ -291,13 +321,17 @@ namespace FSO.Client.UI.Screens
                 FSOFacade.Controller.ToggleDebugMenu();
 
             base.Update(state);
-            if (state.NewKeys.Contains(Keys.D1)) ChangeSpeedTo(1);
-            if (state.NewKeys.Contains(Keys.D2)) ChangeSpeedTo(2);
-            if (state.NewKeys.Contains(Keys.D3)) ChangeSpeedTo(3);
-            if (state.NewKeys.Contains(Keys.P)) ChangeSpeedTo(0);
+            if (state.NewKeys.Contains(Keys.D1))
+                ChangeSpeedTo(1);
+            if (state.NewKeys.Contains(Keys.D2))
+                ChangeSpeedTo(2);
+            if (state.NewKeys.Contains(Keys.D3))
+                ChangeSpeedTo(3);
+            if (state.NewKeys.Contains(Keys.P))
+                ChangeSpeedTo(0);
 
             if (World != null)
-            { 
+            {
                 //stub smooth zoom?
             }
 
@@ -316,7 +350,8 @@ namespace FSO.Client.UI.Screens
                 InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, "UserData/Houses/House" + SwitchLot.ToString().PadLeft(2, '0') + ".iff"), false);
                 SwitchLot = -1;
             }
-            if (vm != null) vm.Update();
+            if (vm != null)
+                vm.Update();
         }
 
         public override void PreDraw(UISpriteBatch batch)
@@ -327,7 +362,8 @@ namespace FSO.Client.UI.Screens
 
         public void CleanupLastWorld()
         {
-            if (vm == null) return;
+            if (vm == null)
+                return;
 
             //clear our cache too, if the setting lets us do that
             TimedReferenceController.Clear();
@@ -364,7 +400,7 @@ namespace FSO.Client.UI.Screens
         }
 
         /*
-        private void VMSendCommand(byte[] data)
+        void VMSendCommand(byte[] data)
         {
             var controller = FindController<CoreGameScreenController>();
 
@@ -375,7 +411,7 @@ namespace FSO.Client.UI.Screens
             //TODO: alternate controller for sandbox/standalone mode?
         }
 
-        private void VMShutdown(VMCloseNetReason reason)
+        void VMShutdown(VMCloseNetReason reason)
         {
             var controller = FindController<CoreGameScreenController>();
 
@@ -387,7 +423,8 @@ namespace FSO.Client.UI.Screens
 
         public void ClientStateChange(int state, float progress)
         {
-            lock (StateChanges) StateChanges.Enqueue(new SimConnectStateChange(state, progress));
+            lock (StateChanges)
+                StateChanges.Enqueue(new SimConnectStateChange(state, progress));
         }
 
         public void ClientStateChangeProcess(int state, float progress)
@@ -409,7 +446,8 @@ namespace FSO.Client.UI.Screens
 
         public void InitializeLot(string lotName, bool external)
         {
-            if (lotName == "") return;
+            if (lotName == "")
+                return;
             var recording = lotName.ToLowerInvariant().EndsWith(".fsor");
             CleanupLastWorld();
 
@@ -418,7 +456,8 @@ namespace FSO.Client.UI.Screens
                 var rc = new LotView.RC.WorldRC(GameFacade.GraphicsDevice);
                 World = rc;
             }
-            else World = new World(GameFacade.GraphicsDevice);
+            else
+                World = new World(GameFacade.GraphicsDevice);
             World.Opacity = 1;
             GameFacade.Scenes.Add(World);
 
@@ -429,7 +468,7 @@ namespace FSO.Client.UI.Screens
                 DefaultSuits = new VMAvatarDefaultSuits(settings.DebugGender),
                 BodyOutfit = settings.DebugBody,
                 HeadOutfit = settings.DebugHead,
-                PersistID = (uint)(new Random()).Next(),
+                PersistID = (uint)new Random().Next(),
                 SkinTone = (byte)settings.DebugSkin,
                 Gender = (short)(settings.DebugGender ? 0 : 1),
                 Permissions = SimAntics.Model.TSOPlatform.VMTSOAvatarPermissions.Admin,
@@ -461,7 +500,8 @@ namespace FSO.Client.UI.Screens
                 {
                     SandCli.Write(ava);
                 };
-            } else
+            }
+            else
             {
                 var globalLink = new VMTSOGlobalLinkStub
                 {
@@ -502,7 +542,8 @@ namespace FSO.Client.UI.Screens
                 LotControl.Visible = false;
             }
 
-            if (IDEHook.IDE != null) IDEHook.IDE.StartIDE(vm);
+            if (IDEHook.IDE != null)
+                IDEHook.IDE.StartIDE(vm);
 
             vm.OnFullRefresh += VMRefreshed;
             vm.OnChatEvent += Vm_OnChatEvent;
@@ -579,9 +620,12 @@ namespace FSO.Client.UI.Screens
                 var isIff = path.EndsWith(".iff");
                 short jobLevel = -1;
 
-                try { 
-                    if (isIff) jobLevel = short.Parse(path.Substring(path.Length - 6, 2));
-                    else jobLevel = short.Parse(path.Substring(path.IndexOf('0'), 2));
+                try
+                {
+                    if (isIff)
+                        jobLevel = short.Parse(path.Substring(path.Length - 6, 2));
+                    else
+                        jobLevel = short.Parse(path.Substring(path.IndexOf('0'), 2));
                 }
                 catch { }
 
@@ -604,25 +648,26 @@ namespace FSO.Client.UI.Screens
         }
 
 
-        private void Vm_OnGenericVMEvent(VMEventType type, object data)
+        void Vm_OnGenericVMEvent(VMEventType type, object data)
         {
             //hmm...
         }
 
-        private void VMLotSwitch(uint lotId)
+        void VMLotSwitch(uint lotId)
         {
             if ((short)lotId == -1)
             {
                 Downtown = false;
                 lotId = (uint)ActiveFamily.HouseNumber;
-            } else
+            }
+            else
             {
                 Downtown = true;
             }
             SwitchLot = (int)lotId;
         }
 
-        private void Vm_OnChatEvent(VMChatEvent evt)
+        void Vm_OnChatEvent(VMChatEvent evt)
         {
             if (ZoomLevel < 4)
             {
@@ -630,16 +675,18 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void VMRefreshed()
+        void VMRefreshed()
         {
-            if (vm == null) return;
+            if (vm == null)
+                return;
             LotControl.ActiveEntity = null;
             LotControl.RefreshCut();
         }
 
-        private void SaveHouseButton_OnButtonClick(UIElement button)
+        void SaveHouseButton_OnButtonClick(UIElement button)
         {
-            if (vm == null) return;
+            if (vm == null)
+                return;
 
             var exporter = new VMWorldExporter();
             exporter.SaveHouse(vm, GameFacade.GameFilePath("housedata/blueprints/house_00.xml"));
@@ -649,7 +696,8 @@ namespace FSO.Client.UI.Screens
             {
                 marshal.SerializeInto(new BinaryWriter(output));
             }
-            if (vm.GlobalLink != null) ((VMTSOGlobalLinkStub)vm.GlobalLink).Database.Save();
+            if (vm.GlobalLink != null)
+                ((VMTSOGlobalLinkStub)vm.GlobalLink).Database.Save();
         }
     }
 }

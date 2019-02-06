@@ -22,10 +22,10 @@ namespace FSO.Client.Controllers
 {
     public class InboxController : IAriesMessageSubscriber, IDisposable
     {
-        private UIInbox View;
-        private IClientDataService DataService;
-        private IDatabaseService DatabaseService;
-        private Network.Network Network;
+        UIInbox View;
+        IClientDataService DataService;
+        IDatabaseService DatabaseService;
+        Network.Network Network;
 
         public UIMessageStore InboxStore;
 
@@ -76,7 +76,7 @@ namespace FSO.Client.Controllers
 
         public List<MessageItem> GetSortedInbox(Func<MessageItem, object> sortFunc, bool descending)
         {
-            return ((descending)?InboxStore.Items.OrderByDescending(sortFunc) : InboxStore.Items.OrderBy(sortFunc)).ToList();
+            return (descending?InboxStore.Items.OrderByDescending(sortFunc) : InboxStore.Items.OrderBy(sortFunc)).ToList();
         }
 
         public void Search(string query, bool exact)
@@ -132,16 +132,16 @@ namespace FSO.Client.Controllers
                                     Message = GameFacade.Strings.GetString("225", msg.Messages.Length > 1 ? "3" : "2", new string[] { msg.Messages.Length.ToString() }),
                                     Buttons = new UIAlertButton[]
                                     {
-                                        new UIAlertButton(UI.Controls.UIAlertButtonType.Yes, (btn =>
+                                        new UIAlertButton(UI.Controls.UIAlertButtonType.Yes, btn =>
                                         {
                                             //show the inbox
                                             ((CoreGameScreen)UIScreen.Current).OpenInbox();
                                             UIScreen.RemoveDialog(alert);
-                                        })),
-                                        new UIAlertButton(UI.Controls.UIAlertButtonType.No, (btn =>
+                                        }),
+                                        new UIAlertButton(UI.Controls.UIAlertButtonType.No, btn =>
                                         {
                                             UIScreen.RemoveDialog(alert);
-                                        }))
+                                        })
                                     }
                                 }, true);
                             }

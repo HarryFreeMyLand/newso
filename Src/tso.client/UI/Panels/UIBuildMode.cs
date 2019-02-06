@@ -55,32 +55,32 @@ namespace FSO.Client.UI.Panels
         public UIButton PreviousPageButton { get; set; } 
         public UIButton NextPageButton { get; set; }
 
-        private Dictionary<UIButton, int> CategoryMap;
-        private List<UICatalogElement> CurrentCategory;
+        Dictionary<UIButton, int> CategoryMap;
+        List<UICatalogElement> CurrentCategory;
 
-        private UILabel ObjLimitLabel;
-        private int LastObjCount = -1;
+        UILabel ObjLimitLabel;
+        int LastObjCount = -1;
 
         public UICatalog Catalog;
         public UIObjectHolder Holder;
         public UIQueryPanel QueryPanel { get { return LotController.QueryPanel; } }
         public UILotControl LotController;
-        private VMMultitileGroup BuyItem;
+        VMMultitileGroup BuyItem;
 
-        private int OldSelection = -1;
+        int OldSelection = -1;
 
-        private UISlider RoofSlider;
-        private UIButton RoofSteepBtn;
-        private UIButton RoofShallowBtn;
-        private uint TicksSinceRoof = 0;
-        private bool SendRoofValue = false;
+        UISlider RoofSlider;
+        UIButton RoofSteepBtn;
+        UIButton RoofShallowBtn;
+        uint TicksSinceRoof = 0;
+        bool SendRoofValue = false;
 
         public UIBuildMode(UILotControl lotController)
         {
             LotController = lotController;
             Holder = LotController.ObjectHolder;
 
-            var useSmall = (FSOEnvironment.UIZoomFactor>1f || GlobalSettings.Default.GraphicsWidth < 1024);
+            var useSmall = FSOEnvironment.UIZoomFactor>1f || GlobalSettings.Default.GraphicsWidth < 1024;
             var script = this.RenderScript("buildpanel" + (useSmall ? "" : "1024") + ".uis");
 
             Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
@@ -198,7 +198,7 @@ namespace FSO.Client.UI.Panels
                 {
                     LotController.vm.Context.Blueprint.RoofComp.SetStylePitch(
                         LotController.vm.Context.Architecture.RoofStyle,
-                        (1.25f - RoofSlider.Value)
+                        1.25f - RoofSlider.Value
                         );
                     SendRoofValue = true;
                 }
@@ -220,10 +220,10 @@ namespace FSO.Client.UI.Panels
 
         public void SetPage(int page)
         {
-            bool noPrev = (page == 0);
+            bool noPrev = page == 0;
             PreviousPageButton.Disabled = noPrev;
 
-            bool noNext = (page + 1 == Catalog.TotalPages());
+            bool noNext = page + 1 == Catalog.TotalPages();
             NextPageButton.Disabled = noNext;
 
             Catalog.SetPage(page);
@@ -281,7 +281,7 @@ namespace FSO.Client.UI.Panels
             SubtoolsSlider.MaxValue = total - 1;
             SubtoolsSlider.Value = 0;
 
-            NextPageButton.Disabled = (total == 1);
+            NextPageButton.Disabled = total == 1;
 
             if (LotController.CustomControl != null)
             {
@@ -369,18 +369,18 @@ namespace FSO.Client.UI.Panels
             base.Removed();
         }
 
-        private void HolderPickup(UIObjectSelection holding, UpdateState state)
+        void HolderPickup(UIObjectSelection holding, UpdateState state)
         {
             QueryPanel.Mode = 0;
             QueryPanel.Active = true;
             QueryPanel.SetInfo(LotController.vm, holding.RealEnt ?? holding.Group.BaseObject, holding.IsBought);
             QueryPanel.Tab = 1;
         }
-        private void HolderPutDown(UIObjectSelection holding, UpdateState state)
+        void HolderPutDown(UIObjectSelection holding, UpdateState state)
         {
             if (OldSelection != -1)
             {
-                if (!holding.IsBought && (state.ShiftDown))
+                if (!holding.IsBought && state.ShiftDown)
                 {
                     //place another
                     var prevDir = holding.Dir;
@@ -396,7 +396,7 @@ namespace FSO.Client.UI.Panels
             QueryPanel.Active = false;
         }
 
-        private void HolderDelete(UIObjectSelection holding, UpdateState state)
+        void HolderDelete(UIObjectSelection holding, UpdateState state)
         {
             if (OldSelection != -1)
             {

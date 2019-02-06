@@ -132,14 +132,14 @@ namespace FSO.Client.Rendering.City
             Roads = new Texture2D[16];
             for (int x = 0; x < 16; x++)
             {
-                Num = (x).ToString().PadLeft(2, '0');
+                Num = x.ToString().PadLeft(2, '0');
                 Roads[x] = LoadTex(terrainpath + "road" + Num + ".png");
             }
 
             RoadCorners = new Texture2D[16];
             for (int x = 0; x < 16; x++)
             {
-                Num = (x).ToString().PadLeft(2, '0');
+                Num = x.ToString().PadLeft(2, '0');
                 RoadCorners[x] = LoadTex(terrainpath + "roadcorner" + Num + ".png");
             }
 
@@ -195,7 +195,7 @@ namespace FSO.Client.Rendering.City
             VertexColor.SetData(dat);
         }
 
-        private Texture2D RTToMip(Texture2D texture, GraphicsDevice device)
+        Texture2D RTToMip(Texture2D texture, GraphicsDevice device)
         {
             var data = new Color[texture.Width * texture.Height];
             texture.GetData(data);
@@ -223,13 +223,13 @@ namespace FSO.Client.Rendering.City
         }
 
 
-        private Texture2D LoadTex(string Path)
+        Texture2D LoadTex(string Path)
         {
             using (var strm = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return LoadTex(strm);
         }
 
-        private Texture2D LoadTex(Stream stream)
+        Texture2D LoadTex(Stream stream)
         {
             Texture2D result = null;
             try

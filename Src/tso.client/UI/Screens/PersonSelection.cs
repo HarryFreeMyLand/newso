@@ -48,14 +48,14 @@ namespace FSO.Client.UI.Screens
         public UIButton FamilyButton { get; set; }
 
         public UIButton CreditsButton { get; set; }
-        private List<PersonSlot> m_PersonSlots { get; set; }
-        private UIButton m_ExitButton;
+        List<PersonSlot> m_PersonSlots { get; set; }
+        UIButton m_ExitButton;
 
         public ApiClient Api;
 
         public LoginRegulator LoginRegulator;
 
-        private ICache Cache;
+        ICache Cache;
 
         public PersonSelection(LoginRegulator loginRegulator, ICache cache) : base()
         {
@@ -166,7 +166,7 @@ namespace FSO.Client.UI.Screens
             });
         }
 
-        private UIImage Background;
+        UIImage Background;
 
         public override void GameResized()
         {
@@ -247,12 +247,12 @@ namespace FSO.Client.UI.Screens
         
         
         
-        private void m_ExitButton_OnButtonClick(UIElement button)
+        void m_ExitButton_OnButtonClick(UIElement button)
         {
             UIScreen.ShowDialog(new UIExitDialog(), true);
         }
 
-        private void CreditsButton_OnButtonClick(UIElement button)
+        void CreditsButton_OnButtonClick(UIElement button)
         {
             /** Show the credits screen **/
             FSOFacade.Controller.ShowCredits();
@@ -294,12 +294,12 @@ namespace FSO.Client.UI.Screens
         public UITextEdit PersonDescriptionText { get; set; }
         public UIImage DescriptionTabBackgroundImage { get; set; }
 
-        private PersonSelection Screen { get; set; }
+        PersonSelection Screen { get; set; }
         public AvatarData Avatar;
-        private UIImage CityThumb { get; set; }
-        private UIImage HouseThumb { get; set; }
+        UIImage CityThumb { get; set; }
+        UIImage HouseThumb { get; set; }
 
-        private UISim Sim;
+        UISim Sim;
 
         public PersonSlot(PersonSelection screen)
         {
@@ -376,7 +376,7 @@ namespace FSO.Client.UI.Screens
         /// <summary>
         /// User clicked the "Retire avatar" button.
         /// </summary>
-        private void DeleteAvatarButton_OnButtonClick(UIElement button)
+        void DeleteAvatarButton_OnButtonClick(UIElement button)
         {
             if (Avatar == null)
             {
@@ -529,12 +529,12 @@ namespace FSO.Client.UI.Screens
             HouseButton.Visible = isEnter && hasLot;
         }
 
-        private void DescTabButton_OnButtonClick(UIElement button)
+        void DescTabButton_OnButtonClick(UIElement button)
         {
             SetTab(PersonSlotTab.DescriptionTab);
         }
 
-        private void EnterTabButton_OnButtonClick(UIElement button)
+        void EnterTabButton_OnButtonClick(UIElement button)
         {
             SetTab(PersonSlotTab.EnterTab);
         }

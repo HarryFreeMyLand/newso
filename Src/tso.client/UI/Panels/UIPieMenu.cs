@@ -36,19 +36,19 @@ namespace FSO.Client.UI.Panels
         public UILotControl m_Parent;
         public UIImage m_Bg;
 
-        private _3DTargetScene HeadScene;
-        private BasicCamera HeadCamera;
-        private double m_BgGrow;
-        private float TrueScale;
+        _3DTargetScene HeadScene;
+        BasicCamera HeadCamera;
+        double m_BgGrow;
+        float TrueScale;
 
-        private bool ShiftDown; //shift activates IDE
+        bool ShiftDown; //shift activates IDE
 
         //This is a standard AdultVitaboyModel instance. Since nothing is needed but the head for pie menus,
         //the other parts of the body will be stripped from it (see constructor).
-        private SimAvatar m_Head;
+        SimAvatar m_Head;
 
-        private TextStyle ButtonStyle;
-        private TextStyle HighlightStyle;
+        TextStyle ButtonStyle;
+        TextStyle HighlightStyle;
 
         public UIPieMenu(List<VMPieMenuInteraction> pie, VMEntity obj, VMEntity caller, UILotControl parent)
         {
@@ -138,7 +138,7 @@ namespace FSO.Client.UI.Panels
             initSimHead();
         }
 
-        private void initSimHead()
+        void initSimHead()
         {
             HeadCamera = new BasicCamera(GameFacade.GraphicsDevice, new Vector3(0.0f, 7.0f, -17.0f), Vector3.Zero, Vector3.Up)
             {
@@ -146,7 +146,7 @@ namespace FSO.Client.UI.Panels
                 Target = new Vector3(0, 5.2f, 0.0f)
             };
 
-            HeadScene = new _3DTargetScene(GameFacade.GraphicsDevice, HeadCamera, new Point((int)(200 * TrueScale), (int)(200 * TrueScale)), (GlobalSettings.Default.AntiAlias) ? 8 : 0)
+            HeadScene = new _3DTargetScene(GameFacade.GraphicsDevice, HeadCamera, new Point((int)(200 * TrueScale), (int)(200 * TrueScale)), GlobalSettings.Default.AntiAlias ? 8 : 0)
             {
                 ID = "UIPieMenuHead"
             };
@@ -217,13 +217,13 @@ namespace FSO.Client.UI.Panels
                 var elem = elems.ElementAt(i);
                 var but = new UIButton()
                 {
-                    Caption = elem.Name+((elem.Category)?"...":""),
+                    Caption = elem.Name+(elem.Category?"...":""),
                     CaptionStyle = (elem.ColorMod>0)?HighlightStyle:ButtonStyle,
                     ImageStates = 1,
                     Texture = TextureGenerator.GetPieButtonImg(GameFacade.GraphicsDevice)
                 };
 
-                double dir = (((double)i)/dirConfig)*Math.PI*2;
+                double dir = ((double)i)/dirConfig*Math.PI*2;
                 but.AutoMargins = 4;
 
                 if (i == 0) { //top
@@ -231,7 +231,7 @@ namespace FSO.Client.UI.Panels
                     but.Y = (float)((Math.Cos(dir)*-60)-but.Size.Y);
                 } else if (i == dirConfig/2) { //bottom
                     but.X = (float)(Math.Sin(dir)*60-but.Width/2);
-                    but.Y = (float)((Math.Cos(dir)*-60));
+                    but.Y = (float)(Math.Cos(dir)*-60);
                 }
                 else if (i < dirConfig / 2) //on right side
                 {
@@ -256,7 +256,7 @@ namespace FSO.Client.UI.Panels
                 var elem = elems.ElementAt(i);
                 var but = new UIButton()
                 {
-                    Caption = elem.Name+((elem.Category)?"...":""),
+                    Caption = elem.Name+(elem.Category?"...":""),
                     CaptionStyle = (elem.ColorMod > 0) ? HighlightStyle : ButtonStyle,
                     ImageStates = 1,
                     Texture = TextureGenerator.GetPieButtonImg(GameFacade.GraphicsDevice)
@@ -316,7 +316,7 @@ namespace FSO.Client.UI.Panels
             RenderMenu();
         }
 
-        private void PieButtonClick(UIElement button)
+        void PieButtonClick(UIElement button)
         {
             int index = m_PieButtons.IndexOf((UIButton)button);
             if (index == -1) return; //bail! this isn't meant to happen!
@@ -341,14 +341,14 @@ namespace FSO.Client.UI.Panels
                 }
                 else
                 {
-                    if (IDE.IDEHook.IDE != null && ShiftDown) {
+                    if (Diagnostics.IDEHook.IDE != null && ShiftDown) {
                         if (m_Obj.TreeTable.InteractionByIndex.ContainsKey((uint)action.ID)) {
                             var act = m_Obj.TreeTable.InteractionByIndex[(uint)action.ID];
                             ushort ActionID = act.ActionFunction;
 
                             var function = m_Obj.GetBHAVWithOwner(ActionID, m_Parent.vm.Context);
 
-                            IDE.IDEHook.IDE.IDEOpenBHAV(
+                            Diagnostics.IDEHook.IDE.IDEOpenBHAV(
                                 function.bhav,
                                 m_Obj.Object
                             );

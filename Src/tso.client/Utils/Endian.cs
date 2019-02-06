@@ -39,7 +39,7 @@ namespace FSO.Client.Utils
 
         public static long SwapInt64(long v)
         {
-            var uvalue = ((0x00000000000000FF) & ((ulong)v >> 56)
+            var uvalue = (0x00000000000000FF) & ((ulong)v >> 56)
 
             | (0x000000000000FF00) & ((ulong)v >> 40)
 
@@ -53,14 +53,14 @@ namespace FSO.Client.Utils
 
             | (0x00FF000000000000) & ((ulong)v << 40)
 
-            | (0xFF00000000000000) & ((ulong)v << 56));
+            | (0xFF00000000000000) & ((ulong)v << 56);
 
             return (Int64)uvalue;
         }
 
         public static ulong SwapUInt64(ulong v)
         {
-            var uvalue = ( (0x00000000000000FF) & (v >> 56)
+            var uvalue =  (0x00000000000000FF) & (v >> 56)
 
             | (0x000000000000FF00) & (v >> 40)
 
@@ -74,7 +74,7 @@ namespace FSO.Client.Utils
 
             | (0x00FF000000000000) & (v << 40)
 
-            | (0xFF00000000000000) & (v << 56));
+            | (0xFF00000000000000) & (v << 56);
 
             return uvalue;
         }
@@ -95,6 +95,6 @@ namespace FSO.Client.Utils
             }
         }
 
-        private static readonly bool _LittleEndian;
+        static readonly bool _LittleEndian;
     }
 }

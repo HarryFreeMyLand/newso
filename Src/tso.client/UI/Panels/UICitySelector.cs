@@ -62,7 +62,7 @@ namespace FSO.Client.UI.Panels
         public string CityBusyDialogMessage { get; set; }
 
         //Internal
-        private UIImage CityThumb { get; set; }
+        UIImage CityThumb { get; set; }
 
         public UICitySelector(List<ShardStatusItem> shards)
             : base(UIDialogStyle.Standard, true)
@@ -191,7 +191,7 @@ namespace FSO.Client.UI.Panels
 
             var fsoMap = int.Parse(city.Map) >= 100;
 
-            var cityThumb = (fsoMap) ?
+            var cityThumb = fsoMap ?
             Path.Combine(FSOEnvironment.ContentDir, "Cities/city_" + city.Map + "/thumbnail.png")
             : GameFacade.GameFilePath("cities/city_" + city.Map + "/thumbnail.bmp");
 

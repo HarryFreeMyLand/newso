@@ -16,9 +16,9 @@ namespace FSO.Client.UI.Screens
 {
     public class MaxisLogo : GameScreen
     {
-        private UIImage m_MaxisLogo;
-        private UIContainer BackgroundCtnr;
-        private Timer m_CheckProgressTimer;
+        UIImage m_MaxisLogo;
+        UIContainer BackgroundCtnr;
+        Timer m_CheckProgressTimer;
 
         public MaxisLogo() : base()
         {
@@ -42,7 +42,7 @@ namespace FSO.Client.UI.Screens
             m_CheckProgressTimer.Start();
         }
 
-        private void m_CheckProgressTimer_Elapsed(object sender, ElapsedEventArgs e)
+        void m_CheckProgressTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             m_CheckProgressTimer.Stop();
             GameFacade.Screens.RemoveCurrent();

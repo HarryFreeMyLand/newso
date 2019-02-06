@@ -19,9 +19,9 @@ namespace FSO.Client.Controllers
 {
     public class LoginController : IDisposable
     {
-        private LoginScreen View;
-        private LoginRegulator Regulator;
-        private UIAlert _UpdaterAlert;
+        LoginScreen View;
+        LoginRegulator Regulator;
+        UIAlert _UpdaterAlert;
 
         public LoginController(LoginScreen view, LoginRegulator reg)
         {
@@ -30,7 +30,7 @@ namespace FSO.Client.Controllers
             Regulator.OnTransition += Regulator_OnTransition;
         }
 
-        private void Regulator_OnTransition(string transition, object data)
+        void Regulator_OnTransition(string transition, object data)
         {
             switch (transition)
             {

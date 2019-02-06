@@ -619,9 +619,9 @@
       <Project>{39201960-f96f-4039-84b1-1331d5dde3c2}</Project>
       <Name>FSO.Windows</Name>
     </ProjectReference>
-    <ProjectReference Include="..\tso.client\FSO.Client.csproj">
+    <ProjectReference Include="..\tso.client\FSO.Core.csproj">
       <Project>{635e68fa-3905-4943-b4f5-d463a8c02e87}</Project>
-      <Name>FSO.Client</Name>
+      <Name>FSO.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\tso.common\FSO.Common.csproj">
       <Project>{c42962a1-8796-4f47-9dcd-79ed5904d8ca}</Project>

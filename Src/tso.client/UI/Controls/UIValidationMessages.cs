@@ -13,13 +13,13 @@ namespace FSO.Client.UI.Controls
 {
     public class UIValidationMessages<T> : UIElement
     {
-        private List<UIValidationMessage<T>> Messages = new List<UIValidationMessage<T>>();
+        List<UIValidationMessage<T>> Messages = new List<UIValidationMessage<T>>();
         public string ErrorPrefix;
         public int Width = 300;
         public int Padding = 10;
         public TextStyle Style = TextStyle.DefaultButton;
 
-        private Color _Background = new Color(49, 73, 99);
+        Color _Background = new Color(49, 73, 99);
         public Color Background
         {
             get { return _Background; }
@@ -29,9 +29,9 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private Texture2D BackgroundTexture;
+        Texture2D BackgroundTexture;
 
-        private UIWordWrapOutput Text;
+        UIWordWrapOutput Text;
 
         public UIValidationMessages()
         {

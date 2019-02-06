@@ -60,7 +60,7 @@ namespace FSO.Client.UI.Hints
             ExpandedIcon = ui.Get("hcat_expand.png").Get(GameFacade.GraphicsDevice);
         }
 
-        private UpdateState LastState;
+        UpdateState LastState;
         public override void Update(UpdateState state)
         {
             base.Update(state);
@@ -72,7 +72,7 @@ namespace FSO.Client.UI.Hints
             Visible = true; //hack to get things to draw correctly in the listbox
             if (!Colored && Hint != null)
             {
-                Label.CaptionStyle.Color = (FSOFacade.Hints.ShownGUIDs.Contains(Hint.GUID)) ? Color.LightBlue : TextStyle.DefaultLabel.Color;
+                Label.CaptionStyle.Color = FSOFacade.Hints.ShownGUIDs.Contains(Hint.GUID) ? Color.LightBlue : TextStyle.DefaultLabel.Color;
                 Colored = true;
             }
             //InvalidateMatrix();
@@ -91,7 +91,7 @@ namespace FSO.Client.UI.Hints
 
         public void Deselect()
         {
-            Label.CaptionStyle.Color = (FSOFacade.Hints.ShownGUIDs.Contains(Hint.GUID))?Color.LightBlue:TextStyle.DefaultLabel.Color;
+            Label.CaptionStyle.Color = FSOFacade.Hints.ShownGUIDs.Contains(Hint.GUID)?Color.LightBlue:TextStyle.DefaultLabel.Color;
             Selected = false;
         }
     }

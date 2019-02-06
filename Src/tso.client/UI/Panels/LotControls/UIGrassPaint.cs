@@ -32,12 +32,12 @@ namespace FSO.Client.UI.Panels.LotControls
         World World;
         UILotControl Parent;
 
-        private bool Drawing;
-        private Point LastPosition;
-        private Dictionary<Point, VMArchitectureCommand> Commands = new Dictionary<Point, VMArchitectureCommand>();
+        bool Drawing;
+        Point LastPosition;
+        Dictionary<Point, VMArchitectureCommand> Commands = new Dictionary<Point, VMArchitectureCommand>();
 
-        private VMArchitectureCommand LastCmd;
-        private bool WasDown;
+        VMArchitectureCommand LastCmd;
+        bool WasDown;
 
         public UIGrassPaint(VM vm, World world, UILotControl parent, List<int> parameters)
         {
@@ -117,7 +117,7 @@ namespace FSO.Client.UI.Panels.LotControls
                 var mod = (!state.ShiftDown) ? 128 : 32;
                 if (!state.CtrlDown) mod *= -1;
 
-                cmd.pattern = (ushort)(Math.Min(255, Math.Max(-255, ((short)cmd.pattern) + mod)));
+                cmd.pattern = (ushort)Math.Min(255, Math.Max(-255, ((short)cmd.pattern) + mod));
                 LastPosition = cursor;
                 Commands[cursor] = cmd;
             }

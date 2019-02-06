@@ -87,7 +87,7 @@
     <Compile Include="Controls\UISlider.cs" />
     <Compile Include="Controls\UITextBox.cs" />
     <Compile Include="Controls\UITextEdit.cs" />
-    <Compile Include="IDE\IDEHook.cs" />
+    <Compile Include="Diagnostics\IDEHook.cs" />
     <Compile Include="Framework\DoubleClick.cs" />
     <Compile Include="Framework\Font.cs" />
     <Compile Include="Framework\GameScreen.cs" />

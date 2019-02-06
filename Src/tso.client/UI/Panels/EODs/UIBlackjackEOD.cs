@@ -20,91 +20,91 @@ namespace FSO.Client.UI.Panels.EODs
     public class UIBlackjackEOD : UIEOD
     {
         // general UI
-        private UIEODLobby Lobby;
+        UIEODLobby Lobby;
         public UIScript Script;
-        private UIManageEODObjectPanel OwnerPanel;
+        UIManageEODObjectPanel OwnerPanel;
         public int TextX = 50;
-        private int MainPlayerActiveHand;
-        private int MyPlayerNumber;
-        private int MyCurrentBetAmount;
-        private int MinBet;
-        private int MaxBet;
-        private string Player1BetCaption;
-        private string Player2BetCaption;
-        private string Player3BetCaption;
-        private string Player4BetCaption;
-        private bool IsBettingAllowed;
-        private List<string[]> CardsToDeal;
-        private int DealingIndex;
-        private Timer DealTimer;
-        private Timer InvalidateTimer;
-        private Random Random = new Random();
-        private UIAlert InsuranceAlert;
-        private short DealersID;
-        private UIVMPersonButton DealerPersonButton;
+        int MainPlayerActiveHand;
+        int MyPlayerNumber;
+        int MyCurrentBetAmount;
+        int MinBet;
+        int MaxBet;
+        string Player1BetCaption;
+        string Player2BetCaption;
+        string Player3BetCaption;
+        string Player4BetCaption;
+        bool IsBettingAllowed;
+        List<string[]> CardsToDeal;
+        int DealingIndex;
+        Timer DealTimer;
+        Timer InvalidateTimer;
+        Random Random = new Random();
+        UIAlert InsuranceAlert;
+        short DealersID;
+        UIVMPersonButton DealerPersonButton;
 
         // text
         public UILabel labelTotalBet { get; set; }
         public UITextEdit TotalBetEntry { get; set; }
-        private UILabel Player1BetAmount;
-        private UILabel Player2BetAmount;
-        private UILabel Player3BetAmount;
-        private UILabel Player4BetAmount;
-        private UILabel MyBetAmount;
-        private UITextEdit DealerBetAmount;
-        private UILabel DealerCardTotal;
-        private UILabel Player1CardTotal;
-        private UILabel Player2CardTotal;
-        private UILabel Player3CardTotal;
-        private UILabel Player4CardTotal;
-        private UILabel MyPlayerCardTotal;
-        private UILabel Player1SplitLetter;
-        private UILabel Player2SplitLetter;
-        private UILabel Player3SplitLetter;
-        private UILabel Player4SplitLetter;
-        private List<UITextEdit> MainPlayerCardTotals;
-        private UILabel InsuredLabel;
-        private string DealersName;
+        UILabel Player1BetAmount;
+        UILabel Player2BetAmount;
+        UILabel Player3BetAmount;
+        UILabel Player4BetAmount;
+        UILabel MyBetAmount;
+        UITextEdit DealerBetAmount;
+        UILabel DealerCardTotal;
+        UILabel Player1CardTotal;
+        UILabel Player2CardTotal;
+        UILabel Player3CardTotal;
+        UILabel Player4CardTotal;
+        UILabel MyPlayerCardTotal;
+        UILabel Player1SplitLetter;
+        UILabel Player2SplitLetter;
+        UILabel Player3SplitLetter;
+        UILabel Player4SplitLetter;
+        List<UITextEdit> MainPlayerCardTotals;
+        UILabel InsuredLabel;
+        string DealersName;
 
         // images
         public UIImage betEntryBox { get; set; }
-        private UIImage DealerPos;
-        private UIImage DealerHead;
-        private UIImage Player1Head;
-        private UIImage Player2Head;
-        private UIImage Player3Head;
-        private UIImage Player4Head;
-        private UIImage Player1BetBack;
-        private UIImage Player2BetBack;
-        private UIImage Player3BetBack;
-        private UIImage Player4BetBack;
-        private UIImage DealerBetBack;
-        private UIImage Player1TotalBack;
-        private UIImage Player2TotalBack;
-        private UIImage Player3TotalBack;
-        private UIImage Player4TotalBack;
-        private UIImage DealerTotalBack;
-        private UIImage EODTallBack;
-        private UIImage EODTallBackEnd;
-        private UIImage BtnDoubleBack;
-        private UIImage BtnSplitBack;
-        private UIImage BtnBetBack;
-        private UISlotsImage MainCardBack;
-        private UIImage MainPlayerCardTotalBack;
+        UIImage DealerPos;
+        UIImage DealerHead;
+        UIImage Player1Head;
+        UIImage Player2Head;
+        UIImage Player3Head;
+        UIImage Player4Head;
+        UIImage Player1BetBack;
+        UIImage Player2BetBack;
+        UIImage Player3BetBack;
+        UIImage Player4BetBack;
+        UIImage DealerBetBack;
+        UIImage Player1TotalBack;
+        UIImage Player2TotalBack;
+        UIImage Player3TotalBack;
+        UIImage Player4TotalBack;
+        UIImage DealerTotalBack;
+        UIImage EODTallBack;
+        UIImage EODTallBackEnd;
+        UIImage BtnDoubleBack;
+        UIImage BtnSplitBack;
+        UIImage BtnBetBack;
+        UISlotsImage MainCardBack;
+        UIImage MainPlayerCardTotalBack;
 
         // containers
-        private CardHand DealerCardContainer;
-        private CardHand Player1CardContainer;
-        private CardHand Player2CardContainer;
-        private CardHand Player3CardContainer;
-        private CardHand Player4CardContainer;
-        private CardHand MyPlayerContainer;
-        private List<CardHand> MainPlayerCardContainers;
+        CardHand DealerCardContainer;
+        CardHand Player1CardContainer;
+        CardHand Player2CardContainer;
+        CardHand Player3CardContainer;
+        CardHand Player4CardContainer;
+        CardHand MyPlayerContainer;
+        List<CardHand> MainPlayerCardContainers;
 
         // textures
-        private Texture2D PlayerPicturePlaceHolder = GetTexture(0x000002B300000001); // EOD_PizzaHeadPlaceholder1.bmp
-        private Texture2D PlayerBetBack = GetTexture(0x95600000001); // eod_buzzer_playertimerback.bmp
-        private Texture2D Blackjack_ScoreBox = GetTexture(0xCB300000001); // eod_blackjackscorebox.bmp
+        Texture2D PlayerPicturePlaceHolder = GetTexture(0x000002B300000001); // EOD_PizzaHeadPlaceholder1.bmp
+        Texture2D PlayerBetBack = GetTexture(0x95600000001); // eod_buzzer_playertimerback.bmp
+        Texture2D Blackjack_ScoreBox = GetTexture(0xCB300000001); // eod_blackjackscorebox.bmp
         public Texture2D imagePlayerBack { get; set; } // not sure
         public Texture2D imagePlayerBox { get; set; } // other player box
         public Texture2D imagePlayerBoxEdit { get; set; } // your player box
@@ -124,7 +124,7 @@ namespace FSO.Client.UI.Panels.EODs
         public UIImage offset_PlayerSeat { get; set; }
         public UIImage dealerPos_Head { get; set; }
         public UIImage dealerPos_Cards { get; set; }
-        private Vector2 MainContainerCenterStage_Offset = new Vector2(82, 0);
+        Vector2 MainContainerCenterStage_Offset = new Vector2(82, 0);
 
         // buttons
         public UIButton btnHit { get; set; }
@@ -139,32 +139,32 @@ namespace FSO.Client.UI.Panels.EODs
         public UIButton btnChip3 { get; set; }
         public UIButton btnChip4 { get; set; }
         public UIButton btnChip5 { get; set; }
-        private UIButton[] AllButtons;
+        UIButton[] AllButtons;
 
         // constants
-        private readonly float ONE_HAND_SCALE = 1.80f;
-        private readonly float TWO_HANDS_SCALE = 1.60f;
-        private readonly float THREE_HANDS_SCALE = 1.40f;
-        private readonly float FOUR_HANDS_SCALE = 1.20f;
-        private readonly float COLLAPSED_HANDS_MARGIN = 10f;
-        private readonly int MAIN_CARD_BACK_WIDTH = 246;
+        readonly float ONE_HAND_SCALE = 1.80f;
+        readonly float TWO_HANDS_SCALE = 1.60f;
+        readonly float THREE_HANDS_SCALE = 1.40f;
+        readonly float FOUR_HANDS_SCALE = 1.20f;
+        readonly float COLLAPSED_HANDS_MARGIN = 10f;
+        readonly int MAIN_CARD_BACK_WIDTH = 246;
 
         // literal strings found in _f111_casinoeodstrings.cst
-        private string Blackjack = GameFacade.Strings.GetString("f111", "2");
-        private string DealerBusts = GameFacade.Strings.GetString("f111", "4");
-        private string DealerHasBlackjack = GameFacade.Strings.GetString("f111", "5");
-        private string DealerHasTotal = GameFacade.Strings.GetString("f111", "6");
-        private string DealerDoesNotHaveBlackjack = GameFacade.Strings.GetString("f111", "7");
-        private string Insurance = GameFacade.Strings.GetString("f111", "8");
-        private string Insured = GameFacade.Strings.GetString("f111", "9");
-        private string Error = GameFacade.Strings.GetString("f111", "10");
-        private string InsuranceQuestion = GameFacade.Strings.GetString("f111", "11");
-        private string InsuranceDesc1 = GameFacade.Strings.GetString("f111", "12");
-        private string InsuranceDesc2 = GameFacade.Strings.GetString("f111", "13");
-        private string InsuranceConfirmation = GameFacade.Strings.GetString("f111", "14");
+        string Blackjack = GameFacade.Strings.GetString("f111", "2");
+        string DealerBusts = GameFacade.Strings.GetString("f111", "4");
+        string DealerHasBlackjack = GameFacade.Strings.GetString("f111", "5");
+        string DealerHasTotal = GameFacade.Strings.GetString("f111", "6");
+        string DealerDoesNotHaveBlackjack = GameFacade.Strings.GetString("f111", "7");
+        string Insurance = GameFacade.Strings.GetString("f111", "8");
+        string Insured = GameFacade.Strings.GetString("f111", "9");
+        string Error = GameFacade.Strings.GetString("f111", "10");
+        string InsuranceQuestion = GameFacade.Strings.GetString("f111", "11");
+        string InsuranceDesc1 = GameFacade.Strings.GetString("f111", "12");
+        string InsuranceDesc2 = GameFacade.Strings.GetString("f111", "13");
+        string InsuranceConfirmation = GameFacade.Strings.GetString("f111", "14");
 
         // alert strings found in _f111_casinoeodstrings.cst
-        private Dictionary<byte, string> AlertStrings = new Dictionary<byte, string>()
+        Dictionary<byte, string> AlertStrings = new Dictionary<byte, string>()
         {
             { (byte)VMEODBlackjackAlerts.State_Race, GameFacade.Strings.GetString("f111", "16") },
             { (byte)VMEODBlackjackAlerts.False_Start, GameFacade.Strings.GetString("f111", "17") },
@@ -302,7 +302,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Show the player UI, when this player joins. Delineate which hand (above) belongs to player's main hand (below), customise graphics.
          */
-        private void PlayerShowUIHandler(string evt, byte[] playerSlotMinBetMaxBet)
+        void PlayerShowUIHandler(string evt, byte[] playerSlotMinBetMaxBet)
         {
             if (playerSlotMinBetMaxBet == null) return;
             
@@ -388,7 +388,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The UI for the owner
          */
-        private void OwnerShowUIHandler(string evt, string balanceMinMaxBet)
+        void OwnerShowUIHandler(string evt, string balanceMinMaxBet)
         {
             if (balanceMinMaxBet == null)
                 return;
@@ -472,7 +472,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Players supplied sound string
          */
-        private void SoundHandler(string evt, string soundString)
+        void SoundHandler(string evt, string soundString)
         {
             // play the sound
             HIT.HITVM.Get().PlaySoundEvent(soundString);
@@ -480,14 +480,14 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates EODTimer
          */
-        private void UpdateEODTimerHandler(string evt, byte[] newTime)
+        void UpdateEODTimerHandler(string evt, byte[] newTime)
         {
             SetNewTime(BitConverter.ToInt32(newTime, 0));
         }
         /*
          * Just displays in the tip whether or not the dealer has blackjack
          */
-        private void DealerBlackjackHandler(string evt, byte[] hasBlackjack)
+        void DealerBlackjackHandler(string evt, byte[] hasBlackjack)
         {
             string message = "";
             if (hasBlackjack[0] == 0)
@@ -496,7 +496,7 @@ namespace FSO.Client.UI.Panels.EODs
                 message = DealerHasBlackjack.Replace("%s", DealersName);
             ShowUIAlert(Blackjack, message, null);
         }
-        private void DealerHandTotalHandler(string evt, byte[] dealerHandTotal)
+        void DealerHandTotalHandler(string evt, byte[] dealerHandTotal)
         {
             int total = BitConverter.ToInt32(dealerHandTotal, 0);
             string newTip = "";
@@ -516,7 +516,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This merely sends a message, with the title, for a UIAlert. Further action must follow in another event.
          */
-        private void UIAlertHandler(string evt, byte[] msg)
+        void UIAlertHandler(string evt, byte[] msg)
         {
             string alert = AlertStrings[msg[0]];
             ShowUIAlert(Error, alert, null);
@@ -524,7 +524,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Show the prompt for insurance.
          */
-        private void InsurancePromptHandler(string evt, byte[] msg)
+        void InsurancePromptHandler(string evt, byte[] msg)
         {
             string insuranceDesc1 = InsuranceDesc1.Replace("%d", MyCurrentBetAmount + "");
             InsuranceAlert = UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -553,7 +553,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This callback is used by the server to ensure that the dialog disappears. It also is used to show a confirmation of insurance dialog.
          */
-        private void InsuranceCallbackHandler(string evt, byte[] insuranceIfNotZero)
+        void InsuranceCallbackHandler(string evt, byte[] insuranceIfNotZero)
         {
             int spentForInsurance = BitConverter.ToInt32(insuranceIfNotZero, 0);
             // if insurance was bought, create a new alert confirming it was bought
@@ -578,7 +578,7 @@ namespace FSO.Client.UI.Panels.EODs
          * Serialized strings are sent: [0] integer index of the hand being split, [3] & [4] cards to go into the new hand, [1] & [2] return to split hand.
          * On the very first hand of the game, this event will be called where [3] & [4] are null - 1 card container created for [1] and [0] will be 0.
          */
-        private void SplitHandler(string evt, byte[] serializedSplitNumberAndCards)
+        void SplitHandler(string evt, byte[] serializedSplitNumberAndCards)
         {
             if (serializedSplitNumberAndCards == null)
                 return;
@@ -592,7 +592,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Changes my bet amount below and above, either to sync or update from split/double. Does not enable input.
          */
-        private void ChangeMyBetHandler(string evt, byte[] newBetAmount)
+        void ChangeMyBetHandler(string evt, byte[] newBetAmount)
         {
             // update bet amount
             MyCurrentBetAmount = BitConverter.ToInt32(newBetAmount, 0);
@@ -604,7 +604,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event occurs when a stand event occurs from the server, or automatically if the server detects a bust. Does not enable input.
          */
-        private void StandHandler(string evt, byte[] serializedCardArray)
+        void StandHandler(string evt, byte[] serializedCardArray)
         {
             bool collapse = false;
             if (MainPlayerCardContainers.Count > 1 && MainPlayerActiveHand < MainPlayerCardContainers.Count - 1)
@@ -615,7 +615,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event occurs when a blackjack event occurs from the server, or automatically if the server detects bust or blackjack. Does not enable input.
          */
-        private void BlackjackHandler(string evt, byte[] serializedCardArray)
+        void BlackjackHandler(string evt, byte[] serializedCardArray)
         {
             bool collapse = false;
             if (MainPlayerCardContainers.Count > 1 && MainPlayerActiveHand < MainPlayerCardContainers.Count - 1)
@@ -626,7 +626,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event occurs when the user successfully doubles or double busts.
          */
-        private void DoubleHandler(string evt, byte[] serializedCardArray)
+        void DoubleHandler(string evt, byte[] serializedCardArray)
         {
             bool collapse = false;
             if (MainPlayerCardContainers.Count > 1 && MainPlayerActiveHand < MainPlayerCardContainers.Count - 1)
@@ -637,7 +637,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Occurs whenever a new card is drawn. Allows input from user.
          */
-        private void AllowInputHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
+        void AllowInputHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
         {
             if (InsuranceAlert != null)
             {
@@ -650,7 +650,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Occurs when switching to a new active hand before any action is taken. Allows input from user- including double.
          */
-        private void AllowDoubleInputHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
+        void AllowDoubleInputHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
         {
             if (InsuranceAlert != null)
             {
@@ -663,7 +663,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Occurs when switching to a new active hand before any action is taken. Allows input from user- including split or double.
          */
-        private void AllowSplitInputHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
+        void AllowSplitInputHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
         {
             if (InsuranceAlert != null)
             {
@@ -676,7 +676,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event occurs whenever a new card is drawn OR when switching to a new active hand before any action is taken. Does not enable input.
          */
-        private void UpdateMainPlayerDeckHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
+        void UpdateMainPlayerDeckHandler(string evt, byte[] serializedDeckNumberAndCardsArray)
         {
             if (serializedDeckNumberAndCardsArray == null)
                 return;
@@ -698,7 +698,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates a player's bet based on the event name's final character 0-3
          */
-        private void UpdateSingleBetHandler(string evt, string newBet)
+        void UpdateSingleBetHandler(string evt, string newBet)
         {
             int playerIndex = (int)Char.GetNumericValue(evt, evt.Length - 1);
             int dummy = 0;
@@ -708,7 +708,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Enables or disables betting based on the data sent.
          */
-        private void ToggleBettingHandler(string evt, byte[] bettingState)
+        void ToggleBettingHandler(string evt, byte[] bettingState)
         {
             if (bettingState[0] == 0)
             {
@@ -725,14 +725,14 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Disables hand buttons.
          */
-        private void DisableHandButtonsHandler(string evt, byte[] btnState)
+        void DisableHandButtonsHandler(string evt, byte[] btnState)
         {
             DisableHandButtons();
         }
         /*
          * Every time the betting round begins, this event is broadcast to all players in the lobby. 
          */
-        private void NewGameHandler(string evt, byte[] nothing)
+        void NewGameHandler(string evt, byte[] nothing)
         {
             // all hands and totals reset
             ResetAllHands();
@@ -761,7 +761,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Stop the betting round and begin the dealing sequence
          */
-        private void StartDealingSequenceHandler(string evt, byte[] serializedCards)
+        void StartDealingSequenceHandler(string evt, byte[] serializedCards)
         {
             IsBettingAllowed = false;
             SetNewTip(GameFacade.Strings["UIText", "263", "2"]); // "Dealing."
@@ -772,7 +772,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event is for latecomers who have joined a game already in play, where other players have a disparate collection of cards on the table.
          */
-        private void SyncAllActiveHandsHandler(string evt, byte[] serializedCards)
+        void SyncAllActiveHandsHandler(string evt, byte[] serializedCards)
         {
             List<string> handSizesAndCards = new List<string>(VMEODGameCompDrawACardData.DeserializeStrings(serializedCards));
             SyncAllHands(handSizesAndCards, false);
@@ -780,7 +780,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Update (synchronize) everyone's bet amounts in the UI.
          */
-        private void UpdateAllBetsHandler(string evt, byte[] data)
+        void UpdateAllBetsHandler(string evt, byte[] data)
         {
             string[] bets = VMEODGameCompDrawACardData.DeserializeStrings(data);
             int dummy = 0;
@@ -799,7 +799,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Set dealer hand active and sync/update the cards in the container.
          */
-        private void DealerHandHandler(string evt, byte[] serializedCards)
+        void DealerHandHandler(string evt, byte[] serializedCards)
         {
             SetTime(0);
             if (serializedCards == null) return;
@@ -815,13 +815,13 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Sets a tip for winning and losing
          */
-        private void WinLossHandler(string evt, byte[] winAmount)
+        void WinLossHandler(string evt, byte[] winAmount)
         {
             var winnings = BitConverter.ToInt32(winAmount, 0);
             if (winnings > 0) // you win
             {
                 int winningIndex = Random.Next(25, 30);
-                var winningString = (GameFacade.Strings["UIText", "259", winningIndex + ""]); // slots strings 25-30 about winning
+                var winningString = GameFacade.Strings["UIText", "259", winningIndex + ""]; // slots strings 25-30 about winning
                 winningString = winningString.Replace("%i", winnings + "");
                 SetNewTip(winningString);
                 // play the ka-ching sound
@@ -830,7 +830,7 @@ namespace FSO.Client.UI.Panels.EODs
             else // you lose
             {
                 int losingIndex = Random.Next(31, 34);
-                var losingString = (GameFacade.Strings["UIText", "259", losingIndex + ""]); // slots strings 31-33 about losing
+                var losingString = GameFacade.Strings["UIText", "259", losingIndex + ""]; // slots strings 31-33 about losing
                 SetNewTip(losingString);
             }
         }
@@ -839,7 +839,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * When buttons are pressed...
          */
-        private void ChipButtonClickedHandler(int buttonNumber)
+        void ChipButtonClickedHandler(int buttonNumber)
         {
             // get the current bet text
             string currentText = TotalBetEntry.CurrentText;
@@ -873,27 +873,27 @@ namespace FSO.Client.UI.Panels.EODs
             else // not a valid number, but now it is
                 TotalBetEntry.CurrentText = "0";
         }
-        private void HitButtonClickedHandler(UIElement btn)
+        void HitButtonClickedHandler(UIElement btn)
         {
             DisableHandButtons();
             Send("blackjack_hit_request", new byte[0]);
         }
-        private void StandButtonClickedHandler(UIElement btn)
+        void StandButtonClickedHandler(UIElement btn)
         {
             DisableHandButtons();
             Send("blackjack_stand_request", new byte[0]);
         }
-        private void DoubleButtonClickedHandler(UIElement btn)
+        void DoubleButtonClickedHandler(UIElement btn)
         {
             DisableHandButtons();
             Send("blackjack_double_request", new byte[0]);
         }
-        private void SplitButtonClickedHandler(UIElement btn)
+        void SplitButtonClickedHandler(UIElement btn)
         {
             DisableHandButtons();
             Send("blackjack_split_request", new byte[0]);
         }
-        private void BetButtonClickedHandler(UIElement btn)
+        void BetButtonClickedHandler(UIElement btn)
         {
             DisableBettingButtons();
             // attempt to submit the bet amount by parsing the text in the textedit
@@ -930,7 +930,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The interval at which to deal cards during the initial deal phase.
          */
-        private void DealTimerHandler(object source, ElapsedEventArgs args)
+        void DealTimerHandler(object source, ElapsedEventArgs args)
         {
             if (++DealingIndex < CardsToDeal.Count)
             {
@@ -960,7 +960,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Shows a UI alert and even allows an action argument for when the window is closed.
          */
-        private UIAlert ShowUIAlert(string title, string message, Action action)
+        UIAlert ShowUIAlert(string title, string message, Action action)
         {
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -981,7 +981,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Lights up the active player 0 - 3, corresponding to players 1 - 4. Updates their cards.
          */
-        private void UpdatePlayerCardContainerHandler(string evt, byte[] serializedPlayerNumberAndCards)
+        void UpdatePlayerCardContainerHandler(string evt, byte[] serializedPlayerNumberAndCards)
         {
             if (serializedPlayerNumberAndCards == null)
                 return;
@@ -1022,7 +1022,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // shows to all players the action just selected by the current player's turn
-        private void PlayerChoiceBroadcastHandler(string evt, byte[] player)
+        void PlayerChoiceBroadcastHandler(string evt, byte[] player)
         {
             string appendix = ".";
             if (evt[11].Equals('i')) // "blackjack_hit_broadcast"
@@ -1071,36 +1071,36 @@ namespace FSO.Client.UI.Panels.EODs
                 }
             }
         }
-        private void SendByteMessage(EODMessageNode node)
+        void SendByteMessage(EODMessageNode node)
         {
             Send("blackjack_" + node.EventName, node.EventByteData);
         }
-        private void SendStringMessage(EODMessageNode node)
+        void SendStringMessage(EODMessageNode node)
         {
             Send("blackjack_" + node.EventName, node.EventStringData);
         }
-        private void ResumeManageHandler(string evt, string message)
+        void ResumeManageHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromMachineBalance(evt, message);
             }
         }
-        private void ResumeFromBetAmountHandler(string evt, string minOrMaxBetString)
+        void ResumeFromBetAmountHandler(string evt, string minOrMaxBetString)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromBetAmount(evt.Remove(0, 10), minOrMaxBetString); // truncate "blackjack_"
             }
         }
-        private void DepositFailHandler(string evt, string message)
+        void DepositFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.DepositFailHandler(evt, message);
             }
         }
-        private void InputFailHandler(string evt, string message)
+        void InputFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
@@ -1110,7 +1110,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * todo: If the LiveMode & EOD invalidation issue is ever solved on the EOD-wide scale, this middle-man method will be unnecessary.
          */
-        private void SetNewTip(string newTip)
+        void SetNewTip(string newTip)
         {
             SetTip(newTip);
             Parent.Invalidate();
@@ -1118,7 +1118,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * todo: If the LiveMode & EOD invalidation issue is ever solved on the EOD-wide scale, this middle-man method will be unnecessary.
          */
-        private void SetNewTime(int newTime)
+        void SetNewTime(int newTime)
         {
             SetTime(newTime);
             Parent.Invalidate();
@@ -1127,7 +1127,7 @@ namespace FSO.Client.UI.Panels.EODs
          * Pedantry at its finest - move the UI Label along the X axis slightly to make it appear more center
          * todo: If font rendering changes, this might need to be tweaked or removed entirely
          */
-        private void UpdateCardTotalCaption(UILabel label, string newCaption)
+        void UpdateCardTotalCaption(UILabel label, string newCaption)
         {
             string oldCaption = label.Caption;
             if (newCaption.Length > 1) // now a double digit number
@@ -1145,7 +1145,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Idiosyncrasy with EODs. Must occur when a new user joins in order that they have their own buttons.
          */
-        private void RefreshButtons()
+        void RefreshButtons()
         {
             btnChip1 = AllButtons[0];
             if (btnChip1 == null)
@@ -1236,7 +1236,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The lower UI holds up to 4 hands and their totals, so the player can see better, especially if they end up splitting.
          */
-        private void PlayerLowerUIIinit()
+        void PlayerLowerUIIinit()
         {
             // text
             labelTotalBet.X -= 19;
@@ -1287,7 +1287,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The Upper UI holds representations of all players' hands, hand totals, including the dealer's. It also has the 4 players' bets and UIVMPersonButtons.
          */
-        private void PlayerUpperUIInit()
+        void PlayerUpperUIInit()
         {
             // ./uigraphics/ucp/livepanel/lpanel_eodsubfulltall.bmp
             EODTallBack = new UIImage(GetTexture(0x000004E900000001))
@@ -1338,7 +1338,7 @@ namespace FSO.Client.UI.Panels.EODs
             Player1BetBack = new UIImage(PlayerBetBack);
             Player1BetBack.X = playerPos1.X - (Player1BetBack.Width * 0.75f);
             Player1BetBack.ScaleX = 0.75f;
-            Player1BetBack.Y = (playerPos1.Y + playerPos1.Height) - (Player1BetBack.Height);
+            Player1BetBack.Y = playerPos1.Y + playerPos1.Height - Player1BetBack.Height;
             Player1BetAmount = new UILabel()
             {
                 X = Player1BetBack.X,
@@ -1390,7 +1390,7 @@ namespace FSO.Client.UI.Panels.EODs
             Player2BetBack = new UIImage(PlayerBetBack);
             Player2BetBack.X = playerPos2.X - (Player2BetBack.Width * 0.75f);
             Player2BetBack.ScaleX = 0.75f;
-            Player2BetBack.Y = (playerPos2.Y + playerPos2.Height) - (Player2BetBack.Height);
+            Player2BetBack.Y = playerPos2.Y + playerPos2.Height - Player2BetBack.Height;
             Player2BetAmount = new UILabel()
             {
                 X = Player2BetBack.X,
@@ -1443,7 +1443,7 @@ namespace FSO.Client.UI.Panels.EODs
             Player3BetBack = new UIImage(PlayerBetBack);
             Player3BetBack.X = playerPos3.X - (Player3BetBack.Width * 0.75f);
             Player3BetBack.ScaleX = 0.75f;
-            Player3BetBack.Y = (playerPos3.Y + playerPos3.Height) - (Player3BetBack.Height);
+            Player3BetBack.Y = playerPos3.Y + playerPos3.Height - Player3BetBack.Height;
             Player3BetAmount = new UILabel()
             {
                 X = Player3BetBack.X,
@@ -1496,7 +1496,7 @@ namespace FSO.Client.UI.Panels.EODs
             Player4BetBack = new UIImage(PlayerBetBack);
             Player4BetBack.X = playerPos4.X - (Player4BetBack.Width * 0.75f);
             Player4BetBack.ScaleX = 0.75f;
-            Player4BetBack.Y = (playerPos4.Y + playerPos4.Height) - (Player4BetBack.Height);
+            Player4BetBack.Y = playerPos4.Y + playerPos4.Height - Player4BetBack.Height;
             Player4BetAmount = new UILabel()
             {
                 X = Player4BetBack.X,
@@ -1596,7 +1596,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Removes every card from view, from above and below. Updates all captions to be empty (not even displaying zero). Empties lists of containers/labels.
          */
-        private void ResetAllHands()
+        void ResetAllHands()
         {
             // reset hands from below
             if (MainPlayerCardContainers != null)
@@ -1665,7 +1665,7 @@ namespace FSO.Client.UI.Panels.EODs
          * This method happens at two specific times. If @param: useQueue:bool is true, the first pair of cards is being dealt to all active players and the
          * dealer. If it is false, this is happening when a new player has joined the table while a game is already in progress. It updates everyone's hands.
          */
-        private void SyncAllHands(List<string> handSizesAndCards, bool useQueue)
+        void SyncAllHands(List<string> handSizesAndCards, bool useQueue)
         {
             if (handSizesAndCards.Count < 6)
                 return;
@@ -1804,7 +1804,7 @@ namespace FSO.Client.UI.Panels.EODs
          * @param cards: string names of cards 2 and 3 go into new card container, 0 and 1 go into container that was just split
          * @param splittingHandPosition: the index of the card container thats was successfully split
          */
-        private void AddMainCardContainer(int splittingHandPosition, params string[] cards)
+        void AddMainCardContainer(int splittingHandPosition, params string[] cards)
         {
             int numberOfDecks = MainPlayerCardContainers.Count;
             if (cards == null || cards.Length == 0 || splittingHandPosition > numberOfDecks)
@@ -1863,7 +1863,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Reset the layout of the large main card containers to fit nicely in the small bit of real estate on the bottom of the EOD
          */
-        private void UpdateMainLayout()
+        void UpdateMainLayout()
         {
             /*
              * First, set the scale and offset based on the number of already existing decks
@@ -1937,7 +1937,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Sets a new active MAIN hand, then synchronises the cards from the server into that hand. Updates layout.
          */
-        private void SetNewActiveHand(int newActiveHand, params string[] cards)
+        void SetNewActiveHand(int newActiveHand, params string[] cards)
         {
             if (newActiveHand > -1 && newActiveHand < MainPlayerCardContainers.Count)
             {
@@ -1957,7 +1957,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates the card graphics in the hand, the label showing the total value.
          */
-        private void ResetTargetHand(CardHand container, UITextEdit label, params string[] cards)
+        void ResetTargetHand(CardHand container, UITextEdit label, params string[] cards)
         {
             if (container == null)
                 return;
@@ -1977,7 +1977,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // makes the "S" available for the specified player so other players know they're splitting
-        private void MakeSplitLabelVisible(int player)
+        void MakeSplitLabelVisible(int player)
         {
             if (player == 0)
                 Player1SplitLetter.Visible = true;
@@ -1992,7 +1992,7 @@ namespace FSO.Client.UI.Panels.EODs
          * Finalise the active hand by synchronizing its contents from the server, updating the total text, and collapsing & making inactive
          * @param: cards - the cards sent from server for sync purposes
          */
-        private void CloseActiveHand(bool collapse, params string[] cards)
+        void CloseActiveHand(bool collapse, params string[] cards)
         {
             if (MainPlayerActiveHand < MainPlayerCardContainers.Count)
             {
@@ -2016,7 +2016,7 @@ namespace FSO.Client.UI.Panels.EODs
          * @param: player - 0 through 3 for which player
          * @param: cards[] - the cards in the hand
          */
-        private void UpdateOtherPlayerHand(int player, bool setActive, params string[] cards)
+        void UpdateOtherPlayerHand(int player, bool setActive, params string[] cards)
         {
             CardHand playerHand = null;
             UILabel playertotal = null;
@@ -2058,7 +2058,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Sets all players & dealer hands inactive, but sets the @param active
          */
-        private void SetActiveOtherPlayerHand(CardHand activeHand)
+        void SetActiveOtherPlayerHand(CardHand activeHand)
         {
             if (Player1CardContainer != null)
                 Player1CardContainer.SetInactive();
@@ -2073,7 +2073,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (activeHand != null)
                 activeHand.SetActive();
         }
-        private void SetActiveOtherPlayerHand(int player)
+        void SetActiveOtherPlayerHand(int player)
         {
             Player1CardContainer.SetInactive();
             Player2CardContainer.SetInactive();
@@ -2095,7 +2095,7 @@ namespace FSO.Client.UI.Panels.EODs
          * @param: player - 0 through 3 for which player
          * @param: amountString - the new bet amount to display
          */
-        private void UpdatePlayerBetAmount(int player, string amountString)
+        void UpdatePlayerBetAmount(int player, string amountString)
         {
             int offsetX = 0;
             if (amountString.Length == 1)
@@ -2136,7 +2136,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Update the bet amount in the lower TextEdit and also the label of the corresponding hand of the player above.
          */
-        private void UpdateMyBetAmount(string amountString)
+        void UpdateMyBetAmount(string amountString)
         {
             TotalBetEntry.CurrentText = amountString;
             UpdatePlayerBetAmount(MyPlayerNumber, amountString);
@@ -2144,7 +2144,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Enable and Disable buttons to control the MainPlayerActiveHand, optional split and double buttons.
          */
-        private void EnableHandButtons(bool enableSplit, bool enableDouble)
+        void EnableHandButtons(bool enableSplit, bool enableDouble)
         {
             DisableBettingButtons(); // failsafe
             btnHit.Disabled = false;
@@ -2154,7 +2154,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (enableDouble)
                 btnDouble.Disabled = false;
         }
-        private void DisableHandButtons()
+        void DisableHandButtons()
         {
             btnHit.Disabled = true;
             btnStand.Disabled = true;
@@ -2164,7 +2164,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Enable and Disable betting buttons and changing the mode of the TextEdit TotalBetEntry.
          */
-        private void EnableBettingButtons()
+        void EnableBettingButtons()
         {
             DisableHandButtons(); // failsafe
             // is it okay to enable betting?
@@ -2182,7 +2182,7 @@ namespace FSO.Client.UI.Panels.EODs
                 btnChip5.Disabled = false;
             }
         }
-        private void DisableBettingButtons()
+        void DisableBettingButtons()
         {
             // make textedit readonly
             TotalBetEntry.Mode = UITextEditMode.ReadOnly;
@@ -2198,13 +2198,13 @@ namespace FSO.Client.UI.Panels.EODs
 #endregion
     internal class CardHand : UIContainer
     {
-        private float CurrentOpacity = 1f;
+        float CurrentOpacity = 1f;
         internal float _CurrentScale = 1.0f;
-        private UIImage PreviousCard;
-        private int TotalCardsHidden;
-        private int _TotalNumberOfCards;
-        private int _TotalValueOfCards;
-        private Boolean _IsCollapsed;
+        UIImage PreviousCard;
+        int TotalCardsHidden;
+        int _TotalNumberOfCards;
+        int _TotalValueOfCards;
+        Boolean _IsCollapsed;
 
         public CardHand()
         {
@@ -2246,7 +2246,7 @@ namespace FSO.Client.UI.Panels.EODs
             CurrentOpacity = 1f;
             UpdateChildrenOpacity();
         }
-        private void UpdateChildren()
+        void UpdateChildren()
         {
             var cardList = new List<UIElement>(GetChildren());
             if (cardList != null && cardList.Count > 0)
@@ -2258,7 +2258,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (_IsCollapsed)
                 Collapse();
         }
-        private void Expand()
+        void Expand()
         {
             if (_IsCollapsed)
             {
@@ -2293,7 +2293,7 @@ namespace FSO.Client.UI.Panels.EODs
                 _IsCollapsed = false;
             }
         }
-        private void UpdateChildrenOpacity()
+        void UpdateChildrenOpacity()
         {
             var cardList = GetChildren();
             if (cardList != null)
@@ -2390,7 +2390,7 @@ namespace FSO.Client.UI.Panels.EODs
                         card.X -= 8 * _CurrentScale;
                     }
                     ShiftCardsLeft();
-                    card.X -= (4 * _CurrentScale) * (_TotalNumberOfCards - TotalCardsHidden - 2);
+                    card.X -= 4 * _CurrentScale * (_TotalNumberOfCards - TotalCardsHidden - 2);
                 }
                 card.ScaleX = card.ScaleY = _CurrentScale;
                 card.Opacity = CurrentOpacity;
@@ -2405,19 +2405,19 @@ namespace FSO.Client.UI.Panels.EODs
             }
             CalculateTotalValue();
         }
-        private void ShiftCardsLeft()
+        void ShiftCardsLeft()
         {
             var cardList = GetChildren();
             foreach (var card in cardList)
                 card.X -= 4* _CurrentScale;
         }
-        private void HideFirstCard()
+        void HideFirstCard()
         {
             var cardList = new List<UIElement>(GetChildren());
             cardList[TotalCardsHidden++].Visible = false;
             ShiftCardsLeft();
         }
-        private void CalculateTotalValue()
+        void CalculateTotalValue()
         {
             _TotalValueOfCards = 0;
             bool softAce = false;

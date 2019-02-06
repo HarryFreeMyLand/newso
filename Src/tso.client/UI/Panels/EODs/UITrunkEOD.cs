@@ -15,12 +15,12 @@ namespace FSO.Client.UI.Panels.EODs
 {
     class UITrunkEOD : UIEOD
     {
-        private bool IsCostumeTrunk;
-        private Collection TrunkOutfits { get; set; }
-        private CollectionItem SelectedOutfit { get; set; }
-        private ulong SelectedOutfitID;
-        private UICollectionViewer CostumeOptions { get; set; }
-        private UIScript Script;
+        bool IsCostumeTrunk;
+        Collection TrunkOutfits { get; set; }
+        CollectionItem SelectedOutfit { get; set; }
+        ulong SelectedOutfitID;
+        UICollectionViewer CostumeOptions { get; set; }
+        UIScript Script;
 
         public AppearanceType UserAppearanceType { get; internal set; } = AppearanceType.Light;
 
@@ -40,7 +40,7 @@ namespace FSO.Client.UI.Panels.EODs
             CloseInteraction();
             base.OnClose();
         }
-        private void FillUIHandler(string evt, string collectionPath)
+        void FillUIHandler(string evt, string collectionPath)
         {
             Controller.ShowEODMode(new EODLiveModeOpt
             {
@@ -67,7 +67,7 @@ namespace FSO.Client.UI.Panels.EODs
             // setup the collection view
             CostumeOptions.DataProvider = CollectionToDataProvider(TrunkOutfits);
         }
-        private void InitUI()
+        void InitUI()
         {
             Script = this.RenderScript("trunkeod.uis");
             // add background image and thumbnail
@@ -80,7 +80,7 @@ namespace FSO.Client.UI.Panels.EODs
             CostumeOptions.Init();
             this.Add(CostumeOptions);
         }
-        private void CostumeOptionsChangeHandler(UIElement element)
+        void CostumeOptionsChangeHandler(UIElement element)
         {
             SelectedOutfit = (CollectionItem)((UIGridViewerItem)CostumeOptions.SelectedItem).Data;
             // if null, it's the skeleton outfit
@@ -101,7 +101,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             LargeThumbnail.Texture = ((UIGridViewerItem)CostumeOptions.SelectedItem).Thumb.Get();
         }
-        private void AddListeners()
+        void AddListeners()
         {
             AcceptButton.OnButtonClick += clickedButton => { Send("trunk_wear_costume", SelectedOutfitID + ""); };
             CostumeOptions.OnChange += new ChangeDelegate(CostumeOptionsChangeHandler);
@@ -109,7 +109,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Shamelessly copied from Fso.Client.UI.Screens.PersonSelectionEdit.cs
          */
-        private List<object> CollectionToDataProvider(Collection collection)
+        List<object> CollectionToDataProvider(Collection collection)
         {
             var dataProvider = new List<object>();
             foreach (var outfit in collection)

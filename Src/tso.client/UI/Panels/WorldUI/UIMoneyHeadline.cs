@@ -13,11 +13,11 @@ namespace FSO.Client.UI.Panels.WorldUI
 {
     public class UIMoneyHeadline : VMHeadlineRenderer
     {
-        private RenderTarget2D MoneyTarget;
-        private TextStyle Style;
-        private string Text;
-        private bool Inited;
-        private VMRuntimeHeadline Runtime;
+        RenderTarget2D MoneyTarget;
+        TextStyle Style;
+        string Text;
+        bool Inited;
+        VMRuntimeHeadline Runtime;
 
         public override bool IsMoney { get => true; }
 

@@ -33,12 +33,12 @@ namespace FSO.Client.UI.Panels.EODs
         // text
         public UILabel ColonStaticText { get; set; }
 
-        private bool IsRunning;
-        private bool IsInStopwatchMode;
-        private bool MinutesWereChanged;
-        private bool SecondsWereChanged;
-        private byte CurrentMinutes;
-        private byte CurrentSeconds;
+        bool IsRunning;
+        bool IsInStopwatchMode;
+        bool MinutesWereChanged;
+        bool SecondsWereChanged;
+        byte CurrentMinutes;
+        byte CurrentSeconds;
 
         public UITimerPluginEOD(UIEODController controller) : base(controller)
         {
@@ -69,7 +69,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("Timer_Close", "");
         }
 
-        private void UpdateTime()
+        void UpdateTime()
         {
             // update the UI
             MinTextEntry.CurrentText = (CurrentMinutes > 9) ? CurrentMinutes + "" : "0" + CurrentMinutes;
@@ -79,7 +79,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("Timer_Set", new byte[] { CurrentMinutes, CurrentSeconds } );
         }
 
-        private void TimerInitHandler(string evt, Byte[] args)
+        void TimerInitHandler(string evt, Byte[] args)
         {
             if ((args == null) || (args.Length < 3))
                 return;
@@ -141,7 +141,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void OffHandler(string evt, byte[] state)
+        void OffHandler(string evt, byte[] state)
         {
             if (state[0] == 0)
             {
@@ -159,7 +159,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void UpdateTimeHandler(string evt, string newTimeString)
+        void UpdateTimeHandler(string evt, string newTimeString)
         {
             var split = newTimeString.Split(':');
             if (split.Length != 2) return;
@@ -178,7 +178,7 @@ namespace FSO.Client.UI.Panels.EODs
             UpdateTime();
         }
 
-        private void PlayButtonClickedHandler(UIElement target)
+        void PlayButtonClickedHandler(UIElement target)
         {
             PlayButton.Disabled = true;
             StopwatchButton.Disabled = true;
@@ -187,7 +187,7 @@ namespace FSO.Client.UI.Panels.EODs
             DisableMinutesTextEdit();
             DisableSecondsTextEdit();
             HideTextFields();
-            if ((MinutesWereChanged) || (SecondsWereChanged))
+            if (MinutesWereChanged || SecondsWereChanged)
             {
                 UpdateTime();
                 MinutesWereChanged = false;
@@ -200,7 +200,7 @@ namespace FSO.Client.UI.Panels.EODs
             IsRunning = true;
         }
 
-        private void PauseButtonClickedHandler(UIElement target)
+        void PauseButtonClickedHandler(UIElement target)
         {
             PauseButton.Disabled = true;
             if (IsRunning)
@@ -218,7 +218,7 @@ namespace FSO.Client.UI.Panels.EODs
             ShowTextFields();
         }
 
-        private void MinUpButtonClickedHandler(UIElement target)
+        void MinUpButtonClickedHandler(UIElement target)
         {
             DisableMinutesTextEdit();
             if (CurrentMinutes < 99)
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableMinutesTextEdit();
         }
 
-        private void SecUpButtonClickedHandler(UIElement target)
+        void SecUpButtonClickedHandler(UIElement target)
         {
             DisableSecondsTextEdit();
             if (CurrentSeconds == 59)
@@ -246,7 +246,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableSecondsTextEdit();
         }
 
-        private void MinDownButtonClickedHandler(UIElement target)
+        void MinDownButtonClickedHandler(UIElement target)
         {
             DisableMinutesTextEdit();
             if (CurrentMinutes > 0)
@@ -257,7 +257,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableMinutesTextEdit();
         }
 
-        private void SecDownButtonClickedHandler(UIElement target)
+        void SecDownButtonClickedHandler(UIElement target)
         {
             DisableSecondsTextEdit();
             if (CurrentSeconds > 0)
@@ -268,7 +268,7 @@ namespace FSO.Client.UI.Panels.EODs
             EnableSecondsTextEdit();
         }
 
-        private void StopwatchButtonClickedHandler(UIElement target)
+        void StopwatchButtonClickedHandler(UIElement target)
         {
             StopwatchButton.Disabled = true;
             if (!IsInStopwatchMode)
@@ -279,7 +279,7 @@ namespace FSO.Client.UI.Panels.EODs
             StopwatchButton.ForceState = 1;
             CountdownButton.ForceState = 0;
             CountdownButton.Disabled = false;
-            if ((MinutesWereChanged) || (SecondsWereChanged))
+            if (MinutesWereChanged || SecondsWereChanged)
             {
                 UpdateTime();
                 MinutesWereChanged = false;
@@ -287,7 +287,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void CountdownButtonClickedHandler(UIElement target)
+        void CountdownButtonClickedHandler(UIElement target)
         {
             CountdownButton.Disabled = true;
             if (IsInStopwatchMode)
@@ -298,7 +298,7 @@ namespace FSO.Client.UI.Panels.EODs
             CountdownButton.ForceState = 1;
             StopwatchButton.ForceState = 0;
             StopwatchButton.Disabled = false;
-            if ((MinutesWereChanged) || (SecondsWereChanged))
+            if (MinutesWereChanged || SecondsWereChanged)
             {
                 UpdateTime();
                 MinutesWereChanged = false;
@@ -306,7 +306,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void MinTextEntryChangeHandler(UIElement target)
+        void MinTextEntryChangeHandler(UIElement target)
         {
             byte minutes = 100;
             if (Byte.TryParse(MinTextEntry.CurrentText, out minutes))
@@ -319,7 +319,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void SecTextEntryChangeHandler(UIElement target)
+        void SecTextEntryChangeHandler(UIElement target)
         {
             byte seconds = 60;
             if (Byte.TryParse(SecTextEntry.CurrentText, out seconds))
@@ -332,7 +332,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void EnableMinutesTextEdit()
+        void EnableMinutesTextEdit()
         {
             MinTextEntry.Mode = UITextEditMode.Editor;
             MinTextEntry.OnChange += MinTextEntryChangeHandler;
@@ -340,7 +340,7 @@ namespace FSO.Client.UI.Panels.EODs
             MinDownButton.Disabled = false;
         }
 
-        private void DisableMinutesTextEdit()
+        void DisableMinutesTextEdit()
         {
             MinTextEntry.Mode = UITextEditMode.ReadOnly;
             MinTextEntry.OnChange -= MinTextEntryChangeHandler;
@@ -348,7 +348,7 @@ namespace FSO.Client.UI.Panels.EODs
             MinDownButton.Disabled = true;
         }
 
-        private void EnableSecondsTextEdit()
+        void EnableSecondsTextEdit()
         {
             SecTextEntry.Mode = UITextEditMode.Editor;
             SecTextEntry.OnChange += SecTextEntryChangeHandler;
@@ -356,7 +356,7 @@ namespace FSO.Client.UI.Panels.EODs
             SecDownButton.Disabled = false;
         }
 
-        private void DisableSecondsTextEdit()
+        void DisableSecondsTextEdit()
         {
             SecTextEntry.Mode = UITextEditMode.ReadOnly;
             SecTextEntry.OnChange -= SecTextEntryChangeHandler;
@@ -364,14 +364,14 @@ namespace FSO.Client.UI.Panels.EODs
             SecDownButton.Disabled = true;
         }
 
-        private void ShowTextFields()
+        void ShowTextFields()
         {
             MinTextEntry.Visible = true;
             SecTextEntry.Visible = true;
             ColonStaticText.Visible = true;
         }
 
-        private void HideTextFields()
+        void HideTextFields()
         {
             MinTextEntry.Visible = false;
             SecTextEntry.Visible = false;

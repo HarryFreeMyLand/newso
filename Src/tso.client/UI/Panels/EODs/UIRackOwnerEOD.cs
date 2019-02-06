@@ -19,7 +19,7 @@ namespace FSO.Client.UI.Panels.EODs
 {
     public class UIRackOwnerEOD : UIAbstractRackEOD
     {
-        private UICollectionViewer OutfitBrowserOwner;
+        UICollectionViewer OutfitBrowserOwner;
 
         public UIImage OwnerBackground;
 
@@ -29,10 +29,10 @@ namespace FSO.Client.UI.Panels.EODs
         public UIButton btnFemale { get; set; }
 
 
-        private RackOutfitGender SelectedGender;
+        RackOutfitGender SelectedGender;
 
-        private Dictionary<uint, int> DirtyPrices = new Dictionary<uint, int>();
-        private GameThreadTimeout DirtyTimeout;
+        Dictionary<uint, int> DirtyPrices = new Dictionary<uint, int>();
+        GameThreadTimeout DirtyTimeout;
 
         public UIRackOwnerEOD(UIEODController controller) : base(controller, "rackownereod.uis")
         {
@@ -70,7 +70,7 @@ namespace FSO.Client.UI.Panels.EODs
             RackName.Mode = UITextEditMode.Editor;
         }
 
-        private void Price_OnChange(UIElement element)
+        void Price_OnChange(UIElement element)
         {
             var input = (UITextEdit)element;
             var price = input.CurrentText;
@@ -119,7 +119,7 @@ namespace FSO.Client.UI.Panels.EODs
             DirtyTimeout = GameThread.SetTimeout(() => FlushDirtyPrices(), 2000);
         }
 
-        private void Name_OnChange(UIElement elemnt)
+        void Name_OnChange(UIElement elemnt)
         {
             // change the name of the rack by verifying the data then sending a message to the server
             var validatedRackName = RackName.CurrentText;
@@ -127,7 +127,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Send("rackowner_update_name", validatedRackName);
         }
 
-        private void FlushDirtyPrices()
+        void FlushDirtyPrices()
         {
             lock (DirtyPrices){
                 foreach (var key in DirtyPrices.Keys){
@@ -138,7 +138,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void BtnDelete_OnButtonClick(UIElement button)
+        void BtnDelete_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOutfit();
             if (selectedOutfit == null) { return; }
@@ -160,7 +160,7 @@ namespace FSO.Client.UI.Panels.EODs
         /// Stock the selected outfit
         /// </summary>
         /// <param name="button"></param>
-        private void BtnStock_OnButtonClick(UIElement button)
+        void BtnStock_OnButtonClick(UIElement button)
         {
             var selectedOutfit = GetSelectedOwnerOutfit();
             if (selectedOutfit == null) { return; }
@@ -178,7 +178,7 @@ namespace FSO.Client.UI.Panels.EODs
             }, true);
         }
 
-        private void ToggleGender(UIElement button)
+        void ToggleGender(UIElement button)
         {
             if(button == btnMale){
                 SelectedGender = RackOutfitGender.Male;
@@ -211,14 +211,14 @@ namespace FSO.Client.UI.Panels.EODs
             SetOwnerOutfits();
         }
 
-        private void SetOwnerOutfits()
+        void SetOwnerOutfits()
         {
             var outfits = Content.GameContent.Get.RackOutfits.GetByRackType(RackType);
             OutfitBrowserOwner.DataProvider = RackOutfitsToDataProvider(outfits);
             OutfitBrowserOwner.SelectedIndex = 0;
         }
 
-        private List<object> RackOutfitsToDataProvider(RackOutfits outfits)
+        List<object> RackOutfitsToDataProvider(RackOutfits outfits)
         {
             var appearanceType = GetAppearanceType();
             var dataProvider = new List<object>();
@@ -291,7 +291,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private RackOutfit GetSelectedOwnerOutfit()
+        RackOutfit GetSelectedOwnerOutfit()
         {
             var selecteOutfit = OutfitBrowserOwner.SelectedItem as UIGridViewerItem;
             if(selecteOutfit != null)
@@ -301,7 +301,7 @@ namespace FSO.Client.UI.Panels.EODs
             return null;
         }
 
-        private void SetExpanded(bool expanded)
+        void SetExpanded(bool expanded)
         {
             OutfitBrowserOwner.Visible = expanded;
             OwnerBackground.Visible = expanded;

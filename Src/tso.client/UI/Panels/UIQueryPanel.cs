@@ -90,7 +90,7 @@ namespace FSO.Client.UI.Panels
         public Texture2D GeneralOwnerPriceBack { get; set; }
         public UIImage OwnerPriceBack;
         public UIImage BuyerPriceBack;
-        private List<UIImage> SpecificBtnBGs;
+        List<UIImage> SpecificBtnBGs;
 
         public event ButtonClickDelegate OnSellBackClicked;
         public event ButtonClickDelegate OnInventoryClicked;
@@ -105,13 +105,13 @@ namespace FSO.Client.UI.Panels
         public UI3DThumb Thumb3D;
         public bool Roommate = true;
 
-        private VMEntity ActiveEntity;
-        private int LastSalePrice;
-        private bool CanSell = true;
-        private bool IAmOwner;
-        private bool Ghost;
+        VMEntity ActiveEntity;
+        int LastSalePrice;
+        bool CanSell = true;
+        bool IAmOwner;
+        bool Ghost;
 
-        private bool _Active;
+        bool _Active;
         public bool Active
         {
             set
@@ -125,56 +125,56 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private int _Tab;
+        int _Tab;
         public int Tab
         {
             set
             {
                 //0:general, 1:specific, 2:trade
-                DescriptionBackgroundImage.Visible = (value == 0);
-                MotivesBackgroundImage.Visible = (value == 0);
-                GeneralTabImage.Visible = (value == 0);
+                DescriptionBackgroundImage.Visible = value == 0;
+                MotivesBackgroundImage.Visible = value == 0;
+                GeneralTabImage.Visible = value == 0;
 
-                DescriptionText.Visible = (value == 0);
-                DescriptionSlider.Visible = (value == 0);
-                DescriptionScrollUpButton.Visible = (value == 0);
-                DescriptionScrollDownButton.Visible = (value == 0);
+                DescriptionText.Visible = value == 0;
+                DescriptionSlider.Visible = value == 0;
+                DescriptionScrollUpButton.Visible = value == 0;
+                DescriptionScrollDownButton.Visible = value == 0;
 
-                MotivesText.Visible = (value == 0);
-                MotivesSlider.Visible = (value == 0);
-                MotivesScrollUpButton.Visible = (value == 0);
-                MotivesScrollDownButton.Visible = (value == 0);
+                MotivesText.Visible = value == 0;
+                MotivesSlider.Visible = value == 0;
+                MotivesScrollUpButton.Visible = value == 0;
+                MotivesScrollDownButton.Visible = value == 0;
 
-                GeneralTabButton.Selected = (value == 0);
+                GeneralTabButton.Selected = value == 0;
 
                 //specific value only
-                SpecificTabImage.Visible = (value == 1);
+                SpecificTabImage.Visible = value == 1;
 
                 //TODO: detect these cases and display where relevant
                 ObjectIsBrokenText.Visible = false;
                 ObjectNeedsUpgradeText.Visible = false;
                 ObjectIsDisabledText.Visible = false;
 
-                SpecificTabButton.Selected = (value == 1);
+                SpecificTabButton.Selected = value == 1;
 
                 //null for some reason?
-                WearValueText.Visible = (value == 1);
-                WearLabelText.Visible = (value == 1);
+                WearValueText.Visible = value == 1;
+                WearLabelText.Visible = value == 1;
                 WearLabelText.Alignment = TextAlignment.Center | TextAlignment.Middle;
 
-                ForSalePrice.Visible = (value == 1);
+                ForSalePrice.Visible = value == 1;
 
-                SellBackButton.Visible = (value == 1);
+                SellBackButton.Visible = value == 1;
                 SellBackButton.Disabled = !Roommate || Ghost;
-                InventoryButton.Visible = (value == 1);
+                InventoryButton.Visible = value == 1;
                 InventoryButton.Disabled = !IAmOwner || Ghost;
 
-                ObjectNameText.Visible = (value == 1);
-                ObjectOwnerText.Visible = (value == 1);
-                ObjectValueText.Visible = (value == 1);
-                ObjectCrafterText.Visible = (value == 1);
+                ObjectNameText.Visible = value == 1;
+                ObjectOwnerText.Visible = value == 1;
+                ObjectValueText.Visible = value == 1;
+                ObjectCrafterText.Visible = value == 1;
 
-                WearProgressBar.Visible = (value == 1);
+                WearProgressBar.Visible = value == 1;
 
                 //async sale stuff, as in "once I know what this actually does I'll care"
 
@@ -186,7 +186,7 @@ namespace FSO.Client.UI.Panels
 
                 foreach (var bg in SpecificBtnBGs)
                 {
-                    bg.Visible = (value == 1);
+                    bg.Visible = value == 1;
                 }
 
                 //uh..
@@ -214,9 +214,9 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private string[] AdStrings;
+        string[] AdStrings;
 
-        private int _Mode;
+        int _Mode;
         public int Mode
         {
             get
@@ -237,9 +237,9 @@ namespace FSO.Client.UI.Panels
                 }
                 this.Y = (value>0)?-114:0;
                 this.X = (value==2)?-128:0;
-                QuerybackPanel.Visible = (value == 0);
-                QuerybackCatalog.Visible = (value == 1);
-                QuerybackTrade.Visible = (value == 2);
+                QuerybackPanel.Visible = value == 0;
+                QuerybackCatalog.Visible = value == 1;
+                QuerybackTrade.Visible = value == 2;
                 _Mode = value;
             }
         }
@@ -371,7 +371,7 @@ namespace FSO.Client.UI.Panels
             Tab = 0;
         }
 
-        private UIImage AddButtonBackground(UIElement button, Texture2D img)
+        UIImage AddButtonBackground(UIElement button, Texture2D img)
         {
             var bg = new UIImage(img)
             {
@@ -381,7 +381,7 @@ namespace FSO.Client.UI.Panels
             return bg;
         }
 
-        private void InventoryButton_OnButtonClick(UIElement button)
+        void InventoryButton_OnButtonClick(UIElement button)
         {
             if (OnInventoryClicked != null) OnInventoryClicked(button);
         }
@@ -496,7 +496,7 @@ namespace FSO.Client.UI.Panels
             {
                 price = (int)item.Value.Price;
                 dcPercent = VMBuildableAreaInfo.GetDiscountFor(item.Value, vm);
-                finalPrice = (price * (100-dcPercent)) / 100;
+                finalPrice = price * (100-dcPercent) / 100;
             }
 
             StringBuilder motivesString = new StringBuilder();
@@ -551,7 +551,7 @@ namespace FSO.Client.UI.Panels
                 ForSalePrice.CurrentText = "$" + entity.MultitileGroup.SalePrice;
                 ForSalePrice.Alignment = TextAlignment.Center;
                 //ForSalePrice.SetSize(250, ForSalePrice.Height);
-                SellBackButton.Disabled = (entity.PersistID == 0);
+                SellBackButton.Disabled = entity.PersistID == 0;
             } else
             {
                 ForSalePrice.CurrentText = "";
@@ -614,7 +614,7 @@ namespace FSO.Client.UI.Panels
             UpdateImagePosition();
         }
 
-        private void UpdateImagePosition() {
+        void UpdateImagePosition() {
             var thumb = Thumbnail.Texture;
             if (thumb == null) return;
             float scale = Math.Min(1, 90f / Math.Max(thumb.Height, thumb.Width));
@@ -640,7 +640,7 @@ namespace FSO.Client.UI.Panels
 
             if (thumb != null)
             {
-                var pos = baseLoc + (new Vector2(thumb.Width * scale / -2, thumb.Height * scale / -2));
+                var pos = baseLoc + new Vector2(thumb.Width * scale / -2, thumb.Height * scale / -2);
                 DrawLocalTexture(batch, thumb, null, pos, new Vector2(scale));
             }
         }

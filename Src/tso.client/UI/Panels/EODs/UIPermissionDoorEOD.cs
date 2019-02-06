@@ -92,8 +92,8 @@ namespace FSO.Client.UI.Panels.EODs
             PlaintextHandlers["door_code"] = P_Code;
         }
 
-        private bool IgnoreEntryChange;
-        private void CodeTextEntry_OnChange(UIElement element)
+        bool IgnoreEntryChange;
+        void CodeTextEntry_OnChange(UIElement element)
         {
             if (IgnoreEntryChange) return;
             var newText = CodeTextEntry.CurrentText;
@@ -191,7 +191,7 @@ namespace FSO.Client.UI.Panels.EODs
             PayDoorButton.Selected = pay;
 
             IgnoreEntryChange = true;
-            CodeTextEntry.CurrentText = (code) ? CodeText : CurDoorFee.ToString();
+            CodeTextEntry.CurrentText = code ? CodeText : CurDoorFee.ToString();
             CodeTextEntry.Mode = (Mode != VMEODPermissionDoorMode.Edit) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
             IgnoreEntryChange = false;
         }
@@ -199,7 +199,7 @@ namespace FSO.Client.UI.Panels.EODs
         public void P_Init(string evt, string text)
         {
             var split = text.Split('\n');
-            Mode = (VMEODPermissionDoorMode)(int.Parse(split[0]));
+            Mode = (VMEODPermissionDoorMode)int.Parse(split[0]);
             MaxFee = int.Parse(split[1]);
             PermissionState = int.Parse(split[2]);
             CurDoorFee = int.Parse(split[3]);

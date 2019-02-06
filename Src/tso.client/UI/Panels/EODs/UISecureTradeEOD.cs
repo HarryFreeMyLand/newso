@@ -36,8 +36,8 @@ namespace FSO.Client.UI.Panels.EODs
         public int TimeSinceType;
         public UIQueryPanel QueryPanel { get { return LotController.QueryPanel; } }
 
-        private List<VMInventoryItem> LastInventory;
-        private List<UICatalogElement> CurrentInventory;
+        List<VMInventoryItem> LastInventory;
+        List<UICatalogElement> CurrentInventory;
 
         public UISlider InventoryCatalogSecureTradingSlider { get; set; }
         public UIButton InventoryCatalogSecureTradingPreviousPageButton { get; set; }
@@ -68,9 +68,9 @@ namespace FSO.Client.UI.Panels.EODs
 
         public string MyLotName;
         public bool OwnerOfLot;
-        private bool Small800;
+        bool Small800;
 
-        private List<Tuple<Rectangle, float>> NotifyRects = new List<Tuple<Rectangle, float>>();
+        List<Tuple<Rectangle, float>> NotifyRects = new List<Tuple<Rectangle, float>>();
 
         public UISecureTradeEOD(UIEODController controller) : base(controller)
         {
@@ -82,7 +82,7 @@ namespace FSO.Client.UI.Panels.EODs
         protected virtual void InitUI()
         {
             Small800 = (GlobalSettings.Default.GraphicsWidth < 1024) || Common.FSOEnvironment.UIZoomFactor > 1f;
-            Script = this.RenderScript("securetradingeod"+((Small800)?"":"1024")+".uis");
+            Script = this.RenderScript("securetradingeod"+(Small800?"":"1024")+".uis");
 
             Catalog = new UICatalog(Small800 ? 18 : 28);
             Script.ApplyControlProperties(Catalog, "InventoryCatalogSecureTrading");
@@ -144,7 +144,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void OtherOfferCatalog_OnSelectionChange(int selection)
+        void OtherOfferCatalog_OnSelectionChange(int selection)
         {
             var elemItem = OtherOfferCatalog.Selected[selection];
             var item = OtherOffer.ObjectOffer.FirstOrDefault(x => x != null && (x.PID == (uint)elemItem.Tag || (x.PID < 3 && (uint)elemItem.Tag == x.GUID)));
@@ -165,14 +165,14 @@ namespace FSO.Client.UI.Panels.EODs
             BuyItem.Delete(LotController.vm.Context);
         }
 
-        private void AcceptClicked(UIElement button)
+        void AcceptClicked(UIElement button)
         {
             MyOffer.Accepted = !MyOffer.Accepted;
             AcceptButton.Selected = MyOffer.Accepted;
             Send("trade_offer", "a" + (MyOffer.Accepted?"1":"0"));
         }
 
-        private void AmountEntry_OnChange(UIElement element)
+        void AmountEntry_OnChange(UIElement element)
         {
             TimeSinceType = FSOEnvironment.RefreshRate;
             int parse;
@@ -183,7 +183,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private VMMultitileGroup CreateObjGroup(VMEODSecureTradeObject item)
+        VMMultitileGroup CreateObjGroup(VMEODSecureTradeObject item)
         {
             var data = item.Data;
             VMStandaloneObjectMarshal state = null;
@@ -225,7 +225,7 @@ namespace FSO.Client.UI.Panels.EODs
             return BuyItem;
         }
 
-        private void OfferCatalog_OnSelectionChange(int selection)
+        void OfferCatalog_OnSelectionChange(int selection)
         {
             var elemItem = OfferCatalog.Selected[selection];
             var item = MyOffer.ObjectOffer.FirstOrDefault(x => x != null && (x.PID == (uint)elemItem.Tag || (x.PID < 3 && (uint)elemItem.Tag < 3)));
@@ -248,7 +248,7 @@ namespace FSO.Client.UI.Panels.EODs
             BeginDrag(elemItem, item.PID);
         }
 
-        private void Catalog_OnSelectionChange(int selection)
+        void Catalog_OnSelectionChange(int selection)
         {
             if (selection >= CurrentInventory.Count) return;
             var item = CurrentInventory[selection];
@@ -274,11 +274,11 @@ namespace FSO.Client.UI.Panels.EODs
             BuyItem.Delete(LotController.vm.Context);
 
             if (item.Tag is uint) {
-                BeginDrag(item, (uint)(item.Tag));
+                BeginDrag(item, (uint)item.Tag);
             }
         }
 
-        private void BeginDrag(UICatalogElement item, uint uid)
+        void BeginDrag(UICatalogElement item, uint uid)
         {
             DragUID = uid;
             DragItem = new UICatalogItem(true);
@@ -296,7 +296,7 @@ namespace FSO.Client.UI.Panels.EODs
             BuildOffer(MyOffer.ObjectOffer, OfferCatalog);
         }
 
-        private void UpdateCatalog()
+        void UpdateCatalog()
         {
             Catalog.SetCategory(CurrentInventory);
 
@@ -305,11 +305,11 @@ namespace FSO.Client.UI.Panels.EODs
             InventoryCatalogSecureTradingSlider.MaxValue = total - 1;
             InventoryCatalogSecureTradingSlider.Value = 0;
             
-            InventoryCatalogSecureTradingNextPageButton.Disabled = (total == 1);
+            InventoryCatalogSecureTradingNextPageButton.Disabled = total == 1;
             InventoryCatalogSecureTradingPreviousPageButton.Disabled = true;
         }
 
-        private void BuildInventory()
+        void BuildInventory()
         {
             var inventory = LotController.vm.MyInventory;
             var lastCatPage = Catalog.GetPage();
@@ -347,7 +347,7 @@ namespace FSO.Client.UI.Panels.EODs
             SetPage(Math.Min(Catalog.TotalPages() - 1, lastCatPage));
         }
 
-        private void BuildOffer(VMEODSecureTradeObject[] offer, UICatalog target)
+        void BuildOffer(VMEODSecureTradeObject[] offer, UICatalog target)
         {
             var inventory = LotController.vm.MyInventory;
 
@@ -383,7 +383,7 @@ namespace FSO.Client.UI.Panels.EODs
             target.SetCategory(offercat);
         }
 
-        private bool _InternalChange;
+        bool _InternalChange;
         public void SetPage(int page)
         {
             if (_InternalChange) return;
@@ -394,7 +394,7 @@ namespace FSO.Client.UI.Panels.EODs
             _InternalChange = false;
         }
 
-        private ObjectCatalogItem GenCatItem(uint GUID)
+        ObjectCatalogItem GenCatItem(uint GUID)
         {
             var obj = Content.GameContent.Get.WorldObjects.Get(GUID);
             if (obj == null)
@@ -457,8 +457,8 @@ namespace FSO.Client.UI.Panels.EODs
                 if (!mouseDown)
                 {
                     //try place the item down
-                    var inventoryRect = LocalRect(Catalog.Position.X, Catalog.Position.Y, (Catalog.PageSize / 2) * 45, 80);
-                    var myOfferRect = LocalRect(OfferCatalog.Position.X, OfferCatalog.Position.Y, (OfferCatalog.PageSize / 2) * 45, 80);
+                    var inventoryRect = LocalRect(Catalog.Position.X, Catalog.Position.Y, Catalog.PageSize / 2 * 45, 80);
+                    var myOfferRect = LocalRect(OfferCatalog.Position.X, OfferCatalog.Position.Y, OfferCatalog.PageSize / 2 * 45, 80);
 
                     if (inventoryRect.Contains(state.MouseState.Position))
                     {
@@ -538,7 +538,7 @@ namespace FSO.Client.UI.Panels.EODs
             BinaryHandlers["trade_other"] = B_Other;
         }
 
-        private EODLiveModeOpt GetEODOptions()
+        EODLiveModeOpt GetEODOptions()
         {
             return new EODLiveModeOpt()
             {
@@ -547,7 +547,7 @@ namespace FSO.Client.UI.Panels.EODs
             };
         }
 
-        private void SetMyPerson(uint persist)
+        void SetMyPerson(uint persist)
         {
             if (MyPerson != null)
             {
@@ -563,7 +563,7 @@ namespace FSO.Client.UI.Panels.EODs
             Add(MyPerson);
         }
 
-        private void SetOtherPerson(uint persist)
+        void SetOtherPerson(uint persist)
         {
             if (OtherPerson != null)
             {
@@ -601,26 +601,26 @@ namespace FSO.Client.UI.Panels.EODs
         {
             int timeNum;
             if (!int.TryParse(txt, out timeNum)) return;
-            AcceptButton.Disabled = (timeNum != 0);
+            AcceptButton.Disabled = timeNum != 0;
             AcceptButton.ForceState = (timeNum != 0)?0:-1;
 
-            LockoutTimerLabel.Visible = (timeNum != 0);
+            LockoutTimerLabel.Visible = timeNum != 0;
             LockoutTimerLabel.Caption = "("+timeNum+")";
         }
 
-        private void NotifyChange(VMEODSecureTradePlayer prev, VMEODSecureTradePlayer now, Vector2 position)
+        void NotifyChange(VMEODSecureTradePlayer prev, VMEODSecureTradePlayer now, Vector2 position)
         {
             if (prev.MoneyOffer != now.MoneyOffer)
             {
                 //money changed
-                NotifyRects.Add(new Tuple<Rectangle, float>(new Rectangle(position.ToPoint() + new Point((Small800)?229:453, 7), new Point(102, 29)), 1.0f));
+                NotifyRects.Add(new Tuple<Rectangle, float>(new Rectangle(position.ToPoint() + new Point(Small800?229:453, 7), new Point(102, 29)), 1.0f));
             }
 
             for (int i=0; i<5; i++)
             {
                 var pobj = prev.ObjectOffer[i];
                 var nobj = now.ObjectOffer[i];
-                if (((nobj == null) != (pobj == null)) || (nobj != null && (nobj.GUID != pobj.GUID || nobj.PID != pobj.PID)))
+                if ((nobj == null != (pobj == null)) || (nobj != null && (nobj.GUID != pobj.GUID || nobj.PID != pobj.PID)))
                 {
                     NotifyRects.Add(new Tuple<Rectangle, float>(new Rectangle(position.ToPoint() + new Point(i*45+1, 2), new Point(43, 43)), 1.0f));
                 }
@@ -671,7 +671,7 @@ namespace FSO.Client.UI.Panels.EODs
             var white = TextureGenerator.GetPxWhite(GameFacade.GraphicsDevice);
             foreach (var notify in NotifyRects)
             {
-                var intensity = (float)(1-Math.Pow((1 - notify.Item2), 1 / 5f));
+                var intensity = (float)(1-Math.Pow(1 - notify.Item2, 1 / 5f));
                 var rect = notify.Item1;
                 DrawLocalTexture(batch, white, null, rect.Location.ToVector2(), rect.Size.ToVector2(), Color.Yellow * intensity);
             }

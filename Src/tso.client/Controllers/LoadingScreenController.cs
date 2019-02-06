@@ -51,7 +51,7 @@ namespace FSO.Client.Controllers
     /// </summary>
     public class CacheInit : IContentReference
     {
-        private FileSystemCache Cache;
+        FileSystemCache Cache;
 
         public CacheInit(FileSystemCache cache)
         {

@@ -47,18 +47,18 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void UpdateTimer()
+        void UpdateTimer()
         {
-            CounterText.Caption = (Timer/(60*60)).ToString().PadLeft(2, '0') + ":"+((Timer/60)%60).ToString().PadLeft(2, '0')+":"+(Timer%60).ToString().PadLeft(2, '0');
+            CounterText.Caption = (Timer/(60*60)).ToString().PadLeft(2, '0') + ":"+(Timer/60%60).ToString().PadLeft(2, '0')+":"+(Timer%60).ToString().PadLeft(2, '0');
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             CallingVM.SendCommand(new VMNetTimeoutNotifyCmd());
             UIScreen.RemoveDialog(this);
         }
 
-        private void ForceDC()
+        void ForceDC()
         {
             UIScreen.RemoveDialog(this);
             FSOFacade.Controller.Disconnect(false);

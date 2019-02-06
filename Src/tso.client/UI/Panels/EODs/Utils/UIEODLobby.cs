@@ -12,11 +12,11 @@ namespace FSO.Client.UI.Panels.EODs.Utils
 {
     public class UIEODLobby : UIContainer
     {
-        private int NumPlayers;
-        private UIEOD EOD;
+        int NumPlayers;
+        UIEOD EOD;
 
-        private List<UIEODLobbyPlayer> PlayerUI;
-        private Func<UIEODLobbyPlayer, VMAvatar, string> CaptionFunction;
+        List<UIEODLobbyPlayer> PlayerUI;
+        Func<UIEODLobbyPlayer, VMAvatar, string> CaptionFunction;
 
         public UIEODLobby(UIEOD eod, int numPlayers)
         {
@@ -76,7 +76,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             }
         }
 
-        private void UpdatePlayerUI(UIEODLobbyPlayer player, VMAvatar avatar)
+        void UpdatePlayerUI(UIEODLobbyPlayer player, VMAvatar avatar)
         {
             if (player.PersonButton != null)
             {
@@ -96,7 +96,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             }
         }
 
-        private void RemovePlayerUI(UIEODLobbyPlayer player)
+        void RemovePlayerUI(UIEODLobbyPlayer player)
         {
             if(player.PersonButton != null)
             {

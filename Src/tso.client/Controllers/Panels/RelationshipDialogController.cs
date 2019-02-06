@@ -14,10 +14,10 @@ namespace FSO.Client.Controllers.Panels
 {
     public class RelationshipDialogController : IDisposable
     {
-        private Network.Network Network;
-        private IClientDataService DataService;
-        private UIRelationshipDialog View;
-        private IDatabaseService DatabaseService;
+        Network.Network Network;
+        IClientDataService DataService;
+        UIRelationshipDialog View;
+        IDatabaseService DatabaseService;
         //private Binding<Avatar> Binding;
 
         public RelationshipDialogController(UIRelationshipDialog view, IClientDataService dataService, Network.Network network, IDatabaseService database)

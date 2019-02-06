@@ -16,14 +16,14 @@ namespace FSO.Client.UI.Controls
 {
     public class UISlotsImage : UIElement
     {
-        private DoubleDrawMargins DoubleDrawMargins;
-        private TripleDrawMargins TripleDrawMargins;
-        private Texture2D m_Texture;
-        private UISlotsImageDrawTypes DrawType;
-        private Rectangle SpecialBounds;
-        private float m_Width;
-        private float m_Height;
-        private bool m_TextureNeedsDisposal = false;
+        DoubleDrawMargins DoubleDrawMargins;
+        TripleDrawMargins TripleDrawMargins;
+        Texture2D m_Texture;
+        UISlotsImageDrawTypes DrawType;
+        Rectangle SpecialBounds;
+        float m_Width;
+        float m_Height;
+        bool m_TextureNeedsDisposal = false;
 
         public UISlotsImage(Texture2D texture)
         {
@@ -303,9 +303,9 @@ namespace FSO.Client.UI.Controls
 
     public class UIHighlightSprite : UIElement
     {
-        private int m_Width;
-        private int m_Height;
-        private float m_Alpha;
+        int m_Width;
+        int m_Height;
+        float m_Alpha;
 
         public UIHighlightSprite(int width, int height)
         {

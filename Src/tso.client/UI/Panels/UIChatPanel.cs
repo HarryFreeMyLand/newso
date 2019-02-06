@@ -28,11 +28,11 @@ namespace FSO.Client.UI.Panels
 {
     public class UIChatPanel : UIContainer
     {
-        private VM vm;
-        private TextStyle Style;
-        private UITextBox TextBox;
+        VM vm;
+        TextStyle Style;
+        UITextBox TextBox;
 
-        private Color m_SelectionFillColor;
+        Color m_SelectionFillColor;
         public Color SelectionFillColor
         {
             get
@@ -47,10 +47,10 @@ namespace FSO.Client.UI.Panels
 
         public List<UIChatBalloon> Labels;
         public List<Rectangle> InvalidAreas;
-        private UILotControl Owner;
-        private UIChatDialog HistoryDialog;
-        private UIPropertyLog PropertyLog;
-        private InputManager Inputs;
+        UILotControl Owner;
+        UIChatDialog HistoryDialog;
+        UIPropertyLog PropertyLog;
+        InputManager Inputs;
 
         public int ActiveChannel = 0;
 
@@ -129,8 +129,8 @@ namespace FSO.Client.UI.Panels
             HistoryDialog.Visitors = visitors;
         }
 
-        private bool JustHidTextbox;
-        private void TextBox_OnEnterPress(UIElement element)
+        bool JustHidTextbox;
+        void TextBox_OnEnterPress(UIElement element)
         {
             if (TextBox.EventSuppressed) return;
             SendMessageElem(TextBox);
@@ -152,7 +152,7 @@ namespace FSO.Client.UI.Panels
             TextBox.SetSize(GlobalSettings.Default.GraphicsWidth - 50, 25);
         }
 
-        private void SendMessage(string message)
+        void SendMessage(string message)
         {
             if (GlobalSettings.Default.ChatOnlyEmoji && message != "")
             {
@@ -176,7 +176,7 @@ namespace FSO.Client.UI.Panels
                     if (message == "/trace")
                     {
                         vm.UseSchedule = false;
-                        vm.Trace = new SimAntics.Engine.Debugger.VMSyncTrace();
+                        vm.Trace = new SimAntics.Engine.Diagnostics.VMSyncTrace();
                     }
                     vm.SendCommand(new VMNetChatCmd
                     {
@@ -188,7 +188,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void SendMessageElem(UIElement element)
+        void SendMessageElem(UIElement element)
         {
             string message = TextBox.CurrentText;
             SendMessage(message);
@@ -218,11 +218,11 @@ namespace FSO.Client.UI.Panels
             if (!VM.UseWorld || vm.FSOVAsyncLoading) return;
 
             var botRect = InvalidAreas[3];
-            botRect.Y = GlobalSettings.Default.GraphicsHeight - ((Owner.PanelActive) ? 135 : 20);
+            botRect.Y = GlobalSettings.Default.GraphicsHeight - (Owner.PanelActive ? 135 : 20);
 
             InvalidAreas[3] = botRect;
 
-            var avatars = vm.Entities.Where(x => (x is VMAvatar)).ToList();
+            var avatars = vm.Entities.Where(x => x is VMAvatar).ToList();
             while (avatars.Count < Labels.Count)
             {
                 Remove(Labels[Labels.Count - 1]);
@@ -243,7 +243,7 @@ namespace FSO.Client.UI.Panels
             {
                 var label = Labels[i];
                 var avatar = (VMAvatar)avatars[i];
-                var tstate = ((VMTSOAvatarState)avatar.TSOState);
+                var tstate = (VMTSOAvatarState)avatar.TSOState;
 
                 if (label.Message != avatar.Message)
                     label.SetNameMessage(avatar);
@@ -271,7 +271,7 @@ namespace FSO.Client.UI.Panels
                 var off2 = new Vector2(world.WorldSpace.WorldPxWidth, world.WorldSpace.WorldPxHeight);
                 off2 = (off2 / world.PreciseZoom - off2) / 2;
 
-                label.TargetPt = ((ZoomCorrect(avatar.WorldUI.GetScreenPos(vm.Context.World.State)) + new Vector2(0, -45) / (1 << (3 - (int)vm.Context.World.State.Zoom)))
+                label.TargetPt = (ZoomCorrect(avatar.WorldUI.GetScreenPos(vm.Context.World.State)) + new Vector2(0, -45) / (1 << (3 - (int)vm.Context.World.State.Zoom))
                    + off2) * world.PreciseZoom / FSOEnvironment.DPIScaleFactor;
 
             }
@@ -345,7 +345,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private Vector2 ZoomCorrect(Vector2 vec)
+        Vector2 ZoomCorrect(Vector2 vec)
         {
             var screenMiddle = new Vector2(
             (int)(GameFacade.Screens.CurrentUIScreen.ScreenWidth / (2 / FSOEnvironment.DPIScaleFactor)),

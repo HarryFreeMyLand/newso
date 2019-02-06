@@ -20,8 +20,8 @@ namespace FSO.Client.UI.Screens
 {
     public class TransitionScreen : GameScreen
     {
-        private UISetupBackground m_Background;
-        private UILoginProgress m_LoginProgress;
+        UISetupBackground m_Background;
+        UILoginProgress m_LoginProgress;
 
         /// <summary>
         /// Creates a new CityTransitionScreen.
@@ -46,8 +46,8 @@ namespace FSO.Client.UI.Screens
             this.Add(m_Background);
 
             m_LoginProgress = new UILoginProgress();
-            m_LoginProgress.X = (ScreenWidth - (m_LoginProgress.Width + 20));
-            m_LoginProgress.Y = (ScreenHeight - (m_LoginProgress.Height + 20));
+            m_LoginProgress.X = ScreenWidth - (m_LoginProgress.Width + 20);
+            m_LoginProgress.Y = ScreenHeight - (m_LoginProgress.Height + 20);
             m_LoginProgress.Opacity = 0.9f;
             this.Add(m_LoginProgress);
         }
@@ -55,8 +55,8 @@ namespace FSO.Client.UI.Screens
         public override void GameResized()
         {
             base.GameResized();
-            m_LoginProgress.X = (ScreenWidth - (m_LoginProgress.Width + 20));
-            m_LoginProgress.Y = (ScreenHeight - (m_LoginProgress.Height + 20));
+            m_LoginProgress.X = ScreenWidth - (m_LoginProgress.Width + 20);
+            m_LoginProgress.Y = ScreenHeight - (m_LoginProgress.Height + 20);
         }
 
         public bool ShowProgress
@@ -73,7 +73,7 @@ namespace FSO.Client.UI.Screens
         
         public void SetProgress(float progress, int stringIndex)
         {
-            m_LoginProgress.ProgressCaption = GameFacade.Strings.GetString("251", (stringIndex).ToString());
+            m_LoginProgress.ProgressCaption = GameFacade.Strings.GetString("251", stringIndex.ToString());
             m_LoginProgress.Progress = progress;
         }
     }

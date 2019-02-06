@@ -12,9 +12,9 @@ namespace FSO.Client.Controllers
 {
     public class GizmoController : IDisposable
     {
-        private UIGizmo Gizmo;
-        private Network.Network Network;
-        private IClientDataService DataService;
+        UIGizmo Gizmo;
+        Network.Network Network;
+        IClientDataService DataService;
 
         public GizmoController(UIGizmo view, Network.Network network, IClientDataService dataService)
         {
@@ -25,7 +25,7 @@ namespace FSO.Client.Controllers
             Initialize();
         }
 
-        private void Initialize()
+        void Initialize()
         {
             DataService.Get<Avatar>(Network.MyCharacter).ContinueWith(x =>
             {

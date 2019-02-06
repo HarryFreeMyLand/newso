@@ -1,4 +1,4 @@
-﻿using FSO.Common;
+using FSO.Common;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -11,33 +11,33 @@ namespace FSO.Client
 {
     public class GlobalSettings : IniConfig
     {
-        private static GlobalSettings defaultInstance;
+        private static GlobalSettings _defaultInstance;
 
         public static GlobalSettings Default
         {
             get
             {
-                if (defaultInstance == null)
+                if (_defaultInstance == null)
                 {
-                    defaultInstance = new GlobalSettings(Path.Combine(FSOEnvironment.UserDir, "config.ini"));
-                    if (defaultInstance.DPIScaleFactor > 4 || defaultInstance.DPIScaleFactor == 0)
-                        defaultInstance.DPIScaleFactor = 1; //sanity check
-                    if (defaultInstance.ChatWindowsOpacity == 0 || defaultInstance.ChatWindowsOpacity > 1)
-                        defaultInstance.ChatWindowsOpacity = 1; //sanity check
-                    if (defaultInstance.GameEntryUrl == "http://api.freeso.org")
+                    _defaultInstance = new GlobalSettings(Path.Combine(FSOEnvironment.UserDir, "config.ini"));
+                    if (_defaultInstance.DPIScaleFactor > 4 || _defaultInstance.DPIScaleFactor == 0)
+                        _defaultInstance.DPIScaleFactor = 1; //sanity check
+                    if (_defaultInstance.ChatWindowsOpacity == 0 || _defaultInstance.ChatWindowsOpacity > 1)
+                        _defaultInstance.ChatWindowsOpacity = 1; //sanity check
+                    if (_defaultInstance.GameEntryUrl == "http://api.freeso.org")
                     {
-                        defaultInstance.GameEntryUrl = "https://api.freeso.org";
-                        defaultInstance.CitySelectorUrl = "https://api.freeso.org";
+                        _defaultInstance.GameEntryUrl = "https://api.freeso.org";
+                        _defaultInstance.CitySelectorUrl = "https://api.freeso.org";
                     }
 
                 }
-                return defaultInstance;
+                return _defaultInstance;
             }
         }
 
         public GlobalSettings(string path) : base(path) { }
 
-        private Dictionary<string, string> _DefaultValues = new Dictionary<string, string>()
+        private Dictionary<string, string> _defaultValues = new Dictionary<string, string>()
         {
             { "ShowHints", "true"},
             { "CurrentLang", "english" },
@@ -103,8 +103,8 @@ namespace FSO.Client
         };
         public override Dictionary<string, string> DefaultValues
         {
-            get { return _DefaultValues; }
-            set { _DefaultValues = value; }
+            get { return _defaultValues; }
+            set { _defaultValues = value; }
         }
 
         public string CurrentLang { get; set; }

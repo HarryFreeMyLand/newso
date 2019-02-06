@@ -68,14 +68,14 @@ namespace FSO.Client.UI.Panels
             CloseButton.OnButtonClick += Close;
         }
 
-        private void CategoryChoose(UIElement button)
+        void CategoryChoose(UIElement button)
         {
             var cat = ButtonToCategory[(UIButton)button];
             OnCategoryChange?.Invoke(cat);
             UIScreen.RemoveDialog(this);
         }
 
-        private void Close(UIElement button)
+        void Close(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }

@@ -13,10 +13,10 @@ namespace FSO.Client.UI.Panels
 {
     public class UIPersonGrid : UIContainer
     {
-        private VM vm;
-        private HashSet<VMAvatar> Display;
-        private int Page;
-        private List<UIVMPersonButton> CurrentIcons;
+        VM vm;
+        HashSet<VMAvatar> Display;
+        int Page;
+        List<UIVMPersonButton> CurrentIcons;
 
         public int Columns = 9;
         public int Rows = 2;
@@ -55,7 +55,7 @@ namespace FSO.Client.UI.Panels
 
             if (change)
             {
-                Page = Math.Min(Page, (Display.Count / (Columns * Rows)));
+                Page = Math.Min(Page, Display.Count / (Columns * Rows));
                 DrawPage();
                 Invalidate();
             }
@@ -69,11 +69,11 @@ namespace FSO.Client.UI.Panels
 
         public void DrawPage()
         {
-            Page = Math.Min(Page, (Display.Count / (Columns * Rows)));
+            Page = Math.Min(Page, Display.Count / (Columns * Rows));
             if (Page < 0) Page = 0;
             foreach (var icon in CurrentIcons) Remove(icon);
             CurrentIcons.Clear();
-            var startInd = Page * (Columns * Rows);
+            var startInd = Page * Columns * Rows;
 
             for (int x=0; x<Columns; x++)
             {

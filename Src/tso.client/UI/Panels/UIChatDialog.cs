@@ -26,11 +26,11 @@ namespace FSO.Client.UI.Panels
         public UIImage ChatEntryBackground { get; set; }
         public UIImage ChatHistoryBackground { get; set; }
 
-        private List<VMChatEvent> History;
+        List<VMChatEvent> History;
 
         public byte ShowChannels = 255;
 
-        private int chatSize = GlobalSettings.Default.ChatDeltaScale;
+        int chatSize = GlobalSettings.Default.ChatDeltaScale;
 
         public int Visitors;
         public string LotName = "Test Lot";
@@ -38,7 +38,7 @@ namespace FSO.Client.UI.Panels
         public UIChatCategoryList Categories;
         public bool LastCategories;
 
-        private ITTSContext TTSContext;
+        ITTSContext TTSContext;
 
         public UIChatDialog(UILotControl owner)
             : base(UIDialogStyle.Standard | UIDialogStyle.OK | UIDialogStyle.Close, false)
@@ -100,7 +100,7 @@ namespace FSO.Client.UI.Panels
             ChangeSizeTo(new Vector2(GlobalSettings.Default.ChatSizeX, GlobalSettings.Default.ChatSizeY));
         }
 
-        private ITTSContext GetOrCreateTTS()
+        ITTSContext GetOrCreateTTS()
         {
             if (TTSContext == null && ITTSContext.Provider != null)
             {
@@ -109,7 +109,7 @@ namespace FSO.Client.UI.Panels
             return TTSContext;
         }
 
-        private void ChangeSizeTo(Vector2 size)
+        void ChangeSizeTo(Vector2 size)
         {
             if (Size == size && LastCategories == Categories.HasButtons) return;
 
@@ -154,7 +154,7 @@ namespace FSO.Client.UI.Panels
         /// Handle mouse events for dragging and resizing
         /// </summary>
         /// <param name="evt"></param>
-        private void DragMouseEvents(UIMouseEventType evt, UpdateState state)
+        void DragMouseEvents(UIMouseEventType evt, UpdateState state)
         {
             switch (evt)
             {
@@ -184,19 +184,19 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             //hide self.
             Visible = false;
         }
 
-        private void ChatEntryTextEdit_OnChange(UIElement TextEdit)
+        void ChatEntryTextEdit_OnChange(UIElement TextEdit)
         {
             UITextEdit edit = (UITextEdit)TextEdit;
-            OKButton.Disabled = (edit.CurrentText.Length == 0);
+            OKButton.Disabled = edit.CurrentText.Length == 0;
         }
 
-        private void SendMessageEnter(UIElement element)
+        void SendMessageEnter(UIElement element)
         {
             //remove newline first
             //ChatEntryTextEdit.CurrentText = ChatEntryTextEdit.CurrentText.Substring(0, ChatEntryTextEdit.CurrentText.Length - 2);
@@ -204,7 +204,7 @@ namespace FSO.Client.UI.Panels
             SendMessage(this);
         }
 
-        private void SendMessage(UIElement button)
+        void SendMessage(UIElement button)
         {
             OKButton.Disabled = true;
             if (ChatEntryTextEdit.CurrentText.Length == 0) return;
@@ -213,7 +213,7 @@ namespace FSO.Client.UI.Panels
             ChatEntryTextEdit.CurrentText = "";
         }
 
-        private VMTSOChatChannel GetChannelInfo(int id)
+        VMTSOChatChannel GetChannelInfo(int id)
         {
             var channel = Owner.vm.TSOState.ChatChannels.FirstOrDefault(x => x.ID == id);
             if (id == 7) channel = VMTSOChatChannel.AdminChannel;
@@ -252,10 +252,10 @@ namespace FSO.Client.UI.Panels
             RenderEvents();
         }
 
-        private bool m_doDrag;
-        private bool m_doResizeX;
-        private bool m_doResizeY;
-        private Vector2 m_dragOffset;
+        bool m_doDrag;
+        bool m_doResizeX;
+        bool m_doResizeY;
+        Vector2 m_dragOffset;
 
         public override void Update(UpdateState state)
         {
@@ -284,9 +284,9 @@ namespace FSO.Client.UI.Panels
                 var newSize = Size;
 
                 if (m_doResizeX)
-                    newSize.X = (position.X + m_dragOffset.X);
+                    newSize.X = position.X + m_dragOffset.X;
                 if (m_doResizeY)
-                    newSize.Y = (position.Y + m_dragOffset.Y);
+                    newSize.Y = position.Y + m_dragOffset.Y;
                 newSize.X = Math.Max(newSize.X, 400);
                 newSize.Y = Math.Max(newSize.Y, 255);
 
@@ -384,22 +384,22 @@ namespace FSO.Client.UI.Panels
             switch (evt.Type)
             {
                 case VMChatEventType.Message:
-                    return ((showTimestamp) ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + ((evt.Channel == null) ? "" : ("(" + evt.Channel.Name + ") "))
+                    return (showTimestamp ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + ((evt.Channel == null) ? "" : ("(" + evt.Channel.Name + ") "))
                         + GameFacade.Strings.GetString("261", "8").Replace("%", avatar)
                         + colorAfter + CleanUserMessage(evt.Text[1], evt);
                 case VMChatEventType.MessageMe:
-                    return ((showTimestamp) ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + ((evt.Channel == null) ? "" : ("(" + evt.Channel.Name + ") "))
+                    return (showTimestamp ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + ((evt.Channel == null) ? "" : ("(" + evt.Channel.Name + ") "))
                         + GameFacade.Strings.GetString("261", "9")
                         + colorAfter + CleanUserMessage(evt.Text[1], evt);
                 case VMChatEventType.Join:
-                    return ((showTimestamp) ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + GameFacade.Strings.GetString("261", "6").Replace("%", avatar) + colorAfter;
+                    return (showTimestamp ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + GameFacade.Strings.GetString("261", "6").Replace("%", avatar) + colorAfter;
                 case VMChatEventType.Leave:
-                    return ((showTimestamp) ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + GameFacade.Strings.GetString("261", "7").Replace("%", avatar) + colorAfter;
+                    return (showTimestamp ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + GameFacade.Strings.GetString("261", "7").Replace("%", avatar) + colorAfter;
                 case VMChatEventType.Arch:
-                    return ((showTimestamp) ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + "<" + avatar + " (" + evt.Text[1] + ")" + "> " + evt.Text[2] + colorAfter;
+                    return (showTimestamp ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + "<" + avatar + " (" + evt.Text[1] + ")" + "> " + evt.Text[2] + colorAfter;
                 case VMChatEventType.Generic:
                 case VMChatEventType.Debug:
-                    return ((showTimestamp) ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + GameFacade.Emojis.EmojiToBB(evt.Text[0]) + colorAfter;
+                    return (showTimestamp ? SanitizeBB("[" + timestamp + "] ") : "") + colorBefore + GameFacade.Emojis.EmojiToBB(evt.Text[0]) + colorAfter;
                 default:
                     return "";
             }

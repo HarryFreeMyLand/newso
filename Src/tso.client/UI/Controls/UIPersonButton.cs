@@ -33,13 +33,13 @@ namespace FSO.Client.UI.Controls
     public class UIPersonButton : UIContainer
     {
         public Binding<UserReference> User { get; internal set; }
-        private UITooltipHandler m_TooltipHandler;
-        private ITextureRef _Icon;
-        private UIButton _Button;
-        private UIPersonButtonSize _Size;
+        UITooltipHandler m_TooltipHandler;
+        ITextureRef _Icon;
+        UIButton _Button;
+        UIPersonButtonSize _Size;
 
         //Mixing concerns here but binding avatar id is much nicer than lots of plumbing each time
-        private IClientDataService DataService;
+        IClientDataService DataService;
 
         public UIPersonButton()
         {
@@ -62,7 +62,7 @@ namespace FSO.Client.UI.Controls
             User.Dispose();
         }
 
-        private uint _AvatarId;
+        uint _AvatarId;
         public uint AvatarId
         {
             get { return _AvatarId; }
@@ -89,12 +89,12 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private void _Button_OnButtonClick(UIElement button)
+        void _Button_OnButtonClick(UIElement button)
         {
             FindController<CoreGameScreenController>()?.ShowPersonPage(User.Value);
         }
 
-        private ITextureRef _FrameTexture;
+        ITextureRef _FrameTexture;
         public UIPersonButtonSize FrameSize
         {
             get { return _Size; }

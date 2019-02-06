@@ -24,7 +24,7 @@ namespace FSO.Client.UI.Panels
             Watching.OnEnterPress += Watching_OnEnterPress;
         }
 
-        private void Watching_OnEnterPress(UIElement element)
+        void Watching_OnEnterPress(UIElement element)
         {
             if (SelectBestTerm()) Watching.EventSuppressed = true;
         }
@@ -35,7 +35,7 @@ namespace FSO.Client.UI.Panels
             base.Update(state);
             
             //
-            var showSuggestions = (state.InputManager.GetFocus() == Watching);
+            var showSuggestions = state.InputManager.GetFocus() == Watching;
             if (showSuggestions)
             {
                 showSuggestions = false;
@@ -80,7 +80,7 @@ namespace FSO.Client.UI.Panels
             ((UIEmojiSuggestion)Children[ni]).Selected = true;
         }
 
-        private int Sqr(int i)
+        int Sqr(int i)
         {
             return i * i;
         }
@@ -109,7 +109,7 @@ namespace FSO.Client.UI.Panels
                 var suggestion = new UIEmojiSuggestion(ranked.Item2, this)
                 {
                     Position = new Vector2(0, i * 22),
-                    Selected = (i == 0)
+                    Selected = i == 0
                 };
                 Add(suggestion);
                 last = suggestion;

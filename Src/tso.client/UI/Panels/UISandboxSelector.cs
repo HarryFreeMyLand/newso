@@ -197,7 +197,7 @@ namespace FSO.Client.UI.Panels
             BookmarkListBox.Items = xmlHouses.Select(x => new UIListBoxItem(x, x.Filename.Substring(0, x.Filename.Length-4))).ToList();
         }
 
-        private void ChangeType(BookmarkType type)
+        void ChangeType(BookmarkType type)
         {
             var bookmark = type == BookmarkType.AVATAR;
             SimsTabButton.Selected = bookmark;
@@ -206,7 +206,7 @@ namespace FSO.Client.UI.Panels
             IgnoreTab.Visible = !bookmark;
         }
 
-        private void BookmarkListBox_OnDoubleClick(UIElement button)
+        void BookmarkListBox_OnDoubleClick(UIElement button)
         {
             if (BookmarkListBox.SelectedItem == null) { return; }
             var item = (UIXMLLotEntry)BookmarkListBox.SelectedItem.Data;
@@ -214,7 +214,7 @@ namespace FSO.Client.UI.Panels
             LotSwitch(item.Path, false);
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }

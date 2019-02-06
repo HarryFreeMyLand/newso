@@ -15,8 +15,8 @@ namespace FSO.Client.UI.Panels
 {
     public class UILotPurchaseDialog : UIDialog
     {
-        private Regex VALIDATE_NUMERIC = new Regex(".*[0-9]+.*");
-        private Regex VALIDATE_SPECIAL_CHARS = new Regex("[a-z|A-Z|-| |']*");
+        Regex VALIDATE_NUMERIC = new Regex(".*[0-9]+.*");
+        Regex VALIDATE_SPECIAL_CHARS = new Regex("[a-z|A-Z|-| |']*");
 
         public UITextEdit NameTextEdit { get; set; }
         public UIValidationMessages<string> NameTextEditValidation { get; set; }
@@ -72,13 +72,13 @@ namespace FSO.Client.UI.Panels
             CloseButton.OnButtonClick += CloseButton_OnButtonClick;
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             //todo: special behaviour?
             UIScreen.RemoveDialog(this);
         }
 
-        private void AcceptButton_OnButtonClick(UIElement button)
+        void AcceptButton_OnButtonClick(UIElement button)
         {
             if (OnNameChosen != null)
             {
@@ -90,12 +90,12 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void NameTextEdit_OnChange(UIElement element)
+        void NameTextEdit_OnChange(UIElement element)
         {
             RefreshValidation();
         }
 
-        private void RefreshValidation()
+        void RefreshValidation()
         {
             var valid = NameTextEditValidation.Validate(NameTextEdit.CurrentText);
             OKButton.Disabled = !valid;

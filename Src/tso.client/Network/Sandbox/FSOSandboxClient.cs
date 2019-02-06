@@ -17,8 +17,8 @@ namespace FSO.Client.Network.Sandbox
 {
     public class FSOSandboxClient : IoHandler
     {
-        private IoConnector Connector;
-        private IoSession Session;
+        IoConnector Connector;
+        IoSession Session;
 
         public event Action<VMNetMessage> OnMessage;
         public event Action OnConnectComplete;
@@ -48,7 +48,7 @@ namespace FSO.Client.Network.Sandbox
             Connector.Connect(target, new Action<IoSession, IConnectFuture>(OnConnect));
         }
 
-        private void OnConnect(IoSession session, IConnectFuture future)
+        void OnConnect(IoSession session, IConnectFuture future)
         {
             this.Session = session;
             GameThread.NextUpdate(x =>

@@ -46,10 +46,10 @@ namespace FSO.Client.UI.Panels
         public UIButton BillsButton { get; set; }
         public UIButton LotResizeButton { get; set; }
 
-        private Dictionary<UIButton, int> BtnToMode;
+        Dictionary<UIButton, int> BtnToMode;
 
-        private UIContainer Panel;
-        private int CurrentPanel;
+        UIContainer Panel;
+        int CurrentPanel;
 
         public UIImage Background;
         public UIImage Divider;
@@ -96,7 +96,7 @@ namespace FSO.Client.UI.Panels
             LotControl = lotController;
         }
 
-        private void SetMode(UIElement button)
+        void SetMode(UIElement button)
         {
             if (button == HouseInfoButton)
             {
@@ -202,7 +202,7 @@ namespace FSO.Client.UI.Panels
 
         public HashSet<uint> OldRoommates;
         public HashSet<uint> OldBuilders;
-        private UILotControl LotControl;
+        UILotControl LotControl;
 
         public UIRoommatesPanel(UILotControl lotController)
         {
@@ -226,18 +226,18 @@ namespace FSO.Client.UI.Panels
             UpdateList();
         }
 
-        private void RoommateList_OnCheckChange(int index)
+        void RoommateList_OnCheckChange(int index)
         {
             var id = OldRoommates.ElementAt(index);
             var builder = OldBuilders.Contains(id);
             LotControl.vm.SendCommand(new VMChangePermissionsCmd
             {
                 TargetUID = id,
-                Level = (builder) ? VMTSOAvatarPermissions.Roommate : VMTSOAvatarPermissions.BuildBuyRoommate,
+                Level = builder ? VMTSOAvatarPermissions.Roommate : VMTSOAvatarPermissions.BuildBuyRoommate,
             });
         }
 
-        private void UpdateList()
+        void UpdateList()
         {
             var state = LotControl.vm.TSOState;
             RoommateList.UpdateList(state.Roommates, state.BuildRoommates);
@@ -258,8 +258,8 @@ namespace FSO.Client.UI.Panels
 
     public class UIRoommateCheckList : UIContainer
     {
-        private List<UIPersonButton> RoommateButtons = new List<UIPersonButton>();
-        private List<UIButton> CheckButtons = new List<UIButton>();
+        List<UIPersonButton> RoommateButtons = new List<UIPersonButton>();
+        List<UIButton> CheckButtons = new List<UIButton>();
         public event Callback<int> OnCheckChange; 
         public bool Disabled = false;
         public UIRoommateCheckList() : base()
@@ -302,7 +302,7 @@ namespace FSO.Client.UI.Panels
                 if (RoommateButtons[i].AvatarId != id)
                     RoommateButtons[i].AvatarId = id;
                 var builder = buildRoommates.Contains(id);
-                CheckButtons[i].ForceState = (Disabled) ? (builder ? 5 : 4) : (builder?3:-1);
+                CheckButtons[i].ForceState = Disabled ? (builder ? 5 : 4) : (builder?3:-1);
                 CheckButtons[i].Tooltip = GameFacade.Strings.GetString("178", builder?"3":"4");
             }
         }
@@ -332,7 +332,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private byte _Mode;
+        byte _Mode;
         public byte Mode
         {
             set
@@ -354,8 +354,8 @@ namespace FSO.Client.UI.Panels
         public UIButton PreviousPageButton { get; set; }
         public UIButton NextPageButton { get; set; }
 
-        private UIImage Background;
-        private UIAdmitList AdmitList;
+        UIImage Background;
+        UIAdmitList AdmitList;
         public UIAdmitBanPanel(UILotControl lotController)
         {
             var script = this.RenderScript("admitbanpanel.uis");
@@ -363,7 +363,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (child is UILabel)
                 {
-                    var label = ((UILabel)child);
+                    var label = (UILabel)child;
                     label.CaptionStyle = label.CaptionStyle.Clone();
                     label.CaptionStyle.Shadow = true;
                     label.Alignment = TextAlignment.Right;
@@ -403,8 +403,8 @@ namespace FSO.Client.UI.Panels
         {
             if (delta != 0) AdmitList.SetPage(Math.Max(0, Math.Min(AdmitList.Page + delta, AdmitList.TotalPages-1)));
 
-            PreviousPageButton.Disabled = (AdmitList.Page == 0);
-            NextPageButton.Disabled = (AdmitList.Page == AdmitList.TotalPages-1);
+            PreviousPageButton.Disabled = AdmitList.Page == 0;
+            NextPageButton.Disabled = AdmitList.Page == AdmitList.TotalPages-1;
         }
 
         public void SetResults(List<Avatar> avas)
@@ -454,10 +454,10 @@ namespace FSO.Client.UI.Panels
 
     public class UIAdmitList : UIContainer
     {
-        private UIListBox List1;
-        private UIListBox List2;
+        UIListBox List1;
+        UIListBox List2;
         public int Page;
-        private List<Avatar> Data = new List<Avatar>();
+        List<Avatar> Data = new List<Avatar>();
         public int TotalPages;
         public event Callback<uint> OnAvatarClick;
 
@@ -536,7 +536,7 @@ namespace FSO.Client.UI.Panels
     /// </summary>
     public class UIBuildableAreaPanel : UIContainer, IDisposable
     {
-        private UIImage BuildableAreaBackground;
+        UIImage BuildableAreaBackground;
 
         public UILabel LotSizeLabel { get; set; }
         public UILabel TilesLabel { get; set; }
@@ -553,20 +553,20 @@ namespace FSO.Client.UI.Panels
         public UIButton FloorsLargerButton { get; set; }
         public UIButton FloorsSmallerButton { get; set; }
 
-        private List<UILabel> Labels;
-        private List<string> SavedInitialText = new List<string>();
+        List<UILabel> Labels;
+        List<string> SavedInitialText = new List<string>();
 
-        private UILotControl LotControl;
-        private int UpdateSizeTarget = 0;
-        private int UpdateFloorsTarget = 0;
+        UILotControl LotControl;
+        int UpdateSizeTarget = 0;
+        int UpdateFloorsTarget = 0;
 
-        private RenderTarget2D PreviewTarget;
-        private SpriteBatch Batch;
-        private UIImage PreviewImage;
+        RenderTarget2D PreviewTarget;
+        SpriteBatch Batch;
+        UIImage PreviewImage;
 
-        private int OldLotSize;
+        int OldLotSize;
 
-        private Rectangle TargetSize;
+        Rectangle TargetSize;
 
         public UIBuildableAreaPanel(UILotControl lotController)
         {
@@ -636,7 +636,7 @@ namespace FSO.Client.UI.Panels
             SizeLevelLabel.Size = new Vector2(41, 1);
 
             PreviewTarget = new RenderTarget2D(GameFacade.GraphicsDevice, 72, 72, false, SurfaceFormat.Color, DepthFormat.None,
-    (GlobalSettings.Default.AntiAlias) ? 4 : 0, RenderTargetUsage.PreserveContents);
+    GlobalSettings.Default.AntiAlias ? 4 : 0, RenderTargetUsage.PreserveContents);
             Batch = new SpriteBatch(GameFacade.GraphicsDevice);
 
             PreviewImage = new UIImage(PreviewTarget)
@@ -657,7 +657,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void PurchaseLotSize(UIElement button)
+        void PurchaseLotSize(UIElement button)
         {
             LotControl.vm.SendCommand(new VMNetChangeLotSizeCmd
             {
@@ -682,7 +682,7 @@ namespace FSO.Client.UI.Panels
             var totalTarget = UpdateFloorsTarget + UpdateSizeTarget;
             var totalOld = lotSize + lotFloors;
 
-            AcceptButton.Disabled = (totalTarget == totalOld); //no upgrade selected
+            AcceptButton.Disabled = totalTarget == totalOld; //no upgrade selected
 
             var baseCost = VMBuildableAreaInfo.CalculateBaseCost(totalOld, totalTarget);
             var roomieCost = VMBuildableAreaInfo.CalculateRoomieCost(lotInfo.Roommates.Count, totalOld, totalTarget);
@@ -690,7 +690,7 @@ namespace FSO.Client.UI.Panels
             if (baseCost + roomieCost > (LotControl.ActiveEntity?.TSOState.Budget.Value ?? 0)) AcceptButton.Disabled = true; //can't afford
 
             //TODO: read from uiscript
-            TotalCostLabel.CaptionStyle.Color = (AcceptButton.Disabled)?new Color(255, 125, 125):TextStyle.DefaultLabel.Color;
+            TotalCostLabel.CaptionStyle.Color = AcceptButton.Disabled?new Color(255, 125, 125):TextStyle.DefaultLabel.Color;
 
             var targetTiles = VMBuildableAreaInfo.BuildableSizes[UpdateSizeTarget];
 
@@ -702,7 +702,7 @@ namespace FSO.Client.UI.Panels
                 new string[] { roomieCost.ToString() },
                 new string[] { (baseCost+roomieCost).ToString() },
                 new string[] { Math.Min(8, totalTarget+1).ToString() },
-                new string[] { (UpdateSizeTarget+1) + "+" + UpdateFloorsTarget }
+                new string[] { UpdateSizeTarget+1 + "+" + UpdateFloorsTarget }
             };
 
             for (int i=0; i<Labels.Count; i++)
@@ -742,10 +742,10 @@ namespace FSO.Client.UI.Panels
             var newT = 2;
 
             var shadO = new Vector2(1, 1); //shadow offset
-            var left = new Vector2(4, (72 - 4) - 16);
-            var bottom = new Vector2(72/2, (72 - 4));
-            var right = new Vector2(72 - 4, (72 - 4) - 16);
-            var top = new Vector2(72/2, (72 - 4) - 32);
+            var left = new Vector2(4, 72 - 4 - 16);
+            var bottom = new Vector2(72/2, 72 - 4);
+            var right = new Vector2(72 - 4, 72 - 4 - 16);
+            var top = new Vector2(72/2, 72 - 4 - 32);
 
             var ctrBase = (left + bottom) / 2;
             var ltc = (bottom - left)/2;
@@ -755,8 +755,8 @@ namespace FSO.Client.UI.Panels
 
             //draw new lot.
             float sizePct = newSize / 64f;
-            var nLeft = ctrBase - (ltc) * sizePct;
-            var nBtm = ctrBase + (ltc) * sizePct;
+            var nLeft = ctrBase - ltc * sizePct;
+            var nBtm = ctrBase + ltc * sizePct;
             var nRight = nBtm + (right - bottom) * sizePct;
             var nTop = nLeft + (top - left) * sizePct;
 
@@ -774,8 +774,8 @@ namespace FSO.Client.UI.Panels
 
             //draw old lot.
             sizePct = oldSize / 64f;
-            var oLeft = ctrBase - (ltc) * sizePct;
-            var oBtm = ctrBase + (ltc) * sizePct;
+            var oLeft = ctrBase - ltc * sizePct;
+            var oBtm = ctrBase + ltc * sizePct;
             var oRight = oBtm + (right - bottom) * sizePct;
             var oTop = oLeft + (top - left) * sizePct;
 
@@ -812,7 +812,7 @@ namespace FSO.Client.UI.Panels
 
         //TODO: move these to drawing utils?
 
-        private void DrawPath(Color tint, SpriteBatch batch, int lineWidth, bool complete, params Vector2[] path)
+        void DrawPath(Color tint, SpriteBatch batch, int lineWidth, bool complete, params Vector2[] path)
         {
             for (int i=0; i<path.Length; i++)
             {
@@ -821,17 +821,17 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void DrawLineStack(Color tint, Vector2 pt1, Vector2 pt2, float height, int levels, SpriteBatch spriteBatch, int lineWidth)
+        void DrawLineStack(Color tint, Vector2 pt1, Vector2 pt2, float height, int levels, SpriteBatch spriteBatch, int lineWidth)
         {
             DrawLine(tint, pt1, pt1 - new Vector2(0, height * levels), spriteBatch, lineWidth);
             DrawLine(tint, pt2, pt2 - new Vector2(0, height * levels), spriteBatch, lineWidth);
             for (int i=1; i<=levels; i++)
             {
-                DrawLine(tint, pt1 - new Vector2(0, height * (i)), pt2 - new Vector2(0, height * (i)), spriteBatch, lineWidth);
+                DrawLine(tint, pt1 - new Vector2(0, height * i), pt2 - new Vector2(0, height * i), spriteBatch, lineWidth);
             }
         }
 
-        private void DrawLine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth) //draws a line from Start to End.
+        void DrawLine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth) //draws a line from Start to End.
         {
             double length = Math.Sqrt(Math.Pow(End.X - Start.X, 2) + Math.Pow(End.Y - Start.Y, 2));
             float direction = (float)Math.Atan2(End.Y - Start.Y, End.X - Start.X);
@@ -839,7 +839,7 @@ namespace FSO.Client.UI.Panels
                 null, tint, direction, new Vector2(0, 0.5f), SpriteEffects.None, 0); 
         }
 
-        private string GetArgsString(string argsStr, string[] args)
+        string GetArgsString(string argsStr, string[] args)
         {
             StringBuilder SBuilder = new StringBuilder();
             int ArgsCounter = 0;

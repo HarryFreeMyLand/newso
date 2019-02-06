@@ -18,15 +18,15 @@ namespace FSO.Client.UI.Panels.EODs
         public UIScript Script;
 
         // buttons
-        private UIButton ButtonToDisable;
-        private UIButton ArtilleryButton { get; set; }
-        private UIButton CavalryButton { get; set; }
-        private UIButton CommandButton { get; set; }
-        private UIButton IntelButton { get; set; }
-        private UIButton InfantryButton { get; set; }
+        UIButton ButtonToDisable;
+        UIButton ArtilleryButton { get; set; }
+        UIButton CavalryButton { get; set; }
+        UIButton CommandButton { get; set; }
+        UIButton IntelButton { get; set; }
+        UIButton InfantryButton { get; set; }
 
         // images
-        private UIImage DefeatImageToShow;
+        UIImage DefeatImageToShow;
         public UIImage MoveSelectionBkgnd;
         public UIImage ResultsBkgnd;
         public UIImage ResultVictoryImg;
@@ -58,16 +58,16 @@ namespace FSO.Client.UI.Panels.EODs
         public Texture2D BlueProgressImage { get; set; }
         public Texture2D RedProgressImage { get; set; }
 
-        private bool PlayerIsBlue;
-        private int ProgressBeginningX;
-        private int ProgressY;
-        private byte RemainingBluePieces;
-        private byte RemainingRedPieces;
+        bool PlayerIsBlue;
+        int ProgressBeginningX;
+        int ProgressY;
+        byte RemainingBluePieces;
+        byte RemainingRedPieces;
 
-        private string TiedRoundMessage = GameFacade.Strings.GetString("f112", "7"); // "Phew! This round is a draw...";
-        private string TiedRoundTitle = GameFacade.Strings.GetString("f112", "8"); // "Draw"
-        private string TiedGameMessage = GameFacade.Strings.GetString("f112", "9"); // "Oh no! The game is a stalemate!"
-        private string TiedGameTitle = GameFacade.Strings.GetString("f112", "10"); // "Stalemate"
+        string TiedRoundMessage = GameFacade.Strings.GetString("f112", "7"); // "Phew! This round is a draw...";
+        string TiedRoundTitle = GameFacade.Strings.GetString("f112", "8"); // "Draw"
+        string TiedGameMessage = GameFacade.Strings.GetString("f112", "9"); // "Oh no! The game is a stalemate!"
+        string TiedGameTitle = GameFacade.Strings.GetString("f112", "10"); // "Stalemate"
 
         // player pictures
         public UIVMPersonButton[] Players = new UIVMPersonButton[2];
@@ -111,7 +111,7 @@ namespace FSO.Client.UI.Panels.EODs
             CloseInteraction();
             base.OnClose();
         }
-        private void InitHandler(string evt, string data)
+        void InitHandler(string evt, string data)
         {
             var split = data.Split('%');
             short avatarID;
@@ -190,7 +190,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Timer = EODTimer.None,
             });
         }
-        private void DrawOpponentHandler(string evt, string opponentID)
+        void DrawOpponentHandler(string evt, string opponentID)
         {
             // remove old opponent picture
             if (PlayerIsBlue)
@@ -231,7 +231,7 @@ namespace FSO.Client.UI.Panels.EODs
                 }
             }
         }
-        private void ResetHandler(string evt, string msg)
+        void ResetHandler(string evt, string msg)
         {
             // set progress image
             RemainingBluePieces = 5;
@@ -263,7 +263,7 @@ namespace FSO.Client.UI.Panels.EODs
             SetPlayerIcon((byte)UIWarGameEODMoveChoices.Unknown);
             SetOpponentIcon((byte)UIWarGameEODMoveChoices.Unknown);
         }
-        private void ResumeHandler(string evt, Byte[] remainingPieces)
+        void ResumeHandler(string evt, Byte[] remainingPieces)
         {
             // sync remaining pieces
             RemainingBluePieces = remainingPieces[0];
@@ -279,37 +279,37 @@ namespace FSO.Client.UI.Panels.EODs
             SetOpponentIcon((byte)UIWarGameEODMoveChoices.Unknown);
             AddListeners();
         }
-        private void ArtilleryButtonClickedHandler(UIElement target)
+        void ArtilleryButtonClickedHandler(UIElement target)
         {
             RemoveListeners();
             Send("WarGame_Piece_Selection", new Byte[] { (byte) VMEODWarGamePieceTypes.Artillery });
             SetPlayerIcon(GetIconByteFromPieceTypeByte((byte)VMEODWarGamePieceTypes.Artillery));
         }
-        private void CavalryButtonClickedHandler(UIElement target)
+        void CavalryButtonClickedHandler(UIElement target)
         {
             RemoveListeners();
             Send("WarGame_Piece_Selection", new Byte[] { (byte)VMEODWarGamePieceTypes.Cavalry });
             SetPlayerIcon(GetIconByteFromPieceTypeByte((byte)VMEODWarGamePieceTypes.Cavalry));
         }
-        private void CommandButtonClickedHandler(UIElement target)
+        void CommandButtonClickedHandler(UIElement target)
         {
             RemoveListeners();
             Send("WarGame_Piece_Selection", new Byte[] { (byte)VMEODWarGamePieceTypes.Command });
             SetPlayerIcon(GetIconByteFromPieceTypeByte((byte)VMEODWarGamePieceTypes.Command));
         }
-        private void IntelButtonClickedHandler(UIElement target)
+        void IntelButtonClickedHandler(UIElement target)
         {
             RemoveListeners();
             Send("WarGame_Piece_Selection", new Byte[] { (byte)VMEODWarGamePieceTypes.Intelligence });
             SetPlayerIcon(GetIconByteFromPieceTypeByte((byte)VMEODWarGamePieceTypes.Intelligence));
         }
-        private void InfantryButtonClickedHandler(UIElement target)
+        void InfantryButtonClickedHandler(UIElement target)
         {
             RemoveListeners();
             Send("WarGame_Piece_Selection", new Byte[] { (byte)VMEODWarGamePieceTypes.Infantry });
             SetPlayerIcon(GetIconByteFromPieceTypeByte((byte)VMEODWarGamePieceTypes.Infantry));
         }
-        private void TieHandler(string evt, byte[] piecesPlayed)
+        void TieHandler(string evt, byte[] piecesPlayed)
         {
             SetOpponentIcon(piecesPlayed);
             // Alert: The round is a tie
@@ -328,7 +328,7 @@ namespace FSO.Client.UI.Panels.EODs
 
             }, true);
         }
-        private void StalemateHandler(string evt, byte[] remainingPieces)
+        void StalemateHandler(string evt, byte[] remainingPieces)
         {
             SetOpponentIcon(remainingPieces[0]);
             // Alert: The game is a stalemate
@@ -347,7 +347,7 @@ namespace FSO.Client.UI.Panels.EODs
 
             }, true);
         }
-        private void DefeatHandler(string evt, byte[] piecesPlayed)
+        void DefeatHandler(string evt, byte[] piecesPlayed)
         {
             // show defeat image
             ResultDefeatImg.Visible = true;
@@ -406,7 +406,7 @@ namespace FSO.Client.UI.Panels.EODs
                 ButtonToDisable = null;
             }
         }
-        private void VictoryHandler(string evt, byte[] piecesPlayed)
+        void VictoryHandler(string evt, byte[] piecesPlayed)
         {
             if (PlayerIsBlue)
             {
@@ -424,7 +424,7 @@ namespace FSO.Client.UI.Panels.EODs
             // show victory image
             ResultVictoryImg.Visible = true;
         }
-        private void SetPlayerIcon(byte iconNumber)
+        void SetPlayerIcon(byte iconNumber)
         {
             if (PlayerIsBlue)
                 MoveIconBlue.SetBounds(iconNumber * MOVE_ICON_WIDTH_HEIGHT,
@@ -433,7 +433,7 @@ namespace FSO.Client.UI.Panels.EODs
                 MoveIconRed.SetBounds(iconNumber * MOVE_ICON_WIDTH_HEIGHT,
                     0, MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
         }
-        private void SetOpponentIcon(byte iconNumber)
+        void SetOpponentIcon(byte iconNumber)
         {
             if (!PlayerIsBlue)
                 MoveIconBlue.SetBounds(iconNumber * MOVE_ICON_WIDTH_HEIGHT,
@@ -442,7 +442,7 @@ namespace FSO.Client.UI.Panels.EODs
                 MoveIconRed.SetBounds(iconNumber * MOVE_ICON_WIDTH_HEIGHT,
                     0, MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
         }
-        private void SetOpponentIcon(byte[] piecesPlayed)
+        void SetOpponentIcon(byte[] piecesPlayed)
         {
             byte moveIcon = 0;
             if (PlayerIsBlue)
@@ -458,7 +458,7 @@ namespace FSO.Client.UI.Panels.EODs
                     MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
             }
         }
-        private void BuildUI()
+        void BuildUI()
         {
             var script = this.RenderScript("wargameeod.uis");
             Script = script;
@@ -482,13 +482,13 @@ namespace FSO.Client.UI.Panels.EODs
             {
                 X = 215
             };
-            MoveIconBlue.SetBounds(((byte)UIWarGameEODMoveChoices.Unknown * MOVE_ICON_WIDTH_HEIGHT), 0,
+            MoveIconBlue.SetBounds((byte)UIWarGameEODMoveChoices.Unknown * MOVE_ICON_WIDTH_HEIGHT, 0,
                 MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
             MoveIconRed = new UISlotsImage(MoveIconImage)
             {
                 X = 285
             };
-            MoveIconRed.SetBounds(((byte)UIWarGameEODMoveChoices.Unknown * MOVE_ICON_WIDTH_HEIGHT), 0,
+            MoveIconRed.SetBounds((byte)UIWarGameEODMoveChoices.Unknown * MOVE_ICON_WIDTH_HEIGHT, 0,
                 MOVE_ICON_WIDTH_HEIGHT, MOVE_ICON_WIDTH_HEIGHT);
             MoveIconBlue.Y = MoveIconRed.Y = 124;
             Add(MoveIconBlue);
@@ -520,7 +520,7 @@ namespace FSO.Client.UI.Panels.EODs
             ProgressBeginningX = (int)ProgPosition1.X;
             ProgressY = (int)ProgPosition1.Y;
         }
-        private byte GetIconByteFromPieceTypeByte(byte pieceType)
+        byte GetIconByteFromPieceTypeByte(byte pieceType)
         {
             byte moveIcon = 6;
             if (pieceType == (byte)VMEODWarGamePieceTypes.Artillery)
@@ -545,7 +545,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             return moveIcon;
         }
-        private void AddListeners()
+        void AddListeners()
         {
             if (ArtilleryButton.Visible == true)
             {
@@ -568,7 +568,7 @@ namespace FSO.Client.UI.Panels.EODs
                 InfantryButton.OnButtonClick += InfantryButtonClickedHandler;
             }
         }
-        private void RemoveListeners()
+        void RemoveListeners()
         {
             if (ArtilleryButton.Visible == true)
                 ArtilleryButton.OnButtonClick -= ArtilleryButtonClickedHandler;
@@ -581,7 +581,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (InfantryButton.Visible == true)
                 InfantryButton.OnButtonClick -= InfantryButtonClickedHandler;
         }
-        private void DrawProgressBar(byte remainingBluePieces, byte remainingRedPieces)
+        void DrawProgressBar(byte remainingBluePieces, byte remainingRedPieces)
         {
             // remove old image
             if (ProgressBarBlue != null)
@@ -601,7 +601,7 @@ namespace FSO.Client.UI.Panels.EODs
 
             // draw red bar based on remaining draw space
             ProgressBarRed = new UISlotsImage(RedProgressImage);
-            ProgressBarRed.SetBounds(thisRoundBlueProgress, 0, (RedProgressImage.Width - thisRoundBlueProgress), RedProgressImage.Height);
+            ProgressBarRed.SetBounds(thisRoundBlueProgress, 0, RedProgressImage.Width - thisRoundBlueProgress, RedProgressImage.Height);
             ProgressBarRed.X = ProgressBeginningX + thisRoundBlueProgress;
 
             ProgressBarBlue.Y = ProgressBarRed.Y = ProgressY;

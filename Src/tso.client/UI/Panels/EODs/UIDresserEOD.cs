@@ -42,11 +42,11 @@ namespace FSO.Client.UI.Panels.EODs
         public UIRadioButton btnDefault4 { get; set; }
         public UIRadioButton btnDefault5 { get; set; }
 
-        private UIImage Background;
-        private VMPersonSuits SelectedTab = VMPersonSuits.DefaultDaywear;
+        UIImage Background;
+        VMPersonSuits SelectedTab = VMPersonSuits.DefaultDaywear;
 
         protected UICollectionViewer OutfitBrowser;
-        private VMGLOutfit[] Outfits;
+        VMGLOutfit[] Outfits;
 
         public UIDresserEOD(UIEODController controller) : base(controller)
         {
@@ -54,7 +54,7 @@ namespace FSO.Client.UI.Panels.EODs
             InitEOD();
         }
 
-        private void InitUI()
+        void InitUI()
         {
             Script = this.RenderScript("dressereod.uis");
             Background = Script.Create<UIImage>("controlBackgroundPos");
@@ -117,7 +117,7 @@ namespace FSO.Client.UI.Panels.EODs
          * UI Events
          */
         
-        private void BtnDelete_OnButtonClick(UIElement button)
+        void BtnDelete_OnButtonClick(UIElement button)
         {
             if (OutfitBrowser.DataProvider == null) { return; }
 
@@ -146,7 +146,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void DefaultRadio_OnButtonClick(UIElement button)
+        void DefaultRadio_OnButtonClick(UIElement button)
         {
             if (OutfitBrowser.DataProvider == null) { return; }
 
@@ -160,14 +160,14 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void BtnAccept_OnButtonClick(UIElement button)
+        void BtnAccept_OnButtonClick(UIElement button)
         {
             var outfit = GetSelectedOutfit();
             if (outfit == null) { return; }
             Send("dresser_change_outfit", outfit.outfit_id.ToString());
         }
 
-        private void SetTab(UIElement button)
+        void SetTab(UIElement button)
         {
             if (button == btnDay)
             {
@@ -207,7 +207,7 @@ namespace FSO.Client.UI.Panels.EODs
          * UI Utils
          */
 
-        private void UpdateUIState()
+        void UpdateUIState()
         {
             var selected = GetSelectedOutfit() != null;
             btnAccept.Disabled = !selected;
@@ -238,7 +238,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void UpdateDataProvider()
+        void UpdateDataProvider()
         {
             if (Outfits == null) return;
             var dataProvider = new List<object>();
@@ -262,7 +262,7 @@ namespace FSO.Client.UI.Panels.EODs
         }
 
 
-        private int GetDefaultOutfitIndex()
+        int GetDefaultOutfitIndex()
         {
             if (OutfitBrowser.DataProvider == null) {
                 return -1;
@@ -289,7 +289,7 @@ namespace FSO.Client.UI.Panels.EODs
             return AppearanceType.Light;
         }
 
-        private ulong GetDefaultOutfit()
+        ulong GetDefaultOutfit()
         {
             ulong outfit = 0;
             if (LotController != null && LotController.ActiveEntity is VMAvatar)
@@ -341,7 +341,7 @@ namespace FSO.Client.UI.Panels.EODs
             return null;
         }
 
-        private bool CanSetDefaults()
+        bool CanSetDefaults()
         {
             if (SelectedTab == VMPersonSuits.DecorationBack ||
                 SelectedTab == VMPersonSuits.DecorationHead ||

@@ -19,119 +19,119 @@ namespace FSO.Client.UI.Panels.EODs
     public class UIHoldEmCasinoEOD : UIEOD
     {
         // general UI
-        private bool BettingIsAllowed;
-        private List<string[]> CardsToDeal;
-        private UIAlert CurrentAlert;
-        private int DeadAirTime;
-        private short DealersID;
-        private string DealersName;
-        private int DealingIndex;
-        private UIVMPersonButton DealerPersonButton;
-        private Timer DealTimer;
-        private bool DecisionIsAllowed;
-        private Timer InvalidateTimer;
-        private UIEODLobby Lobby;
-        private int MaxAnteBet;
-        private int MaxSideBet;
-        private int MinAnteBet;
-        private int MyPlayerNumber;
-        private UIManageEODObjectPanel OwnerPanel;
+        bool BettingIsAllowed;
+        List<string[]> CardsToDeal;
+        UIAlert CurrentAlert;
+        int DeadAirTime;
+        short DealersID;
+        string DealersName;
+        int DealingIndex;
+        UIVMPersonButton DealerPersonButton;
+        Timer DealTimer;
+        bool DecisionIsAllowed;
+        Timer InvalidateTimer;
+        UIEODLobby Lobby;
+        int MaxAnteBet;
+        int MaxSideBet;
+        int MinAnteBet;
+        int MyPlayerNumber;
+        UIManageEODObjectPanel OwnerPanel;
         
         // lower buttons
-        private UIButton Ante1ChipButton;
-        private UIButton Ante5ChipButton;
-        private UIButton Ante10ChipButton;
-        private UIButton Ante25ChipButton;
-        private UIButton Ante100ChipButton;
-        private UIButton CallButton;
-        private UIButton CallAndFoldHelpButton;
-        private UIButton ClearAnteBetButton;
-        private UIButton ClearSideBetButton;
-        private UIButton FoldButton;
-        private UIButton HelpAnteBetButton;
-        private UIButton HelpSideBetButton;
-        private UIButton Side1ChipButton;
-        private UIButton Side5ChipButton;
-        private UIButton Side10ChipButton;
-        private UIButton Side25ChipButton;
-        private UIButton Side100ChipButton;
-        private UIButton SubmitBetsButton;
+        UIButton Ante1ChipButton;
+        UIButton Ante5ChipButton;
+        UIButton Ante10ChipButton;
+        UIButton Ante25ChipButton;
+        UIButton Ante100ChipButton;
+        UIButton CallButton;
+        UIButton CallAndFoldHelpButton;
+        UIButton ClearAnteBetButton;
+        UIButton ClearSideBetButton;
+        UIButton FoldButton;
+        UIButton HelpAnteBetButton;
+        UIButton HelpSideBetButton;
+        UIButton Side1ChipButton;
+        UIButton Side5ChipButton;
+        UIButton Side10ChipButton;
+        UIButton Side25ChipButton;
+        UIButton Side100ChipButton;
+        UIButton SubmitBetsButton;
 
         // lower labels
-        private UILabel AnteBetLabel;
-        private UITextEdit AnteBet;
-        private UILabel SideBetLabel;
-        private UITextEdit SideBet;
+        UILabel AnteBetLabel;
+        UITextEdit AnteBet;
+        UILabel SideBetLabel;
+        UITextEdit SideBet;
 
         // lower images
-        private UIImage AnteBetBack;
-        private UIImage SideBetBack;
-        private UIImage CallButtonBack;
-        private UIImage CallAndFoldHelpButtonBack;
-        private UIImage ClearAnteBetButtonBack;
-        private UIImage ClearSideBetButtonBack;
-        private TwoCardHand MyCardHand;
-        private FiveCardHand CommunityHand;
-        private UIImage FoldButtonBack;
-        private UIImage HelpAnteBetButtonBack;
-        private UIImage HelpSideBetButtonBack;
-        private UIImage SubmitBetsButtonBack;
-        private Vector2 ButtonSeatOffset = new Vector2(3, 3);
+        UIImage AnteBetBack;
+        UIImage SideBetBack;
+        UIImage CallButtonBack;
+        UIImage CallAndFoldHelpButtonBack;
+        UIImage ClearAnteBetButtonBack;
+        UIImage ClearSideBetButtonBack;
+        TwoCardHand MyCardHand;
+        FiveCardHand CommunityHand;
+        UIImage FoldButtonBack;
+        UIImage HelpAnteBetButtonBack;
+        UIImage HelpSideBetButtonBack;
+        UIImage SubmitBetsButtonBack;
+        Vector2 ButtonSeatOffset = new Vector2(3, 3);
 
         // lower textures
-        private Texture2D BetAmountBGTexture = GetTexture(0x0000095500000001); // ./uigraphics/eods/gamecompbuzzer/eod_buzzer_playerscoreback.bmp
-        private Texture2D ButtonSeat = GetTexture(0x000001A100000002); // ./uigraphics/eods/shared/eod_buttonseat_transparent.tga
-        private Texture2D CallButtonTexture = GetTexture(0x00000C2100000001); // ./uigraphics/eods/blackjack/eod_blackjackdbldwnbtn.bmp
-        private Texture2D Chip1ButtonTexture = GetTexture(0x00000C1800000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_001.bmp
-        private Texture2D Chip5ButtonTexture = GetTexture(0x00000C1900000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_005.bmp
-        private Texture2D Chip10ButtonTexture = GetTexture(0x00000C1A00000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_010.bmp
-        private Texture2D Chip25ButtonTexture = GetTexture(0x00000C1B00000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_025.bmp
-        private Texture2D Chip100ButtonTexture = GetTexture(0x00000C1C00000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_100.bmp
-        private Texture2D HelpButtonTexture = GetTexture(0x000004E100000001); // ./uigraphics/ucp/lpanel_eodhelpbtn.bmp
-        private Texture2D FoldButtonTexture = GetTexture(0x0000093A00000001); // ./uigraphics/eods/blackjack/eod_blackjackstandbtn.bmp
-        private Texture2D SubmitBetsButtonTexture = GetTexture(0x0000097A00000001); // ./uigraphics/eods/shared/eod_continuebtn.bmp
-        private Texture2D ClearBetButtonTexture = GetTexture(0x0000095900000001); // ./uigraphics/eods/shared/eod_cancelbtn.bmp
+        Texture2D BetAmountBGTexture = GetTexture(0x0000095500000001); // ./uigraphics/eods/gamecompbuzzer/eod_buzzer_playerscoreback.bmp
+        Texture2D ButtonSeat = GetTexture(0x000001A100000002); // ./uigraphics/eods/shared/eod_buttonseat_transparent.tga
+        Texture2D CallButtonTexture = GetTexture(0x00000C2100000001); // ./uigraphics/eods/blackjack/eod_blackjackdbldwnbtn.bmp
+        Texture2D Chip1ButtonTexture = GetTexture(0x00000C1800000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_001.bmp
+        Texture2D Chip5ButtonTexture = GetTexture(0x00000C1900000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_005.bmp
+        Texture2D Chip10ButtonTexture = GetTexture(0x00000C1A00000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_010.bmp
+        Texture2D Chip25ButtonTexture = GetTexture(0x00000C1B00000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_025.bmp
+        Texture2D Chip100ButtonTexture = GetTexture(0x00000C1C00000001); // ./uigraphics/eods/casinoshared/eod_chipbtn_100.bmp
+        Texture2D HelpButtonTexture = GetTexture(0x000004E100000001); // ./uigraphics/ucp/lpanel_eodhelpbtn.bmp
+        Texture2D FoldButtonTexture = GetTexture(0x0000093A00000001); // ./uigraphics/eods/blackjack/eod_blackjackstandbtn.bmp
+        Texture2D SubmitBetsButtonTexture = GetTexture(0x0000097A00000001); // ./uigraphics/eods/shared/eod_continuebtn.bmp
+        Texture2D ClearBetButtonTexture = GetTexture(0x0000095900000001); // ./uigraphics/eods/shared/eod_cancelbtn.bmp
 
         // upper labels
-        private UILabel Player1AnteBetLabel;
-        private UILabel Player1SideBetLabel;
-        private UILabel Player2AnteBetLabel;
-        private UILabel Player2SideBetLabel;
-        private UILabel Player3AnteBetLabel;
-        private UILabel Player3SideBetLabel;
-        private UILabel Player4AnteBetLabel;
-        private UILabel Player4SideBetLabel;
-        private UITextEdit DealerBetAmount; // it just says "Dealer"
+        UILabel Player1AnteBetLabel;
+        UILabel Player1SideBetLabel;
+        UILabel Player2AnteBetLabel;
+        UILabel Player2SideBetLabel;
+        UILabel Player3AnteBetLabel;
+        UILabel Player3SideBetLabel;
+        UILabel Player4AnteBetLabel;
+        UILabel Player4SideBetLabel;
+        UITextEdit DealerBetAmount; // it just says "Dealer"
 
         // upper images
-        private UIImage DealerBetBack;
-        private UIImage EODTallBack;
-        private UIImage EODTallBackEnd;
-        private UIHighlightSprite LeftDivider;
-        private UIHighlightSprite MiddleDivider;
-        private UIHighlightSprite RightDivider;
-        private UIImage Player1AnteBetBack;
-        private UIImage Player2AnteBetBack;
-        private UIImage Player3AnteBetBack;
-        private UIImage Player4AnteBetBack;
-        private UIImage Player1SideBetBack;
-        private UIImage Player2SideBetBack;
-        private UIImage Player3SideBetBack;
-        private UIImage Player4SideBetBack;
-        private TwoCardHand Player1CardsContainer;
-        private TwoCardHand Player2CardsContainer;
-        private TwoCardHand Player3CardsContainer;
-        private TwoCardHand Player4CardsContainer;
-        private TwoCardHand DealerCardsContainer;
-        private UIImage Player1Head;
-        private UIImage Player2Head;
-        private UIImage Player3Head;
-        private UIImage Player4Head;
-        private UIImage DealerHead;
+        UIImage DealerBetBack;
+        UIImage EODTallBack;
+        UIImage EODTallBackEnd;
+        UIHighlightSprite LeftDivider;
+        UIHighlightSprite MiddleDivider;
+        UIHighlightSprite RightDivider;
+        UIImage Player1AnteBetBack;
+        UIImage Player2AnteBetBack;
+        UIImage Player3AnteBetBack;
+        UIImage Player4AnteBetBack;
+        UIImage Player1SideBetBack;
+        UIImage Player2SideBetBack;
+        UIImage Player3SideBetBack;
+        UIImage Player4SideBetBack;
+        TwoCardHand Player1CardsContainer;
+        TwoCardHand Player2CardsContainer;
+        TwoCardHand Player3CardsContainer;
+        TwoCardHand Player4CardsContainer;
+        TwoCardHand DealerCardsContainer;
+        UIImage Player1Head;
+        UIImage Player2Head;
+        UIImage Player3Head;
+        UIImage Player4Head;
+        UIImage DealerHead;
 
         // upper textures
-        private Texture2D UpperPlayersVMPersonButtonBGTex = GetTexture(0x000002B300000001); // EOD_PizzaHeadPlaceholder1.bmp
-        private Texture2D UpperPlayersBetBack = GetTexture(0x95600000001); // eod_buzzer_playertimerback.bmp
+        Texture2D UpperPlayersVMPersonButtonBGTex = GetTexture(0x000002B300000001); // EOD_PizzaHeadPlaceholder1.bmp
+        Texture2D UpperPlayersBetBack = GetTexture(0x95600000001); // eod_buzzer_playertimerback.bmp
 
         // shared textures
         internal static Texture2D FourCardSlotsTexture = GetTexture(0x0000097F00000001); // ./uigraphics/eods/spades/eod_spades_4cardslots.bmp
@@ -140,11 +140,11 @@ namespace FSO.Client.UI.Panels.EODs
         internal static readonly int CommunityCardsHeight = 42;
 
         // literal strings found in _f111_casinoeodstrings.cst
-        private string Error = GameFacade.Strings.GetString("f111", "10");
-        private string Holdem = GameFacade.Strings.GetString("f111", "50");
+        string Error = GameFacade.Strings.GetString("f111", "10");
+        string Holdem = GameFacade.Strings.GetString("f111", "50");
 
         // alert strings found in _f111_casinoeodstrings.cst
-        private Dictionary<byte, string> AlertStrings = new Dictionary<byte, string>()
+        Dictionary<byte, string> AlertStrings = new Dictionary<byte, string>()
         {
             { (byte)VMEODHoldEmCasinoAlerts.Ante_Bet_Help, GameFacade.Strings.GetString("f111", "38")
                 + System.Environment.NewLine + System.Environment.NewLine + GameFacade.Strings.GetString( "f111", "71")},
@@ -248,7 +248,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         #region events and handlers
 
-        private void ShowPlayerUIHandler(string evt, byte[] data)
+        void ShowPlayerUIHandler(string evt, byte[] data)
         {
             if (data == null)
             {
@@ -298,7 +298,7 @@ namespace FSO.Client.UI.Panels.EODs
                 CloseInteraction();
             }
         }
-        private void ShowOwnerUIHandler(string evt, string balanceMinAnteMaxAnteSide)
+        void ShowOwnerUIHandler(string evt, string balanceMinAnteMaxAnteSide)
         {
             if (balanceMinAnteMaxAnteSide == null)
             {
@@ -405,7 +405,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Every time the betting round begins, this event is broadcast to all players in the lobby. 
          */
-        private void NewGameHandler(string evt, byte[] nothing)
+        void NewGameHandler(string evt, byte[] nothing)
         {
             // all hands and bets reset
             ResetAllHands();
@@ -422,7 +422,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates a player's ante bet based on the event name's final character 1-4
          */
-        private void UpdateSingleAnteBetHandler(string evt, byte[] newBetArray)
+        void UpdateSingleAnteBetHandler(string evt, byte[] newBetArray)
         {
             if (newBetArray != null)
             {
@@ -440,7 +440,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates a player's side bet based on the event name's final character 1-4
          */
-        private void UpdateSingleSideBetHandler(string evt, byte[] newBetArray)
+        void UpdateSingleSideBetHandler(string evt, byte[] newBetArray)
         {
             if (newBetArray != null)
             {
@@ -458,7 +458,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Stop the betting round and begin the dealing sequence.
          */
-        private void StartDealingSequenceHandler(string evt, byte[] serializedCards)
+        void StartDealingSequenceHandler(string evt, byte[] serializedCards)
         {
             if (serializedCards != null)
             {
@@ -475,7 +475,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This method occurs when one or more players "call" and two cards are dealt to the community cards.
          */
-        private void DealFinalTwoCardsHandler(string evt, byte[] serializedCards)
+        void DealFinalTwoCardsHandler(string evt, byte[] serializedCards)
         {
             if (serializedCards != null)
             {
@@ -501,14 +501,14 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates EODTimer
          */
-        private void UpdateEODTimerHandler(string evt, byte[] newTime)
+        void UpdateEODTimerHandler(string evt, byte[] newTime)
         {
             SetNewTime(BitConverter.ToInt32(newTime, 0));
         }
         /*
          * This merely sends a message, with the title, for a UIAlert. Further action must follow in another event.
          */
-        private void UIAlertHandler(string evt, byte[] msg)
+        void UIAlertHandler(string evt, byte[] msg)
         {
             string alert = AlertStrings[msg[0]];
             ShowUIAlert(Error, alert, null);
@@ -517,14 +517,14 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Occurs on the start of user's one and only turn
          */
-        private void AllowInputHandler(string evt, byte[] serializedCards)
+        void AllowInputHandler(string evt, byte[] serializedCards)
         {
             ToggleDecision(true);
         }
         /*
          * Any time the SubmitBetButton is clicked
          */
-        private void SubmitBetsHandler()
+        void SubmitBetsHandler()
         {
             if (BettingIsAllowed)
             {
@@ -557,7 +557,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * When either the CallButton or the FoldButton is clicked
          */
-        private void CallOrFoldHandler(byte decision)
+        void CallOrFoldHandler(byte decision)
         {
             if (DecisionIsAllowed)
             {
@@ -567,7 +567,7 @@ namespace FSO.Client.UI.Panels.EODs
             else // Alert: "It's not your turn." & Disable Call and Fold Buttons
                 ShowUIAlert(Holdem, AlertStrings[(byte)VMEODHoldEmCasinoAlerts.False_Start], () => { ToggleDecision(DecisionIsAllowed); });
         }
-        private void AllowBettingToggleHandler(string evt, byte[] data)
+        void AllowBettingToggleHandler(string evt, byte[] data)
         {
             if (data != null)
             {
@@ -582,7 +582,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * After a bet is accepted by the server or the betting round timer hit 0 before your bet was accepted
          */
-        private void BetCallbackHandler(string evt, byte[] bets)
+        void BetCallbackHandler(string evt, byte[] bets)
         {
             DisallowBetting();
 
@@ -610,14 +610,14 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * After a "fold" or "call" is accepted by the server, or a "fold" forced by the server due to timeout
          */
-        private void DecisionCallbackHandler(string evt, byte[] data)
+        void DecisionCallbackHandler(string evt, byte[] data)
         {
             ToggleDecision(false);
         }
         /*
          * Any time the string in the AnteBet TextEdit changes:
          */
-        private void MyAnteBetHandler(UIElement textEdit)
+        void MyAnteBetHandler(UIElement textEdit)
         {
             if (BettingIsAllowed)
             {
@@ -634,7 +634,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Any time the string in the SideBet TextEdit changes:
          */
-        private void MySideBetHandler(UIElement textEdit)
+        void MySideBetHandler(UIElement textEdit)
         {
             if (BettingIsAllowed)
             {
@@ -649,7 +649,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Update an upper player's hand when they turn their cards over to reveal what they have
          */
-        private void SyncUpperPlayerHandHandler(string evt, byte[] playerAndCards)
+        void SyncUpperPlayerHandHandler(string evt, byte[] playerAndCards)
         {
             if (playerAndCards != null)
             {
@@ -665,7 +665,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event is for latecomers who have joined a game already in play.
          */
-        private void SyncAllActiveHandsHandler(string evt, byte[] playersPlaying)
+        void SyncAllActiveHandsHandler(string evt, byte[] playersPlaying)
         {
             if (playersPlaying != null & playersPlaying.Length == 4)
             {
@@ -681,7 +681,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * This event is for latecomers who have joined a game after the last deal, where players are getting paid winnings.
          */
-        private void SyncAllActiveHandsUpHandler(string evt, byte[] serializedCards)
+        void SyncAllActiveHandsUpHandler(string evt, byte[] serializedCards)
         {
             if (serializedCards != null)
             {
@@ -701,7 +701,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Updates the community cards quickly for latecomers
          */
-        private void UpdateCommunityCardsHandler(string evt, byte[] serializedCards)
+        void UpdateCommunityCardsHandler(string evt, byte[] serializedCards)
         {
             if (serializedCards != null)
             {
@@ -717,7 +717,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Update (synchronize) everyone's bet amounts in the UI.
          */
-        private void UpdateAllBetsHandler(string evt, byte[] data)
+        void UpdateAllBetsHandler(string evt, byte[] data)
         {
             if (data != null)
             {
@@ -737,7 +737,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // shows to all players the action just selected by the current player's turn
-        private void PlayerChoiceBroadcastHandler(string evt, byte[] player)
+        void PlayerChoiceBroadcastHandler(string evt, byte[] player)
         {
             string appendix = ".";
             if (evt[13].Equals('c')) // "holdemcasino_call_broadcast"
@@ -794,7 +794,7 @@ namespace FSO.Client.UI.Panels.EODs
          * [1] — String representation of the HandType from HoldemHand.Hand.HandTypes enum
          * [2]-[4] — String names of Relevant Cards such as "Ace" or "Ten", but these are used as [Flags] enum entries to get strings from _f111_ .cst
          * </summary> */
-        private void WinLossHandler(string evt, byte[] data)
+        void WinLossHandler(string evt, byte[] data)
         {
             if (data != null && data.Length > 0)
             {
@@ -854,7 +854,7 @@ namespace FSO.Client.UI.Panels.EODs
          * [1] — String representation of the HandType from HoldemHand.Hand.HandTypes enum
          * [2]-[4] — String names of Relevant Cards such as "Ace" or "Ten", but these are used as [Flags] enum entries to get strings from _f111_ .cst
          * </summary> */
-        private void SideBetWinHandler(string evt, byte[] data)
+        void SideBetWinHandler(string evt, byte[] data)
         {
             if (data != null && data.Length > 0)
             {
@@ -881,7 +881,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
         // makes visible certain cards, first 2 byte argument indices are for MyCardsContainer, latter 5 are for Community cards.
-        private void LightUpWinningHandHandler(string evt, byte[] handsToLight)
+        void LightUpWinningHandHandler(string evt, byte[] handsToLight)
         {
             if (handsToLight != null && handsToLight.Length == 7)
             {
@@ -890,36 +890,36 @@ namespace FSO.Client.UI.Panels.EODs
                     (float)handsToLight[6]);
             }
         }
-        private void SendByteMessage(EODMessageNode node)
+        void SendByteMessage(EODMessageNode node)
         {
             Send("holdemcasino_" + node.EventName, node.EventByteData);
         }
-        private void SendStringMessage(EODMessageNode node)
+        void SendStringMessage(EODMessageNode node)
         {
             Send("holdemcasino_" + node.EventName, node.EventStringData);
         }
-        private void ResumeManageHandler(string evt, string message)
+        void ResumeManageHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromMachineBalance(evt, message);
             }
         }
-        private void ResumeFromBetAmountHandler(string evt, string minOrMaxBetString)
+        void ResumeFromBetAmountHandler(string evt, string minOrMaxBetString)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.ResumeFromBetAmount(evt.Remove(0, 13), minOrMaxBetString); // truncate "holdemcasino_"
             }
         }
-        private void DepositFailHandler(string evt, string message)
+        void DepositFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
                 OwnerPanel.DepositFailHandler(evt, message);
             }
         }
-        private void InputFailHandler(string evt, string message)
+        void InputFailHandler(string evt, string message)
         {
             if (OwnerPanel != null)
             {
@@ -932,7 +932,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * The interval at which to deal cards during the initial deal phase.
          */
-        private void DealTimerHandler(object source, ElapsedEventArgs args)
+        void DealTimerHandler(object source, ElapsedEventArgs args)
         {
             if (DeadAirTime-- > 0)
                 return;
@@ -962,7 +962,7 @@ namespace FSO.Client.UI.Panels.EODs
         }
         #endregion
         #region private
-        private EODLiveModeOpt GetEODOptions(bool isOwner)
+        EODLiveModeOpt GetEODOptions(bool isOwner)
         {
             if (isOwner)
                 return new EODLiveModeOpt
@@ -989,7 +989,7 @@ namespace FSO.Client.UI.Panels.EODs
          * This method happens when the first pair of cards is being dealt to all active players and the dealer. It then deals 3 cards to the
          * community hand. The argmuent will always be of count 13, 10 cards for players & dealer, 3 for community hand.
          */
-        private void DealInitialCards(List<string> allCardNames)
+        void DealInitialCards(List<string> allCardNames)
         {
             // cards should always come in pairs, 2 for each player, 10 cards total with dealer, then 3 more for the community hand
             CardsToDeal = new List<string[]>();
@@ -1010,10 +1010,10 @@ namespace FSO.Client.UI.Panels.EODs
                 if (firstCards[cardIndex].Length > 1) // not a blank string
                 {
                     // add the second card after the player's number 1-5 with 5 being dealer
-                    CardsToDeal.Add(new string[] { (cardIndex + 1) + "", secondCards[cardIndex] });
+                    CardsToDeal.Add(new string[] { cardIndex + 1 + "", secondCards[cardIndex] });
 
                     // insert the first card
-                    CardsToDeal.Insert(dealindex++, new string[] { (cardIndex + 1) + "", firstCards[cardIndex] });
+                    CardsToDeal.Insert(dealindex++, new string[] { cardIndex + 1 + "", firstCards[cardIndex] });
                 }
             }
 
@@ -1031,7 +1031,7 @@ namespace FSO.Client.UI.Panels.EODs
 
             DealTimer.Start();
         }
-        private void AnteChipButtonPressed(byte buttonValue)
+        void AnteChipButtonPressed(byte buttonValue)
         {
             var isLegalAction = BettingIsAllowed;
             if (isLegalAction)
@@ -1055,7 +1055,7 @@ namespace FSO.Client.UI.Panels.EODs
             else
                 UpdateUserInput(isLegalAction);
         }
-        private int GetBetValue(UITextEdit betTextEdit)
+        int GetBetValue(UITextEdit betTextEdit)
         {
             int actualValue = -1;
             if (betTextEdit != null && betTextEdit.CurrentText != null && Int32.TryParse(betTextEdit.CurrentText, out actualValue))
@@ -1065,7 +1065,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
             return actualValue;
         }
-        private void SideChipButtonPressed(byte buttonValue)
+        void SideChipButtonPressed(byte buttonValue)
         {
             var isLegalAction = BettingIsAllowed;
             if (isLegalAction)
@@ -1089,7 +1089,7 @@ namespace FSO.Client.UI.Panels.EODs
             else
                 UpdateUserInput(isLegalAction);
         }
-        private void AllowBetting()
+        void AllowBetting()
         {
             BettingIsAllowed = true;
             UpdateUserInput(BettingIsAllowed);
@@ -1098,18 +1098,18 @@ namespace FSO.Client.UI.Panels.EODs
             ClearAnteBet();
             ClearSideBet();
         }
-        private void DisallowBetting()
+        void DisallowBetting()
         {
             BettingIsAllowed = false;
             UpdateUserInput(BettingIsAllowed);
         }
-        private void ToggleDecision(bool isAllowed)
+        void ToggleDecision(bool isAllowed)
         {
             DecisionIsAllowed = isAllowed;
             CallButton.Disabled = !isAllowed;
             FoldButton.Disabled = !isAllowed;
         }
-        private void UpdateUserInput(bool allowed) {
+        void UpdateUserInput(bool allowed) {
             Ante1ChipButton.Disabled = !allowed;
             Ante5ChipButton.Disabled = !allowed;
             Ante10ChipButton.Disabled = !allowed;
@@ -1140,7 +1140,7 @@ namespace FSO.Client.UI.Panels.EODs
                 SideBet.Mode = UITextEditMode.ReadOnly;
             }
         }
-        private void InitLowerUI()
+        void InitLowerUI()
         {
             // 2 buttons on the right and help button
             CallButton = new UIButton(CallButtonTexture)
@@ -1447,7 +1447,7 @@ namespace FSO.Client.UI.Panels.EODs
             Side25ChipButton.Y -= 5;
             Side100ChipButton.Y -= 5;
         }
-        private void InitUpperUI()
+        void InitUpperUI()
         {
             // ./uigraphics/ucp/livepanel/lpanel_eodsubfulltall.bmp
             EODTallBack = new UIImage(GetTexture(0x000004E900000001))
@@ -1479,7 +1479,7 @@ namespace FSO.Client.UI.Panels.EODs
             Player1CardsContainer.SetInactive();
             Player2CardsContainer = new TwoCardHand(1f)
             {
-                X = Player1CardsContainer.X + (102),
+                X = Player1CardsContainer.X + 102,
                 Y = 97,
             };
             Add(Player2CardsContainer);
@@ -1718,15 +1718,15 @@ namespace FSO.Client.UI.Panels.EODs
             SetPlayerBet(false, 3, "Side");
             SetPlayerBet(false, 4, "Side");
         }
-        private void ClearAnteBet()
+        void ClearAnteBet()
         {
             SetMyAnteBet("0");
         }
-        private void ClearSideBet()
+        void ClearSideBet()
         {
             SetMySideBet("0");
         }
-        private void ResetAllHands()
+        void ResetAllHands()
         {
             SetPlayerBet(true, 1, "Ante");
             SetPlayerBet(true, 2, "Ante");
@@ -1747,7 +1747,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Update the cards in a player's hand (upper UI panel)
          */
-        private void UpdateUpperPlayerHand(int playerNumber, params string[] cards)
+        void UpdateUpperPlayerHand(int playerNumber, params string[] cards)
         {
             TwoCardHand cardsContainer;
             switch (playerNumber)
@@ -1780,7 +1780,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Shows a UI alert and even allows an action with zero arguments for when the window is closed using "OK" button.
          */
-        private UIAlert ShowUIAlert(string title, string message, Action action)
+        UIAlert ShowUIAlert(string title, string message, Action action)
         {
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -1801,7 +1801,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Shows a UI alert and allows one action argument for when the window is closed with "Yes" and one for "No".
          */
-        private UIAlert ShowUIAlert(string title, string message, Action yesAction, Action noAction)
+        UIAlert ShowUIAlert(string title, string message, Action yesAction, Action noAction)
         {
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -1826,7 +1826,7 @@ namespace FSO.Client.UI.Panels.EODs
             CurrentAlert = alert;
             return alert;
         }
-        private void SetPlayerBet(bool isAnte, int player, string newBet)
+        void SetPlayerBet(bool isAnte, int player, string newBet)
         {
             float offsetX = 0f;
             if (newBet == null || newBet.Length < 1 || newBet.Length > 4 || player < 1 || player > 4)
@@ -1849,38 +1849,38 @@ namespace FSO.Client.UI.Panels.EODs
                 case 1:
                     {
                         x = Player1Head.X;
-                        label = (isAnte) ? Player1AnteBetLabel : Player1SideBetLabel; break;
+                        label = isAnte ? Player1AnteBetLabel : Player1SideBetLabel; break;
                     }
                 case 2:
                     {
                         x = Player2Head.X;
-                        label = (isAnte) ? Player2AnteBetLabel : Player2SideBetLabel; break;
+                        label = isAnte ? Player2AnteBetLabel : Player2SideBetLabel; break;
                     }
                 case 3:
                     {
                         x = Player3Head.X;
-                        label = (isAnte) ? Player3AnteBetLabel : Player3SideBetLabel; break;
+                        label = isAnte ? Player3AnteBetLabel : Player3SideBetLabel; break;
                     }
                 default:
                     {
                         x = Player4Head.X;
-                        label = (isAnte) ? Player4AnteBetLabel : Player4SideBetLabel; break;
+                        label = isAnte ? Player4AnteBetLabel : Player4SideBetLabel; break;
                     }
             }
             label.X = x + offsetX;
             label.Caption = newBet;
         }
-        private void SetMyAnteBet(string newBet)
+        void SetMyAnteBet(string newBet)
         {
             AnteBet.CurrentText = newBet;
             MyAnteBetHandler(AnteBet);
         }
-        private void SetMySideBet(string newBet)
+        void SetMySideBet(string newBet)
         {
             SideBet.CurrentText = newBet;
             MySideBetHandler(SideBet);
         }
-        private void SetActiveOtherPlayerHand(int playerIndex)
+        void SetActiveOtherPlayerHand(int playerIndex)
         {
             Player1CardsContainer.SetInactive();
             Player2CardsContainer.SetInactive();
@@ -1898,12 +1898,12 @@ namespace FSO.Client.UI.Panels.EODs
             else if (playerIndex == 5)
                 DealerCardsContainer.SetActive();
         }
-        private void SetNewTip(string newTip)
+        void SetNewTip(string newTip)
         {
             SetTip(newTip);
             Parent.Invalidate();
         }
-        private void SetNewTime(int newTime)
+        void SetNewTime(int newTime)
         {
             SetTime(newTime);
             Parent.Invalidate();
@@ -1913,11 +1913,11 @@ namespace FSO.Client.UI.Panels.EODs
     }
     internal class TwoCardHand : CardHand
     {
-        private UISlotsImage Background;
-        private Vector2 FirstCardPosition = new Vector2(1f, 2f);
-        private Vector2 SecondCardPosition = new Vector2(35f, 2f);
-        private UIImage Card1 = new UIImage();
-        private UIImage Card2 = new UIImage();
+        UISlotsImage Background;
+        Vector2 FirstCardPosition = new Vector2(1f, 2f);
+        Vector2 SecondCardPosition = new Vector2(35f, 2f);
+        UIImage Card1 = new UIImage();
+        UIImage Card2 = new UIImage();
         public TwoCardHand(float targetScale)
         {
             // add the backbround
@@ -1946,7 +1946,7 @@ namespace FSO.Client.UI.Panels.EODs
             else
                 AddNewCard(UIPlayingCard.GetFullCardImage(cardName));
         }
-        private void AddNewCard(UIImage card)
+        void AddNewCard(UIImage card)
         {
             SetActive();
             if (card != null)
@@ -1971,14 +1971,14 @@ namespace FSO.Client.UI.Panels.EODs
     }
     internal class FiveCardHand : CardHand
     {
-        private UISlotsImage Background;
-        private Vector2 CardStartOffset = new Vector2(2f, 2f);
+        UISlotsImage Background;
+        Vector2 CardStartOffset = new Vector2(2f, 2f);
         // card widths with spacers = 44 (card width 26) spaces are 18. 44 times card number plus (3,2)
-        private UIImage Card1 = new UIImage();
-        private UIImage Card2 = new UIImage();
-        private UIImage Card3 = new UIImage();
-        private UIImage Card4 = new UIImage();
-        private UIImage Card5 = new UIImage();
+        UIImage Card1 = new UIImage();
+        UIImage Card2 = new UIImage();
+        UIImage Card3 = new UIImage();
+        UIImage Card4 = new UIImage();
+        UIImage Card5 = new UIImage();
         
         public FiveCardHand(float targetScale)
         {
@@ -2020,7 +2020,7 @@ namespace FSO.Client.UI.Panels.EODs
             else
                 AddNewCard(UIPlayingCard.GetFullCardImage(cardName));
         }
-        private void AddNewCard(UIImage card)
+        void AddNewCard(UIImage card)
         {
             SetActive();
             if (card != null)

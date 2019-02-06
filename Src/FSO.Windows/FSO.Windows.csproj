@@ -123,9 +123,9 @@
       <Name>MonoGame.Framework.WindowsGL</Name>
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\tso.client\FSO.Client.csproj">
+    <ProjectReference Include="..\tso.client\FSO.Core.csproj">
       <Project>{635e68fa-3905-4943-b4f5-d463a8c02e87}</Project>
-      <Name>FSO.Client</Name>
+      <Name>FSO.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\tso.common\FSO.Common.csproj">
       <Project>{C42962A1-8796-4F47-9DCD-79ED5904D8CA}</Project>

@@ -24,7 +24,7 @@ namespace FSO.Client.Network.Sandbox
         public event Action<VMNetClient> OnConnect;
         public event Action<VMNetClient> OnDisconnect;
 
-        private List<IoSession> Sessions = new List<IoSession>();
+        List<IoSession> Sessions = new List<IoSession>();
 
         public void ForceDisconnect(VMNetClient cli)
         {
@@ -133,7 +133,7 @@ namespace FSO.Client.Network.Sandbox
         {
         }
 
-        private AsyncSocketAcceptor Acceptor;
+        AsyncSocketAcceptor Acceptor;
 
         public void Start(ushort port)
         {

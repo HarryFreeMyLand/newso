@@ -19,15 +19,15 @@ namespace FSO.Client.UI.Panels.LotControls
     public class UICheatHandler : UIContainer
     {
         //NOTE: users can only perform these actions if the server lets them.
-        private UILotControl Control;
-        private VM vm
+        UILotControl Control;
+        VM vm
         {
             get { return Control.vm;  }
         }
-        private UpdateState LastState;
-        private Texture2D DebugTexture;
+        UpdateState LastState;
+        Texture2D DebugTexture;
 
-        private float tod = 0;
+        float tod = 0;
 
         public UICheatHandler(UILotControl owner) {
             Control = owner;

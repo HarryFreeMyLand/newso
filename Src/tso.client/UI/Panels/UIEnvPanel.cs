@@ -22,10 +22,10 @@ namespace FSO.Client.UI.Panels
 
         public Texture2D DividerImage { get; set; }
 
-        private Dictionary<UIButton, int> BtnToMode;
-        private UIContainer Panel;
-        private int CurrentPanel;
-        private UILotControl LotControl;
+        Dictionary<UIButton, int> BtnToMode;
+        UIContainer Panel;
+        int CurrentPanel;
+        UILotControl LotControl;
 
         public UIImage Divider;
 
@@ -50,7 +50,7 @@ namespace FSO.Client.UI.Panels
             CurrentPanel = -1;
         }
 
-        private void SetMode(UIElement button)
+        void SetMode(UIElement button)
         {
             var btn = (UIButton)button;
             int newPanel = -1;
@@ -256,8 +256,8 @@ namespace FSO.Client.UI.Panels
         public UILabel[] ItemLabels;
         public int CurrentTab;
         public int CurrentPage;
-        private UIScript Script;
-        private UILotControl LotControl;
+        UIScript Script;
+        UILotControl LotControl;
 
         public UISoundsPanel(UILotControl lotController)
         {
@@ -308,7 +308,7 @@ namespace FSO.Client.UI.Panels
                 item.CaptionStyle = item.CaptionStyle.Clone();
                 item.CaptionStyle.Shadow = true;
             }
-            var noPermission = (!lotController.vm.TSOState.BuildRoommates.Contains(lotController.vm.MyUID) && lotController.vm.TSOState.OwnerID != lotController.vm.MyUID);
+            var noPermission = !lotController.vm.TSOState.BuildRoommates.Contains(lotController.vm.MyUID) && lotController.vm.TSOState.OwnerID != lotController.vm.MyUID;
             var j = 0;
             foreach (var item in CheckButtons)
             {
@@ -339,7 +339,7 @@ namespace FSO.Client.UI.Panels
             var amb = LotControl.vm.Context.Ambience;
 
             var wasSelected = btn.Selected;
-            var targList = (wasSelected) ? cmd.GUIDsToClear : cmd.GUIDsToAdd;
+            var targList = wasSelected ? cmd.GUIDsToClear : cmd.GUIDsToAdd;
             if (radio)
             {
                 //loops or themes. Last selected button zeroed out.

@@ -58,7 +58,7 @@ namespace FSO.Client.UI.Panels
             SimsTabButton.OnButtonClick += (btn) => { ChangeType(BookmarkType.AVATAR); };
         }
 
-        private void ChangeType(BookmarkType type)
+        void ChangeType(BookmarkType type)
         {
             FindController<BookmarksController>().ChangeType(type);
 
@@ -69,7 +69,7 @@ namespace FSO.Client.UI.Panels
             IgnoreTab.Visible = !bookmark;
         }
 
-        private void BookmarkListBox_OnDoubleClick(UIElement button)
+        void BookmarkListBox_OnDoubleClick(UIElement button)
         {
             if (BookmarkListBox.SelectedItem == null) { return; }
             var item = BookmarkListBox.SelectedItem.Data as BookmarkListItem;
@@ -88,7 +88,7 @@ namespace FSO.Client.UI.Panels
             }).ToList();
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             FindController<BookmarksController>().Close();
         }

@@ -15,8 +15,8 @@ namespace FSO.Client.Controllers.Panels
     /// </summary>
     public class SecureTradeController
     {
-        private Network.Network Network;
-        private IClientDataService DataService;
+        Network.Network Network;
+        IClientDataService DataService;
 
         public SecureTradeController(IClientDataService dataService, Network.Network network)
         {

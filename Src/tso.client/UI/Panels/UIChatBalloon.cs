@@ -15,20 +15,20 @@ namespace FSO.Client.UI.Panels
 {
     public class UIChatBalloon : UIContainer, IDisposable
     {
-        private Texture2D BPointerBottom;
-        private Texture2D BPointerSide;
-        private Texture2D BTiles;
+        Texture2D BPointerBottom;
+        Texture2D BPointerSide;
+        Texture2D BTiles;
 
-        private static bool ProcessedBGFX = false;
+        static bool ProcessedBGFX = false;
 
-        private TextRendererResult BodyTextLabels;
-        private List<Vector2> BTOffsets;
-        private TextStyle BodyTextStyle;
-        private TextStyle ShadowStyle;
-        private string BodyText;
+        TextRendererResult BodyTextLabels;
+        List<Vector2> BTOffsets;
+        TextStyle BodyTextStyle;
+        TextStyle ShadowStyle;
+        string BodyText;
         public int FadeTime;
 
-        private UIChatPanel Owner;
+        UIChatPanel Owner;
 
         public Color Color;
 
@@ -43,7 +43,7 @@ namespace FSO.Client.UI.Panels
         public Vector2 TargetPt;
 
         public Point DesiredRectPos;
-        private bool Offscreen;
+        bool Offscreen;
         public int ClosestDir = 3; //left, up, right, down, N/A
 
         public ITTSContext TTSContext;
@@ -92,12 +92,12 @@ namespace FSO.Client.UI.Panels
             TextChanged();
         }
 
-        private string SanitizeBB(string input)
+        string SanitizeBB(string input)
         {
             return input.Replace("[", "\\[");
         }
 
-        private void TextChanged()
+        void TextChanged()
         {
             BodyText = Message;
             if (GlobalSettings.Default.ChatOnlyEmoji)
@@ -129,7 +129,7 @@ namespace FSO.Client.UI.Panels
             DisplayRect.Height = BodyTextLabels.BoundingBox.Height + 18 * 3;
         }
 
-        private void AlphaCopy(Texture2D tex)
+        void AlphaCopy(Texture2D tex)
         {
             var data = new Color[tex.Width * tex.Height];
             tex.GetData(data);
@@ -163,8 +163,8 @@ namespace FSO.Client.UI.Panels
                 {
                     //move desired rectangle out of area
                     //first determine problem direction
-                    var xDist = (area.X + area.Width / 2) - (dr.X + dr.Width / 2);
-                    var yDist = (area.Y + area.Height / 2) - (dr.Y + dr.Height / 2);
+                    var xDist = area.X + area.Width / 2 - (dr.X + dr.Width / 2);
+                    var yDist = area.Y + area.Height / 2 - (dr.Y + dr.Height / 2);
 
                     if (Math.Abs(xDist) > Math.Abs(yDist))
                     {
@@ -202,10 +202,10 @@ namespace FSO.Client.UI.Panels
         public void DeterminePointSide()
         {
             float xDist = TargetPt.X - (DisplayRect.X + DisplayRect.Width / 2);
-            float ax = (Math.Abs(xDist) - DisplayRect.Width / 2);
+            float ax = Math.Abs(xDist) - DisplayRect.Width / 2;
 
             float yDist = TargetPt.Y - (DisplayRect.Y + DisplayRect.Height / 2);
-            float ay = (Math.Abs(yDist) - DisplayRect.Height / 2);
+            float ay = Math.Abs(yDist) - DisplayRect.Height / 2;
 
             if (ax < 30 && ay < 30)
             {
@@ -266,7 +266,7 @@ namespace FSO.Client.UI.Panels
                 ptSel = Math.Max(0, Math.Min(3, (int)Math.Floor((DisplayRect.Top - TargetPt.Y) / 40f)));
                 DrawLocalTexture(batch, BTiles, new Rectangle(0, 80, 40, 40), new Vector2(DisplayRect.Left + 20, DisplayRect.Top - 20), new Vector2(horizPt / 40f, 1), bgCol);
                 DrawLocalTexture(batch, BPointerBottom, new Rectangle(ptSel * 40, 0, 40, 200), new Vector2(DisplayRect.Left + 20 + horizPt, DisplayRect.Top + 20), new Vector2(1, -1), bgCol);
-                DrawLocalTexture(batch, BTiles, new Rectangle(0, 80, 40, 40), new Vector2(DisplayRect.Left + 60 + horizPt, DisplayRect.Top - 20), new Vector2(((horizW - (horizPt + 40)) / 40f), 1), bgCol);
+                DrawLocalTexture(batch, BTiles, new Rectangle(0, 80, 40, 40), new Vector2(DisplayRect.Left + 60 + horizPt, DisplayRect.Top - 20), new Vector2((horizW - (horizPt + 40)) / 40f, 1), bgCol);
             }
             else DrawLocalTexture(batch, BTiles, new Rectangle(0, 80, 40, 40), new Vector2(DisplayRect.Left + 20, DisplayRect.Top - 20), new Vector2((DisplayRect.Width - 40) / 40f, 1), bgCol);
 
@@ -286,7 +286,7 @@ namespace FSO.Client.UI.Panels
                 ptSel = Math.Max(0, Math.Min(3, (int)Math.Floor((TargetPt.Y - DisplayRect.Bottom) / 40f)));
                 DrawLocalTexture(batch, BTiles, new Rectangle(0, 120, 40, 40), new Vector2(DisplayRect.Left + 20, DisplayRect.Bottom - 20), new Vector2(horizPt / 40f, 1), bgCol);
                 DrawLocalTexture(batch, BPointerBottom, new Rectangle(ptSel * 40, 0, 40, 200), new Vector2(DisplayRect.Left + 20 + horizPt, DisplayRect.Bottom - 20), Vector2.One, bgCol);
-                DrawLocalTexture(batch, BTiles, new Rectangle(0, 120, 40, 40), new Vector2(DisplayRect.Left + 60 + horizPt, DisplayRect.Bottom - 20), new Vector2(((horizW - (horizPt + 40)) / 40f), 1), bgCol);
+                DrawLocalTexture(batch, BTiles, new Rectangle(0, 120, 40, 40), new Vector2(DisplayRect.Left + 60 + horizPt, DisplayRect.Bottom - 20), new Vector2((horizW - (horizPt + 40)) / 40f, 1), bgCol);
             }
             else DrawLocalTexture(batch, BTiles, new Rectangle(0, 120, 40, 40), new Vector2(DisplayRect.Left + 20, DisplayRect.Bottom - 20), new Vector2((DisplayRect.Width - 40) / 40f, 1), bgCol);
 

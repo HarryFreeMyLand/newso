@@ -36,13 +36,13 @@ namespace FSO.Client.UI.Panels
         public Direction Rotation;
         public int MouseDownX;
         public int MouseDownY;
-        private bool MouseIsDown;
-        private bool MouseWasDown;
-        private bool MouseClicked;
+        bool MouseIsDown;
+        bool MouseWasDown;
+        bool MouseClicked;
 
-        private int OldMX;
-        private int OldMY;
-        private UpdateState LastState; //state for access from Sellback and friends.
+        int OldMX;
+        int OldMY;
+        UpdateState LastState; //state for access from Sellback and friends.
         public bool DirChanged;
         public bool ShowTooltip;
         public bool Roommate;
@@ -92,7 +92,7 @@ namespace FSO.Client.UI.Panels
             {
                 var price = (int)catalogItem.Value.Price;
                 var dcPercent = VMBuildableAreaInfo.GetDiscountFor(catalogItem.Value, vm);
-                var finalPrice = (price * (100 - dcPercent)) / 100;
+                var finalPrice = price * (100 - dcPercent) / 100;
                 Holding.Price = finalPrice;
             }
         }
@@ -164,7 +164,7 @@ namespace FSO.Client.UI.Panels
             Holding = null;
         }
 
-        private void RecursiveDelete(VMContext context, VMEntity real)
+        void RecursiveDelete(VMContext context, VMEntity real)
         {
             var rgrp = real.MultitileGroup;
             for (int i = 0; i < rgrp.Objects.Count; i++)
@@ -205,7 +205,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (Holding.CanPlace == VMPlacementError.Success)
                 {
-                    HITVM.Get().PlaySoundEvent((Holding.IsBought) ? UISounds.ObjectMovePlace : UISounds.ObjectPlace);
+                    HITVM.Get().PlaySoundEvent(Holding.IsBought ? UISounds.ObjectMovePlace : UISounds.ObjectPlace);
                     //ExecuteEntryPoint(11); //User Placement
                     var putDown = Holding;
                     var pos = Holding.Group.BaseObject.Position;
@@ -233,7 +233,7 @@ namespace FSO.Client.UI.Panels
                     }
                     else
                     {
-                        var GUID = (Holding.Group.MultiTile)? Holding.Group.BaseObject.MasterDefinition.GUID : Holding.Group.BaseObject.Object.OBJ.GUID;
+                        var GUID = Holding.Group.MultiTile? Holding.Group.BaseObject.MasterDefinition.GUID : Holding.Group.BaseObject.Object.OBJ.GUID;
                         vm.SendCommand(new VMNetBuyObjectCmd
                         {
                             GUID = GUID,
@@ -257,7 +257,7 @@ namespace FSO.Client.UI.Panels
             ShowTooltip = false;
         }
 
-        private void ExecuteEntryPoint(int num)
+        void ExecuteEntryPoint(int num)
         {
             for (int i = 0; i < Holding.Group.Objects.Count; i++) Holding.Group.Objects[i].ExecuteEntryPoint(num, vm.Context, true); 
         }
@@ -388,7 +388,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private Point GetScaledPoint(Point TapPoint)
+        Point GetScaledPoint(Point TapPoint)
         {
             var screenMiddle = new Point(
                 (int)(GameFacade.Screens.CurrentUIScreen.ScreenWidth / (2 / FSOEnvironment.DPIScaleFactor)),
@@ -401,7 +401,7 @@ namespace FSO.Client.UI.Panels
         {
             LastState = state;
             if (ShowTooltip) state.UIState.TooltipProperties.UpdateDead = false;
-            MouseClicked = (MouseIsDown && (!MouseWasDown));
+            MouseClicked = MouseIsDown && (!MouseWasDown);
 
             CursorType cur = CursorType.SimsMove;
             if (Holding != null)
@@ -434,7 +434,7 @@ namespace FSO.Client.UI.Panels
                         var dir = Math.Atan2(vec.Y, vec.X);
                         dir += Math.PI/2;
                         if (dir < 0) dir += Math.PI*2;
-                        var newDir = (Direction)(1 << (((int)Math.Round(dir / (Math.PI / 2)) % 4) * 2));
+                        var newDir = (Direction)(1 << ((int)Math.Round(dir / (Math.PI / 2)) % 4 * 2));
 
                         if (newDir != Holding.Dir || MouseClicked)
                         {
@@ -494,7 +494,7 @@ namespace FSO.Client.UI.Panels
                     if (success == VMPlacementError.Success)
                     {
                         var ghostGroup = vm.Context.GhostCopyGroup(objGroup);
-                        var canDelete = GameFacade.EnableMod || (objGroup.BaseObject.IsUserMovable(vm.Context, true)) == VMPlacementError.Success;
+                        var canDelete = GameFacade.EnableMod || objGroup.BaseObject.IsUserMovable(vm.Context, true) == VMPlacementError.Success;
                         SetSelected(ghostGroup);
 
                         Holding.RealEnt = objGroup.BaseObject;
@@ -519,7 +519,7 @@ namespace FSO.Client.UI.Panels
             MouseWasDown = MouseIsDown;
         }
 
-        private void ShowErrorAtMouse(UpdateState state, VMPlacementError error)
+        void ShowErrorAtMouse(UpdateState state, VMPlacementError error)
         {
             state.UIState.TooltipProperties.Show = true;
             state.UIState.TooltipProperties.Color = Color.Black;
@@ -557,7 +557,7 @@ namespace FSO.Client.UI.Panels
         {
             get
             {
-                return (MoveTarget != 0);
+                return MoveTarget != 0;
             }
         }
     }

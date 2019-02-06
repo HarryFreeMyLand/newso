@@ -11,8 +11,8 @@ namespace FSO.Client.Regulators
 {
     public class PurchaseLotRegulator : AbstractRegulator, IAriesMessageSubscriber
     {
-        private PurchaseLotRequest CurrentRequest;
-        private Network.Network Network;
+        PurchaseLotRequest CurrentRequest;
+        Network.Network Network;
 
         public delegate void PurchasedLotHandler(int newBudget);
         public event PurchasedLotHandler OnPurchased;

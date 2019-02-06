@@ -32,13 +32,13 @@ namespace FSO.Client.UI.Screens
 {
     public class LoginScreen : GameScreen, IDisposable
     {
-        private UISetupBackground Background;
+        UISetupBackground Background;
         public UILoginDialog LoginDialog;
         public UILoginProgress LoginProgress;
 
-        private UIAlert LastAlert;
+        UIAlert LastAlert;
 
-        private LoginRegulator Regulator;
+        LoginRegulator Regulator;
 
         public LoginScreen(LoginRegulator regulator)
         {
@@ -82,8 +82,8 @@ namespace FSO.Client.UI.Screens
 
             /** Progress bar **/
             LoginProgress = new UILoginProgress();
-            LoginProgress.X = (ScreenWidth - (LoginProgress.Width + 20));
-            LoginProgress.Y = (ScreenHeight - (LoginProgress.Height + 20));
+            LoginProgress.X = ScreenWidth - (LoginProgress.Width + 20);
+            LoginProgress.Y = ScreenHeight - (LoginProgress.Height + 20);
             LoginProgress.Opacity = 0.9f;
             this.Add(LoginProgress);
 
@@ -173,8 +173,8 @@ namespace FSO.Client.UI.Screens
         public override void GameResized()
         {
             base.GameResized();
-            LoginProgress.X = (ScreenWidth - (LoginProgress.Width + 20));
-            LoginProgress.Y = (ScreenHeight - (LoginProgress.Height + 20));
+            LoginProgress.X = ScreenWidth - (LoginProgress.Width + 20);
+            LoginProgress.Y = ScreenHeight - (LoginProgress.Height + 20);
 
             LoginDialog.X = (ScreenWidth - LoginDialog.Width) / 2;
             LoginDialog.Y = (ScreenHeight - LoginDialog.Height) / 2;
@@ -186,7 +186,7 @@ namespace FSO.Client.UI.Screens
             Regulator.OnTransition -= AuthRegulator_OnTransition;
         }
 
-        private void AuthRegulator_OnTransition(string state, object data)
+        void AuthRegulator_OnTransition(string state, object data)
         {
             switch (state)
             {
@@ -208,7 +208,7 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void AuthRegulator_OnError(object error)
+        void AuthRegulator_OnError(object error)
         {
             if (error is Exception)
             {
@@ -267,7 +267,7 @@ namespace FSO.Client.UI.Screens
             });
         }
 
-        private string GetUID()
+        string GetUID()
         {
             var id =
             (
@@ -290,7 +290,7 @@ namespace FSO.Client.UI.Screens
             return sb.ToString();
         }
 
-        private void SetProgress(int stage)
+        void SetProgress(int stage)
         {
             var auth = FSOFacade.Kernel.Get<AuthClient>();
             LoginProgress.ProgressCaption = GameFacade.Strings.GetString("210", (stage + 3).ToString())

@@ -13,11 +13,11 @@ namespace FSO.Client.Controllers.Panels
 {
     public class BookmarksController : IDisposable
     {
-        private Network.Network Network;
-        private IClientDataService DataService;
-        private UIBookmarks View;
-        private Binding<Avatar> Binding;
-        private BookmarkType CurrentType = BookmarkType.AVATAR;
+        Network.Network Network;
+        IClientDataService DataService;
+        UIBookmarks View;
+        Binding<Avatar> Binding;
+        BookmarkType CurrentType = BookmarkType.AVATAR;
 
         public BookmarksController(UIBookmarks view, IClientDataService dataService, Network.Network network)
         {
@@ -29,7 +29,7 @@ namespace FSO.Client.Controllers.Panels
             Init();
         }
 
-        private void Init()
+        void Init()
         {
             DataService.Get<Avatar>(Network.MyCharacter).ContinueWith(x =>
             {

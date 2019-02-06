@@ -26,8 +26,8 @@ namespace FSO.Client.UI.Controls.Catalog
 {
     public class UICatalog : UIContainer
     {
-        private int Page;
-        private int _Budget;
+        int Page;
+        int _Budget;
         public VM ActiveVM;
         public int Budget
         {
@@ -46,7 +46,7 @@ namespace FSO.Client.UI.Controls.Catalog
                 }
             }
         }
-        private static List<UICatalogElement>[] _Catalog;
+        static List<UICatalogElement>[] _Catalog;
         public event CatalogSelectionChangeDelegate OnSelectionChange;
 
         public static List<UICatalogElement>[] Catalog {
@@ -81,7 +81,7 @@ namespace FSO.Client.UI.Controls.Catalog
             }
         }
 
-        private static void AddWallpapers()
+        static void AddWallpapers()
         {
             var res = new UICatalogWallpaperResProvider();
 
@@ -109,7 +109,7 @@ namespace FSO.Client.UI.Controls.Catalog
             }
         }
 
-        private static void AddFloors()
+        static void AddFloors()
         {
             var res = new UICatalogFloorResProvider();
 
@@ -138,7 +138,7 @@ namespace FSO.Client.UI.Controls.Catalog
             }
         }
 
-        private static void AddRoofs()
+        static void AddRoofs()
         {
             var res = new UICatalogRoofResProvider();
 
@@ -166,7 +166,7 @@ namespace FSO.Client.UI.Controls.Catalog
             }
         }
 
-        private static void AddWallStyles()
+        static void AddWallStyles()
         {
             var res = new UICatalogWallResProvider();
 
@@ -193,7 +193,7 @@ namespace FSO.Client.UI.Controls.Catalog
             }
         }
 
-        private static void AddTerrainTools()
+        static void AddTerrainTools()
         {
             var res = new UICatalogWallResProvider();
 
@@ -269,8 +269,8 @@ namespace FSO.Client.UI.Controls.Catalog
 
         public int PageSize { get; set; }
         public List<UICatalogElement> Selected;
-        private UICatalogItem[] CatalogItems;
-        private Dictionary<uint, Texture2D> IconCache;
+        UICatalogItem[] CatalogItems;
+        Dictionary<uint, Texture2D> IconCache;
 
         public UICatalog(int pageSize)
         {
@@ -325,14 +325,14 @@ namespace FSO.Client.UI.Controls.Catalog
                 {
                     var price = (int)elem.Info.Item.Price;
                     var dcPercent = VMBuildableAreaInfo.GetDiscountFor(elem.Info.Item, ActiveVM);
-                    var finalPrice = (price * (100 - dcPercent)) / 100;
+                    var finalPrice = price * (100 - dcPercent) / 100;
                     elem.Info.CalcPrice = finalPrice;
                 }
 
                 elem.Icon = (elem.Info.Special?.Res != null)?elem.Info.Special.Res.GetIcon(elem.Info.Special.ResID):GetObjIcon(elem.Info.Item.GUID);
                 elem.Tooltip = (elem.Info.CalcPrice > 0)?("$"+elem.Info.CalcPrice.ToString()):null;
-                elem.X = (i % halfPage) * 45 + 2;
-                elem.Y = (i / halfPage) * 45 + 2;
+                elem.X = i % halfPage * 45 + 2;
+                elem.Y = i / halfPage * 45 + 2;
                 elem.OnMouseEvent += new ButtonClickDelegate(InnerSelect);
                 elem.SetDisabled(elem.Info.CalcPrice > Budget);
                 CatalogItems[i] = elem;
@@ -362,7 +362,7 @@ namespace FSO.Client.UI.Controls.Catalog
             return IconCache[GUID];
         }
 
-        private class CatalogSorter : IComparer<UICatalogElement>
+        class CatalogSorter : IComparer<UICatalogElement>
         {
             #region IComparer<UICatalogElement> Members
 

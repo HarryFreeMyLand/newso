@@ -1,4 +1,4 @@
-﻿using FSO.Common.Rendering.Framework.Camera;
+using FSO.Common.Rendering.Framework.Camera;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,13 +58,13 @@ namespace FSO.Client.Rendering.City
 
         public TerrainZoomMode Zoomed { get; set; } = TerrainZoomMode.Far;
         public float m_WheelZoomTarg = 0.5f;
-        private int? m_LastWheelPos; //null if invalid, increments in 120 it seems.
+        int? m_LastWheelPos; //null if invalid, increments in 120 it seems.
 
-        private Vector2 LastTargOff;
+        Vector2 LastTargOff;
         public float m_ViewOffX, m_ViewOffY, m_TargVOffX, m_TargVOffY;
-        private float m_ScrollSpeed;
-        private Vector2 m_MouseStart;
-        private bool WasRMBDown;
+        float m_ScrollSpeed;
+        Vector2 m_MouseStart;
+        bool WasRMBDown;
 
         public float GetIsoScale()
         {
@@ -73,8 +73,9 @@ namespace FSO.Client.Rendering.City
             float ZisoScale = (float)Math.Sqrt(0.5 * 0.5 * 2) / (NEAR_ZOOM_SIZE * m_WheelZoom);  // currently set 144 to near zoom
             float LisoScale = (float)Math.Sqrt(0.5 * 0.5 * 2) / m_LotZoomSize;  // currently set 144 to near zoom
 
-            float IsoScale = (1 - ZoomProgress) * FisoScale + (ZoomProgress) * ZisoScale;
-            if (FSOEnvironment.Enable3D) return IsoScale;
+            float IsoScale = (1 - ZoomProgress) * FisoScale + ZoomProgress * ZisoScale;
+            if (FSOEnvironment.Enable3D)
+                return IsoScale;
             return (1 - LotZoomProgress) * IsoScale + LotZoomProgress * LisoScale;
         }
 
@@ -136,7 +137,7 @@ namespace FSO.Client.Rendering.City
             }
         }
 
-        private Matrix _Projection;
+        Matrix _Projection;
         public Matrix Projection
         {
             get
@@ -202,7 +203,7 @@ namespace FSO.Client.Rendering.City
             }
         }
 
-        private Matrix _View;
+        Matrix _View;
         public Matrix View
         {
             get
@@ -233,8 +234,8 @@ namespace FSO.Client.Rendering.City
             ViewMatrix *= Matrix.CreateScale(new Vector3(1, 0.5f + (float)(1.0 - ZoomProgress) / 2, 1)); //makes world flatter in near view. This effect is present in the original, 
             //you just can't notice it as there is no zoom in animation. It also renders in true isometric... but that's an awful idea and makes lots look unusual when placed on flat tiles.
 
-            ViewMatrix *= Matrix.CreateRotationY((45.0f / 180.0f) * (float)Math.PI);
-            ViewMatrix *= Matrix.CreateRotationX((30.0f / 180.0f) * (float)Math.PI); //render in pseudo-isometric: http://en.wikipedia.org/wiki/Isometric_graphics_in_video_games_and_pixel_art
+            ViewMatrix *= Matrix.CreateRotationY(45.0f / 180.0f * (float)Math.PI);
+            ViewMatrix *= Matrix.CreateRotationX(30.0f / 180.0f * (float)Math.PI); //render in pseudo-isometric: http://en.wikipedia.org/wiki/Isometric_graphics_in_video_games_and_pixel_art
             ViewMatrix *= Matrix.CreateTranslation(new Vector3(-360f, 0f, -262f)); //move model to center of screen.
             return ViewMatrix;
         }
@@ -248,8 +249,8 @@ namespace FSO.Client.Rendering.City
 
             return Matrix.CreateOrthographicOffCenter(-HB + m_ViewOffX, HB + m_ViewOffX, -VB + m_ViewOffY, VB + m_ViewOffY, 0.1f, 524);
         }
-        
-        private bool PDirty = true;
+
+        bool PDirty = true;
         public void ProjectionDirty()
         {
             PDirty = true;
@@ -262,8 +263,8 @@ namespace FSO.Client.Rendering.City
                 Y = -2.0f * m_ViewOffY
             };
             float temp = ReturnM.X;
-            double cos = Math.Cos((-45.0 / 180.0) * Math.PI);
-            double sin = Math.Sin((-45.0 / 180.0) * Math.PI);
+            double cos = Math.Cos(-45.0 / 180.0 * Math.PI);
+            double sin = Math.Sin(-45.0 / 180.0 * Math.PI);
             ReturnM.X = (float)(cos * ReturnM.X + sin * ReturnM.Y);
             ReturnM.Y = (float)(cos * ReturnM.Y - sin * temp);
             ReturnM.X += 254.55844122715712f;
@@ -339,12 +340,13 @@ namespace FSO.Client.Rendering.City
 
 
             var rScale = 60f / FSOEnvironment.RefreshRate;
-            if (Zoomed != TerrainZoomMode.Far) ZoomProgress += (1.0f - ZoomProgress) * (float)(1 - Math.Pow(4 / 5.0f, rScale));
+            if (Zoomed != TerrainZoomMode.Far)
+                ZoomProgress += (1.0f - ZoomProgress) * (float)(1 - Math.Pow(4 / 5.0f, rScale));
             if (Zoomed == TerrainZoomMode.Near)
             {
                 bool Triggered = false;
 
-                var m_MouseMove = (m_MouseState.RightButton == ButtonState.Pressed);
+                var m_MouseMove = m_MouseState.RightButton == ButtonState.Pressed;
                 if (m_MouseMove)
                 {
                     m_TargVOffX += (m_MouseState.X - m_MouseStart.X) * (float)(1 - Math.Pow(999 / 1000.0f, rScale)); //move by fraction of distance between the mouse and where it started in both axis
@@ -401,13 +403,14 @@ namespace FSO.Client.Rendering.City
             {
                 LotZoomProgress += (1.0f - LotZoomProgress) * (float)(1 - Math.Pow(9 / 10.0f, rScale));
             }
-            else LotZoomProgress += (0 - LotZoomProgress) * (float)(1 - Math.Pow(9 / 10.0f, rScale));
+            else
+                LotZoomProgress += (0 - LotZoomProgress) * (float)(1 - Math.Pow(9 / 10.0f, rScale));
 
             m_WheelZoom += (m_WheelZoomTarg - m_WheelZoom) * (float)(1 - Math.Pow(9 / 10.0f, rScale));
             m_LastWheelPos = state.MouseState.ScrollWheelValue;
 
-            m_ViewOffX = (m_TargVOffX) * ZoomProgress;
-            m_ViewOffY = (m_TargVOffY) * ZoomProgress;
+            m_ViewOffX = m_TargVOffX * ZoomProgress;
+            m_ViewOffY = m_TargVOffY * ZoomProgress;
             WasRMBDown = m_MouseState.RightButton == ButtonState.Pressed;
 
             PDirty = true;

@@ -30,7 +30,7 @@ namespace FSO.Client.UI.Panels
     public class UIInteractionQueue : UIContainer
     {
 
-        private List<UIIQTrackEntry> QueueItems;
+        List<UIIQTrackEntry> QueueItems;
         public VMEntity QueueOwner;
         public VM vm;
         public Vector2 PieMenuClickPos = new Vector2(-1, -1);
@@ -130,10 +130,10 @@ namespace FSO.Client.UI.Panels
                         var itemui = new UIIQTrackEntry() {
                             Interaction = elem,
                             IconOwner = elem.IconOwner,
-                            SourcePos = (PieMenuClickPos.X < 0)?(new Vector2(30 + position * 50, 30)):PieMenuClickPos,
+                            SourcePos = (PieMenuClickPos.X < 0)?new Vector2(30 + position * 50, 30):PieMenuClickPos,
                             TweenProgress = 0,
                             UI = new UIInteraction(i==0),
-                            Active = (i == 0)
+                            Active = i == 0
                         };
                         itemui.UI.OnMouseEvent += new ButtonClickDelegate(InteractionClicked);
                         itemui.UI.OnInteractionResult += InteractionResult;
@@ -155,7 +155,7 @@ namespace FSO.Client.UI.Panels
 
         }
 
-        private void InteractionResult(UIElement ui, bool accepted)
+        void InteractionResult(UIElement ui, bool accepted)
         {
             if (QueueOwner == null) return;
             UIInteraction item = (UIInteraction)ui;
@@ -180,7 +180,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void InteractionClicked(UIElement ui)
+        void InteractionClicked(UIElement ui)
         {
             if (QueueOwner == null) return;
             UIInteraction item = (UIInteraction)ui;
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Panels
             TweenProgress = 0;
         }
 
-        private Vector2 GetTweenPosition()
+        Vector2 GetTweenPosition()
         {
             return TargetPos * (float)TweenProgress + SourcePos * (1 - (float)TweenProgress);
         }

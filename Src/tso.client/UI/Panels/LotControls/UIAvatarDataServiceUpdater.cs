@@ -14,8 +14,8 @@ namespace FSO.Client.UI.Panels.LotControls
 {
     public class UIAvatarDataServiceUpdater
     {
-        private UILotControl Control;
-        private VM vm
+        UILotControl Control;
+        VM vm
         {
             get { return Control.vm; }
         }
@@ -25,10 +25,10 @@ namespace FSO.Client.UI.Panels.LotControls
             Control = owner;
         }
 
-        private HashSet<uint> LastActive = new HashSet<uint>();
-        private HashSet<uint> PendingDSRequests = new HashSet<uint>();
-        private Dictionary<uint, Avatar> AvatarObjects = new Dictionary<uint, Avatar>();
-        private int Ticker;
+        HashSet<uint> LastActive = new HashSet<uint>();
+        HashSet<uint> PendingDSRequests = new HashSet<uint>();
+        Dictionary<uint, Avatar> AvatarObjects = new Dictionary<uint, Avatar>();
+        int Ticker;
 
         public void Update()
         {
@@ -40,7 +40,7 @@ namespace FSO.Client.UI.Panels.LotControls
                     changed.Add(avatar.Key);
                     UpdateAvatar(avatar.Key, avatar.Value);
                 }
-                var release = (LastActive.Except(changed));
+                var release = LastActive.Except(changed);
                 foreach (var dcAva in release)
                 {
                     Avatar obj = null;
@@ -62,7 +62,7 @@ namespace FSO.Client.UI.Panels.LotControls
             }
         }
 
-        private void UpdateAvatar(uint pid, VMAvatar avatar)
+        void UpdateAvatar(uint pid, VMAvatar avatar)
         {
             Avatar obj = null;
             if (AvatarObjects.TryGetValue(pid, out obj)) {
@@ -85,7 +85,7 @@ namespace FSO.Client.UI.Panels.LotControls
             }
         }
 
-        private void UpdateAvatar(Avatar model, VMAvatar avatar)
+        void UpdateAvatar(Avatar model, VMAvatar avatar)
         {
             model.ClientSourced = true;
             model.Avatar_CurrentJob = (ushort)avatar.GetPersonData(VMPersonDataVariable.OnlineJobID);

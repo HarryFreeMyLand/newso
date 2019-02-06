@@ -12,10 +12,10 @@ namespace FSO.Client.Network
 {
     public class Network
     {
-        private CityConnectionRegulator CityRegulator;
-        private LotConnectionRegulator LotRegulator;
-        private LoginRegulator LoginRegulator;
-        private IShardsDomain Shards;
+        CityConnectionRegulator CityRegulator;
+        LotConnectionRegulator LotRegulator;
+        LoginRegulator LoginRegulator;
+        IShardsDomain Shards;
 
         public Network(LoginRegulator loginReg, CityConnectionRegulator cityReg, LotConnectionRegulator lotReg, IShardsDomain shards)
         {

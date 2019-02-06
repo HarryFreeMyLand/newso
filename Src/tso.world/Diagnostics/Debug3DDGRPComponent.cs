@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using FSO.LotView.Utils;
 using FSO.Files.RC;
 
-namespace FSO.LotView.Debugger
+namespace FSO.LotView.Diagnostics
 {
     public class Debug3DDGRPComponent : _3DComponent
     {

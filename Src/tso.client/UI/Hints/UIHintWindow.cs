@@ -120,7 +120,7 @@ namespace FSO.Client.UI.Hints
             RenderCategories();
         }
 
-        private bool m_TextDirty = false;
+        bool m_TextDirty = false;
         protected override void CalculateMatrix()
         {
             base.CalculateMatrix();
@@ -135,7 +135,7 @@ namespace FSO.Client.UI.Hints
             m_TextDirty = true;
         }
 
-        private void ListBox_OnChange(UIElement element)
+        void ListBox_OnChange(UIElement element)
         {
             if (ListBox.SelectedIndex == -1) return;
             if (LastSelected != null)
@@ -234,12 +234,12 @@ namespace FSO.Client.UI.Hints
             }
         }
 
-        private Vector2 IconSpace;
-        private TextRendererResult m_MessageText;
-        private UIImage Icon;
-        private UIHint ActiveHint;
+        Vector2 IconSpace;
+        TextRendererResult m_MessageText;
+        UIImage Icon;
+        UIHint ActiveHint;
 
-        private void ComputeText(UIHint hint)
+        void ComputeText(UIHint hint)
         {
             var msg = hint.Body;
             msg = GameFacade.Emojis.EmojiToBB(msg);

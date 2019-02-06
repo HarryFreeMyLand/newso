@@ -17,36 +17,36 @@ namespace FSO.Client.UI.Panels
 {
     public class UIRelationshipDialog : UIDialog
     {
-        private UIImage InnerBackground;
-        private UIButton IncomingButton;
-        private UIButton OutgoingButton;
-        private UILabel SortLabel;
-        private UILabel SearchLabel;
-        private UITextBox SearchBox;
+        UIImage InnerBackground;
+        UIButton IncomingButton;
+        UIButton OutgoingButton;
+        UILabel SortLabel;
+        UILabel SearchLabel;
+        UITextBox SearchBox;
 
-        private UIButton SortFriendButton;
-        private UIButton SortEnemyButton;
-        private UIButton SortAlmostFriendButton;
-        private UIButton SortAlmostEnemyButton;
-        private UIButton SortRoommateButton;
+        UIButton SortFriendButton;
+        UIButton SortEnemyButton;
+        UIButton SortAlmostFriendButton;
+        UIButton SortAlmostEnemyButton;
+        UIButton SortRoommateButton;
 
-        private UISlider ResultsSlider;
-        private UIButton SliderUpButton;
-        private UIButton SliderDownButton;
+        UISlider ResultsSlider;
+        UIButton SliderUpButton;
+        UIButton SliderDownButton;
 
-        private UILabel FriendLabel;
-        private UILabel IncomingLabel;
+        UILabel FriendLabel;
+        UILabel IncomingLabel;
 
-        private UIListBox ResultsBox;
-        private UIPersonButton TargetIcon;
+        UIListBox ResultsBox;
+        UIPersonButton TargetIcon;
 
-        private HashSet<uint> Filter;
-        private HashSet<uint> Roommates;
-        private bool OutgoingMode = true;
-        private ImmutableList<Relationship> Rels;
-        private Func<Relationship, int> OrderFunction;
-        private string LastVal = "";
-        private string LastName = "";
+        HashSet<uint> Filter;
+        HashSet<uint> Roommates;
+        bool OutgoingMode = true;
+        ImmutableList<Relationship> Rels;
+        Func<Relationship, int> OrderFunction;
+        string LastVal = "";
+        string LastName = "";
 
         public UIRelationshipDialog()
             : base(UIDialogStyle.Standard | UIDialogStyle.Close, true)
@@ -225,12 +225,12 @@ namespace FSO.Client.UI.Panels
             SetOutgoing(true);
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             FindController<RelationshipDialogController>()?.Close();
         }
 
-        private void SearchBox_OnEnterPress(UIElement element)
+        void SearchBox_OnEnterPress(UIElement element)
         {
             if (SearchBox.CurrentText.Length < 2)
             {
@@ -253,17 +253,17 @@ namespace FSO.Client.UI.Panels
             TargetIcon.AvatarId = id;
         }
 
-        private void SetOutgoing(bool mode)
+        void SetOutgoing(bool mode)
         {
             IncomingButton.Visible = mode;
             OutgoingButton.Visible = !mode;
 
-            IncomingLabel.Caption = GameFacade.Strings.GetString("f106", ((mode)?"9":"8"));
+            IncomingLabel.Caption = GameFacade.Strings.GetString("f106", mode?"9":"8");
             OutgoingMode = mode;
             RedrawRels();
         }
 
-        private void ChangeOrderFunc(Func<Relationship, int> order)
+        void ChangeOrderFunc(Func<Relationship, int> order)
         {
             OrderFunction = order;
 
@@ -276,27 +276,27 @@ namespace FSO.Client.UI.Panels
             RedrawRels();
         }
 
-        private int OrderFriendly(Relationship rel)
+        int OrderFriendly(Relationship rel)
         {
             return -rel.Relationship_LTR;
         }
 
-        private int OrderEnemy(Relationship rel)
+        int OrderEnemy(Relationship rel)
         {
             return rel.Relationship_LTR;
         }
 
-        private int OrderAlmostFriendly(Relationship rel)
+        int OrderAlmostFriendly(Relationship rel)
         {
             return Math.Abs(60-rel.Relationship_LTR);
         }
 
-        private int OrderAlmostEnemy(Relationship rel)
+        int OrderAlmostEnemy(Relationship rel)
         {
             return Math.Abs((-60) - rel.Relationship_LTR);
         }
 
-        private int OrderRoommate(Relationship rel)
+        int OrderRoommate(Relationship rel)
         {
             return -rel.Relationship_LTR;
         }
@@ -340,8 +340,8 @@ namespace FSO.Client.UI.Panels
             {
                 items.Add(new UIListBoxItem(new { },
                     new UIRelationshipElement(rels[i], core),
-                    (i + 1 >= c) ? null : (new UIRelationshipElement(rels[i + 1], core)),
-                    (i + 2 >= c) ? null : (new UIRelationshipElement(rels[i + 2], core)))
+                    (i + 1 >= c) ? null : new UIRelationshipElement(rels[i + 1], core),
+                    (i + 2 >= c) ? null : new UIRelationshipElement(rels[i + 2], core))
                     );
             }
 
@@ -381,9 +381,9 @@ namespace FSO.Client.UI.Panels
 
     public class UIRelationshipElement : UIContainer, IDisposable
     {
-        private UIPersonButton Icon;
-        private Relationship Rel;
-        private Microsoft.Xna.Framework.Graphics.Texture2D Indicator;
+        UIPersonButton Icon;
+        Relationship Rel;
+        Microsoft.Xna.Framework.Graphics.Texture2D Indicator;
 
         public UIRelationshipElement(Relationship rel, object controller)
         {
@@ -404,7 +404,7 @@ namespace FSO.Client.UI.Panels
             Add(Icon);
         }
 
-        private void DrawRel(UISpriteBatch batch, int x, int y, int value)
+        void DrawRel(UISpriteBatch batch, int x, int y, int value)
         {
             double p = (value + 100) / 200.0;
             Color barcol = new Color((byte)(57 * (1 - p)), (byte)(213 * p + 97 * (1 - p)), (byte)(49 * p + 90 * (1 - p)));

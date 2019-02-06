@@ -18,7 +18,7 @@ namespace FSO.Client.UI.Panels.EODs
 {
     public abstract class UIAbstractRackEOD : UIEOD
     {
-        private string UIScriptPath;
+        string UIScriptPath;
         protected UIScript Script;
         protected RackType RackType { get; set; }
         protected UICollectionViewer OutfitBrowser;

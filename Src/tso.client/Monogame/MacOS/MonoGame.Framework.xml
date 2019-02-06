@@ -14803,7 +14803,7 @@
              </remarks>
              <example>
              <code>
-             private void InflateBuffer()
+             void InflateBuffer()
              {
                  int bufferSize = 1024;
                  byte[] buffer = new byte[bufferSize];
@@ -14977,7 +14977,7 @@
              </remarks>
              <example>
              <code>
-             private void DeflateBuffer(CompressionLevel level)
+             void DeflateBuffer(CompressionLevel level)
              {
                  int bufferSize = 1024;
                  byte[] buffer = new byte[bufferSize];
@@ -15485,7 +15485,7 @@
              <example>
              This example shows how to use a GZipStream to uncompress a file.
              <code>
-             private void GunZipFile(string filename)
+             void GunZipFile(string filename)
              {
                  if (!filename.EndsWith(".gz))
                      throw new ArgumentException("filename");

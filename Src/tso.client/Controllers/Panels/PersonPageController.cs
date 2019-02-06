@@ -20,15 +20,15 @@ namespace FSO.Client.Controllers
 {
     public class PersonPageController : IAriesMessageSubscriber, IDisposable
     {
-        private UIPersonPage View;
-        private IClientDataService DataService;
-        private Network.Network Network;
-        private uint AvatarId;
+        UIPersonPage View;
+        IClientDataService DataService;
+        Network.Network Network;
+        uint AvatarId;
 
-        private ITopicSubscription Topic;
+        ITopicSubscription Topic;
 
-        private GameThreadTimeout MyRelPollTimeout;
-        private bool MyRelDirty = true;
+        GameThreadTimeout MyRelPollTimeout;
+        bool MyRelDirty = true;
 
         public PersonPageController(UIPersonPage view, IClientDataService dataService, Network.Network network)
         {
@@ -113,14 +113,14 @@ namespace FSO.Client.Controllers
 
         public void RemoveAdmitBan(Lot target, uint target_avatar, bool ban)
         {
-            var mode = (ban) ? "Ban" : "Admit";
+            var mode = ban ? "Ban" : "Admit";
             DataService.RemoveFromArray(target, "Lot_LotAdmitInfo.LotAdmitInfo_"+mode+"List", target_avatar);
             DataService.Request(MaskedStruct.AdmitInfo_Lot, target.Id);
         }
 
         public void AddAdmitBan(Lot target, uint target_avatar, bool ban)
         {
-            var mode = (ban) ? "Ban" : "Admit";
+            var mode = ban ? "Ban" : "Admit";
             DataService.AddToArray(target, "Lot_LotAdmitInfo.LotAdmitInfo_" + mode + "List", target_avatar);
             DataService.Request(MaskedStruct.AdmitInfo_Lot, target.Id);
         }

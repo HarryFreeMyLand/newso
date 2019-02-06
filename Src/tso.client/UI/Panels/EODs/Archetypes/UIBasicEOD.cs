@@ -9,7 +9,7 @@ namespace FSO.Client.UI.Panels.EODs.Archetypes
 {
     public abstract class UIBasicEOD : UIEOD
     {
-        private string UIScriptPath;
+        string UIScriptPath;
 
         protected string EODName;
         protected UIScript Script;

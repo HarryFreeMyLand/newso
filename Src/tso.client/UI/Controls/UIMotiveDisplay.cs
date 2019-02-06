@@ -26,14 +26,14 @@ namespace FSO.Client.UI.Controls
     {
         public short[] MotiveValues;
         public string[] MotiveNames;
-        private Texture2D Filler;
+        Texture2D Filler;
 
-        private int[] OldMotives = new int[8];
-        private Queue<int>[] ChangeBuffer = new Queue<int>[8];
-        private int[] ArrowStates = new int[8];
-        private int[] TargetArrowStates = new int[8];
-        private bool FirstFrame = true;
-        private TextStyle MotiveStyle;
+        int[] OldMotives = new int[8];
+        Queue<int>[] ChangeBuffer = new Queue<int>[8];
+        int[] ArrowStates = new int[8];
+        int[] TargetArrowStates = new int[8];
+        bool FirstFrame = true;
+        TextStyle MotiveStyle;
 
         public UIMotiveDisplay()
         {
@@ -52,12 +52,12 @@ namespace FSO.Client.UI.Controls
             MotiveStyle.Color = Color.White;
         }
 
-        private void DrawMotive(UISpriteBatch batch, int x, int y, int motive, bool inDynamic)
+        void DrawMotive(UISpriteBatch batch, int x, int y, int motive, bool inDynamic)
         {
             if (inDynamic)
             {
                 var mdat = MotiveValues[motive] + 100;
-                double p = Math.Min(1, (mdat) / 200.0);
+                double p = Math.Min(1, mdat / 200.0);
                 Color barcol = new Color((byte)(57 * (1 - p)), (byte)(213 * p + 97 * (1 - p)), (byte)(49 * p + 90 * (1 - p)));
                 Color bgcol = new Color((byte)(57 * p + 214 * (1 - p)), (byte)(97 * p), (byte)(90 * p));
 
@@ -102,7 +102,7 @@ namespace FSO.Client.UI.Controls
             }
         }
 
-        private bool UpdateFlip;
+        bool UpdateFlip;
         public override void Update(UpdateState state)
         {
             UpdateFlip = !UpdateFlip;

@@ -17,15 +17,15 @@ namespace FSO.Client.Controllers
 {
     public class GizmoTop100Controller
     {
-        private UIGizmoTop100 View;
-        private IDatabaseService DatabaseService;
-        private IClientDataService DataService;
-        private Top100Category Category;
-        private ITop100Domain Domain;
-        private Content.GameContent Content;
+        UIGizmoTop100 View;
+        IDatabaseService DatabaseService;
+        IClientDataService DataService;
+        Top100Category Category;
+        ITop100Domain Domain;
+        Content.GameContent Content;
 
-        private Top100Category LastLotCategory = Top100Category.lot_money;
-        private Top100Category LastAvatarCategory = Top100Category.avatar_most_famous;
+        Top100Category LastLotCategory = Top100Category.lot_money;
+        Top100Category LastAvatarCategory = Top100Category.avatar_most_famous;
 
         public GizmoTop100Controller(UIGizmoTop100 view, IDatabaseService databaseService, IClientDataService dataService, ITop100Domain top100, Content.GameContent content)
         {
@@ -127,7 +127,7 @@ namespace FSO.Client.Controllers
         /// </summary>
         /// <param name="category"></param>
         /// <returns></returns>
-        private ITextureRef GetCategoryIcon(Top100Category category)
+        ITextureRef GetCategoryIcon(Top100Category category)
         {
             switch (category)
             {

@@ -32,15 +32,15 @@ namespace FSO.Client.UI.Panels.LotControls
         World World;
         UILotControl Parent;
 
-        private bool Drawing;
-        private Point StartPosition;
+        bool Drawing;
+        Point StartPosition;
 
-        private short StartTerrainHeight;
-        private int StartMousePosition;
-        private Point EndMousePosition;
+        short StartTerrainHeight;
+        int StartMousePosition;
+        Point EndMousePosition;
 
-        private VMArchitectureCommand LastCmd;
-        private bool WasDown;
+        VMArchitectureCommand LastCmd;
+        bool WasDown;
 
         public UITerrainRaiser(VM vm, World world, UILotControl parent, List<int> parameters)
         {
@@ -87,10 +87,10 @@ namespace FSO.Client.UI.Panels.LotControls
                 var cmds = new List<VMArchitectureCommand>();
 
                 var mpos = (int)(state.MouseState.Y - World.State.WorldSpace.GetScreenOffset().Y);
-                var mod = ((StartMousePosition - mpos)*10) / (15 / (1 << (3 - (int)World.State.Zoom)));
+                var mod = (StartMousePosition - mpos)*10 / (15 / (1 << (3 - (int)World.State.Zoom)));
                 if (!state.ShiftDown) mod = (int)Math.Round(mod / 10f) * 10;
 
-                if (mod != 0 || (state.CtrlDown))
+                if (mod != 0 || state.CtrlDown)
                 {
                     var newHeight = StartTerrainHeight + mod;
 
@@ -100,7 +100,7 @@ namespace FSO.Client.UI.Panels.LotControls
                         x = StartPosition.X,
                         y = StartPosition.Y,
                         style = (ushort)newHeight,
-                        pattern = (ushort)((state.CtrlDown)?1:0)
+                        pattern = (ushort)(state.CtrlDown?1:0)
                     });
 
                 }
@@ -131,7 +131,7 @@ namespace FSO.Client.UI.Panels.LotControls
             {
                 cursor = StartPosition;
                 var mpos = (int)(state.MouseState.Y - World.State.WorldSpace.GetScreenOffset().Y);
-                mod = ((StartMousePosition - mpos)*10) / (15 / (1 << (3 - (int)World.State.Zoom)));
+                mod = (StartMousePosition - mpos)*10 / (15 / (1 << (3 - (int)World.State.Zoom)));
                 if (!state.ShiftDown) mod = (int)Math.Round(mod / 10f) * 10;
                 var newHeight = StartTerrainHeight + mod;
 
@@ -141,7 +141,7 @@ namespace FSO.Client.UI.Panels.LotControls
                     x = StartPosition.X,
                     y = StartPosition.Y,
                     style = (ushort)newHeight,
-                    pattern = (ushort)((state.CtrlDown) ? 1 : 0)
+                    pattern = (ushort)(state.CtrlDown ? 1 : 0)
                 });
             }
 
@@ -208,7 +208,7 @@ namespace FSO.Client.UI.Panels.LotControls
             else SetCursorGraphic(0);
         }
 
-        private void ShowErrorAtMouse(UpdateState state, VMPlacementError error, Point pos)
+        void ShowErrorAtMouse(UpdateState state, VMPlacementError error, Point pos)
         {
             state.UIState.TooltipProperties.Show = true;
             state.UIState.TooltipProperties.Color = Color.Black;

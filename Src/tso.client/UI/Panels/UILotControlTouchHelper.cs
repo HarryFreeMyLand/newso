@@ -29,26 +29,26 @@ namespace FSO.Client.UI.Panels
 
     public class UILotControlTouchHelper : UIElement
     {
-        private ITouchable Master;
+        ITouchable Master;
         public HashSet<int> MiceDown = new HashSet<int>();
-        private int UpdatesSinceDraw;
-        private Vector2 ScrollVelocity;
-        private Vector2 LastValidScrollVelocity;
-        private int MiceDownTimer;
-        private Point TapPoint;
-        private const int TAP_TIMER = 8; //current time for a tap to register is a third of a second. if
-        private const int TAP_POINT_DIST = 30; //current px distance for a tap to move to become a scroll. TODO: dpi scale?
-        private List<Vector2> ScrollVelocityHistory = new List<Vector2>();
+        int UpdatesSinceDraw;
+        Vector2 ScrollVelocity;
+        Vector2 LastValidScrollVelocity;
+        int MiceDownTimer;
+        Point TapPoint;
+        const int TAP_TIMER = 8; //current time for a tap to register is a third of a second. if
+        const int TAP_POINT_DIST = 30; //current px distance for a tap to move to become a scroll. TODO: dpi scale?
+        List<Vector2> ScrollVelocityHistory = new List<Vector2>();
 
-        private int Mode = -1; //-1: none, 0: touch, 1: scroll, 2: zoomscroll, 3: touched
+        int Mode = -1; //-1: none, 0: touch, 1: scroll, 2: zoomscroll, 3: touched
         //you can't revert back to touch after activating it
-        private Vector2 BaseVector;
-        private float StartScale;
-        private float RotateAngle;
+        Vector2 BaseVector;
+        float StartScale;
+        float RotateAngle;
         //for 3D rotate
-        private float? LastAngleX;
+        float? LastAngleX;
 
-        private float[] SnapZooms =
+        float[] SnapZooms =
         {
             0.25f,
             0.5f,
@@ -60,7 +60,7 @@ namespace FSO.Client.UI.Panels
             Master = master;
         }
 
-        private Point GetScaledPoint(Point TapPoint)
+        Point GetScaledPoint(Point TapPoint)
         {
             var screenMiddle = new Point(
                 (int)(GameFacade.Screens.CurrentUIScreen.ScreenWidth / (2 / FSOEnvironment.DPIScaleFactor)),
@@ -69,9 +69,9 @@ namespace FSO.Client.UI.Panels
             return ((TapPoint - screenMiddle).ToVector2() / Master.BBScale).ToPoint() + screenMiddle;
         }
 
-        private int LastMouseWheel;
-        private bool ScrollWheelInvalid = true;
-        private int ZoomFreezeTime;
+        int LastMouseWheel;
+        bool ScrollWheelInvalid = true;
+        int ZoomFreezeTime;
 
         public float MinZoom = FSOEnvironment.Enable3D?-0.75f: 0.25f;
         public float MaxZoom = 2f;
@@ -102,7 +102,7 @@ namespace FSO.Client.UI.Panels
                     LastMouseWheel = state.MouseState.ScrollWheelValue;
                     Master.TargetZoom = Math.Max(MinZoom, Math.Min(Master.TargetZoom, MaxZoom));
                     Master.UserModZoom = true;
-                    ZoomFreezeTime = (10 * FSOEnvironment.RefreshRate) / 60;
+                    ZoomFreezeTime = 10 * FSOEnvironment.RefreshRate / 60;
                 }
             }
 
@@ -151,7 +151,7 @@ namespace FSO.Client.UI.Panels
                         if (_3d) LastAngleX = null;
 
                         //scroll anchor should change to center of two touches without drastically changing scroll
-                        TapPoint = (new Point(m2.MouseState.X / 2, m2.MouseState.Y / 2) + new Point(m1.MouseState.X / 2, m1.MouseState.Y / 2));
+                        TapPoint = new Point(m2.MouseState.X / 2, m2.MouseState.Y / 2) + new Point(m1.MouseState.X / 2, m1.MouseState.Y / 2);
 
                         Mode = 2;
                     }
@@ -168,7 +168,7 @@ namespace FSO.Client.UI.Panels
                             else
                             {
                                 var mouse = state.MouseStates.FirstOrDefault(x => x.ID == MiceDown.First());
-                                var time = FSOEnvironment.SoftwareKeyboard ? ((TAP_TIMER * FSOEnvironment.RefreshRate) / 60) : 0;
+                                var time = FSOEnvironment.SoftwareKeyboard ? (TAP_TIMER * FSOEnvironment.RefreshRate / 60) : 0;
                                 if ((TapPoint - new Point(mouse.MouseState.X, mouse.MouseState.Y)).ToVector2().Length() > TAP_POINT_DIST)
                                 {
                                     Mode = 1; //become a scroll
@@ -219,11 +219,11 @@ namespace FSO.Client.UI.Panels
                         var m1 = state.MouseStates.FirstOrDefault(x => x.ID == MiceDown.ElementAt(0));
                         var m2 = state.MouseStates.FirstOrDefault(x => x.ID == MiceDown.ElementAt(1));
                         var vector = (new Point(m2.MouseState.X, m2.MouseState.Y) - new Point(m1.MouseState.X, m1.MouseState.Y)).ToVector2();
-                        var newTap = (new Point(m2.MouseState.X / 2, m2.MouseState.Y / 2) + new Point(m1.MouseState.X / 2, m1.MouseState.Y / 2));
+                        var newTap = new Point(m2.MouseState.X / 2, m2.MouseState.Y / 2) + new Point(m1.MouseState.X / 2, m1.MouseState.Y / 2);
                         ScrollVelocity = (newTap - TapPoint).ToVector2();
                         TapPoint = newTap;
 
-                        Master.TargetZoom = (vector.Length() / BaseVector.Length()) * StartScale;
+                        Master.TargetZoom = vector.Length() / BaseVector.Length() * StartScale;
                         Master.UserModZoom = true;
 
                         //clockwise if dot product b against a rotated 90 degrees clockwise is positive
@@ -232,7 +232,7 @@ namespace FSO.Client.UI.Panels
                         a.Normalize(); b.Normalize();
                         var clockwise = ((-a.Y) * b.X + a.X * b.Y) > 0;
                         var angle = (float)Math.Acos(Vector2.Dot(a, b));
-                        RotateAngle = (clockwise) ? angle : -angle;
+                        RotateAngle = clockwise ? angle : -angle;
 
                         if (_3d)
                         {
@@ -262,7 +262,7 @@ namespace FSO.Client.UI.Panels
                 if (Math.Abs(RotateAngle) > Math.PI / 4)
                 {
                     //confirmed
-                    var screen = ((IGameScreen)GameFacade.Screens.CurrentUIScreen);
+                    var screen = (IGameScreen)GameFacade.Screens.CurrentUIScreen;
                     if (RotateAngle > 0)
                     {
                         screen.Rotation = (screen.Rotation + 1) % 4;

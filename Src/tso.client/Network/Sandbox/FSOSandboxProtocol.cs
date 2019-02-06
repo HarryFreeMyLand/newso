@@ -10,7 +10,7 @@ namespace FSO.Client.Network.Sandbox
 {
     public class FSOSandboxProtocol : IProtocolCodecFactory
     {
-        private IProtocolDecoder _Decoder;
+        IProtocolDecoder _Decoder;
 
         public IProtocolDecoder GetDecoder(IoSession session)
         {
@@ -21,7 +21,7 @@ namespace FSO.Client.Network.Sandbox
             return _Decoder;
         }
 
-        private IProtocolEncoder _Encoder;
+        IProtocolEncoder _Encoder;
 
         public IProtocolEncoder GetEncoder(IoSession session)
         {

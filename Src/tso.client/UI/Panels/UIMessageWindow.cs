@@ -57,13 +57,13 @@ namespace FSO.Client.UI.Panels
 
         public UILabel SimNameText { get; set; }
 
-        private UIImage TypeBackground;
-        private UIImage Background;
-        private UIImage BtnBackground;
+        UIImage TypeBackground;
+        UIImage Background;
+        UIImage BtnBackground;
         public List<IMEntry> Messages;
         public MessageType MessageType;
 
-        private UIPersonButton PersonButton;
+        UIPersonButton PersonButton;
         public Binding<UserReference> User;
         public Binding<UserReference> MyUser;
 
@@ -153,14 +153,14 @@ namespace FSO.Client.UI.Panels
             this.AddUpdateHook(ChatOpacityChangedListener);
         }
 
-        private void ChatOpacityChangedListener(UpdateState state)
+        void ChatOpacityChangedListener(UpdateState state)
         {
             if (this.Opacity == GlobalSettings.Default.ChatWindowsOpacity) return;
 
             FindController<MessagingWindowController>().UpdateOpacity();
         }
 
-        private void MinimizeButton_OnButtonClick(UIElement button)
+        void MinimizeButton_OnButtonClick(UIElement button)
         {
             FindController<MessagingWindowController>().Hide();
         }
@@ -168,12 +168,12 @@ namespace FSO.Client.UI.Panels
         /// <summary>
         /// User closed the UIMessage window.
         /// </summary>
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             FindController<MessagingWindowController>().Close();
         }
 
-        private void SendMessageEnter(UIElement element)
+        void SendMessageEnter(UIElement element)
         {
             //remove newline first
             if (MessageType != Controllers.MessageType.Call || MessageTextEdit.EventSuppressed) return; //cannot send on enter for letters (or during read mode :|)
@@ -181,7 +181,7 @@ namespace FSO.Client.UI.Panels
             SendMessage(this);
         }
 
-        private void RespondLetterButton_OnButtonClick(UIElement button)
+        void RespondLetterButton_OnButtonClick(UIElement button)
         {
             if (User.Value?.Type != Common.Enum.UserReferenceType.AVATAR) return;
             FindController<CoreGameScreenController>().WriteEmail(User.Value.Id, ClipString("RE: "+LetterSubjectTextEdit.CurrentText, 128));
@@ -190,13 +190,13 @@ namespace FSO.Client.UI.Panels
             SetType(Controllers.MessageType.WriteLetter);*/
         }
 
-        private string ClipString(string str, int length)
+        string ClipString(string str, int length)
         {
             if (str.Length > length) return str.Substring(0, length);
             else return str;
         }
 
-        private void SendMessage(UIElement button)
+        void SendMessage(UIElement button)
         {
             if (MessageType != MessageType.Call) { return; }
             SendMessageButton.Disabled = true;
@@ -210,7 +210,7 @@ namespace FSO.Client.UI.Panels
             FindController<MessagingWindowController>().SendIM(msg);
         }
 
-        private void SendLetter(UIElement button)
+        void SendLetter(UIElement button)
         {
             var msg = new MessageItem
             {
@@ -222,10 +222,10 @@ namespace FSO.Client.UI.Panels
             FindController<MessagingWindowController>().SendLetter(msg);
         }
 
-        private void MessageTextEdit_OnChange(UIElement TextEdit)
+        void MessageTextEdit_OnChange(UIElement TextEdit)
         {
             UITextEdit edit = (UITextEdit)TextEdit;
-            SendMessageButton.Disabled = (edit.CurrentText.Length == 0);
+            SendMessageButton.Disabled = edit.CurrentText.Length == 0;
         }
 
         public void AddMessage(UserReference user, string message, uint color, IMEntryType type)
@@ -270,8 +270,8 @@ namespace FSO.Client.UI.Panels
 
         public void SetType(MessageType type)
         {
-            bool showMess = (type == Controllers.MessageType.Call);
-            bool showLetter = (type == Controllers.MessageType.ReadLetter|| type == Controllers.MessageType.WriteLetter);
+            bool showMess = type == Controllers.MessageType.Call;
+            bool showLetter = type == Controllers.MessageType.ReadLetter|| type == Controllers.MessageType.WriteLetter;
 
             MessageTextEdit.Visible = showMess;
             MessageScrollDownButton.Visible = showMess;
@@ -281,7 +281,7 @@ namespace FSO.Client.UI.Panels
             HistorySlider.Visible = showMess;
             HistoryScrollUpButton.Visible = showMess;
             HistoryScrollDownButton.Visible = showMess;
-            SendMessageButton.Visible = (type == Controllers.MessageType.Call);
+            SendMessageButton.Visible = type == Controllers.MessageType.Call;
 
             LetterSubjectTextEdit.Visible = showLetter;
             LetterTextEdit.Visible = showLetter;
@@ -289,15 +289,15 @@ namespace FSO.Client.UI.Panels
             LetterScrollUpButton.Visible = showLetter;
             LetterScrollDownButton.Visible = showLetter;
 
-            SendLetterButton.Visible = (type == Controllers.MessageType.WriteLetter);
-            RespondLetterButton.Visible = (type == Controllers.MessageType.ReadLetter);
-            RespondLetterButton.Disabled = (User.Value?.Type != Common.Enum.UserReferenceType.AVATAR);
+            SendLetterButton.Visible = type == Controllers.MessageType.WriteLetter;
+            RespondLetterButton.Visible = type == Controllers.MessageType.ReadLetter;
+            RespondLetterButton.Disabled = User.Value?.Type != Common.Enum.UserReferenceType.AVATAR;
 
             TypeBackground.Texture = (type == Controllers.MessageType.Call) ? backgroundMessageImage : (type == Controllers.MessageType.ReadLetter) ? backgroundLetterReadImage : backgroundLetterComposeImage;
 
             LetterSubjectTextEdit.Mode = (type == Controllers.MessageType.ReadLetter) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
             LetterTextEdit.Mode = (type == Controllers.MessageType.ReadLetter) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
-            LetterTextEdit.BBCodeEnabled = (type == Controllers.MessageType.ReadLetter);
+            LetterTextEdit.BBCodeEnabled = type == Controllers.MessageType.ReadLetter;
 
             if (type == Controllers.MessageType.WriteLetter)
             {
@@ -346,9 +346,9 @@ namespace FSO.Client.UI.Panels
         public UIMessageType type;
         public bool Shown;
         public string name;
-        private UIMessageController parent;
-        private int Ticks;
-        private bool Alert;
+        UIMessageController parent;
+        int Ticks;
+        bool Alert;
 
         public UIMessageGroup(UIMessageType type, MessageAuthor author, UIMessageController parent)
         {

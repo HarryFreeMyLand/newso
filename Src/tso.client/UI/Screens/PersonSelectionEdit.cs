@@ -35,14 +35,14 @@ namespace FSO.Client.UI.Screens
         /// At least 3 characters
         /// No more than 24 characters
         /// </summary>
-        private static Regex NAME_VALIDATION = new Regex("^([a-zA-Z]){1}([a-zA-Z ]){2,23}$");
+        static Regex NAME_VALIDATION = new Regex("^([a-zA-Z]){1}([a-zA-Z ]){2,23}$");
 
         /// <summary>
         /// Only printable ascii characters
         /// Minimum 0 characters
         /// Maximum 499 characters
         /// </summary>
-        private static Regex DESC_VALIDATION = new Regex("^([a-zA-Z0-9\\s\\x20-\\x7F]){0,499}$");
+        static Regex DESC_VALIDATION = new Regex("^([a-zA-Z0-9\\s\\x20-\\x7F]){0,499}$");
 
         /** UI created by script **/
         public Texture2D BackgroundImage { get; set; }
@@ -60,20 +60,20 @@ namespace FSO.Client.UI.Screens
         public UIButton DescriptionScrollUpButton { get; set; }
         public UIButton DescriptionScrollDownButton { get; set; }
         public UISlider DescriptionSlider { get; set; }
-        private UIButton m_ExitButton;
+        UIButton m_ExitButton;
 
-        private UICollectionViewer m_HeadSkinBrowser;
-        private UICollectionViewer m_BodySkinBrowser;
+        UICollectionViewer m_HeadSkinBrowser;
+        UICollectionViewer m_BodySkinBrowser;
         
         /** Data **/
-        private Collection MaleHeads;
-        private Collection MaleOutfits;
-        private Collection FemaleHeads;
-        private Collection FemaleOutfits;
+        Collection MaleHeads;
+        Collection MaleOutfits;
+        Collection FemaleHeads;
+        Collection FemaleOutfits;
 
         /** State **/
         public AppearanceType AppearanceType { get; internal set; } = AppearanceType.Light;
-        private UIButton SelectedAppearanceButton;
+        UIButton SelectedAppearanceButton;
         public Gender Gender { get; internal set; } = Gender.Female;
         
         public UISim SimBox;
@@ -218,7 +218,7 @@ namespace FSO.Client.UI.Screens
             });
         }
 
-        private UIImage Background;
+        UIImage Background;
         public override void GameResized()
         {
             base.GameResized();
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Screens
 
 
 
-        private UIAlert _ProgressAlert;
+        UIAlert _ProgressAlert;
 
         public void ShowCreationProgressBar(bool show)
         {
@@ -292,12 +292,12 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void m_ExitButton_OnButtonClick(UIElement button)
+        void m_ExitButton_OnButtonClick(UIElement button)
         {
             GameFacade.Kill();
         }
 
-        private void CancelButton_OnButtonClick(UIElement button)
+        void CancelButton_OnButtonClick(UIElement button)
         {
             var control = FindController<PersonSelectionEditController>();
             if (control != null) control.Cancel();
@@ -307,7 +307,7 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void AcceptButton_OnButtonClick(UIElement button)
+        void AcceptButton_OnButtonClick(UIElement button)
         {
             var control = FindController<PersonSelectionEditController>();
             if (control != null) control.Create();
@@ -321,7 +321,7 @@ namespace FSO.Client.UI.Screens
                 GlobalSettings.Default.DebugBody = bodyPurchasable.OutfitID;
                 GlobalSettings.Default.DebugHead = headPurchasable.OutfitID;
                 GlobalSettings.Default.LastUser = NameTextEdit.CurrentText;
-                GlobalSettings.Default.DebugGender = (Gender == Gender.Male);
+                GlobalSettings.Default.DebugGender = Gender == Gender.Male;
                 GlobalSettings.Default.DebugSkin = (int)AppearanceType;
 
                 GlobalSettings.Default.Save();
@@ -330,17 +330,17 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void HeadSkinBrowser_OnChange(UIElement element)
+        void HeadSkinBrowser_OnChange(UIElement element)
         {
             RefreshSim();
         }
 
-        private void BodySkinBrowser_OnChange(UIElement element)
+        void BodySkinBrowser_OnChange(UIElement element)
         {
             RefreshSim();
         }
 
-        private void RefreshSim()
+        void RefreshSim()
         {
             if(m_HeadSkinBrowser.SelectedItem == null || m_BodySkinBrowser.SelectedItem == null){
                 return;
@@ -360,17 +360,17 @@ namespace FSO.Client.UI.Screens
             SimBox.Avatar.Handgroup = bodyOutfit;
         }
 
-        private void NameTextEdit_OnChange(UIElement element)
+        void NameTextEdit_OnChange(UIElement element)
         {
             UpdateAcceptButtonState();
         }
 
-        private void DescriptionTextEdit_OnChange(UIElement element)
+        void DescriptionTextEdit_OnChange(UIElement element)
         {
             UpdateAcceptButtonState();
         }
 
-        private void UpdateAcceptButtonState()
+        void UpdateAcceptButtonState()
         {
             var enabled = true;
             if (!NAME_VALIDATION.IsMatch(NameTextEdit.CurrentText))
@@ -386,7 +386,7 @@ namespace FSO.Client.UI.Screens
             AcceptButton.Disabled = !enabled;
         }
 
-        private void GenderButton_OnButtonClick(UIElement button)
+        void GenderButton_OnButtonClick(UIElement button)
         {
             if (button == MaleButton)
             {
@@ -403,7 +403,7 @@ namespace FSO.Client.UI.Screens
             RefreshCollections();
         }
 
-        private void RefreshCollections()
+        void RefreshCollections()
         {
             var oldHeadIndex = m_HeadSkinBrowser.SelectedIndex;
             var oldBodyIndex = m_BodySkinBrowser.SelectedIndex;
@@ -429,13 +429,13 @@ namespace FSO.Client.UI.Screens
             RefreshSim();
         }
 
-        private void SearchCollectionForInitID(ulong headID, ulong bodyID)
+        void SearchCollectionForInitID(ulong headID, ulong bodyID)
         {
             var purchs = Content.GameContent.Get.AvatarPurchasables;
 
             int index = m_BodySkinBrowser.DataProvider.FindIndex(x =>
                 purchs.Get(
-                ((CollectionItem)(((UIGridViewerItem)x).Data)).PurchasableOutfitId
+                ((CollectionItem)((UIGridViewerItem)x).Data).PurchasableOutfitId
                 ).OutfitID == bodyID
             );
 
@@ -444,7 +444,7 @@ namespace FSO.Client.UI.Screens
 
             index = m_HeadSkinBrowser.DataProvider.FindIndex(x =>
                 purchs.Get(
-                ((CollectionItem)(((UIGridViewerItem)x).Data)).PurchasableOutfitId
+                ((CollectionItem)((UIGridViewerItem)x).Data).PurchasableOutfitId
                 ).OutfitID == headID
             );
 
@@ -454,7 +454,7 @@ namespace FSO.Client.UI.Screens
             RefreshSim();
         }
         
-        private List<object> CollectionToDataProvider(Collection collection)
+        List<object> CollectionToDataProvider(Collection collection)
         {
             var dataProvider = new List<object>();
             foreach (var outfit in collection)
@@ -472,7 +472,7 @@ namespace FSO.Client.UI.Screens
             return dataProvider;
         }
 
-        private void SkinButton_OnButtonClick(UIElement button)
+        void SkinButton_OnButtonClick(UIElement button)
         {
             SelectedAppearanceButton.Selected = false;
             SelectedAppearanceButton = (UIButton)button;

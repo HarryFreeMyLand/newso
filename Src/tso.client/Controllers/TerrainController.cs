@@ -26,17 +26,17 @@ namespace FSO.Client.Controllers
 {
     public class TerrainController : IDisposable
     {
-        private CoreGameScreenController Parent;
-        private Terrain View;
-        private IClientDataService DataService;
-        private IShardRealestateDomain Realestate;
-        private PurchaseLotRegulator PurchaseRegulator;
-        private LotThumbContent LotThumbs;
+        CoreGameScreenController Parent;
+        Terrain View;
+        IClientDataService DataService;
+        IShardRealestateDomain Realestate;
+        PurchaseLotRegulator PurchaseRegulator;
+        LotThumbContent LotThumbs;
 
-        private Binding<Lot> CurrentHoverLot;
-        private Binding<City> CurrentCity;
-        private GameThreadTimeout HoverTimeout;
-        private Network.Network Network;
+        Binding<Lot> CurrentHoverLot;
+        Binding<City> CurrentCity;
+        GameThreadTimeout HoverTimeout;
+        Network.Network Network;
 
         public TerrainController(CoreGameScreenController parent, IClientDataService ds, Network.Network network, IRealestateDomain domain, PurchaseLotRegulator purchaseRegulator)
         {
@@ -58,7 +58,7 @@ namespace FSO.Client.Controllers
             LotThumbs = new LotThumbContent();
         }
 
-        private void PurchaseRegulator_OnPurchased(int newBudget)
+        void PurchaseRegulator_OnPurchased(int newBudget)
         {
             Parent.Screen.VisualBudget = (uint)newBudget;
         }
@@ -81,7 +81,7 @@ namespace FSO.Client.Controllers
             CurrentHoverLot.Value = null;
         }
 
-        private void RefreshTooltip(BindingChange[] changes)
+        void RefreshTooltip(BindingChange[] changes)
         {
             //Called if price, online or name change
             GameThread.NextUpdate((state) =>
@@ -112,7 +112,7 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private void RefreshCity(BindingChange[] changes)
+        void RefreshCity(BindingChange[] changes)
         {
             if (CurrentCity.Value != null)
             {
@@ -158,7 +158,7 @@ namespace FSO.Client.Controllers
             return Realestate.IsPurchasable((ushort)x, (ushort)y);
         }
 
-        private bool IsTileOccupied(int x, int y)
+        bool IsTileOccupied(int x, int y)
         {
             return View.LotTileLookup.ContainsKey(new Vector2(x, y));
         }
@@ -253,10 +253,10 @@ namespace FSO.Client.Controllers
             });            
         }
 
-        private UIAlert _LotBuyAlert;
-        private Lot _BuyLot;
+        UIAlert _LotBuyAlert;
+        Lot _BuyLot;
 
-        private void ShowLotBuyDialog(Lot lot)
+        void ShowLotBuyDialog(Lot lot)
         {
             GameThread.InUpdate(() =>
             {
@@ -371,7 +371,7 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private void ShowNormalLotBuy(string price, string ourCash)
+        void ShowNormalLotBuy(string price, string ourCash)
         {
             var AlertOptions = new UIAlertOptions
             {
@@ -385,9 +385,9 @@ namespace FSO.Client.Controllers
             _LotBuyAlert = UIScreen.GlobalShowAlert(AlertOptions, true);
         }
 
-        private UILotPurchaseDialog _LotBuyName;
+        UILotPurchaseDialog _LotBuyName;
 
-        private void BuyPropertyAlert_OnButtonClick(UIElement button) {
+        void BuyPropertyAlert_OnButtonClick(UIElement button) {
             if (_LotBuyAlert != null)
             {
                 UIScreen.RemoveDialog(_LotBuyAlert);
@@ -403,7 +403,7 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private void BuyPropertyAlert_OnCancel(UIElement button)
+        void BuyPropertyAlert_OnCancel(UIElement button)
         {
             UIScreen.RemoveDialog(_LotBuyAlert);
             _LotBuyAlert = null;
@@ -437,7 +437,7 @@ namespace FSO.Client.Controllers
         }
 
 
-        private void PurchaseRegulator_OnError(object data)
+        void PurchaseRegulator_OnError(object data)
         {
             GameThread.NextUpdate(x =>
             {
@@ -478,7 +478,7 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private void PurchaseRegulator_OnTransition(string state, object data)
+        void PurchaseRegulator_OnTransition(string state, object data)
         {
             GameThread.InUpdate(() =>
             {
@@ -490,7 +490,7 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private UIAlert _ProgressAlert;
+        UIAlert _ProgressAlert;
 
         public void ShowCreationProgressBar(bool show)
         {

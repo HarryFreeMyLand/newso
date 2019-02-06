@@ -21,7 +21,7 @@ namespace FSO.Client.UI.Panels
 {
     public class UIMessageTray : UIContainer
     {
-        private List<UIMessageIcon> _Items = new List<UIMessageIcon>();
+        List<UIMessageIcon> _Items = new List<UIMessageIcon>();
 
         public UIMessageTray()
         {
@@ -57,13 +57,13 @@ namespace FSO.Client.UI.Panels
         public Texture2D MOMIIconImage { get; set; }
         public Texture2D TSOIconImage { get; set; }
         
-        private UIMessageIconThumbnail AvatarThumbnail;
-        private Binding<UserReference> User;
+        UIMessageIconThumbnail AvatarThumbnail;
+        Binding<UserReference> User;
 
-        private UITooltipHandler m_TooltipHandler;
-        private Message Message;
+        UITooltipHandler m_TooltipHandler;
+        Message Message;
 
-        private uint Tick;
+        uint Tick;
 
         public UIMessageIcon(Message message)
         {
@@ -99,18 +99,18 @@ namespace FSO.Client.UI.Panels
             if (Tick++ >= 60) Tick -= 60;
         }
 
-        private void Button_OnButtonClick(UIElement button)
+        void Button_OnButtonClick(UIElement button)
         {
             FindController<MessagingController>().ToggleWindow(this.Message);
         }
 
-        private ITextureRef _Icon;
+        ITextureRef _Icon;
         public ITextureRef Icon {
             get { return _Icon; }
             set { _Icon = value; AvatarThumbnail.Texture = _Icon; }
         }
 
-        private ulong _AvatarAppearance_HeadOutfitID;
+        ulong _AvatarAppearance_HeadOutfitID;
         public ulong AvatarAppearance_HeadOutfitID
         {
             get { return _AvatarAppearance_HeadOutfitID; }
@@ -134,7 +134,7 @@ namespace FSO.Client.UI.Panels
 
         public UIButton Button;
 
-        private Texture2D _FrameTexture;
+        Texture2D _FrameTexture;
         public Texture2D FrameTexture
         {
             get { return _FrameTexture; }
@@ -144,7 +144,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private ITextureRef _Texture;
+        ITextureRef _Texture;
         public ITextureRef Texture
         {
             get { return _Texture; }
@@ -154,7 +154,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private Vector2 _FrameSize;
+        Vector2 _FrameSize;
         [UI("frameSize")]
         public Vector2 FrameSize
         {
@@ -162,7 +162,7 @@ namespace FSO.Client.UI.Panels
             set { _FrameSize = value; }
         }
 
-        private Vector2 _ThumbSize;
+        Vector2 _ThumbSize;
         [UI("thumbSize")]
         public Vector2 ThumbSize
         {
@@ -170,7 +170,7 @@ namespace FSO.Client.UI.Panels
             set { _ThumbSize = value; }
         }
 
-        private Vector2 _Offset;
+        Vector2 _Offset;
         [UI("offset")]
         public Vector2 Offset
         {

@@ -30,12 +30,12 @@ namespace FSO.Client.UI.Screens
 {
     public class LoadingScreen : GameScreen
     {
-        private UISetupBackground Background;
-        private UILabel ProgressLabel1;
-        private UILabel ProgressLabel2;
+        UISetupBackground Background;
+        UILabel ProgressLabel1;
+        UILabel ProgressLabel2;
 
-        private GameThreadInterval CheckProgressTimer;
-        private bool PlayedLoadLoop = false;
+        GameThreadInterval CheckProgressTimer;
+        bool PlayedLoadLoop = false;
 
         public LoadingScreen() : base()
         {
@@ -99,11 +99,11 @@ namespace FSO.Client.UI.Screens
             CheckPreloadLabel();
         }
 
-        private string[] PreloadLabels;
-        private int CurrentPreloadLabel = 0;
-        private bool InTween = false;
+        string[] PreloadLabels;
+        int CurrentPreloadLabel = 0;
+        bool InTween = false;
 
-        private void CheckPreloadLabel()
+        void CheckPreloadLabel()
         {
             if (Controller == null) { return; }
 
@@ -137,7 +137,7 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void AnimateLabel(string previousLabel, string newLabel)
+        void AnimateLabel(string previousLabel, string newLabel)
         {
             InTween = true;
 
@@ -159,7 +159,7 @@ namespace FSO.Client.UI.Screens
             });
         }
 
-        private void tween_OnComplete(UITweenInstance tween, float progress)
+        void tween_OnComplete(UITweenInstance tween, float progress)
         {
             InTween = false;
             CheckPreloadLabel();

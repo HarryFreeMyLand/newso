@@ -13,58 +13,58 @@ namespace FSO.Client.UI.Panels.EODs.Utils
 {
     public class UIManageEODObjectPanel : UIContainer
     {
-        private bool InputAllowed;
-        private int ObjectBalance;
-        private int ObjectOdds;
-        private int ObjectMinimumBalance;
-        private int ObjectMaximumBalance;
-        private int ObjectMinimumPlayerBet;
-        private int ObjectMaximumPlayerBet;
-        private int ObjectMaximumPlayerSideBet;
-        private bool ObjectIsOn;
-        private int ObjectPayoutRatio;
-        private ManageEODObjectTypes Type;
+        bool InputAllowed;
+        int ObjectBalance;
+        int ObjectOdds;
+        int ObjectMinimumBalance;
+        int ObjectMaximumBalance;
+        int ObjectMinimumPlayerBet;
+        int ObjectMaximumPlayerBet;
+        int ObjectMaximumPlayerSideBet;
+        bool ObjectIsOn;
+        int ObjectPayoutRatio;
+        ManageEODObjectTypes Type;
         /*
          * Slot Machine Assets
          */
-        private Texture2D RadioButtonTexture = GetTexture(0x0000049C00000001); // cf. slotseod.uis
-        private UISlider OddsSlider;
-        private UIButton OnOffButton;
-        private UITextEdit CurrentOdds;
-        private UILabel Odds;
-        private UILabel House;
-        private UILabel Player;
-        private UILabel OnOff;
+        Texture2D RadioButtonTexture = GetTexture(0x0000049C00000001); // cf. slotseod.uis
+        UISlider OddsSlider;
+        UIButton OnOffButton;
+        UITextEdit CurrentOdds;
+        UILabel Odds;
+        UILabel House;
+        UILabel Player;
+        UILabel OnOff;
         /*
          * Group Casino Object Assets
          */
-        private Texture2D EditAmountTexture = GetTexture(0x000007E200000001); // cf. budget.uis
-        private UIButton EditMinimumBetButton;
-        private UIImage EditMinimumBetButtonSeat;
-        private UIButton EditMaximumBetButton;
-        private UIButton EditMaximumSideBetButton;
-        private UIImage EditMaximumBetButtonSeat;
-        private UIImage EditMaximumSideBetButtonSeat;
-        private UIImage MaximumBetTextBack;
-        private UITextEdit MaximumBetText;
-        private UIImage MaximumSideBetTextBack;
-        private UITextEdit MaximumSideBetText;
-        private UIImage MinimumBetTextBack;
-        private UITextEdit MinimumBetText;
-        private UILabel MachineBalanceLabel;
-        private UILabel MinimumBetLabel;
-        private UILabel MaximumBetLabel;
-        private UILabel MaximumSideBetLabel;
+        Texture2D EditAmountTexture = GetTexture(0x000007E200000001); // cf. budget.uis
+        UIButton EditMinimumBetButton;
+        UIImage EditMinimumBetButtonSeat;
+        UIButton EditMaximumBetButton;
+        UIButton EditMaximumSideBetButton;
+        UIImage EditMaximumBetButtonSeat;
+        UIImage EditMaximumSideBetButtonSeat;
+        UIImage MaximumBetTextBack;
+        UITextEdit MaximumBetText;
+        UIImage MaximumSideBetTextBack;
+        UITextEdit MaximumSideBetText;
+        UIImage MinimumBetTextBack;
+        UITextEdit MinimumBetText;
+        UILabel MachineBalanceLabel;
+        UILabel MinimumBetLabel;
+        UILabel MaximumBetLabel;
+        UILabel MaximumSideBetLabel;
         /*
          * Shared Object Assets
          */
-        private Texture2D ButtonSeatTexture = GetTexture(0x0000019700000002); // cf. slotseod.uis
-        private Texture2D CashOutTexture = GetTexture(0x00000C9F00000001); // cf. slotseod.uis
-        private Texture2D TextBackTexture = GetTexture(0x0000088B00000001); // cf. slotseod.uis
-        private UIButton CashOutButton;
-        private UIImage CashOutButtonSeat;
-        private UIImage MachineBalanceTextBack;
-        private UITextEdit MachineBalanceText;
+        Texture2D ButtonSeatTexture = GetTexture(0x0000019700000002); // cf. slotseod.uis
+        Texture2D CashOutTexture = GetTexture(0x00000C9F00000001); // cf. slotseod.uis
+        Texture2D TextBackTexture = GetTexture(0x0000088B00000001); // cf. slotseod.uis
+        UIButton CashOutButton;
+        UIImage CashOutButtonSeat;
+        UIImage MachineBalanceTextBack;
+        UITextEdit MachineBalanceText;
 
         public delegate void SendMessage(EODMessageNode Send);
         public event SendMessage OnNewStringMessage;
@@ -85,7 +85,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
         }
         public UIManageEODObjectPanel(ManageEODObjectTypes type, int currentBalance, int minBalance, int maxBalance, int minBet, int maxBet)
         {
-            ObjectPayoutRatio = (type.Equals(ManageEODObjectTypes.Roulette)) ? 140 : 6; // worst case payout ratio is 140 for roulette, 6 for blackjack
+            ObjectPayoutRatio = type.Equals(ManageEODObjectTypes.Roulette) ? 140 : 6; // worst case payout ratio is 140 for roulette, 6 for blackjack
             Type = type;
             ObjectBalance = currentBalance;
             ObjectMinimumBalance = minBalance;
@@ -277,7 +277,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             InputAllowed = true;
         }
 
-        private void InitUIAssets()
+        void InitUIAssets()
         {
             // add the cash out button (and background) and machine balance information, ubiquitious to all objects
             CashOutButtonSeat = new UIImage(ButtonSeatTexture)
@@ -618,7 +618,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             }
             InputAllowed = true;
         }
-        private void OnCashoutButtonClick(UIElement targetButton)
+        void OnCashoutButtonClick(UIElement targetButton)
         {
             if (InputAllowed)
             {
@@ -635,22 +635,22 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                     TextEntry = false,
                     Buttons = new UIAlertButton[]
                     {
-                        new UIAlertButton (UIAlertButtonType.OK, ((btn1) =>
+                        new UIAlertButton (UIAlertButtonType.OK, (btn1) =>
                         {
                             DepositPrompt();
                             UIScreen.RemoveDialog(alert);
-                        }), GameFacade.Strings.GetString("f110", "4")), // "Deposit"
-                        new UIAlertButton (UIAlertButtonType.Cancel, ((btn2) =>
+                        }, GameFacade.Strings.GetString("f110", "4")), // "Deposit"
+                        new UIAlertButton (UIAlertButtonType.Cancel, (btn2) =>
                         {
                             WithdrawPrompt();
                             UIScreen.RemoveDialog(alert);
-                        }), GameFacade.Strings.GetString("f110", "3")) // "Withdraw"
+                        }, GameFacade.Strings.GetString("f110", "3")) // "Withdraw"
                     }
                 }, true);
             }
         }
 
-        private void DepositPrompt()
+        void DepositPrompt()
         {
             // show an alert that asks the user how much to deposit into the machine
             UIAlert alert = null;
@@ -678,7 +678,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             }, true);
         }
 
-        private void WithdrawPrompt()
+        void WithdrawPrompt()
         {
             // show an alert that asks the user how much to withdraw from the machine
             UIAlert alert = null;
@@ -703,7 +703,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             }, true);
         }
 
-        private void UserInputHandler(string type, string userInput)
+        void UserInputHandler(string type, string userInput)
         {
             int amount = 0;
             userInput.Replace("-", ""); // in case any jokesters try to input a negative number (validated on server, too)
@@ -843,7 +843,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             }
         }
 
-        private void OddsChangeHandler(UIElement targetSlider)
+        void OddsChangeHandler(UIElement targetSlider)
         {
             OddsSlider.OnChange -= OddsChangeHandler;
             ObjectOdds = Convert.ToByte(OddsSlider.Value);
@@ -852,7 +852,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             OddsSlider.OnChange += OddsChangeHandler;
         }
 
-        private void OnOffButtonClick(UIElement targetButton)
+        void OnOffButtonClick(UIElement targetButton)
         {
             OnOffButton.OnButtonClick -= OnOffButtonClick;
             ObjectIsOn = !ObjectIsOn;
@@ -869,7 +869,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             OnNewStringMessage(new EODMessageNode("toggle_onOff", "" + OnOffButton.ForceState));
             OnOffButton.OnButtonClick += OnOffButtonClick;
         }
-        private void OnEditMinimumClick(UIElement target)
+        void OnEditMinimumClick(UIElement target)
         {
             if (InputAllowed)
             {
@@ -877,7 +877,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 SetBetPrompt(ManageEODBetTypes.MinBet);
             }
         }
-        private void OnEditMaximumClick(UIElement target)
+        void OnEditMaximumClick(UIElement target)
         {
             if (InputAllowed)
             {
@@ -885,7 +885,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 SetBetPrompt(ManageEODBetTypes.MaxBet);
             }
         }
-        private void OnEditSideClick(UIElement target)
+        void OnEditSideClick(UIElement target)
         {
             if (InputAllowed)
             {
@@ -893,7 +893,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 SetBetPrompt(ManageEODBetTypes.MaxSide);
             }
         }
-        private void SetBetPrompt(ManageEODBetTypes betType)
+        void SetBetPrompt(ManageEODBetTypes betType)
         {
             // show an alert that asks the user how much to set the min/max bet
             UIAlert alert = null;

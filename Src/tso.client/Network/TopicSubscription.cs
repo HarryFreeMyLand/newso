@@ -9,8 +9,8 @@ namespace FSO.Client.Network
 {
     public class TopicSubscription : ITopicSubscription
     {
-        private ClientDataService DataService;
-        private List<ITopic> Topics;
+        ClientDataService DataService;
+        List<ITopic> Topics;
 
         public TopicSubscription(ClientDataService ds)
         {

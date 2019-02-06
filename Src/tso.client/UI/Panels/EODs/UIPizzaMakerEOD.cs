@@ -96,9 +96,9 @@ namespace FSO.Client.UI.Panels.EODs
         public void EnterState(VMEODPizzaState state)
         {
             State = state;
-            btnIngredient1.Disabled = (state != VMEODPizzaState.Contribution);
-            btnIngredient2.Disabled = (state != VMEODPizzaState.Contribution);
-            btnIngredient3.Disabled = (state != VMEODPizzaState.Contribution);
+            btnIngredient1.Disabled = state != VMEODPizzaState.Contribution;
+            btnIngredient2.Disabled = state != VMEODPizzaState.Contribution;
+            btnIngredient3.Disabled = state != VMEODPizzaState.Contribution;
             switch (state) {
                 case VMEODPizzaState.Lobby:
                     P_Contrib("", "--\n--\n--\n--\n");
@@ -229,7 +229,7 @@ namespace FSO.Client.UI.Panels.EODs
                             tex = imageSauce; break;
                     }
 
-                    btnFrame = (2 - ((int)card.Size));
+                    btnFrame = 2 - ((int)card.Size);
                     caption = GetIngredientName(card);
                 }
                 if (tex == null) buttons[i].Visible = false;

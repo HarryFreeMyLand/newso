@@ -17,7 +17,7 @@ namespace FSO.Client.Rendering.City.Plugins
 {
     public class MapPainterPlugin : AbstractCityPlugin
     {
-        private static Point[] WLStartOff = {
+        static Point[] WLStartOff = {
             
             // Look at this way up <----
             // Starting at % line, going cw. Middle is (0,0), and below it is the tile (0,0)..
@@ -37,7 +37,7 @@ namespace FSO.Client.Rendering.City.Plugins
             new Point(0, -1),
         };
 
-        private static RoadSegs[] WLMainSeg =
+        static RoadSegs[] WLMainSeg =
         {
             RoadSegs.TopRight,
             RoadSegs.TopLeft,
@@ -45,7 +45,7 @@ namespace FSO.Client.Rendering.City.Plugins
             RoadSegs.TopLeft,
         };
 
-        private static Point[] WLSubOff =
+        static Point[] WLSubOff =
         {
             new Point(0, -1),
             new Point(-1, 0),
@@ -53,7 +53,7 @@ namespace FSO.Client.Rendering.City.Plugins
             new Point(-1, 0),
         };
 
-        private static RoadSegs[] WLSubSeg =
+        static RoadSegs[] WLSubSeg =
         {
             RoadSegs.BottomLeft,
             RoadSegs.BottomRight,
@@ -62,7 +62,7 @@ namespace FSO.Client.Rendering.City.Plugins
         };
 
 
-        private static Point[] WLStep =
+        static Point[] WLStep =
         {
             new Point(1, 0),
             new Point(0, 1),
@@ -70,28 +70,28 @@ namespace FSO.Client.Rendering.City.Plugins
             new Point(0, -1),
         };
 
-        private static RoadSegs[] MainCorner =
+        static RoadSegs[] MainCorner =
         {
             RoadSegs.Right,
             RoadSegs.Left,
             RoadSegs.Bottom,
             RoadSegs.Bottom,
         };
-        private static RoadSegs[] SubCorner =
+        static RoadSegs[] SubCorner =
         {
             RoadSegs.Top,
             RoadSegs.Top,
             RoadSegs.Left,
             RoadSegs.Right,
         };
-        private static RoadSegs[] MainEndCorner =
+        static RoadSegs[] MainEndCorner =
         {
             RoadSegs.Bottom,
             RoadSegs.Bottom,
             RoadSegs.Right,
             RoadSegs.Left,
         };
-        private static RoadSegs[] SubEndCorner =
+        static RoadSegs[] SubEndCorner =
         {
             RoadSegs.Left,
             RoadSegs.Right,
@@ -99,7 +99,7 @@ namespace FSO.Client.Rendering.City.Plugins
             RoadSegs.Top,
         };
 
-        private static Dictionary<RoadSegs, RoadSegs> CornerRemovalEdges = new Dictionary<RoadSegs, RoadSegs>
+        static Dictionary<RoadSegs, RoadSegs> CornerRemovalEdges = new Dictionary<RoadSegs, RoadSegs>
         {
             { RoadSegs.Bottom, RoadSegs.TopLeft | RoadSegs.TopRight }, //i likely have the names for these wrong...
             { RoadSegs.Left, RoadSegs.TopLeft | RoadSegs.BottomLeft },
@@ -110,14 +110,14 @@ namespace FSO.Client.Rendering.City.Plugins
         public Vector2 LastPos;
         public Point WallBase;
         public Point WallTarget;
-        private int WallLength;
-        private int WallDir;
-        private bool Erasing;
-        private bool Accelerate;
+        int WallLength;
+        int WallDir;
+        bool Erasing;
+        bool Accelerate;
         public byte[] OriginalData;
 
-        private bool MouseDown;
-        private bool MouseClicked;
+        bool MouseDown;
+        bool MouseClicked;
 
         public Color[] TerrainTypes = new Color[] {
             new Color(0, 255, 0), //grass
@@ -152,22 +152,22 @@ namespace FSO.Client.Rendering.City.Plugins
         public int SelectedModifier;
         public int BrushSize;
         public PainterMode Mode;
-        private Rectangle? ChangeBounds;
+        Rectangle? ChangeBounds;
 
-        private Dictionary<Point, float> ElevationMod;
-        private int ElevationFrames = 0;
+        Dictionary<Point, float> ElevationMod;
+        int ElevationFrames = 0;
 
         public MapPainterPlugin(Terrain city) : base(city)
         {
         }
 
-        private void AddChange(Point pos)
+        void AddChange(Point pos)
         {
             var rect = new Rectangle(pos, new Point(1, 1));
             AddChange(rect);
         }
 
-        private void AddChange(Rectangle rect)
+        void AddChange(Rectangle rect)
         {
             if (ChangeBounds == null) ChangeBounds = rect;
             else
@@ -224,7 +224,7 @@ namespace FSO.Client.Rendering.City.Plugins
                     BrushFunc(BrushSize, (x, y, strength) =>
                     {
                         //if (strength <= 0) return;
-                        var multiplier = (Accelerate) ? 2 : 1;
+                        var multiplier = Accelerate ? 2 : 1;
                         var eOnScreen = City.Get2DFromTile(ePos.X + x, ePos.Y + y);
                         City.DrawLine(TextureGenerator.GetPxWhite(sb.GraphicsDevice), eOnScreen, eOnScreen + new Vector2(0, -50) * strength * multiplier, sb, 3, 100);
                     });
@@ -246,7 +246,7 @@ namespace FSO.Client.Rendering.City.Plugins
                     {
                         if (strength > 0)
                         {
-                            var multiplier = (Accelerate) ? 2 : 1;
+                            var multiplier = Accelerate ? 2 : 1;
                             var index = ePos.X + x + (ePos.Y + y) * 512;
                             if (index < 0 || index > City.MapData.ElevationData.Length) return;
                             var elev = City.MapData.ElevationData[index];
@@ -276,8 +276,8 @@ namespace FSO.Client.Rendering.City.Plugins
                         if (wallPos != WallTarget && OriginalData != null)
                         {
                             WallTarget = wallPos;
-                            var xd = (WallTarget.X - WallBase.X);
-                            var yd = (WallTarget.Y - WallBase.Y);
+                            var xd = WallTarget.X - WallBase.X;
+                            var yd = WallTarget.Y - WallBase.Y;
                             WallLength = (int)Math.Sqrt(xd * xd + yd * yd);
                             WallDir = (int)DirectionUtils.PosMod(Math.Round(Math.Atan2(yd, xd) / (Math.PI / 2)), 4);
 
@@ -307,11 +307,11 @@ namespace FSO.Client.Rendering.City.Plugins
                         
                         BrushFunc(BrushSize, (x, y, strength) =>
                         {
-                            var multiplier = (Accelerate) ? 2 : 1;
+                            var multiplier = Accelerate ? 2 : 1;
                             if (strength > 0) {
                                 var loc = new Point(wallPos.X + x, wallPos.Y + y);
-                                if (ElevationMod.ContainsKey(loc)) ElevationMod[loc] += ((Erasing)?-1:1)* strength * multiplier / 5;
-                                else ElevationMod[loc] = ((Erasing) ? -1 : 1) * strength * multiplier / 5;
+                                if (ElevationMod.ContainsKey(loc)) ElevationMod[loc] += (Erasing?-1:1)* strength * multiplier / 5;
+                                else ElevationMod[loc] = (Erasing ? -1 : 1) * strength * multiplier / 5;
                             }
                         });
                         AddChange(new Rectangle(wallPos.X - (1 + BrushSize), wallPos.Y - (1 + BrushSize), 2 + BrushSize * 2, 2 + BrushSize * 2));
@@ -331,7 +331,7 @@ namespace FSO.Client.Rendering.City.Plugins
 
                         BrushFunc(BrushSize, (x, y, strength) =>
                         {
-                            var multiplier = (Accelerate) ? 2 : 1;
+                            var multiplier = Accelerate ? 2 : 1;
                             if (strength > 0)
                             {
                                 var index = wallPos.X + x + (wallPos.Y + y) * 512;
@@ -513,13 +513,13 @@ namespace FSO.Client.Rendering.City.Plugins
             if (pressed.Contains(Keys.Down)) BrushSize = Math.Max(0, BrushSize - 1);    
         }
 
-        private Texture2D LoadTex(string Path)
+        Texture2D LoadTex(string Path)
         {
             using (var strm = new FileStream(Path, FileMode.Open, FileAccess.Read, FileShare.Read))
                 return LoadTex(strm);
         }
 
-        private Texture2D LoadTex(Stream stream)
+        Texture2D LoadTex(Stream stream)
         {
             Texture2D result = null;
             try
@@ -582,13 +582,13 @@ namespace FSO.Client.Rendering.City.Plugins
             for (int i = 0; i < length; i++)
             {
                 map[pos.X + pos.Y * 512] |= (byte)WLMainSeg[direction];
-                map[pos.X + pos.Y * 512] &= (byte)(~MainCorner[direction]);
-                map[pos.X + pos.Y * 512] &= (byte)(~MainEndCorner[direction]);
+                map[pos.X + pos.Y * 512] &= (byte)~MainCorner[direction];
+                map[pos.X + pos.Y * 512] &= (byte)~MainEndCorner[direction];
                 AddChange(pos);
                 var tPos = pos + WLSubOff[direction];
                 map[tPos.X + tPos.Y * 512] |= (byte)WLSubSeg[direction];
-                map[tPos.X + tPos.Y * 512] &= (byte)(~SubCorner[direction]);
-                map[tPos.X + tPos.Y * 512] &= (byte)(~SubEndCorner[direction]);
+                map[tPos.X + tPos.Y * 512] &= (byte)~SubCorner[direction];
+                map[tPos.X + tPos.Y * 512] &= (byte)~SubEndCorner[direction];
                 AddChange(tPos);
                 pos += WLStep[direction];
             }
@@ -606,10 +606,10 @@ namespace FSO.Client.Rendering.City.Plugins
             pos += WLStartOff[direction];
 
             var endPos = pos - WLStep[direction];
-            map[endPos.X + endPos.Y * 512] &= (byte)(~MainCorner[direction]);
+            map[endPos.X + endPos.Y * 512] &= (byte)~MainCorner[direction];
             AddChange(endPos);
             endPos += WLSubOff[direction];
-            map[endPos.X + endPos.Y * 512] &= (byte)(~SubCorner[direction]);
+            map[endPos.X + endPos.Y * 512] &= (byte)~SubCorner[direction];
             AddChange(endPos);
 
             for (int i = 0; i < length; i++)
@@ -624,10 +624,10 @@ namespace FSO.Client.Rendering.City.Plugins
             }
 
             endPos = pos;
-            map[endPos.X + endPos.Y * 512] &= (byte)(~MainEndCorner[direction]);
+            map[endPos.X + endPos.Y * 512] &= (byte)~MainEndCorner[direction];
             AddChange(endPos);
             endPos += WLSubOff[direction];
-            map[endPos.X + endPos.Y * 512] &= (byte)(~SubEndCorner[direction]);
+            map[endPos.X + endPos.Y * 512] &= (byte)~SubEndCorner[direction];
             AddChange(endPos);
         }
     }

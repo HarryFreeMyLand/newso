@@ -16,11 +16,11 @@ namespace FSO.Client.UI.Panels.EODs
 {
     public class UIPaperChaseEOD : UIEOD
     {
-        private UIScript Script;
+        UIScript Script;
 
         //EOD State
-        private VMEODPaperChaseState State;
-        private UIEODLobby Lobby;
+        VMEODPaperChaseState State;
+        UIEODLobby Lobby;
 
         //Controls
         public UIButton AButton { get; set; }
@@ -39,7 +39,7 @@ namespace FSO.Client.UI.Panels.EODs
         public UILabel kLetterPrevLogic { get; set; }
 
         //Chrome
-        private UIImage background;
+        UIImage background;
 
         //Avatars
         public UIImage PersonBG1;
@@ -60,7 +60,7 @@ namespace FSO.Client.UI.Panels.EODs
             InitEOD();
         }
 
-        private void InitUI()
+        void InitUI()
         {
             Script = this.RenderScript("paperchaseeod.uis");
             background = Script.Create<UIImage>("UIBackground");
@@ -109,7 +109,7 @@ namespace FSO.Client.UI.Panels.EODs
             Add(Lobby);
         }
 
-        private void ChooseLetter(UIElement button)
+        void ChooseLetter(UIElement button)
         {
             var buttons = new UIButton[] { AButton, BButton, CButton  };
             var letterButton = Array.IndexOf(buttons, button);
@@ -121,7 +121,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("paperchase_chooseletter", letter.ToString());
         }
 
-        private void InitEOD()
+        void InitEOD()
         {
             State = VMEODPaperChaseState.Lobby;
             DigestState();
@@ -133,7 +133,7 @@ namespace FSO.Client.UI.Panels.EODs
             PlaintextHandlers["paperchase_result"] = SetResult;
         }
 
-        private void SetResult(string evt, string body)
+        void SetResult(string evt, string body)
         {
             var matches = int.Parse(body);
             if(matches == 3){
@@ -143,7 +143,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void SetLetters(string evt, string body)
+        void SetLetters(string evt, string body)
         {
             var letters = body.Split('\n');
             if (letters.Length != 7) { return; }
@@ -178,7 +178,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private string GetLetterString(short letter)
+        string GetLetterString(short letter)
         {
             switch (letter)
             {
@@ -192,13 +192,13 @@ namespace FSO.Client.UI.Panels.EODs
             return "";
         }
 
-        private void SetState(string evt, string body)
+        void SetState(string evt, string body)
         {
             State = (VMEODPaperChaseState)int.Parse(body);
             DigestState();
         }
 
-        private void DigestState()
+        void DigestState()
         {
             AButton.Disabled = State != VMEODPaperChaseState.WaitingForThreeLetters;
             BButton.Disabled = State != VMEODPaperChaseState.WaitingForThreeLetters;

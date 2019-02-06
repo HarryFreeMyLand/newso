@@ -14,7 +14,7 @@ namespace FSO.Client.UI.Panels
     public class UIGizmoPIP : UIContainer
     {
         public UISim SimBox { get; internal set; }
-        private UIButton Button;
+        UIButton Button;
 
         public UIGizmoPIP()
         {
@@ -24,7 +24,7 @@ namespace FSO.Client.UI.Panels
             Button.OnButtonClick += Button_OnButtonClick;
         }
 
-        private void Button_OnButtonClick(UIElement button)
+        void Button_OnButtonClick(UIElement button)
         {
             //Show my sim page
             ((CoreGameScreenController)Parent.Parent.Controller).ShowMyPersonPage();

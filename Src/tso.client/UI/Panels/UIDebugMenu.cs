@@ -17,8 +17,8 @@ namespace FSO.Client.UI.Panels
 {
     public class UIDebugMenu : UIDialog
     {
-        private UIImage Background;
-        private UIButton ContentBrowserBtn;
+        UIImage Background;
+        UIButton ContentBrowserBtn;
 
         public UIDebugMenu() : base(UIDialogStyle.Tall, true)
         {
@@ -50,14 +50,14 @@ namespace FSO.Client.UI.Panels
 
             var connectLocalBtn = new UIButton
             {
-                Caption = (GlobalSettings.Default.UseCustomServer) ? "Use default server (TSO)" : "Use custom defined server",
+                Caption = GlobalSettings.Default.UseCustomServer ? "Use default server (TSO)" : "Use custom defined server",
                 Position = new Microsoft.Xna.Framework.Vector2(160, 90),
                 Width = 300
             };
             connectLocalBtn.OnButtonClick += x =>
             {
                 GlobalSettings.Default.UseCustomServer = !GlobalSettings.Default.UseCustomServer;
-                connectLocalBtn.Caption = (GlobalSettings.Default.UseCustomServer) ? "Use default server (TSO)" : "Use custom defined server";
+                connectLocalBtn.Caption = GlobalSettings.Default.UseCustomServer ? "Use default server (TSO)" : "Use custom defined server";
                 GlobalSettings.Default.Save();
             };
             Add(connectLocalBtn);
@@ -70,7 +70,7 @@ namespace FSO.Client.UI.Panels
             };
             cityPainterBtn.OnButtonClick += x =>
             {
-                var core = (GameFacade.Screens.CurrentUIScreen as CoreGameScreen);
+                var core = GameFacade.Screens.CurrentUIScreen as CoreGameScreen;
                 if (core == null) return;
                 if (core.CityRenderer.Plugin == null)
                 {
@@ -93,7 +93,7 @@ namespace FSO.Client.UI.Panels
             };
             benchmarkBtn.OnButtonClick += x =>
             {
-                var core = (GameFacade.Screens.CurrentUIScreen as IGameScreen);
+                var core = GameFacade.Screens.CurrentUIScreen as IGameScreen;
                 if (core == null || core.vm == null)
                 {
                     UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -129,7 +129,7 @@ namespace FSO.Client.UI.Panels
             };
             resyncBtn.OnButtonClick += x =>
             {
-                var core = (GameFacade.Screens.CurrentUIScreen as IGameScreen);
+                var core = GameFacade.Screens.CurrentUIScreen as IGameScreen;
                 if (core == null || core.vm == null)
                 {
                     UIScreen.GlobalShowAlert(new UIAlertOptions()
@@ -152,7 +152,7 @@ namespace FSO.Client.UI.Panels
 
             Add(serverNameBox);
         }
-        private UITextBox serverNameBox;
+        UITextBox serverNameBox;
 
         public override void Update(UpdateState state)
         {

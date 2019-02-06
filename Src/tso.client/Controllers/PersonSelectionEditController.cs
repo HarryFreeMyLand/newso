@@ -16,8 +16,8 @@ namespace FSO.Client.Controllers
 {
     public class PersonSelectionEditController : IDisposable
     {
-        private PersonSelectionEdit View;
-        private CreateASimRegulator CASRegulator;
+        PersonSelectionEdit View;
+        CreateASimRegulator CASRegulator;
 
         public PersonSelectionEditController(PersonSelectionEdit view, CreateASimRegulator casRegulator)
         {
@@ -27,7 +27,7 @@ namespace FSO.Client.Controllers
             CASRegulator.OnTransition += CASRegulator_OnTransition;
         }
         
-        private void CASRegulator_OnTransition(string state, object data)
+        void CASRegulator_OnTransition(string state, object data)
         {
             Common.Utils.GameThread.NextUpdate(x =>
             {
@@ -66,7 +66,7 @@ namespace FSO.Client.Controllers
             });
         }
 
-        private void ShowError(ErrorMessage errorMsg) {
+        void ShowError(ErrorMessage errorMsg) {
             /** Error message intended for the user **/
             var Options = new UIAlertOptions
             {

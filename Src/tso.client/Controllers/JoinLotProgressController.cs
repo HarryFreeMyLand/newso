@@ -15,7 +15,7 @@ namespace FSO.Client.Controllers
 {
     public class JoinLotProgressController : IDisposable
     {
-        private UIJoinLotProgress View;
+        UIJoinLotProgress View;
         LotConnectionRegulator ConnectionReg;
 
         public JoinLotProgressController(UIJoinLotProgress view, LotConnectionRegulator regulator)
@@ -34,7 +34,7 @@ namespace FSO.Client.Controllers
             ConnectionReg.OnTransition -= Regulator_OnTransition;
         }
 
-        private void Regulator_OnError(object data)
+        void Regulator_OnError(object data)
         {
             //UIScreen.RemoveDialog(View);
 
@@ -83,7 +83,7 @@ namespace FSO.Client.Controllers
             }, true);
         }
 
-        private void Regulator_OnTransition(string state, object data)
+        void Regulator_OnTransition(string state, object data)
         {
             var progress = 0;
 
@@ -121,7 +121,7 @@ namespace FSO.Client.Controllers
                         progress = 4;
                         break;
                 }
-                var progressPercent = (((float)progress) / 12.0f) * 100;
+                var progressPercent = ((float)progress) / 12.0f * 100;
                 if (progress < 4) View.Progress = progressPercent;
                 switch (progress)
                 {

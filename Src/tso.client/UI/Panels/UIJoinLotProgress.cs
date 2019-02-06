@@ -14,8 +14,8 @@ namespace FSO.Client.UI.Panels
 {
     public class UIJoinLotProgress : UIDialog
     {
-        private UIProgressBar m_ProgressBar;
-        private UILabel m_ProgressLabel;
+        UIProgressBar m_ProgressBar;
+        UILabel m_ProgressLabel;
 
         public UIJoinLotProgress() : base(UIDialogStyle.Standard, false)
         {

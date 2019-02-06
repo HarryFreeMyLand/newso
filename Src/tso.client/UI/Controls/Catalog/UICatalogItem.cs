@@ -22,12 +22,12 @@ namespace FSO.Client.UI.Controls.Catalog
     public class UICatalogItem : UIElement
     {
         public Texture2D Icon;
-        private UITooltipHandler m_TooltipHandler;
-        private bool Active;
-        private bool Disabled;
-        private bool Hovered;
-        private Texture2D Background;
-        private UIMouseEventRef ClickHandler;
+        UITooltipHandler m_TooltipHandler;
+        bool Active;
+        bool Disabled;
+        bool Hovered;
+        Texture2D Background;
+        UIMouseEventRef ClickHandler;
         public event ButtonClickDelegate OnMouseEvent;
         public UICatalogElement Info;
         public int Index;
@@ -66,7 +66,7 @@ namespace FSO.Client.UI.Controls.Catalog
             Invalidate();
         }
 
-        private void MouseEvt(UIMouseEventType type, UpdateState state)
+        void MouseEvt(UIMouseEventType type, UpdateState state)
         {
             if (type == UIMouseEventType.MouseDown && OnMouseEvent != null) OnMouseEvent(this); //pass to parents to handle
             if (type == UIMouseEventType.MouseOver) SetHover(true);

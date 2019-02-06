@@ -47,19 +47,19 @@ namespace FSO.Client.UI.Panels
         public UIButton EODContractButton { get; set; }
         public UIImage EODExpandBack { get; set; }
 
-        private UIEODLayout EODLayout;
+        UIEODLayout EODLayout;
 
         public Texture2D BackgroundEODImg { get; set; } //live mode with backgrounded eod
         public Texture2D BackgroundEODTradeImg { get; set; }
         public Texture2D EODPanelImg { get; set; }
         public Texture2D EODPanelTallImg { get; set; }
         public Texture2D EODDoublePanelTallImg { get; set; }
-        private Texture2D EODPanelExtraTallImg;
+        Texture2D EODPanelExtraTallImg;
 
         public UIImage EODPanel { get; set; }
         public UIImage EODPanelTall { get; set; }
         public UIImage EODDoublePanelTall { get; set; }
-        private UIImage EODPanelExtraTall;
+        UIImage EODPanelExtraTall;
 
         public UIImage EODButtonLayout { get; set; }
         public UIImage EODTopButtonLayout { get; set; }
@@ -97,27 +97,27 @@ namespace FSO.Client.UI.Panels
         public UIPersonGrid PersonGrid;
 
         public UILotControl LotController;
-        private VMAvatar SelectedAvatar
+        VMAvatar SelectedAvatar
         {
             get
             {
                 return (LotController.ActiveEntity != null && LotController.ActiveEntity is VMAvatar) ? (VMAvatar)LotController.ActiveEntity : null;
             }
         }
-        private VMAvatar LastSelected;
-        private EODLiveModeOpt LastEODConfig;
-        private UIEOD ActiveEOD;
-        private bool HideEOD;
+        VMAvatar LastSelected;
+        EODLiveModeOpt LastEODConfig;
+        UIEOD ActiveEOD;
+        bool HideEOD;
 
-        private UIScript Script;
+        UIScript Script;
         
         public Vector2 DefaultNextPagePos;
 
         public UIButton EODButton;
         public UIImage EODImage;
         public Texture2D DefaultBGImage;
-        private bool Small800;
-        private bool ExtraTallInitialized;
+        bool Small800;
+        bool ExtraTallInitialized;
 
         public UILiveMode (UILotControl lotController) {
             Small800 = (GlobalSettings.Default.GraphicsWidth < 1024) || FSOEnvironment.UIZoomFactor > 1f;
@@ -266,7 +266,7 @@ namespace FSO.Client.UI.Panels
             SetInEOD(null, null);
         }
 
-        private void EODExpandToggle(UIElement button)
+        void EODExpandToggle(UIElement button)
         {
             if(LastEODConfig != null)
             {
@@ -287,13 +287,13 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void EODToggle(UIElement button)
+        void EODToggle(UIElement button)
         {
             HideEOD = !HideEOD;
             SetInEOD(LastEODConfig, ActiveEOD);
         }
 
-        private void EODCloseButton_OnButtonClick(UIElement button)
+        void EODCloseButton_OnButtonClick(UIElement button)
         {
             if (ActiveEOD != null) ActiveEOD.OnClose();
         }
@@ -301,7 +301,7 @@ namespace FSO.Client.UI.Panels
         public void SetInEOD(EODLiveModeOpt options, UIEOD eod)
         {
             Invalidate(); //i mean, duh
-            bool eodPresent = (options != null);
+            bool eodPresent = options != null;
             bool inEOD = eodPresent && !HideEOD;
             if (ActiveEOD != null) DynamicOverlay.Remove(ActiveEOD);
 
@@ -325,7 +325,7 @@ namespace FSO.Client.UI.Panels
             /**
              * Reset / hide standard and eod UI
              */
-            MoodPanelButton.Position = (eodPresent) ? EODLayout.Baseline + new Vector2(20, 7) : new Vector2(31, 63);
+            MoodPanelButton.Position = eodPresent ? EODLayout.Baseline + new Vector2(20, 7) : new Vector2(31, 63);
             EODButtonLayout.Visible = inEOD && !isExtraTall;
             EODSub.Visible = inEOD && !isExtraTall;
             EODMsgWin.Visible = inEOD && options.Tips != EODTextTips.None;
@@ -516,8 +516,8 @@ namespace FSO.Client.UI.Panels
             PeopleListBg.SetSize(PeopleListBg.Texture.Width, PeopleListBg.Texture.Height);
 
             NextPageButton.Position = (eodPresent && !Small800) ? (Vector2)Script.GetControlProperty("NextPageEODButton") : DefaultNextPagePos;
-            Background.Texture = (eodPresent) ? (isTrade? BackgroundEODTradeImg : BackgroundEODImg) : DefaultBGImage;
-            Background.Position = (isTrade) ? new Vector2(-22, -79) : new Vector2(0, 35);
+            Background.Texture = eodPresent ? (isTrade? BackgroundEODTradeImg : BackgroundEODImg) : DefaultBGImage;
+            Background.Position = isTrade ? new Vector2(-22, -79) : new Vector2(0, 35);
             Background.SetSize(Background.Texture.Width, Background.Texture.Height);
 
             var changeJobY = StatusBarMsgWinStraight.Y != (inEOD ? -18 : 2);
@@ -601,7 +601,7 @@ namespace FSO.Client.UI.Panels
 
                 StatusBarTimerBreakIcon.Visible = JobUI.Mode == VMTSOJobMode.Intermission;
                 StatusBarTimerWorkIcon.Visible = JobUI.Mode == VMTSOJobMode.Round;
-                var timeText = " " + JobUI.Minutes + ":" + (JobUI.Seconds.ToString().PadLeft(2, '0'));
+                var timeText = " " + JobUI.Minutes + ":" + JobUI.Seconds.ToString().PadLeft(2, '0');
                 if (StatusBarTimerTextEntry.CurrentText != timeText) StatusBarTimerTextEntry.CurrentText = timeText;
 
                 if (StatusBarCycleTime++ > 60*4 && StatusBarMsgWinTextEntry.Items.Count > 0)
@@ -648,7 +648,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void UpdateMotives()
+        void UpdateMotives()
         {
             MotiveDisplay.MotiveValues[0] = SelectedAvatar.GetMotiveData(VMMotive.Hunger);
             MotiveDisplay.MotiveValues[1] = SelectedAvatar.GetMotiveData(VMMotive.Comfort);
@@ -667,10 +667,10 @@ namespace FSO.Client.UI.Panels
     {
         public float ScreenBottom { get; internal set; }
         public Vector2 Baseline { get; internal set; }
-        private UIScript Script;
+        UIScript Script;
 
-        private readonly Vector2 EODBackgroundOffsetExtraTall = new Vector2(0, 57);
-        private readonly Vector2 ExtraTallChromeOffset = new Vector2 (0, -155);
+        readonly Vector2 EODBackgroundOffsetExtraTall = new Vector2(0, 57);
+        readonly Vector2 ExtraTallChromeOffset = new Vector2 (0, -155);
 
         public UIEODLayout(UIScript script)
         {

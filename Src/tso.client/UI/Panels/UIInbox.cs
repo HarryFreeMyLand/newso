@@ -26,11 +26,11 @@ namespace FSO.Client.UI.Panels
     public class UIInbox : UIContainer
     {
         public UIListBox InboxListBox { get; set; }
-        private UIImage Background;
+        UIImage Background;
         public Texture2D backgroundImage { get; set; }
         public UIButton CloseButton { get; set; }
         public UIButton MessageButton { get; set; }
-        private UIInboxDropdown Dropdown;
+        UIInboxDropdown Dropdown;
         public UIButton DeleteButton { get; set; }
 
         //images
@@ -159,7 +159,7 @@ namespace FSO.Client.UI.Panels
             SortOrder = false;
         }
 
-        private void Delete(UIElement button)
+        void Delete(UIElement button)
         {
             var item = InboxListBox.SelectedItem;
             if (item != null)
@@ -170,7 +170,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void Sort(int mode)
+        void Sort(int mode)
         {
             if (SortMode == mode)
                 SortOrder = !SortOrder;
@@ -186,7 +186,7 @@ namespace FSO.Client.UI.Panels
             UpdateInbox();
         }
 
-        private void OpenMessage(UIElement button)
+        void OpenMessage(UIElement button)
         {
             var item = InboxListBox.SelectedItem;
             if (item != null)
@@ -249,7 +249,7 @@ namespace FSO.Client.UI.Panels
         /// <summary>
         /// User wanted to compose a new message!
         /// </summary>
-        private void MessageButton_OnButtonClick(UIElement button)
+        void MessageButton_OnButtonClick(UIElement button)
         {
             FindController<InboxController>()?.Search(Dropdown.MenuTextEdit.CurrentText, true);
         }
@@ -257,7 +257,7 @@ namespace FSO.Client.UI.Panels
         /// <summary>
         /// User wanted to close the inbox.
         /// </summary>
-        private void Close(UIElement button)
+        void Close(UIElement button)
         {
             var screen = (CoreGameScreen)UIScreen.Current;
             UpdateInbox();
@@ -303,19 +303,19 @@ namespace FSO.Client.UI.Panels
             MenuListBox.OnDoubleClick += SendMessageSelected;
         }
 
-        private void SendMessageSelected(UIElement button)
+        void SendMessageSelected(UIElement button)
         {
             var selected = MenuListBox.SelectedItem;
             if (selected == null) return;
             FindController<CoreGameScreenController>()?.WriteEmail(((Common.DatabaseService.Model.SearchResponseItem)selected.Data).EntityId, "");
         }
 
-        private void MenuTextEdit_OnChange(UIElement element)
+        void MenuTextEdit_OnChange(UIElement element)
         {
 
         }
 
-        private void Search(UIElement element)
+        void Search(UIElement element)
         {
             if (element != null && !open) ToggleOpen();
             else ((InboxController)Parent.Controller).Search(MenuTextEdit.CurrentText, false);

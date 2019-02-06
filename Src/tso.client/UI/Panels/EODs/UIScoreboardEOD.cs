@@ -12,8 +12,8 @@ namespace FSO.Client.UI.Panels.EODs
 {
     public class UIScoreboardEOD : UIBasicEOD
     {
-        private UIImage Background;
-        private UIImage ColorSelector;
+        UIImage Background;
+        UIImage ColorSelector;
 
         public UIButton ColorRed { get; set; }
         public UIButton ColorBlue { get; set; }
@@ -38,7 +38,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         public UIButton[] ColorButtons;
 
-        private VMEODScoreboardTeam SelectedTeam;
+        VMEODScoreboardTeam SelectedTeam;
 
 
         public UIScoreboardEOD(UIEODController controller) : base(controller, "scoreboard", "scoreboardeod.uis")
@@ -49,7 +49,7 @@ namespace FSO.Client.UI.Panels.EODs
         /**
          * EOD callbacks
          */
-        private void SetState(string evt, byte[] data){
+        void SetState(string evt, byte[] data){
             var state = new VMEODScoreboardData(data);
 
             UpdateColor(VMEODScoreboardTeam.LHS, state.LHSColor);
@@ -114,7 +114,7 @@ namespace FSO.Client.UI.Panels.EODs
             ScoreTextEntryRHS.OnChange += x => Debounce("rhs", () => SetScore(VMEODScoreboardTeam.RHS, ScoreTextEntryRHS.CurrentText));
         }
 
-        private void SetScore(VMEODScoreboardTeam team, string text)
+        void SetScore(VMEODScoreboardTeam team, string text)
         {
             short value;
             if (!short.TryParse(text, out value)) { return; }
@@ -125,12 +125,12 @@ namespace FSO.Client.UI.Panels.EODs
             Send("scoreboard_setscore", team.ToString() + "," + value);
         }
 
-        private void Spinner(VMEODScoreboardTeam team, short difference)
+        void Spinner(VMEODScoreboardTeam team, short difference)
         {
             Send("scoreboard_updatescore", team.ToString() + "," + difference);
         }
 
-        private void UpdateColor(VMEODScoreboardTeam team, VMEODScoreboardColor color)
+        void UpdateColor(VMEODScoreboardTeam team, VMEODScoreboardColor color)
         {
             //Update the UI
             var targetButton = ColorLHS;
@@ -138,7 +138,7 @@ namespace FSO.Client.UI.Panels.EODs
             Script.ApplyControlProperties(targetButton, "ColorButton" + ((byte)color));
         }
 
-        private void ColorButton_OnButtonClick(UIElement button)
+        void ColorButton_OnButtonClick(UIElement button)
         {
             var index = Array.IndexOf(ColorButtons, button);
             if (index == -1 || index > 7) { return; }
@@ -149,7 +149,7 @@ namespace FSO.Client.UI.Panels.EODs
             ShowColorPicker(false);
         }
 
-        private void ChangeColor(VMEODScoreboardTeam team)
+        void ChangeColor(VMEODScoreboardTeam team)
         {
             SelectedTeam = team;
             ShowColorPicker(true);
@@ -168,7 +168,7 @@ namespace FSO.Client.UI.Panels.EODs
             };
         }
 
-        private void ShowLoading(bool loading)
+        void ShowLoading(bool loading)
         {
             Loading.Visible = loading;
 
@@ -183,7 +183,7 @@ namespace FSO.Client.UI.Panels.EODs
                 SpinnerIncreaseRHS.Visible = !loading;
         }
 
-        private void ShowColorPicker(bool show)
+        void ShowColorPicker(bool show)
         {
             ColorSelector.Visible = show;
             foreach(var btn in ColorButtons){

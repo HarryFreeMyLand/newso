@@ -35,8 +35,8 @@ namespace FSO.Client.UI.Panels
     /// </summary>
     public class UIUCP : UICachedContainer
     {
-        private IGameScreen Game; //the main screen
-        private UISelectHouseView SelWallsPanel; //select view panel that is created when clicking the current walls mode
+        IGameScreen Game; //the main screen
+        UISelectHouseView SelWallsPanel; //select view panel that is created when clicking the current walls mode
 
         /// <summary>
         /// Variables which get wired up by the UIScript
@@ -87,8 +87,8 @@ namespace FSO.Client.UI.Panels
         /// <summary>
         /// Backgrounds
         /// </summary>
-        private UIImage BackgroundMatchmaker;
-        private UIImage Background;
+        UIImage BackgroundMatchmaker;
+        UIImage Background;
 
         /// <summary>
         /// Bookmarks
@@ -102,21 +102,21 @@ namespace FSO.Client.UI.Panels
         public UILabel TimeText { get; set; }
         public UILabel MoneyText { get; set; }
 
-        private UIContainer Panel;
+        UIContainer Panel;
         public int CurrentPanel;
 
-        private uint OldMoney;
-        private int MoneyHighlightFrames;
+        uint OldMoney;
+        int MoneyHighlightFrames;
 
-        private UCPFocusMode Focus;
-        private UIBlocker SelfBlocker;
-        private UIBlocker PanelBlocker;
-        private UIBlocker GameBlocker;
-        private UILabel FloorNumLabel;
-        private int LastZoom;
+        UCPFocusMode Focus;
+        UIBlocker SelfBlocker;
+        UIBlocker PanelBlocker;
+        UIBlocker GameBlocker;
+        UILabel FloorNumLabel;
+        int LastZoom;
 
-        private int InboxFlashTime;
-        private bool InboxFlashing;
+        int InboxFlashTime;
+        bool InboxFlashing;
 
         public UIUCP(UIScreen owner)
         {
@@ -178,8 +178,8 @@ namespace FSO.Client.UI.Panels
             BookmarkButton.OnButtonClick += BookmarkButton_OnButtonClick;
             FriendshipWebButton.OnButtonClick += FriendshipWebButton_OnButtonClick;
 
-            SecondFloorButton.Selected = (Game.Level == Game.Stories);
-            FirstFloorButton.Selected = (Game.Level == 1);
+            SecondFloorButton.Selected = Game.Level == Game.Stories;
+            FirstFloorButton.Selected = Game.Level == 1;
 
             MoneyText.CaptionStyle = MoneyText.CaptionStyle.Clone();
 
@@ -201,27 +201,27 @@ namespace FSO.Client.UI.Panels
             SetFocus(UCPFocusMode.Game);
         }
 
-        private void HelpButton_OnButtonClick(UIElement button)
+        void HelpButton_OnButtonClick(UIElement button)
         {
             UIScreen.ShowDialog(new UIHintWindow(), true);
         }
 
-        private void FriendshipWebButton_OnButtonClick(UIElement button)
+        void FriendshipWebButton_OnButtonClick(UIElement button)
         {
             FindController<CoreGameScreenController>()?.ToggleRelationshipDialog();
         }
 
-        private void BookmarkButton_OnButtonClick(UIElement button)
+        void BookmarkButton_OnButtonClick(UIElement button)
         {
             FindController<CoreGameScreenController>()?.ToggleBookmarks();
         }
 
-        private void SecondFloor(UIElement button)
+        void SecondFloor(UIElement button)
         {
             Game.LotControl.World.State.ScrollAnchor = null; //stop following a sim on a manual adjustment
             Game.Level = Math.Min((sbyte)(Game.Level + 1), Game.Stories);
-            SecondFloorButton.Selected = (Game.Level == Game.Stories);
-            FirstFloorButton.Selected = (Game.Level == 1);
+            SecondFloorButton.Selected = Game.Level == Game.Stories;
+            FirstFloorButton.Selected = Game.Level == 1;
         }
 
         /// <summary>
@@ -300,29 +300,29 @@ namespace FSO.Client.UI.Panels
             Focus = focus;
         }
 
-        private void FirstFloor(UIElement button)
+        void FirstFloor(UIElement button)
         {
             Game.LotControl.World.State.ScrollAnchor = null; //stop following a sim on a manual adjustment
             Game.Level = Math.Max((sbyte)(Game.Level - 1), (sbyte)1);
-            SecondFloorButton.Selected = (Game.Level == Game.Stories);
-            FirstFloorButton.Selected = (Game.Level == 1);
+            SecondFloorButton.Selected = Game.Level == Game.Stories;
+            FirstFloorButton.Selected = Game.Level == 1;
         }
 
-        private void RotateCounterClockwise(UIElement button)
+        void RotateCounterClockwise(UIElement button)
         {
             if (FSOEnvironment.Enable3D && Game.InLot) return;
-            var newRot = (Game.Rotation - 1);
+            var newRot = Game.Rotation - 1;
             if (newRot < 0) newRot = 3;
             Game.Rotation = newRot;
         }
 
-        private void RotateClockwise(UIElement button)
+        void RotateClockwise(UIElement button)
         {
             if (FSOEnvironment.Enable3D && Game.InLot) return;
             Game.Rotation = (Game.Rotation+1)%4;
         }
 
-        private void WallsViewPopup(UIElement button)
+        void WallsViewPopup(UIElement button)
         {
             if (SelWallsPanel == null)
             {
@@ -336,14 +336,14 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void UpdateWallsViewCallback(int mode)
+        void UpdateWallsViewCallback(int mode)
         {
             Remove(SelWallsPanel);
             SelWallsPanel = null;
             Game.LotControl.WallsMode = mode;
             UpdateWallsMode();
         }
-        private void UpdateWallsViewKeyHandler(int type)
+        void UpdateWallsViewKeyHandler(int type)
         {
             var mode = Game.LotControl.WallsMode;
             HouseViewSelectButton.Disabled = true; // triggers redraw of panel to show the correct mode
@@ -388,14 +388,14 @@ namespace FSO.Client.UI.Panels
 
                     //check if we have build/buy permissions
                     //TODO: global build/buy enable/disable (via the global calls)
-                    BuildModeButton.Disabled = ((VMTSOAvatarState)(avatar.TSOState)).Permissions
+                    BuildModeButton.Disabled = ((VMTSOAvatarState)avatar.TSOState).Permissions
                         < VMTSOAvatarPermissions.BuildBuyRoommate;
                     HouseModeButton.Disabled = BuyModeButton.Disabled;
 
                     if (CurrentPanel == 2)
                     {
                         var panel = (UIBuyMode)Panel;
-                        var isRoomie = ((VMTSOAvatarState)(avatar.TSOState)).Permissions
+                        var isRoomie = ((VMTSOAvatarState)avatar.TSOState).Permissions
                             >= VMTSOAvatarPermissions.Roommate;
                         panel.SetRoommate(isRoomie);
                     }
@@ -425,7 +425,7 @@ namespace FSO.Client.UI.Panels
 
             if (InboxFlashing)
             {
-                if ((InboxFlashTime++) > FSOEnvironment.RefreshRate/2)
+                if (InboxFlashTime++ > FSOEnvironment.RefreshRate/2)
                 {
                     if (PhoneButton.ForceState == 2)
                     {
@@ -489,7 +489,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private string ZeroPad(string input, int digits)
+        string ZeroPad(string input, int digits)
         {
             while (input.Length < digits)
             {
@@ -508,25 +508,25 @@ namespace FSO.Client.UI.Panels
             SetPanel(2);
         }
 
-        private void BuildModeButton_OnButtonClick(UIElement button)
+        void BuildModeButton_OnButtonClick(UIElement button)
         {
             SetPanel(3);
         }
 
         void PhoneButton_OnButtonClick(UIElement button)
         {
-            var screen = (GameFacade.Screens.CurrentUIScreen as CoreGameScreen);
+            var screen = GameFacade.Screens.CurrentUIScreen as CoreGameScreen;
             screen?.OpenInbox();
         }
 
-        private void ZoomControl(UIElement button)
+        void ZoomControl(UIElement button)
         {
             if (FSOEnvironment.Enable3D && Game.InLot) return;
-            Game.ZoomLevel = (Game.ZoomLevel + ((button == ZoomInButton) ? -1 : 1));
+            Game.ZoomLevel = Game.ZoomLevel + ((button == ZoomInButton) ? -1 : 1);
             /*if(Game.ZoomLevel >= 4) SetPanel(0);    // Make the panels disappear when zoomed out to far mode   -  Causes crashes for unknown reasons*/
                 }
 
-        private void SetCityZoom(UIElement button)
+        void SetCityZoom(UIElement button)
         {
             if (button == CloseZoomButton) Game.ZoomLevel = 1;
             if (button == MediumZoomButton) Game.ZoomLevel = 2;
@@ -535,7 +535,7 @@ namespace FSO.Client.UI.Panels
             if (button == WorldButton) Game.ZoomLevel = 5;
         }
 
-        private void OptionsModeButton_OnButtonClick(UIElement button)
+        void OptionsModeButton_OnButtonClick(UIElement button)
         {
             SetPanel(5);
         }
@@ -660,11 +660,11 @@ namespace FSO.Client.UI.Panels
             if (Background.Visible && Game.InLot)
             {
                 var mode = Game.LotControl.WallsMode;
-                WallsDownButton.Visible = (mode == 0);
-                WallsCutawayButton.Visible = (mode == 1);
-                WallsUpButton.Visible = (mode == 2);
-                RoofButton.Visible = (mode == 3);
-                Game.LotControl.World.State.DrawRoofs = (mode == 3);
+                WallsDownButton.Visible = mode == 0;
+                WallsCutawayButton.Visible = mode == 1;
+                WallsUpButton.Visible = mode == 2;
+                RoofButton.Visible = mode == 3;
+                Game.LotControl.World.State.DrawRoofs = mode == 3;
             } else {
                 WallsDownButton.Visible = false;
                 WallsCutawayButton.Visible = false;
@@ -712,21 +712,21 @@ namespace FSO.Client.UI.Panels
 
         public void UpdateZoomButton()
         {
-            CloseZoomButton.Selected = (Game.ZoomLevel == 1);
-            MediumZoomButton.Selected = (Game.ZoomLevel == 2);
-            FarZoomButton.Selected = (Game.ZoomLevel == 3);
-            NeighborhoodButton.Selected = (Game.ZoomLevel == 4);
-            WorldButton.Selected = (Game.ZoomLevel == 5);
+            CloseZoomButton.Selected = Game.ZoomLevel == 1;
+            MediumZoomButton.Selected = Game.ZoomLevel == 2;
+            FarZoomButton.Selected = Game.ZoomLevel == 3;
+            NeighborhoodButton.Selected = Game.ZoomLevel == 4;
+            WorldButton.Selected = Game.ZoomLevel == 5;
 
             if (Game is SandboxGameScreen)
             {
                 ZoomInButton.Disabled = (!Game.InLot) || (!FSOEnvironment.Enable3D && (Game.ZoomLevel == 1));
-                ZoomOutButton.Disabled = (!FSOEnvironment.Enable3D && (Game.ZoomLevel == 3));
+                ZoomOutButton.Disabled = !FSOEnvironment.Enable3D && (Game.ZoomLevel == 3);
             }
             else
             {
                 ZoomInButton.Disabled = (!Game.InLot) ? (Game.ZoomLevel == 4) : (!FSOEnvironment.Enable3D && (Game.ZoomLevel == 1));
-                ZoomOutButton.Disabled = (Game.ZoomLevel == 5);
+                ZoomOutButton.Disabled = Game.ZoomLevel == 5;
             }
             LastZoom = Game.ZoomLevel;
         }

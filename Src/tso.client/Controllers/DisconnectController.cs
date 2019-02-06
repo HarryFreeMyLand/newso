@@ -11,14 +11,14 @@ namespace FSO.Client.Controllers
 {
     public class DisconnectController : IDisposable
     {
-        private TransitionScreen View;
-        private CityConnectionRegulator CityConnectionRegulator;
-        private LotConnectionRegulator LotConnectionRegulator;
-        private LoginRegulator LoginRegulator;
+        TransitionScreen View;
+        CityConnectionRegulator CityConnectionRegulator;
+        LotConnectionRegulator LotConnectionRegulator;
+        LoginRegulator LoginRegulator;
 
         int totalComplete = 0;
         int targetComplete = 2;
-        private Action<bool> onDisconnected;
+        Action<bool> onDisconnected;
 
         public DisconnectController(TransitionScreen view, CityConnectionRegulator cityRegulator, LotConnectionRegulator lotRegulator, LoginRegulator logRegulator, Network.Network network)
         {
@@ -35,7 +35,7 @@ namespace FSO.Client.Controllers
             LoginRegulator.OnTransition += LoginRegulator_OnTransition;
         }
 
-        private void LoginRegulator_OnTransition(string state, object data)
+        void LoginRegulator_OnTransition(string state, object data)
         {
             switch (state)
             {
@@ -45,12 +45,12 @@ namespace FSO.Client.Controllers
             }
         }
 
-        private void LoginRegulator_OnError(object data)
+        void LoginRegulator_OnError(object data)
         {
             onDisconnected(true);
         }
 
-        private void CityConnectionRegulator_OnTransition(string state, object data)
+        void CityConnectionRegulator_OnTransition(string state, object data)
         {
             switch (state)
             {

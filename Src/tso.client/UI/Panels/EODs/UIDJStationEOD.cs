@@ -124,13 +124,13 @@ namespace FSO.Client.UI.Panels.EODs
             if (split.Length < 4) return;
             foreach (var elem in PatternButtons)
             {
-                var btn = (elem as UIButton);
+                var btn = elem as UIButton;
                 if (btn != null)
                 {
                     var id = elem.NumericId.ToString();
-                    int category = (id[0] - '1');
-                    int ind1 = (id[1] - '0'); //(ABC), digit 1, digit 2
-                    int ind2 = (id[2] - '0');
+                    int category = id[0] - '1';
+                    int ind1 = id[1] - '0'; //(ABC), digit 1, digit 2
+                    int ind2 = id[2] - '0';
                     btn.Selected = split[category][ind1] == ind2.ToString()[0];
                 }
             }

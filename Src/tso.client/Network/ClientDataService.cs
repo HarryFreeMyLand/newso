@@ -26,13 +26,13 @@ namespace FSO.Common.DataService
 {
     public class ClientDataService : DataService, IClientDataService, IAriesMessageSubscriber
     {
-        private uint messageId;
-        private AriesClient CityClient;
-        private Dictionary<uint, PendingDataRequest> PendingCallbacks = new Dictionary<uint, PendingDataRequest>();
+        uint messageId;
+        AriesClient CityClient;
+        Dictionary<uint, PendingDataRequest> PendingCallbacks = new Dictionary<uint, PendingDataRequest>();
         protected TimeSpan CallbackTimeout = TimeSpan.FromSeconds(30);
-        private GameThreadInterval PollInterval;
+        GameThreadInterval PollInterval;
 
-        private Dictionary<Type, MaskedStruct> DefaultDataStruct = new Dictionary<Type, MaskedStruct>();
+        Dictionary<Type, MaskedStruct> DefaultDataStruct = new Dictionary<Type, MaskedStruct>();
         
         public ClientDataService(IModelSerializer serializer,
                                 FSO.Content.GameContent content,
@@ -76,13 +76,13 @@ namespace FSO.Common.DataService
             return result.Task;
         }
 
-        private PropertyInfo GetKeyField(Type type)
+        PropertyInfo GetKeyField(Type type)
         {
             var keyField = type.GetProperties().First(x => x.GetCustomAttribute<Key>() != null);
             return keyField;
         }
 
-        private uint[] GetDotPath(object item, string fieldPath)
+        uint[] GetDotPath(object item, string fieldPath)
         {
             //the "item" is the top level. We can really serialize anything any number of fields deep.
             //dot path is: provider, id, field, field, field...
@@ -174,7 +174,7 @@ namespace FSO.Common.DataService
             });
         }
 
-        private object GetFieldFromPath(object item, string fieldPath)
+        object GetFieldFromPath(object item, string fieldPath)
         {
             var path = fieldPath.Split('.');
             var curObj = item.GetType().GetProperty(path[0]).GetValue(item);
@@ -225,7 +225,7 @@ namespace FSO.Common.DataService
             CityClient.Write(packets);
         }
 
-        private uint NextMessageId()
+        uint NextMessageId()
         {
             lock (this)
             {
@@ -261,7 +261,7 @@ namespace FSO.Common.DataService
         }
 
 
-        private List<TopicSubscription> _Topics = new List<TopicSubscription>();
+        List<TopicSubscription> _Topics = new List<TopicSubscription>();
 
         public ITopicSubscription CreateTopicSubscription()
         {
@@ -282,7 +282,7 @@ namespace FSO.Common.DataService
         /// <summary>
         /// For now, data updates occor by polling the server.
         /// </summary>
-        private void PollTopics()
+        void PollTopics()
         {
             lock (_Topics) {
                 //TODO: Make this more efficient
@@ -317,7 +317,7 @@ namespace FSO.Common.DataService
             }
         }
 
-        private uint GetId(object item)
+        uint GetId(object item)
         {
             var keyField = GetKeyField(item.GetType());
             var id = (uint)keyField.GetValue(item);
@@ -401,10 +401,10 @@ namespace FSO.Common.DataService
 
     class PendingDataRequest
     {
-        private uint MessageId;
-        private IClientDataService DataService;
-        private TaskCompletionSource<object> TaskSource = new TaskCompletionSource<object>();
-        private Task<object> Resolver;
+        uint MessageId;
+        IClientDataService DataService;
+        TaskCompletionSource<object> TaskSource = new TaskCompletionSource<object>();
+        Task<object> Resolver;
 
         public PendingDataRequest(uint messageId, IClientDataService ds, Task<object> resolver)
         {

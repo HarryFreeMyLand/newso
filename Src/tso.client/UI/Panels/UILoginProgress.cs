@@ -15,8 +15,8 @@ namespace FSO.Client.UI.Panels
 {
     public class UILoginProgress : UIDialog
     {
-        private UIProgressBar m_ProgressBar;
-        private UILabel m_ProgressLabel;
+        UIProgressBar m_ProgressBar;
+        UILabel m_ProgressLabel;
 
         public UILoginProgress() : base(UIDialogStyle.Standard, false)
         {

@@ -33,16 +33,16 @@ namespace FSO.Client.UI.Panels.LotControls
         World World;
         UILotControl Parent;
 
-        private bool Drawing;
-        private Point StartPosition;
-        private Point EndPosition;
+        bool Drawing;
+        Point StartPosition;
+        Point EndPosition;
 
-        private short StartTerrainHeight;
-        private int StartMousePosition;
-        private Point EndMousePosition;
+        short StartTerrainHeight;
+        int StartMousePosition;
+        Point EndMousePosition;
 
-        private VMArchitectureCommand LastCmd;
-        private bool WasDown;
+        VMArchitectureCommand LastCmd;
+        bool WasDown;
 
         public UITerrainFlatten(VM vm, World world, UILotControl parent, List<int> parameters)
         {
@@ -96,7 +96,7 @@ namespace FSO.Client.UI.Panels.LotControls
                 var bigX = Math.Max(StartPosition.X, cursor.X);
                 var bigY = Math.Max(StartPosition.Y, cursor.Y);
 
-                if (smallX != bigX || bigY != smallY || (state.CtrlDown))
+                if (smallX != bigX || bigY != smallY || state.CtrlDown)
                 {
                     cmds.Add(new VMArchitectureCommand
                     {
@@ -106,7 +106,7 @@ namespace FSO.Client.UI.Panels.LotControls
                         x2 = bigX - smallX,
                         y2 = bigY - smallY,
                         style = (ushort)StartTerrainHeight,
-                        pattern = (ushort)((state.CtrlDown) ? 1 : 0)
+                        pattern = (ushort)(state.CtrlDown ? 1 : 0)
                     });
                 }
 
@@ -147,7 +147,7 @@ namespace FSO.Client.UI.Panels.LotControls
                     x2 = bigX-smallX,
                     y2 = bigY-smallY,
                     style = (ushort)StartTerrainHeight,
-                    pattern = (ushort)((state.CtrlDown) ? 1 : 0)
+                    pattern = (ushort)(state.CtrlDown ? 1 : 0)
                 });
                 WallCursor2.SetVisualPosition(new Vector3(StartPosition.X, StartPosition.Y, (World.State.Level - 1) * 2.95f), Direction.NORTH, vm.Context);
             } else
@@ -217,7 +217,7 @@ namespace FSO.Client.UI.Panels.LotControls
             SetCursorGraphic(3, WallCursor2);
         }
 
-        private void ShowErrorAtMouse(UpdateState state, VMPlacementError error, Point pos)
+        void ShowErrorAtMouse(UpdateState state, VMPlacementError error, Point pos)
         {
             state.UIState.TooltipProperties.Show = true;
             state.UIState.TooltipProperties.Color = Color.Black;

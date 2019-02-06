@@ -135,7 +135,7 @@ namespace FSO.Client.UI.Panels.EODs
             OnContract();
         }
 
-        private void FrontTab_OnShowNewsItem(VMEODFNewspaperNews news)
+        void FrontTab_OnShowNewsItem(VMEODFNewspaperNews news)
         {
             var start = new DateTime(news.StartDate);
             var end = new DateTime(news.EndDate);
@@ -166,7 +166,7 @@ namespace FSO.Client.UI.Panels.EODs
             TopText.Visible = false;
         }
 
-        private void SetTab(int tab)
+        void SetTab(int tab)
         {
             foreach (var bar in BarGraphs)
             {
@@ -181,7 +181,7 @@ namespace FSO.Client.UI.Panels.EODs
             GraphTabBtn.Selected = tab == 2;
         }
 
-        private void SetState(string evt, byte[] body)
+        void SetState(string evt, byte[] body)
         {
             var data = new VMEODFNewspaperData(body);
 
@@ -209,12 +209,12 @@ namespace FSO.Client.UI.Panels.EODs
         public float Difference;
         public float Percent;
         public bool Bonus;
-        private Texture2D WhitePx;
+        Texture2D WhitePx;
 
-        private UILabel PctLabel;
-        private UILabel DiffLabel;
-        private UILabel NameLabel;
-        private bool Rightmost;
+        UILabel PctLabel;
+        UILabel DiffLabel;
+        UILabel NameLabel;
+        bool Rightmost;
 
         public float BarHeight
         {
@@ -317,8 +317,8 @@ namespace FSO.Client.UI.Panels.EODs
             new Color(201, 38, 255) //Phome (telemarket)
         };
 
-        private UILabel[] DateLabels;
-        private UIClickableLabel[] SkillLabels;
+        UILabel[] DateLabels;
+        UIClickableLabel[] SkillLabels;
         public UINewspaperGraph Graph;
 
         public UINewspaperGraphTab()
@@ -367,7 +367,7 @@ namespace FSO.Client.UI.Panels.EODs
             Add(Graph);
         }
 
-        private void OnSkillHover(UIMouseEventType type, Common.Rendering.Framework.Model.UpdateState state, int id)
+        void OnSkillHover(UIMouseEventType type, Common.Rendering.Framework.Model.UpdateState state, int id)
         {
             switch (type)
             {
@@ -399,11 +399,11 @@ namespace FSO.Client.UI.Panels.EODs
 
     public class UINewspaperGraph : UICachedContainer
     {
-        private Texture2D WhitePx;
+        Texture2D WhitePx;
         public float[][] Data;
         public int SkillHover = -1;
 
-        private float _FadePct;
+        float _FadePct;
         public float FadePct
         {
             get
@@ -424,7 +424,7 @@ namespace FSO.Client.UI.Panels.EODs
             Size = new Vector2(299, 105);
         }
 
-        private void DrawLine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth) //draws a line from Start to End.
+        void DrawLine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth) //draws a line from Start to End.
         {
             Start = LocalPoint(Start);
             End = LocalPoint(End);
@@ -434,13 +434,13 @@ namespace FSO.Client.UI.Panels.EODs
                 null, tint, direction, new Vector2(0, 0.5f), SpriteEffects.None, 0);
         }
 
-        private void DrawAALine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth)
+        void DrawAALine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth)
         {
             DrawLine(tint * 0.5f, Start, End, spriteBatch, lineWidth + 1);
             DrawLine(tint, Start, End, spriteBatch, lineWidth);
         }
 
-        private void DrawShadLine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth)
+        void DrawShadLine(Color tint, Vector2 Start, Vector2 End, SpriteBatch spriteBatch, int lineWidth)
         {
             DrawAALine(Color.Black, Start+Vector2.One, End+Vector2.One, spriteBatch, lineWidth);
             DrawAALine(tint, Start, End, spriteBatch, lineWidth);
@@ -506,7 +506,7 @@ namespace FSO.Client.UI.Panels.EODs
                     {
                         var point1 = (Data[i][j] - 0.5f) * range;
                         var point2 = (Data[i][j+1] - 0.5f) * range;
-                        DrawShadLine(color, new Vector2(15 + j * 45, (Size.Y - 12) - point1), new Vector2(15 + (j + 1) * 45, (Size.Y - 12) - point2), batch, 2);
+                        DrawShadLine(color, new Vector2(15 + j * 45, Size.Y - 12 - point1), new Vector2(15 + (j + 1) * 45, Size.Y - 12 - point2), batch, 2);
                     }
                 }
 
@@ -518,7 +518,7 @@ namespace FSO.Client.UI.Panels.EODs
                     {
                         var point1 = (Data[i][j] - 0.5f) * range;
                         var point2 = (Data[i][j + 1] - 0.5f) * range;
-                        DrawShadLine(color, new Vector2(15 + j * 45, (Size.Y - 12) - point1), new Vector2(15 + (j + 1) * 45, (Size.Y - 12) - point2), batch, 2);
+                        DrawShadLine(color, new Vector2(15 + j * 45, Size.Y - 12 - point1), new Vector2(15 + (j + 1) * 45, Size.Y - 12 - point2), batch, 2);
                     }
                 }
             }
@@ -676,7 +676,7 @@ namespace FSO.Client.UI.Panels.EODs
 
             for (int i=0; i<Recents.Length; i++)
             {
-                Recents[i].Visible = ((i + 2) / 4 == page);
+                Recents[i].Visible = (i + 2) / 4 == page;
             }
 
             NextButton.Visible = page == 0;

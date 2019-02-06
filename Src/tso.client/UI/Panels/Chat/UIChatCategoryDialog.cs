@@ -95,7 +95,7 @@ namespace FSO.Client.UI.Panels.Chat
                 {
                     Caption = (j == 0) ? GameFacade.Strings.GetString("f113", "35") : GameFacade.Strings.GetString("f113", "36")
                 });
-                var viewMin = (j == 0);
+                var viewMin = j == 0;
                 for (uint i = 0; i < 4; i++)
                 {
                     var hbox = new UIHBoxContainer();
@@ -103,7 +103,7 @@ namespace FSO.Client.UI.Panels.Chat
                     {
                         RadioGroup = (j == 0) ? "viewPerm" : "showPerm",
                         RadioData = (VMTSOAvatarPermissions)i,
-                        Selected = (viewMin) ? (i == (int)cat.ViewPermMin) : (i == (int)cat.SendPermMin),
+                        Selected = viewMin ? (i == (int)cat.ViewPermMin) : (i == (int)cat.SendPermMin),
                         Tooltip = GameFacade.Strings.GetString("f113", (37 + i).ToString())
                     };
                     radio.OnButtonClick += (btn) =>

@@ -15,11 +15,11 @@ namespace FSO.Client.Controllers
 {
     public class MessagingWindowController
     {
-        private UIMessageWindow View;
-        private MessagingController Parent;
-        private Message Message;
-        private Network.Network Network;
-        private IClientDataService DataService;
+        UIMessageWindow View;
+        MessagingController Parent;
+        Message Message;
+        Network.Network Network;
+        IClientDataService DataService;
 
         public MessagingWindowController(UIMessageWindow view, Network.Network network, IClientDataService dataService)
         {

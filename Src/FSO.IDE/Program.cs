@@ -1,4 +1,4 @@
-﻿#define IDE_COMPAT
+#define IDE_COMPAT
 
 using FSO.Client;
 using FSO.Common.Utils;
@@ -12,6 +12,9 @@ using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FSO.SimAntics;
+using FSO.Client.Diagnostics;
+using FSO.Files.Formats.IFF;
 
 namespace FSO.IDE
 {
@@ -26,7 +29,7 @@ namespace FSO.IDE
         /// </summary>
         static void Main(string[] args)
         {
-            FSO.Windows.Program.InitWindows();
+            Windows.Program.InitWindows();
             TimedReferenceController.SetMode(CacheType.PERMANENT);
 
             try
@@ -37,7 +40,8 @@ namespace FSO.IDE
                 type = asm.GetType("FSO.Client.GameStartProxy");
                 StartProxy = Activator.CreateInstance(type) as IGameStartProxy;
                 AssemblyUtils.Entry = asm;
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 try
                 {
@@ -54,7 +58,8 @@ namespace FSO.IDE
                 }
             }
 
-            if (!FSOProgram.InitWithArguments(args)) return;
+            if (!FSOProgram.InitWithArguments(args))
+                return;
             (new VolcanicStartProxy()).Start();
         }
     }
@@ -72,9 +77,9 @@ namespace FSO.IDE
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Files.Formats.IFF.Chunks.SPR2FrameEncoder.QuantizeFrame = SpriteEncoderUtils.QuantizeFrame;
-            FSO.Files.Formats.IFF.IffFile.RETAIN_CHUNK_DATA = true;
-            FSO.SimAntics.VM.SignalBreaks = true;
-            FSO.Client.IDE.IDEHook.SetIDE(new IDETester());
+            IffFile.RETAIN_CHUNK_DATA = true;
+            VM.SignalBreaks = true;
+            IDEHook.IDE = new IDETester();
         }
     }
 }

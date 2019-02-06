@@ -30,12 +30,12 @@ namespace FSO.Client.UI.Panels
             CloseButton.OnButtonClick += CloseClicked;
         }
 
-        private void CloseClicked(UIElement button)
+        void CloseClicked(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }
 
-        private void OKClicked(UIElement button)
+        void OKClicked(UIElement button)
         {
             uint result = 0;
             if (uint.TryParse(ForSalePrice.CurrentText, out result))

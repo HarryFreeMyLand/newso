@@ -33,7 +33,7 @@ namespace FSO.Client.UI.Panels.LotControls
         UILotControl Parent;
 
         bool Drawing;
-        private List<VMArchitectureCommand> Commands;
+        List<VMArchitectureCommand> Commands;
         int CursorDir = 0;
 
         int StartX = -1;
@@ -81,7 +81,7 @@ namespace FSO.Client.UI.Panels.LotControls
 
         public void Update(UpdateState state, bool scrolled)
         {
-            ushort pattern = (state.CtrlDown) ? (ushort)0 : Pattern;
+            ushort pattern = state.CtrlDown ? (ushort)0 : Pattern;
             
             var tilePos = World.EstTileAtPosWithScroll(Parent.GetScaledPoint(state.MouseState.Position).ToVector2() / FSOEnvironment.DPIScaleFactor);
             Point cursor = new Point((int)tilePos.X, (int)tilePos.Y);

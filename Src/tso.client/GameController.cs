@@ -36,10 +36,10 @@ namespace FSO.Client
     /// </summary>
     public class GameController
     {
-        private object CurrentController;
-        private UIScreen CurrentView;
-        private IKernel Kernel;
-        private static bool DummyLinker;
+        object CurrentController;
+        UIScreen CurrentView;
+        IKernel Kernel;
+        static bool DummyLinker;
 
         public GameController(IKernel kernel)
         {
@@ -272,7 +272,7 @@ namespace FSO.Client
         }
 
 
-        private void HandleDisconnect(bool forceLogin){
+        void HandleDisconnect(bool forceLogin){
             //Depending on how long is left on the session take user
             //to SAS or login screen
             if (forceLogin)
@@ -302,9 +302,9 @@ namespace FSO.Client
             }, true);
         }
 
-        private UIDebugMenu _DebugMenu;
-        private bool _DebugVisible = false;
-        private DialogReference _DebugDialog;
+        UIDebugMenu _DebugMenu;
+        bool _DebugVisible = false;
+        DialogReference _DebugDialog;
 
         public void ToggleDebugMenu()
         {
@@ -326,7 +326,7 @@ namespace FSO.Client
             }
         }
 
-        private void ChangeState<TView, TController>(Callback<TView, TController> onCreated) where TView : UIScreen
+        void ChangeState<TView, TController>(Callback<TView, TController> onCreated) where TView : UIScreen
         {
             Binding.DisposeAll();
             GameThread.InUpdate(() =>

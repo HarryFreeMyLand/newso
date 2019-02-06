@@ -143,13 +143,13 @@ namespace FSO.Client.UI.Panels
          * Skills Progress Bars 
          */
 
-        private bool Open = true;
+        bool Open = true;
 
         /**
          * Admin Specific UI (hardcode)
          */
 
-        private UIButton ModButton;
+        UIButton ModButton;
 
         /**
          * Model
@@ -159,25 +159,25 @@ namespace FSO.Client.UI.Panels
         public Binding<Lot> MyLot { get; internal set; }
         public override Vector2 Size { get; set; }
 
-        private UIPersonPageTab _Tab = UIPersonPageTab.Description;
-        private UIAccomplishmentsTab _AccomplishmentsTab = UIAccomplishmentsTab.Skills;
-        private UIRelationshipsTab _RelationshipsTab = UIRelationshipsTab.Outgoing;
-        private string OriginalDescription;
-        private string JobAlertText;
-        private bool LocalDataChange;
+        UIPersonPageTab _Tab = UIPersonPageTab.Description;
+        UIAccomplishmentsTab _AccomplishmentsTab = UIAccomplishmentsTab.Skills;
+        UIRelationshipsTab _RelationshipsTab = UIRelationshipsTab.Outgoing;
+        string OriginalDescription;
+        string JobAlertText;
+        bool LocalDataChange;
 
-        private int TotalLocks = 20;
-        private int UsedLocks = 0;
+        int TotalLocks = 20;
+        int UsedLocks = 0;
 
-        private int RelOutSTR = 0;
-        private int RelOutLTR = 0;
-        private int RelInSTR = 0;
-        private int RelInLTR = 0;
+        int RelOutSTR = 0;
+        int RelOutLTR = 0;
+        int RelInSTR = 0;
+        int RelInLTR = 0;
 
-        private bool isMyPropertyOwner;
-        private bool IsRoommate;
+        bool isMyPropertyOwner;
+        bool IsRoommate;
 
-        private static byte[] VMSkillMap = new byte[]
+        static byte[] VMSkillMap = new byte[]
         {
             5,
             2,
@@ -351,7 +351,7 @@ namespace FSO.Client.UI.Panels
             this.ChildrenWithinIdRange(600, 699).ForEach(x => {
                 if (x is UILabel)
                 {
-                    var lbl = ((UILabel)x);
+                    var lbl = (UILabel)x;
                     lbl.Y -= 5;
                     if (x.NumericId != 606)
                     {
@@ -456,7 +456,7 @@ namespace FSO.Client.UI.Panels
             CurrentAvatar = new Binding<Avatar>()
                 .WithBinding(this, "HeadOutfitId", "Avatar_Appearance.AvatarAppearance_HeadOutfitID")
                 .WithBinding(this, "SimBox.Avatar.BodyOutfitId", "Avatar_Appearance.AvatarAppearance_BodyOutfitID")
-                .WithBinding(this, "SimBox.Avatar.Appearance", "Avatar_Appearance.AvatarAppearance_SkinTone", (x) => (Vitaboy.AppearanceType)((byte)x))
+                .WithBinding(this, "SimBox.Avatar.Appearance", "Avatar_Appearance.AvatarAppearance_SkinTone", (x) => (Vitaboy.AppearanceType)(byte)x)
                 .WithBinding(this, "AvatarName", "Avatar_Name")
                 .WithMultiBinding(x =>
                 {
@@ -482,7 +482,7 @@ namespace FSO.Client.UI.Panels
             Size = BackgroundExpandedImage.Size.ToVector2();
         }
 
-        private void ModButton_OnButtonClick(UIElement button)
+        void ModButton_OnButtonClick(UIElement button)
         {
             if (CurrentAvatar.Value != null)
             {
@@ -494,19 +494,19 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void BanCheckBox_OnButtonClick(UIElement button)
+        void BanCheckBox_OnButtonClick(UIElement button)
         {
             if (CurrentAvatar.Value != null)
                 ToggleAdmitBan(true, BanCheckBox, CurrentAvatar.Value.Avatar_Id);
         }
 
-        private void AdmitCheckBox_OnButtonClick(UIElement button)
+        void AdmitCheckBox_OnButtonClick(UIElement button)
         {
             if (CurrentAvatar.Value != null)
                 ToggleAdmitBan(false, AdmitCheckBox, CurrentAvatar.Value.Avatar_Id);
         }
 
-        private void BookmarksChanged()
+        void BookmarksChanged()
         {
             var bookmark = false;
             var ignore = false;
@@ -526,7 +526,7 @@ namespace FSO.Client.UI.Panels
             IgnoreButton.Selected = ignore;
         }
 
-        private void AdmitBanChanged()
+        void AdmitBanChanged()
         {
             var admit = false;
             var ban = false;
@@ -551,13 +551,13 @@ namespace FSO.Client.UI.Panels
             BanCheckBox.Selected = ban;
         }
 
-        private void BookmarkButton_OnButtonClick(UIElement button)
+        void BookmarkButton_OnButtonClick(UIElement button)
         {
             if (CurrentAvatar.Value != null)
                 ToggleBookmark(BookmarkType.AVATAR, BookmarkButton, CurrentAvatar.Value.Avatar_Id);
         }
 
-        private void IgnoreButton_OnButtonClick(UIElement button)
+        void IgnoreButton_OnButtonClick(UIElement button)
         {
             if (CurrentAvatar.Value != null)
                 ToggleBookmark(BookmarkType.IGNORE_AVATAR, IgnoreButton, CurrentAvatar.Value.Avatar_Id);
@@ -620,7 +620,7 @@ namespace FSO.Client.UI.Panels
 
             if (MyLot != null && MyLot.Value != null)
             {
-                var list = (ban) ? MyLot.Value.Lot_LotAdmitInfo?.LotAdmitInfo_BanList : MyLot.Value.Lot_LotAdmitInfo?.LotAdmitInfo_AdmitList;
+                var list = ban ? MyLot.Value.Lot_LotAdmitInfo?.LotAdmitInfo_BanList : MyLot.Value.Lot_LotAdmitInfo?.LotAdmitInfo_AdmitList;
                 if (list != null)
                 {
                     var admitted = list.Contains(target_id);
@@ -638,7 +638,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void FindSimClicked(UIElement button)
+        void FindSimClicked(UIElement button)
         {
             if (FindSimButton.Texture == FindPersonButtonImage)
             {
@@ -679,7 +679,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void UpdatePresence( bool enabled)
+        void UpdatePresence( bool enabled)
         {
             var vm = FindController<CoreGameScreenController>().Screen.vm;
             var avatarName = CurrentAvatar.Value.Avatar_Name;
@@ -696,7 +696,7 @@ namespace FSO.Client.UI.Panels
             else DiscordRpcEngine.SendFSOPresence(avatarName, null, 0, 0, 0, 0, enabled);
         }
 
-        private void ShowJobInfo(UIElement button)
+        void ShowJobInfo(UIElement button)
         {
             UIScreen.GlobalShowAlert(new UIAlertOptions()
             {
@@ -742,7 +742,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void ResizeNameLabel()
+        void ResizeNameLabel()
         {
             var style = NameText.CaptionStyle;
             var width = style.MeasureString(NameText.Caption).X;
@@ -850,7 +850,7 @@ namespace FSO.Client.UI.Panels
         }
 
 
-        private int bodyID = 0;
+        int bodyID = 0;
 
         public void SetOpen(bool open)
         {
@@ -859,7 +859,7 @@ namespace FSO.Client.UI.Panels
             FindController<PersonPageController>()?.ForceRefreshData(_Tab);
         }
 
-        private void PopulateJobsText(Avatar ava)
+        void PopulateJobsText(Avatar ava)
         {
             HashSet<JobLevel> jobs = null;
             JobLevel currentJob = null;
@@ -905,7 +905,7 @@ namespace FSO.Client.UI.Panels
             JobsText.SetSize(JobsText.Width, 160);
         }
 
-        private void UpdateLockCounts()
+        void UpdateLockCounts()
         {
             UsedLocks = 0;
             foreach (var bar in SkillBars) UsedLocks += bar.LockLevel;
@@ -913,7 +913,7 @@ namespace FSO.Client.UI.Panels
             foreach (var bar in SkillBars) bar.FreeLocks = TotalLocks - UsedLocks;
         }
 
-        private void Redraw()
+        void Redraw()
         {
             if (LocalDataChange) return;
             var isOpen = Open == true;
@@ -987,8 +987,8 @@ namespace FSO.Client.UI.Panels
                 FindSimButton.Tooltip = GameFacade.Strings.GetString("189", "8");
             } else
             {
-                FindSimButton.Texture = (privacyOn) ? FindPrivacyOnButtonImage : FindPrivacyOffButtonImage;
-                FindSimButton.Tooltip = GameFacade.Strings.GetString("189", (privacyOn) ? "57" : "56");
+                FindSimButton.Texture = privacyOn ? FindPrivacyOnButtonImage : FindPrivacyOffButtonImage;
+                FindSimButton.Tooltip = GameFacade.Strings.GetString("189", privacyOn ? "57" : "56");
             }
             FriendRimImage.Visible = isOnline && isFriend;
             EnemyRimImage.Visible = isOnline && isEnemy;
@@ -1025,7 +1025,7 @@ namespace FSO.Client.UI.Panels
             this.DescriptionTabImage.Visible = isOpen && isDesc;
             this.DescriptionBackgroundReadImage.Visible = isOpen && isDesc && !isMe;
             this.DescriptionBackgroundWriteImage.Visible = isOpen && isDesc && isMe;
-            this.DescriptionText.Mode = (isMe) ? UITextEditMode.Editor : UITextEditMode.ReadOnly;
+            this.DescriptionText.Mode = isMe ? UITextEditMode.Editor : UITextEditMode.ReadOnly;
 
             this.AccomplishmentsTabButton.Visible = isOpen;
             this.AccomplishmentsTabBackgroundImage.Visible = isOpen && !isAccomp;
@@ -1083,8 +1083,8 @@ namespace FSO.Client.UI.Panels
             IgnoreButton.Disabled = isMe;
 
             KickOutButton.Disabled = !(isMe || isMyPropertyOwner);
-            InviteButton.Disabled = !(isMyPropertyOwner) || hasProperty;
-            KickOutButton.Tooltip = GameFacade.Strings.GetString("189", (isMe) ? "95" : "33");
+            InviteButton.Disabled = !isMyPropertyOwner || hasProperty;
+            KickOutButton.Tooltip = GameFacade.Strings.GetString("189", isMe ? "95" : "33");
 
             if (isOptions)
             {
@@ -1093,7 +1093,7 @@ namespace FSO.Client.UI.Panels
             }
         }
 
-        private void KickOutButton_OnButtonClick(UIElement button)
+        void KickOutButton_OnButtonClick(UIElement button)
         {
             //is it me?
             var isMe = false;
@@ -1105,8 +1105,8 @@ namespace FSO.Client.UI.Panels
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
             {
-                Title = GameFacade.Strings.GetString("208", (isMe)?"7":"1"),
-                Message = GameFacade.Strings.GetString("208", (isMe) ? "8" : "2"),
+                Title = GameFacade.Strings.GetString("208", isMe?"7":"1"),
+                Message = GameFacade.Strings.GetString("208", isMe ? "8" : "2"),
                 Buttons = new UIAlertButton[] {
                         new UIAlertButton(UIAlertButtonType.Yes, (btn) => {
                             if (CurrentAvatar.Value != null) {
@@ -1119,7 +1119,7 @@ namespace FSO.Client.UI.Panels
             }, true);
         }
 
-        private void InviteButton_OnButtonClick(UIElement button)
+        void InviteButton_OnButtonClick(UIElement button)
         {
             UIAlert alert = null;
             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()

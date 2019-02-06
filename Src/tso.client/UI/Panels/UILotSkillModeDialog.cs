@@ -69,18 +69,18 @@ namespace FSO.Client.UI.Panels
             OKButton.OnButtonClick += OKButton_OnButtonClick;
         }
 
-        private void OKButton_OnButtonClick(UIElement button)
+        void OKButton_OnButtonClick(UIElement button)
         {
             UIScreen.RemoveDialog(this);
             OnModeChosen(Result);
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             UIScreen.RemoveDialog(this);
         }
 
-        private void Radio_OnButtonClick(UIElement button)
+        void Radio_OnButtonClick(UIElement button)
         {
             Result = (uint)((UIRadioButton)button).RadioData;
         }

@@ -22,8 +22,8 @@ namespace FSO.Client.Regulators
         //public List<ShardStatusItem> Shards { get; internal set; } = new List<ShardStatusItem>();
         public IShardsDomain Shards;
 
-        private AuthClient AuthClient;
-        private CityClient CityClient;
+        AuthClient AuthClient;
+        CityClient CityClient;
 
         public LoginRegulator(AuthClient authClient, CityClient cityClient, IShardsDomain domain)
         {

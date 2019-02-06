@@ -33,7 +33,7 @@ using FSO.SimAntics.NetPlay;
 using FSO.Client.UI.Controls;
 using FSO.Client.Controllers;
 using FSO.Client.Controllers.Panels;
-using FSO.Client.IDE;
+using FSO.Client.Diagnostics;
 using FSO.Client.UI.Panels.WorldUI;
 using FSO.SimAntics.Engine.TSOTransaction;
 using FSO.Common;
@@ -55,33 +55,33 @@ namespace FSO.Client.UI.Screens
         public UIBookmarks Bookmarks;
         public UIRelationshipDialog Relationships;
 
-        private Queue<SimConnectStateChange> StateChanges;
+        Queue<SimConnectStateChange> StateChanges;
 
         public Terrain CityRenderer; //city view
         public UICustomTooltip CityTooltip;
         public UICustomTooltipContainer CityTooltipHitArea;
         public UIMessageTray MessageTray;
         public UIJoinLotProgress JoinLotProgress;
-        private UIAlert SwitchLotDialog;
+        UIAlert SwitchLotDialog;
 
         public UILotControl LotControl { get; set; } //world, lotcontrol and vm will be null if we aren't in a lot.
-        private World World;
+        World World;
         public bool WorldLoaded;
         public VM vm { get; set; }
         public VMClientDriver Driver;
         public uint VisualBudget { get; set; }
 
-        private UIMouseEventRef MouseHitAreaEventRef = null;
+        UIMouseEventRef MouseHitAreaEventRef = null;
 
         public bool InLot
         {
             get
             {
-                return (vm != null);
+                return vm != null;
             }
         }
 
-        private int m_ZoomLevel;
+        int m_ZoomLevel;
         public int ZoomLevel
         {
             get
@@ -118,7 +118,7 @@ namespace FSO.Client.UI.Screens
                         if (m_ZoomLevel > 3)
                         {
                             HITVM.Get().PlaySoundEvent(UIMusic.None);
-                            if (CityRenderer != null) CityRenderer.m_Zoomed = TerrainZoomMode.Lot;
+                            if (CityRenderer != null) CityRenderer.Zoomed = TerrainZoomMode.Lot;
                             gizmo.Visible = false;
                             LotControl.Visible = true;
                             World.Visible = true;
@@ -144,7 +144,7 @@ namespace FSO.Client.UI.Screens
                         if (m_ZoomLevel < 4)
                         { //coming from lot view... snap zoom % to 0 or 1
                             Title.SetTitle(GameFacade.CurrentCityName);
-                            CityRenderer.m_ZoomProgress = 1;
+                            CityRenderer.ZoomProgress = 1;
                             HITVM.Get().PlaySoundEvent(UIMusic.Map); //play the city music as well
                             CityRenderer.Visible = true;
                             gizmo.Visible = true;
@@ -155,14 +155,14 @@ namespace FSO.Client.UI.Screens
                             ucp.SetMode(UIUCP.UCPMode.CityMode);
                         }
                         m_ZoomLevel = value;
-                        CityRenderer.m_Zoomed = (value == 4)?TerrainZoomMode.Near:TerrainZoomMode.Far;
+                        CityRenderer.Zoomed = (value == 4)?TerrainZoomMode.Near:TerrainZoomMode.Far;
                     }
                 }
                 ucp.UpdateZoomButton();
             }
         }
 
-        private int _Rotation = 0;
+        int _Rotation = 0;
         public int Rotation
         {
             get
@@ -332,7 +332,7 @@ namespace FSO.Client.UI.Screens
             InitializeMap(cityMap);
             InitializeMouse();
             ZoomLevel = 5; //screen always starts at far zoom, city visible.
-            CityRenderer.m_ZoomProgress = 0;
+            CityRenderer.ZoomProgress = 0;
 
             JoinLotProgress = new UIJoinLotProgress();
             ControllerUtils.BindController<JoinLotProgressController>(JoinLotProgress);
@@ -346,7 +346,7 @@ namespace FSO.Client.UI.Screens
             });
         }
 
-        private void InitializeMap(int cityMap)
+        void InitializeMap(int cityMap)
         {
             CityRenderer = new Terrain(GameFacade.GraphicsDevice)
             {
@@ -368,14 +368,14 @@ namespace FSO.Client.UI.Screens
             AddAt(0, CityTooltipHitArea);
         }
 
-        private void InitializeMouse(){
+        void InitializeMouse(){
         }
 
         public override void Update(UpdateState state)
         {
             //GameFacade.Game.IsFixedTimeStep = (vm == null || vm.Ready);
 
-            Visible = ((World?.Visible == false || (World?.State as LotView.RC.WorldStateRC)?.CameraMode != true) && !CityRenderer.Camera.HideUI);
+            Visible = (World?.Visible == false || (World?.State as LotView.RC.WorldStateRC)?.CameraMode != true) && !CityRenderer.Camera.HideUI;
             GameFacade.Game.IsMouseVisible = Visible;
 
             base.Update(state);
@@ -385,10 +385,10 @@ namespace FSO.Client.UI.Screens
 
             if (CityRenderer != null)
             {
-                if (ZoomLevel > 3 && (CityRenderer.m_Zoomed == TerrainZoomMode.Near) != (ZoomLevel == 4)) ZoomLevel = (CityRenderer.m_Zoomed == TerrainZoomMode.Near) ? 4 : 5;
+                if (ZoomLevel > 3 && CityRenderer.Zoomed == TerrainZoomMode.Near != (ZoomLevel == 4)) ZoomLevel = (CityRenderer.Zoomed == TerrainZoomMode.Near) ? 4 : 5;
 
                 if (World != null) {
-                    if (CityRenderer.m_Zoomed == TerrainZoomMode.Lot)
+                    if (CityRenderer.Zoomed == TerrainZoomMode.Lot)
                     {
                         if (World.FrameCounter < 3)
                         {
@@ -396,7 +396,7 @@ namespace FSO.Client.UI.Screens
                             // 1. heavy singular draw
                             // 2. update * 30
                             // 3. normal draws
-                            CityRenderer.m_LotZoomProgress = 0;
+                            CityRenderer.LotZoomProgress = 0;
                             World.Visible = true;
                             World.Opacity = 0;
                         }
@@ -408,38 +408,38 @@ namespace FSO.Client.UI.Screens
                         else
                             CityRenderer.InheritPosition(World, FindController<CoreGameScreenController>());
                     }
-                    if (CityRenderer.m_LotZoomProgress > 0f && CityRenderer.m_LotZoomProgress < 1f)
+                    if (CityRenderer.LotZoomProgress > 0f && CityRenderer.LotZoomProgress < 1f)
                     {
-                        if (CityRenderer.m_Zoomed == TerrainZoomMode.Lot)
+                        if (CityRenderer.Zoomed == TerrainZoomMode.Lot)
                         {
-                            if (CityRenderer.m_LotZoomProgress > 0.9999f)
+                            if (CityRenderer.LotZoomProgress > 0.9999f)
                             {
-                                CityRenderer.m_LotZoomProgress = 1f;
+                                CityRenderer.LotZoomProgress = 1f;
                                 CityRenderer.Visible = false;
                             }
                         } else
                         {
-                            if (CityRenderer.m_LotZoomProgress < 0.0001f)
+                            if (CityRenderer.LotZoomProgress < 0.0001f)
                             {
-                                CityRenderer.m_LotZoomProgress = 0f;
+                                CityRenderer.LotZoomProgress = 0f;
                                 World.Visible = false;
                             }
                         }
-                        World.Opacity = Math.Max(0, (CityRenderer.m_LotZoomProgress - 0.5f) * 2);
+                        World.Opacity = Math.Max(0, (CityRenderer.LotZoomProgress - 0.5f) * 2);
 
                         float scale = 1;
                         if (CityRenderer.Camera is CityCamera2D)
                         {
                             var cam = (CityCamera2D)CityRenderer.Camera;
                             scale =
-                                1 / ((cam.LotZoomProgress * (1 / cam.m_LotZoomSize) + (1 - cam.LotZoomProgress) * (1 / (Terrain.NEAR_ZOOM_SIZE * cam.m_WheelZoom))))
+                                1 / (cam.LotZoomProgress * (1 / cam.m_LotZoomSize) + (1 - cam.LotZoomProgress) * (1 / (Terrain.NEAR_ZOOM_SIZE * cam.m_WheelZoom)))
                                 / cam.m_LotZoomSize;
                         }
 
                         World.State.PreciseZoom = scale;
                     } else
                     {
-                        World.Opacity = (CityRenderer.m_Zoomed == TerrainZoomMode.Lot)?1f:0f;
+                        World.Opacity = (CityRenderer.Zoomed == TerrainZoomMode.Lot)?1f:0f;
                     }
                 }
 
@@ -590,7 +590,7 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void VMSendCommand(byte[] data)
+        void VMSendCommand(byte[] data)
         {
             var controller = FindController<CoreGameScreenController>();
 
@@ -601,7 +601,7 @@ namespace FSO.Client.UI.Screens
             //TODO: alternate controller for sandbox/standalone mode?
         }
 
-        private void VMShutdown(VMCloseNetReason reason)
+        void VMShutdown(VMCloseNetReason reason)
         {
             var controller = FindController<CoreGameScreenController>();
 
@@ -629,7 +629,7 @@ namespace FSO.Client.UI.Screens
                     if (World.PreloadProgress > 0)
                     {
                         JoinLotProgress.ProgressCaption = "Loading Surrounding Lots... (" + World.PreloadProgress + "/" + 9 + ")";
-                        JoinLotProgress.Progress = 100f * (0.9f);
+                        JoinLotProgress.Progress = 100f * 0.9f;
                     } else
                     {
                         JoinLotProgress.ProgressCaption = "Loading Graphics... (" + World.PreloadObjProgress + "/" + vm.FSOVObjTotal + ")";
@@ -707,7 +707,7 @@ namespace FSO.Client.UI.Screens
             vm.OnGenericVMEvent += Vm_OnGenericVMEvent;
         }
 
-        private void Vm_OnGenericVMEvent(VMEventType type, object data)
+        void Vm_OnGenericVMEvent(VMEventType type, object data)
         {
             switch (type)
             {
@@ -723,13 +723,13 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void VMLotSwitch(uint lotId)
+        void VMLotSwitch(uint lotId)
         {
             FindController<CoreGameScreenController>()?.SwitchLot(lotId);
         }
 
-        private string lastLotTitle = "";
-        private void Vm_OnChatEvent(SimAntics.NetPlay.Model.VMChatEvent evt)
+        string lastLotTitle = "";
+        void Vm_OnChatEvent(SimAntics.NetPlay.Model.VMChatEvent evt)
         {
             if (ZoomLevel < 4)
             {
@@ -737,7 +737,7 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        private void SetTitle()
+        void SetTitle()
         {
             var title = LotControl.GetLotTitle();
             Title.SetTitle(title);
@@ -758,14 +758,14 @@ namespace FSO.Client.UI.Screens
             }
         }
         
-        private void VMRefreshed()
+        void VMRefreshed()
         {
             if (vm == null) return;
             LotControl.ActiveEntity = null;
             LotControl.RefreshCut();
         }
 
-        private void VMDebug_OnButtonClick(UIElement button)
+        void VMDebug_OnButtonClick(UIElement button)
         {
             /*
             if (vm == null) return;
@@ -780,7 +780,7 @@ namespace FSO.Client.UI.Screens
 
         }
 
-        private void SaveHouseButton_OnButtonClick(UIElement button)
+        void SaveHouseButton_OnButtonClick(UIElement button)
         {
             if (vm == null) return;
             
@@ -814,7 +814,7 @@ namespace FSO.Client.UI.Screens
             ucp.FlashInbox(flash);
         }
 
-        private void MouseHandler(UIMouseEventType type, UpdateState state)
+        void MouseHandler(UIMouseEventType type, UpdateState state)
         {
             if (CityRenderer != null) CityRenderer.UIMouseEvent(type, state); //all the city renderer needs are events telling it if the mouse is over it or not.
             //if the mouse is over it, the city renderer will handle the rest.

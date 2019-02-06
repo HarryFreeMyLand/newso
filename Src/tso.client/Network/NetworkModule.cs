@@ -35,7 +35,7 @@ namespace FSO.Client.Network
 
     class ModelSerializerProvider : IProvider<IModelSerializer>
     {
-        private Content.GameContent Content;
+        Content.GameContent Content;
 
         public ModelSerializerProvider(Content.GameContent content)
         {
@@ -62,7 +62,7 @@ namespace FSO.Client.Network
 
     class cTSOSerializerProvider : IProvider<cTSOSerializer>
     {
-        private Content.GameContent Content;
+        Content.GameContent Content;
 
         public cTSOSerializerProvider(Content.GameContent content)
         {
@@ -85,7 +85,7 @@ namespace FSO.Client.Network
 
     public class AuthClientProvider : IProvider<AuthClient>
     {
-        private Content.GameContent Content;
+        Content.GameContent Content;
 
         public AuthClientProvider(Content.GameContent content){
             this.Content = content;
@@ -129,7 +129,7 @@ namespace FSO.Client.Network
 
     public class CityClientProvider : IProvider<CityClient>
     {
-        private Content.GameContent Content;
+        Content.GameContent Content;
 
         public CityClientProvider(Content.GameContent content)
         {

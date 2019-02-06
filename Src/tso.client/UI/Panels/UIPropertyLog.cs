@@ -19,7 +19,7 @@ namespace FSO.Client.UI.Panels
         public UITextEdit ChatHistoryText { get; set; }
         public UIImage ChatHistoryBackground { get; set; }
 
-        private List<VMChatEvent> History;
+        List<VMChatEvent> History;
 
         public int Visitors;
         public string LotName = "Test Lot";
@@ -58,7 +58,7 @@ namespace FSO.Client.UI.Panels
             CloseButton.OnButtonClick += CloseButton_OnButtonClick;
         }
 
-        private void CloseButton_OnButtonClick(UIElement button)
+        void CloseButton_OnButtonClick(UIElement button)
         {
             //hide self.
             Visible = false;

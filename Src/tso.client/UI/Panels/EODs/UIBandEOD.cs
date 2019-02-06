@@ -18,15 +18,15 @@ namespace FSO.Client.UI.Panels.EODs
 {
     public class UIBandEOD : UIEOD
     {
-        private static bool NoteSent;
+        static bool NoteSent;
 
-        private UIScript Script;
+        UIScript Script;
         //private VMEODBandStates State;
-        private UIEODLobby Lobby;
-        private Timer SequenceNoteTimer;
-        private Timer SyncTimer;
-        private byte[] CurrentSequence;
-        private int CurrentNote;
+        UIEODLobby Lobby;
+        Timer SequenceNoteTimer;
+        Timer SyncTimer;
+        byte[] CurrentSequence;
+        int CurrentNote;
 
         // buttons
         public UIButton DOH { get; set; }
@@ -44,8 +44,8 @@ namespace FSO.Client.UI.Panels.EODs
         public UIButton MySecondButton;
         public UIButton LastNote;
         public UIButton SyncButton;
-        private UIButton[] NoteButtonArray;
-        private UIButton[] MiscButtonArray;
+        UIButton[] NoteButtonArray;
+        UIButton[] MiscButtonArray;
 
         // images
         public UIImage ButtonBack { get; set; }
@@ -57,7 +57,7 @@ namespace FSO.Client.UI.Panels.EODs
         public UIImage Player6 { get; set; }
         public UIImage Player7 { get; set; }
         public UIImage Player8 { get; set; }
-        private UIVMPersonButton[] Players = new UIVMPersonButton[8];
+        UIVMPersonButton[] Players = new UIVMPersonButton[8];
         public UISlotsImage Player1Choice;
         public UISlotsImage Player2Choice;
         public UISlotsImage Player3Choice;
@@ -67,8 +67,8 @@ namespace FSO.Client.UI.Panels.EODs
         public UIImage WaitPlayer2 { get; set; }
         public UIImage WaitPlayer3 { get; set; }
         public UIImage WaitPlayer4 { get; set; }
-        private UIImage[] WaitPlayers { get; set; }
-        private UIVMPersonButton[] PlayersWait = new UIVMPersonButton[4];
+        UIImage[] WaitPlayers { get; set; }
+        UIVMPersonButton[] PlayersWait = new UIVMPersonButton[4];
 
         // text
         public UILabel TextMessage { get; set; }
@@ -76,9 +76,9 @@ namespace FSO.Client.UI.Panels.EODs
         public UILabel Player2Wait { get; set; }
         public UILabel Player3Wait { get; set; }
         public UILabel Player4Wait { get; set; }
-        private UITextEdit EarningString;
-        private string CurrentPayoutString;
-        private string CurrentSkillTotalString;
+        UITextEdit EarningString;
+        string CurrentPayoutString;
+        string CurrentSkillTotalString;
 
         // textures
         public Texture2D PlayerImage { get; set; }
@@ -202,7 +202,7 @@ namespace FSO.Client.UI.Panels.EODs
             base.OnClose();
         }
 
-        private void PlayerRosterHandler(string evt, string msg)
+        void PlayerRosterHandler(string evt, string msg)
         {
             Lobby.UpdatePlayers(evt, msg);
 
@@ -255,7 +255,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (ButtonBack != null)
                 GotoWaitForPlayerPhase();
         }
-        private void NoteSyncHandler(string evt, byte[] noteArray)
+        void NoteSyncHandler(string evt, byte[] noteArray)
         {
             var note = noteArray[0];
             if (Enum.IsDefined(typeof(UIBANDEODSoundNames),note))
@@ -269,34 +269,34 @@ namespace FSO.Client.UI.Panels.EODs
                 }
             }
         }
-        private void ShowGameHandler(string evt, string msg)
+        void ShowGameHandler(string evt, string msg)
         {
             GotoBandGame();
         }
-        private void BuzzNoteHandler(string evt, string msg)
+        void BuzzNoteHandler(string evt, string msg)
         {
             RemoveListeners();
             SetTip(GameFacade.Strings["UIText", "253", "18"]);
         }
-        private void NoteFailHandler(string evt, string avatarName)
+        void NoteFailHandler(string evt, string avatarName)
         {
             RemoveListeners();
             SetTip(GameFacade.Strings["UIText", "253", "20"].Replace("%s", avatarName));
             PlaySound((byte)UIBANDEODSoundNames.band_note_buzz);
         }
-        private void TimeoutHandler(string evt, string msg)
+        void TimeoutHandler(string evt, string msg)
         {
             RemoveListeners();
             SetTip(GameFacade.Strings["UIText", "253", "29"]);
             PlaySound((byte)UIBANDEODSoundNames.band_note_buzz);
         }
-        private void TimerHandler(string evt, string timeString)
+        void TimerHandler(string evt, string timeString)
         {
             int time = 0;
             int.TryParse(timeString, out time);
             SetTime(time);
         }
-        private void InitPerformanceHandler(string evt, string msg)
+        void InitPerformanceHandler(string evt, string msg)
         {
             SetTip(GameFacade.Strings["UIText", "253", "16"]);
             DisableNoteButtons();
@@ -309,7 +309,7 @@ namespace FSO.Client.UI.Panels.EODs
             UnForceNoteButtonState(BUZZ);
             AddMyListeners();
         }
-        private void PerformanceHandler(string evt, string msg)
+        void PerformanceHandler(string evt, string msg)
         {
             NoteSent = false;
             // allow my buttons
@@ -318,30 +318,30 @@ namespace FSO.Client.UI.Panels.EODs
             UnForceNoteButtonState(BUZZ);
             AddMyListeners();
         }
-        private void ResetHandler(string evt, string newSkillString)
+        void ResetHandler(string evt, string newSkillString)
         {
             CurrentPayoutString = "0";
             CurrentSkillTotalString = newSkillString;
             UpdateEarningString();
         }
-        private void SequenceHandler(string evt, byte[] sequence)
+        void SequenceHandler(string evt, byte[] sequence)
         {
             SyncButton = null;
             DisableIntermissionButtons();
             CurrentSequence = sequence;
             InitSequencePhase();
         }
-        private void ForceRockOnHandler(string evt, string msg)
+        void ForceRockOnHandler(string evt, string msg)
         {
             // TODO: replace 2nd useless face icon with chosen button icon
         }
-        private void DisplayWinHandler(string evt, string newPayout)
+        void DisplayWinHandler(string evt, string newPayout)
         {
             SetTip(GameFacade.Strings["UIText", "253", "17"]);
             CurrentPayoutString = newPayout;
             UpdateEarningString();
         }
-        private void IntermissionHandler(string evt, string newPayout)
+        void IntermissionHandler(string evt, string newPayout)
         {
             RemoveListeners();
             SetTip(GameFacade.Strings["UIText", "253", "13"] + "?");
@@ -349,7 +349,7 @@ namespace FSO.Client.UI.Panels.EODs
             UpdateEarningString();
             EnableIntermissionButtons();
         }
-        private void SyncTimerElapsedHandler(object source, ElapsedEventArgs args)
+        void SyncTimerElapsedHandler(object source, ElapsedEventArgs args)
         {
             SyncTimer.Stop();
             if (SyncButton != null)
@@ -357,7 +357,7 @@ namespace FSO.Client.UI.Panels.EODs
                 SyncButton.ForceState = -1;
             }
         }
-        private void NextNoteHandler(object source, ElapsedEventArgs args)
+        void NextNoteHandler(object source, ElapsedEventArgs args)
         {
             SequenceNoteTimer.Stop();
 
@@ -387,7 +387,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * When any note button is clicked, send the index in the array, which matches the value of the enum VMEODBandNoteTypes
          */
-        private void NoteButtonClickedHandler(UIElement clicked)
+        void NoteButtonClickedHandler(UIElement clicked)
         {
             RemoveListeners();
             if (NoteSent == true)
@@ -402,7 +402,7 @@ namespace FSO.Client.UI.Panels.EODs
             else
                 AddMyListeners();
         }
-        private void IntermissionButtonClickedHandler(UIElement clicked)
+        void IntermissionButtonClickedHandler(UIElement clicked)
         {
             DisableIntermissionButtons();
             // TODO: replace 2nd useless face icon with chosen button icon
@@ -412,7 +412,7 @@ namespace FSO.Client.UI.Panels.EODs
             Send("Band_Decision", new byte[] { (byte)index });
         }
 
-        private void UIInitHandler(string evt, byte[] instrument)
+        void UIInitHandler(string evt, byte[] instrument)
         {
             // add background
             ButtonBack = Script.Create<UIImage>("ButtonBack");
@@ -438,7 +438,7 @@ namespace FSO.Client.UI.Panels.EODs
          *  unless they were the very first client to join. Even moving the RenderScript to OnConnection doesn't seem to fix this. So the references
          *  need to be recovered.
          */
-        private void RecoverButtonRefs()
+        void RecoverButtonRefs()
         {
             BUZZ = NoteButtonArray[Array.LastIndexOf(NoteButtonArray, BUZZ)];
             if (BUZZ == null)
@@ -497,7 +497,7 @@ namespace FSO.Client.UI.Panels.EODs
             DisableIntermissionButtons();
         }
         
-        private void GotoWaitForPlayerPhase()
+        void GotoWaitForPlayerPhase()
         {
             SetTip(GameFacade.Strings["UIText", "253", "19"]);
 
@@ -544,7 +544,7 @@ namespace FSO.Client.UI.Panels.EODs
             });
         }
 
-        private void GotoBandGame()
+        void GotoBandGame()
         {
             // show game-related elements
             ButtonBack.Visible = true;
@@ -592,7 +592,7 @@ namespace FSO.Client.UI.Panels.EODs
         /*
          * Before the sequence is played
          */
-        private void InitSequencePhase()
+        void InitSequencePhase()
         {
             SetTip(GameFacade.Strings["UIText", "253", "15"]);
             DisableNoteButtons();
@@ -601,7 +601,7 @@ namespace FSO.Client.UI.Panels.EODs
             SequenceNoteTimer.Start();
         }
 
-        private void PlayNextNote()
+        void PlayNextNote()
         {
             byte noteValue = CurrentSequence[CurrentNote];
 
@@ -616,19 +616,19 @@ namespace FSO.Client.UI.Panels.EODs
             SequenceNoteTimer.Start();
         }
 
-        private void PlaySound(byte note)
+        void PlaySound(byte note)
         {
             var soundString = Enum.GetName(typeof(UIBANDEODSoundNames), note);
             HIT.HITVM.Get().PlaySoundEvent(soundString);
         }
 
-        private void AddMyListeners()
+        void AddMyListeners()
         {
             MyFirstButton.OnButtonClick += NoteButtonClickedHandler;
             MySecondButton.OnButtonClick += NoteButtonClickedHandler;
             BUZZ.OnButtonClick += NoteButtonClickedHandler;
         }
-        private void RemoveListeners()
+        void RemoveListeners()
         {
             foreach (var btn in NoteButtonArray)
             {
@@ -644,14 +644,14 @@ namespace FSO.Client.UI.Panels.EODs
             }
             catch (Exception) { }
         }
-        private void DisableNoteButtons()
+        void DisableNoteButtons()
         {
             foreach (var btn in NoteButtonArray)
             {
                 btn.Disabled = true;
             }
         }
-        private void DisableIntermissionButtons()
+        void DisableIntermissionButtons()
         {
             foreach (var btn in MiscButtonArray)
             {
@@ -660,7 +660,7 @@ namespace FSO.Client.UI.Panels.EODs
             }
         }
 
-        private void EnableIntermissionButtons()
+        void EnableIntermissionButtons()
         {
             foreach (var btn in MiscButtonArray)
             {
@@ -668,25 +668,25 @@ namespace FSO.Client.UI.Panels.EODs
                 btn.OnButtonClick += IntermissionButtonClickedHandler;
             }
         }
-        private void ForceNotesButtonsState(int state)
+        void ForceNotesButtonsState(int state)
         {
             foreach (var btn in NoteButtonArray)
             {
                 ForceNoteButtonState(btn, state);
             }
         }
-        private void ForceNoteButtonState(UIButton btn, int state)
+        void ForceNoteButtonState(UIButton btn, int state)
         {
             if (btn != null)
                 btn.ForceState = state;
         }
-        private void UnForceNoteButtonState(UIButton btn)
+        void UnForceNoteButtonState(UIButton btn)
         {
             btn.ForceState = -1;
             btn.Disabled = false;
             btn.CurrentFrame = 0;
         }
-        private void UpdateEarningString()
+        void UpdateEarningString()
         {
             EarningString.CurrentText = GameFacade.Strings["UIText", "253", "14"].Replace("%d.%02d", CurrentSkillTotalString + "        ");
             EarningString.CurrentText = EarningString.CurrentText.Replace("$%d", "$" + CurrentPayoutString);

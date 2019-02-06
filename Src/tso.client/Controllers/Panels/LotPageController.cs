@@ -14,10 +14,10 @@ namespace FSO.Client.Controllers.Panels
 {
     public class LotPageController
     {
-        private UILotPage View;
-        private IClientDataService DataService;
-        private ITopicSubscription Topic;
-        private uint LotId;
+        UILotPage View;
+        IClientDataService DataService;
+        ITopicSubscription Topic;
+        uint LotId;
 
         public LotPageController(UILotPage view, IClientDataService dataService)
         {
@@ -73,7 +73,7 @@ namespace FSO.Client.Controllers.Panels
             DataService.Sync(target, new string[] { "Lot_Name" });
         }
 
-        private void ChangeTopic()
+        void ChangeTopic()
         {
             var topics = new List<ITopic>();
             if (View.Visible && LotId != 0)

@@ -16,9 +16,9 @@ namespace FSO.Client.UI.Panels.WorldUI
 {
     public class UIHeadlineRenderer : VMHeadlineRenderer
     {
-        private static IffFile Sprites;
-        private static Texture2D WhitePx;
-        private static int[] GroupOffsets =
+        static IffFile Sprites;
+        static Texture2D WhitePx;
+        static int[] GroupOffsets =
         {
             0x000,
             0x064,
@@ -31,7 +31,7 @@ namespace FSO.Client.UI.Panels.WorldUI
             0x2BC,
             0x320
         };
-        private static int[] ZoomToDiv =
+        static int[] ZoomToDiv =
         {
             0,
             4,
@@ -39,15 +39,15 @@ namespace FSO.Client.UI.Panels.WorldUI
             1
         };
 
-        private RenderTarget2D Texture;
-        private SPR Sprite;
-        private SPR BGSprite;
-        private WorldZoom LastZoom;
-        private Texture2D AlgTex;
-        private int ZoomFrame;
-        private bool Invalidated;
+        RenderTarget2D Texture;
+        SPR Sprite;
+        SPR BGSprite;
+        WorldZoom LastZoom;
+        Texture2D AlgTex;
+        int ZoomFrame;
+        bool Invalidated;
 
-        private bool DrawSkill
+        bool DrawSkill
         {
             get
             {
@@ -55,7 +55,7 @@ namespace FSO.Client.UI.Panels.WorldUI
             }
         }
 
-        private bool Inited = false;
+        bool Inited = false;
         public UIHeadlineRenderer(VMRuntimeHeadline headline) : base(headline)
         {
         }
@@ -105,8 +105,8 @@ namespace FSO.Client.UI.Panels.WorldUI
             var eff = avatar.GetPersonData(VMPersonDataVariable.SkillEfficiency);
             var e1 = eff >> 8;
             if (e1 < 0 || e1 > 100) return; //invalid skill
-            var skillValue = avatar.GetPersonData((VMPersonDataVariable)(e1));
-            var speedValue = (eff & 0xFF);
+            var skillValue = avatar.GetPersonData((VMPersonDataVariable)e1);
+            var speedValue = eff & 0xFF;
             speedValue *= avatar.SkillGameplayMul(avatar.Thread.Context.VM);
             
             if (skillValue != SkillValue || SpeedValue != speedValue)
@@ -165,7 +165,7 @@ namespace FSO.Client.UI.Panels.WorldUI
                 Vector2 offset = new Vector2();
                 if (Sprite != null)
                 {
-                    var animFrame = (Headline.Anim / 15) % (Sprite.Frames.Count / 3);
+                    var animFrame = Headline.Anim / 15 % (Sprite.Frames.Count / 3);
                     main = Sprite.Frames[ZoomFrame + animFrame * 3].GetTexture(GD);
                     offset = new Vector2(0, 4);
                 }

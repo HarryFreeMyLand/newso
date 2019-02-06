@@ -77,7 +77,7 @@ namespace FSO.Client.UI.Panels
             Add(BackgroundCtnr);
         }
 
-        private UIImage BgEdge;
+        UIImage BgEdge;
 
         public override void GameResized()
         {

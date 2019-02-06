@@ -156,7 +156,7 @@ namespace FSO.Client.UI.Panels
         public int FrameNum;
         public int SubFrame;
         public int FrameTime;
-        private int TotalFrames;
+        int TotalFrames;
         public NeighborhoodImageAnim Anim;
 
         public UINeighborhoodAnimationLayer(NeighborhoodImageAnim anim, bool pulsate, int frameTime)
@@ -183,9 +183,9 @@ namespace FSO.Client.UI.Panels
 
         public override void Draw(UISpriteBatch batch)
         {
-            var realFrame = (FrameNum >= Frames.Length) ? ((Frames.Length - 2) - (FrameNum - Frames.Length)) : FrameNum;
+            var realFrame = (FrameNum >= Frames.Length) ? (Frames.Length - 2 - (FrameNum - Frames.Length)) : FrameNum;
             var fm2 = (TotalFrames != 0) ? ((FrameNum + 1) % TotalFrames) : 0;
-            var realFrame2 = (fm2 >= Frames.Length) ? ((Frames.Length - 2) - (fm2 - Frames.Length)) : fm2;
+            var realFrame2 = (fm2 >= Frames.Length) ? (Frames.Length - 2 - (fm2 - Frames.Length)) : fm2;
             DrawLocalTexture(batch, Frames[Math.Max(0, realFrame)], Vector2.Zero);
             DrawLocalTexture(batch, Frames[Math.Max(0, realFrame2)], null, Vector2.Zero, Vector2.One, Color.White*(1-((float)SubFrame/FrameTime)));
         }
@@ -220,11 +220,11 @@ namespace FSO.Client.UI.Panels
 
     public class UINeighborhoodHouseButton : UIElement
     {
-        private Texture2D HouseTex;
-        private Texture2D HouseOpenTex;
-        private float HouseScale;
-        private bool Hovered;
-        private THMB Offsets;
+        Texture2D HouseTex;
+        Texture2D HouseOpenTex;
+        float HouseScale;
+        bool Hovered;
+        THMB Offsets;
         public float AlphaTime { get; set; }
 
         public UINeighborhoodHouseButton(int houseNumber, Action<int> selectionCallback, float scale)
@@ -261,7 +261,7 @@ namespace FSO.Client.UI.Panels
         {
             var yOff = new Vector2(Offsets.XOff, Offsets.BaseYOff) / (HouseScale * 2f);
             var yOff2 = yOff;
-            yOff2.Y -= Offsets.AddYOff / (HouseScale);
+            yOff2.Y -= Offsets.AddYOff / HouseScale;
             DrawLocalTexture(batch, HouseTex, null, new Vector2(-HouseTex.Width, -HouseTex.Height)/(HouseScale*2) + yOff, new Vector2(1f/HouseScale, 1f/HouseScale));
             if (AlphaTime > 0)
             {

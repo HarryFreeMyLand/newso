@@ -84,12 +84,12 @@ namespace FSO.Client.UI.Panels.EODs
             ReadTextBox.InitDefaultSlider();
         }
 
-        private void OwnerWriteTextButton_OnButtonClick(UIElement button)
+        void OwnerWriteTextButton_OnButtonClick(UIElement button)
         {
             SetMode(VMEODSignsMode.OwnerWrite);
         }
 
-        private void OwnerPermissionsButton_OnButtonClick(UIElement button)
+        void OwnerPermissionsButton_OnButtonClick(UIElement button)
         {
             SetMode(VMEODSignsMode.OwnerPermissions);
         }
@@ -119,7 +119,7 @@ namespace FSO.Client.UI.Panels.EODs
         public void P_Init(string evt, string text)
         {
             var split = text.Split('\n');
-            Mode = (VMEODSignsMode)(int.Parse(split[0]));
+            Mode = (VMEODSignsMode)int.Parse(split[0]);
             InitialMode = Mode;
             MaxChars = int.Parse(split[0]);
 
@@ -134,7 +134,7 @@ namespace FSO.Client.UI.Panels.EODs
                 Buttons = 0,
                 Expandable = false,
                 Height = EODHeight.Tall,
-                Length = (OwnerMode)?EODLength.Medium:EODLength.Full,
+                Length = OwnerMode?EODLength.Medium:EODLength.Full,
                 Timer = EODTimer.None,
                 Tips = EODTextTips.None
             });
