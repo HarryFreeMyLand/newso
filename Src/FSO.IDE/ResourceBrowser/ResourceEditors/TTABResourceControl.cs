@@ -131,12 +131,14 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             if (Strings == null)
             {
                 //we have a problem... make us some strings!
-                Strings = new TTAs();
-                Strings.ChunkLabel = chunk.ChunkLabel;
-                Strings.ChunkID = chunk.ChunkID;
-                Strings.ChunkProcessed = true;
-                Strings.ChunkType = "TTAs";
-                Strings.AddedByPatch = true;
+                Strings = new TTAs
+                {
+                    ChunkLabel = chunk.ChunkLabel,
+                    ChunkID = chunk.ChunkID,
+                    ChunkProcessed = true,
+                    ChunkType = "TTAs",
+                    AddedByPatch = true
+                };
                 res.MainIff.AddChunk(Strings);
             }
 

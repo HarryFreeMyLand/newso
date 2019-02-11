@@ -136,9 +136,11 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void ExportButton_Click(object sender, EventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            dialog.ShowNewFolderButton = true;
-            dialog.Description = "Choose a folder to export this Sprite Rotation to.";
+            var dialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true,
+                Description = "Choose a folder to export this Sprite Rotation to."
+            };
             FolderBrowse(dialog);
 
             if (dialog.SelectedPath == "") return;
@@ -148,9 +150,11 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void ExportAll_Click(object sender, EventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            dialog.ShowNewFolderButton = true;
-            dialog.Description = "Choose a folder to export all Sprite Rotations to.";
+            var dialog = new FolderBrowserDialog
+            {
+                ShowNewFolderButton = true,
+                Description = "Choose a folder to export all Sprite Rotations to."
+            };
             FolderBrowse(dialog);
 
             if (dialog.SelectedPath == "") return;
@@ -181,8 +185,10 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void ImportAll_Click(object sender, EventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            dialog.Description = "Choose a folder to export all Sprite Rotations from.";
+            var dialog = new FolderBrowserDialog
+            {
+                Description = "Choose a folder to export all Sprite Rotations from."
+            };
             FolderBrowse(dialog);
 
             if (dialog.SelectedPath == "") return;
@@ -490,8 +496,10 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void ImportButton_Click(object sender, EventArgs e)
         {
-            var dialog = new FolderBrowserDialog();
-            dialog.Description = "Choose a folder to export a Sprite Rotation from.";
+            var dialog = new FolderBrowserDialog
+            {
+                Description = "Choose a folder to export a Sprite Rotation from."
+            };
             FolderBrowse(dialog);
 
             if (dialog.SelectedPath == "") return;
@@ -634,8 +642,10 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void SheetImport_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Filter = "TGA Sprite Sheets (select non Alpha)|*.tga";
+            var dialog = new OpenFileDialog
+            {
+                Filter = "TGA Sprite Sheets (select non Alpha)|*.tga"
+            };
             if (FileBrowse(dialog))
             {
                 try

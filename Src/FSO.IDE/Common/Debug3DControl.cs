@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using FSO.Client.UI.Framework;
 using FSO.Client;
-using FSO.IDE.Common.Debug;
+using FSO.IDE.Common.Diagnostics;
 using FSO.Files.RC;
 
 namespace FSO.IDE.Common
@@ -29,8 +29,10 @@ namespace FSO.IDE.Common
         {
             if (FSOUI == null)
             {
-                var mainCont = new UIExternalContainer(128, 128);
-                mainCont.UseZ = true;
+                var mainCont = new UIExternalContainer(128, 128)
+                {
+                    UseZ = true
+                };
                 Renderer = new UI3DDGRP(GUID);
                 mainCont.Add(Renderer);
                 GameFacade.Screens.AddExternal(mainCont);

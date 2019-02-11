@@ -142,10 +142,12 @@ namespace FSO.IDE
 
             if (bhav != null && bhav.ChunkID == frame.Routine.Chunk.ChunkID && frame == Editor.DebugFrame) return;
             SetActivePrimitive(null);
-            this.bhav = frame.Routine.Chunk;         
-            Scope = new EditorScope(frame.CodeOwner, frame.Routine.Chunk);
-            Scope.CallerObject = DebugEntity.Object;
-            Scope.StackObject = (frame.StackObject == null)?null:frame.StackObject.Object;
+            this.bhav = frame.Routine.Chunk;
+            Scope = new EditorScope(frame.CodeOwner, frame.Routine.Chunk)
+            {
+                CallerObject = DebugEntity.Object,
+                StackObject = (frame.StackObject == null) ? null : frame.StackObject.Object
+            };
 
             EditorControl.InitBHAV(bhav, Scope, DebugEntity, frame, SelectionChanged);
 

@@ -105,15 +105,21 @@ namespace FSO.IDE.EditorComponent.UI
             InstPtr = ptr;
 
             Nodes = new PrimitiveNode[2];
-            Nodes[0] = new PrimitiveNode();
-            Nodes[0].Type = NodeType.False;
-            Nodes[1] = new PrimitiveNode();
-            Nodes[1].Type = NodeType.True;
+            Nodes[0] = new PrimitiveNode
+            {
+                Type = NodeType.False
+            };
+            Nodes[1] = new PrimitiveNode
+            {
+                Type = NodeType.True
+            };
 
-            Title = new UILabel();
-            Title.Alignment = TextAlignment.Middle | TextAlignment.Center;
-            Title.Y = 0;
-            Title.X = 0;
+            Title = new UILabel
+            {
+                Alignment = TextAlignment.Middle | TextAlignment.Center,
+                Y = 0,
+                X = 0
+            };
             this.Add(Title);
             Title.CaptionStyle = TextStyle.DefaultLabel.Clone();
             Title.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;

@@ -82,20 +82,24 @@ namespace FSO.IDE.EditorComponent.UI
                 if (basePrim != null) BHAVView.Position = GetCentralLocation(basePrim);
             });
 
-            PlacingName = new UILabel();
-            PlacingName.Alignment = TextAlignment.Center;
-            PlacingName.Size = new Vector2(1, 1);
-            PlacingName.CaptionStyle = TextStyle.DefaultLabel.Clone();
+            PlacingName = new UILabel
+            {
+                Alignment = TextAlignment.Center,
+                Size = new Vector2(1, 1),
+                CaptionStyle = TextStyle.DefaultLabel.Clone()
+            };
             PlacingName.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
             PlacingName.CaptionStyle.Size = 15;
             PlacingName.CaptionStyle.Color = new Color(0, 102, 26);
 
             PlacingName.Caption = "Placing Report Metric";
 
-            PlacingDesc = new UILabel();
-            PlacingDesc.Alignment = TextAlignment.Center;
-            PlacingDesc.Size = new Vector2(1, 1);
-            PlacingDesc.CaptionStyle = TextStyle.DefaultLabel.Clone();
+            PlacingDesc = new UILabel
+            {
+                Alignment = TextAlignment.Center,
+                Size = new Vector2(1, 1),
+                CaptionStyle = TextStyle.DefaultLabel.Clone()
+            };
             PlacingDesc.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
             PlacingDesc.CaptionStyle.Size = 12;
             PlacingDesc.CaptionStyle.Color = new Color(0, 102, 26);
@@ -112,57 +116,73 @@ namespace FSO.IDE.EditorComponent.UI
                 var resource = EditorResource.Get().Indexed;
                 DebugFrame = debugEnt.Thread.Stack.LastOrDefault();
                 UpdateDebugPointer(DebugFrame);
-                DebugGo = new UIButton();
-                DebugGo.Texture = resource[0];
-                DebugGo.Tooltip = "Go";
-                DebugGo.Position = new Vector2(10, 5);
+                DebugGo = new UIButton
+                {
+                    Texture = resource[0],
+                    Tooltip = "Go",
+                    Position = new Vector2(10, 5)
+                };
                 Add(DebugGo);
                 DebugGo.OnButtonClick += DebugButtonClick;
 
-                DebugStepIn = new UIButton();
-                DebugStepIn.Tooltip = "Step In";
-                DebugStepIn.Texture = resource[1];
-                DebugStepIn.Position = new Vector2(35, 5);
+                DebugStepIn = new UIButton
+                {
+                    Tooltip = "Step In",
+                    Texture = resource[1],
+                    Position = new Vector2(35, 5)
+                };
                 Add(DebugStepIn);
                 DebugStepIn.OnButtonClick += DebugButtonClick;
 
-                DebugStepOver = new UIButton();
-                DebugStepOver.Tooltip = "Step Over";
-                DebugStepOver.Texture = resource[2];
-                DebugStepOver.Position = new Vector2(60, 5);
+                DebugStepOver = new UIButton
+                {
+                    Tooltip = "Step Over",
+                    Texture = resource[2],
+                    Position = new Vector2(60, 5)
+                };
                 Add(DebugStepOver);
                 DebugStepOver.OnButtonClick += DebugButtonClick;
 
-                DebugStepOut = new UIButton();
-                DebugStepOut.Tooltip = "Step Out";
-                DebugStepOut.Texture = resource[3];
-                DebugStepOut.Position = new Vector2(85, 5);
+                DebugStepOut = new UIButton
+                {
+                    Tooltip = "Step Out",
+                    Texture = resource[3],
+                    Position = new Vector2(85, 5)
+                };
                 Add(DebugStepOut);
                 DebugStepOut.OnButtonClick += DebugButtonClick;
 
-                DebugTrue = new UIButton();
-                DebugTrue.Tooltip = "Return True";
-                DebugTrue.Texture = resource[4];
-                DebugTrue.Position = new Vector2(LastWidth - 80, 5);
+                DebugTrue = new UIButton
+                {
+                    Tooltip = "Return True",
+                    Texture = resource[4],
+                    Position = new Vector2(LastWidth - 80, 5)
+                };
                 Add(DebugTrue);
                 DebugTrue.OnButtonClick += DebugButtonClick;
 
-                DebugFalse = new UIButton();
-                DebugFalse.Tooltip = "Return False";
-                DebugFalse.Texture = resource[5];
-                DebugFalse.Position = new Vector2(LastWidth - 55, 5);
+                DebugFalse = new UIButton
+                {
+                    Tooltip = "Return False",
+                    Texture = resource[5],
+                    Position = new Vector2(LastWidth - 55, 5)
+                };
                 Add(DebugFalse);
                 DebugFalse.OnButtonClick += DebugButtonClick;
 
-                DebugReset = new UIButton();
-                DebugReset.Tooltip = "Reset Object";
-                DebugReset.Texture = resource[6];
-                DebugReset.Position = new Vector2(LastWidth-30, 5);
+                DebugReset = new UIButton
+                {
+                    Tooltip = "Reset Object",
+                    Texture = resource[6],
+                    Position = new Vector2(LastWidth - 30, 5)
+                };
                 Add(DebugReset);
                 DebugReset.OnButtonClick += DebugButtonClick;
 
-                DebugLabel = new UILabel();
-                DebugLabel.CaptionStyle = TextStyle.DefaultLabel.Clone();
+                DebugLabel = new UILabel
+                {
+                    CaptionStyle = TextStyle.DefaultLabel.Clone()
+                };
                 DebugLabel.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
                 DebugLabel.CaptionStyle.Size = 12;
                 DebugLabel.CaptionStyle.Color = Color.White;

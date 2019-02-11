@@ -19,8 +19,10 @@ namespace FSO.IDE.Common
         {
             if (FSOUI == null)
             {
-                var mainCont = new UIExternalContainer(128, 128);
-                mainCont.UseZ = true;
+                var mainCont = new UIExternalContainer(128, 128)
+                {
+                    UseZ = true
+                };
                 Renderer = new UIAvatarAnimator();
                 mainCont.Add(Renderer);
                 GameFacade.Screens.AddExternal(mainCont);

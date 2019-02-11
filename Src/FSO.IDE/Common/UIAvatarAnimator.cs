@@ -32,9 +32,11 @@ namespace FSO.IDE.Common
                     var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(anim + ".anim");
                     if (animation != null)
                     {
-                        var astate = new VMAnimationState(animation, false);
-                        astate.Speed = 30/25f;
-                        astate.Loop = true;
+                        var astate = new VMAnimationState(animation, false)
+                        {
+                            Speed = 30 / 25f,
+                            Loop = true
+                        };
                         ((VMAvatar)TargetTile).Animations.Clear();
                         ((VMAvatar)TargetTile).Animations.Add(astate);
                     }

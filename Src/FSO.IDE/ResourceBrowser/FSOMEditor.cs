@@ -152,9 +152,11 @@ namespace FSO.IDE.ResourceBrowser
         private void ExportButton_Click(object sender, EventArgs e)
         {
             var mesh = Debug3D.Mesh;
-            var dialog = new SaveFileDialog();
-            dialog.FileName = mesh.Name + ".obj";
-            dialog.Title = "Saving OBJ for " + mesh.Name + "...";
+            var dialog = new SaveFileDialog
+            {
+                FileName = mesh.Name + ".obj",
+                Title = "Saving OBJ for " + mesh.Name + "..."
+            };
             FolderSave(dialog);
 
             Stream str;
@@ -199,8 +201,10 @@ namespace FSO.IDE.ResourceBrowser
 
         private void ImportButton_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Title = "Select an OBJ file.";
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select an OBJ file."
+            };
             FolderOpen(dialog);
             var dgrp = ActiveDGRP;
 
@@ -226,12 +230,14 @@ namespace FSO.IDE.ResourceBrowser
                             var tex = ActiveObject.Resource.Get<MTEX>(texID);
                             if (tex == null)
                             {
-                                tex = new MTEX();
-                                tex.ChunkLabel = "OBJ Import Texture";
-                                tex.ChunkID = texID;
-                                tex.ChunkProcessed = true;
-                                tex.ChunkType = "MTEX";
-                                tex.AddedByPatch = true;
+                                tex = new MTEX
+                                {
+                                    ChunkLabel = "OBJ Import Texture",
+                                    ChunkID = texID,
+                                    ChunkProcessed = true,
+                                    ChunkType = "MTEX",
+                                    AddedByPatch = true
+                                };
                                 (ActiveObject.Resource.Sprites ?? ActiveObject.Resource.MainIff).AddChunk(tex);
                             }
 
@@ -257,12 +263,14 @@ namespace FSO.IDE.ResourceBrowser
                             var fsom = ActiveObject.Resource.Get<FSOM>(ActiveDGRP.ChunkID);
                             if (fsom == null)
                             {
-                                fsom = new FSOM();
-                                fsom.ChunkLabel = "OBJ Import Mesh";
-                                fsom.ChunkID = ActiveDGRP.ChunkID;
-                                fsom.ChunkProcessed = true;
-                                fsom.ChunkType = "FSOM";
-                                fsom.AddedByPatch = true;
+                                fsom = new FSOM
+                                {
+                                    ChunkLabel = "OBJ Import Mesh",
+                                    ChunkID = ActiveDGRP.ChunkID,
+                                    ChunkProcessed = true,
+                                    ChunkType = "FSOM",
+                                    AddedByPatch = true
+                                };
                                 (ActiveObject.Resource.Sprites ?? ActiveObject.Resource.MainIff).AddChunk(fsom);
                             }
                             Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
@@ -352,12 +360,14 @@ namespace FSO.IDE.ResourceBrowser
                 ActiveFSOR = ActiveObject.Resource.List<FSOR>()?.FirstOrDefault();
                 if (ActiveFSOR == null)
                 {
-                    ActiveFSOR = new FSOR();
-                    ActiveFSOR.ChunkLabel = "3D Reconstruction info";
-                    ActiveFSOR.ChunkID = 1;
-                    ActiveFSOR.ChunkProcessed = true;
-                    ActiveFSOR.ChunkType = "FSOR";
-                    ActiveFSOR.AddedByPatch = true;
+                    ActiveFSOR = new FSOR
+                    {
+                        ChunkLabel = "3D Reconstruction info",
+                        ChunkID = 1,
+                        ChunkProcessed = true,
+                        ChunkType = "FSOR",
+                        AddedByPatch = true
+                    };
                     ActiveObject.Resource.MainIff.AddChunk(ActiveFSOR);
                 }
                 ActiveParams = ActiveFSOR.Params;

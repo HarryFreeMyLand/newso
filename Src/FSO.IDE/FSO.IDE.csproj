@@ -118,7 +118,7 @@
     <Compile Include="AboutWindow.Designer.cs">
       <DependentUpon>AboutWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Common\Debug\UI3DDGRP.cs" />
+    <Compile Include="Common\Diagnostics\UI3DDGRP.cs" />
     <Compile Include="Common\ExternalWorld.cs" />
     <Compile Include="Common\AvatarAnimatorControl.cs">
       <SubType>UserControl</SubType>

@@ -127,14 +127,16 @@ namespace FSO.IDE.Common
                 TempVM = new VM(context, new VMServerDriver(new VMTSOGlobalLinkStub()), new VMNullHeadlineProvider());
                 TempVM.Init();
 
-                var blueprint = new Blueprint(32, 32);
-                blueprint.Light = new RoomLighting[]
+                var blueprint = new Blueprint(32, 32)
+                {
+                    Light = new RoomLighting[]
                 {
                     new RoomLighting() { OutsideLight = 100 },
                     new RoomLighting() { OutsideLight = 100 },
                     new RoomLighting() { OutsideLight = 100 },
+                },
+                    OutsideColor = Color.White
                 };
-                blueprint.OutsideColor = Color.White;
                 blueprint.GenerateRoomLights();
                 blueprint.RoomColors[2].A /= 2;
                 world.State.AmbientLight.SetData(blueprint.RoomColors);

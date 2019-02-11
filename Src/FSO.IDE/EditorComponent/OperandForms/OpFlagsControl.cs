@@ -42,12 +42,14 @@ namespace FSO.IDE.EditorComponent.OperandForms
             int i = 0;
             foreach (var flag in flags)
             {
-                var check = new CheckBox();
-                check.AutoSize = true;
-                check.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-                check.Size = new System.Drawing.Size(195, 17);
-                check.Text = flag.Title;
-                check.UseVisualStyleBackColor = true;
+                var check = new CheckBox
+                {
+                    AutoSize = true,
+                    Margin = new System.Windows.Forms.Padding(3, 0, 3, 0),
+                    Size = new System.Drawing.Size(195, 17),
+                    Text = flag.Title,
+                    UseVisualStyleBackColor = true
+                };
                 check.CheckedChanged += Check_CheckedChanged;
 
                 FlagChecks[i++] = check;

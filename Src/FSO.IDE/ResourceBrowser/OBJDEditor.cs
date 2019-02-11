@@ -445,11 +445,13 @@ namespace FSO.IDE.ResourceBrowser
             var isNew = (existing == null);
             if (isNew)
             {
-                existing = new BMP();
-                existing.ChunkParent = ActiveObj.Resource.MainIff;
-                existing.ChunkProcessed = true;
-                existing.ChunkID = ActiveObj.OBJ.CatalogStringsID;
-                existing.ChunkLabel = "";
+                existing = new BMP
+                {
+                    ChunkParent = ActiveObj.Resource.MainIff,
+                    ChunkProcessed = true,
+                    ChunkID = ActiveObj.OBJ.CatalogStringsID,
+                    ChunkLabel = ""
+                };
             }
 
             Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
@@ -463,8 +465,10 @@ namespace FSO.IDE.ResourceBrowser
 
         private void ImportButton_Click(object sender, EventArgs e)
         {
-            var dialog = new OpenFileDialog();
-            dialog.Title = "Select an object thumbnail. (bmp)";
+            var dialog = new OpenFileDialog
+            {
+                Title = "Select an object thumbnail. (bmp)"
+            };
             SaveFile(dialog);
             try
             {
@@ -484,9 +488,11 @@ namespace FSO.IDE.ResourceBrowser
 
         private void ThumbSave_Click(object sender, EventArgs e)
         {
-            var dialog = new SaveFileDialog();
-            dialog.Title = "Saving Object Thumbnail...";
-            dialog.FileName = ActiveObj.OBJ.CatalogStringsID + ".bmp";
+            var dialog = new SaveFileDialog
+            {
+                Title = "Saving Object Thumbnail...",
+                FileName = ActiveObj.OBJ.CatalogStringsID + ".bmp"
+            };
             SaveFile(dialog);
 
             Stream str;

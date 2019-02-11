@@ -108,10 +108,12 @@ namespace FSO.IDE.EditorComponent
             if (AllList.SelectedItem == null) return;
             string name = (string)AllList.SelectedItem;
 
-            var fwav = new FWAV();
-            fwav.Name = name;
-            fwav.ChunkParent = SourceIff;
-            fwav.ChunkProcessed = true;
+            var fwav = new FWAV
+            {
+                Name = name,
+                ChunkParent = SourceIff,
+                ChunkProcessed = true
+            };
 
             Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
