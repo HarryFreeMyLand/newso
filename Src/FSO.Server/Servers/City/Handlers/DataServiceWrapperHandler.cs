@@ -1,18 +1,12 @@
 ﻿using FSO.Common.DataService;
 using FSO.Common.Serialization.Primitives;
 using FSO.Server.DataService.Model;
-using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Gluon;
 using FSO.Server.Framework.Voltron;
-using FSO.Server.Protocol.Voltron;
 using FSO.Server.Protocol.Voltron.Packets;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -23,7 +17,7 @@ namespace FSO.Server.Servers.City.Handlers
 
         public DataServiceWrapperHandler(IDataService dataService)
         {
-            this.DataService = dataService;
+            DataService = dataService;
         }
 
         public async void Handle(IGluonSession session, DataServiceWrapperPDU packet)
@@ -36,7 +30,7 @@ namespace FSO.Server.Servers.City.Handlers
                     var update = packet.Body as cTSOTopicUpdateMessage;
                     DataService.ApplyUpdate(update, session);
 
-                    List<uint> resultDotPath = new List<uint>();
+                    var resultDotPath = new List<uint>();
                     foreach (var item in update.DotPath)
                     {
                         resultDotPath.Add(item);
@@ -123,7 +117,7 @@ namespace FSO.Server.Servers.City.Handlers
                     var update = packet.Body as cTSOTopicUpdateMessage;
                     DataService.ApplyUpdate(update, session);
 
-                    List<uint> resultDotPath = new List<uint>();
+                    var resultDotPath = new List<uint>();
                     foreach (var item in update.DotPath)
                     {
                         var ires = item;

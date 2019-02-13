@@ -95,7 +95,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         {
             OldStr = StringBox.Text;
             var ind = SelectedStringInd;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveString.SetString(ind, OldStr, ActiveLanguage);
             }, ActiveString));
@@ -106,7 +106,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         private void NewButton_Click(object sender, EventArgs e)
         {
             var ind = SelectedStringInd+1;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveString.InsertString(ind, new STRItem());
             }, ActiveString));
@@ -117,7 +117,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         private void RemoveButton_Click(object sender, EventArgs e)
         {
             var ind = SelectedStringInd;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveString.RemoveString(ind);
             }, ActiveString));
@@ -130,7 +130,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var ind = SelectedStringInd;
             if (ind == 0) return;
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var old = ActiveString.GetStringEntry(ind - 1);
                 ActiveString.SwapString(ind, ind - 1);
@@ -143,8 +143,8 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         {
             var ind = SelectedStringInd;
             if (ind == StringList.Items.Count-1) return;
-            
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var old = ActiveString.GetStringEntry(ind);
                 ActiveString.SwapString(ind, ind + 1);
@@ -164,7 +164,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             int index = LanguageBox.SelectedIndex;
             string chosenName = STR.LanguageSetNames[index];
             bool langExists = false;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 langExists = ActiveString.IsSetInit((STRLangCode)(index + 1));
             }, ActiveString));
@@ -175,7 +175,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
                     "Language not initialized!", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                    GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                     {
                         ActiveString.InitLanguageSet((STRLangCode)(index + 1));
                     }, ActiveString));

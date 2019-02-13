@@ -1,4 +1,4 @@
-﻿using FSO.Client;
+using FSO.Client;
 using FSO.Common.Utils;
 using FSO.Files;
 using Microsoft.Xna.Framework;
@@ -14,12 +14,16 @@ namespace FSO.IDE.EditorComponent
 {
     public class EditorResource
     {
-        private static EditorResource _Instance;
-        public static EditorResource Get()
-        {
-            if (_Instance == null) _Instance = new EditorResource();
-            return _Instance;
-        }
+        private static EditorResource _instance;
+        public static EditorResource Get { get; private set; }
+        /* {
+            get
+            {
+                if (_instance == null)
+                    _instance = new EditorResource();
+                return _instance;
+            }
+        } */
 
         public Texture2D Background;
         public Texture2D DiagTile;
@@ -66,7 +70,8 @@ namespace FSO.IDE.EditorComponent
 
         public void Init(GraphicsDevice gd)
         {
-            if (Ready) return;
+            if (Ready)
+                return;
             Background = LoadFile(gd, "IDERes/bg.png");
             DiagTile = LoadFile(gd, "IDERes/diagbg.png");
 
@@ -88,9 +93,9 @@ namespace FSO.IDE.EditorComponent
             ViewBG = LoadFile(gd, "IDERes/viewBG.png");
 
             Indexed = new Texture2D[IndexedLoad.Length];
-            for (int i=0; i<IndexedLoad.Length; i++)
+            for (int i = 0; i < IndexedLoad.Length; i++)
             {
-                Indexed[i] = LoadFile(gd, "IDERes/"+IndexedLoad[i]);
+                Indexed[i] = LoadFile(gd, $"IDERes/{IndexedLoad[i]}");
             }
 
             WhiteTex = TextureUtils.TextureFromColor(gd, Color.White);
@@ -104,15 +109,15 @@ namespace FSO.IDE.EditorComponent
                 var img = ImageLoader.FromStream(gd, file);
 
                 var data = new byte[img.Width * img.Height * 4];
-                img.GetData<byte>(data);
-                for (int i=0; i<data.Length; i+=4)
+                img.GetData(data);
+                for (int i = 0; i < data.Length; i += 4)
                 {
                     var a = data[i + 3];
-                    data[i] = (byte)((data[i] * a)/255);
-                    data[i+1] = (byte)((data[i+1] * a) / 255);
-                    data[i+2] = (byte)((data[i+2] * a) / 255);
+                    data[i] = (byte)((data[i] * a) / 255);
+                    data[i + 1] = (byte)((data[i + 1] * a) / 255);
+                    data[i + 2] = (byte)((data[i + 2] * a) / 255);
                 }
-                img.SetData<byte>(data);
+                img.SetData(data);
                 return img;
             }
         }

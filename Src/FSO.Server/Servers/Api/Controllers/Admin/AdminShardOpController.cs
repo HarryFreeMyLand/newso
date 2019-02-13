@@ -3,12 +3,6 @@ using FSO.Server.Protocol.Gluon.Model;
 using FSO.Server.Servers.Api.JsonWebToken;
 using Nancy;
 using Nancy.ModelBinding;
-using Nancy.Security;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.Admin
 {
@@ -21,20 +15,20 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
         {
             JWTTokenAuthentication.Enable(this, jwt);
             
-            this.DAFactory = daFactory;
-            this.Server = server;
+            DAFactory = daFactory;
+            Server = server;
 
-            this.After.AddItemToEndOfPipeline(x =>
+            After.AddItemToEndOfPipeline(x =>
             {
                 x.Response.WithHeader("Access-Control-Allow-Origin", "*");
             });
 
-            this.Post["/shutdown"] = _ =>
+            Post["/shutdown"] = _ =>
             {
                 this.DemandAdmin();
                 var shutdown = this.Bind<ShutdownModel>();
 
-                ShutdownType type = ShutdownType.SHUTDOWN;
+                var type = ShutdownType.SHUTDOWN;
                 if (shutdown.update) type = ShutdownType.UPDATE;
                 else if (shutdown.restart) type = ShutdownType.RESTART;
 
@@ -44,7 +38,7 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
                 return Response.AsJson(true);
             };
 
-            this.Post["/announce"] = _ =>
+            Post["/announce"] = _ =>
             {
                 this.DemandModerator();
                 var announce = this.Bind<AnnouncementModel>();

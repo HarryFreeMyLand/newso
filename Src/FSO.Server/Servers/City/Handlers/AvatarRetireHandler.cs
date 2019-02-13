@@ -5,11 +5,6 @@ using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Packets;
 using Ninject;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -37,7 +32,7 @@ namespace FSO.Server.Servers.City.Handlers
             try
             {
 
-                using (var da = DA.Get())
+                using (var da = DA.Get)
                 {
                     var avatar = da.Avatars.Get(session.AvatarId);
                     if (avatar == null) return;

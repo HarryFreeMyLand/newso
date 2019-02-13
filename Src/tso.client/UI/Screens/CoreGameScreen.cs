@@ -117,7 +117,7 @@ namespace FSO.Client.UI.Screens
                         LotControl.SetTargetZoom(targ);
                         if (m_ZoomLevel > 3)
                         {
-                            HITVM.Get().PlaySoundEvent(UIMusic.None);
+                            HITVM.Get.PlaySoundEvent(UIMusic.None);
                             if (CityRenderer != null) CityRenderer.Zoomed = TerrainZoomMode.Lot;
                             gizmo.Visible = false;
                             LotControl.Visible = true;
@@ -145,7 +145,7 @@ namespace FSO.Client.UI.Screens
                         { //coming from lot view... snap zoom % to 0 or 1
                             Title.SetTitle(GameFacade.CurrentCityName);
                             CityRenderer.ZoomProgress = 1;
-                            HITVM.Get().PlaySoundEvent(UIMusic.Map); //play the city music as well
+                            HITVM.Get.PlaySoundEvent(UIMusic.Map); //play the city music as well
                             CityRenderer.Visible = true;
                             gizmo.Visible = true;
                             if (World != null)
@@ -220,7 +220,7 @@ namespace FSO.Client.UI.Screens
             /**
             * Music
             */
-            HITVM.Get().PlaySoundEvent(UIMusic.Map);
+            HITVM.Get.PlaySoundEvent(UIMusic.Map);
 
             /*VMDebug = new UIButton()
             {

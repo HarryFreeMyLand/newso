@@ -116,12 +116,12 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var value = (ushort)ValueBox.Value;
             var comment = StringBox.Text;
             var label = NameBox.Text;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveConst.Constants[ind] = value;
             }, ActiveConst));
             if (ActiveConstLabel != null) {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveConstLabel.Entries[ind].Label = label;
                     ActiveConstLabel.Entries[ind].Comment = comment;

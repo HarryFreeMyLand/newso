@@ -101,7 +101,7 @@ namespace FSO.IDE
         {
 
         }
-        private void ObjectTree_AfterSelect(object sender, System.Windows.Forms.TreeViewEventArgs e)
+        private void ObjectTree_AfterSelect(object sender, TreeViewEventArgs e)
         {
             var node = ObjectTree.SelectedNode;
 

@@ -8,17 +8,13 @@ using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Aries.Packets;
 using FSO.Server.Protocol.Gluon.Model;
-using FSO.Server.Protocol.Voltron.Packets;
 using FSO.Server.Servers.City.Domain;
 using FSO.Server.Servers.City.Handlers;
 using FSO.Server.Servers.Shared.Handlers;
-using FSO.Server.Utils;
 using Ninject;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -34,7 +30,7 @@ namespace FSO.Server.Servers.City
 
         public CityServer(CityServerConfiguration config, IKernel kernel) : base(config, kernel)
         {
-            this.Config = config;
+            Config = config;
             VoltronSessions = Sessions.GetOrCreateGroup(Groups.VOLTRON);
         }
 
@@ -57,9 +53,11 @@ namespace FSO.Server.Servers.City
 
             LOG.Info("City identified as " + shard.Name);
 
-            var context = new CityServerContext();
-            context.ShardId = shard.Id;
-            context.Config = Config;
+            var context = new CityServerContext
+            {
+                ShardId = shard.Id,
+                Config = Config
+            };
             Kernel.Bind<EventSystem>().ToSelf().InSingletonScope();
             Kernel.Bind<CityLivenessEngine>().ToSelf().InSingletonScope();
             Kernel.Bind<CityServerContext>().ToConstant(context);
@@ -71,9 +69,9 @@ namespace FSO.Server.Servers.City
 
             Liveness = Kernel.Get<CityLivenessEngine>();
 
-            IDAFactory da = Kernel.Get<IDAFactory>();
-            using (var db = da.Get()){
-                var version = ServerVersion.Get();
+            var da = Kernel.Get<IDAFactory>();
+            using (var db = da.Get){
+                var version = ServerVersion.Get;
                 db.Shards.UpdateVersion(shard.Id, version.Name, version.Number);
 
                 var oldClaims = db.LotClaims.GetAllByOwner(context.Config.Call_Sign).ToList();
@@ -120,7 +118,7 @@ namespace FSO.Server.Servers.City
 
             if (message != null)
             {
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     var ticket = da.Shards.GetTicket(packet.Password);
                     if (ticket != null)

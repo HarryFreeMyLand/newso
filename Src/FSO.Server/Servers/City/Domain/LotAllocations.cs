@@ -9,8 +9,6 @@ using Ninject;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -27,9 +25,9 @@ namespace FSO.Server.Servers.City.Domain
         public LotAllocations(LotServerPicker PickingEngine, IDAFactory daFactory, CityServerContext context, IKernel kernel)
         {
             this.PickingEngine = PickingEngine;
-            this.DAFactory = daFactory;
-            this.Context = context;
-            this.Matchmaker = kernel.Get<JobMatchmaker>();
+            DAFactory = daFactory;
+            Context = context;
+            Matchmaker = kernel.Get<JobMatchmaker>();
         }
 
         public Task<TryFindLotResult> TryFindOrOpen(uint lotId, uint avatarId, ISecurityContext security)
@@ -49,7 +47,7 @@ namespace FSO.Server.Servers.City.Domain
             uint? location;
             if (response.ClaimId != 0)
             {
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     location = da.Lots.Get(response.EntityId)?.location;
                 }
@@ -66,7 +64,7 @@ namespace FSO.Server.Servers.City.Domain
                 if (allocation.State == LotAllocationState.FAILED)
                 {
                     //Failed, remove
-                    LotAllocation removedAllocation = Remove(location.Value);
+                    var removedAllocation = Remove(location.Value);
                 }
             }
 
@@ -85,7 +83,7 @@ namespace FSO.Server.Servers.City.Domain
             uint? location = null;
             if (claimId != 0)
             {
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     var lot = da.Lots.Get(lotId);
                     if (lot != null)
@@ -186,7 +184,7 @@ namespace FSO.Server.Servers.City.Domain
                         if (!jobLot)
                         {
                             DbLot lot = null;
-                            using (var db = DAFactory.Get())
+                            using (var db = DAFactory.Get)
                             {
                                 //Convert the lot location into a lot db id
                                 lot = db.Lots.GetByLocation(Context.ShardId, lotId);
@@ -279,7 +277,7 @@ namespace FSO.Server.Servers.City.Domain
                         if (!jobLot && avatarId != 0)
                         {
                             //check admit type (might be expensive?)
-                            using (var db = DAFactory.Get())
+                            using (var db = DAFactory.Get)
                             {
                                 var lot = db.Lots.GetByLocation(Context.ShardId, lotId);
                                 if (lot != null)
@@ -434,7 +432,7 @@ namespace FSO.Server.Servers.City.Domain
         {
             //Release the claim
             if (ClaimId == null) return;
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 da.LotClaims.Delete(ClaimId.Value, Context.Config.Call_Sign);
             }
@@ -446,7 +444,7 @@ namespace FSO.Server.Servers.City.Domain
             Lot = lot;
 
             //Write a db record to claim the lot
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var claim = db.LotClaims.TryCreate(new Database.DA.LotClaims.DbLotClaim
                 {
@@ -498,7 +496,7 @@ namespace FSO.Server.Servers.City.Domain
         {
             if (ClaimId.HasValue)
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     try {
                         db.LotClaims.Delete(ClaimId.Value, Context.Config.Call_Sign);

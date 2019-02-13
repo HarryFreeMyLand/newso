@@ -113,7 +113,7 @@ namespace FSO.IDE.Common
             base.Draw(batch);
             if (Thumb != null)
             {
-                Vector2 size = new Vector2(GameFacade.GraphicsDevice.Viewport.Width, GameFacade.GraphicsDevice.Viewport.Height);
+                var size = new Vector2(GameFacade.GraphicsDevice.Viewport.Width, GameFacade.GraphicsDevice.Viewport.Height);
                 float minSize = Math.Min(size.X, size.Y);
 
                 float scale = Math.Min(1, minSize / Math.Max(Thumb.Height, Thumb.Width));

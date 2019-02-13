@@ -94,7 +94,7 @@ namespace FSO.Client.UI.Panels.LotControls
         {
             if (!Drawing)
             {
-                HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolDown);
+                HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolDown);
                 Drawing = true;
                 var tilePos = World.EstTileAtPosWithScroll(Parent.GetScaledPoint(state.MouseState.Position).ToVector2() / FSOEnvironment.DPIScaleFactor);
                 StartPosition = new Point((int)Math.Round(tilePos.X), (int)Math.Round(tilePos.Y));
@@ -144,8 +144,8 @@ namespace FSO.Client.UI.Panels.LotControls
                     });
 
                     //vm.Context.Architecture.RunCommands(cmds);
-                    HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolPlace);
-                } else HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolUp);
+                    HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolPlace);
+                } else HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolUp);
             }
             Drawing = false;
         }
@@ -206,7 +206,7 @@ namespace FSO.Client.UI.Panels.LotControls
 
                     if (!cmds[0].Equals(LastCmd) && disallowed)
                     {
-                        HITVM.Get().PlaySoundEvent(UISounds.Error);
+                        HITVM.Get.PlaySoundEvent(UISounds.Error);
                     }
                 }
                 else

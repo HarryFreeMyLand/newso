@@ -53,7 +53,7 @@ namespace FSO.Server.Domain
         {
             _LastPoll = DateTime.UtcNow;
 
-            using (var db = _DbFactory.Get())
+            using (var db = _DbFactory.Get)
             {
                 _Shards = db.Shards.All().Select(x => new ShardStatusItem()
                 {

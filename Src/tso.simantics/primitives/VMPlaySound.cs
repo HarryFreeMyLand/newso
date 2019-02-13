@@ -34,7 +34,7 @@ namespace FSO.SimAntics.Primitives
             if ((lastThread?.Sound as HITThread)?.Interruptable == true) lastThread = null;
             if (fwav != null && lastThread == null)
             {
-                var thread = HITVM.Get().PlaySoundEvent(fwav.Name);
+                var thread = HITVM.Get.PlaySoundEvent(fwav.Name);
                 if (thread != null)
                 {
                     if (owner == null) return VMPrimitiveExitCode.GOTO_TRUE;

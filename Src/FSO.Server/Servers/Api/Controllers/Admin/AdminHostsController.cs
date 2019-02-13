@@ -1,13 +1,8 @@
 ﻿using FSO.Server.Database.DA;
 using FSO.Server.Domain;
 using FSO.Server.Servers.Api.JsonWebToken;
-using FSO.Server.Utils;
 using Nancy;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.Admin
 {
@@ -17,7 +12,7 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
         {
             JWTTokenAuthentication.Enable(this, jwt);
 
-            this.Get["/hosts"] = _ =>
+            Get["/hosts"] = _ =>
             {
                 this.DemandAdmin();
                 var hosts = hostPool.GetAll();

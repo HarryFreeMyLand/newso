@@ -131,7 +131,7 @@ namespace FSO.IDE.ResourceBrowser
         private void MultitileList_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            Brush myBrush = Brushes.Black;
+            var myBrush = Brushes.Black;
 
             if (e.Index == -1) return;
             var item = (OBJD)MultitileList.Items[e.Index];
@@ -276,7 +276,7 @@ namespace FSO.IDE.ResourceBrowser
             //ObjNameLabel.Text = NameEntry.Text;
             var name = NameEntry.Text;
 
-            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
             {
                 ActiveObj.OBJ.ChunkLabel = name;
             }, ActiveObj.OBJ));
@@ -310,7 +310,7 @@ namespace FSO.IDE.ResourceBrowser
             var item = (NameValueCombo)combo.SelectedItem;
             var prop = OBJDComboEntry[combo];
 
-            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
             {
                 ActiveObj.OBJ.SetPropertyByName(prop, item.Value);
             }, ActiveObj.OBJ));
@@ -321,7 +321,7 @@ namespace FSO.IDE.ResourceBrowser
             if (OwnChange) return;
             var value = (byte)XOffset.Value;
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveObj.OBJ.SubIndex = (short)((ActiveObj.OBJ.SubIndex & 0xFF00) | value);
             }, ActiveObj.OBJ));
@@ -335,7 +335,7 @@ namespace FSO.IDE.ResourceBrowser
             if (OwnChange) return;
             var value = (byte)YOffset.Value;
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveObj.OBJ.SubIndex = (short)((ActiveObj.OBJ.SubIndex & 0x00FF) | (value << 8));
             }, ActiveObj.OBJ));
@@ -364,7 +364,7 @@ namespace FSO.IDE.ResourceBrowser
 
             ushort newGroup = (ushort)(lastMaster + 1);
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 //must signal to parent
                 ActiveObj.OBJ.MasterID = newGroup;
@@ -378,7 +378,7 @@ namespace FSO.IDE.ResourceBrowser
             var check = ui.Checked;
             var target = OBJDFlagEntries[ui];
 
-            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
             {
                 ushort value = ActiveObj.OBJ.GetPropertyByName<ushort>(target.Property);
                 ushort flag = (ushort)(~(1 << target.Flag));
@@ -393,7 +393,7 @@ namespace FSO.IDE.ResourceBrowser
             var ui = (NumericUpDown)sender;
             var target = OBJDNumberEntry[ui];
 
-            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
             {
                 ActiveObj.OBJ.SetPropertyByName(target, ui.Value);
             }, ActiveObj.OBJ));
@@ -402,7 +402,7 @@ namespace FSO.IDE.ResourceBrowser
         private void RegenThumb_Click(object sender, EventArgs e)
         {
             Bitmap thumbBMP = null;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var thumb = CatThumbGenerator.GenerateThumb(ObjectView.ExtObj, ObjectView.ExtVM);
 
@@ -419,7 +419,7 @@ namespace FSO.IDE.ResourceBrowser
                 }
 
                 var bmpData = thumbBMP.LockBits(new Rectangle(0, 0, thumbBMP.Width, thumbBMP.Height), ImageLockMode.WriteOnly, thumbBMP.PixelFormat);
-                IntPtr ptr = bmpData.Scan0;
+                var ptr = bmpData.Scan0;
 
                 Marshal.Copy(raw, 0, ptr, bmpData.Stride * bmpData.Height);
                 thumbBMP.UnlockBits(bmpData);
@@ -454,7 +454,7 @@ namespace FSO.IDE.ResourceBrowser
                 };
             }
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 existing.data = bdata;
                 existing.ChunkParent.AddChunk(existing);
@@ -475,7 +475,7 @@ namespace FSO.IDE.ResourceBrowser
                 Stream str;
                 if ((str = dialog.OpenFile()) != null)
                 {
-                    var img = Bitmap.FromStream(str);
+                    var img = Image.FromStream(str);
                     ThumbnailPic.Image = img;
                     SaveThumbImg(img);
                 }

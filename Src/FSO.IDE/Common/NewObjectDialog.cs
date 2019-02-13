@@ -29,7 +29,7 @@ namespace FSO.IDE.Common
 
         private void RandomGUID_Click(object sender, EventArgs e)
         {
-            var objProvider = Content.GameContent.Get.WorldObjects;
+            var objProvider = GameContent.Get.WorldObjects;
             lock (objProvider.Entries)
             {
                 var rand = new Random();
@@ -49,7 +49,7 @@ namespace FSO.IDE.Common
             var name = ChunkLabelEntry.Text;
             var guidT = GUIDEntry.Text;
             uint guid;
-            var objProvider = Content.GameContent.Get.WorldObjects;
+            var objProvider = GameContent.Get.WorldObjects;
             if (name == "") MessageBox.Show("Name cannot be empty!", "Invalid Object Name");
             else if (guidT == "") MessageBox.Show("GUID cannot be empty!", "Invalid GUID");
             else if (!uint.TryParse(guidT, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out guid))
@@ -81,7 +81,7 @@ namespace FSO.IDE.Common
                         AddedByPatch = true
                     };
 
-                    Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                    GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                     {
                         //find a free space to place the object
                         ushort id = 16807; //todo: why???

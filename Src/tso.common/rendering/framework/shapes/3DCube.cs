@@ -4,10 +4,7 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -80,11 +77,11 @@ namespace FSO.Common.Rendering.Framework.Shapes
             foreach (var pass in Effect.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                device.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleList, Geom, 0, Geom.Length / 3);
+                device.DrawUserPrimitives(PrimitiveType.TriangleList, Geom, 0, Geom.Length / 3);
             }
         }
 
-        public override void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public override void Update(Model.UpdateState state)
         {
         }
 

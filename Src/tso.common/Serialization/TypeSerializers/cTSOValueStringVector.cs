@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mina.Core.Buffer;
 using System.Collections.Immutable;
 
@@ -23,7 +21,7 @@ namespace FSO.Common.Serialization.TypeSerializers
 
         public object Deserialize(uint clsid, IoBuffer input, ISerializationContext serializer)
         {
-            var result = new List<String>();
+            var result = new List<string>();
             var count = input.GetUInt32();
             for(int i=0; i < count; i++){
                 result.Add(IoBufferUtils.GetPascalVLCString(input));
@@ -33,7 +31,7 @@ namespace FSO.Common.Serialization.TypeSerializers
         
         public void Serialize(IoBuffer output, object value, ISerializationContext serializer)
         {
-            IList<String> list = (IList<String>)value;
+            var list = (IList<string>)value;
             output.PutUInt32((uint)list.Count);
             for(int i=0; i < list.Count; i++){
                 output.PutPascalVLCString(list[i]);

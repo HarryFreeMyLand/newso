@@ -6,8 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace FSO.Common.Rendering.Framework
@@ -20,7 +18,7 @@ namespace FSO.Common.Rendering.Framework
 
         #region IGraphicsLayer Members
 
-        public void Update(FSO.Common.Rendering.Framework.Model.UpdateState state)
+        public void Update(Model.UpdateState state)
         {
             foreach (var scene in Scenes)
             {
@@ -32,7 +30,7 @@ namespace FSO.Common.Rendering.Framework
             }
         }
 
-        public void PreDraw(Microsoft.Xna.Framework.Graphics.GraphicsDevice device)
+        public void PreDraw(GraphicsDevice device)
         {
             foreach (var scene in Scenes)
             {
@@ -40,7 +38,7 @@ namespace FSO.Common.Rendering.Framework
             }
         }
 
-        public void Draw(Microsoft.Xna.Framework.Graphics.GraphicsDevice device)
+        public void Draw(GraphicsDevice device)
         {
             foreach (var scene in Scenes)
             {
@@ -48,7 +46,7 @@ namespace FSO.Common.Rendering.Framework
             }
         }
 
-        public void Initialize(Microsoft.Xna.Framework.Graphics.GraphicsDevice device)
+        public void Initialize(GraphicsDevice device)
         {
             Device = device;
             foreach (var scene in Scenes)

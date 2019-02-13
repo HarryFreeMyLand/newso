@@ -1,8 +1,6 @@
 ﻿using FSO.Common.Rendering.Framework.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -170,7 +168,7 @@ namespace FSO.Common.Utils
 
         public static Task<T> NextUpdate<T>(Func<UpdateState, T> callback)
         {
-            TaskCompletionSource<T> task = new TaskCompletionSource<T>();
+            var task = new TaskCompletionSource<T>();
             lock (_UpdateCallbacks)
             {
                 _UpdateCallbacks.Enqueue(x =>
@@ -213,7 +211,7 @@ namespace FSO.Common.Utils
             }
 
             List<UpdateHook> _hooks;
-            List<UpdateHook> toRemove = new List<UpdateHook>();
+            var toRemove = new List<UpdateHook>();
             lock (_UpdateHooks)
             {
                 _hooks = new List<UpdateHook>(_UpdateHooks);

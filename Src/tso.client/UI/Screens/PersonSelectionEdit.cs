@@ -163,7 +163,7 @@ namespace FSO.Client.UI.Screens
             /**
              * Music
              */
-            HIT.HITVM.Get().PlaySoundEvent(UIMusic.CAS);
+            HIT.HITVM.Get.PlaySoundEvent(UIMusic.CAS);
 
             SimBox = new UISim
             {

@@ -1,11 +1,9 @@
 ﻿using FSO.Common.Domain.Shards;
 using FSO.Server.Database.DA;
-using FSO.Server.Database.DA.Shards;
 using FSO.Server.Protocol.CitySelector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FSO.Server.Domain
@@ -53,7 +51,7 @@ namespace FSO.Server.Domain
         {
             _LastPoll = DateTime.UtcNow;
 
-            using (var db = _DbFactory.Get())
+            using (var db = _DbFactory.Get)
             {
                 _Shards = db.Shards.All().Select(x => new ShardStatusItem()
                 {
@@ -61,7 +59,7 @@ namespace FSO.Server.Domain
                     Name = x.name,
                     Map = x.map,
                     Rank = x.rank,
-                    Status = (Server.Protocol.CitySelector.ShardStatus)(byte)x.status,
+                    Status = (Protocol.CitySelector.ShardStatus)(byte)x.status,
                     PublicHost = x.public_host,
                     InternalHost = x.internal_host,
                     VersionName = x.version_name,

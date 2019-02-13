@@ -5,10 +5,6 @@ using FSO.Server.Protocol.Voltron.DataService;
 using Ninject.Activation;
 using Ninject.Modules;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.DataService
 {
@@ -19,9 +15,9 @@ namespace FSO.Server.DataService
     {
         public override void Load()
         {
-            this.Bind<cTSOSerializer>().ToProvider<cTSOSerializerProvider>().InSingletonScope();
-            this.Bind<IModelSerializer>().ToProvider<ModelSerializerProvider>().InSingletonScope();
-            this.Bind<ISerializationContext>().To<SerializationContext>();
+            Bind<cTSOSerializer>().ToProvider<cTSOSerializerProvider>().InSingletonScope();
+            Bind<IModelSerializer>().ToProvider<ModelSerializerProvider>().InSingletonScope();
+            Bind<ISerializationContext>().To<SerializationContext>();
         }
     }
 
@@ -31,7 +27,7 @@ namespace FSO.Server.DataService
 
         public ModelSerializerProvider(Content.GameContent content)
         {
-            this.Content = content;
+            Content = content;
         }
 
         public Type Type
@@ -58,7 +54,7 @@ namespace FSO.Server.DataService
 
         public cTSOSerializerProvider(Content.GameContent content)
         {
-            this.Content = content;
+            Content = content;
         }
 
         public Type Type
@@ -70,7 +66,7 @@ namespace FSO.Server.DataService
         }
 
         public object Create(IContext context){
-            return new cTSOSerializer(this.Content.DataDefinition);
+            return new cTSOSerializer(Content.DataDefinition);
         }
     }
 }

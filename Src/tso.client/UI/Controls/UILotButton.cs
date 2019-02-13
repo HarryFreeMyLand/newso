@@ -103,7 +103,7 @@ namespace FSO.Client.UI.Controls
                     if (m_isDown)
                     {
                         OnButtonClick();
-                        HITVM.Get().PlaySoundEvent(UISounds.Click);
+                        HITVM.Get.PlaySoundEvent(UISounds.Click);
                     }
                     m_isDown = false;
                     break;

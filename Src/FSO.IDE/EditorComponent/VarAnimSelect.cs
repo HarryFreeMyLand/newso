@@ -42,9 +42,9 @@ namespace FSO.IDE.EditorComponent
                 var searchString = new Regex(".*" + SearchBox.Text.ToLowerInvariant() + ".*");
 
                 AllList.Items.Clear();
-                var anims = (Content.GameContent.Get.AvatarAnimations as AvatarAnimationProvider)?.AnimationsByName.Keys.ToList();
+                var anims = (GameContent.Get.AvatarAnimations as AvatarAnimationProvider)?.AnimationsByName.Keys.ToList();
                 if (anims == null)
-                    anims = (Content.GameContent.Get.AvatarAnimations as Content.TS1.TS1BCFAnimationProvider)?.BaseProvider.ListAllAnimations();
+                    anims = (GameContent.Get.AvatarAnimations as Content.TS1.TS1BCFAnimationProvider)?.BaseProvider.ListAllAnimations();
                 if (anims != null)
                 {
                     foreach (var anim in anims)
@@ -102,7 +102,7 @@ namespace FSO.IDE.EditorComponent
         {
             if (AllList.SelectedItem == null) return;
             string name = (string)AllList.SelectedItem;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 AnimTable.InsertString(AnimTable.Length, new STRItem() { Value = name });
             }, AnimTable));
@@ -113,7 +113,7 @@ namespace FSO.IDE.EditorComponent
         {
             if (MyList.SelectedIndex < 1) return;
             int id = MyList.SelectedIndex;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 AnimTable.RemoveString(id);
             }, AnimTable));

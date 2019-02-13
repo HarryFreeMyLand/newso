@@ -18,7 +18,7 @@ namespace FSO.Server.Api.Controllers.Admin
             if (auth.grant_type == "password")
             {
                 var api = Api.INSTANCE;
-                using (var da = api.DAFactory.Get())
+                using (var da = api.DAFactory.Get)
                 {
                     var user = da.Users.GetByUsername(auth.username);
                     if (user == null || user.is_banned || !(user.is_admin || user.is_moderator))

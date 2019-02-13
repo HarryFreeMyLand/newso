@@ -129,10 +129,10 @@ namespace FSO.Client.UI.Panels
             }
 
             BgSound?.RemoveOwner(-25);
-            if (config.Music != null) HIT.HITVM.Get().PlaySoundEvent(config.Music);
+            if (config.Music != null) HIT.HITVM.Get.PlaySoundEvent(config.Music);
             if (config.BGSound != null)
             {
-                BgSound = HITVM.Get().PlaySoundEvent(config.BGSound);
+                BgSound = HITVM.Get.PlaySoundEvent(config.BGSound);
                 BgSound.AddOwner(-25);
             }
         }
@@ -140,7 +140,7 @@ namespace FSO.Client.UI.Panels
         public void SelectHouse(int house)
         {
             OnHouseSelect?.Invoke(house);
-            HIT.HITVM.Get().PlaySoundEvent("bkground_fade");
+            HIT.HITVM.Get.PlaySoundEvent("bkground_fade");
         }
 
         public override void Removed()
@@ -244,11 +244,11 @@ namespace FSO.Client.UI.Panels
                 {
                     switch (evt) {
                         case UIMouseEventType.MouseUp:
-                            HIT.HITVM.Get().PlaySoundEvent(Model.UISounds.NeighborhoodClick);
+                            HIT.HITVM.Get.PlaySoundEvent(Model.UISounds.NeighborhoodClick);
                             selectionCallback(houseNumber); break;
                         case UIMouseEventType.MouseOver:
                             GameFacade.Screens.Tween.To(this, 0.5f, new Dictionary<string, float>() { { "AlphaTime", 1f } });
-                            HIT.HITVM.Get().PlaySoundEvent(Model.UISounds.NeighborhoodRollover);
+                            HIT.HITVM.Get.PlaySoundEvent(Model.UISounds.NeighborhoodRollover);
                             Hovered = true; break;
                         case UIMouseEventType.MouseOut:
                             GameFacade.Screens.Tween.To(this, 0.5f, new Dictionary<string, float>() { { "AlphaTime", 0f } });

@@ -34,15 +34,15 @@ namespace FSO.HIT
 
                 inst = sfx.CreateInstance();
                 inst.IsLooped = true;
-                inst.Volume = HITVM.Get().GetMasterVolume(HITVolumeGroup.AMBIENCE);
+                inst.Volume = HITVM.Get.GetMasterVolume(HITVolumeGroup.AMBIENCE);
                 inst.Play();
-                HITVM.Get().AmbLoops.Add(inst);
+                HITVM.Get.AmbLoops.Add(inst);
 
                 fscMode = false;
             }
             else
             {
-                fsc = HITVM.Get().PlayFSC(FSO.Content.GameContent.Get.GetPath(amb.Path));
+                fsc = HITVM.Get.PlayFSC(FSO.Content.GameContent.Get.GetPath(amb.Path));
                 fsc.SetVolume(0.33f); //may need tweaking
                 fscMode = true;
             }
@@ -50,12 +50,12 @@ namespace FSO.HIT
 
         public void Kill()
         {
-            if (fscMode) HITVM.Get().StopFSC(fsc);
+            if (fscMode) HITVM.Get.StopFSC(fsc);
             else
             {
                 inst.Stop();
                 inst.Dispose();
-                HITVM.Get().AmbLoops.Remove(inst);
+                HITVM.Get.AmbLoops.Remove(inst);
                 sfx.Dispose();
             }
         }

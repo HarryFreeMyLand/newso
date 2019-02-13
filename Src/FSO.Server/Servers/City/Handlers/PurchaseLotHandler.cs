@@ -10,11 +10,6 @@ using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Packets;
 using Ninject;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -58,7 +53,7 @@ namespace FSO.Server.Servers.City.Handlers
 
             uint lotId = 0;
 
-            using (var db = DA.Get())
+            using (var db = DA.Get)
             {
                 if (db.Lots.GetByLocation(Context.ShardId, packedLocation) != null)
                 {

@@ -1,11 +1,6 @@
 ﻿using FSO.Server.Framework.Gluon;
 using FSO.Server.Protocol.Gluon.Packets;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Tasks.Handlers
 {
@@ -15,12 +10,12 @@ namespace FSO.Server.Servers.Tasks.Handlers
 
         public TaskEngineHandler(TaskEngine engine)
         {
-            this.TaskEngine = engine;
+            TaskEngine = engine;
         }
 
         public void Handle(IGluonSession session, RequestTask task)
         {
-            var shardId = new Nullable<int>();
+            var shardId = new int?();
             if(task.ShardId > 0){
                 shardId = task.ShardId;
             }

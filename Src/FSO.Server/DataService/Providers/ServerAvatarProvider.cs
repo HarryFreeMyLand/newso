@@ -7,8 +7,6 @@ using FSO.Server.Database.DA;
 using FSO.Server.Database.DA.Avatars;
 using FSO.Server.Database.DA.Bookmarks;
 using FSO.Server.Database.DA.Lots;
-using FSO.Server.Database.DA.Relationships;
-using FSO.Server.Database.DA.Shards;
 using Ninject;
 using NLog;
 using System;
@@ -16,8 +14,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.DataService.Providers
 {
@@ -29,15 +25,15 @@ namespace FSO.Server.DataService.Providers
 
         public ServerAvatarProvider([Named("ShardId")] int shardId, IDAFactory factory)
         {
-            this.ShardId = shardId;
-            this.DAFactory = factory;
+            ShardId = shardId;
+            DAFactory = factory;
         }
 
         public override void PersistMutation(object entity, MutationType type, string path, object value)
         {
             var avatar = entity as Avatar;
 
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 switch (path)
                 {
@@ -69,7 +65,7 @@ namespace FSO.Server.DataService.Providers
             {
                 case "Avatar_BookmarksVec":
                     context.DemandAvatar(avatar.Avatar_Id, AvatarPermissions.WRITE);
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     { //need to check db constraints here.
                         switch (type)
                         {
@@ -123,7 +119,7 @@ namespace FSO.Server.DataService.Providers
                     var limit = avatar.Avatar_SkillsLockPoints;
                     var skillname = "lock_"+path.Substring(34).ToLower();
 
-                    using (var da = DAFactory.Get())
+                    using (var da = DAFactory.Get)
                     {
                         if (((da.AvatarClaims.GetByAvatarID(avatar.Avatar_Id)?.location) ?? 0) != 0) throw new Exception("Lot owns avatar! Lock using the VM commands.");
                         if (level > limit - da.Avatars.GetOtherLocks(avatar.Avatar_Id, skillname)) throw new Exception("Cannot lock this many skills!");
@@ -138,7 +134,7 @@ namespace FSO.Server.DataService.Providers
                     context.DemandAvatar(avatar.Avatar_Id, AvatarPermissions.WRITE);
                     var cat = (LotCategory)((uint)value);
 
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     { //filters baby! YES! about time i get a fucking break in this game
                         var filter = db.LotClaims.Top100Filter(ShardId, cat, 10);
                         avatar.Avatar_Top100ListFilter.Top100ListFilter_ResultsVec = ImmutableList.ToImmutableList(filter.Select(x => x.location));
@@ -152,7 +148,7 @@ namespace FSO.Server.DataService.Providers
 
         protected override Avatar LazyLoad(uint key, Avatar oldVal)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var avatar = db.Avatars.Get(key);
                 if (avatar == null) { return null; }
@@ -178,9 +174,9 @@ namespace FSO.Server.DataService.Providers
         //of avatars loading thousands of relationship lists.
         public ImmutableList<Relationship> RelationshipProvider(uint avatarID)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
-                List<DbRelationship> rels = db.Relationships.GetBidirectional(avatarID);
+                var rels = db.Relationships.GetBidirectional(avatarID);
                 var fvec = new Dictionary<Tuple<uint, bool>, Relationship>();
                 foreach (var rel in rels)
                 {
@@ -215,9 +211,9 @@ namespace FSO.Server.DataService.Providers
 
         public ImmutableList<JobLevel> JobLevelProvider(uint avatarID)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
-                List<DbJobLevel> levels = db.Avatars.GetJobLevels(avatarID);
+                var levels = db.Avatars.GetJobLevels(avatarID);
                 var jobs = new List<JobLevel>();
                 foreach (var level in levels)
                 {
@@ -234,9 +230,9 @@ namespace FSO.Server.DataService.Providers
 
         public ImmutableList<Bookmark> BookmarkProvider(uint avatarId)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
-                List<DbBookmark> bookmarks = db.Bookmarks.GetByAvatarId(avatarId);
+                var bookmarks = db.Bookmarks.GetByAvatarId(avatarId);
                 return ImmutableList.ToImmutableList(bookmarks.Select(x =>
                 {
                     return new Bookmark
@@ -258,16 +254,18 @@ namespace FSO.Server.DataService.Providers
 
         private Avatar HydrateOne(DbAvatar dbAvatar, DbLot dbLot)
         {
-            var result = new Avatar();
-            result.Avatar_Id = dbAvatar.avatar_id;
-            result.Avatar_Name = dbAvatar.name;
-            result.Avatar_IsOnline = false;
-            result.Avatar_Description = dbAvatar.description;
-            result.Avatar_Appearance = new AvatarAppearance
+            var result = new Avatar
             {
-                AvatarAppearance_BodyOutfitID = dbAvatar.body,
-                AvatarAppearance_HeadOutfitID = dbAvatar.head,
-                AvatarAppearance_SkinTone = dbAvatar.skin_tone
+                Avatar_Id = dbAvatar.avatar_id,
+                Avatar_Name = dbAvatar.name,
+                Avatar_IsOnline = false,
+                Avatar_Description = dbAvatar.description,
+                Avatar_Appearance = new AvatarAppearance
+                {
+                    AvatarAppearance_BodyOutfitID = dbAvatar.body,
+                    AvatarAppearance_HeadOutfitID = dbAvatar.head,
+                    AvatarAppearance_SkinTone = dbAvatar.skin_tone
+                }
             };
             var now = Epoch.Now;
             result.FetchTime = now;

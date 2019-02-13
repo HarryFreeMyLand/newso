@@ -7,8 +7,6 @@ using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Domain
 {
@@ -45,7 +43,7 @@ namespace FSO.Server.Servers.City.Domain
                 Next = NextHour(time);
 
                 //activate the new event
-                using (var da = DA.Get())
+                using (var da = DA.Get)
                 {
                     var active = da.Events.GetActive(time);
                     List<DbEvent> newEvts, oldEvts;
@@ -101,7 +99,7 @@ namespace FSO.Server.Servers.City.Domain
             {
                 var needsParticipation = evt.mail_message != null || ParticipationType(evt.type);
                 if (!needsParticipation) return;
-                using (var db = DA.Get())
+                using (var db = DA.Get)
                 {
                     var user = session.UserId;
                     var participation = db.Events.TryParticipate(new DbEventParticipation() { event_id = evt.event_id, user_id = user });

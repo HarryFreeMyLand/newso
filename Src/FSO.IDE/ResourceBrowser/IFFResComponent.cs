@@ -115,7 +115,7 @@ namespace FSO.IDE.ResourceBrowser
         private void ResList_DrawItem(object sender, DrawItemEventArgs e)
         {
             e.DrawBackground();
-            Brush myBrush = Brushes.Black;
+            var myBrush = Brushes.Black;
 
             if (e.Index == -1) return;
             var item = (ObjectResourceEntry)ResList.Items[e.Index];
@@ -170,8 +170,8 @@ namespace FSO.IDE.ResourceBrowser
 
             ActiveSelectors = OBJDSelectors[Array.IndexOf(ChunkTypes, selectedType.ChunkType)];
 
-            MethodInfo method = typeof(GameIffResource).GetMethod("ListArray");
-            MethodInfo generic = method.MakeGenericMethod(selectedType.ChunkType);
+            var method = typeof(GameIffResource).GetMethod("ListArray");
+            var generic = method.MakeGenericMethod(selectedType.ChunkType);
             var chunks = (object[])generic.Invoke(ActiveIff, new object[0]);
 
             var items = GetResList((IffChunk[])chunks);
@@ -239,8 +239,8 @@ namespace FSO.IDE.ResourceBrowser
                 var resInt = (IResourceControl)control;
                 resInt.SetActiveObject(ActiveObject);
 
-                MethodInfo method = typeof(GameIffResource).GetMethod("Get");
-                MethodInfo generic = method.MakeGenericMethod(selectedType.ChunkType);
+                var method = typeof(GameIffResource).GetMethod("Get");
+                var generic = method.MakeGenericMethod(selectedType.ChunkType);
                 var chunk = (IffChunk)generic.Invoke(ActiveIff, new object[] { ((ObjectResourceEntry)ResList.SelectedItem).ID });
 
                 resInt.SetActiveResource(chunk, ActiveIff);
@@ -315,8 +315,8 @@ namespace FSO.IDE.ResourceBrowser
             if (ResList.SelectedItem == null) return;
             var selectedType = (ComboChunkType)ResTypeCombo.SelectedItem;
 
-            MethodInfo method = typeof(GameIffResource).GetMethod("Get");
-            MethodInfo generic = method.MakeGenericMethod(selectedType.ChunkType);
+            var method = typeof(GameIffResource).GetMethod("Get");
+            var generic = method.MakeGenericMethod(selectedType.ChunkType);
             var chunk = (IffChunk)generic.Invoke(ActiveIff, new object[] { ((ObjectResourceEntry)ResList.SelectedItem).ID });
 
             var dialog = new IffNameDialog(chunk, false);
@@ -337,15 +337,15 @@ namespace FSO.IDE.ResourceBrowser
             if (ResList.SelectedItem == null) return;
             var selectedType = (ComboChunkType)ResTypeCombo.SelectedItem;
 
-            MethodInfo method = typeof(GameIffResource).GetMethod("Get");
-            MethodInfo generic = method.MakeGenericMethod(selectedType.ChunkType);
+            var method = typeof(GameIffResource).GetMethod("Get");
+            var generic = method.MakeGenericMethod(selectedType.ChunkType);
             var chunk = (IffChunk)generic.Invoke(ActiveIff, new object[] { ((ObjectResourceEntry)ResList.SelectedItem).ID });
             if (chunk == null) return;
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 chunk.ChunkParent.FullRemoveChunk(chunk);
-                Content.GameContent.Get.Changes.ChunkChanged(chunk);
+                GameContent.Get.Changes.ChunkChanged(chunk);
             }));
         }
     }

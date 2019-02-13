@@ -2,14 +2,11 @@
 using FSO.Common.Serialization.Primitives;
 using FSO.Server.Database.DA;
 using FSO.Server.Domain;
-using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Voltron.Packets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -21,8 +18,8 @@ namespace FSO.Server.Servers.City.Handlers
 
         public DBRequestWrapperHandler(CityServerContext context, IDAFactory da, ServerTop100Domain Top100)
         {
-            this.DAFactory = da;
-            this.Context = context;
+            DAFactory = da;
+            Context = context;
             this.Top100 = Top100;
         }
 
@@ -100,7 +97,7 @@ namespace FSO.Server.Servers.City.Handlers
                 throw new Exception("Permission denied, you cannot load an avatar you do not own");
             }
 
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var avatar = da.Avatars.Get(session.AvatarId);
                 if (avatar == null) return null;
@@ -137,7 +134,7 @@ namespace FSO.Server.Servers.City.Handlers
             var request = msg.ComplexParameter as SearchRequest;
             if (request == null) { return null; }
 
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 List<SearchResponseItem> results = null;
 
@@ -179,7 +176,7 @@ namespace FSO.Server.Servers.City.Handlers
             var request = msg.ComplexParameter as SearchRequest;
             if (request == null) { return null; }
 
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 List<SearchResponseItem> results = null;
 

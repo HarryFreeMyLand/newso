@@ -44,7 +44,7 @@ namespace FSO.Client.UI.Panels
                 UIScreen.RemoveDialog(this);
             } else
             {
-                HIT.HITVM.Get().PlaySoundEvent(UISounds.Error);
+                HIT.HITVM.Get.PlaySoundEvent(UISounds.Error);
             }
         }
     }

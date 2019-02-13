@@ -5,9 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
@@ -93,7 +90,7 @@ namespace FSO.Common.Utils
                         data[offset++] = new Color(0, 0, 0, (float)Math.Min(1, 2 - Math.Sqrt(Math.Pow(y - 100, 2) + Math.Pow(x - 100, 2)) / 50) * 0.5f);
                     }
                 }
-                PieBG.SetData<Color>(data);
+                PieBG.SetData(data);
             }
 
             return PieBG;
@@ -113,7 +110,7 @@ namespace FSO.Common.Utils
                 FillRect(data, size, new Rectangle(1, 3, 3, 1), Color.White);
                 FillRect(data, size, new Rectangle(2, 4, 1, 1), Color.White);
 
-                MotiveArrow.SetData<Color>(data);
+                MotiveArrow.SetData(data);
             }
             return MotiveArrow;
         }
@@ -248,7 +245,7 @@ namespace FSO.Common.Utils
                         }
                         yInt += config[4];
                     }
-                    WallZBuffer[i].SetData<Color>(data);
+                    WallZBuffer[i].SetData(data);
                 }
             }
 
@@ -291,7 +288,7 @@ namespace FSO.Common.Utils
 
                 middleOff += (i == height/2-1)?1:((i<height/2)?2:-2);
             }
-            tex.SetData<Color>(FloorCopy(data, width, height));
+            tex.SetData(FloorCopy(data, width, height));
             return tex;
         }
 
@@ -359,7 +356,7 @@ namespace FSO.Common.Utils
             FillRect(data, size, new Rectangle(41, 42, 2, 2), highlight);
             FillRect(data, size, new Rectangle(42, 41, 2, 2), highlight);
 
-            tex.SetData<Color>(data);
+            tex.SetData(data);
             return tex;
         }
 
@@ -392,7 +389,7 @@ namespace FSO.Common.Utils
             //btm right rounded
             FillRect(data, size, new Rectangle(39, 39, 1, 1), highlight);
 
-            tex.SetData<Color>(data);
+            tex.SetData(data);
             return tex;
         }
 
@@ -419,7 +416,7 @@ namespace FSO.Common.Utils
                 FillRect(data, size, new Rectangle(width-radius, height - i - 1, seg, 1), color);
             }
 
-            tex.SetData<Color>(data);
+            tex.SetData(data);
             return tex;
         }
 
@@ -461,7 +458,7 @@ namespace FSO.Common.Utils
                         }
                     }
                 }
-                Sun.SetData<Color>(data);
+                Sun.SetData(data);
             }
 
             return Sun;
@@ -494,7 +491,7 @@ namespace FSO.Common.Utils
                         data[offset++] = new Color(1, 1, 1, (float)intensity);
                     }
                 }
-                Moon.SetData<Color>(data);
+                Moon.SetData(data);
             }
 
             return Moon;
@@ -563,7 +560,7 @@ namespace FSO.Common.Utils
                         data[offset++] = FromHSV(x, 1 - (y / 256f), 1f);
                     }
                 }
-                HSMatrix.SetData<Color>(data);
+                HSMatrix.SetData(data);
             }
 
             return HSMatrix;
@@ -583,7 +580,7 @@ namespace FSO.Common.Utils
                     mod.A = 255;
                     data[offset++] = mod; 
                 }
-                HSGrad.SetData<Color>(data);
+                HSGrad.SetData(data);
             }
 
             return HSGrad;

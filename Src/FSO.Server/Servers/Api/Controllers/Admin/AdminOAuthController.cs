@@ -2,11 +2,7 @@
 using FSO.Server.Database.DA;
 using FSO.Server.Servers.Api.JsonWebToken;
 using Nancy;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.Admin
 {
@@ -14,21 +10,21 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
     {
         public AdminOAuthController(IDAFactory daFactory, JWTFactory jwt) : base("/admin/oauth")
         {
-            this.Post["/token"] = _ =>
+            Post["/token"] = _ =>
             {
-                var grant_type = this.Request.Form["grant_type"];
+                var grant_type = Request.Form["grant_type"];
 
                 if (grant_type == "password")
                 {
-                    var username = this.Request.Form["username"];
-                    var password = this.Request.Form["password"];
+                    var username = Request.Form["username"];
+                    var password = Request.Form["password"];
 
-                    using (var da = daFactory.Get())
+                    using (var da = daFactory.Get)
                     {
                         var user = da.Users.GetByUsername(username);
                         if (user == null || user.is_banned || !(user.is_admin || user.is_moderator))
                         {
-                            return Response.AsJson<OAuthError>(new OAuthError
+                            return Response.AsJson(new OAuthError
                             {
                                 error = "unauthorized_client",
                                 error_description = "user_credentials_invalid"
@@ -44,15 +40,17 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
 
                         if (!isPasswordCorrect)
                         {
-                            return Response.AsJson<OAuthError>(new OAuthError
+                            return Response.AsJson(new OAuthError
                             {
                                 error = "unauthorized_client",
                                 error_description = "user_credentials_invalid"
                             });
                         }
 
-                        JWTUserIdentity identity = new JWTUserIdentity();
-                        identity.UserName = user.username;
+                        var identity = new JWTUserIdentity
+                        {
+                            UserName = user.username
+                        };
                         var claims = new List<string>();
                         if (user.is_admin || user.is_moderator)
                         {
@@ -67,7 +65,7 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
                         identity.UserID = user.user_id;
 
                         var token = jwt.CreateToken(identity);
-                        return Response.AsJson<OAuthSuccess>(new OAuthSuccess
+                        return Response.AsJson(new OAuthSuccess
                         {
                             access_token = token.Token,
                             expires_in = token.ExpiresIn
@@ -75,7 +73,7 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
                     }
                 }
 
-                return Response.AsJson<OAuthError>(new OAuthError
+                return Response.AsJson(new OAuthError
                 {
                     error = "invalid_request",
                     error_description = "unknown grant_type"

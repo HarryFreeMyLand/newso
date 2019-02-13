@@ -241,7 +241,7 @@ namespace FSO.IDE.ResourceBrowser
                                 (ActiveObject.Resource.Sprites ?? ActiveObject.Resource.MainIff).AddChunk(tex);
                             }
 
-                            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                             {
                                 tex.SetData(File.ReadAllBytes(Path.Combine(baseDir, copyname)));
                             }, tex));
@@ -273,16 +273,16 @@ namespace FSO.IDE.ResourceBrowser
                                 };
                                 (ActiveObject.Resource.Sprites ?? ActiveObject.Resource.MainIff).AddChunk(fsom);
                             }
-                            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+                            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
                             {
                                 fsom.SetMesh(mesh);
-                                Content.GameContent.Get.RCMeshes.ClearCache(ActiveDGRP);
+                                GameContent.Get.RCMeshes.ClearCache(ActiveDGRP);
                                 Debug3D.ForceUpdate();
                             }, fsom));
                         }
                         else
                         {
-                            Content.GameContent.Get.RCMeshes.Replace(ActiveDGRP, mesh);
+                            GameContent.Get.RCMeshes.Replace(ActiveDGRP, mesh);
                             Debug3D.ForceUpdate();
                         }
                     });
@@ -323,7 +323,7 @@ namespace FSO.IDE.ResourceBrowser
         {
             if (InternalChange) return;
 
-            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
             {
                 UpdateParams();
                 if (!IffMode)
@@ -331,7 +331,7 @@ namespace FSO.IDE.ResourceBrowser
                     var lower = ActiveObject.OBJ.ChunkParent.Filename.ToLowerInvariant();
                     DGRP3DMesh.ParamsByIff[lower] = ActiveParams;
                 }
-                Content.GameContent.Get.RCMeshes.ClearCache(ActiveDGRP);
+                GameContent.Get.RCMeshes.ClearCache(ActiveDGRP);
                 Debug3D.ForceUpdate();
             }, ActiveFSOR));
         }

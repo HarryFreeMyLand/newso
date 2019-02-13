@@ -165,7 +165,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (queue[i] == itemui.Interaction)
                 {
-                    HITVM.Get().PlaySoundEvent(UISounds.CallSend);
+                    HITVM.Get.PlaySoundEvent(UISounds.CallSend);
                     if (!(itemui.Interaction.Cancelled && itemui.Interaction.Priority <= 0))
                     {
                         vm.SendCommand(new VMNetInteractionResultCmd
@@ -190,7 +190,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (queue[i] == itemui.Interaction)
                 {
-                    HITVM.Get().PlaySoundEvent(UISounds.QueueDelete);
+                    HITVM.Get.PlaySoundEvent(UISounds.QueueDelete);
                     if (!(itemui.Interaction.Cancelled && itemui.Interaction.Priority <= 0))
                     {
                         vm.SendCommand(new VMNetInteractionCancelCmd

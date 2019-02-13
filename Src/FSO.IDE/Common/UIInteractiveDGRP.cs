@@ -42,7 +42,7 @@ namespace FSO.IDE.Common
             {
                 if (TargetOBJ != null) TargetOBJ.Delete(TempVM.Context);
                 //create our master, center camera on target object
-                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(GUID);
+                var objDefinition = Content.GameContent.Get.WorldObjects.Get(GUID);
 
                 if (objDefinition != null)
                 {
@@ -184,7 +184,7 @@ namespace FSO.IDE.Common
         public override void Draw(UISpriteBatch batch)
         {
             base.Draw(batch);
-            var bg = EditorComponent.EditorResource.Get().ViewBG;
+            var bg = EditorComponent.EditorResource.Get.ViewBG;
             var viewport = GameFacade.GraphicsDevice.Viewport;
             var scale = 1.0f;
 
@@ -204,7 +204,7 @@ namespace FSO.IDE.Common
 
             if (TargetTile != null)
             {
-                Vector2 rot = new Vector2();
+                var rot = new Vector2();
                 switch (TempVM.Context.World.State.Rotation)
                 {
                     case LotView.WorldRotation.TopLeft: rot = new Vector2(2.5f, 2.5f); break;

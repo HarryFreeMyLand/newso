@@ -2,12 +2,7 @@
 using FSO.Server.Common;
 using FSO.Server.Database.DA;
 using Nancy;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.UserAPI
 {
@@ -27,17 +22,17 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
 
         public CityInfoController(IDAFactory daFactory, IServerNFSProvider nfs) : base("/userapi/city")
         {
-            this.DAFactory = daFactory;
-            this.NFS = nfs;
+            DAFactory = daFactory;
+            NFS = nfs;
 
-            this.After.AddItemToEndOfPipeline(x =>
+            After.AddItemToEndOfPipeline(x =>
             {
                 x.Response.WithHeader("Access-Control-Allow-Origin", "*");
             });
 
-            this.Get["/{shardid}/{id}.png"] = parameters =>
+            Get["/{shardid}/{id}.png"] = parameters =>
             {
-                using (var da = daFactory.Get())
+                using (var da = daFactory.Get)
                 {
                     var lot = da.Lots.GetByLocation((int)parameters.shardid, (uint)parameters.id);
                     if (lot == null) return HttpStatusCode.NotFound;
@@ -45,7 +40,7 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
                 }
             };
 
-            this.Get["/{shardid}/city.json"] = parameters =>
+            Get["/{shardid}/city.json"] = parameters =>
             {
                 var now = Epoch.Now;
                 if (LastModelUpdate < now - 15) {
@@ -53,7 +48,7 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
                     lock (ModelLock)
                     {
                         LastModel = new CityInfoModel();
-                        using (var da = daFactory.Get())
+                        using (var da = daFactory.Get)
                         {
                             var lots = da.Lots.AllLocations((int)parameters.shardid);
                             var lotstatus = da.LotClaims.AllLocations((int)parameters.shardid);

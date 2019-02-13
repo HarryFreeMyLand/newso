@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace FSO.Common.Utils
@@ -19,7 +16,7 @@ namespace FSO.Common.Utils
             var doc = new XmlDocument();
             doc.LoadXml(data);
 
-            T result = (T)Activator.CreateInstance(typeof(T));
+            var result = (T)Activator.CreateInstance(typeof(T));
             result.Parse((XmlElement)doc.FirstChild);
             return result;
         }

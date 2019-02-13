@@ -5,10 +5,7 @@ using FSO.Server.Protocol.CitySelector;
 using FSO.Server.Servers.Api.JsonWebToken;
 using Nancy;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nancy.Security;
 using FSO.Server.Database.DA.Shards;
 using FSO.Common.Domain.Shards;
@@ -72,17 +69,17 @@ namespace FSO.Server.Servers.Api.Controllers
             }
 
             //Take the auth ticket, establish trust and then create a cookie (reusing JWT)
-            this.Get["/app/InitialConnectServlet"] = _ =>
+            Get["/app/InitialConnectServlet"] = _ =>
             {
-                var ticketValue = this.Request.Query["ticket"];
-                var version = this.Request.Query["version"];
+                var ticketValue = Request.Query["ticket"];
+                var version = Request.Query["version"];
 
                 if (ticketValue == null)
                 {
                     return Response.AsXml(new XMLErrorMessage(ERROR_MISSING_TOKEN_CODE, ERROR_MISSING_TOKEN_MSG));
                 }
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var ticket = db.AuthTickets.Get((string)ticketValue);
                     if (ticket == null)
@@ -123,14 +120,14 @@ namespace FSO.Server.Servers.Api.Controllers
             };
 
             //Return a list of the users avatars
-            this.Get["/app/AvatarDataServlet"] = _ =>
+            Get["/app/AvatarDataServlet"] = _ =>
             {
                 this.RequiresAuthentication();
-                var user = (JWTUserIdentity)this.Context.CurrentUser;
+                var user = (JWTUserIdentity)Context.CurrentUser;
 
                 var result = new XMLList<AvatarData>("The-Sims-Online");
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var avatars = db.Avatars.GetSummaryByUserId(user.UserID);
 
@@ -155,27 +152,27 @@ namespace FSO.Server.Servers.Api.Controllers
                 return Response.AsXml(result);
             };
 
-            this.Get["/app/ShardSelectorServlet"] = _ =>
+            Get["/app/ShardSelectorServlet"] = _ =>
             {
                 this.RequiresAuthentication();
-                var user = (JWTUserIdentity)this.Context.CurrentUser;
+                var user = (JWTUserIdentity)Context.CurrentUser;
 
-                var shardName = this.Request.Query["shardName"];
-                var avatarId = this.Request.Query["avatarId"];
+                var shardName = Request.Query["shardName"];
+                var avatarId = Request.Query["avatarId"];
                 if (avatarId == null)
                 {
                     //Using 0 to mean no avatar for CAS
                     avatarId = "0";
                 }
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     ShardStatusItem shard = shardsDomain.GetByName(shardName);
                     if (shard != null)
                     {
                         var tryIP = Request.Headers["X-Forwarded-For"].FirstOrDefault();
                         if (tryIP != null) tryIP = tryIP.Substring(tryIP.LastIndexOf(',') + 1).Trim();
-                        var ip = tryIP ?? this.Request.UserHostAddress;
+                        var ip = tryIP ?? Request.UserHostAddress;
 
                         uint avatarDBID = uint.Parse(avatarId);
 
@@ -214,14 +211,16 @@ namespace FSO.Server.Servers.Api.Controllers
                         db.Users.UpdateConnectIP(ticket.user_id, ip);
                         db.Shards.CreateTicket(ticket);
 
-                        var result = new ShardSelectorServletResponse();
-                        result.PreAlpha = false;
+                        var result = new ShardSelectorServletResponse
+                        {
+                            PreAlpha = false,
 
-                        result.Address = shard.PublicHost;
-                        result.PlayerID = user.UserID;
-                        result.Ticket = ticket.ticket_id;
-                        result.ConnectionID = ticket.ticket_id;
-                        result.AvatarID = avatarId;
+                            Address = shard.PublicHost,
+                            PlayerID = user.UserID,
+                            Ticket = ticket.ticket_id,
+                            ConnectionID = ticket.ticket_id,
+                            AvatarID = avatarId
+                        };
 
                         return Response.AsXml(result);
                     }
@@ -233,7 +232,7 @@ namespace FSO.Server.Servers.Api.Controllers
             };
 
             //Get a list of shards (cities)
-            this.Get["/shard-status.jsp"] = _ =>
+            Get["/shard-status.jsp"] = _ =>
             {
                 var result = new XMLList<ShardStatusItem>("Shard-Status-List");
                 var shards = shardsDomain.All;

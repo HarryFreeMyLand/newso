@@ -1,11 +1,6 @@
 ﻿using FSO.Server.Framework.Gluon;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.City.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -16,8 +11,8 @@ namespace FSO.Server.Servers.City.Handlers
 
         public MatchmakerNotifyHandler(JobMatchmaker mm, CityServerContext context)
         {
-            this.Context = context;
-            this.Matchmaker = mm;
+            Context = context;
+            Matchmaker = mm;
         }
 
         public async void Handle(IGluonSession session, MatchmakerNotify packet)

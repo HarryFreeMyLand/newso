@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -69,8 +68,8 @@ namespace FSO.Common.Utils.Cache
                 /**
                  * We can avoid some work & disk hits by removing tasks for keys modified in later tasks
                  */
-                List<FileSystemCacheMutation> tasks = new List<FileSystemCacheMutation>();
-                Dictionary<CacheKey, FileSystemCacheMutation> taskIndex = new Dictionary<CacheKey, FileSystemCacheMutation>();
+                var tasks = new List<FileSystemCacheMutation>();
+                var taskIndex = new Dictionary<CacheKey, FileSystemCacheMutation>();
                 FileSystemCacheMutation mutation;
                 while (_Mutations.Count > 0 && (mutation = _Mutations.Dequeue()) != null)
                 {
@@ -143,7 +142,7 @@ namespace FSO.Common.Utils.Cache
 
             var info = new DirectoryInfo(dir);
 
-            foreach(FileInfo file in info.GetFiles())
+            foreach(var file in info.GetFiles())
             {
                 var key = CacheKey.Combine(parent, file.Name);
                 tempList.Add(new FileSystemCacheEntry {

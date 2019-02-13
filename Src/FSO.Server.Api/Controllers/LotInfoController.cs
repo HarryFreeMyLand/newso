@@ -48,7 +48,7 @@ namespace FSO.Server.Api.Controllers
             var api = Api.INSTANCE;
             var locToID = LotLocationCache.GetOrAdd(shardid, (ikey) =>
             {
-                using (var da = api.DAFactory.Get())
+                using (var da = api.DAFactory.Get)
                 {
                     return new ShardLocationCache(
                         new ConcurrentDictionary<uint, int>(da.Lots.All(ikey).Select(x => new KeyValuePair<uint, int>(x.location, x.lot_id)))
@@ -65,7 +65,7 @@ namespace FSO.Server.Api.Controllers
             {
                 return locToID.Dict.GetOrAdd(loc, (ikey) =>
                 {
-                    using (var da = api.DAFactory.Get())
+                    using (var da = api.DAFactory.Get)
                     {
                         return da.Lots.GetByLocation(shardid, ikey).lot_id;
                     }
@@ -94,7 +94,7 @@ namespace FSO.Server.Api.Controllers
 
             var api = Api.INSTANCE;
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var lot = IDForLocation(shardid, id);
                 if (lot == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
@@ -129,7 +129,7 @@ namespace FSO.Server.Api.Controllers
         {
             var api = Api.INSTANCE;
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var lot = da.Lots.GetByLocation(shardid, id);
                 if (lot == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
@@ -163,7 +163,7 @@ namespace FSO.Server.Api.Controllers
             var api = Api.INSTANCE;
             api.DemandModerator(Request);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var lot = da.Lots.GetByLocation(shardid, id);
                 if (lot == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
@@ -197,7 +197,7 @@ namespace FSO.Server.Api.Controllers
         {
             var api = Api.INSTANCE;
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var lot = IDForLocation(shardid, id);
                 if (lot == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
@@ -247,7 +247,7 @@ namespace FSO.Server.Api.Controllers
 
             if (data == null) return new HttpResponseMessage(HttpStatusCode.NotFound);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var lot = da.Lots.GetByLocation(shardid, id);
                 if (lot == null) return new HttpResponseMessage(HttpStatusCode.NotFound);

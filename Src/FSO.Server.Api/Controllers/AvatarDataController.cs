@@ -20,7 +20,7 @@ namespace FSO.Server.Api.Controllers
             
             var result = new XMLList<AvatarData>("The-Sims-Online");
 
-            using (var db = api.DAFactory.Get())
+            using (var db = api.DAFactory.Get)
             {
                 var avatars = db.Avatars.GetSummaryByUserId(user.UserID);
 

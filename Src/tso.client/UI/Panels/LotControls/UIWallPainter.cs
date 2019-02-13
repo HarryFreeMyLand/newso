@@ -62,13 +62,13 @@ namespace FSO.Client.UI.Panels.LotControls
 
         public void MouseDown(UpdateState state)
         {
-            HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolDown);
+            HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolDown);
             Drawing = true;
         }
 
         public void MouseUp(UpdateState state)
         {
-            HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolUp);
+            HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolUp);
 
             vm.SendCommand(new VMNetArchitectureCmd
             {
@@ -188,7 +188,7 @@ namespace FSO.Client.UI.Panels.LotControls
                     state.UIState.Tooltip = (cost < 0) ? ("-$" + (-cost)) : ("$" + cost);
                     state.UIState.TooltipProperties.UpdateDead = false;
 
-                    if (disallowed) HITVM.Get().PlaySoundEvent(UISounds.Error);
+                    if (disallowed) HITVM.Get.PlaySoundEvent(UISounds.Error);
                 }
                 else
                 {

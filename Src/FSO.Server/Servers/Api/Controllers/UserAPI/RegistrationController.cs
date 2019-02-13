@@ -4,13 +4,9 @@ using FSO.Server.Database.DA.Users;
 using FSO.Server.Servers.Api.JsonWebToken;
 using Nancy;
 using Nancy.ModelBinding;
-using Nancy.Security;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.UserAPI
 {
@@ -28,20 +24,20 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
         {
             JWTTokenAuthentication.Enable(this, jwt);
 
-            this.DAFactory = daFactory;
+            DAFactory = daFactory;
 
-            this.After.AddItemToEndOfPipeline(x =>
+            After.AddItemToEndOfPipeline(x =>
             {
                 x.Response.WithHeader("Access-Control-Allow-Origin", "*");
             });
 
             //Create a new user
-            this.Post["/"] = x =>
+            Post["/"] = x =>
             {
                 var user = this.Bind<RegistrationModel>();
                 var tryIP = Request.Headers["X-Forwarded-For"].FirstOrDefault();
                 if (tryIP != null) tryIP = tryIP.Substring(tryIP.LastIndexOf(',') + 1).Trim();
-                var ip = tryIP ?? this.Request.UserHostAddress;
+                var ip = tryIP ?? Request.UserHostAddress;
 
                 user.username = user.username ?? "";
                 user.username = user.username.ToLowerInvariant();
@@ -74,7 +70,7 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
 
                 var passhash = PasswordHasher.Hash(user.password);
 
-                using (var da = daFactory.Get())
+                using (var da = daFactory.Get)
                 {
                     //has this ip been banned?
                     var ban = da.Bans.GetByIP(ip);
@@ -102,20 +98,24 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
 
                     //TODO: is this ip banned?
 
-                    var userModel = new User();
-                    userModel.username = user.username;
-                    userModel.email = user.email;
-                    userModel.is_admin = isAdmin;
-                    userModel.is_moderator = isAdmin;
-                    userModel.user_state = UserState.valid;
-                    userModel.register_date = now;
-                    userModel.is_banned = false;
-                    userModel.register_ip = ip;
-                    userModel.last_ip = ip;
+                    var userModel = new User
+                    {
+                        username = user.username,
+                        email = user.email,
+                        is_admin = isAdmin,
+                        is_moderator = isAdmin,
+                        user_state = UserState.valid,
+                        register_date = now,
+                        is_banned = false,
+                        register_ip = ip,
+                        last_ip = ip
+                    };
 
-                    var authSettings = new UserAuthenticate();
-                    authSettings.scheme_class = passhash.scheme;
-                    authSettings.data = passhash.data;
+                    var authSettings = new UserAuthenticate
+                    {
+                        scheme_class = passhash.scheme,
+                        data = passhash.data
+                    };
 
                     try
                     {
@@ -125,7 +125,7 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
 
                         userModel = da.Users.GetById(userId);
                         if (userModel == null) { throw new Exception("Unable to find user"); }
-                        return Response.AsJson<User>(userModel);
+                        return Response.AsJson(userModel);
                     } catch (Exception)
                     {
                         return Response.AsJson(new RegistrationError()

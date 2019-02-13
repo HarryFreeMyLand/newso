@@ -4,8 +4,6 @@ using FSO.Server.Framework.Voltron;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Framework.Aries
 {
@@ -143,7 +141,7 @@ namespace FSO.Server.Framework.Aries
         public IEnumerable<IAriesSession> Sessions;
 
         public EnumerableSessionProxy(IEnumerable<IAriesSession> sessions){
-            this.Sessions = sessions;
+            Sessions = sessions;
         }
 
         public EnumerableSessionProxy()
@@ -152,7 +150,7 @@ namespace FSO.Server.Framework.Aries
 
         public void SetSource(IEnumerable<IAriesSession> source)
         {
-            this.Sessions = source;
+            Sessions = source;
         }
 
         public void Broadcast(params object[] messages){

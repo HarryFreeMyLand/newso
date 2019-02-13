@@ -263,7 +263,7 @@ namespace FSO.Client.UI.Panels.EODs
                 BuyItem.Name = item.Item.Name;
             if (item.Item.DisableLevel > 1 && ((VMTSOAvatarState)LotController.ActiveEntity.TSOState).Permissions < VMTSOAvatarPermissions.Admin)
             {
-                HIT.HITVM.Get().PlaySoundEvent(UISounds.Error);
+                HIT.HITVM.Get.PlaySoundEvent(UISounds.Error);
                 QueryPanel.Active = false;
                 return; //can't trade this
             }

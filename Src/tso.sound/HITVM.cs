@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
@@ -21,17 +21,13 @@ namespace FSO.HIT
     public class HITVM
     {
         public static bool DISABLE_SOUND = false;
-        private static HITVM INSTANCE;
 
-        public static HITVM Get()
-        {
-            return INSTANCE; //there can be only one!
-        }
+        public static HITVM Get { get; private set; } //there can be only one!
 
         public static void Init()
         {
             DISABLE_SOUND = FSOEnvironment.NoSound;
-            INSTANCE = new HITVM();
+            Get = new HITVM();
         }
 
         //non static stuff
@@ -68,7 +64,8 @@ namespace FSO.HIT
             GroupMasterVolumes[(int)group] = volume;
             foreach (var sound in Sounds)
             {
-                if (sound.VolGroup == group) sound.RecalculateVolume();
+                if (sound.VolGroup == group)
+                    sound.RecalculateVolume();
             }
 
             foreach (var amb in AmbLoops)
@@ -87,7 +84,7 @@ namespace FSO.HIT
             Globals[num] = value;
         }
 
-        public int ReadGlobal(int num) 
+        public int ReadGlobal(int num)
         {
             return Globals[num];
         }
@@ -105,14 +102,16 @@ namespace FSO.HIT
             {
                 //find the loudest nightclub sound
                 var nc = Sounds.Where(x => x.Name?.StartsWith("nc_") == true);
-                if (nc.Count() == 0) NightclubMode = false;
+                if (nc.Count() == 0)
+                    NightclubMode = false;
                 else
                 {
                     var max = nc.OrderBy(x => x.GetVolume()).Last();
                     var bestID = max.Name.Last();
                     foreach (var sound in nc)
                     {
-                        if (sound.Name.Last() != bestID) sound.Mute();
+                        if (sound.Name.Last() != bestID)
+                            sound.Mute();
                     }
                 }
             }
@@ -131,7 +130,8 @@ namespace FSO.HIT
                 item.started = true;
                 item.instance.Play();
             }
-            if (PlayQueue.Count > 0) PlayQueue.Clear();
+            if (PlayQueue.Count > 0)
+                PlayQueue.Clear();
 
             if (NextMusic != null)
             {
@@ -145,7 +145,7 @@ namespace FSO.HIT
 
             for (int i = 0; i < FSCPlayers.Count; i++)
             {
-                FSCPlayers[i].Tick(1/60f);
+                FSCPlayers[i].Tick(1 / 60f);
             }
         }
 
@@ -156,7 +156,7 @@ namespace FSO.HIT
 
         public FSCPlayer PlayFSC(string path)
         {
-            var dir = Path.GetDirectoryName(path)+"/";
+            var dir = Path.GetDirectoryName(path) + "/";
             FSC fsc = new FSC(path);
             var player = new FSCPlayer(fsc, dir);
             FSCPlayers.Add(player);
@@ -166,14 +166,17 @@ namespace FSO.HIT
 
         public HITSound PlaySoundEvent(string evt)
         {
-            if (DISABLE_SOUND) return null;
+            if (DISABLE_SOUND)
+                return null;
             evt = evt.ToLowerInvariant();
-            if (evt.StartsWith("nc_")) NightclubMode = true;
+            if (evt.StartsWith("nc_"))
+                NightclubMode = true;
             HITThread InterruptBlocker = null; //the thread we have to wait for to finish before we begin.
             if (ActiveEvents.ContainsKey(evt))
             {
                 var aevt = ActiveEvents[evt];
-                if (aevt.Dead) ActiveEvents.Remove(evt); //if the last event is dead, remove and make a new one
+                if (aevt.Dead)
+                    ActiveEvents.Remove(evt); //if the last event is dead, remove and make a new one
                 else
                 {
                     if ((aevt as HITThread)?.InterruptBlocker != null)
@@ -181,11 +184,13 @@ namespace FSO.HIT
                         //we can stop this thread - steal its waiter
                         (aevt as HITThread).Dead = true;
                         InterruptBlocker = (aevt as HITThread).InterruptBlocker;
-                    } else if ((aevt as HITThread)?.Interruptable == true)
+                    }
+                    else if ((aevt as HITThread)?.Interruptable == true)
                     {
                         InterruptBlocker = (aevt as HITThread);
                     }
-                    else return aevt; //an event of this type is already alive - here, take it.
+                    else
+                        return aevt; //an event of this type is already alive - here, take it.
                 }
             }
 
@@ -204,8 +209,10 @@ namespace FSO.HIT
                     evt = "playpiano";
                     if (ActiveEvents.ContainsKey(evt))
                     {
-                        if (ActiveEvents[evt].Dead) ActiveEvents.Remove(evt); //if the last event is dead, remove and make a new one
-                        else return ActiveEvents[evt]; //an event of this type is already alive - here, take it.
+                        if (ActiveEvents[evt].Dead)
+                            ActiveEvents.Remove(evt); //if the last event is dead, remove and make a new one
+                        else
+                            return ActiveEvents[evt]; //an event of this type is already alive - here, take it.
                     }
                 }
 
@@ -216,23 +223,28 @@ namespace FSO.HIT
                 {
                     TrackID = evtent.TrackID;
                     var track = content.Audio.GetTrack(TrackID, 0, evtent.ResGroup);
-                    if (track != null && track.SubroutineID != 0) SubroutinePointer = track.SubroutineID;
+                    if (track != null && track.SubroutineID != 0)
+                        SubroutinePointer = track.SubroutineID;
                 }
                 else
                 {
                     if (evtent.ResGroup.hsm != null)
                     {
                         var c = evtent.ResGroup.hsm.Constants;
-                        if (c.ContainsKey(evt)) SubroutinePointer = (uint)c[evt];
+                        if (c.ContainsKey(evt))
+                            SubroutinePointer = (uint)c[evt];
                         var trackIdName = "guid_tkd_" + evt;
-                        if (c.ContainsKey(trackIdName)) TrackID = (uint)c[trackIdName];
-                        else TrackID = evtent.TrackID;
+                        if (c.ContainsKey(trackIdName))
+                            TrackID = (uint)c[trackIdName];
+                        else
+                            TrackID = evtent.TrackID;
                     }
                     else
                     { //no hsm, fallback to eent and event track ids (tsov2)
                         var entPoints = evtent.ResGroup.hit.EntryPointByTrackID;
                         TrackID = evtent.TrackID;
-                        if (entPoints != null && entPoints.ContainsKey(evtent.TrackID)) SubroutinePointer = entPoints[evtent.TrackID];
+                        if (entPoints != null && entPoints.ContainsKey(evtent.TrackID))
+                            SubroutinePointer = entPoints[evtent.TrackID];
                     }
                 }
 
@@ -249,8 +261,10 @@ namespace FSO.HIT
                     var thread = new HITTVOn(evtent.TrackID, this, true);
                     thread.VolGroup = HITVolumeGroup.MUSIC;
                     ActiveEvents.Add(evt, thread);
-                    if (NextMusic != null) NextMusic.Kill();
-                    if (MusicEvent != null) MusicEvent.Fade();
+                    if (NextMusic != null)
+                        NextMusic.Kill();
+                    if (MusicEvent != null)
+                        MusicEvent.Fade();
                     NextMusic = thread;
                     return thread;
                 }
@@ -259,13 +273,15 @@ namespace FSO.HIT
                     var thread = new HITThread(evtent.ResGroup, this);
                     thread.PC = SubroutinePointer;
                     thread.LoopPointer = (int)thread.PC;
-                    if (TrackID != 0) thread.SetTrack(TrackID, evtent.TrackID);
+                    if (TrackID != 0)
+                        thread.SetTrack(TrackID, evtent.TrackID);
                     Sounds.Add(thread);
                     ActiveEvents[evt] = thread;
                     if (InterruptBlocker != null)
                     {
                         InterruptBlocker.Interrupt(thread);
-                        if (!InterruptBlocker.Name.StartsWith("nc_")) InterruptBlocker.KillVocals();
+                        if (!InterruptBlocker.Name.StartsWith("nc_"))
+                            InterruptBlocker.KillVocals();
                     }
                     thread.Name = evt;
                     return thread;
@@ -278,7 +294,8 @@ namespace FSO.HIT
                     if (InterruptBlocker != null)
                     {
                         InterruptBlocker.Interrupt(thread);
-                        if (!InterruptBlocker.Name.StartsWith("nc_")) InterruptBlocker.KillVocals();
+                        if (!InterruptBlocker.Name.StartsWith("nc_"))
+                            InterruptBlocker.KillVocals();
                     }
                     thread.Name = evt;
                     return thread;

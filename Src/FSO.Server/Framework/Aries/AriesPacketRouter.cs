@@ -3,9 +3,6 @@ using FSO.Server.Framework.Voltron;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Framework.Aries
 {
@@ -16,7 +13,7 @@ namespace FSO.Server.Framework.Aries
 
         public void On<T>(AriesHandler handler)
         {
-            this.On(typeof(T), handler);
+            On(typeof(T), handler);
         }
 
         public void Handle(IAriesSession session, object message)
@@ -52,7 +49,7 @@ namespace FSO.Server.Framework.Aries
                     args.Length == 2 &&
                     typeof(IVoltronSession).IsAssignableFrom(args[0].ParameterType))
                 {
-                    this.On(args[1].ParameterType, new AriesHandler(delegate (IAriesSession session, object msg)
+                    On(args[1].ParameterType, new AriesHandler(delegate (IAriesSession session, object msg)
                     {
                         if (session is IVoltronSession)
                         {
@@ -68,7 +65,7 @@ namespace FSO.Server.Framework.Aries
                  args.Length == 2 &&
                  typeof(IGluonSession).IsAssignableFrom(args[0].ParameterType))
                 {
-                    this.On(args[1].ParameterType, new AriesHandler(delegate (IAriesSession session, object msg)
+                    On(args[1].ParameterType, new AriesHandler(delegate (IAriesSession session, object msg)
                     {
                         if (session is IGluonSession)
                         {
@@ -87,7 +84,7 @@ namespace FSO.Server.Framework.Aries
                     args.Length == 2 &&
                     typeof(IAriesSession).IsAssignableFrom(args[0].ParameterType))
                 {
-                    this.On(args[1].ParameterType, new AriesHandler(delegate (IAriesSession session, object msg)
+                    On(args[1].ParameterType, new AriesHandler(delegate (IAriesSession session, object msg)
                     {
                         try {
                             method.Invoke(obj, new object[] { session, msg });

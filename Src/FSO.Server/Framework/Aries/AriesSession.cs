@@ -1,9 +1,5 @@
 ﻿using Mina.Core.Session;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Framework.Aries
 {
@@ -15,7 +11,7 @@ namespace FSO.Server.Framework.Aries
 
         public AriesSession(IoSession ioSession)
         {
-            this.IoSession = ioSession;
+            IoSession = ioSession;
             IsAuthenticated = false;
         }
 
@@ -29,7 +25,7 @@ namespace FSO.Server.Framework.Aries
 
         public virtual void Close()
         {
-            this.IoSession.Close(false);
+            IoSession.Close(false);
         }
         
         public void Write(params object[] messages)
@@ -37,7 +33,7 @@ namespace FSO.Server.Framework.Aries
             //TODO: Frame this more efficiently
             foreach(var message in messages)
             {
-                this.IoSession.Write(message);
+                IoSession.Write(message);
             }
         }
 
@@ -48,7 +44,7 @@ namespace FSO.Server.Framework.Aries
 
         public T UpgradeSession<T>() where T : AriesSession {
             var instance = (T)Activator.CreateInstance(typeof(T), new object[] { IoSession });
-            instance.IsAuthenticated = this.IsAuthenticated;
+            instance.IsAuthenticated = IsAuthenticated;
             IoSession.SetAttribute("s", instance);
             return instance;
         }

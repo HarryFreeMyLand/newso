@@ -86,7 +86,7 @@ namespace FSO.IDE.EditorComponent.UI
             if (!Visible) return;
             if (Destination != null && Destination.Dead) Destination = null;
 
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
             DrawLocalTexture(batch, res.NodeOutline, null, new Vector2(res.NodeOutline.Width / -2 + 5, res.NodeOutline.Height / -2 + 5), new Vector2(1f, 1f), ShadCol);
 
             if (!MouseDrag && Destination == null) return;
@@ -108,8 +108,8 @@ namespace FSO.IDE.EditorComponent.UI
         {
             base.Draw(batch);
             if (!Visible) return;
-            Vector2 dir = new Vector2();
-            var res = EditorResource.Get();
+            var dir = new Vector2();
+            var res = EditorResource.Get;
 
             if (MouseDrag || Destination != null)
             {

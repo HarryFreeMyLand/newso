@@ -29,7 +29,7 @@ namespace FSO.Server.Api.Controllers
                 avatarId = "0";
             }
 
-            using (var db = api.DAFactory.Get())
+            using (var db = api.DAFactory.Get)
             {
                 ShardStatusItem shard = api.Shards.GetByName(shardName);
                 if (shard != null)

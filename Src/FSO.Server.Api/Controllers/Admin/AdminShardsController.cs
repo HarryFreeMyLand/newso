@@ -16,7 +16,7 @@ namespace FSO.Server.Api.Controllers.Admin
             var api = Api.INSTANCE;
             api.DemandAdmin(Request);
 
-            using (var db = api.DAFactory.Get())
+            using (var db = api.DAFactory.Get)
             {
                 var shards = db.Shards.All();
                 return ApiResponse.Json(HttpStatusCode.OK, shards);

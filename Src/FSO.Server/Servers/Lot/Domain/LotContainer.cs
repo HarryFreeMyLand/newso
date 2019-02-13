@@ -13,35 +13,28 @@ using FSO.Server.Database.DA.Objects;
 using FSO.Server.Database.DA.Relationships;
 using FSO.Server.Database.DA.Roommates;
 using FSO.Server.Database.DA.Users;
-using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Protocol.Gluon.Model;
 using FSO.Server.Servers.City.Domain;
 using FSO.SimAntics;
 using FSO.SimAntics.Engine;
-using FSO.SimAntics.Engine.TSOTransaction;
 using FSO.SimAntics.Marshals;
-using FSO.SimAntics.Marshals.Hollow;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.NetPlay;
 using FSO.SimAntics.NetPlay.Drivers;
 using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Utils;
 using Microsoft.Xna.Framework;
 using Ninject;
-using Ninject.Extensions.ChildKernel;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Lot.Domain
 {
@@ -163,7 +156,7 @@ namespace FSO.Server.Servers.Lot.Domain
                     }
                 }
             } else {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     LotPersist = db.Lots.Get(context.DbId);
                     LotAdj = db.Lots.GetAdjToLocation(context.ShardId, LotPersist.location);
@@ -253,7 +246,7 @@ namespace FSO.Server.Servers.Lot.Domain
                     var x = (pos.X - myPos.X) + 1;
                     var y = (pos.Y - myPos.Y) + 1;
                     if (x < 0 || x > 2 || y < 0 || y > 2) continue; //out of range (why does this happen?)
-                    using (FileStream fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    using (var fs = File.Open(path, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     {
                         int numBytesToRead = Convert.ToInt32(fs.Length);
                         var file = new byte[(numBytesToRead)];
@@ -307,7 +300,7 @@ namespace FSO.Server.Servers.Lot.Domain
                         } 
                     }
 
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                         db.Lots.UpdateRingBackup(LotPersist.lot_id, LotPersist.ring_backup_num);
 
                     return true;
@@ -359,7 +352,7 @@ namespace FSO.Server.Servers.Lot.Domain
                         }
 
                         LotPersist.ring_backup_num = newBackup;
-                        using (var db = DAFactory.Get())
+                        using (var db = DAFactory.Get)
                         {
                             db.Lots.UpdateRingBackup(LotPersist.lot_id, newBackup);
                             //db.Flush();
@@ -433,7 +426,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
             var persists = Lot.Context.ObjectQueries.MultitileByPersist.Keys.ToList();
             Dictionary<uint, DbObject> ownerInfo;
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 ownerInfo = da.Objects.GetObjectOwners(persists).ToDictionary(x => x.object_id);
             }
@@ -514,7 +507,7 @@ namespace FSO.Server.Servers.Lot.Domain
             
             if (objectsOnLot.Count != 0 && !JobLot)
             {
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     da.Objects.ReturnLostObjects((uint)Context.DbId, objectsOnLot);
                 }
@@ -797,7 +790,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
         private void TickBroadcast(VMNetMessage msg, HashSet<VMNetClient> ignore)
         {
-            HashSet<uint> ignoreIDs = new HashSet<uint>(ignore.Select(x => x.PersistID));
+            var ignoreIDs = new HashSet<uint>(ignore.Select(x => x.PersistID));
             Host.Broadcast(ignoreIDs, new FSOVMTickBroadcast() { Data = msg.Data });
         }
 
@@ -1024,7 +1017,7 @@ namespace FSO.Server.Servers.Lot.Domain
         public void AvatarJoin(IVoltronSession session)
         {
             LotActive.WaitOne(); //wait til we're active at least
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 ClientCount++;
                 var avatar = da.Avatars.Get(session.AvatarId);
@@ -1039,10 +1032,12 @@ namespace FSO.Server.Servers.Lot.Domain
                 //Load all the avatars data
                 var state = StateFromDB(avatar, user, rels, jobinfo, myRoomieLots, myIgnored);
 
-                var client = new VMNetClient();
-                client.AvatarState = state;
-                client.RemoteIP = session.IpAddress;
-                client.PersistID = session.AvatarId;
+                var client = new VMNetClient
+                {
+                    AvatarState = state,
+                    RemoteIP = session.IpAddress,
+                    PersistID = session.AvatarId
+                };
 
                 if (TimeToShutdown == 0)
                 {
@@ -1103,7 +1098,7 @@ namespace FSO.Server.Servers.Lot.Domain
             RelationshipsToSave = new List<DbRelationship>();
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     db.Relationships.UpdateMany(saves);
                 }
@@ -1156,7 +1151,7 @@ namespace FSO.Server.Servers.Lot.Domain
             
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     db.Avatars.UpdateAvatarLotSave(pid, dbState);
                     if (jobLevel != null) db.Avatars.UpdateAvatarJobLevel(jobLevel);
@@ -1166,10 +1161,12 @@ namespace FSO.Server.Servers.Lot.Domain
 
         private VMNetAvatarPersistState StateFromDB(DbAvatar avatar, User user, List<DbRelationship> rels, List<DbJobLevel> jobs, List<DbRoommate> myRoomieLots, List<uint> ignored)
         {
-            var state = new VMNetAvatarPersistState();
-            state.Name = avatar.name;
-            state.PersistID = avatar.avatar_id;
-            state.DefaultSuits = new SimAntics.VMAvatarDefaultSuits(avatar.gender == DbAvatarGender.female);
+            var state = new VMNetAvatarPersistState
+            {
+                Name = avatar.name,
+                PersistID = avatar.avatar_id,
+                DefaultSuits = new VMAvatarDefaultSuits(avatar.gender == DbAvatarGender.female)
+            };
             state.DefaultSuits.Daywear.ID = avatar.body;
             state.DefaultSuits.Swimwear.ID = avatar.body_swimwear;
             state.DefaultSuits.Sleepwear.ID = avatar.body_sleepwear;
@@ -1262,9 +1259,11 @@ namespace FSO.Server.Servers.Lot.Domain
             for (int i=0; i<relDict.Count; i++)
             {
                 var dictItem = relDict.ElementAt(i);
-                var marshal = new VMEntityPersistRelationshipMarshal();
-                marshal.Target = dictItem.Key;
-                marshal.Values = dictItem.Value.ConvertAll(x => (short)x).ToArray();
+                var marshal = new VMEntityPersistRelationshipMarshal
+                {
+                    Target = dictItem.Key,
+                    Values = dictItem.Value.ConvertAll(x => (short)x).ToArray()
+                };
                 state.Relationships[i] = marshal;
             }
 
@@ -1273,35 +1272,37 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public DbAvatar StateToDb(VMNetAvatarPersistState avatar)
         {
-            var state = new DbAvatar();
-            state.body = avatar.DefaultSuits.Daywear.ID;
-            state.body_sleepwear = avatar.DefaultSuits.Sleepwear.ID;
-            state.body_swimwear = avatar.DefaultSuits.Swimwear.ID;
-            state.body_current = avatar.BodyOutfit;
+            var state = new DbAvatar
+            {
+                body = avatar.DefaultSuits.Daywear.ID,
+                body_sleepwear = avatar.DefaultSuits.Sleepwear.ID,
+                body_swimwear = avatar.DefaultSuits.Swimwear.ID,
+                body_current = avatar.BodyOutfit,
 
-            state.skilllock = (byte)avatar.SkillLock;
-            state.lock_body = (ushort)(avatar.SkillLockBody / 100);
-            state.lock_charisma = (ushort)(avatar.SkillLockCharisma / 100);
-            state.lock_cooking = (ushort)(avatar.SkillLockCooking / 100);
-            state.lock_creativity = (ushort)(avatar.SkillLockCreativity / 100);
-            state.lock_logic = (ushort)(avatar.SkillLockLogic / 100);
-            state.lock_mechanical = (ushort)(avatar.SkillLockMechanical / 100);
+                skilllock = (byte)avatar.SkillLock,
+                lock_body = (ushort)(avatar.SkillLockBody / 100),
+                lock_charisma = (ushort)(avatar.SkillLockCharisma / 100),
+                lock_cooking = (ushort)(avatar.SkillLockCooking / 100),
+                lock_creativity = (ushort)(avatar.SkillLockCreativity / 100),
+                lock_logic = (ushort)(avatar.SkillLockLogic / 100),
+                lock_mechanical = (ushort)(avatar.SkillLockMechanical / 100),
 
-            state.skill_body = (ushort)avatar.BodySkill;
-            state.skill_charisma = (ushort)avatar.CharismaSkill;
-            state.skill_cooking = (ushort)avatar.CookingSkill;
-            state.skill_creativity = (ushort)avatar.CreativitySkill;
-            state.skill_logic = (ushort)avatar.LogicSkill;
-            state.skill_mechanical = (ushort)avatar.MechanicalSkill;
+                skill_body = (ushort)avatar.BodySkill,
+                skill_charisma = (ushort)avatar.CharismaSkill,
+                skill_cooking = (ushort)avatar.CookingSkill,
+                skill_creativity = (ushort)avatar.CreativitySkill,
+                skill_logic = (ushort)avatar.LogicSkill,
+                skill_mechanical = (ushort)avatar.MechanicalSkill,
 
-            state.is_ghost = (ushort)avatar.IsGhost;
+                is_ghost = (ushort)avatar.IsGhost,
 
-            state.ticker_death = (ushort)avatar.DeathTicker;
-            state.ticker_gardener = (ushort)avatar.GardenerRehireTicker;
-            state.ticker_maid = (ushort)avatar.MaidRehireTicker;
-            state.ticker_repairman = (ushort)avatar.RepairmanRehireTicker;
+                ticker_death = (ushort)avatar.DeathTicker,
+                ticker_gardener = (ushort)avatar.GardenerRehireTicker,
+                ticker_maid = (ushort)avatar.MaidRehireTicker,
+                ticker_repairman = (ushort)avatar.RepairmanRehireTicker,
 
-            state.current_job = (ushort)avatar.OnlineJobID;
+                current_job = (ushort)avatar.OnlineJobID
+            };
 
             var motives = new byte[32];
             for (int i = 0; i < 16; i++)
@@ -1319,8 +1320,8 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             var signalled = LotActive.WaitOne(10000); //wait til we're active at least
             if (!signalled) return; //give up
-            VMTSOAvatarPermissions newLevel = VMTSOAvatarPermissions.Visitor;
-            VMChangePermissionsMode mode = VMChangePermissionsMode.NORMAL;
+            var newLevel = VMTSOAvatarPermissions.Visitor;
+            var mode = VMChangePermissionsMode.NORMAL;
             switch (change)
             {
                 case ChangeType.ADD_ROOMMATE:
@@ -1367,7 +1368,7 @@ namespace FSO.Server.Servers.Lot.Domain
             if ((LotPersist.move_flags & 4) > 0)
             {
                 //this lot is slated to be deleted from the database.
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     da.Lots.Delete(Context.DbId);
                     var lotStr = LotPersist.lot_id.ToString("x8");
@@ -1384,7 +1385,7 @@ namespace FSO.Server.Servers.Lot.Domain
             //if we have a null owner, this lot needs to be deleted.
 
             if (!JobLot) {
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     var lot = da.Lots.Get(Context.DbId);
                     if (lot.owner_id == null)

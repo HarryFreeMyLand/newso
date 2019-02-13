@@ -37,8 +37,8 @@ namespace FSO.IDE.ResourceBrowser
         {
             var iff = Chunk.ChunkParent;
 
-            MethodInfo method = typeof(IffFile).GetMethod("Get");
-            MethodInfo generic = method.MakeGenericMethod(Chunk.GetType());
+            var method = typeof(IffFile).GetMethod("Get");
+            var generic = method.MakeGenericMethod(Chunk.GetType());
             var chunk = (IffChunk)generic.Invoke(iff, new object[] { (ushort)ChunkIDEntry.Value });
 
             if (chunk != null && chunk != Chunk)
@@ -49,7 +49,7 @@ namespace FSO.IDE.ResourceBrowser
             {
                 var id = (ushort)ChunkIDEntry.Value;
                 var label = ChunkLabelEntry.Text;
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     Chunk.ChunkID = id;
                     Chunk.ChunkLabel = label;

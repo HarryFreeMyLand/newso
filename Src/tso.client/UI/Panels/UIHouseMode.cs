@@ -664,7 +664,7 @@ namespace FSO.Client.UI.Panels
                 LotSize = (byte)UpdateSizeTarget,
                 LotStories = (byte)UpdateFloorsTarget
             });
-            HITVM.Get().PlaySoundEvent(UISounds.ObjectPlace);
+            HITVM.Get.PlaySoundEvent(UISounds.ObjectPlace);
             AcceptButton.Disabled = true;
         }
 

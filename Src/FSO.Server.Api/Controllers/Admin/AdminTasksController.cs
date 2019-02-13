@@ -19,7 +19,7 @@ namespace FSO.Server.Api.Controllers.Admin
             var api = Api.INSTANCE;
                 api.DemandAdmin(Request);
 
-                using (var da = api.DAFactory.Get())
+                using (var da = api.DAFactory.Get)
                 {
 
                     if (limit > 100)

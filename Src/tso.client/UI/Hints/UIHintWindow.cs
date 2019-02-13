@@ -143,7 +143,7 @@ namespace FSO.Client.UI.Hints
                 LastSelected.Deselect();
                 LastSelected = null;
             }
-            HIT.HITVM.Get().PlaySoundEvent(Model.UISounds.Click);
+            HIT.HITVM.Get.PlaySoundEvent(Model.UISounds.Click);
             var item = ListBox.Items[ListBox.SelectedIndex];
             var label = (UIHintListItem)item.Columns[0];
             if (label.Category)

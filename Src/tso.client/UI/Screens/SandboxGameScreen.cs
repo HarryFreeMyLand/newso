@@ -86,7 +86,7 @@ namespace FSO.Client.UI.Screens
                     else
                     {
                         var targ = (WorldZoom)(4 - value); //near is 3 for some reason... will probably revise
-                        HITVM.Get().PlaySoundEvent(UIMusic.None);
+                        HITVM.Get.PlaySoundEvent(UIMusic.None);
                         LotControl.Visible = true;
                         World.Visible = true;
                         ucp.SetMode(UIUCP.UCPMode.LotMode);
@@ -239,13 +239,13 @@ namespace FSO.Client.UI.Screens
                     switch (speed)
                     {
                         case 1:
-                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo1);
+                            HITVM.Get.PlaySoundEvent(UISounds.SpeedPTo1);
                             break;
                         case 2:
-                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo2);
+                            HITVM.Get.PlaySoundEvent(UISounds.SpeedPTo2);
                             break;
                         case 3:
-                            HITVM.Get().PlaySoundEvent(UISounds.SpeedPTo3);
+                            HITVM.Get.PlaySoundEvent(UISounds.SpeedPTo3);
                             break;
                     }
                     break;
@@ -253,13 +253,13 @@ namespace FSO.Client.UI.Screens
                     switch (speed)
                     {
                         case 0:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed1ToP);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed1ToP);
                             break;
                         case 2:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed1To2);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed1To2);
                             break;
                         case 3:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed1To3);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed1To3);
                             break;
                     }
                     break;
@@ -267,13 +267,13 @@ namespace FSO.Client.UI.Screens
                     switch (speed)
                     {
                         case 0:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed2ToP);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed2ToP);
                             break;
                         case 1:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed2To1);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed2To1);
                             break;
                         case 3:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed2To3);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed2To3);
                             break;
                     }
                     break;
@@ -281,13 +281,13 @@ namespace FSO.Client.UI.Screens
                     switch (speed)
                     {
                         case 0:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed3ToP);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed3ToP);
                             break;
                         case 1:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed3To1);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed3To1);
                             break;
                         case 2:
-                            HITVM.Get().PlaySoundEvent(UISounds.Speed3To2);
+                            HITVM.Get.PlaySoundEvent(UISounds.Speed3To2);
                             break;
                     }
                     break;

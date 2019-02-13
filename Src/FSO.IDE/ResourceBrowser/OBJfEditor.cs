@@ -122,13 +122,13 @@ namespace FSO.IDE.ResourceBrowser
             {
                 if (FunctionOBJDNames[function] == "") return;
 
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveObject.OBJ.SetPropertyByName(FunctionOBJDNames[function], id);
                 }, ActiveObject.OBJ));
             } else
             {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveOBJf.functions[function].ActionFunction = id;
                 }, ActiveOBJf));
@@ -144,7 +144,7 @@ namespace FSO.IDE.ResourceBrowser
             }
             else
             {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveOBJf.functions[function].ConditionFunction = id;
                 }, ActiveOBJf));

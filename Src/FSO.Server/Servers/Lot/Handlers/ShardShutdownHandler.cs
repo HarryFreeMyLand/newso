@@ -2,11 +2,6 @@
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.Lot.Domain;
 using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Lot.Handlers
 {
@@ -17,8 +12,8 @@ namespace FSO.Server.Servers.Lot.Handlers
 
         public ShardShutdownHandler(LotHost lots, IKernel kernel)
         {
-            this.Lots = lots;
-            this.Kernel = kernel;
+            Lots = lots;
+            Kernel = kernel;
         }
 
         public void Handle(IGluonSession session, ShardShutdownRequest request)

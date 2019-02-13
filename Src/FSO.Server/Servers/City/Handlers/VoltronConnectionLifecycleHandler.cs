@@ -7,11 +7,6 @@ using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Protocol.Voltron.Packets;
 using FSO.Server.Servers.City.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -29,14 +24,14 @@ namespace FSO.Server.Servers.City.Handlers
         public VoltronConnectionLifecycleHandler(ISessions sessions, IDataService dataService, IDAFactory da, CityServerContext context, LotServerPicker lotServers, CityLivenessEngine engine,
             EventSystem events)
         {
-            this.VoltronSessions = sessions.GetOrCreateGroup(Groups.VOLTRON);
-            this.Sessions = sessions;
-            this.DataService = dataService;
-            this.DAFactory = da;
-            this.Context = context;
-            this.LotServers = lotServers;
-            this.Liveness = engine;
-            this.Events = events;
+            VoltronSessions = sessions.GetOrCreateGroup(Groups.VOLTRON);
+            Sessions = sessions;
+            DataService = dataService;
+            DAFactory = da;
+            Context = context;
+            LotServers = lotServers;
+            Liveness = engine;
+            Events = events;
         }
 
         public void Handle(IVoltronSession session, ClientByePDU packet)
@@ -50,7 +45,7 @@ namespace FSO.Server.Servers.City.Handlers
                 return;
             }
 
-            IVoltronSession voltronSession = (IVoltronSession)session;
+            var voltronSession = (IVoltronSession)session;
             VoltronSessions.UnEnroll(session);
 
             if (voltronSession.IsAnonymous) return;
@@ -63,7 +58,7 @@ namespace FSO.Server.Servers.City.Handlers
                 var avatar = DataService.Get<Avatar>(voltronSession.AvatarId).Result;
                 if (avatar != null) avatar.Avatar_IsOnline = false;
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     // if we don't own the claim for the avatar, we need to tell the server that does to release the avatar.
                     // right now it's just lot servers.
@@ -102,7 +97,7 @@ namespace FSO.Server.Servers.City.Handlers
             }
 
             //Aries session has upgraded to a voltron session
-            IVoltronSession voltronSession = (IVoltronSession)newSession;
+            var voltronSession = (IVoltronSession)newSession;
 
             //TODO: Make sure this user is not already connected, if they are disconnect them
             newSession.Write(new HostOnlinePDU

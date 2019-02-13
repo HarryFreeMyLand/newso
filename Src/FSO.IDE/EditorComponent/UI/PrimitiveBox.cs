@@ -122,11 +122,11 @@ namespace FSO.IDE.EditorComponent.UI
             };
             this.Add(Title);
             Title.CaptionStyle = TextStyle.DefaultLabel.Clone();
-            Title.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
+            Title.CaptionStyle.Font = Client.GameFacade.EdithFont;
             Title.CaptionStyle.Size = 14;
 
             BodyTextStyle = TextStyle.DefaultLabel.Clone();
-            BodyTextStyle.Font = FSO.Client.GameFacade.EdithFont;
+            BodyTextStyle.Font = Client.GameFacade.EdithFont;
             BodyTextStyle.Size = 12;
 
             this.Add(Nodes[0]);
@@ -160,7 +160,7 @@ namespace FSO.IDE.EditorComponent.UI
             {
                 Alignment = TextAlignment.Center,
                 MaxWidth = 300,
-                Position = new Microsoft.Xna.Framework.Vector2(0, 24),
+                Position = new Vector2(0, 24),
                 Scale = _Scale,
                 TextStyle = BodyTextStyle,
                 WordWrap = true,
@@ -196,7 +196,7 @@ namespace FSO.IDE.EditorComponent.UI
 
         public void ShadDraw(UISpriteBatch batch)
         {
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
             if (Style == null || Style.Background.A > 200) DrawLocalTexture(batch, res.WhiteTex, null, new Vector2(5,5), new Vector2(Width, Height), ShadCol);
             else DrawTiledTexture(batch, res.DiagTile, new Rectangle(5, 5, Width, Height), ShadCol);
 
@@ -223,7 +223,7 @@ namespace FSO.IDE.EditorComponent.UI
                 {
                     Alignment = TextAlignment.Center,
                     MaxWidth = 300,
-                    Position = new Microsoft.Xna.Framework.Vector2(0, 24),
+                    Position = new Vector2(0, 24),
                     Scale = _Scale,
                     TextStyle = BodyTextStyle,
                     WordWrap = true,
@@ -244,7 +244,7 @@ namespace FSO.IDE.EditorComponent.UI
         {
             base.Draw(batch);
 
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
 
             if (Type == PrimBoxType.Primitive)
             {
@@ -295,7 +295,7 @@ namespace FSO.IDE.EditorComponent.UI
                     if (DoubleClickTime > 0 && Type == PrimBoxType.Primitive && Descriptor is SubroutineDescriptor)
                     {
                         var subD = (SubroutineDescriptor)Descriptor;
-                        FSO.Client.Diagnostics.IDEHook.IDE.IDEOpenBHAV(Master.Scope.GetBHAV(subD.PrimID), Master.Scope.Object);
+                        Client.Diagnostics.IDEHook.IDE.IDEOpenBHAV(Master.Scope.GetBHAV(subD.PrimID), Master.Scope.Object);
                     }
                     DoubleClickTime = 25;
                     m_doDrag = true;

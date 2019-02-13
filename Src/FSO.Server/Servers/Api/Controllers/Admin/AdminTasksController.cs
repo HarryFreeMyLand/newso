@@ -3,15 +3,11 @@ using FSO.Server.Database.DA.Tasks;
 using FSO.Server.Domain;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.Api.JsonWebToken;
-using FSO.Server.Utils;
 using Nancy;
 using Nancy.ModelBinding;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.Admin
 {
@@ -21,14 +17,14 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
         {
             JWTTokenAuthentication.Enable(this, jwt);
 
-            this.Get["/tasks"] = _ =>
+            Get["/tasks"] = _ =>
             {
                 this.DemandAdmin();
 
-                using (var da = daFactory.Get())
+                using (var da = daFactory.Get)
                 {
-                    var offset = this.Request.Query["offset"];
-                    var limit = this.Request.Query["limit"];
+                    var offset = Request.Query["offset"];
+                    var limit = Request.Query["limit"];
 
                     if (offset == null) { offset = 0; }
                     if (limit == null) { limit = 20; }
@@ -39,11 +35,11 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
                     }
 
                     var result = da.Tasks.All((int)offset, (int)limit);
-                    return Response.AsPagedList<DbTask>(result);
+                    return Response.AsPagedList(result);
                 }
             };
 
-            this.Post["/tasks/request"] = x =>
+            Post["/tasks/request"] = x =>
             {
                 var task = this.Bind<TaskRequest>();
 

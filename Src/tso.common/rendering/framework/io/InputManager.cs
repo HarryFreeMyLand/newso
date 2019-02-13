@@ -11,7 +11,6 @@ using System.Text;
 using Microsoft.Xna.Framework.Input;
 using System.Runtime.InteropServices;
 using FSO.Common.Rendering.Framework.Model;
-using System.Threading;
 
 namespace FSO.Common.Rendering.Framework.IO
 {
@@ -104,7 +103,7 @@ namespace FSO.Common.Rendering.Framework.IO
                                 int ws = (key == Keys.Delete) ? 0 : -1;
                                 while (newEndIndex+ws >= 0 && newEndIndex+ws < m_SBuilder.Length)
                                 {
-                                    if (Char.IsWhiteSpace(m_SBuilder[newEndIndex+ws]))
+                                    if (char.IsWhiteSpace(m_SBuilder[newEndIndex+ws]))
                                     {
                                         /** Keep the whitespace char **/
                                         break;

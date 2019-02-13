@@ -3,10 +3,6 @@ using FSO.Server.Framework.Gluon;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.City.Domain;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -17,8 +13,8 @@ namespace FSO.Server.Servers.City.Handlers
 
         public LotServerClosedownHandler(LotAllocations lots, IDAFactory daFactory)
         {
-            this.Lots = lots;
-            this.DAFactory = daFactory;
+            Lots = lots;
+            DAFactory = daFactory;
         }
 
         public void Handle(IGluonSession session, TransferClaim request)
@@ -39,7 +35,7 @@ namespace FSO.Server.Servers.City.Handlers
             Lots.TryClose(request.EntityId, request.ClaimId);
             try
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     db.LotClaims.Delete(request.ClaimId, request.FromOwner);
                 }

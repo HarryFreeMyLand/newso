@@ -1,11 +1,6 @@
 ﻿using FSO.Server.Database.DA;
 using FSO.Server.Servers.Api.JsonWebToken;
 using Nancy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers.Admin
 {
@@ -15,11 +10,11 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
         {
             JWTTokenAuthentication.Enable(this, jwt);
 
-            this.Get["/shards"] = _ =>
+            Get["/shards"] = _ =>
             {
                 this.DemandAdmin();
 
-                using (var db = daFactory.Get())
+                using (var db = daFactory.Get)
                 {
                     var shards = db.Shards.All();
                     return Response.AsJson(shards);

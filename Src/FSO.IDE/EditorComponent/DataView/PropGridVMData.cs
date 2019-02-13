@@ -78,7 +78,7 @@ namespace FSO.IDE.EditorComponent.DataView
 
         public PropertyDescriptorCollection GetProperties(Attribute[] attributes)
         {
-            List<PropertyDescriptor> newProps = new List<PropertyDescriptor>();
+            var newProps = new List<PropertyDescriptor>();
 
             newProps.Add(new VMDataPropertyDescriptor("Stack Object ID", "The stack object.", attributes,
                 VMExtDataType.StackObject, 0, Object, Frame, Editor));

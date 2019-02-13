@@ -56,7 +56,7 @@ namespace FSO.Client.UI.Screens
             this.Regulator = regulator;
             regulator.Logout();
             
-            HITVM.Get().PlaySoundEvent(UIMusic.None);
+            HITVM.Get.PlaySoundEvent(UIMusic.None);
             GlobalSettings.Default.Save();
 
             if (Content.GameContent.Get.TS1)

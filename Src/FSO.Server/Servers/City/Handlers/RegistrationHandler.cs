@@ -1,12 +1,8 @@
 ﻿using FSO.Server.Database.DA;
-using FSO.Server.Database.DA.Shards;
-using FSO.Server.Framework.Aries;
 using FSO.Server.Protocol.Voltron.Packets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Content;
 using FSO.Vitaboy;
 using System.Text.RegularExpressions;
@@ -37,7 +33,7 @@ namespace FSO.Server.Servers.City.Handlers
 
         private CityServerContext Context;
         private IDAFactory DAFactory;
-        private Content.GameContent Content;
+        private GameContent Content;
         
         /// <summary>
         /// Used for validation
@@ -45,11 +41,11 @@ namespace FSO.Server.Servers.City.Handlers
         private Dictionary<uint, PurchasableOutfit> ValidFemaleOutfits = new Dictionary<uint, PurchasableOutfit>();
         private Dictionary<uint, PurchasableOutfit> ValidMaleOutfits = new Dictionary<uint, PurchasableOutfit>();
 
-        public RegistrationHandler(CityServerContext context, IDAFactory daFactory, Content.GameContent content)
+        public RegistrationHandler(CityServerContext context, IDAFactory daFactory, GameContent content)
         {
-            this.Context = context;
-            this.DAFactory = daFactory;
-            this.Content = content;
+            Context = context;
+            DAFactory = daFactory;
+            Content = content;
             
             content.AvatarCollections.Get("ea_female_heads.col")
                 .Select(x => content.AvatarPurchasables.Get(x.PurchasableOutfitId)).ToList()
@@ -131,21 +127,23 @@ namespace FSO.Server.Servers.City.Handlers
 
             uint newId = 0;
 
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
-                var newAvatar = new DbAvatar();
-                newAvatar.shard_id = Context.ShardId;
-                newAvatar.name = packet.Name;
-                newAvatar.description = packet.Description;
-                newAvatar.date = Epoch.Now;
-                newAvatar.head = head.OutfitID;
-                newAvatar.body = body.OutfitID;
-                newAvatar.skin_tone = (byte)packet.SkinTone;
-                newAvatar.gender = packet.Gender == Protocol.Voltron.Model.Gender.FEMALE ? DbAvatarGender.female : DbAvatarGender.male;
-                newAvatar.user_id = session.UserId;
-                newAvatar.budget = 0;
+                var newAvatar = new DbAvatar
+                {
+                    shard_id = Context.ShardId,
+                    name = packet.Name,
+                    description = packet.Description,
+                    date = Epoch.Now,
+                    head = head.OutfitID,
+                    body = body.OutfitID,
+                    skin_tone = (byte)packet.SkinTone,
+                    gender = packet.Gender == Protocol.Voltron.Model.Gender.FEMALE ? DbAvatarGender.female : DbAvatarGender.male,
+                    user_id = session.UserId,
+                    budget = 0
+                };
 
-                if(packet.Gender == Protocol.Voltron.Model.Gender.MALE){
+                if (packet.Gender == Protocol.Voltron.Model.Gender.MALE){
                     newAvatar.body_swimwear = 0x5470000000D;
                     newAvatar.body_sleepwear = 0x5440000000D;
                 }else{

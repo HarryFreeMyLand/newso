@@ -1,18 +1,12 @@
 ﻿using FSO.Common.Enum;
-using FSO.Common.Utils;
-using FSO.Server.Common;
 using FSO.Server.Database.DA;
 using FSO.Server.Database.DA.Bonus;
-using FSO.Server.Database.DA.Lots;
-using FSO.Server.Database.DA.LotTop100;
 using FSO.Server.Database.DA.LotVisitTotals;
 using FSO.Server.Database.DA.Tasks;
 using FSO.Server.Database.DA.Tuning;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Tasks.Domain
 {
@@ -28,7 +22,7 @@ namespace FSO.Server.Servers.Tasks.Domain
         public BonusTask(IDAFactory DAFactory, TaskTuning tuning)
         {
             this.DAFactory = DAFactory;
-            this.Tuning = tuning;
+            Tuning = tuning;
         }
 
         public void Run(TaskContext context)
@@ -45,7 +39,7 @@ namespace FSO.Server.Servers.Tasks.Domain
                 throw new Exception("Top 100 must be given a shard_id to process");
             }
 
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var endTime = Midnight();
                 var endDay = endTime.Subtract(TimeSpan.FromMilliseconds(1));

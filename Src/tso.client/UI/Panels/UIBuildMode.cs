@@ -306,7 +306,7 @@ namespace FSO.Client.UI.Panels
             var item = CurrentCategory[selection];
 
             if (LotController.ActiveEntity != null && item.CalcPrice > LotController.ActiveEntity.TSOState.Budget.Value) {
-                HIT.HITVM.Get().PlaySoundEvent(UISounds.Error);
+                HIT.HITVM.Get.PlaySoundEvent(UISounds.Error);
                 return;
             }
 

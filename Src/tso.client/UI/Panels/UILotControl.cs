@@ -493,7 +493,7 @@ namespace FSO.Client.UI.Panels
                             var menu = obj.GetPieMenu(vm, ActiveEntity, false, true);
                             if (menu.Count != 0)
                             {
-                                HITVM.Get().PlaySoundEvent(UISounds.PieMenuAppear);
+                                HITVM.Get.PlaySoundEvent(UISounds.PieMenuAppear);
                                 PieMenu = new UIPieMenu(menu, obj, ActiveEntity, this);
                                 this.Add(PieMenu);
                                 PieMenu.X = state.MouseState.X / FSOEnvironment.DPIScaleFactor;
@@ -525,7 +525,7 @@ namespace FSO.Client.UI.Panels
         void ShowErrorTooltip(UpdateState state, uint id, bool playSound, params string[] args)
         {
             if (playSound)
-                HITVM.Get().PlaySoundEvent(UISounds.Error);
+                HITVM.Get.PlaySoundEvent(UISounds.Error);
             state.UIState.TooltipProperties.Show = true;
             state.UIState.TooltipProperties.Color = Color.Black;
             state.UIState.TooltipProperties.Opacity = 1;

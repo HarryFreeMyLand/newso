@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.IO;
@@ -193,7 +192,7 @@ namespace FSO.Common.Utils
                 }
                 else
                 {
-                    TextureFrom = Scale(TextureFrom.GraphicsDevice, TextureFrom, (float)TextureTo.Width / (float)TextureFrom.Width, (float)TextureTo.Height / (float)TextureFrom.Height);
+                    TextureFrom = Scale(TextureFrom.GraphicsDevice, TextureFrom, TextureTo.Width / (float)TextureFrom.Width, TextureTo.Height / (float)TextureFrom.Height);
                 }
             }
 
@@ -268,7 +267,7 @@ namespace FSO.Common.Utils
             var size = Texture.Width * Texture.Height;
             uint[] buffer = new uint[size];
 
-            Texture.GetData<uint>(buffer);
+            Texture.GetData(buffer);
 
             var didChange = false;
 
@@ -316,7 +315,7 @@ namespace FSO.Common.Utils
                         {
                             for (int xo = x; xo < x+factor && xo < Texture.Width; xo++)
                             {
-                                avg += (int)buffer[(yo * Texture.Width + xo)*4 + c];
+                                avg += buffer[(yo * Texture.Width + xo) * 4 + c];
                                 total++;
                             }
                         }
@@ -405,7 +404,7 @@ namespace FSO.Common.Utils
             while (data != null)
             {
                 dxt = DXT1Compress(data, Math.Max(1, w), Math.Max(1, h), Math.Max(1, (dw + 3) / 4), Math.Max(1, (dh + 3) / 4));
-                Texture.SetData<byte>(level++, null, dxt.Item1, 0, dxt.Item1.Length*2);
+                Texture.SetData(level++, null, dxt.Item1, 0, dxt.Item1.Length*2);
                 data = Decimate(data, w, h);
                 w /= 2;
                 h /= 2;
@@ -415,7 +414,7 @@ namespace FSO.Common.Utils
 
             while (dw > 0 || dh > 0)
             {
-                Texture.SetData<byte>(level++, null, dxt.Item1, 0, dxt.Item1.Length*2);
+                Texture.SetData(level++, null, dxt.Item1, 0, dxt.Item1.Length*2);
                 dw /= 2;
                 dh /= 2;
             }
@@ -909,7 +908,7 @@ namespace FSO.Common.Utils
 
             width += tailPx;
 
-            Texture2D newTexture = new Texture2D(gd, width, maxHeight);
+            var newTexture = new Texture2D(gd, width, maxHeight);
             Color[] newTextureData = new Color[width * maxHeight];
             Color[] tempTexData = new Color[maxWidth * maxHeight];
 
@@ -917,7 +916,7 @@ namespace FSO.Common.Utils
             for (var i = 0; i < textures.Length; i++)
             {
                 var tx = textures[i];
-                tx.GetData<Color>(tempTexData);
+                tx.GetData(tempTexData);
                 for (var y = 0; y < tx.Height; y++)
                 {
                     var yOffset = y * width;
@@ -938,17 +937,17 @@ namespace FSO.Common.Utils
 
         public static Texture2D Resize(GraphicsDevice gd, Texture2D texture, int newWidth, int newHeight)
         {
-            RenderTarget2D renderTarget = new RenderTarget2D(
+            var renderTarget = new RenderTarget2D(
                 gd,
                 newWidth, newHeight, false,
                 SurfaceFormat.Color, DepthFormat.None);
-           
-            Rectangle destinationRectangle = new Rectangle(0, 0, newWidth, newHeight);
+
+            var destinationRectangle = new Rectangle(0, 0, newWidth, newHeight);
             lock (gd)
             {
                 gd.SetRenderTarget(renderTarget);
                 gd.Clear(Color.TransparentBlack);
-                SpriteBatch batch = new SpriteBatch(gd);
+                var batch = new SpriteBatch(gd);
                 batch.Begin();
                 batch.Draw(texture, destinationRectangle, Color.White);
                 batch.End();
@@ -963,16 +962,16 @@ namespace FSO.Common.Utils
             var newWidth = (int)(Math.Round(texture.Width * scaleX));
             var newHeight = (int)(Math.Round(texture.Height * scaleY));
 
-            RenderTarget2D renderTarget = new RenderTarget2D(
+            var renderTarget = new RenderTarget2D(
                 gd,
                 newWidth, newHeight, false,
                 SurfaceFormat.Color, DepthFormat.None);
 
             gd.SetRenderTarget(renderTarget);
 
-            SpriteBatch batch = new SpriteBatch(gd);
+            var batch = new SpriteBatch(gd);
 
-            Rectangle destinationRectangle = new Rectangle(0, 0, newWidth, newHeight);
+            var destinationRectangle = new Rectangle(0, 0, newWidth, newHeight);
 
             batch.Begin();
             batch.Draw(texture, destinationRectangle, Color.White);

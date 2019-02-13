@@ -205,7 +205,7 @@ namespace FSO.IDE
 
         private void PrimGroupChange(object sender, EventArgs e)
         {
-            Button btn = (Button)sender;
+            var btn = (Button)sender;
 
             foreach (var cbtn in ButtonGroups)
             {
@@ -375,7 +375,7 @@ namespace FSO.IDE
             if (DebugMode)
             {
                 //resume thread, does this need to be thread safe?
-                DebugEntity.Thread.ThreadBreak = SimAntics.Engine.VMThreadBreakMode.Active;
+                DebugEntity.Thread.ThreadBreak = VMThreadBreakMode.Active;
                 MainWindow.Instance.BHAVManager.RemoveTracer(DebugEntity);
             } else
             {

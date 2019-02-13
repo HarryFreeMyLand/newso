@@ -36,7 +36,7 @@ namespace FSO.IDE.EditorComponent
         public void PlaySound(string evt)
         {
             LastSound?.RemoveOwner(-1);
-            LastSound = HIT.HITVM.Get().PlaySoundEvent(evt);
+            LastSound = HITVM.Get.PlaySoundEvent(evt);
             LastSound?.AddOwner(-1);
         }
 
@@ -54,7 +54,7 @@ namespace FSO.IDE.EditorComponent
             var searchString = new Regex(".*" + SearchBox.Text.ToLowerInvariant() + ".*");
 
             AllList.Items.Clear();
-            var events = Content.GameContent.Get.Audio.Events.Keys.OrderBy(x => x);
+            var events = GameContent.Get.Audio.Events.Keys.OrderBy(x => x);
             foreach (var sound in events)
             {
                 var name = sound;
@@ -115,7 +115,7 @@ namespace FSO.IDE.EditorComponent
                 ChunkProcessed = true
             };
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ushort resultID = 0;
                 for (ushort i=1; i<ushort.MaxValue; i++)
@@ -146,10 +146,10 @@ namespace FSO.IDE.EditorComponent
             int id = MyList.SelectedIndex;
             FWAVTable.Remove(chunk);
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 chunk.ChunkParent.FullRemoveChunk(chunk);
-                Content.GameContent.Get.Changes.ChunkChanged(chunk);
+                GameContent.Get.Changes.ChunkChanged(chunk);
             }));
 
             MyList.SelectedIndex--;

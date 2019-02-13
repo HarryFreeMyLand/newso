@@ -122,7 +122,7 @@ namespace FSO.HIT
 
                     if (play)
                     {
-                        float volume = (note.Volume / 1024.0f) * (fsc.MasterVolume / 1024.0f) * Volume * HITVM.Get().GetMasterVolume(Model.HITVolumeGroup.AMBIENCE);
+                        float volume = (note.Volume / 1024.0f) * (fsc.MasterVolume / 1024.0f) * Volume * HITVM.Get.GetMasterVolume(Model.HITVolumeGroup.AMBIENCE);
                         var sound = LoadSound(note.Filename);
 
                         if (sound != null)

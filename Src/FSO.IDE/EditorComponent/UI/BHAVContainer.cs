@@ -167,7 +167,7 @@ namespace FSO.IDE.EditorComponent.UI
             ForceRedraw = true;
 
             target.Descriptor.Operand.Write(target.Instruction.Operand);
-            FSO.SimAntics.VM.BHAVChanged(EditTarget);
+            SimAntics.VM.BHAVChanged(EditTarget);
             target.UpdateDisplay();
         }
 
@@ -233,7 +233,7 @@ namespace FSO.IDE.EditorComponent.UI
 
         public override void Draw(UISpriteBatch batch)
         {
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
             DrawTiledTexture(batch, res.Background, new Rectangle((int)Math.Floor(this.Position.X/-200)*200, (int)Math.Floor(this.Position.Y/ -200)*200, Width+200, Height+200), Color.White);
 
             foreach (var child in Primitives)

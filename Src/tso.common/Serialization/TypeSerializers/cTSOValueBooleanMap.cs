@@ -1,7 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mina.Core.Buffer;
 using System.Collections.Immutable;
 
@@ -9,11 +7,11 @@ namespace FSO.Common.Serialization.TypeSerializers
 {
     public class cTSOValueBooleanMap : ITypeSerializer
     {
-        private readonly uint CLSID = 0xC97757F5;
+        private readonly uint _cLSID = 0xC97757F5;
 
         public bool CanDeserialize(uint clsid)
         {
-            return clsid == CLSID;
+            return clsid == _cLSID;
         }
 
         public bool CanSerialize(Type type)
@@ -25,11 +23,12 @@ namespace FSO.Common.Serialization.TypeSerializers
         {
             var result = new Dictionary<uint, bool>();
             var count = buffer.GetUInt32();
-            for(int i=0; i < count; i++){
+            for (int i = 0; i < count; i++)
+            {
                 var key = buffer.GetUInt32();
                 result.Add(key, buffer.Get() > 0);
             }
-            
+
             return ImmutableDictionary.ToImmutableDictionary(result);
         }
 
@@ -46,7 +45,7 @@ namespace FSO.Common.Serialization.TypeSerializers
 
         public uint? GetClsid(object value)
         {
-            return CLSID;
+            return _cLSID;
         }
     }
 }

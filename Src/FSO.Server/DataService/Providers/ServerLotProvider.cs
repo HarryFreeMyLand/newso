@@ -1,17 +1,12 @@
-﻿using FSO.Common.DataService.Framework;
+using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Model;
 using FSO.Common.Domain.Realestate;
 using FSO.Common.Domain.RealestateDomain;
 using FSO.Server.Database.DA;
 using FSO.Server.Database.DA.Lots;
-using FSO.Server.Database.DA.Shards;
-using FSO.Server.Protocol.CitySelector;
 using Ninject;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Utils;
 using FSO.Common.Security;
 using System.Security;
@@ -43,7 +38,7 @@ namespace FSO.Server.DataService.Providers
         private int ShardId;
         private IDAFactory DAFactory;
         private IServerNFSProvider NFS;
-        
+
         public ServerLotProvider([Named("ShardId")] int shardId, IRealestateDomain realestate, IDAFactory daFactory, IServerNFSProvider nfs)
         {
             OnMissingLazyLoad = true;
@@ -68,10 +63,11 @@ namespace FSO.Server.DataService.Providers
 
         protected override void PreLoad(Callback<uint, Lot> appender)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var all = db.Lots.All(ShardId);
-                foreach(var item in all){
+                foreach (var item in all)
+                {
                     var roommates = db.Roommates.GetLotRoommates(item.lot_id);
                     var admit = db.LotAdmit.GetLotInfo(item.lot_id);
                     var converted = HydrateOne(item, roommates, admit);
@@ -83,10 +79,11 @@ namespace FSO.Server.DataService.Providers
 
         protected override Lot LoadOne(uint key)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var lot = db.Lots.GetByLocation(ShardId, key);
-                if (lot == null || lot.owner_id == null) return null;
+                if (lot == null || lot.owner_id == null)
+                    return null;
                 else
                 {
                     var roommates = db.Roommates.GetLotRoommates(lot.lot_id);
@@ -99,8 +96,10 @@ namespace FSO.Server.DataService.Providers
         protected override void Insert(uint key, Lot value)
         {
             base.Insert(key, value);
-            lock (LotsByName) LotsByName[value.Lot_Name] = value;
-            lock (CityRepresentation.City_ReservedLotInfo) CityRepresentation.City_ReservedLotInfo = CityRepresentation.City_ReservedLotInfo.SetItem(value.Lot_Location_Packed, value.Lot_IsOnline);
+            lock (LotsByName)
+                LotsByName[value.Lot_Name] = value;
+            lock (CityRepresentation.City_ReservedLotInfo)
+                CityRepresentation.City_ReservedLotInfo = CityRepresentation.City_ReservedLotInfo.SetItem(value.Lot_Location_Packed, value.Lot_IsOnline);
         }
 
         protected override Lot Remove(uint key)
@@ -108,9 +107,11 @@ namespace FSO.Server.DataService.Providers
             var value = base.Remove(key);
             if (value != null)
             {
-                lock (LotsByName) LotsByName.Remove(value.Lot_Name);
-                lock (CityRepresentation.City_ReservedLotInfo) CityRepresentation.City_ReservedLotInfo = CityRepresentation.City_ReservedLotInfo.Remove(value.Lot_Location_Packed);
-                
+                lock (LotsByName)
+                    LotsByName.Remove(value.Lot_Name);
+                lock (CityRepresentation.City_ReservedLotInfo)
+                    CityRepresentation.City_ReservedLotInfo = CityRepresentation.City_ReservedLotInfo.Remove(value.Lot_Location_Packed);
+
                 CityRepresentation.City_SpotlightsVector = CityRepresentation.City_SpotlightsVector.Remove(value.Lot_Location_Packed);
             }
             return value;
@@ -162,15 +163,18 @@ namespace FSO.Server.DataService.Providers
 
             foreach (var roomie in roommates)
             {
-                if (roomie.is_pending == 0) result.Lot_RoommateVec = result.Lot_RoommateVec.Add(roomie.avatar_id);
+                if (roomie.is_pending == 0)
+                    result.Lot_RoommateVec = result.Lot_RoommateVec.Add(roomie.avatar_id);
             }
 
             var admitL = new List<uint>();
             var banL = new List<uint>();
             foreach (var item in admit)
             {
-                if (item.admit_type == 0) admitL.Add(item.avatar_id);
-                else banL.Add(item.avatar_id);
+                if (item.admit_type == 0)
+                    admitL.Add(item.avatar_id);
+                else
+                    banL.Add(item.avatar_id);
             }
             result.Lot_LotAdmitInfo.LotAdmitInfo_AdmitList = ImmutableList.ToImmutableList(admitL);
             result.Lot_LotAdmitInfo.LotAdmitInfo_BanList = ImmutableList.ToImmutableList(banL);
@@ -204,9 +208,10 @@ namespace FSO.Server.DataService.Providers
         {
             var lot = entity as Lot;
 
-            switch (path){
+            switch (path)
+            {
                 case "Lot_Description":
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         db.Lots.UpdateDescription(lot.DbId, lot.Lot_Description);
                     }
@@ -215,12 +220,12 @@ namespace FSO.Server.DataService.Providers
                     var imgpath = Path.Combine(NFS.GetBaseDirectory(), "Lots/" + lot.DbId.ToString("x8") + "/thumb.png");
                     var data = (cTSOGenericData)value;
 
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         db.Lots.SetDirty(lot.DbId, 1);
                     }
 
-                    using (FileStream fs = File.Open(imgpath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    using (var fs = File.Open(imgpath, FileMode.Create, FileAccess.Write, FileShare.None))
                     {
                         fs.Write(data.Data, 0, data.Data.Length);
                     }
@@ -228,33 +233,37 @@ namespace FSO.Server.DataService.Providers
                     break;
                 case "Lot_Category":
                     uint minSkill;
-                    if (!SkillGameplayCategory.TryGetValue((LotCategory)lot.Lot_Category, out minSkill)) minSkill = 0;
+                    if (!SkillGameplayCategory.TryGetValue((LotCategory)lot.Lot_Category, out minSkill))
+                        minSkill = 0;
                     lot.Lot_SkillGamemode = Math.Min(2, Math.Max(minSkill, lot.Lot_SkillGamemode));
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         db.Lots.UpdateLotCategory(lot.DbId, (LotCategory)(lot.Lot_Category), lot.Lot_SkillGamemode);
                     }
                     break;
                 case "Lot_SkillGamemode":
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         db.Lots.UpdateLotSkillMode(lot.DbId, lot.Lot_SkillGamemode);
                     }
                     break;
                 case "Lot_IsOnline":
-                    lock (CityRepresentation.City_ReservedLotInfo) CityRepresentation.City_ReservedLotInfo = CityRepresentation.City_ReservedLotInfo.SetItem(lot.Lot_Location_Packed, lot.Lot_IsOnline);
+                    lock (CityRepresentation.City_ReservedLotInfo)
+                        CityRepresentation.City_ReservedLotInfo = CityRepresentation.City_ReservedLotInfo.SetItem(lot.Lot_Location_Packed, lot.Lot_IsOnline);
                     break;
                 case "Lot_SpotLightText":
                     lock (CityRepresentation)
                     {
                         var clone = new HashSet<uint>(CityRepresentation.City_SpotlightsVector); //need to convert this to a hashset to add to it properly
-                        if (lot.Lot_SpotLightText != "") clone.Add(lot.Lot_Location_Packed);
-                        else clone.Remove(lot.Lot_Location_Packed);
+                        if (lot.Lot_SpotLightText != "")
+                            clone.Add(lot.Lot_Location_Packed);
+                        else
+                            clone.Remove(lot.Lot_Location_Packed);
                         CityRepresentation.City_SpotlightsVector = ImmutableList.ToImmutableList(clone);
                     }
                     break;
                 case "Lot_LotAdmitInfo.LotAdmitInfo_AdmitMode":
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         db.Lots.UpdateLotAdmitMode(lot.DbId, (byte)value);
                     }
@@ -265,7 +274,8 @@ namespace FSO.Server.DataService.Providers
         public override void DemandMutation(object entity, MutationType type, string path, object value, ISecurityContext context)
         {
             var lot = entity as Lot;
-            if (lot.DbId == 0) { throw new SecurityException("Unclaimed lots cannot be mutated"); }
+            if (lot.DbId == 0)
+            { throw new SecurityException("Unclaimed lots cannot be mutated"); }
 
             var roomies = lot.Lot_RoommateVec;
             switch (path)
@@ -280,7 +290,8 @@ namespace FSO.Server.DataService.Providers
 
                 case "Lot_Name":
                     context.DemandAvatar(lot.Lot_LeaderID, AvatarPermissions.WRITE);
-                    if (!GlobalRealestate.ValidateLotName((string)value)){
+                    if (!GlobalRealestate.ValidateLotName((string)value))
+                    {
                         throw new Exception("Invalid lot name");
                     }
                     //Lot_Name is a special case, it has to be unique so we have to hit the db in the security check
@@ -291,10 +302,12 @@ namespace FSO.Server.DataService.Providers
                 case "Lot_Category":
                     context.DemandAvatar(lot.Lot_LeaderID, AvatarPermissions.WRITE);
 
-                    if (lot.Lot_IsOnline) throw new SecurityException("Lot must be offline to change category!");
+                    if (lot.Lot_IsOnline)
+                        throw new SecurityException("Lot must be offline to change category!");
 
                     //7 days
-                    if (((Epoch.Now - lot.Lot_LastCatChange) / (60 * 60)) < 168){
+                    if (((Epoch.Now - lot.Lot_LastCatChange) / (60 * 60)) < 168)
+                    {
                         throw new SecurityException("You must wait 7 days to change your lot category again");
                     }
                     break;
@@ -304,10 +317,13 @@ namespace FSO.Server.DataService.Providers
 
                     var svalue = (uint)value;
                     uint minSkill;
-                    if (!SkillGameplayCategory.TryGetValue((LotCategory)lot.Lot_Category, out minSkill)) minSkill = 0;
-                    if (Math.Min(2, Math.Max(minSkill, svalue)) != svalue) throw new SecurityException("Invalid gamemode for this category.");
+                    if (!SkillGameplayCategory.TryGetValue((LotCategory)lot.Lot_Category, out minSkill))
+                        minSkill = 0;
+                    if (Math.Min(2, Math.Max(minSkill, svalue)) != svalue)
+                        throw new SecurityException("Invalid gamemode for this category.");
 
-                    if (lot.Lot_IsOnline) throw new SecurityException("Lot must be offline to change skill mode!");
+                    if (lot.Lot_IsOnline)
+                        throw new SecurityException("Lot must be offline to change skill mode!");
                     break;
                 //roommate only
                 case "Lot_Thumbnail":
@@ -324,7 +340,7 @@ namespace FSO.Server.DataService.Providers
                 case "Lot_LotAdmitInfo.LotAdmitInfo_BanList":
                     context.DemandAvatars(roomies, AvatarPermissions.WRITE);
                     int atype = (path == "Lot_LotAdmitInfo.LotAdmitInfo_AdmitList") ? 0 : 1;
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     { //need to check db constraints
                         switch (type)
                         {
@@ -355,7 +371,7 @@ namespace FSO.Server.DataService.Providers
                     context.DemandAvatars(roomies, AvatarPermissions.WRITE);
                     //can only set valid values
                     var mode = (byte)value;
-                    if (mode < 0 || mode > 3) 
+                    if (mode < 0 || mode > 3)
                         throw new Exception("Invalid admit mode!");
                     break;
                 default:
@@ -365,7 +381,7 @@ namespace FSO.Server.DataService.Providers
 
         private void TryChangeLotName(Lot lot, string name)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 //The DB will enforce uniqueness per shard
                 db.Lots.RenameLot(lot.DbId, name);

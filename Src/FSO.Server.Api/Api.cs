@@ -261,7 +261,7 @@ namespace FSO.Server.Api
         /// <param name="new_password"></param>
         public void ChangePassword(uint user_id, string new_password)
         {
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var passhash = PasswordHasher.Hash(new_password);
                 var authSettings = new Database.DA.Users.UserAuthenticate();
@@ -283,7 +283,7 @@ namespace FSO.Server.Api
         /// <returns></returns>
         public Database.DA.Users.User CreateUser(string username, string email, string password, string ip)
         {
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var userModel = new Database.DA.Users.User();
                 userModel.username = username;

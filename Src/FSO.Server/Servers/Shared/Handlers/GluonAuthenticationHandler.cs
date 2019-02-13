@@ -4,14 +4,6 @@ using FSO.Server.Framework.Gluon;
 using FSO.Server.Protocol.Aries.Packets;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Protocol.Utils;
-using FSO.Server.Utils;
-using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Shared.Handlers
 {
@@ -22,9 +14,9 @@ namespace FSO.Server.Servers.Shared.Handlers
         private string Secret;
 
         public GluonAuthenticationHandler(ISessions sessions, ServerConfiguration config, IGluonHostPool hostPool){
-            this.Sessions = sessions;
-            this.Secret = config.Secret;
-            this.HostPool = hostPool;
+            Sessions = sessions;
+            Secret = config.Secret;
+            HostPool = hostPool;
         }
 
         public void Handle(IAriesSession session, RequestChallenge request)

@@ -286,7 +286,7 @@ namespace FSO.IDE.ResourceBrowser
                 string name = "";
                 float zFactor = 1.0f;
 
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     foreach (var dgrpSpr in ActiveDGRPSprites)
                     {
@@ -333,7 +333,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPSprites == null) return;
             float value = 0;
             float.TryParse(xPhys.Text, out value);
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPSprites) dgrpSpr.ObjectOffset.X = value;
             }, ActiveDGRP));
@@ -345,7 +345,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPSprites == null || InternalChange) return;
             float value = 0;
             float.TryParse(yPhys.Text, out value);
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPSprites) dgrpSpr.ObjectOffset.Y = value;
             }, ActiveDGRP));
@@ -357,7 +357,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPSprites == null || InternalChange) return;
             float value = 0;
             float.TryParse(zPhys.Text, out value);
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPSprites) dgrpSpr.ObjectOffset.Z = value;
             }, ActiveDGRP));
@@ -368,7 +368,7 @@ namespace FSO.IDE.ResourceBrowser
         {
             if (ActiveDGRPSprites == null || InternalChange) return;
             int value = (int)xPx.Value;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 float zoom = 1f;
                 foreach (var dgrpSpr in ActiveDGRPSprites) {
@@ -383,7 +383,7 @@ namespace FSO.IDE.ResourceBrowser
         {
             if (ActiveDGRPSprites == null || InternalChange) return;
             int value = (int)yPx.Value;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 float zoom = 1f;
                 foreach (var dgrpSpr in ActiveDGRPSprites)
@@ -400,7 +400,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPSprites == null || RotationCombo.SelectedIndex == -1 || InternalChange) return;
             var rot = RotationCombo.SelectedIndex;
             float zFactor = 1f;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var spr = ActiveIff.Get<SPR2>((ushort)ActiveDGRPSprites[0].SpriteID);
                 int numRot = 0;
@@ -422,7 +422,7 @@ namespace FSO.IDE.ResourceBrowser
         {
             if (ActiveDGRPSprites == null || InternalChange) return;
             var flip = FlipCheck.Checked;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 float zFactor = 1f;
                 foreach (var dgrpSpr in ActiveDGRPSprites)
@@ -450,7 +450,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPImages == null) return;
             var ind = SpriteList.SelectedIndex;
             if (ind == -1) ind = SpriteList.Items.Count - 1;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPImages)
                 {
@@ -471,7 +471,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPImages == null) return;
             var ind = SpriteList.SelectedIndex;
             if (ind == -1) ind = SpriteList.Items.Count - 1;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPImages)
                 {
@@ -493,7 +493,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPImages == null || SpriteList.SelectedIndex < 1) return;
             var ind = SpriteList.SelectedIndex;
             if (ind == -1) ind = SpriteList.Items.Count - 1;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPImages)
                 {
@@ -514,7 +514,7 @@ namespace FSO.IDE.ResourceBrowser
             if (ActiveDGRPImages == null || SpriteList.SelectedIndex == SpriteList.Items.Count-1) return;
             var ind = SpriteList.SelectedIndex;
             if (ind == -1) ind = SpriteList.Items.Count - 1;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 foreach (var dgrpSpr in ActiveDGRPImages)
                 {
@@ -538,7 +538,7 @@ namespace FSO.IDE.ResourceBrowser
         private void FirstDGRP_Click(object sender, EventArgs e)
         {
             if (ActiveDGRP == null) return;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveObject.OBJ.BaseGraphicID = ActiveDGRP.ChunkID;
             }, ActiveObject.OBJ));
@@ -548,7 +548,7 @@ namespace FSO.IDE.ResourceBrowser
         private void LastDGRP_Click(object sender, EventArgs e)
         {
             if (ActiveDGRP == null) return;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveObject.OBJ.NumGraphics = (ushort)((ActiveDGRP.ChunkID - ActiveObject.OBJ.BaseGraphicID) + 1);
             }, ActiveObject.OBJ));
@@ -560,7 +560,7 @@ namespace FSO.IDE.ResourceBrowser
             var sprSel = new SPR2SelectorDialog(ActiveIff, ActiveObject);
             sprSel.ShowDialog();
             var id = sprSel.ChosenID;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveObject.OBJ.DynamicSpriteBaseId = id;
             }, ActiveObject.OBJ));
@@ -573,7 +573,7 @@ namespace FSO.IDE.ResourceBrowser
             sprSel.ShowDialog();
 
             var id = sprSel.ChosenID;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveObject.OBJ.NumDynamicSprites = (ushort)Math.Max(0, (id - ActiveObject.OBJ.DynamicSpriteBaseId) + 1);
             }, ActiveObject.OBJ));
@@ -584,7 +584,7 @@ namespace FSO.IDE.ResourceBrowser
         {
             if (ActiveDGRP == null) return;
             var shifted = true;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var chunks = ActiveDGRP.ChunkParent.List<DGRP>().OrderBy(x => x.ChunkID).ToList();
                 var myIndex = chunks.IndexOf(ActiveDGRP);
@@ -602,7 +602,8 @@ namespace FSO.IDE.ResourceBrowser
                     }
                 }
                 var targ = ActiveDGRP.ChunkParent.Get<DGRP>(targID);
-                if (targ != null) Content.GameContent.Get.Changes.ChunkChanged(targ);
+                if (targ != null)
+                    GameContent.Get.Changes.ChunkChanged(targ);
 
                 ActiveDGRP.ChunkParent.MoveAndSwap(ActiveDGRP, targID);
             }, ActiveDGRP));
@@ -614,7 +615,7 @@ namespace FSO.IDE.ResourceBrowser
         {
             if (ActiveDGRP == null) return;
             var shifted = true;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var chunks = ActiveDGRP.ChunkParent.List<DGRP>().OrderBy(x => x.ChunkID).ToList();
                 var myIndex = chunks.IndexOf(ActiveDGRP);
@@ -632,7 +633,8 @@ namespace FSO.IDE.ResourceBrowser
                 }
 
                 var targ = ActiveDGRP.ChunkParent.Get<DGRP>(targID);
-                if (targ != null) Content.GameContent.Get.Changes.ChunkChanged(targ);
+                if (targ != null)
+                    GameContent.Get.Changes.ChunkChanged(targ);
                 ActiveDGRP.ChunkParent.MoveAndSwap(ActiveDGRP, targID);
             }, ActiveDGRP));
             UpdateDGRPList(false);
@@ -649,7 +651,7 @@ namespace FSO.IDE.ResourceBrowser
 
         private void AddNewDGRP(DGRP newDGRP)
         {
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 //first find a Drawgroup Group ( ;) ) to try add the sprite to.
                 //if we have no base graphic or this fails, make a new group.
@@ -688,7 +690,7 @@ namespace FSO.IDE.ResourceBrowser
                     iff = ((GameObjectResource)ActiveIff).Sprites;
 
                 iff.AddChunk(newDGRP);
-                Content.GameContent.Get.Changes.IffChanged(iff);
+                GameContent.Get.Changes.IffChanged(iff);
             }));
         }
 
@@ -721,10 +723,10 @@ namespace FSO.IDE.ResourceBrowser
         private void RemoveDGRP_Click(object sender, EventArgs e)
         {
             if (ActiveDGRP == null) return;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveDGRP.ChunkParent.FullRemoveChunk(ActiveDGRP);
-                Content.GameContent.Get.Changes.ChunkChanged(ActiveDGRP);
+                GameContent.Get.Changes.ChunkChanged(ActiveDGRP);
             }));
             UpdateDGRPList(true);
         }

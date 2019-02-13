@@ -1,11 +1,6 @@
 ﻿using FSO.Server.Framework.Gluon;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.City.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -15,7 +10,7 @@ namespace FSO.Server.Servers.City.Handlers
 
         public LotServerLifecycleHandler(LotServerPicker pickingEngine)
         {
-            this.PickingEngine = pickingEngine;
+            PickingEngine = pickingEngine;
         }
 
         public void Handle(IGluonSession session, AdvertiseCapacity capacity)

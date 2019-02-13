@@ -31,7 +31,7 @@ namespace FSO.Server.Api.Controllers
                 return ERROR_MISSING_TOKEN();
             }
 
-            using (var db = api.DAFactory.Get())
+            using (var db = api.DAFactory.Get)
             {
                 var dbTicket = db.AuthTickets.Get(ticket);
                 if (dbTicket == null){

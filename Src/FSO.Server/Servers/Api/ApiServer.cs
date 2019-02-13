@@ -1,15 +1,7 @@
-﻿using FSO.Server.Servers.Api.Controllers;
-using Ninject;
-using Ninject.Parameters;
+﻿using Ninject;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 using Nancy.Hosting.Self;
 using Nancy.Bootstrappers.Ninject;
@@ -38,8 +30,8 @@ namespace FSO.Server.Servers.Api
 
         public ApiServer(ApiServerConfiguration config, IKernel kernel)
         {
-            this.Config = config;
-            this.Kernel = kernel;
+            Config = config;
+            Kernel = kernel;
 
             Kernel.Bind<ApiServer>().ToConstant(this);
             Kernel.Bind<ApiServerConfiguration>().ToConstant(config);
@@ -92,7 +84,7 @@ namespace FSO.Server.Servers.Api
 
         public CustomNancyBootstrap(IKernel kernel)
         {
-            this.Kernel = kernel;
+            Kernel = kernel;
         }
 
         protected override void ApplicationStartup(IKernel container, IPipelines pipelines)
@@ -109,7 +101,7 @@ namespace FSO.Server.Servers.Api
 
         protected override IKernel GetApplicationContainer()
         {
-            return this.Kernel;
+            return Kernel;
         }
     }
 }

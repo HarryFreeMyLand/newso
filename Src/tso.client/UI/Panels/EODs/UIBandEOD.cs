@@ -619,7 +619,7 @@ namespace FSO.Client.UI.Panels.EODs
         void PlaySound(byte note)
         {
             var soundString = Enum.GetName(typeof(UIBANDEODSoundNames), note);
-            HIT.HITVM.Get().PlaySoundEvent(soundString);
+            HIT.HITVM.Get.PlaySoundEvent(soundString);
         }
 
         void AddMyListeners()

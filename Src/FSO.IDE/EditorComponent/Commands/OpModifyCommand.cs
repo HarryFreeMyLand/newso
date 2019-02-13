@@ -26,7 +26,7 @@ namespace FSO.IDE.EditorComponent.Commands
             Prim.Instruction.Operand = NewOp;
             Prim.UpdateDisplay();
             Content.GameContent.Get.Changes.ChunkChanged(bhav);
-            FSO.SimAntics.VM.BHAVChanged(bhav);
+            SimAntics.VM.BHAVChanged(bhav);
         }
 
         public override void Undo(BHAV bhav, UIBHAVEditor editor)
@@ -35,7 +35,7 @@ namespace FSO.IDE.EditorComponent.Commands
             Prim.RefreshOperand();
             Prim.UpdateDisplay();
             Content.GameContent.Get.Changes.ChunkChanged(bhav);
-            FSO.SimAntics.VM.BHAVChanged(bhav);
+            SimAntics.VM.BHAVChanged(bhav);
         }
     }
 }

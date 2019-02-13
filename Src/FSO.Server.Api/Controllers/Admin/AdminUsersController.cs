@@ -21,7 +21,7 @@ namespace FSO.Server.Api.Controllers.Admin
 
             var user = api.RequireAuthentication(Request);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var userModel = da.Users.GetById(user.UserID);
                 if (userModel == null)
@@ -39,7 +39,7 @@ namespace FSO.Server.Api.Controllers.Admin
             if (id == "current") return current();
             var api = Api.INSTANCE;
             api.DemandModerator(Request);
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var userModel = da.Users.GetById(uint.Parse(id));
                 if (userModel == null) { throw new Exception("Unable to find user"); }
@@ -60,7 +60,7 @@ namespace FSO.Server.Api.Controllers.Admin
 
             api.DemandModerator(Request);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 User userModel = da.Users.GetById(uint.Parse(user_id));
 
@@ -96,7 +96,7 @@ namespace FSO.Server.Api.Controllers.Admin
 
             api.DemandAdmin(Request);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 Database.DA.Avatars.DbAvatar recipient = da.Avatars.Get(uint.Parse(mail.target_id));
 
@@ -181,7 +181,7 @@ namespace FSO.Server.Api.Controllers.Admin
 
             api.DemandModerator(Request);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 User userModel = da.Users.GetById(uint.Parse(ban.user_id));
 
@@ -259,7 +259,7 @@ namespace FSO.Server.Api.Controllers.Admin
         {
             var api = Api.INSTANCE;
             api.DemandModerator(Request);
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
 
                 if (limit > 100)
@@ -285,7 +285,7 @@ namespace FSO.Server.Api.Controllers.Admin
                 api.DemandAdmin(nuser);
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var userModel = new User();
                 userModel.username = user.username;

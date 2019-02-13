@@ -129,7 +129,7 @@ namespace FSO.Client.Controllers
         {
             if (ActiveMessages.Count(x => x.Type == message.Type) >= 3)
             {
-                HIT.HITVM.Get().PlaySoundEvent("ui_call_q_full");
+                HIT.HITVM.Get.PlaySoundEvent("ui_call_q_full");
                 return null;
             }
 
@@ -202,7 +202,7 @@ namespace FSO.Client.Controllers
                         FromType = UserReferenceType.AVATAR,
                         From = Network.MyCharacter
                     });
-                    HIT.HITVM.Get().PlaySoundEvent("ui_call_rec_next");
+                    HIT.HITVM.Get.PlaySoundEvent("ui_call_rec_next");
                 }
                 return;
             }
@@ -247,7 +247,7 @@ namespace FSO.Client.Controllers
                         FromType = UserReferenceType.AVATAR,
                         From = Network.MyCharacter
                     });
-                    HIT.HITVM.Get().PlaySoundEvent("ui_call_rec_first");
+                    HIT.HITVM.Get.PlaySoundEvent("ui_call_rec_first");
                 }
 
                 DataService.Request(MaskedStruct.Messaging_Icon_Avatar, message.From);

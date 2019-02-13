@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Domain
 {
@@ -92,7 +90,7 @@ namespace FSO.Server.Servers.City.Domain
                 }
 
                 //get all our ignored avatars
-                using (var da = DA.Get())
+                using (var da = DA.Get)
                 {
                     var myIgnore = da.Bookmarks.GetAvatarIgnore(avatarID);
 
@@ -145,7 +143,7 @@ namespace FSO.Server.Servers.City.Domain
         {
             lock (this)
             {
-                using (var da = DA.Get())
+                using (var da = DA.Get)
                 {
                     //check if there are existing instances still to be filled.
                     JobEntry instance = null;

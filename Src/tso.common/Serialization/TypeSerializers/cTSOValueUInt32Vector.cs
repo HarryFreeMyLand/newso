@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
 
 namespace FSO.Common.Serialization.TypeSerializers
 {
@@ -28,18 +26,18 @@ namespace FSO.Common.Serialization.TypeSerializers
             var count = input.GetUInt32();
             for (int i = 0; i < count; i++)
             {
-                result.Add((uint)input.GetUInt32());
+                result.Add(input.GetUInt32());
             }
             return ImmutableList.ToImmutableList(result);
         }
 
         public void Serialize(IoBuffer output, object value, ISerializationContext serializer)
         {
-            IList<uint> list = (IList<uint>)value;
+            var list = (IList<uint>)value;
             output.PutUInt32((uint)list.Count);
             for (int i = 0; i < list.Count; i++)
             {
-                output.PutUInt32((uint)list[i]);
+                output.PutUInt32(list[i]);
             }
         }
 

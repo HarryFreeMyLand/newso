@@ -1,9 +1,5 @@
 ﻿using Nancy;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nancy.Security;
 using FSO.Server.Database.DA.Utils;
 using FSO.Common.Utils;
@@ -30,7 +26,7 @@ namespace FSO.Server.Servers.Api
 
         public static Response AsPagedList<T>(this IResponseFormatter formatter, PagedList<T> list)
         {
-            return FormatterExtensions.AsJson<PagedList<T>>(formatter, list)
+            return FormatterExtensions.AsJson(formatter, list)
                         .WithHeader("X-Total-Count", list.Total.ToString())
                         .WithHeader("X-Offset", list.Offset.ToString());
         }

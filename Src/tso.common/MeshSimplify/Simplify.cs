@@ -9,9 +9,6 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.MeshSimplify
 {
@@ -75,7 +72,7 @@ namespace FSO.Common.MeshSimplify
                             if (v0.border != v1.border) continue;
 
                             // Compute vertex to collapse to
-                            Vector3 p = Vector3.Zero;
+                            var p = Vector3.Zero;
                             calculate_error(i0, i1, ref p);
 
                             deleted0.Clear(); // normals temporarily
@@ -149,8 +146,8 @@ namespace FSO.Common.MeshSimplify
                     deleted[k]=1;
                     continue;
                 }
-                Vector3 d1 = vertices[id1].p - p; d1.Normalize();
-                Vector3 d2 = vertices[id2].p - p; d2.Normalize();
+                var d1 = vertices[id1].p - p; d1.Normalize();
+                var d2 = vertices[id2].p - p; d2.Normalize();
                 if (Math.Abs(Vector3.Dot(d1, d2)) > 0.999) return true;
                 Vector3 n;
                 n = Vector3.Cross(d1, d2);
@@ -165,7 +162,7 @@ namespace FSO.Common.MeshSimplify
 
         void update_triangles(int i0, MSVertex v, List<int> deleted, ref int deleted_triangles)
         {
-            Vector3 p = Vector3.Zero;
+            var p = Vector3.Zero;
             for (int k = 0; k < v.tcount; k++)
             {
                 var r = refs[v.tstart + k];
@@ -231,7 +228,8 @@ namespace FSO.Common.MeshSimplify
                 for (int i = 0; i < triangles.Count; i++)
                 {
                     // Calc Edge Error
-                    var t = triangles[i]; Vector3 p = Vector3.Zero;
+                    var t = triangles[i];
+                    var p = Vector3.Zero;
                     for (int j = 0; j < 3; j++) t.err[j] = calculate_error(t.v[j], t.v[(j + 1) % 3], ref p);
                     t.err[3] = Math.Min(t.err[0], Math.Min(t.err[1], t.err[2]));
                 }
@@ -279,8 +277,8 @@ namespace FSO.Common.MeshSimplify
             // Identify boundary : vertices[].border=0,1 
             if (iteration == 0)
             {
-                List<int> vcount = new List<int>();
-                List<int> vids = new List<int>();
+                var vcount = new List<int>();
+                var vids = new List<int>();
 
                 for (int i = 0; i < vertices.Count; i++)
                     vertices[i].border = false;
@@ -372,7 +370,7 @@ namespace FSO.Common.MeshSimplify
         {
             // compute interpolated vertex 
 
-            SymmetricMatrix q = vertices[id_v1].q + vertices[id_v2].q;
+            var q = vertices[id_v1].q + vertices[id_v2].q;
             bool border = vertices[id_v1].border && vertices[id_v2].border;
             double error = 0;
             double det = q.det(0, 1, 2, 1, 4, 5, 2, 5, 7);
@@ -388,9 +386,9 @@ namespace FSO.Common.MeshSimplify
             else
             {
                 // det = 0 -> try to find best result
-                Vector3 p1 = vertices[id_v1].p;
-                Vector3 p2 = vertices[id_v2].p;
-                Vector3 p3 = (p1 + p2) / 2;
+                var p1 = vertices[id_v1].p;
+                var p2 = vertices[id_v2].p;
+                var p3 = (p1 + p2) / 2;
                 double error1 = vertex_error(q, p1.X, p1.Y, p1.Z);
                 double error2 = vertex_error(q, p2.X, p2.Y, p2.Z);
                 double error3 = vertex_error(q, p3.X, p3.Y, p3.Z);

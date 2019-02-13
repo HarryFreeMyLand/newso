@@ -41,7 +41,7 @@ namespace FSO.IDE.EditorComponent.Primitives
             result.Append(op.RelVar);
             result.Append("\r\n of ");
             result.Append(EditorScope.Behaviour.Get<STR>((ushort)(old?170:235)).GetString((int)op.Mode));
-            if (op.Mode>1) result.Append(" ("+scope.GetVarScopeDataName(SimAntics.Engine.Scopes.VMVariableScope.Local, op.Local)+")");
+            if (op.Mode>1) result.Append(" ("+scope.GetVarScopeDataName(VMVariableScope.Local, op.Local)+")");
 
             if (op.SetMode > 0)
             {

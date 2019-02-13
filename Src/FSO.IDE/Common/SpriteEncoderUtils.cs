@@ -46,19 +46,19 @@ namespace FSO.IDE.Common
         /// <param name="tWidth"></param>
         /// <param name="tHeight"></param>
         /// <returns>Array of three images, [Color, Alpha, Depth].</returns>
-        public static System.Drawing.Image[] GetPixelAlpha(SPR2Frame sprite, int tWidth, int tHeight)
+        public static Image[] GetPixelAlpha(SPR2Frame sprite, int tWidth, int tHeight)
         {
             return GetPixelAlpha(sprite, tWidth, tHeight, sprite.Position);
         }
 
-        public static System.Drawing.Image[] GetPixelAlpha(SPR2Frame sprite, int tWidth, int tHeight, Vector2 pos)
+        public static Image[] GetPixelAlpha(SPR2Frame sprite, int tWidth, int tHeight, Vector2 pos)
         {
-            var result = new System.Drawing.Bitmap[3];
+            var result = new Bitmap[3];
             var locks = new BitmapData[3];
             var data = new byte[3][];
             for (int i = 0; i < 3; i++)
             {
-                result[i] = new System.Drawing.Bitmap(tWidth, tHeight, PixelFormat.Format24bppRgb);
+                result[i] = new Bitmap(tWidth, tHeight, PixelFormat.Format24bppRgb);
                 locks[i] = result[i].LockBits(new System.Drawing.Rectangle(0, 0, tWidth, tHeight), ImageLockMode.ReadWrite, PixelFormat.Format32bppRgb);
                 data[i] = new byte[locks[i].Stride * locks[i].Height];
             }

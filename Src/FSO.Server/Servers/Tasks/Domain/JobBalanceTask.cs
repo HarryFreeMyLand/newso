@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Server.Database.DA.Tasks;
 using FSO.Server.Database.DA;
 using FSO.Server.Database.DA.DynPayouts;
@@ -57,7 +55,7 @@ namespace FSO.Server.Servers.Tasks.Domain
         public JobBalanceTask(IDAFactory DAFactory, TaskTuning tuning)
         {
             this.DAFactory = DAFactory;
-            this.Tuning = tuning;
+            Tuning = tuning;
         }
 
         public void Abort()
@@ -93,7 +91,7 @@ namespace FSO.Server.Servers.Tasks.Domain
             }
 
             //obtain aggregate for all skills
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var days = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalDays;
                 var limitdays = days - tuning.days_to_aggregate;

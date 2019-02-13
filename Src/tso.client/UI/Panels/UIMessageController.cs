@@ -51,7 +51,7 @@ namespace FSO.Client.UI.Panels
         /// </summary>
         public void SendMessage(string message, string GUID)
         {
-            HITVM.Get().PlaySoundEvent(UISounds.CallSend);
+            HITVM.Get.PlaySoundEvent(UISounds.CallSend);
             if (OnSendMessage != null) OnSendMessage(message, GUID);
         }
 
@@ -60,7 +60,7 @@ namespace FSO.Client.UI.Panels
         /// </summary>
         public void SendLetter(string message, string subject, string destinationUser)
         {
-            HITVM.Get().PlaySoundEvent(UISounds.LetterSend);
+            HITVM.Get.PlaySoundEvent(UISounds.LetterSend);
             if (OnSendLetter != null) OnSendLetter(message, subject, destinationUser);
         }
         
@@ -71,7 +71,7 @@ namespace FSO.Client.UI.Panels
         /// </summary>
         public void PassEmail(MessageAuthor sender, string subject, string message)
         {
-            HITVM.Get().PlaySoundEvent(UISounds.LetterRecieve);
+            HITVM.Get.PlaySoundEvent(UISounds.LetterRecieve);
             //PendingEmails.Add(new EmailStore(sender, message));
             OpenEmail(sender, subject, message); //will eventually show alert asking if you want to do this...
         }

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.Utils
 {
@@ -134,7 +131,7 @@ namespace FSO.Common.Utils
         private VALUE GetOrAddInternal(KEY key, Func<KEY, VALUE> valueFactory)
         {
             bool didCreate = false;
-            VALUE created = default(VALUE);
+            var created = default(VALUE);
             var value = Cache.GetOrAdd(key, (k) =>
             {
                 //ConcurrentDictionary does not ensure we don't accidentally create things twice. This lock will help us, but I don't think it ensures a perfect world.

@@ -79,7 +79,7 @@ namespace FSO.Server.Api.Controllers
                 });
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 //has this ip been banned?
                 var ban = da.Bans.GetByIP(ip);
@@ -166,7 +166,7 @@ namespace FSO.Server.Api.Controllers
                 });
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 // email is taken
                 if(da.Users.GetByEmail(model.email)!=null)
@@ -239,7 +239,7 @@ namespace FSO.Server.Api.Controllers
                 });
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 EmailConfirmation confirmation = da.EmailConfirmations.GetByToken(user.token);
 
@@ -364,7 +364,7 @@ namespace FSO.Server.Api.Controllers
                 });
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var user = da.Users.GetByUsername(model.username);
 
@@ -423,7 +423,7 @@ namespace FSO.Server.Api.Controllers
                 });
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 EmailConfirmation confirmation = da.EmailConfirmations.GetByToken(model.token);
 
@@ -484,7 +484,7 @@ namespace FSO.Server.Api.Controllers
                 });
             }
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
 
                 var user = da.Users.GetByEmail(model.email);

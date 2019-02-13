@@ -342,7 +342,7 @@ namespace FSO.Client.UI.Panels
 
             if (LotController.ActiveEntity != null && item.CalcPrice > LotController.ActiveEntity.TSOState.Budget.Value)
             {
-                HIT.HITVM.Get().PlaySoundEvent(Model.UISounds.Error);
+                HIT.HITVM.Get.PlaySoundEvent(Model.UISounds.Error);
                 return;
             }
 

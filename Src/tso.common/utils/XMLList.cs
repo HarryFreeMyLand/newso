@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace FSO.Common.Utils
@@ -22,7 +20,7 @@ namespace FSO.Common.Utils
 
         #region IXMLPrinter Members
 
-        public System.Xml.XmlElement Serialize(System.Xml.XmlDocument doc)
+        public XmlElement Serialize(XmlDocument doc)
         {
             var element = doc.CreateElement(NodeName);
             foreach (var child in this)
@@ -32,7 +30,7 @@ namespace FSO.Common.Utils
             return element;
         }
 
-        public void Parse(System.Xml.XmlElement element)
+        public void Parse(XmlElement element)
         {
             var type = typeof(T);
 

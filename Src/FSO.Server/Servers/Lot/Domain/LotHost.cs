@@ -1,18 +1,13 @@
-﻿using FSO.Common.DataService;
-using FSO.Common.Serialization.Primitives;
-using FSO.Common.Utils;
+﻿using FSO.Common.Utils;
 using FSO.Server.Common;
 using FSO.Server.Database.DA;
-using FSO.Server.Database.DA.Lots;
 using FSO.Server.Database.DA.LotVisitors;
 using FSO.Server.DataService;
-using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Gluon;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Protocol.Gluon.Model;
 using FSO.Server.Protocol.Gluon.Packets;
-using FSO.Server.Protocol.Voltron.Packets;
 using FSO.Server.Servers.Lot.Lifecycle;
 using Ninject;
 using Ninject.Extensions.ChildKernel;
@@ -22,7 +17,6 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -45,10 +39,10 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public LotHost(LotServerConfiguration config, IDAFactory da, IKernel kernel, IDataServiceSyncFactory ds, CityConnections connections)
         {
-            this.Config = config;
-            this.DAFactory = da;
-            this.Kernel = kernel;
-            this.CityConnections = connections;
+            Config = config;
+            DAFactory = da;
+            Kernel = kernel;
+            CityConnections = connections;
 
             LotStatusSync = ds.Get<FSO.Common.DataService.Model.Lot>("Lot_NumOccupants", "Lot_IsOnline", "Lot_SpotLightText");
             LotRoomiesSync = ds.Get<FSO.Common.DataService.Model.Lot>("Lot_RoommateVec");
@@ -269,7 +263,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 return true;
             }
 
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var didClaim = da.LotClaims.Claim(claimId, previousOwner, Config.Call_Sign);
                 if (!didClaim)
@@ -441,7 +435,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public void Bootstrap(LotContext context)
         {
-            this.Context = context;
+            Context = context;
             Model.Id = context.Id;
             Model.DbId = context.DbId;
 
@@ -457,12 +451,16 @@ namespace FSO.Server.Servers.Lot.Domain
 
             Container = Kernel.Get<LotContainer>();
 
-            BackgroundThread = new Thread(_DigestBackground);
-            BackgroundThread.Name = "Lot " + Context.DbId + " (background)";
+            BackgroundThread = new Thread(_DigestBackground)
+            {
+                Name = "Lot " + Context.DbId + " (background)"
+            };
             BackgroundThread.Start();
 
-            MainThread = new Thread(Container.Run);
-            MainThread.Name = "Lot " + Context.DbId + " (main)";
+            MainThread = new Thread(Container.Run)
+            {
+                Name = "Lot " + Context.DbId + " (main)"
+            };
             MainThread.Start();
         }
 
@@ -484,7 +482,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 {
                     if (LastTaskRecv == 0) LastTaskRecv = Epoch.Now;
                     var notified = BackgroundNotify.WaitOne(BACKGROUND_NOTIFY_TIMEOUT);
-                    List<Callback> tasks = new List<Callback>();
+                    var tasks = new List<Callback>();
                     lock (BackgroundTasks)
                     {
                         tasks.AddRange(BackgroundTasks);
@@ -564,7 +562,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 }
                 //complete remaining tasks
                 LastActivity = Epoch.Now;
-                List<Callback> tasks = new List<Callback>();
+                var tasks = new List<Callback>();
                 lock (BackgroundTasks)
                 {
                     tasks.AddRange(BackgroundTasks);
@@ -612,7 +610,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
                     //check if this user has special permissions. should only happen when a lot is full
                     //let them in anyways if they do
-                    using (var da = DAFactory.Get())
+                    using (var da = DAFactory.Get)
                     {
                         var avatar = da.Avatars.Get(session.AvatarId);
                         if (avatar.moderation_level == 0 && !Context.JobLot)
@@ -670,7 +668,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
             InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     //return claim to the city we got it from.
 
@@ -683,7 +681,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 if (session.GetAttribute("visitId") != null)
                 {
                     var id = (int)session.GetAttribute("visitId");
-                    using (var da = DAFactory.Get())
+                    using (var da = DAFactory.Get)
                     {
                         da.LotVisits.Leave(id);
                     }
@@ -754,7 +752,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 }
             }
             //if this lot still has any avatar claims, kill them at least so the user's access to the game isn't limited until server restart.
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 da.AvatarClaims.RemoveRemaining(Config.Call_Sign, Context.Id);
                 da.LotClaims.Delete(Context.ClaimId, Config.Call_Sign);
@@ -769,7 +767,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public void SyncRoommates()
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 var roomies = db.Roommates.GetLotRoommates(Context.DbId);
                 var modelVec = new List<uint>();
@@ -791,7 +789,7 @@ namespace FSO.Server.Servers.Lot.Domain
         public void RecordStartVisit(IVoltronSession session, DbLotVisitorType visitorType)
         {
             if (Context.JobLot) return;
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var id = da.LotVisits.Visit(session.AvatarId, visitorType, Context.DbId);
                 if (id != null && id.HasValue){
@@ -821,7 +819,7 @@ namespace FSO.Server.Servers.Lot.Domain
             {
                 //Update the timestamp on visit records, this helps us count
                 //active sessions in top 100 + visitor bonus calculations
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     db.LotVisits.Renew(visitIds.ToArray());
                 }

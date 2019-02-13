@@ -3,8 +3,6 @@ using FSO.SimAntics.Engine.TSOTransaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.SimAntics;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.NetPlay.Model;
@@ -16,10 +14,8 @@ using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Entities;
 using FSO.SimAntics.Marshals;
-using FSO.Server.Database.DA.Lots;
 using FSO.Server.Database.DA.Roommates;
 using FSO.SimAntics.Engine.TSOGlobalLink.Model;
-using FSO.SimAntics.Engine.Scopes;
 using FSO.Server.Database.DA.Avatars;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.Server.Protocol.Gluon.Packets;
@@ -69,10 +65,10 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var result = (testOnly)?db.Avatars.TestTransaction(uid1, uid2, amount, 0):db.Avatars.Transaction(uid1, uid2, amount, type);
-                    if (result == null) result = new Database.DA.Avatars.DbTransactionResult() { success = false };
+                    if (result == null) result = new DbTransactionResult() { success = false };
 
                     var finalAmount = amount;
 
@@ -104,7 +100,7 @@ namespace FSO.Server.Servers.Lot.Domain
             Host.InBackground(() =>
             {
                 //TODO: use results in meaningful fashion
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     bool queryResult;
                     switch (mode)
@@ -183,7 +179,7 @@ namespace FSO.Server.Servers.Lot.Domain
             var lotID = Context.DbId;
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var queryResult = db.Roommates.RemoveRoommate(avatarID, lotID) > 0;
                     vm.ForwardCommand(new VMChangePermissionsCmd()
@@ -304,7 +300,7 @@ namespace FSO.Server.Servers.Lot.Domain
             if (obj.MasterDefinition != null) guid = obj.MasterDefinition.GUID;
             uint? owner = ((VMTSOObjectState)obj.TSOState).OwnerID;
             if (owner == 0) owner = null;
-            DbObject dbo = new DbObject()
+            var dbo = new DbObject()
             {
                 owner_id = owner,
                 lot_id = Context.DbId,
@@ -320,7 +316,7 @@ namespace FSO.Server.Servers.Lot.Domain
             {
                 try
                 {
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         var id = db.Objects.Create(dbo);
                         if (callback != null) callback(objid, id);
@@ -358,7 +354,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     callback(db.Objects.SetInLot(objectPID, null), objectPID);
                 }
@@ -372,7 +368,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 {
                     try
                     {
-                        using (var db = DAFactory.Get())
+                        using (var db = DAFactory.Get)
                         {
                             dbState.type = guid;
                             dbState.shard_id = Context.ShardId;
@@ -398,7 +394,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 if (runSync)
                 {
                     file.Write(data, 0, data.Length);
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         //todo: race where inventory object could potentially be placed on the lot before the old instance of it is deleted
                         //probably just block objects with same persist id from being placed.
@@ -411,7 +407,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 {
                     file.WriteAsync(data, 0, data.Length).ContinueWith((x) =>
                     {
-                        using (var db = DAFactory.Get())
+                        using (var db = DAFactory.Get)
                         {
                             db.Objects.UpdatePersistState(objectPID, dbState);
                             callback(true, objectPID);
@@ -465,7 +461,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     //todo: race where inventory object could potentially be placed on the lot before the old instance of it is deleted
                     //probably just block objects with same persist id from being placed.
@@ -490,7 +486,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
             Host.InBackground(() =>
             {
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     SaveInventoryState(isNew, objectPID, state, dbState, guid, (bool success, uint objPID) =>
                     {
@@ -498,7 +494,7 @@ namespace FSO.Server.Servers.Lot.Domain
                         {
                             //todo: transaction-ify this whole thing? might need a large scale rollback...
                             var tresult = da.Avatars.Transaction(purchaserPID, owner, salePrice, 0);
-                            if (tresult == null) tresult = new Database.DA.Avatars.DbTransactionResult() { success = false };
+                            if (tresult == null) tresult = new DbTransactionResult() { success = false };
 
                             //update the budgets of the respective characters.
                             var finalAmount = salePrice;
@@ -529,7 +525,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     switch (mode)
                     {
@@ -577,7 +573,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
                 if (dat != null && dat.Length == 0) dat = null; //treat empty files as if no state were available.
                 //put object on this lot
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var obj = db.Objects.Get(objectPID);
                     if (obj == null || obj.owner_id != ownerPID) callback(0, null); //object does not exist or request is for wrong owner.
@@ -597,7 +593,7 @@ namespace FSO.Server.Servers.Lot.Domain
 
         private void UpdateInventoryFor(VM vm, uint targetPID)
         {
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var inventory = da.Objects.GetAvatarInventory(targetPID);
                 var vmInventory = new List<VMInventoryItem>();
@@ -620,7 +616,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 if (Directory.Exists(path)) Directory.Delete(path, true); //delete any persist data we might have, plugins and inventory.
 
                 //remove object from db
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     callback(db.Objects.Delete(objectPID));
                 }
@@ -641,7 +637,7 @@ namespace FSO.Server.Servers.Lot.Domain
                     return;
                 }
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     try {
                         var model = new Database.DA.Outfits.DbOutfit
@@ -672,7 +668,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var outfits = owner == VMGLOutfitOwner.OBJECT ? db.Outfits.GetByObjectId(ownerPID) : db.Outfits.GetByAvatarId(ownerPID);
                     callback(
@@ -708,7 +704,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     if (owner == VMGLOutfitOwner.OBJECT){
                         callback(db.Outfits.DeleteFromObject(outfitPID, ownerPID));
@@ -723,7 +719,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     callback(db.Outfits.UpdatePrice(outfitPID, objectPID, newSalePrice));   
                 }
@@ -734,7 +730,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     callback(db.Outfits.ChangeOwner(outfitPID, objectPID, avatarPID));
                 }
@@ -746,7 +742,7 @@ namespace FSO.Server.Servers.Lot.Domain
             Host.InBackground(() =>
             {
                 var data = new VMEODFNewspaperData();
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var days = (int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalDays;
                     var limitdays = days - 7;
@@ -786,7 +782,7 @@ namespace FSO.Server.Servers.Lot.Domain
             Host.InBackground(() =>
             {
                 var cityMessages = new List<NotifyLotRoommateChange>();
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var failState = VMEODSecureTradeError.SUCCESS;
                     var result = db.Avatars.Transaction(p1.PlayerPersist, p2.PlayerPersist, moneyMove, 9, () =>
@@ -934,7 +930,7 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var lot = db.Lots.GetByOwner(persistID);
                     if (lot == null) p(0, 0, 0, null);

@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Server.Common;
 using Microsoft.Owin.Hosting;
-using System.Net.Http;
 using FSO.Server.Api;
 using System.Web.Http;
 using Owin;
 using System.Collections.Specialized;
-using FSO.Server.Servers.Api;
 using static FSO.Server.Api.Api;
 using Ninject;
-using FSO.Server.Utils;
 using FSO.Server.Domain;
 
 namespace FSO.Server.Servers.UserApi
@@ -31,8 +24,8 @@ namespace FSO.Server.Servers.UserApi
 
         public UserApi(ServerConfiguration config, IKernel kernel)
         {
-            this.Config = config;
-            this.Kernel = kernel;
+            Config = config;
+            Kernel = kernel;
         }
 
         public override void AttachDebugger(IServerDebugger debugger)
@@ -63,7 +56,7 @@ namespace FSO.Server.Servers.UserApi
     {
         public void Configuration(IAppBuilder builder, ServerConfiguration config)
         {
-            HttpConfiguration http = new HttpConfiguration();
+            var http = new HttpConfiguration();
             WebApiConfig.Register(http);
 
             var userApiConfig = config.Services.UserApi;
@@ -83,7 +76,7 @@ namespace FSO.Server.Servers.UserApi
             settings.Add("smtpPort", userApiConfig.SmtpPort.ToString());
             settings.Add("useProxy", userApiConfig.UseProxy.ToString());
 
-            var api = new FSO.Server.Api.Api();
+            var api = new Server.Api.Api();
             api.Init(settings);
 
             builder.UseWebApi(http);

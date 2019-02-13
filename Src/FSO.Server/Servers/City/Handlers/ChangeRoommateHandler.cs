@@ -12,10 +12,7 @@ using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.City.Domain;
 using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
@@ -31,12 +28,12 @@ namespace FSO.Server.Servers.City.Handlers
 
         public ChangeRoommateHandler(ISessions sessions, IDAFactory da, CityServerContext context, IDataService dataService, LotServerPicker lotServers, LotAllocations lots)
         {
-            this.Sessions = sessions;
-            this.DAFactory = da;
-            this.Context = context;
-            this.DataService = dataService;
-            this.LotServers = lotServers;
-            this.Lots = lots;
+            Sessions = sessions;
+            DAFactory = da;
+            Context = context;
+            DataService = dataService;
+            LotServers = lotServers;
+            Lots = lots;
         }
 
         private void Status(IVoltronSession session, ChangeRoommateResponseStatus status)
@@ -47,7 +44,7 @@ namespace FSO.Server.Servers.City.Handlers
         public async void Handle(IGluonSession session, NotifyLotRoommateChange packet)
         {
             //recieved from a lot server to notify of another lot's roommate change.
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var lot = da.Lots.Get(packet.LotId);
                 if (lot == null) return; //lot missing
@@ -79,7 +76,7 @@ namespace FSO.Server.Servers.City.Handlers
             try
             {
                 if (session.IsAnonymous) return;
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     if (packet.Type == ChangeRoommateType.POLL)
                     {
@@ -241,7 +238,7 @@ namespace FSO.Server.Servers.City.Handlers
 
         public async Task<ChangeRoommateResponseStatus> TryKick(uint location, uint requester, uint target)
         {
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var lot = da.Lots.GetByLocation(Context.ShardId, location);
                 if (lot == null) return ChangeRoommateResponseStatus.UNKNOWN;

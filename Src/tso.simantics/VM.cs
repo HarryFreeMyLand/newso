@@ -235,7 +235,7 @@ namespace FSO.SimAntics
             if (UseWorld)
             {
                 Microsoft.Xna.Framework.Audio.SoundEffect.DistanceScale = 10;
-                var listener = HIT.HITVM.Get().Listener;
+                var listener = HIT.HITVM.Get.Listener;
                 var cam = Context.World.State.Camera;
                 listener.Position = cam.Position;
                 var forward = cam.Target - cam.Position;

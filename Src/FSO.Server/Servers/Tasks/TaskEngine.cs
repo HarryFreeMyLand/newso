@@ -4,12 +4,9 @@ using Newtonsoft.Json;
 using Ninject;
 using Ninject.Modules;
 using NLog;
-using NLog.Config;
-using NLog.Targets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -100,10 +97,10 @@ namespace FSO.Server.Servers.Tasks
 
                 var cts = new CancellationTokenSource(TimeSpan.FromSeconds(options.Timeout));
 
-                ITask instance = (ITask)Kernel.Get(entry.Type);
+                var instance = (ITask)Kernel.Get(entry.Type);
 
                 int taskId = 0;
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     taskId = db.Tasks.Create(new DbTask {
                         task_type = instance.GetTaskType(),
@@ -120,7 +117,7 @@ namespace FSO.Server.Servers.Tasks
                         if (entry.Type.IsAssignableFrom(task.GetType()))
                         {
                             LOG.Warn("could not start task, previous task is still running");
-                            using (var db = DAFactory.Get())
+                            using (var db = DAFactory.Get)
                             {
                                 db.Tasks.CompleteTask(taskId, DbTaskStatus.failed);
                             }
@@ -141,9 +138,11 @@ namespace FSO.Server.Servers.Tasks
 
                 //LogManager.GetLogger()
 
-                var context = new TaskContext(this);
-                context.ShardId = options.Shard_Id;
-                context.ParameterJson = JsonConvert.SerializeObject(options.Parameter);
+                var context = new TaskContext(this)
+                {
+                    ShardId = options.Shard_Id,
+                    ParameterJson = JsonConvert.SerializeObject(options.Parameter)
+                };
                 Running.Add(instance);
 
                 Task.Run(() =>
@@ -164,7 +163,7 @@ namespace FSO.Server.Servers.Tasks
                         endStatus = DbTaskStatus.completed;
                     }
 
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         db.Tasks.CompleteTask(taskId, endStatus);
                     }
@@ -279,7 +278,7 @@ namespace FSO.Server.Servers.Tasks
 
         public CronSchedule(string expressions)
         {
-            this._expression = expressions;
+            _expression = expressions;
             generate();
         }
 
@@ -289,12 +288,12 @@ namespace FSO.Server.Servers.Tasks
 
         public bool isValid()
         {
-            return isValid(this._expression);
+            return isValid(_expression);
         }
 
         public bool isValid(string expression)
         {
-            MatchCollection matches = validation_regex.Matches(expression);
+            var matches = validation_regex.Matches(expression);
             return matches.Count > 0;//== 5;
         }
 
@@ -311,7 +310,7 @@ namespace FSO.Server.Servers.Tasks
         {
             if (!isValid()) return;
 
-            MatchCollection matches = validation_regex.Matches(this._expression);
+            var matches = validation_regex.Matches(_expression);
 
             generate_minutes(matches[0].ToString());
 
@@ -338,27 +337,27 @@ namespace FSO.Server.Servers.Tasks
 
         private void generate_minutes(string match)
         {
-            this.minutes = generate_values(match, 0, 60);
+            minutes = generate_values(match, 0, 60);
         }
 
         private void generate_hours(string match)
         {
-            this.hours = generate_values(match, 0, 24);
+            hours = generate_values(match, 0, 24);
         }
 
         private void generate_days_of_month(string match)
         {
-            this.days_of_month = generate_values(match, 1, 32);
+            days_of_month = generate_values(match, 1, 32);
         }
 
         private void generate_months(string match)
         {
-            this.months = generate_values(match, 1, 13);
+            months = generate_values(match, 1, 13);
         }
 
         private void generate_days_of_weeks(string match)
         {
-            this.days_of_week = generate_values(match, 0, 7);
+            days_of_week = generate_values(match, 0, 7);
         }
 
         private List<int> generate_values(string configuration, int start, int max)
@@ -376,7 +375,7 @@ namespace FSO.Server.Servers.Tasks
             if (!divided_regex.IsMatch(configuration))
                 return new List<int>();
 
-            List<int> ret = new List<int>();
+            var ret = new List<int>();
             string[] split = configuration.Split("/".ToCharArray());
             int divisor = int.Parse(split[1]);
 
@@ -392,7 +391,7 @@ namespace FSO.Server.Servers.Tasks
             if (!range_regex.IsMatch(configuration))
                 return new List<int>();
 
-            List<int> ret = new List<int>();
+            var ret = new List<int>();
             string[] split = configuration.Split("-".ToCharArray());
             int start = int.Parse(split[0]);
             int end = 0;
@@ -421,7 +420,7 @@ namespace FSO.Server.Servers.Tasks
             if (!wild_regex.IsMatch(configuration))
                 return new List<int>();
 
-            List<int> ret = new List<int>();
+            var ret = new List<int>();
 
             for (int i = start; i < max; ++i)
                 ret.Add(i);
@@ -434,7 +433,7 @@ namespace FSO.Server.Servers.Tasks
             if (!list_regex.IsMatch(configuration))
                 return new List<int>();
 
-            List<int> ret = new List<int>();
+            var ret = new List<int>();
 
             string[] split = configuration.Split(",".ToCharArray());
 

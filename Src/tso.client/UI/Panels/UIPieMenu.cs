@@ -305,14 +305,14 @@ namespace FSO.Client.UI.Panels
         {
             int index = m_PieButtons.IndexOf((UIButton)button);
             //todo, make sim look at button
-            HITVM.Get().PlaySoundEvent(UISounds.PieMenuHighlight);
+            HITVM.Get.PlaySoundEvent(UISounds.PieMenuHighlight);
         }
 
         void BackButtonPress(UIElement button)
         {
             if (m_CurrentItem.Parent == null) return; //shouldn't ever be...
             m_CurrentItem = m_CurrentItem.Parent;
-            HITVM.Get().PlaySoundEvent(UISounds.PieMenuSelect);
+            HITVM.Get.PlaySoundEvent(UISounds.PieMenuSelect);
             RenderMenu();
         }
 
@@ -321,7 +321,7 @@ namespace FSO.Client.UI.Panels
             int index = m_PieButtons.IndexOf((UIButton)button);
             if (index == -1) return; //bail! this isn't meant to happen!
             var action = m_CurrentItem.Children.ElementAt(index);
-            HITVM.Get().PlaySoundEvent(UISounds.PieMenuSelect);
+            HITVM.Get.PlaySoundEvent(UISounds.PieMenuSelect);
 
             if (action.Category) {
                 m_CurrentItem = action;
@@ -366,7 +366,7 @@ namespace FSO.Client.UI.Panels
                         });
                     }
                 }
-                HITVM.Get().PlaySoundEvent(UISounds.QueueAdd);
+                HITVM.Get.PlaySoundEvent(UISounds.QueueAdd);
                 m_Parent.ClosePie();
                 
             }

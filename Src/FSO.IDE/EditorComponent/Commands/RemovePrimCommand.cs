@@ -65,7 +65,7 @@ namespace FSO.IDE.EditorComponent.Commands
                 prim.Instruction.FalsePointer = 253;
             }
             Content.GameContent.Get.Changes.ChunkChanged(bhav);
-            FSO.SimAntics.VM.BHAVChanged(bhav);
+            SimAntics.VM.BHAVChanged(bhav);
         }
 
         public override void Undo(BHAV bhav, UIBHAVEditor editor)
@@ -109,7 +109,7 @@ namespace FSO.IDE.EditorComponent.Commands
             }
 
             Content.GameContent.Get.Changes.ChunkChanged(bhav);
-            FSO.SimAntics.VM.BHAVChanged(bhav);
+            SimAntics.VM.BHAVChanged(bhav);
 
         }
     }

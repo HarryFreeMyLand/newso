@@ -36,7 +36,7 @@ namespace FSO.IDE.ResourceBrowser
 
         private void piffDebugButton_Click(object sender, EventArgs e)
         {
-            var test = FSO.Files.Formats.PiffEncoder.GeneratePiff(iffRes.ActiveIff.MainIff, null, null);
+            var test = Files.Formats.PiffEncoder.GeneratePiff(iffRes.ActiveIff.MainIff, null, null);
             var filename = "Content/Patch/" + test.Filename;
             Directory.CreateDirectory(Path.GetDirectoryName(filename));
             using (var stream = new FileStream(filename, FileMode.Create))

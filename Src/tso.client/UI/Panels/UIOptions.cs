@@ -415,7 +415,7 @@ namespace FSO.Client.UI.Panels
             else if (elm == VoxSlider) GlobalSettings.Default.VoxVolume = (byte)elm.Value;
             else if (elm == AmbienceSlider) GlobalSettings.Default.AmbienceVolume = (byte)elm.Value;
 
-            var hit = HITVM.Get();
+            var hit = HITVM.Get;
             hit.SetMasterVolume(HITVolumeGroup.FX, GlobalSettings.Default.FXVolume / 10f);
             hit.SetMasterVolume(HITVolumeGroup.MUSIC, GlobalSettings.Default.MusicVolume / 10f);
             hit.SetMasterVolume(HITVolumeGroup.VOX, GlobalSettings.Default.VoxVolume / 10f);

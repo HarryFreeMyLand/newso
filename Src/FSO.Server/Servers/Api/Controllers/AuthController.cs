@@ -3,12 +3,8 @@ using FSO.Server.Database.DA;
 using FSO.Server.Database.DA.AuthTickets;
 using Nancy;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Api.Controllers
 {
@@ -31,14 +27,14 @@ namespace FSO.Server.Servers.Api.Controllers
 
         public AuthController(IDAFactory daFactory, ApiServerConfiguration config)
         {
-            this.DAFactory = daFactory;
+            DAFactory = daFactory;
             Config = config;
-            this.Get["/AuthLogin"] = _ =>
+            Get["/AuthLogin"] = _ =>
             {
-                var username = this.Request.Query["username"];
-                var password = this.Request.Query["password"];
-                var version = this.Request.Query["version"];
-                var clientid = (string)this.Request.Query["clientid"];
+                var username = Request.Query["username"];
+                var password = Request.Query["password"];
+                var version = Request.Query["version"];
+                var clientid = (string)Request.Query["clientid"];
 
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 {
@@ -47,7 +43,7 @@ namespace FSO.Server.Servers.Api.Controllers
 
                 AuthTicket ticket = null;
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     var user = db.Users.GetByUsername(username);
                     if (user == null || user.is_banned)
@@ -74,7 +70,7 @@ namespace FSO.Server.Servers.Api.Controllers
 
                     var tryIP = Request.Headers["X-Forwarded-For"].FirstOrDefault();
                     if (tryIP != null) tryIP = tryIP.Substring(tryIP.LastIndexOf(',') + 1).Trim();
-                    var ip = tryIP ?? this.Request.UserHostAddress;
+                    var ip = tryIP ?? Request.UserHostAddress;
 
                     var ban = db.Bans.GetByIP(ip);
                     if (ban != null)
@@ -85,11 +81,13 @@ namespace FSO.Server.Servers.Api.Controllers
                     db.Users.UpdateClientID(user.user_id, clientid ?? "0");
 
                     /** Make a ticket **/
-                    ticket = new AuthTicket();
-                    ticket.ticket_id = Guid.NewGuid().ToString().Replace("-", "");
-                    ticket.user_id = user.user_id;
-                    ticket.date = Epoch.Now;
-                    ticket.ip = ip;
+                    ticket = new AuthTicket
+                    {
+                        ticket_id = Guid.NewGuid().ToString().Replace("-", ""),
+                        user_id = user.user_id,
+                        date = Epoch.Now,
+                        ip = ip
+                    };
 
                     db.AuthTickets.Create(ticket);
                 }
@@ -101,7 +99,7 @@ namespace FSO.Server.Servers.Api.Controllers
 
         public static string printError(String code, String message)
         {
-            StringBuilder result = new StringBuilder();
+            var result = new StringBuilder();
             result.AppendLine("Valid=FALSE");
             result.AppendLine("Ticket=0");
             result.AppendLine("reasontext=" + code + ";" + message);

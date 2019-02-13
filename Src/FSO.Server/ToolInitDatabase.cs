@@ -1,12 +1,7 @@
-﻿using FSO.Server.Common;
-using FSO.Server.Database.DA;
+﻿using FSO.Server.Database.DA;
 using FSO.Server.Database.Management;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server
 {
@@ -24,14 +19,14 @@ namespace FSO.Server
 
         public ToolInitDatabase(DatabaseInitOptions options, IDAFactory factory)
         {
-            this.DAFactory = factory;
+            DAFactory = factory;
         }
 
         public int Run()
         {
             Console.WriteLine("Starting database init");
 
-            using (var da = (SqlDA)DAFactory.Get())
+            using (var da = (SqlDA)DAFactory.Get)
             {
                 var changeTool = new DbChangeTool(da.Context);
                 var changes = changeTool.GetChanges();

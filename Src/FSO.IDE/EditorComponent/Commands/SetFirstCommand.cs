@@ -55,7 +55,7 @@ namespace FSO.IDE.EditorComponent.Commands
                 foreach (var prim in FromTrue0) prim.Instruction.TruePointer = OldPtr;
                 foreach (var prim in FromFalse0) prim.Instruction.FalsePointer = OldPtr;
                 Content.GameContent.Get.Changes.ChunkChanged(bhav);
-                FSO.SimAntics.VM.BHAVChanged(bhav);
+                SimAntics.VM.BHAVChanged(bhav);
             }
         }
 
@@ -76,7 +76,7 @@ namespace FSO.IDE.EditorComponent.Commands
                 foreach (var prim in FromTrue0) prim.Instruction.TruePointer = 0;
                 foreach (var prim in FromFalse0) prim.Instruction.FalsePointer = 0;
                 Content.GameContent.Get.Changes.ChunkChanged(bhav);
-                FSO.SimAntics.VM.BHAVChanged(bhav);
+                SimAntics.VM.BHAVChanged(bhav);
             }
         }
     }

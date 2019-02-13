@@ -1,44 +1,61 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.Common.Utils
 {
-    public class Promise <T>
+    public class Promise<T>
     {
-        private Func<object, T> Getter;
-        private T Value;
-        private bool HasRun = false;
-        
+        Func<object, T> _getter;
+        T _value;
+        bool _hasRun = false;
+
 
         public Promise(Func<object, T> getter)
         {
-            Getter = getter;
+            _getter = getter;
         }
 
+        public T Values
+        {
+            set
+            {
+                _hasRun = true;
+                _value = value;
+            }
+            get
+            {
+                if (_hasRun == false)
+                {
+                    _value = _getter(null);
+                    _hasRun = true;
+                }
+
+                return _value;
+            }
+        }
+
+        [Obsolete("Use Values property")]
         public void SetValue(T value)
         {
-            HasRun = true;
-            Value = value;
+            _hasRun = true;
+            _value = value;
         }
 
-
+        [Obsolete("Use Values property")]
         public T Get()
         {
-            if (HasRun == false)
+            if (_hasRun == false)
             {
-                Value = Getter(null);
-                HasRun = true;
+                _value = _getter(null);
+                _hasRun = true;
             }
 
-            return Value;
+            return _value;
         }
     }
 }

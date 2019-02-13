@@ -42,7 +42,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
                     vm.Context.ObjectQueries.RemoveMultitilePersist(vm, obj.PersistID);
                     foreach (var o in obj.MultitileGroup.Objects) o.PersistID = 0; //no longer representative of the object in db.
                     obj.Delete(true, vm.Context);
-                    if (VM.UseWorld) HIT.HITVM.Get().PlaySoundEvent("ui_letter_send");
+                    if (VM.UseWorld) HIT.HITVM.Get.PlaySoundEvent("ui_letter_send");
                 } else
                 {
                     foreach (var o in obj.MultitileGroup.Objects)

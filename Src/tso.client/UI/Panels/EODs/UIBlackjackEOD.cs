@@ -475,7 +475,7 @@ namespace FSO.Client.UI.Panels.EODs
         void SoundHandler(string evt, string soundString)
         {
             // play the sound
-            HIT.HITVM.Get().PlaySoundEvent(soundString);
+            HIT.HITVM.Get.PlaySoundEvent(soundString);
         }
         /*
          * Updates EODTimer
@@ -560,7 +560,7 @@ namespace FSO.Client.UI.Panels.EODs
             if (spentForInsurance > 0)
             {
                 // play the ka-ching sound
-                HIT.HITVM.Get().PlaySoundEvent("ui_object_place");
+                HIT.HITVM.Get.PlaySoundEvent("ui_object_place");
                 InsuranceAlert = ShowUIAlert(Insurance, InsuranceConfirmation.Replace("%d", spentForInsurance + ""), null);
                 // show the insured label
                 InsuredLabel.Visible = true;
@@ -599,7 +599,7 @@ namespace FSO.Client.UI.Panels.EODs
             // update displayed bet text below and above
             UpdateMyBetAmount("" + MyCurrentBetAmount);
             // play the ka-ching sound
-            HIT.HITVM.Get().PlaySoundEvent("ui_object_place");
+            HIT.HITVM.Get.PlaySoundEvent("ui_object_place");
         }
         /*
          * This event occurs when a stand event occurs from the server, or automatically if the server detects a bust. Does not enable input.
@@ -825,7 +825,7 @@ namespace FSO.Client.UI.Panels.EODs
                 winningString = winningString.Replace("%i", winnings + "");
                 SetNewTip(winningString);
                 // play the ka-ching sound
-                HIT.HITVM.Get().PlaySoundEvent("ui_object_place");
+                HIT.HITVM.Get.PlaySoundEvent("ui_object_place");
             }
             else // you lose
             {
@@ -950,7 +950,7 @@ namespace FSO.Client.UI.Panels.EODs
                         SetNewActiveHand(0, currentList.ToArray());
                 }
                 // play a sound
-                HIT.HITVM.Get().PlaySoundEvent("blackjack_cards_hit");
+                HIT.HITVM.Get.PlaySoundEvent("blackjack_cards_hit");
             }
             else
                 DealTimer.Stop();
@@ -1034,13 +1034,13 @@ namespace FSO.Client.UI.Panels.EODs
                 appendix = ": " + GameFacade.Strings["UIText", "263", "8"]; // "Split"
                 MakeSplitLabelVisible(player[0]);
                 // play the ka-ching sound
-                HIT.HITVM.Get().PlaySoundEvent("ui_object_place");
+                HIT.HITVM.Get.PlaySoundEvent("ui_object_place");
             }
             else if (evt[11].Equals('o')) // "blackjack_double_broadcast"
             {
                 appendix = ": " + GameFacade.Strings["UIText", "263", "9"]; // "Double down"
                 // play the ka-ching sound
-                HIT.HITVM.Get().PlaySoundEvent("ui_object_place");
+                HIT.HITVM.Get.PlaySoundEvent("ui_object_place");
             }
                 // other option is 'a' for "blackjack_late_comer"
 

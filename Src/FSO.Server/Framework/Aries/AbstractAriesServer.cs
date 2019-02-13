@@ -1,8 +1,5 @@
-﻿using FSO.Server.Database.DA.Shards;
-using FSO.Server.Protocol.Aries;
-using FSO.Server.Protocol.Voltron.Packets;
+﻿using FSO.Server.Protocol.Aries;
 using FSO.Server.Servers;
-using FSO.Server.Servers.City;
 using Mina.Core.Service;
 using Mina.Core.Session;
 using Mina.Filter.Codec;
@@ -12,22 +9,11 @@ using Ninject;
 using NLog;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Net;
 using System.Security.Authentication;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Server.Common;
 using FSO.Server.Protocol.Aries.Packets;
 using FSO.Server.Database.DA;
-using FSO.Server.Protocol.Voltron;
-using FSO.Server.Framework.Voltron;
 using FSO.Common.Serialization;
-using FSO.Common.Domain.Shards;
-using FSO.Server.Protocol.CitySelector;
-using FSO.Common.Utils;
-using FSO.Server.Protocol.Gluon.Model;
 using FSO.Server.Database.DA.Hosts;
 using Mina.Core.Write;
 
@@ -53,9 +39,9 @@ namespace FSO.Server.Framework.Aries
         public AbstractAriesServer(AbstractAriesServerConfig config, IKernel kernel)
         {
             _Sessions = new Sessions(this);
-            this.Kernel = kernel;
-            this.DAFactory = Kernel.Get<IDAFactory>();
-            this.Config = config;
+            Kernel = kernel;
+            DAFactory = Kernel.Get<IDAFactory>();
+            Config = config;
 
             if(config.Public_Host == null || config.Internal_Host == null ||
                 config.Call_Sign == null || config.Binding == null)
@@ -64,7 +50,7 @@ namespace FSO.Server.Framework.Aries
             }
 
             Kernel.Bind<IAriesPacketRouter>().ToConstant(_Router);
-            Kernel.Bind<ISessions>().ToConstant(this._Sessions);
+            Kernel.Bind<ISessions>().ToConstant(_Sessions);
         }
 
         public IAriesPacketRouter Router
@@ -77,12 +63,12 @@ namespace FSO.Server.Framework.Aries
 
         public override void AttachDebugger(IServerDebugger debugger)
         {
-            this.Debugger = debugger;
+            Debugger = debugger;
         }
         
         protected virtual DbHost CreateHost()
         {
-            return new Database.DA.Hosts.DbHost
+            return new DbHost
             {
                 call_sign = Config.Call_Sign,
                 status = Database.DA.Hosts.DbHostStatus.up,
@@ -96,7 +82,7 @@ namespace FSO.Server.Framework.Aries
         {
             Bootstrap();
 
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 db.Hosts.CreateHost(CreateHost());
             }
@@ -106,8 +92,10 @@ namespace FSO.Server.Framework.Aries
             try {
                 if (Config.Certificate != null)
                 {
-                    var ssl = new SslFilter(new System.Security.Cryptography.X509Certificates.X509Certificate2(Config.Certificate));
-                    ssl.SslProtocol = SslProtocols.Tls;
+                    var ssl = new SslFilter(new System.Security.Cryptography.X509Certificates.X509Certificate2(Config.Certificate))
+                    {
+                        SslProtocol = SslProtocols.Tls
+                    };
                     Acceptor.FilterChain.AddLast("ssl", ssl);
                     if (Debugger != null)
                     {
@@ -261,7 +249,7 @@ namespace FSO.Server.Framework.Aries
             {
                 //don't do anything... mina should be able to deal with this
             }
-            else if (cause is System.InvalidOperationException)
+            else if (cause is InvalidOperationException)
             {
                 LOG.Error(cause, "CRITICAL (mina bug): " + cause.ToString());
                 session.Close(true);
@@ -294,7 +282,7 @@ namespace FSO.Server.Framework.Aries
 
         public void MarkHostDown()
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 try {
                     db.Hosts.SetStatus(Config.Call_Sign, DbHostStatus.down);

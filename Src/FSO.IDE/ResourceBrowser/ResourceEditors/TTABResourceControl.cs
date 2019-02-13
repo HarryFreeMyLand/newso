@@ -166,8 +166,8 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             int i = 0;
             foreach (var entry in ActiveTTAB.Interactions)
             {
-                BHAV test = GetBHAV(entry.TestFunction);
-                BHAV action = GetBHAV(entry.ActionFunction);
+                var test = GetBHAV(entry.TestFunction);
+                var action = GetBHAV(entry.ActionFunction);
                 InteractionList.Items.Add(
                     new ListViewItem(new string[] { entry.TTAIndex.ToString(),
                         (test == null)?"---":test.ChunkLabel,
@@ -179,14 +179,14 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var sortActions = ActiveTTAB.Interactions.OrderBy(x => GetTTA(x.TTAIndex));
             int prevDepth = 0;
             TreeNode curNode = null;
-            TreeNodeCollection curDepth = PieView.Nodes;
+            var curDepth = PieView.Nodes;
             string category = "";
             curDepth.Clear();
             PieToInteraction = new Dictionary<TreeNode, int>();
             foreach (var entry in sortActions)
             {
-                BHAV test = GetBHAV(entry.TestFunction);
-                BHAV action = GetBHAV(entry.ActionFunction);
+                var test = GetBHAV(entry.TestFunction);
+                var action = GetBHAV(entry.ActionFunction);
                 var name = GetTTA(entry.TTAIndex);
                 var split = name.Split('/');
                 var node = new TreeNode(split[split.Length - 1] + " (" + entry.TTAIndex.ToString() + " / " +
@@ -300,7 +300,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var property = Selected.GetType().GetProperty(param);
             var sel = Selected;
             bool value = me.Checked;
-            Content.GameContent.Get.Changes.QueueResMod(new ResAction(() =>
+            GameContent.Get.Changes.QueueResMod(new ResAction(() =>
             {
                 property.SetValue(sel, value, new object[0]);
             }, ActiveTTAB));
@@ -311,7 +311,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             if (InternalChange || Strings == null || SelectedIndex == -1) return;
             var ind = (int)Selected.TTAIndex;
             var value = InteractionPathName.Text;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 Strings.SetString(ind, value, ActiveLanguage);
             }, Strings));
@@ -355,7 +355,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var ind = MotiveList.SelectedIndex;
             var sel = Selected;
             var value = (short)MinMotive.Value;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 sel.MotiveEntries[ind].EffectRangeMinimum = value;
             }, ActiveTTAB));
@@ -369,7 +369,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var ind = MotiveList.SelectedIndex;
             var sel = Selected;
             var value = (short)MaxMotive.Value;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 sel.MotiveEntries[ind].EffectRangeMaximum = value;
             }, ActiveTTAB));
@@ -383,7 +383,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var ind = MotiveList.SelectedIndex;
             var sel = Selected;
             var value = (ushort)Math.Max(0,MotivePersonality.SelectedIndex);
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 sel.MotiveEntries[ind].PersonalityModifier = value;
             }, ActiveTTAB));
@@ -398,7 +398,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             {
                 var sel = Selected;
                 var value = dialog.ResultID;
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     sel.ActionFunction = value;
                 }, ActiveTTAB));
@@ -414,7 +414,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             {
                 var sel = Selected;
                 var value = dialog.ResultID;
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     sel.TestFunction = value;
                 }, ActiveTTAB));
@@ -427,7 +427,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             var sel = Selected;
             int TTAIndex = 0;
             int MaxTTAIndex = (ActiveTTAB.Interactions.Length == 0)?-1:ActiveTTAB.Interactions.Max(x => (int)x.TTAIndex);
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 while (Strings.Length <= MaxTTAIndex)
                 {
@@ -436,8 +436,8 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
                 TTAIndex = Strings.Length;
                 Strings.InsertString(Strings.Length, new STRItem { Value = "New Interaction" });
             }, Strings));
-            
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var action = new TTABInteraction() { TTAIndex = (uint)TTAIndex, MotiveEntries = new TTABMotiveEntry[MotiveNames.Length] };
                 ActiveTTAB.InsertInteraction(action, 
@@ -450,12 +450,12 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         private void RemoveBtn_Click(object sender, EventArgs e)
         {
             var sel = Selected;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 Strings.RemoveString((int)sel.TTAIndex);
             }, Strings));
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveTTAB.DeleteInteraction(Array.IndexOf(ActiveTTAB.Interactions, sel));
             }, ActiveTTAB));
@@ -466,7 +466,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         private void MoveUpBtn_Click(object sender, EventArgs e)
         {
             var sel = Selected;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var ind = Array.IndexOf(ActiveTTAB.Interactions, sel);
                 if (ind == 0) return;
@@ -480,7 +480,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         private void MoveDownBtn_Click(object sender, EventArgs e)
         {
             var sel = Selected;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var ind = Array.IndexOf(ActiveTTAB.Interactions, sel);
                 if (ind == ActiveTTAB.Interactions.Length-1) return;
@@ -502,7 +502,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             int index = LanguageCombo.SelectedIndex;
             string chosenName = STR.LanguageSetNames[index];
             bool langExists = false;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 langExists = Strings.IsSetInit((STRLangCode)(index + 1));
             },Strings));
@@ -513,7 +513,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
                     "Language not initialized!", MessageBoxButtons.YesNo);
                 if (result == DialogResult.Yes)
                 {
-                    Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                    GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                     {
                         Strings.InitLanguageSet((STRLangCode)(index + 1));
                     }, Strings));

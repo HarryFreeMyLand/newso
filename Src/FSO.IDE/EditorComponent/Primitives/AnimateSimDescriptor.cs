@@ -91,7 +91,7 @@ namespace FSO.IDE.EditorComponent.Primitives
 
         public static string GetAnimationName(EditorScope escope, VMAnimationScope scope, ushort id)
         {
-            STR animTable = GetAnimTable(escope, scope);
+            var animTable = GetAnimTable(escope, scope);
             if (animTable == null) return "Unknown animation (bad source)";
 
             var animationName = animTable.GetString(id);

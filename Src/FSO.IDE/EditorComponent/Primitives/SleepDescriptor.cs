@@ -23,7 +23,7 @@ namespace FSO.IDE.EditorComponent.Primitives
             var op = (VMSleepOperand)Operand;
             var result = new StringBuilder();
             result.Append("for ticks in ");
-            result.Append(scope.GetVarScopeDataName(SimAntics.Engine.Scopes.VMVariableScope.Parameters, op.StackVarToDec));
+            result.Append(scope.GetVarScopeDataName(VMVariableScope.Parameters, op.StackVarToDec));
             return result.ToString();
         }
 

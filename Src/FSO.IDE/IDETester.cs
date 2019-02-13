@@ -1,4 +1,4 @@
-﻿using FSO.Client.Diagnostics;
+using FSO.Client.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,10 +22,10 @@ namespace FSO.IDE
 
         public void StartIDE(VM vm)
         {
-            EditorResource.Get().Init(GameFacade.GraphicsDevice);
-            var content = Content.GameContent.Get;
+            EditorResource.Get.Init(GameFacade.GraphicsDevice);
+            var content = GameContent.Get;
             EditorScope.Behaviour = new Files.Formats.IFF.IffFile(
-                content.TS1?Path.Combine(content.TS1BasePath, "GameData/Behavior.iff"):content.GetPath("objectdata/globals/behavior.iff"));
+                content.TS1 ? Path.Combine(content.TS1BasePath, "GameData/Behavior.iff") : content.GetPath("objectdata/globals/behavior.iff"));
             EditorScope.Globals = content.WorldObjectGlobals.Get("global");
             Program.MainThread = Thread.CurrentThread;
 
@@ -44,7 +44,8 @@ namespace FSO.IDE
         {
             new Thread(() =>
             {
-                if (MainWindow.Instance == null) return;
+                if (MainWindow.Instance == null)
+                    return;
                 MainWindow.Instance.Invoke(new MainWindowDelegate(() =>
                 {
                     MainWindow.Instance.BHAVManager.OpenEditor(targetBhav, targetObj);
@@ -56,14 +57,16 @@ namespace FSO.IDE
         {
             new Thread(() =>
             {
-                if (MainWindow.Instance == null) return;
+                if (MainWindow.Instance == null)
+                    return;
                 try
                 {
                     MainWindow.Instance.Invoke(new MainWindowDelegate(() =>
                     {
                         MainWindow.Instance.BHAVManager.OpenTracer(vm, targetEnt);
                     }), null);
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                     //oops?
                 }

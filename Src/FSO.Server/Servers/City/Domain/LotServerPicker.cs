@@ -1,10 +1,8 @@
 ﻿using FSO.Server.Framework.Gluon;
 using FSO.Server.Protocol.Gluon.Model;
 using FSO.Server.Protocol.Gluon.Packets;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Domain
@@ -144,7 +142,7 @@ namespace FSO.Server.Servers.City.Domain
 
         public LotPickerAttempt(LotServerState state)
         {
-            this.State = state;
+            State = state;
         }
 
         public void Free()

@@ -7,10 +7,7 @@ using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Packets;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -22,9 +19,9 @@ namespace FSO.Server.Servers.City.Handlers
 
         public MailHandler(ISessions sessions, IDataService dataService, IDAFactory da)
         {
-            this.Sessions = sessions;
-            this.DataService = dataService;
-            this.DA = da;
+            Sessions = sessions;
+            DataService = dataService;
+            DA = da;
         }
 
         public async void Handle(IVoltronSession session, MailRequest message)
@@ -38,7 +35,7 @@ namespace FSO.Server.Servers.City.Handlers
                 {
                     case MailRequestType.POLL_INBOX:
                         //when a user logs in they will send this request to recieve all messages after their last recieved message.
-                        using (var da = DA.Get())
+                        using (var da = DA.Get)
                         {
                             var msgs = da.Inbox.GetMessagesAfter(session.AvatarId, new DateTime(message.TimestampID));
                             session.Write(new MailResponse()
@@ -50,13 +47,13 @@ namespace FSO.Server.Servers.City.Handlers
                         }
                     case MailRequestType.DELETE:
                         //when a user deletes a message from their pc, it should also be deleted from the server.
-                        using (var da = DA.Get())
+                        using (var da = DA.Get)
                         {
                             da.Inbox.DeleteMessage((int)message.TimestampID, session.AvatarId);
                             return;
                         }
                     case MailRequestType.SEND:
-                        using (var da = DA.Get())
+                        using (var da = DA.Get)
                         {
                             //admins get to change their message type, source, etc, and are never throttled.
                             var modLevel = da.Avatars.GetModerationLevel(session.AvatarId);
@@ -152,7 +149,7 @@ namespace FSO.Server.Servers.City.Handlers
                 read_state = 0,
             };
 
-            using (var da = DA.Get())
+            using (var da = DA.Get)
             {
                 try
                 {

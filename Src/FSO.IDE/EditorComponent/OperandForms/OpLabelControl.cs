@@ -17,8 +17,8 @@ namespace FSO.IDE.EditorComponent.OperandForms
 
         public OpLabelControl()
         {
-            this.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.Margin = new System.Windows.Forms.Padding(3, 0, 3, 10);
+            this.Dock = DockStyle.Fill;
+            this.Margin = new Padding(3, 0, 3, 10);
             this.AutoSize = true;
         }
 

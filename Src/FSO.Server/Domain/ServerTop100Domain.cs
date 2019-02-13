@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Domain
 {
@@ -22,7 +20,7 @@ namespace FSO.Server.Domain
         {
             Cache = cache;
             this.DAFactory = DAFactory;
-            this.Context = context;
+            Context = context;
         }
 
         public List<Top100Entry> Query(Top100Category category)
@@ -37,7 +35,7 @@ namespace FSO.Server.Domain
                     return (List <Top100Entry>)value.Value;
                 }
 
-                using (var db = DAFactory.Get())
+                using (var db = DAFactory.Get)
                 {
                     List<Top100Entry> results = null;
 

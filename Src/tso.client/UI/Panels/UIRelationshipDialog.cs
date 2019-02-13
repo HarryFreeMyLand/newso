@@ -234,7 +234,7 @@ namespace FSO.Client.UI.Panels
         {
             if (SearchBox.CurrentText.Length < 2)
             {
-                HIT.HITVM.Get().PlaySoundEvent(Model.UISounds.Error);
+                HIT.HITVM.Get.PlaySoundEvent(Model.UISounds.Error);
                 return;
             }
             FindController<RelationshipDialogController>().Search(SearchBox.CurrentText);

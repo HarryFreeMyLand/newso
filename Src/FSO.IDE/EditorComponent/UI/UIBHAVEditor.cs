@@ -1,4 +1,4 @@
-﻿using FSO.Client.UI.Framework;
+using FSO.Client.UI.Framework;
 using FSO.Files.Formats.IFF.Chunks;
 using Microsoft.Xna.Framework;
 using System;
@@ -79,7 +79,8 @@ namespace FSO.IDE.EditorComponent.UI
             GameThread.NextUpdate(x =>
             {
                 var basePrim = BHAVView.RealPrim.FirstOrDefault();
-                if (basePrim != null) BHAVView.Position = GetCentralLocation(basePrim);
+                if (basePrim != null)
+                    BHAVView.Position = GetCentralLocation(basePrim);
             });
 
             PlacingName = new UILabel
@@ -88,7 +89,7 @@ namespace FSO.IDE.EditorComponent.UI
                 Size = new Vector2(1, 1),
                 CaptionStyle = TextStyle.DefaultLabel.Clone()
             };
-            PlacingName.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
+            PlacingName.CaptionStyle.Font = GameFacade.EdithFont;
             PlacingName.CaptionStyle.Size = 15;
             PlacingName.CaptionStyle.Color = new Color(0, 102, 26);
 
@@ -100,7 +101,7 @@ namespace FSO.IDE.EditorComponent.UI
                 Size = new Vector2(1, 1),
                 CaptionStyle = TextStyle.DefaultLabel.Clone()
             };
-            PlacingDesc.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
+            PlacingDesc.CaptionStyle.Font = GameFacade.EdithFont;
             PlacingDesc.CaptionStyle.Size = 12;
             PlacingDesc.CaptionStyle.Color = new Color(0, 102, 26);
 
@@ -113,7 +114,7 @@ namespace FSO.IDE.EditorComponent.UI
             {
                 this.Add(new UITracerBar());
 
-                var resource = EditorResource.Get().Indexed;
+                var resource = EditorResource.Get.Indexed;
                 DebugFrame = debugEnt.Thread.Stack.LastOrDefault();
                 UpdateDebugPointer(DebugFrame);
                 DebugGo = new UIButton
@@ -183,7 +184,7 @@ namespace FSO.IDE.EditorComponent.UI
                 {
                     CaptionStyle = TextStyle.DefaultLabel.Clone()
                 };
-                DebugLabel.CaptionStyle.Font = FSO.Client.GameFacade.EdithFont;
+                DebugLabel.CaptionStyle.Font = GameFacade.EdithFont;
                 DebugLabel.CaptionStyle.Size = 12;
                 DebugLabel.CaptionStyle.Color = Color.White;
                 DebugLabel.Caption = "Breakpoint Hit.";
@@ -211,7 +212,8 @@ namespace FSO.IDE.EditorComponent.UI
                 DebugEntity.Thread.ThreadBreak = VMThreadBreakMode.ReturnFalse;
             else if (button == DebugReset)
                 DebugEntity.Thread.ThreadBreak = VMThreadBreakMode.Reset;
-            else return;
+            else
+                return;
 
             Resume();
         }
@@ -219,7 +221,7 @@ namespace FSO.IDE.EditorComponent.UI
         public void Resume()
         {
             DebugGo.Tooltip = "Pause";
-            DebugGo.Texture = EditorResource.Get().Indexed[7];
+            DebugGo.Texture = EditorResource.Get.Indexed[7];
             DebugStepIn.Disabled = true;
             DebugStepOut.Disabled = true;
             DebugStepOver.Disabled = true;
@@ -227,14 +229,15 @@ namespace FSO.IDE.EditorComponent.UI
             DebugFalse.Disabled = true;
             DebugLabel.Caption = "Running...";
             RedrawNext = true;
-            if (DisableDebugger != null) DisableDebugger();
+            if (DisableDebugger != null)
+                DisableDebugger();
             BHAVView.DebugPointer = null;
         }
 
         public void NewBreak(VMStackFrame frame)
         {
             DebugGo.Tooltip = "Go";
-            DebugGo.Texture = EditorResource.Get().Indexed[0];
+            DebugGo.Texture = EditorResource.Get.Indexed[0];
             DebugStepIn.Disabled = false;
             DebugStepOut.Disabled = false;
             DebugStepOver.Disabled = false;
@@ -246,7 +249,8 @@ namespace FSO.IDE.EditorComponent.UI
             {
                 DebugLabel.CaptionStyle.Color = new Color(255, 255, 155, 255);
                 breakStr = breakStr.Substring(1);
-            } else
+            }
+            else
             {
                 DebugLabel.CaptionStyle.Color = Color.White;
             }
@@ -291,7 +295,8 @@ namespace FSO.IDE.EditorComponent.UI
             {
                 BHAVView = ContainerByID[target.ChunkID];
                 AddAt(0, BHAVView);
-            } else
+            }
+            else
             {
                 BHAVView = new BHAVContainer(target, scope);
                 ContainerByID.Add(target.ChunkID, BHAVView);
@@ -308,14 +313,16 @@ namespace FSO.IDE.EditorComponent.UI
         {
             lock (Commands)
             {
-                if (Commands.Count > 0) RedoStack.Clear();
-                foreach(var cmd in Commands)
+                if (Commands.Count > 0)
+                    RedoStack.Clear();
+                foreach (var cmd in Commands)
                 {
                     state.SharedData["ExternalDraw"] = true;
                     cmd.Execute(BHAVView.EditTarget, this);
                     UndoStack.Push(cmd);
                 }
-                if (Commands.Count > 0) BHAVView.Scope.Object.Resource.Recache();
+                if (Commands.Count > 0)
+                    BHAVView.Scope.Object.Resource.Recache();
                 Commands.Clear();
             }
 
@@ -383,7 +390,7 @@ namespace FSO.IDE.EditorComponent.UI
             MouseWasDown = state.MouseState.LeftButton == ButtonState.Pressed;
             base.Update(state);
 
-            if (BHAVView.HoverPrim != null && (!RightMouseWasDown) && 
+            if (BHAVView.HoverPrim != null && (!RightMouseWasDown) &&
                 state.MouseState.RightButton == ButtonState.Pressed
                 && BHAVView.HoverPrim.Type == PrimBoxType.Primitive)
             {
@@ -422,7 +429,7 @@ namespace FSO.IDE.EditorComponent.UI
         {
             PlacingName.Visible = true;
             PlacingDesc.Visible = true;
-            
+
             if (primType == 254 || primType == 255)
             {
                 Placement = new PrimitiveBox((primType == 254) ? PrimBoxType.True : PrimBoxType.False, BHAVView);
@@ -462,7 +469,7 @@ namespace FSO.IDE.EditorComponent.UI
                 Placement.ShadDraw(batch);
                 Placement.Draw(batch);
             }
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
             DrawLocalTexture(batch, res.WhiteTex, null, new Vector2(), new Vector2(4, height), Color.Black * 0.2f);
             DrawLocalTexture(batch, res.WhiteTex, null, new Vector2(4, 0), new Vector2(width, 4), Color.Black * 0.2f);
 
@@ -491,26 +498,27 @@ namespace FSO.IDE.EditorComponent.UI
         {
             var width = batch.GraphicsDevice.Viewport.Width;
             var height = batch.GraphicsDevice.Viewport.Height;
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
             int margin = 24;
 
             int boxWidth = width - margin * 2;
             int boxHeight = height - margin * 2;
 
-            int i = phase%32;
-            bool draw = ((phase/32)%2) == 1;
+            int i = phase % 32;
+            bool draw = ((phase / 32) % 2) == 1;
             i -= 32;
             while (i < boxWidth)
             {
                 if (draw)
                 {
                     DrawLine(res.WhiteTex,
-                    new Vector2(Math.Max(margin, margin+i) + offset, margin + offset),
+                    new Vector2(Math.Max(margin, margin + i) + offset, margin + offset),
                     new Vector2(Math.Min(width - margin, margin + i + 32) + offset, margin + offset),
                     batch, 4, color);
                 }
 
-                i += 32; draw = !draw;
+                i += 32;
+                draw = !draw;
             }
             i -= boxWidth + 32;
             draw = !draw;
@@ -525,7 +533,8 @@ namespace FSO.IDE.EditorComponent.UI
                     batch, 4, color);
                 }
 
-                i += 32; draw = !draw;
+                i += 32;
+                draw = !draw;
             }
             i -= boxHeight + 32;
             draw = !draw;
@@ -535,12 +544,13 @@ namespace FSO.IDE.EditorComponent.UI
                 if (draw)
                 {
                     DrawLine(res.WhiteTex,
-                    new Vector2(width-Math.Max(margin, margin + i) + offset, (height-margin) + offset),
-                    new Vector2(width-Math.Min(width - margin, margin + i + 32) + offset, (height - margin) + offset),
+                    new Vector2(width - Math.Max(margin, margin + i) + offset, (height - margin) + offset),
+                    new Vector2(width - Math.Min(width - margin, margin + i + 32) + offset, (height - margin) + offset),
                     batch, 4, color);
                 }
 
-                i += 32; draw = !draw;
+                i += 32;
+                draw = !draw;
             }
             i -= boxWidth + 32;
             draw = !draw;
@@ -550,12 +560,13 @@ namespace FSO.IDE.EditorComponent.UI
                 if (draw)
                 {
                     DrawLine(res.WhiteTex,
-                    new Vector2(offset + margin, height-Math.Max(margin, margin + i) + offset),
-                    new Vector2(offset + margin, height-Math.Min(height - margin, margin + i + 32) + offset),
+                    new Vector2(offset + margin, height - Math.Max(margin, margin + i) + offset),
+                    new Vector2(offset + margin, height - Math.Min(height - margin, margin + i + 32) + offset),
                     batch, 4, color);
                 }
 
-                i += 32; draw = !draw;
+                i += 32;
+                draw = !draw;
             }
 
         }
@@ -577,7 +588,7 @@ namespace FSO.IDE.EditorComponent.UI
     {
         public override void Draw(UISpriteBatch batch)
         {
-            var res = EditorResource.Get();
+            var res = EditorResource.Get;
             DrawLocalTexture(batch, res.WhiteTex, null, new Vector2(), new Vector2(batch.GraphicsDevice.Viewport.Width, 30), new Color(12, 61, 112) * 0.80f);
             DrawLocalTexture(batch, res.WhiteTex, null, new Vector2(0, 30), new Vector2(batch.GraphicsDevice.Viewport.Width, 4), new Color(12, 61, 112) * 0.30f);
         }

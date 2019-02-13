@@ -21,14 +21,14 @@ namespace FSO.IDE.EditorComponent.Commands
         {
             InstUI.Instruction.Breakpoint = !InstUI.Instruction.Breakpoint;
 
-            FSO.SimAntics.VM.BHAVChanged(bhav);
+            SimAntics.VM.BHAVChanged(bhav);
         }
 
         public override void Undo(BHAV bhav, UIBHAVEditor editor)
         {
             InstUI.Instruction.Breakpoint = !InstUI.Instruction.Breakpoint;
 
-            FSO.SimAntics.VM.BHAVChanged(bhav);
+            SimAntics.VM.BHAVChanged(bhav);
         }
     }
 }

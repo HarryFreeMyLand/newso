@@ -74,7 +74,7 @@ namespace FSO.Client.UI.Controls
             //accept at x=0, decline at x = 40-19
             if (AcceptButton == null)
             {
-                HIT.HITVM.Get().PlaySoundEvent(UISounds.CallQueueFull);
+                HIT.HITVM.Get.PlaySoundEvent(UISounds.CallQueueFull);
                 AcceptButton = new UIButton
                 {
                     Texture = GetTexture(0x1B300000001),

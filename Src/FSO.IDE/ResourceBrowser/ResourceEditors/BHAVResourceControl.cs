@@ -87,7 +87,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             input.ShowDialog();
             if (input.DialogResult == DialogResult.OK) {
                 string name = input.StringResult;
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveMeta.ParamNames[index] = name;
                 }, ActiveMeta));
@@ -104,7 +104,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             if (input.DialogResult == DialogResult.OK)
             {
                 string name = input.StringResult;
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     ActiveMeta.LocalNames[index] = name;
                 }, ActiveMeta));
@@ -114,14 +114,14 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void ParamAddBtn_Click(object sender, EventArgs e)
         {
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveChunk.Args++;
             }, ActiveChunk));
 
             if (ActiveMeta != null)
             {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     var newN = new string[ActiveMeta.ParamNames.Length + 1];
                     Array.Copy(ActiveMeta.ParamNames, newN, newN.Length - 1);
@@ -137,14 +137,14 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         {
             int selected = LocalList.SelectedIndex;
             if (selected == -1 && ActiveMeta != null) return;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveChunk.Locals--;
             }, ActiveChunk));
 
             if (ActiveMeta != null)
             {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     var newN = new string[ActiveMeta.LocalNames.Length - 1];
                     Array.Copy(ActiveMeta.LocalNames, newN, selected);
@@ -158,14 +158,14 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void LocalAddBtn_Click(object sender, EventArgs e)
         {
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveChunk.Locals++;
             }, ActiveChunk));
 
             if (ActiveMeta != null)
             {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     var newN = new string[ActiveMeta.LocalNames.Length + 1];
                     Array.Copy(ActiveMeta.LocalNames, newN, newN.Length - 1);
@@ -181,14 +181,14 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         {
             int selected = ParamList.SelectedIndex;
             if (selected == -1 && ActiveMeta != null) return;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 ActiveChunk.Args--;
             }, ActiveChunk));
 
             if (ActiveMeta != null)
             {
-                Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+                GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
                 {
                     var newN = new string[ActiveMeta.ParamNames.Length - 1];
                     Array.Copy(ActiveMeta.ParamNames, newN, selected);

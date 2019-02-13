@@ -1,7 +1,6 @@
 ﻿using FSO.Server.Clients;
 using FSO.Server.Database.DA;
 using FSO.Server.Framework.Aries;
-using FSO.Server.Framework.Gluon;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,6 @@ using FSO.Server.Protocol.Aries.Packets;
 using FSO.Server.Database.DA.Hosts;
 using System.Threading;
 using NLog;
-using System.Security.Cryptography;
 using FSO.Server.Protocol.Gluon.Packets;
 using Ninject.Modules;
 using FSO.Server.Protocol.Utils;
@@ -52,10 +50,10 @@ namespace FSO.Server.Utils
         }
 
         public GluonHostPool(IDAFactory daFactory, IKernel kernel){
-            this.DAFactory = daFactory;
-            this.Kernel = kernel;
-            this.Pool = new Dictionary<string, GluonHost>();
-            this.Monitor = new GluonHostPoolMonitor(this);
+            DAFactory = daFactory;
+            Kernel = kernel;
+            Pool = new Dictionary<string, GluonHost>();
+            Monitor = new GluonHostPoolMonitor(this);
         }
 
         public void Start()
@@ -142,7 +140,7 @@ namespace FSO.Server.Utils
         public string PoolHash { get; set; } = "";
 
         public GluonHostPoolMonitor(GluonHostPool pool){
-            this.Pool = pool;
+            Pool = pool;
         }
 
         /// <summary>
@@ -188,7 +186,7 @@ namespace FSO.Server.Utils
         {
             var hashInput = "";
 
-            using (var db = Pool.DAFactory.Get())
+            using (var db = Pool.DAFactory.Get)
             {
                 var all = db.Hosts.All();
                 foreach (var host in all){
@@ -205,10 +203,10 @@ namespace FSO.Server.Utils
                 }
             }
 
-            MD5 md5 = System.Security.Cryptography.MD5.Create();
+            var md5 = System.Security.Cryptography.MD5.Create();
             byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(hashInput);
             byte[] hash = md5.ComputeHash(inputBytes);
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
             for (int i = 0; i < hash.Length; i++){
                 sb.Append(hash[i].ToString("X2"));
             }
@@ -240,9 +238,9 @@ namespace FSO.Server.Utils
 
         public GluonHost(GluonHostPool pool, string callSign, IKernel kernel, ServerConfiguration config)
         {
-            this.Pool = pool;
-            this.CallSign = callSign;
-            this.Client = new AriesClient(Pool.Kernel);
+            Pool = pool;
+            CallSign = callSign;
+            Client = new AriesClient(Pool.Kernel);
 
             Callbacks = new Dictionary<Guid, TaskCompletionSource<IGluonCall>>();
             Client.AddSubscriber(this);

@@ -1,9 +1,6 @@
-﻿using Mina.Core.Buffer;
+using Mina.Core.Buffer;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.Serialization
 {
@@ -31,7 +28,7 @@ namespace FSO.Common.Serialization
         {
             var model = Activator.CreateInstance<T>();
             model.Deserialize(buffer, context);
-            return (T)model;
+            return model;
         }
 
         public static IoBuffer SerializableToIoBuffer(object obj, ISerializationContext context)
@@ -39,7 +36,7 @@ namespace FSO.Common.Serialization
             if (obj is IoBuffer)
             {
                 var ioBuffer = (IoBuffer)obj;
-                return (IoBuffer)ioBuffer;
+                return ioBuffer;
             }
             else if (obj is byte[])
             {
@@ -51,7 +48,7 @@ namespace FSO.Common.Serialization
                 var ioBuffer = IoBuffer.Allocate(0);
                 ioBuffer.AutoExpand = true;
                 ioBuffer.Order = ByteOrder.BigEndian;
-                
+
                 var serializable = (IoBufferSerializable)obj;
                 serializable.Serialize(ioBuffer, context);
                 ioBuffer.Flip();
@@ -63,14 +60,16 @@ namespace FSO.Common.Serialization
 
         public static void PutSerializable(this IoBuffer buffer, ISerializationContext context, object obj, bool writeLength)
         {
-            if(obj is IoBuffer)
+            if (obj is IoBuffer)
             {
                 var ioBuffer = (IoBuffer)obj;
-                if (writeLength){
+                if (writeLength)
+                {
                     buffer.PutUInt32((uint)ioBuffer.Remaining);
                 }
                 buffer.Put(ioBuffer);
-            }else if(obj is byte[])
+            }
+            else if (obj is byte[])
             {
                 var byteArray = (byte[])obj;
                 if (writeLength)
@@ -78,7 +77,8 @@ namespace FSO.Common.Serialization
                     buffer.PutUInt32((uint)byteArray.Length);
                 }
                 buffer.Put(byteArray);
-            }else if(obj is IoBufferSerializable)
+            }
+            else if (obj is IoBufferSerializable)
             {
                 var ioBuffer = IoBuffer.Allocate(0);
                 ioBuffer.AutoExpand = true;
@@ -130,7 +130,7 @@ namespace FSO.Common.Serialization
 
         public static void PutEnum<T>(this IoBuffer buffer, T enumValue)
         {
-            ushort value = Convert.ToUInt16((object)enumValue);
+            ushort value = Convert.ToUInt16(enumValue);
             buffer.PutUInt16(value);
         }
 
@@ -173,7 +173,7 @@ namespace FSO.Common.Serialization
             return (T)System.Enum.Parse(typeof(T), buffer.GetUInt16().ToString());
         }
 
-        public static String GetPascalVLCString(this IoBuffer buffer)
+        public static string GetPascalVLCString(this IoBuffer buffer)
         {
             byte lengthByte = 0;
             uint length = 0;
@@ -182,7 +182,7 @@ namespace FSO.Common.Serialization
             do
             {
                 lengthByte = buffer.Get();
-                length |= (uint)((lengthByte & (uint)0x7F) << shift);
+                length |= (lengthByte & (uint)0x7F) << shift;
                 shift += 7;
             } while (
                 (lengthByte >> 7) == 1
@@ -190,7 +190,7 @@ namespace FSO.Common.Serialization
 
             if (length > 0)
             {
-                StringBuilder str = new StringBuilder();
+                var str = new StringBuilder();
                 for (int i = 0; i < length; i++)
                 {
                     str.Append((char)buffer.Get());
@@ -204,9 +204,9 @@ namespace FSO.Common.Serialization
             }
         }
 
-        public static byte[] GetPascalVLCString(String value)
+        public static byte[] GetPascalVLCString(string value)
         {
-            if(value == null)
+            if (value == null)
             {
                 return new byte[] { 0x00 };
             }
@@ -217,14 +217,15 @@ namespace FSO.Common.Serialization
 
             var chars = value.ToCharArray();
 
-            for(int i=0; i < chars.Length; i++){
+            for (int i = 0; i < chars.Length; i++)
+            {
                 buffer[i + 1] = (byte)chars[i];
             }
 
             return buffer;
         }
 
-        public static void PutPascalVLCString(this IoBuffer buffer, String value)
+        public static void PutPascalVLCString(this IoBuffer buffer, string value)
         {
             long strlen = 0;
             if (value != null)
@@ -236,7 +237,7 @@ namespace FSO.Common.Serialization
             bool first = true;
             while (strlen > 0 || first)
             {
-                buffer.Put((byte)(((strlen > 127) ? (uint)128 : 0) | (strlen & 127)));
+                buffer.Put((byte)(((strlen > 127) ? 128 : 0) | (strlen & 127)));
                 strlen >>= 7;
                 first = false;
             }
@@ -250,7 +251,7 @@ namespace FSO.Common.Serialization
             }
         }
 
-        public static String GetPascalString(this IoBuffer buffer)
+        public static string GetPascalString(this IoBuffer buffer)
         {
             byte len1 = buffer.Get();
             byte len2 = buffer.Get();
@@ -261,7 +262,7 @@ namespace FSO.Common.Serialization
             long len = len1 << 24 | len2 << 16 | len3 << 8 | len4;
             if (len > 0)
             {
-                StringBuilder str = new StringBuilder();
+                var str = new StringBuilder();
                 for (int i = 0; i < len; i++)
                 {
                     str.Append((char)buffer.Get());
@@ -275,7 +276,7 @@ namespace FSO.Common.Serialization
             }
         }
 
-        public static void PutPascalString(this IoBuffer buffer, String value)
+        public static void PutPascalString(this IoBuffer buffer, string value)
         {
 
             long strlen = 0;

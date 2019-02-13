@@ -149,11 +149,11 @@ namespace FSO.Client.Controllers
                             if (msg.Type != MailResponseType.SEND_SUCCESS)
                             {
                                 //alert user that mail has been recieved via sound and flashing icon
-                                HIT.HITVM.Get().PlaySoundEvent(UISounds.LetterRecieve);
+                                HIT.HITVM.Get.PlaySoundEvent(UISounds.LetterRecieve);
                                 ((CoreGameScreen)UIScreen.Current).FlashInbox(true);
                             } else
                             {
-                                HIT.HITVM.Get().PlaySoundEvent(UISounds.LetterSend);
+                                HIT.HITVM.Get.PlaySoundEvent(UISounds.LetterSend);
                             }
                             break;
                     }

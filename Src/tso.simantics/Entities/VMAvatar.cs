@@ -461,7 +461,7 @@ namespace FSO.SimAntics
             var owner = this;
             if (UseWorld && soundevt != null && owner.SoundThreads.FirstOrDefault(x => x.Name == soundevt) == null)
             {
-                var thread = FSO.HIT.HITVM.Get().PlaySoundEvent(soundevt);
+                var thread = FSO.HIT.HITVM.Get.PlaySoundEvent(soundevt);
                 if (thread != null)
                 {
 

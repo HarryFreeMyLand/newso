@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using FSO.Server.Framework.Aries;
 using FSO.Common.DataService;
 using FSO.Files.Formats.tsodata;
@@ -18,7 +14,7 @@ namespace FSO.Server.DataService
 
         public DataServiceSyncFactory(IDataService ds)
         {
-            this.DataService = ds;
+            DataService = ds;
         }
 
         public IDataServiceSync<T> Get<T>(params string[] fields)
@@ -35,9 +31,9 @@ namespace FSO.Server.DataService
 
         public DataServiceSync(IDataService ds, string[] fields)
         {
-            this.DataService = ds;
-            this.Fields = ds.GetFieldsByName(typeof(T), fields);
-            this.KeyField = typeof(T).GetProperties().First(x => x.GetCustomAttribute<Key>() != null);
+            DataService = ds;
+            Fields = ds.GetFieldsByName(typeof(T), fields);
+            KeyField = typeof(T).GetProperties().First(x => x.GetCustomAttribute<Key>() != null);
         }
 
         public void Sync(IAriesSession target, T item)

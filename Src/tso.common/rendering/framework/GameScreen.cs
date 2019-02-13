@@ -4,10 +4,8 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Common.Rendering.Framework.Model;
@@ -67,7 +65,7 @@ namespace FSO.Common.Rendering.Framework
             if (touchMode)
             {
                 if (FSOEnvironment.SoftwareDepth) State.KeyboardState = new KeyboardState();
-                TouchCollection touches = TouchPanel.GetState();
+                var touches = TouchPanel.GetState();
 
                 var missing = new HashSet<MultiMouse>(State.MouseStates);
                 //relate touches to their last virtual mouse
@@ -148,12 +146,12 @@ namespace FSO.Common.Rendering.Framework
         private void TouchStub(UpdateState state)
         {
             var test = TouchPanel.EnableMouseTouchPoint;
-            TouchCollection touches = TouchPanel.GetState();
+            var touches = TouchPanel.GetState();
 			if (touches.Count != lastTouchCount) touchedFrames = 0;
 			lastTouchCount = touches.Count;
             if (touches.Count > 0)
             {
-				Vector2 avg = new Vector2();
+                var avg = new Vector2();
 				for (int i = 0; i < touches.Count; i++)
 				{
 					avg += touches[i].Position;

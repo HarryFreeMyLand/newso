@@ -65,11 +65,11 @@ namespace FSO.IDE
 
         protected virtual void PaintUsingSystemDrawing(Graphics graphics, string text)
         {
-            graphics.Clear(System.Drawing.Color.FromArgb(0xD1, 0xD1, 0xC3));
+            graphics.Clear(Color.FromArgb(0xD1, 0xD1, 0xC3));
 
-            using (Brush brush = new SolidBrush(System.Drawing.Color.DarkSlateGray))
+            using (Brush brush = new SolidBrush(Color.DarkSlateGray))
             {
-                using (StringFormat format = new StringFormat())
+                using (var format = new StringFormat())
                 {
                     format.Alignment = StringAlignment.Center;
                     format.LineAlignment = StringAlignment.Center;
@@ -101,7 +101,7 @@ namespace FSO.IDE
                 }
 
                 var bmpData = Framebuffer.LockBits(new Rectangle(0, 0, Framebuffer.Width, Framebuffer.Height), ImageLockMode.WriteOnly, Framebuffer.PixelFormat);
-                IntPtr ptr = bmpData.Scan0;
+                var ptr = bmpData.Scan0;
 
                 Marshal.Copy(FSOUI.RawImage, 0, ptr, bmpData.Stride * bmpData.Height);
                 Framebuffer.UnlockBits(bmpData);

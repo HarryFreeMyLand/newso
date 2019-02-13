@@ -72,7 +72,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             int index = FrameList.SelectedIndex;
             Graphics = new Image[3][];
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 
                 Graphics[0] = SpriteEncoderUtils.GetPixelAlpha(GraphicChunk.Frames[index], 136, 384);
@@ -96,7 +96,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
         {
             var gfx = new Image[3][];
 
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 gfx[0] = SpriteEncoderUtils.GetPixelAlpha(GraphicChunk.Frames[index], 136, 384);
                 gfx[1] = SpriteEncoderUtils.GetPixelAlpha(GraphicChunk.Frames[index + GraphicChunk.Frames.Length / 3], 68, 192);
@@ -345,7 +345,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
             //set data first. we also want to get back the a palette we can change
             PALT targ = null;
             Microsoft.Xna.Framework.Color[] used;
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var xnaRect = new Microsoft.Xna.Framework.Rectangle(rect.X, rect.Y, rect.Width, rect.Height);
                 used = GraphicChunk.Frames[frame].SetData(pxOut, depthOut, xnaRect);
@@ -375,7 +375,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
                     {
                         if (targ.References == 0 || targ == ownPalt) targ.Colors = used;
                     }
-                    Content.GameContent.Get.Changes.ChunkChanged(targ);
+                    GameContent.Get.Changes.ChunkChanged(targ);
                     GraphicChunk.Frames[frame].SetPalt(targ);
                 }
                 else
@@ -395,7 +395,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
                     GraphicChunk.ChunkParent.AddChunk(nPalt);
                     GraphicChunk.Frames[frame].SetPalt(nPalt);
-                    Content.GameContent.Get.Changes.ChunkChanged(nPalt);
+                    GameContent.Get.Changes.ChunkChanged(nPalt);
                 }
 
             }, GraphicChunk));
@@ -406,7 +406,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void NewRotation(int num)
         {
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var oldToNew = new Dictionary<int, int>();
 
@@ -439,7 +439,8 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
                                     spr.SpriteFrameIndex = (uint)oldToNew[(int)spr.SpriteFrameIndex];
                                 else
                                     spr.SpriteFrameIndex = 0;
-                                if (oldspr != spr.SpriteFrameIndex) Content.GameContent.Get.Changes.ChunkChanged(dgrp);
+                                if (oldspr != spr.SpriteFrameIndex)
+                                    GameContent.Get.Changes.ChunkChanged(dgrp);
                             }
                         }
                     }
@@ -452,7 +453,7 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
 
         private void DeleteRotation(int id)
         {
-            Content.GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
+            GameContent.Get.Changes.BlockingResMod(new ResAction(() =>
             {
                 var old = GraphicChunk.Frames;
                 var oldLen = old.Length;
@@ -483,7 +484,8 @@ namespace FSO.IDE.ResourceBrowser.ResourceEditors
                                     spr.SpriteFrameIndex = (uint)oldToNew[(int)spr.SpriteFrameIndex];
                                 else
                                     spr.SpriteFrameIndex = 0;
-                                if (oldspr != spr.SpriteFrameIndex) Content.GameContent.Get.Changes.ChunkChanged(dgrp);
+                                if (oldspr != spr.SpriteFrameIndex)
+                                    GameContent.Get.Changes.ChunkChanged(dgrp);
                             }
                         }
                     }

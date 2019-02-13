@@ -9,9 +9,7 @@ using FSO.Server.Servers.Lot.Lifecycle;
 using Ninject;
 using NLog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using FSO.Server.Database.DA.Hosts;
 using FSO.Server.Servers.Shared.Handlers;
@@ -27,9 +25,9 @@ namespace FSO.Server.Servers.Lot
 
         private LotHost Lots;
 
-        public LotServer(LotServerConfiguration config, Ninject.IKernel kernel) : base(config, kernel)
+        public LotServer(LotServerConfiguration config, IKernel kernel) : base(config, kernel)
         {
-            this.Config = config;
+            Config = config;
 
             Kernel.Bind<LotServerConfiguration>().ToConstant(Config);
             Kernel.Bind<LotHost>().To<LotHost>().InSingletonScope();
@@ -58,8 +56,8 @@ namespace FSO.Server.Servers.Lot
         {
             base.Bootstrap();
 
-            IDAFactory da = Kernel.Get<IDAFactory>();
-            using (var db = da.Get())
+            var da = Kernel.Get<IDAFactory>();
+            using (var db = da.Get)
             {
                 var oldClaims = db.LotClaims.GetAllByOwner(Config.Call_Sign).ToList();
                 if (oldClaims.Count > 0)
@@ -104,7 +102,7 @@ namespace FSO.Server.Servers.Lot
             {
                 DbLotServerTicket ticket = null;
 
-                using (var da = DAFactory.Get())
+                using (var da = DAFactory.Get)
                 {
                     ticket = da.Lots.GetLotServerTicket(packet.Password);
                     if (ticket != null)
@@ -153,7 +151,7 @@ namespace FSO.Server.Servers.Lot
                         if (!Lots.TryJoin(ticket.lot_id, newSession))
                         {
                             newSession.Close();
-                            using (var db = DAFactory.Get())
+                            using (var db = DAFactory.Get)
                             {
                                 //return claim to the city we got it from.
                                 db.AvatarClaims.Claim(newSession.AvatarClaimId, Config.Call_Sign, (string)newSession.GetAttribute("cityCallSign"), 0);

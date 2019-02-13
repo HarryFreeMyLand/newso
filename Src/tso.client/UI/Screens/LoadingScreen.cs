@@ -169,7 +169,7 @@ namespace FSO.Client.UI.Screens
         {
             if (!PlayedLoadLoop && ((Audio)Content.GameContent.Get.Audio).Initialized)
             {
-                HITVM.Get().PlaySoundEvent(UIMusic.LoadLoop);
+                HITVM.Get.PlaySoundEvent(UIMusic.LoadLoop);
                 PlayedLoadLoop = true;
             }
             base.Update(state);

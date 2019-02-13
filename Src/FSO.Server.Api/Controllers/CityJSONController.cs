@@ -26,7 +26,7 @@ namespace FSO.Server.Api.Controllers
                 lock (ModelLock)
                 {
                     LastModel = new CityInfoModel();
-                    using (var da = api.DAFactory.Get())
+                    using (var da = api.DAFactory.Get)
                     {
                         var lots = da.Lots.AllLocations(shardid);
                         var lotstatus = da.LotClaims.AllLocations(shardid);
@@ -50,7 +50,7 @@ namespace FSO.Server.Api.Controllers
             var api = Api.INSTANCE;
             api.DemandModerator(Request);
 
-            using (var da = api.DAFactory.Get())
+            using (var da = api.DAFactory.Get)
             {
                 var work = da.Lots.Get3DWork();
                 if (work == null) return ApiResponse.Plain(HttpStatusCode.OK, "");

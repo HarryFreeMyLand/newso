@@ -8,9 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using FSO.Common.Security;
 
 namespace FSO.Server.Servers.Lot.Lifecycle
@@ -32,10 +30,12 @@ namespace FSO.Server.Servers.Lot.Lifecycle
         public CityConnections(LotServerConfiguration config, IKernel kernel)
         {
             Config = config;
-            CpuCounter = new PerformanceCounter();
-            CpuCounter.CategoryName = "Processor";
-            CpuCounter.CounterName = "% Processor Time";
-            CpuCounter.InstanceName = "_Total";
+            CpuCounter = new PerformanceCounter
+            {
+                CategoryName = "Processor",
+                CounterName = "% Processor Time",
+                InstanceName = "_Total"
+            };
 
             if (PerformanceCounterCategory.Exists("Processor"))
             {

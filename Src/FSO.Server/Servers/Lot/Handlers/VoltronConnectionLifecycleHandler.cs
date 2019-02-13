@@ -3,11 +3,6 @@ using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Voltron.Packets;
 using FSO.Server.Servers.Lot.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.Lot.Handlers
 {
@@ -18,8 +13,8 @@ namespace FSO.Server.Servers.Lot.Handlers
 
         public VoltronConnectionLifecycleHandler(LotHost lots, IDAFactory da)
         {
-            this.Lots = lots;
-            this.DAFactory = da;
+            Lots = lots;
+            DAFactory = da;
         }
 
         public void Handle(IVoltronSession session, ClientByePDU packet)
@@ -34,7 +29,7 @@ namespace FSO.Server.Servers.Lot.Handlers
                 return;
             }
 
-            IVoltronSession voltronSession = (IVoltronSession)session;
+            var voltronSession = (IVoltronSession)session;
             Lots.SessionClosed(voltronSession);
 
         }
@@ -51,7 +46,7 @@ namespace FSO.Server.Servers.Lot.Handlers
             }
 
             //Aries session has upgraded to a voltron session
-            IVoltronSession voltronSession = (IVoltronSession)newSession;
+            var voltronSession = (IVoltronSession)newSession;
 
             //TODO: Make sure this user is not already connected, if they are disconnect them
             newSession.Write(new HostOnlinePDU

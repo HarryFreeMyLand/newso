@@ -71,7 +71,7 @@ namespace FSO.Client.UI.Panels.LotControls
         {
             if (!Drawing)
             {
-                HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolDown);
+                HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolDown);
 
                 var tilePos = World.EstTileAtPosWithScroll(Parent.GetScaledPoint(state.MouseState.Position).ToVector2() / FSOEnvironment.DPIScaleFactor);
                 StartPosition = new Point((int)Math.Round(tilePos.X), (int)Math.Round(tilePos.Y));
@@ -117,9 +117,9 @@ namespace FSO.Client.UI.Panels.LotControls
                         Commands = new List<VMArchitectureCommand>(cmds)
                     });
                     
-                    HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolPlace);
+                    HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolPlace);
                 }
-                else HITVM.Get().PlaySoundEvent(UISounds.BuildDragToolUp);
+                else HITVM.Get.PlaySoundEvent(UISounds.BuildDragToolUp);
             }
             Drawing = false;
         }
@@ -176,7 +176,7 @@ namespace FSO.Client.UI.Panels.LotControls
 
                     if (!cmds[0].Equals(LastCmd) && disallowed)
                     {
-                        HITVM.Get().PlaySoundEvent(UISounds.Error);
+                        HITVM.Get.PlaySoundEvent(UISounds.Error);
                     }
                 }
                 else
@@ -225,7 +225,7 @@ namespace FSO.Client.UI.Panels.LotControls
             state.UIState.TooltipProperties.Position = pos.ToVector2();
             state.UIState.Tooltip = GameFacade.Strings.GetString("137", "kPErr" + error.ToString());
             state.UIState.TooltipProperties.UpdateDead = false;
-            HITVM.Get().PlaySoundEvent(UISounds.Error);
+            HITVM.Get.PlaySoundEvent(UISounds.Error);
         }
 
         public void Release()

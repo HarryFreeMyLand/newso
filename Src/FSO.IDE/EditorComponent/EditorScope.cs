@@ -34,7 +34,7 @@ namespace FSO.IDE.EditorComponent
             if (GLOBChunks != null)
             {
                 SemiGlobalName = GLOBChunks[0].Name;
-                SemiGlobal = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(SemiGlobalName).Resource;
+                SemiGlobal = GameContent.Get.WorldObjectGlobals.Get(SemiGlobalName).Resource;
             }
 
             AttributeTable = obj.Resource.Get<STR>(256);

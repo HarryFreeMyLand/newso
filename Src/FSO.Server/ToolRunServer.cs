@@ -1,19 +1,14 @@
 ﻿using FSO.Common.DataService.Framework;
-using FSO.Common.Domain;
 using FSO.Common.Utils;
-using FSO.Server.Database.DA;
 using FSO.Server.DataService;
-using FSO.Server.Debug;
 using FSO.Server.Domain;
 using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Servers;
 using FSO.Server.Servers.Api;
 using FSO.Server.Servers.City;
-using FSO.Server.Servers.City.Handlers;
 using FSO.Server.Servers.Lot;
 using FSO.Server.Servers.Tasks;
 using FSO.Server.Servers.UserApi;
-using FSO.Server.Utils;
 using FSO.SimAntics;
 using Ninject;
 using Ninject.Extensions.ChildKernel;
@@ -22,12 +17,9 @@ using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Caching;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace FSO.Server
 {
@@ -51,10 +43,10 @@ namespace FSO.Server
 
         public ToolRunServer(RunServerOptions options, ServerConfiguration config, IKernel kernel, IGluonHostPool hostPool)
         {
-            this.Options = options;
-            this.Config = config;
-            this.Kernel = kernel;
-            this.HostPool = hostPool;
+            Options = options;
+            Config = config;
+            Kernel = kernel;
+            HostPool = hostPool;
         }
 
         public int Run()
@@ -179,7 +171,7 @@ namespace FSO.Server
             */
 
             LOG.Info("Starting services");
-            foreach (AbstractServer server in Servers)
+            foreach (var server in Servers)
             {
                 server.Start();
             }
@@ -338,7 +330,7 @@ namespace FSO.Server
             await Task.Delay((int)remaining * 1000);
 
             LOG.Info("Shutdown commencing.");
-            List<Task<bool>> ShutdownTasks = new List<Task<bool>>();
+            var ShutdownTasks = new List<Task<bool>>();
             foreach (var city in CityServers)
             {
                 ShutdownTasks.Add(city.Shutdown(type));
@@ -385,7 +377,7 @@ namespace FSO.Server
 
             lock (Servers)
             {
-                foreach (AbstractServer server in Servers)
+                foreach (var server in Servers)
                 {
                     server.Shutdown();
                 }

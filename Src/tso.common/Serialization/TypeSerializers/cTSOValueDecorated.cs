@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Mina.Core.Buffer;
 using System.Reflection;
 using FSO.Common.Utils;
@@ -28,11 +26,11 @@ namespace FSO.Common.Serialization.TypeSerializers
 
         protected virtual void ScanAssembly(Assembly assembly)
         {
-            foreach (Type type in assembly.GetTypes())
+            foreach (var type in assembly.GetTypes())
             {
-                System.Attribute[] attributes = System.Attribute.GetCustomAttributes(type);
+                Attribute[] attributes = System.Attribute.GetCustomAttributes(type);
 
-                foreach (Attribute attribute in attributes)
+                foreach (var attribute in attributes)
                 {
                     if (attribute is cTSOValue)
                     {
@@ -65,7 +63,7 @@ namespace FSO.Common.Serialization.TypeSerializers
 
         public uint? GetClsid(object value)
         {
-            Type type = value.GetType();
+            var type = value.GetType();
             if (TypeToClsId.ContainsKey(type))
             {
                 return TypeToClsId[type];
@@ -80,8 +78,8 @@ namespace FSO.Common.Serialization.TypeSerializers
     }
 
 
-    [System.AttributeUsage(System.AttributeTargets.Class)]
-    public class cTSOValue : System.Attribute
+    [AttributeUsage(System.AttributeTargets.Class)]
+    public class cTSOValue : Attribute
     {
         public uint[] ClsId;
 

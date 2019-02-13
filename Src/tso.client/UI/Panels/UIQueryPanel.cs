@@ -116,7 +116,7 @@ namespace FSO.Client.UI.Panels
         {
             set
             {
-                if (_Active != value) HITVM.Get().PlaySoundEvent(UISounds.Whoosh);
+                if (_Active != value) HITVM.Get.PlaySoundEvent(UISounds.Whoosh);
                 _Active = value;
             }
             get

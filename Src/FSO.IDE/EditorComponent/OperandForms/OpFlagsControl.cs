@@ -45,8 +45,8 @@ namespace FSO.IDE.EditorComponent.OperandForms
                 var check = new CheckBox
                 {
                     AutoSize = true,
-                    Margin = new System.Windows.Forms.Padding(3, 0, 3, 0),
-                    Size = new System.Drawing.Size(195, 17),
+                    Margin = new Padding(3, 0, 3, 0),
+                    Size = new Size(195, 17),
                     Text = flag.Title,
                     UseVisualStyleBackColor = true
                 };

@@ -143,7 +143,7 @@ namespace FSO.Client
             if (!FSOEnvironment.MSAASupport)
                 settings.AntiAlias = false;
 
-            LotView.WorldConfig.Current = new WorldConfig()
+            WorldConfig.Current = new WorldConfig()
             {
                 LightingMode = settings.LightingMode,
                 SmoothZoom = settings.SmoothZoom,
@@ -192,7 +192,7 @@ namespace FSO.Client
 
             //init audio now
             HITVM.Init();
-            var hit = HITVM.Get();
+            var hit = HITVM.Get;
             hit.SetMasterVolume(HITVolumeGroup.FX, GlobalSettings.Default.FXVolume / 10f);
             hit.SetMasterVolume(HITVolumeGroup.MUSIC, GlobalSettings.Default.MusicVolume / 10f);
             hit.SetMasterVolume(HITVolumeGroup.VOX, GlobalSettings.Default.VoxVolume / 10f);
@@ -220,9 +220,9 @@ namespace FSO.Client
             DGRP3DMesh.InitRCWorkers();
             if (!(FSOEnvironment.SoftwareKeyboard && FSOEnvironment.SoftwareDepth))
                 AddTextInput();
-            base.Screen.Layers.Add(SceneMgr);
-            base.Screen.Layers.Add(UiLayer);
-            GameFacade.LastUpdateState = base.Screen.State;
+            Screen.Layers.Add(SceneMgr);
+            Screen.Layers.Add(UiLayer);
+            GameFacade.LastUpdateState = Screen.State;
             //Bind ninject objects
             kernel.Bind<Content.GameContent>().ToConstant(FSO.Content.GameContent.Get);
             kernel.Load(new ClientDomainModule());
@@ -305,7 +305,7 @@ namespace FSO.Client
                 Environment.Exit(0);
             }
 
-            FSO.Vitaboy.Avatar.setVitaboyEffect(vitaboyEffect);
+            Vitaboy.Avatar.setVitaboyEffect(vitaboyEffect);
         }
 
         /// <summary>
@@ -327,8 +327,8 @@ namespace FSO.Client
             GameThread.UpdateExecuting = true;
             DiscordRpcEngine.Update();
 
-            if (HITVM.Get() != null)
-                HITVM.Get().Tick();
+            if (HITVM.Get != null)
+                HITVM.Get.Tick();
 
             base.Update(gameTime);
             GameThread.UpdateExecuting = false;

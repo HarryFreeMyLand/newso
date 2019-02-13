@@ -1,9 +1,4 @@
-﻿using FSO.Server.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using FSO.Server.Database.DA.Tasks;
 using FSO.Server.Database.DA;
 using FSO.Server.Common;
@@ -21,7 +16,7 @@ namespace FSO.Server.Servers.Tasks.Domain
 
         public void Run(TaskContext context)
         {
-            using (var db = DAFactory.Get())
+            using (var db = DAFactory.Get)
             {
                 //Purge old shard & auth tickets
                 var expireTime = Epoch.Now - 600;

@@ -205,7 +205,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (Holding.CanPlace == VMPlacementError.Success)
                 {
-                    HITVM.Get().PlaySoundEvent(Holding.IsBought ? UISounds.ObjectMovePlace : UISounds.ObjectPlace);
+                    HITVM.Get.PlaySoundEvent(Holding.IsBought ? UISounds.ObjectMovePlace : UISounds.ObjectPlace);
                     //ExecuteEntryPoint(11); //User Placement
                     var putDown = Holding;
                     var pos = Holding.Group.BaseObject.Position;
@@ -274,7 +274,7 @@ namespace FSO.Client.UI.Panels
                         ObjectID = Holding.MoveTarget,
                         CleanupAll = true
                     });
-                    HITVM.Get().PlaySoundEvent(UISounds.MoneyBack);
+                    HITVM.Get.PlaySoundEvent(UISounds.MoneyBack);
                 } else
                 {
                     ShowErrorAtMouse(LastState, VMPlacementError.CannotDeleteObject);
@@ -439,7 +439,7 @@ namespace FSO.Client.UI.Panels
                         if (newDir != Holding.Dir || MouseClicked)
                         {
                             updatePos = true;
-                            HITVM.Get().PlaySoundEvent(UISounds.ObjectRotate);
+                            HITVM.Get.PlaySoundEvent(UISounds.ObjectRotate);
                             Holding.Dir = newDir;
                             DirChanged = true;
                         }
@@ -462,7 +462,7 @@ namespace FSO.Client.UI.Panels
                             // comma added to curcumvent problem with language file. We should probably just index these with numbers?
                             state.UIState.TooltipProperties.UpdateDead = false;
                             ShowTooltip = true;
-                            HITVM.Get().PlaySoundEvent(UISounds.Error);
+                            HITVM.Get.PlaySoundEvent(UISounds.Error);
                         }
                         else
                         {
@@ -529,7 +529,7 @@ namespace FSO.Client.UI.Panels
             state.UIState.Tooltip = GameFacade.Strings.GetString("137", "kPErr" + error.ToString());
             state.UIState.TooltipProperties.UpdateDead = false;
             ShowTooltip = true;
-            HITVM.Get().PlaySoundEvent(UISounds.Error);
+            HITVM.Get.PlaySoundEvent(UISounds.Error);
         }
 
         public delegate void HolderEventHandler(UIObjectSelection holding, UpdateState state);

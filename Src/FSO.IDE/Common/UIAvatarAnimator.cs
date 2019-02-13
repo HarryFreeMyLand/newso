@@ -29,7 +29,7 @@ namespace FSO.IDE.Common
                 {
                     var anim = AnimationRequests.Dequeue();
 
-                    var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(anim + ".anim");
+                    var animation = Content.GameContent.Get.AvatarAnimations.Get(anim + ".anim");
                     if (animation != null)
                     {
                         var astate = new VMAnimationState(animation, false)

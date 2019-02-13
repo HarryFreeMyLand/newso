@@ -46,7 +46,7 @@ namespace FSO.Server.Api.Controllers
 
             var api = Api.INSTANCE;
 
-            using (var db = api.DAFactory.Get())
+            using (var db = api.DAFactory.Get)
             {
                 var user = db.Users.GetByUsername(username);
                 if (user == null)

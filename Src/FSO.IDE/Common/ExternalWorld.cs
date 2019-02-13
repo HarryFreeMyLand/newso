@@ -30,8 +30,8 @@ namespace FSO.IDE.Common
                 AmbientLight = new Texture2D(layer.Device, 256, 256),
                 OutsidePx = new Texture2D(layer.Device, 1, 1)
             };
-            State._3D = new FSO.LotView.Utils._3DWorldBatch(State);
-            State._2D = new FSO.LotView.Utils._2DWorldBatch(layer.Device, 2, new SurfaceFormat[] {
+            State._3D = new LotView.Utils._3DWorldBatch(State);
+            State._2D = new LotView.Utils._2DWorldBatch(layer.Device, 2, new SurfaceFormat[] {
                 World2D.BUFFER_SURFACE_FORMATS[0],
                 World2D.BUFFER_SURFACE_FORMATS[World2D.BUFFER_THUMB_DEPTH] }, new bool[] { true, false }, World2D.SCROLL_BUFFER)
             {
@@ -40,7 +40,7 @@ namespace FSO.IDE.Common
             State.DrawOOB = true;
             UseBackbuffer = false;
 
-            base.Camera = State.Camera;
+            Camera = State.Camera;
 
             HasInitGPU = true;
             HasInit = HasInitGPU & HasInitBlueprint;

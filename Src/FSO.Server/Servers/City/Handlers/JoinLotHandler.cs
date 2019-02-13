@@ -1,7 +1,6 @@
 ﻿using FSO.Server.Common;
 using FSO.Server.Database.DA;
 using FSO.Server.Database.DA.Lots;
-using FSO.Server.Database.DA.Shards;
 using FSO.Server.Framework.Gluon;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Packets;
@@ -9,10 +8,6 @@ using FSO.Server.Protocol.Gluon.Packets;
 using FSO.Server.Servers.City.Domain;
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -26,10 +21,10 @@ namespace FSO.Server.Servers.City.Handlers
 
         public JoinLotHandler(LotAllocations lots, LotServerPicker pickingEngine, IDAFactory da, CityServerContext context)
         {
-            this.Lots = lots;
-            this.PickingEngine = pickingEngine;
-            this.DAFactory = da;
-            this.Context = context;
+            Lots = lots;
+            PickingEngine = pickingEngine;
+            DAFactory = da;
+            Context = context;
         }
 
         public async void Handle(IVoltronSession session, FindLotRequest packet)
@@ -55,7 +50,7 @@ namespace FSO.Server.Servers.City.Handlers
                     //join my job lot. 
                     //look up our avatar's current job and attempt to match them to a job lot with <max players, or a new one.
 
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         var job = db.Avatars.GetCurrentJobLevel(session.AvatarId);
                         if (job == null)
@@ -81,7 +76,7 @@ namespace FSO.Server.Servers.City.Handlers
 
                     DbLotServerTicket ticket = null;
 
-                    using (var db = DAFactory.Get())
+                    using (var db = DAFactory.Get)
                     {
                         //I need a shard ticket so I can connect to the lot server and assume the correct avatar
                         ticket = new DbLotServerTicket

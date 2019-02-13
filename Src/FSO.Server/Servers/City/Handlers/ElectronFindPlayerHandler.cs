@@ -2,11 +2,6 @@
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Model;
 using FSO.Server.Protocol.Electron.Packets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -16,14 +11,14 @@ namespace FSO.Server.Servers.City.Handlers
         private CityServerContext Context;
         public ElectronFindAvatarHandler(IDAFactory da, CityServerContext context)
         {
-            this.DAFactory = da;
-            this.Context = context;
+            DAFactory = da;
+            Context = context;
         }
 
         public void Handle(IVoltronSession session, FindAvatarRequest packet)
         {
             if (session.IsAnonymous) return;
-            using (var da = DAFactory.Get()) {
+            using (var da = DAFactory.Get) {
                 var privacy = da.Avatars.GetPrivacyMode(packet.AvatarId);
                 if (privacy > 0)
                 {

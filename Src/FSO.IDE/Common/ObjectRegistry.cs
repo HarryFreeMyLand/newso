@@ -19,15 +19,15 @@ namespace FSO.IDE.Common
 
             MastersByFilename = new Dictionary<string, List<ObjectRegistryEntry>>();
 
-            var objProvider = Content.GameContent.Get.WorldObjects;
+            var objProvider = GameContent.Get.WorldObjects;
 
             lock (objProvider.Entries)
             {
                 lock (MastersByFilename)
                 {
-                    foreach (GameObjectReference objectInfo in objProvider.Entries.Values)
+                    foreach (var objectInfo in objProvider.Entries.Values)
                     {
-                        ObjectRegistryEntry entry = new ObjectRegistryEntry
+                        var entry = new ObjectRegistryEntry
                         {
                             GUID = (uint)objectInfo.ID,
                             Filename = objectInfo.FileName,

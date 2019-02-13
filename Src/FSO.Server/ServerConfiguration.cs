@@ -9,9 +9,6 @@ using Ninject.Modules;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server
 {
@@ -70,7 +67,7 @@ namespace FSO.Server
 
             public DatabaseConfigurationProvider(ServerConfiguration config)
             {
-                this.Config = config;    
+                Config = config;    
             }
 
 
@@ -84,7 +81,7 @@ namespace FSO.Server
 
             public object Create(IContext context)
             {
-                return this.Config.Database;
+                return Config.Database;
             }
         }
 
@@ -95,7 +92,7 @@ namespace FSO.Server
 
             public JWTConfigurationProvider(ServerConfiguration config)
             {
-                this.Config = config;
+                Config = config;
             }
 
 
@@ -117,9 +114,9 @@ namespace FSO.Server
 
         public override void Load()
         {
-            this.Bind<ServerConfiguration>().ToMethod(new Func<Ninject.Activation.IContext, ServerConfiguration>(GetConfiguration)).InSingletonScope();
-            this.Bind<DatabaseConfiguration>().ToProvider<DatabaseConfigurationProvider>().InSingletonScope();
-            this.Bind<JWTConfiguration>().ToProvider<JWTConfigurationProvider>().InSingletonScope();
+            Bind<ServerConfiguration>().ToMethod(new Func<IContext, ServerConfiguration>(GetConfiguration)).InSingletonScope();
+            Bind<DatabaseConfiguration>().ToProvider<DatabaseConfigurationProvider>().InSingletonScope();
+            Bind<JWTConfiguration>().ToProvider<JWTConfigurationProvider>().InSingletonScope();
         }
     }
 }

@@ -2,12 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using FSO.Common.Rendering.Framework;
-using System.Threading.Tasks;
 
 namespace FSO.Common.Utils
 {

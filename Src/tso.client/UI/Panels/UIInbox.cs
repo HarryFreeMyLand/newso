@@ -233,7 +233,7 @@ namespace FSO.Client.UI.Panels
         {
             if (exact)
             {
-                if (results.Count == 0) HIT.HITVM.Get().PlaySoundEvent(UISounds.Error); //couldnt find avatar
+                if (results.Count == 0) HIT.HITVM.Get.PlaySoundEvent(UISounds.Error); //couldnt find avatar
                 else
                 {
                     //open the letter

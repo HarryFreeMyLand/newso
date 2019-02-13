@@ -272,7 +272,7 @@ namespace FSO.Client.UI.Panels
                         screen.Rotation = (screen.Rotation + 3) % 4;
                     }
 
-                    HITVM.Get().PlaySoundEvent(UISounds.ObjectRotate);
+                    HITVM.Get.PlaySoundEvent(UISounds.ObjectRotate);
                     rotated = true;
                 }
                 RotateAngle = 0;

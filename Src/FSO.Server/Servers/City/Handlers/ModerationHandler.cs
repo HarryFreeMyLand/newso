@@ -3,11 +3,6 @@ using FSO.Server.Framework.Aries;
 using FSO.Server.Framework.Voltron;
 using FSO.Server.Protocol.Electron.Model;
 using FSO.Server.Protocol.Electron.Packets;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Servers.City.Handlers
 {
@@ -18,15 +13,15 @@ namespace FSO.Server.Servers.City.Handlers
         private CityServerContext Context;
         public ModerationHandler(IDAFactory da, ISessions sessions, CityServerContext context)
         {
-            this.DAFactory = da;
-            this.Context = context;
-            this.Sessions = sessions;
+            DAFactory = da;
+            Context = context;
+            Sessions = sessions;
         }
 
         public void Handle(IVoltronSession session, ModerationRequest packet)
         {
             if (session.IsAnonymous) return;
-            using (var da = DAFactory.Get())
+            using (var da = DAFactory.Get)
             {
                 var user = da.Users.GetById(session.UserId);
                 var mod = user.is_moderator;

@@ -158,7 +158,7 @@ namespace FSO.Client.UI.Screens
              * Music
              */
 
-            HITVM.Get().PlaySoundEvent(UIMusic.SAS);
+            HITVM.Get.PlaySoundEvent(UIMusic.SAS);
 
             GameThread.NextUpdate(x =>
             {
