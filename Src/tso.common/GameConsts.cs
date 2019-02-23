@@ -5,7 +5,7 @@ namespace FSO.Common
 {
     public struct GameConsts
     {
-        public static string GameName = "Sim Tactics";
+        public static string GameName = "SimTactics";
 
         #region Error Messages
         public static string NotImplemented = "Not Implemented";
@@ -16,7 +16,7 @@ namespace FSO.Common
         #endregion
 
         public static string FullVersion = $"{Assembly.GetExecutingAssembly().GetName().Version}";
-        public static string TCBranch = "master";
+        public static string TCBranch = "alpha";
         public static string TCVersion = $"{TCBranch}-{FullVersion}";
         public static string BranchFile = "branch.txt";
     }
