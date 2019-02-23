@@ -19,9 +19,9 @@ namespace FSO.Server.DataService.Providers
 {
     public class ServerAvatarProvider : LazyDataServiceProvider<uint, Avatar>
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private int ShardId;
-        private IDAFactory DAFactory;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        int ShardId;
+        IDAFactory DAFactory;
 
         public ServerAvatarProvider([Named("ShardId")] int shardId, IDAFactory factory)
         {
@@ -47,7 +47,7 @@ namespace FSO.Server.DataService.Providers
             }
         }
 
-        private string[] LockNames = new string[]
+        string[] LockNames = new string[]
         {
             "AvatarSkills_LockLv_Body",
             "AvatarSkills_LockLv_Charisma",
@@ -245,14 +245,14 @@ namespace FSO.Server.DataService.Providers
         }
         #endregion
 
-        private static readonly uint AVATAR_RECACHE_SECONDS = 30;
+        static readonly uint AVATAR_RECACHE_SECONDS = 30;
 
         protected override bool RequiresReload(uint key, Avatar value)
         {
             return (value != null && value.Avatar_IsOnline && Epoch.Now - value.FetchTime > AVATAR_RECACHE_SECONDS);
         }
 
-        private Avatar HydrateOne(DbAvatar dbAvatar, DbLot dbLot)
+        Avatar HydrateOne(DbAvatar dbAvatar, DbLot dbLot)
         {
             var result = new Avatar
             {

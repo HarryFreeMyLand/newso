@@ -2,13 +2,8 @@
 using FSO.LotView.Model;
 using FSO.SimAntics.Engine;
 using FSO.SimAntics.Entities;
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Marshals
 {
@@ -113,7 +108,7 @@ namespace FSO.SimAntics.Marshals
             foreach (var ent in Entities)
             {
                 VMEntity realEnt;
-                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(ent.GUID);
+                var objDefinition = Content.GameContent.Get.WorldObjects.Get(ent.GUID);
 
                 var worldObject = vm.Context.MakeObjectComponent(objDefinition);
                 var obj = new VMGameObject(objDefinition, worldObject);

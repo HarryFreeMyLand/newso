@@ -1,6 +1,6 @@
 ﻿//#define THROW_SIMANTICS
 #if !Server
-    #define IDE_COMPAT
+#define IDE_COMPAT
 #endif
 
 /*
@@ -12,7 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Content;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Primitives;
@@ -32,7 +31,7 @@ namespace FSO.SimAntics.Engine
         public static int MAX_USER_ACTIONS = 20;
 
         public VMContext Context;
-        private VMEntity Entity;
+            VMEntity Entity;
 
         public VMThreadBreakMode ThreadBreak = VMThreadBreakMode.Active;
         public string ThreadBreakString;
@@ -44,7 +43,7 @@ namespace FSO.SimAntics.Engine
         public List<VMPieMenuInteraction> ActionStrings;
 
         public List<VMStackFrame> Stack;
-        private bool ContinueExecution;
+            bool ContinueExecution;
 
         public List<VMQueuedAction> Queue;
         public VMQueuedAction ActiveAction
@@ -69,7 +68,7 @@ namespace FSO.SimAntics.Engine
         public VMEODPluginThreadState EODConnection;
         public bool Interrupt;
 
-        private ushort ActionUID;
+            ushort ActionUID;
 
         // Exception handling variables
         // Don't need to be serialized.
@@ -354,17 +353,17 @@ namespace FSO.SimAntics.Engine
 #endif
         }
 
-        private string StackTraceSimplify(string st)
+            string StackTraceSimplify(string st)
         {
             var lastSlash = st.LastIndexOf('\\');
             if (lastSlash == -1) lastSlash = st.LastIndexOf('/');
             return (lastSlash == -1) ? st : st.Substring(lastSlash+1);
         }
 
-        private void EvaluateQueuePriorities()
+            void EvaluateQueuePriorities()
         {
             if (ActiveQueueBlock == -1 || ActiveQueueBlock >= Queue.Count) return;
-            int CurrentPriority = (int)Queue[ActiveQueueBlock].Priority;
+            int CurrentPriority = Queue[ActiveQueueBlock].Priority;
             var mode = Queue[ActiveQueueBlock].Mode;
             for (int i = ActiveQueueBlock + 1; i < Queue.Count; i++)
             {
@@ -373,7 +372,7 @@ namespace FSO.SimAntics.Engine
                     Queue.RemoveAt(i--); //remove interactions to dead objects (not within active queue block)
                     continue;
                 }
-                if ((int)Queue[i].Priority > CurrentPriority)// && mode != VMQueueMode.ParentIdle)
+                if (Queue[i].Priority > CurrentPriority)// && mode != VMQueueMode.ParentIdle)
                 {
                     Queue[ActiveQueueBlock].Cancelled = true;
                     Entity.SetFlag(VMEntityFlags.InteractionCanceled, true);
@@ -381,7 +380,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private void NextInstruction()
+            void NextInstruction()
         {
             /** Next instruction **/
             var currentFrame = Stack.LastOrDefault();
@@ -440,7 +439,7 @@ namespace FSO.SimAntics.Engine
             Push(childFrame);
         }
 
-        private void ExecuteInstruction(VMStackFrame frame)
+            void ExecuteInstruction(VMStackFrame frame)
         {
             var instruction = frame.GetCurrentInstruction();
             var opcode = instruction.Opcode;
@@ -498,7 +497,7 @@ namespace FSO.SimAntics.Engine
             HandleResult(frame, instruction, result);
         }
 
-        private void HandleResult(VMStackFrame frame, VMInstruction instruction, VMPrimitiveExitCode result)
+            void HandleResult(VMStackFrame frame, VMInstruction instruction, VMPrimitiveExitCode result)
         {
             switch (result)
             {
@@ -556,7 +555,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private void MoveToInstruction(VMStackFrame frame, byte instruction, bool continueExecution)
+            void MoveToInstruction(VMStackFrame frame, byte instruction, bool continueExecution)
         {
             if (frame is VMRoutingFrame)
             {
@@ -743,20 +742,20 @@ namespace FSO.SimAntics.Engine
                 //cancel any idle parents after this interaction
                 var index = Queue.IndexOf(interaction);
 
-                if (interaction.Mode == Engine.VMQueueMode.ParentIdle)
+                if (interaction.Mode == VMQueueMode.ParentIdle)
                 {
                     for (int i = index + 1; i < Queue.Count; i++)
                     {
-                        if (Queue[i].Mode == Engine.VMQueueMode.ParentIdle)
+                        if (Queue[i].Mode == VMQueueMode.ParentIdle)
                         {
-                            if (interaction.Mode == Engine.VMQueueMode.ParentIdle) Queue.RemoveAt(i--);
+                            if (interaction.Mode == VMQueueMode.ParentIdle) Queue.RemoveAt(i--);
                             else
                             {
                                 Queue[i].Cancelled = true;
                                 Queue[i].Priority = 0;
                             }
                         }
-                        else if (Queue[i].Mode == Engine.VMQueueMode.ParentExit)
+                        else if (Queue[i].Mode == VMQueueMode.ParentExit)
                         {
                             Queue[i].Cancelled = true;
                             Queue[i].Priority = 0;
@@ -767,7 +766,7 @@ namespace FSO.SimAntics.Engine
 
                 var canQueueSkip = !interaction.Flags.HasFlag(TTABFlags.MustRun);
 
-                if (canQueueSkip && (index > ActiveQueueBlock || Stack.LastOrDefault()?.ActionTree == false) && interaction.Mode == Engine.VMQueueMode.Normal)
+                if (canQueueSkip && (index > ActiveQueueBlock || Stack.LastOrDefault()?.ActionTree == false) && interaction.Mode == VMQueueMode.Normal)
                 {
                     Queue.Remove(interaction);
                     if (Context.VM.TS1) interaction.Callee.ExecuteEntryPoint(4, Context, true); //queue skipped
@@ -780,7 +779,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private void ExecuteAction(VMQueuedAction action)
+            void ExecuteAction(VMQueuedAction action)
         {
             var frame = action.ToStackFrame(Entity);
             frame.DiscardResult = true;

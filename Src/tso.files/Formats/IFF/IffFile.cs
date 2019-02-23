@@ -179,8 +179,8 @@ namespace FSO.Files.Formats.IFF
                         /** Skip it! **/
                         io.Skip(Math.Min(chunkDataSize, stream.Length - stream.Position - 1)); //if the chunk is invalid, it will likely provide a chunk size beyond the limits of the file. (walls2.iff)
                     }else{
-                        Type chunkClass = CHUNK_TYPES[chunkType];
-                        IffChunk newChunk = (IffChunk)Activator.CreateInstance(chunkClass);
+                        var chunkClass = CHUNK_TYPES[chunkType];
+                        var newChunk = (IffChunk)Activator.CreateInstance(chunkClass);
                         newChunk.ChunkID = chunkID;
                         newChunk.OriginalID = chunkID;
                         newChunk.ChunkFlags = chunkFlags;
@@ -244,7 +244,7 @@ namespace FSO.Files.Formats.IFF
 
         private T prepare<T>(object input)
         {
-            IffChunk chunk = (IffChunk)input;
+            var chunk = (IffChunk)input;
             if (chunk.ChunkProcessed != true)
             {
                 lock (chunk)
@@ -270,7 +270,7 @@ namespace FSO.Files.Formats.IFF
         /// <param name="id">ID of the chunk.</param>
         /// <returns>A chunk.</returns>
         public T Get<T>(ushort id){
-            Type typeofT = typeof(T);
+            var typeofT = typeof(T);
             if (ByChunkId.ContainsKey(typeofT))
             {
                 var lookup = ByChunkId[typeofT];
@@ -315,7 +315,7 @@ namespace FSO.Files.Formats.IFF
         /// <returns>A list of chunks of the type.</returns>
         public List<T> List<T>()
         {
-            Type typeofT = typeof(T);
+            var typeofT = typeof(T);
 
             if (ByChunkType.ContainsKey(typeofT))
             {
@@ -372,7 +372,7 @@ namespace FSO.Files.Formats.IFF
                 ByChunkId[type].TryGetValue(targID, out targ);
             }
 
-            IffChunk tChunk = (IffChunk)targ;
+            var tChunk = (IffChunk)targ;
 
             if (tChunk != null) RemoveChunk(tChunk);
             var oldID = chunk.ChunkID;

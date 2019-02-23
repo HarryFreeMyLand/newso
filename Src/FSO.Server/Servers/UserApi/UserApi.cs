@@ -13,9 +13,9 @@ namespace FSO.Server.Servers.UserApi
 {
     public class UserApi : AbstractServer
     {
-        private IDisposable App;
-        private ServerConfiguration Config;
-        private IKernel Kernel;
+        IDisposable App;
+        ServerConfiguration Config;
+        IKernel Kernel;
 
         public event APIRequestShutdownDelegate OnRequestShutdown;
         public event APIBroadcastMessageDelegate OnBroadcastMessage;

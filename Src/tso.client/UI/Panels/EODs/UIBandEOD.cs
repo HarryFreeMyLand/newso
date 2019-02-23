@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
@@ -10,7 +6,6 @@ using FSO.Client.UI.Framework.Parser;
 using FSO.HIT;
 using FSO.Client.UI.Model;
 using FSO.Client.UI.Panels.EODs.Utils;
-using FSO.SimAntics;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -619,7 +614,7 @@ namespace FSO.Client.UI.Panels.EODs
         void PlaySound(byte note)
         {
             var soundString = Enum.GetName(typeof(UIBANDEODSoundNames), note);
-            HIT.HITVM.Get.PlaySoundEvent(soundString);
+            HITVM.Get.PlaySoundEvent(soundString);
         }
 
         void AddMyListeners()

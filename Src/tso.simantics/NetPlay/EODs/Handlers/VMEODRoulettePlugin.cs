@@ -1,13 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FSO.Client;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.NetPlay.EODs.Model;
-using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.SimAntics.Primitives;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -17,18 +12,18 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         public static readonly List<byte> RedNumbersList = new List<byte> { 1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 };
         public static readonly List<byte> LowNumbersList = new List<byte> { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 };
         public static readonly List<byte> HighNumbersList = new List<byte> { 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 };
-        private VMEODRouletteGameStates GameState;
-        private VMEODRouletteGameStates NextState;
-        private int MinBet;
-        private int MaxBet;
-        private int TableBalance;
-        private int Roundtimer;
-        private int Tock;
-        private VMEODClient Controller;
-        private VMEODClient Croupier;
-        private VMEODClient Owner;
-        private List<RoulettePlayer> Players;
-        private Random NextBall = new Random();
+            VMEODRouletteGameStates GameState;
+            VMEODRouletteGameStates NextState;
+            int MinBet;
+            int MaxBet;
+            int TableBalance;
+            int Roundtimer;
+            int Tock;
+            VMEODClient Controller;
+            VMEODClient Croupier;
+            VMEODClient Owner;
+            List<RoulettePlayer> Players;
+            Random NextBall = new Random();
 
         public const int GLOBAL_MAXIMUM_CHIPS_PER_STACK = 20;
         public const int GLOBAL_MAXIMUM_ROULETTE_ROUND_BET = 1000;
@@ -447,7 +442,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             base.Tick();
         }
 
-        private void RemoveBetHandler(string evt, string valueAndTypeAndNumbers, VMEODClient client)
+            void RemoveBetHandler(string evt, string valueAndTypeAndNumbers, VMEODClient client)
         {
             // identify if the player
             foreach (var player in Players)
@@ -471,7 +466,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void PlaceBetHandler(string evt, string valueAndTypeAndNumbers, VMEODClient client)
+            void PlaceBetHandler(string evt, string valueAndTypeAndNumbers, VMEODClient client)
         {
             // identy if the player
             foreach (var player in Players)
@@ -501,7 +496,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private RouletteBet ParseAndValidateBet(string valueAndTypeAndNumbers, RoulettePlayer player)
+            RouletteBet ParseAndValidateBet(string valueAndTypeAndNumbers, RoulettePlayer player)
         {
             if (valueAndTypeAndNumbers != null && player != null)
             {
@@ -553,11 +548,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return null;
         }
 
-        private void NewMinimumBetHandler(string evt, string newMinString, VMEODClient client)
+            void NewMinimumBetHandler(string evt, string newMinString, VMEODClient client)
         {
             string failureReason = "";
-            short newMinBet;
-            var result = Int16.TryParse(newMinString.Trim(), out newMinBet);
+            var result = Int16.TryParse(newMinString.Trim(), out var newMinBet);
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if (!isOwner)
                 failureReason = VMEODSlotsInputErrorTypes.InvalidOwner.ToString(); // not the owner
@@ -595,11 +589,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             client.Send("roulette_n_bet_fail", failureReason);
         }
 
-        private void NewMaximumBetHandler(string evt, string newMaxString, VMEODClient client)
+            void NewMaximumBetHandler(string evt, string newMaxString, VMEODClient client)
         {
             string failureReason = "";
-            short newMaxBet;
-            var result = Int16.TryParse(newMaxString.Trim(), out newMaxBet);
+            var result = Int16.TryParse(newMaxString.Trim(), out var newMaxBet);
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if (!isOwner)
                 failureReason = VMEODSlotsInputErrorTypes.InvalidOwner.ToString(); // not the owner
@@ -637,13 +630,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             client.Send("roulette_x_bet_fail", failureReason);
         }
 
-        private void WithdrawHandler(string evt, string amountString, VMEODClient client)
+            void WithdrawHandler(string evt, string amountString, VMEODClient client)
         {
             string failureReason = "";
 
             // try to parse the withdraw amount
-            int withdrawAmount;
-            var result = Int32.TryParse(amountString.Trim(), out withdrawAmount);
+            var result = Int32.TryParse(amountString.Trim(), out var withdrawAmount);
             if (result)
             {
                 // check the successfully parsed amount to make sure it's non-negative and against the TableBalance to determine if valid amount
@@ -687,13 +679,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.Send("roulette_withdraw_fail", failureReason);
             }
         }
-        private void DepositHandler(string evt, string amountString, VMEODClient client)
+            void DepositHandler(string evt, string amountString, VMEODClient client)
         {
             string failureReason = "";
 
             // try to parse the deposit amount
-            int depositAmount;
-            var result = Int32.TryParse(amountString.Trim(), out depositAmount);
+            var result = Int32.TryParse(amountString.Trim(), out var depositAmount);
             if (result)
             {
                 // check the successfully parsed amount to make sure it's non-negative and against the MachineBalanceMax to determine if valid amount
@@ -741,7 +732,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void GotoState(VMEODRouletteGameStates state)
+            void GotoState(VMEODRouletteGameStates state)
         {
             if (GameState.Equals(state))
                 return;
@@ -842,7 +833,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     }
             }
         }
-        private void UIClosedHandler(string evt, byte[] isOwner, VMEODClient client)
+            void UIClosedHandler(string evt, byte[] isOwner, VMEODClient client)
         {
             if (client != null && client.Avatar != null)
             {
@@ -852,7 +843,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     Controller.SendOBJEvent(new VMEODEvent((short)VMEODRouletteEvents.CroupierLost, client.Avatar.ObjectID));
             }
         }
-        private void NewGame()
+            void NewGame()
         {
             if (TableBalance < MaxBet * 140)
                 CloseTable();
@@ -882,7 +873,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void BroadcastTime(int time)
+            void BroadcastTime(int time)
         {
             foreach (var player in Players)
             {
@@ -891,7 +882,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void BroadcastBets(RoulettePlayer playerExcepted)
+            void BroadcastBets(RoulettePlayer playerExcepted)
         {
             List<RouletteBet> allNeighborBets;
             foreach (var player in Players)
@@ -914,12 +905,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 }
             }
         }
-        private void EnqueueGotoState(VMEODRouletteGameStates nextState)
+            void EnqueueGotoState(VMEODRouletteGameStates nextState)
         {
             NextState = nextState;
         }
 
-        private void CloseTable()
+            void CloseTable()
         {
             // something went wrong, need to pay winners immediately
             if (GameState.Equals(VMEODRouletteGameStates.Spinning) && Players.Count > 0)
@@ -927,7 +918,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             EnqueueGotoState(VMEODRouletteGameStates.Closed);
         }
 
-        private void SettleAccounts(bool skipAnimations)
+            void SettleAccounts(bool skipAnimations)
         {
             foreach (var player in Players)
             {
@@ -947,7 +938,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void ProcessPayout(RoulettePlayer player)
+            void ProcessPayout(RoulettePlayer player)
         {
             int payout = player.PayoutDue;
             bool playerPaidForBets = player.PaidForBets;
@@ -960,7 +951,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void DeductBetAmount(int deductionAmount, RoulettePlayer player)
+            void DeductBetAmount(int deductionAmount, RoulettePlayer player)
         {
             if (player != null && player.Client != null)
             {
@@ -980,7 +971,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void ExecutePayout(int payout, RoulettePlayer player)
+            void ExecutePayout(int payout, RoulettePlayer player)
         {
             if (player != null && player.Client != null)
             {
@@ -1002,11 +993,11 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
     internal class RoulettePlayer
     {
-        private VMEODClient _Client;
-        private List<RouletteBet> _AllBets;
-        private int _SimoleonBalance;
-        private int _PayoutDue;
-        private bool _PaidForBets;
+            VMEODClient _Client;
+            List<RouletteBet> _AllBets;
+            int _SimoleonBalance;
+            int _PayoutDue;
+            bool _PaidForBets;
 
         internal delegate void BetChange(RoulettePlayer player);
 
@@ -1272,9 +1263,9 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
     internal class RouletteBet
     {
-        private VMEODRouletteBetTypes _Type;
-        private int[] BetChips;
-        private int BetChipCount;
+            VMEODRouletteBetTypes _Type;
+            int[] BetChips;
+            int BetChipCount;
         internal List<byte> NumbersInPlay;
 
         internal RouletteBet(int amount, VMEODRouletteBetTypes type, params byte[] numbers)

@@ -4,12 +4,7 @@ using FSO.Common.Utils;
 using FSO.Files.Formats.tsodata;
 using FSO.Server.DataService.Model;
 using FSO.Server.Protocol.Electron.Packets;
-using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -23,9 +18,9 @@ namespace FSO.Client.Controllers
 
         public MessagingWindowController(UIMessageWindow view, Network.Network network, IClientDataService dataService)
         {
-            this.View = view;
-            this.Network = network;
-            this.DataService = dataService;
+            View = view;
+            Network = network;
+            DataService = dataService;
         }
 
         public void Init(Message message, MessagingController parent){

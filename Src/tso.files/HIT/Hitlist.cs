@@ -33,7 +33,7 @@ namespace FSO.Files.HIT
 
         private void Read(Stream data)
         {
-            BinaryReader Reader = new BinaryReader(data);
+            var Reader = new BinaryReader(data);
 
             IDs = new List<uint>();
             var VerOrCount = Reader.ReadUInt32();

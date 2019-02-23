@@ -6,10 +6,6 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
-using System.Globalization;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
@@ -17,10 +13,8 @@ using FSO.Client.UI.Framework.Parser;
 using Microsoft.Xna.Framework;
 using FSO.Common.Utils;
 using FSO.Vitaboy;
-using FSO.Content;
 using FSO.Client.Controllers;
 using System.Text.RegularExpressions;
-using FSO.Client.GameContent;
 using FSO.Client.UI.Model;
 using FSO.Common;
 using FSO.Client.UI.Panels;
@@ -99,7 +93,7 @@ namespace FSO.Client.UI.Screens
              * UI
              */
 
-            UIScript ui = this.RenderScript("personselectionedit1024.uis");
+            UIScript ui = RenderScript("personselectionedit1024.uis");
 
             Position = new Vector2((GlobalSettings.Default.GraphicsWidth-1024)/2, (GlobalSettings.Default.GraphicsHeight-768)/2) * FSOEnvironment.DPIScaleFactor;
 
@@ -131,19 +125,19 @@ namespace FSO.Client.UI.Screens
             m_HeadSkinBrowser = ui.Create<UICollectionViewer>("HeadSkinBrowser");
             m_HeadSkinBrowser.OnChange += new ChangeDelegate(HeadSkinBrowser_OnChange);
             m_HeadSkinBrowser.Init();
-            this.Add(m_HeadSkinBrowser);
+            Add(m_HeadSkinBrowser);
 
             m_BodySkinBrowser = ui.Create<UICollectionViewer>("BodySkinBrowser");
             m_BodySkinBrowser.OnChange += new ChangeDelegate(BodySkinBrowser_OnChange);
             m_BodySkinBrowser.Init();
-            this.Add(m_BodySkinBrowser);
+            Add(m_BodySkinBrowser);
 
             FemaleButton.OnButtonClick += new ButtonClickDelegate(GenderButton_OnButtonClick);
             MaleButton.OnButtonClick += new ButtonClickDelegate(GenderButton_OnButtonClick);
 
             /** Backgrounds **/
             var bg = new UIImage(BackgroundImage).With9Slice(128,128, 84, 84);
-            this.AddAt(0, bg);
+            AddAt(0, bg);
             bg.SetSize(GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight);
             bg.Position = new Vector2((GlobalSettings.Default.GraphicsWidth - 1024) / -2, (GlobalSettings.Default.GraphicsHeight - 768) / -2);
             Background = bg;
@@ -153,7 +147,7 @@ namespace FSO.Client.UI.Screens
             {
                 offset = new Vector2(112, 84);
 
-                this.AddAt(1, new UIImage(BackgroundImageDialog)
+                AddAt(1, new UIImage(BackgroundImageDialog)
                 {
                     X = 112,
                     Y = 84
@@ -171,7 +165,7 @@ namespace FSO.Client.UI.Screens
                 Size = new Vector2(140, 200),
                 AutoRotate = true
             };
-            this.Add(SimBox);
+            Add(SimBox);
 
             /**
              * Init state
@@ -250,7 +244,7 @@ namespace FSO.Client.UI.Screens
             {
                 if (_ProgressAlert != null)
                 {
-                    UIScreen.RemoveDialog(_ProgressAlert);
+                    RemoveDialog(_ProgressAlert);
                     _ProgressAlert = null;
                 }
             }
@@ -489,7 +483,7 @@ namespace FSO.Client.UI.Screens
                 type = AppearanceType.Dark;
             }
 
-            this.AppearanceType = type;
+            AppearanceType = type;
             RefreshCollections();
         }
     }

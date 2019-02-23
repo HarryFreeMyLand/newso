@@ -11,7 +11,7 @@ using FSO.Files.Formats.IFF.Chunks;
 using FSO.HIT;
 using FSO.LotView;
 using FSO.SimAntics;
-using FSO.Content;
+using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.Engine.TSOTransaction;
 using FSO.SimAntics.NetPlay;
 using FSO.SimAntics.NetPlay.Drivers;
@@ -23,15 +23,12 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Screens
 {
     public class SandboxGameScreen : Framework.GameScreen, IGameScreen
     {
-        public UIUCP ucp;
+        public UIUCP Ucp;
         public UIGameTitle Title;
 
         public UIContainer WindowContainer;
@@ -39,13 +36,13 @@ namespace FSO.Client.UI.Screens
         public FSOSandboxClient SandCli;
         public UISandboxSelector SandSelect;
 
-        Queue<SimConnectStateChange> StateChanges;
+        Queue<SimConnectStateChange> _stateChanges;
 
         public UIJoinLotProgress JoinLotProgress;
         public bool Downtown;
 
         public UILotControl LotControl { get; set; } //world, lotcontrol and vm will be null if we aren't in a lot.
-        World World;
+        World _world;
         public VM vm { get; set; }
         public VMNetDriver Driver;
         public uint VisualBudget { get; set; }
@@ -53,6 +50,9 @@ namespace FSO.Client.UI.Screens
         //for TS1 hybrid mode
         public UINeighborhoodSelectionPanel TS1NeighPanel;
         public FAMI ActiveFamily;
+
+        int _zoomLevel;
+        int _rotation = 0;
 
         public bool InLot
         {
@@ -62,16 +62,15 @@ namespace FSO.Client.UI.Screens
             }
         }
 
-        int m_ZoomLevel;
         public int ZoomLevel
         {
             get
             {
-                if (m_ZoomLevel < 4 && InLot)
+                if (_zoomLevel < 4 && InLot)
                 {
-                    return 4 - (int)World.State.Zoom;
+                    return 4 - (int)_world.State.Zoom;
                 }
-                return m_ZoomLevel;
+                return _zoomLevel;
             }
             set
             {
@@ -88,15 +87,15 @@ namespace FSO.Client.UI.Screens
                         var targ = (WorldZoom)(4 - value); //near is 3 for some reason... will probably revise
                         HITVM.Get.PlaySoundEvent(UIMusic.None);
                         LotControl.Visible = true;
-                        World.Visible = true;
-                        ucp.SetMode(UIUCP.UCPMode.LotMode);
+                        _world.Visible = true;
+                        Ucp.SetMode(UIUCP.UCPMode.LotMode);
                         LotControl.SetTargetZoom(targ);
                         if (!FSOEnvironment.Enable3D)
                         {
-                            if (m_ZoomLevel != value)
+                            if (_zoomLevel != value)
                                 vm.Context.World.InitiateSmoothZoom(targ);
                         }
-                        m_ZoomLevel = value;
+                        _zoomLevel = value;
                     }
                 }
                 else //open the sandbox mode lot browser
@@ -104,35 +103,35 @@ namespace FSO.Client.UI.Screens
                     SandSelect = new UISandboxSelector();
                     GlobalShowDialog(SandSelect, true);
                 }
-                ucp.UpdateZoomButton();
+                Ucp.UpdateZoomButton();
             }
         }
 
-        int _Rotation = 0;
+
         public int Rotation
         {
             get
             {
-                return _Rotation;
+                return _rotation;
             }
             set
             {
-                _Rotation = value;
-                if (World != null)
+                _rotation = value;
+                if (_world != null)
                 {
-                    switch (_Rotation)
+                    switch (_rotation)
                     {
                         case 0:
-                            World.State.Rotation = WorldRotation.TopLeft;
+                            _world.State.Rotation = WorldRotation.TopLeft;
                             break;
                         case 1:
-                            World.State.Rotation = WorldRotation.TopRight;
+                            _world.State.Rotation = WorldRotation.TopRight;
                             break;
                         case 2:
-                            World.State.Rotation = WorldRotation.BottomRight;
+                            _world.State.Rotation = WorldRotation.BottomRight;
                             break;
                         case 3:
-                            World.State.Rotation = WorldRotation.BottomLeft;
+                            _world.State.Rotation = WorldRotation.BottomLeft;
                             break;
                     }
                 }
@@ -143,16 +142,16 @@ namespace FSO.Client.UI.Screens
         {
             get
             {
-                if (World == null)
+                if (_world == null)
                     return 1;
                 else
-                    return World.State.Level;
+                    return _world.State.Level;
             }
             set
             {
-                if (World != null)
+                if (_world != null)
                 {
-                    World.State.Level = value;
+                    _world.State.Level = value;
                 }
             }
         }
@@ -161,28 +160,28 @@ namespace FSO.Client.UI.Screens
         {
             get
             {
-                if (World == null)
+                if (_world == null)
                     return 2;
-                return World.Stories;
+                return _world.Stories;
             }
         }
 
         public SandboxGameScreen() : base()
         {
-            StateChanges = new Queue<SimConnectStateChange>();
+            _stateChanges = new Queue<SimConnectStateChange>();
 
-            ucp = new UIUCP(this)
+            Ucp = new UIUCP(this)
             {
                 Y = ScreenHeight - 210
             };
-            ucp.SetInLot(false);
-            ucp.UpdateZoomButton();
-            ucp.MoneyText.Caption = "0";// PlayerAccount.Money.ToString();
-            this.Add(ucp);
+            Ucp.SetInLot(false);
+            Ucp.UpdateZoomButton();
+            Ucp.MoneyText.Caption = "0";// PlayerAccount.Money.ToString();
+            Add(Ucp);
 
             Title = new UIGameTitle();
             Title.SetTitle("");
-            this.Add(Title);
+            Add(Title);
 
             WindowContainer = new UIContainer();
             Add(WindowContainer);
@@ -204,11 +203,11 @@ namespace FSO.Client.UI.Screens
         {
             base.GameResized();
             Title.SetTitle(Title.Label.Caption);
-            ucp.Y = ScreenHeight - 210;
-            World?.GameResized();
-            var oldPanel = ucp.CurrentPanel;
-            ucp.SetPanel(-1);
-            ucp.SetPanel(oldPanel);
+            Ucp.Y = ScreenHeight - 210;
+            _world?.GameResized();
+            var oldPanel = Ucp.CurrentPanel;
+            Ucp.SetPanel(-1);
+            Ucp.SetPanel(oldPanel);
         }
 
         public void Initialize(string propertyName, bool external)
@@ -221,7 +220,7 @@ namespace FSO.Client.UI.Screens
             InitializeLot(propertyName, external);
         }
 
-        int SwitchLot = -1;
+        int _switchLot = -1;
 
         public void ChangeSpeedTo(int speed)
         {
@@ -314,10 +313,10 @@ namespace FSO.Client.UI.Screens
         {
             GameFacade.Game.IsFixedTimeStep = vm == null || vm.Ready;
 
-            Visible = World?.Visible == true && (World?.State as LotView.RC.WorldStateRC)?.CameraMode != true;
+            Visible = _world?.Visible == true && (_world?.State as LotView.RC.WorldStateRC)?.CameraMode != true;
             GameFacade.Game.IsMouseVisible = Visible;
 
-            if (state.NewKeys.Contains(Microsoft.Xna.Framework.Input.Keys.F1) && state.CtrlDown)
+            if (state.NewKeys.Contains(Keys.F1) && state.CtrlDown)
                 FSOFacade.Controller.ToggleDebugMenu();
 
             base.Update(state);
@@ -330,25 +329,25 @@ namespace FSO.Client.UI.Screens
             if (state.NewKeys.Contains(Keys.P))
                 ChangeSpeedTo(0);
 
-            if (World != null)
+            if (_world != null)
             {
                 //stub smooth zoom?
             }
 
-            lock (StateChanges)
+            lock (_stateChanges)
             {
-                while (StateChanges.Count > 0)
+                while (_stateChanges.Count > 0)
                 {
-                    var e = StateChanges.Dequeue();
+                    var e = _stateChanges.Dequeue();
                     ClientStateChangeProcess(e.State, e.Progress);
                 }
             }
 
-            if (SwitchLot > 0)
+            if (_switchLot > 0)
             {
 
-                InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, "UserData/Houses/House" + SwitchLot.ToString().PadLeft(2, '0') + ".iff"), false);
-                SwitchLot = -1;
+                InitializeLot(Path.Combine(Content.GameContent.Get.TS1BasePath, $"UserData/Houses/House{_switchLot.ToString().PadLeft(2, '0')}.iff"), false);
+                _switchLot = -1;
             }
             if (vm != null)
                 vm.Update();
@@ -381,15 +380,15 @@ namespace FSO.Client.UI.Screens
             }
             vm.CloseNet(VMCloseNetReason.LeaveLot);
             //Driver.OnClientCommand -= VMSendCommand;
-            GameFacade.Scenes.Remove(World);
-            World.Dispose();
+            GameFacade.Scenes.Remove(_world);
+            _world.Dispose();
             LotControl.Dispose();
-            this.Remove(LotControl);
-            ucp.SetPanel(-1);
-            ucp.SetInLot(false);
+            Remove(LotControl);
+            Ucp.SetPanel(-1);
+            Ucp.SetInLot(false);
             vm.SuppressBHAVChanges();
             vm = null;
-            World = null;
+            _world = null;
             Driver = null;
             LotControl = null;
 
@@ -423,8 +422,8 @@ namespace FSO.Client.UI.Screens
 
         public void ClientStateChange(int state, float progress)
         {
-            lock (StateChanges)
-                StateChanges.Enqueue(new SimConnectStateChange(state, progress));
+            lock (_stateChanges)
+                _stateChanges.Enqueue(new SimConnectStateChange(state, progress));
         }
 
         public void ClientStateChangeProcess(int state, float progress)
@@ -437,9 +436,9 @@ namespace FSO.Client.UI.Screens
                     break;
                 case 3:
                     GameFacade.Cursor.SetCursor(CursorType.Normal);
-                    UIScreen.RemoveDialog(JoinLotProgress);
+                    RemoveDialog(JoinLotProgress);
                     ZoomLevel = 1;
-                    ucp.SetInLot(true);
+                    Ucp.SetInLot(true);
                     break;
             }
         }
@@ -454,12 +453,12 @@ namespace FSO.Client.UI.Screens
             if (FSOEnvironment.Enable3D)
             {
                 var rc = new LotView.RC.WorldRC(GameFacade.GraphicsDevice);
-                World = rc;
+                _world = rc;
             }
             else
-                World = new World(GameFacade.GraphicsDevice);
-            World.Opacity = 1;
-            GameFacade.Scenes.Add(World);
+                _world = new World(GameFacade.GraphicsDevice);
+            _world.Opacity = 1;
+            GameFacade.Scenes.Add(_world);
 
             var settings = GlobalSettings.Default;
             var myState = new VMNetAvatarPersistState()
@@ -471,7 +470,7 @@ namespace FSO.Client.UI.Screens
                 PersistID = (uint)new Random().Next(),
                 SkinTone = (byte)settings.DebugSkin,
                 Gender = (short)(settings.DebugGender ? 0 : 1),
-                Permissions = SimAntics.Model.TSOPlatform.VMTSOAvatarPermissions.Admin,
+                Permissions = VMTSOAvatarPermissions.Admin,
                 Budget = 1000000,
             };
 
@@ -518,27 +517,27 @@ namespace FSO.Client.UI.Screens
                 SandServer.OnDisconnect += sd.DisconnectClient;
                 SandServer.OnMessage += sd.HandleMessage;
 
-                SandServer.Start((ushort)37564);
+                SandServer.Start(37564);
             }
 
             //Driver.OnClientCommand += VMSendCommand;
             //Driver.OnShutdown += VMShutdown;
 
-            vm = new VM(new VMContext(World), Driver, new UIHeadlineRendererProvider());
+            vm = new VM(new VMContext(_world), Driver, new UIHeadlineRendererProvider());
             vm.ListenBHAVChanges();
             vm.Init();
 
-            LotControl = new UILotControl(vm, World);
-            this.AddAt(0, LotControl);
+            LotControl = new UILotControl(vm, _world);
+            AddAt(0, LotControl);
 
             var time = DateTime.UtcNow;
             var tsoTime = TSOTime.FromUTC(time);
 
             vm.Context.Clock.Hours = tsoTime.Item1;
             vm.Context.Clock.Minutes = tsoTime.Item2;
-            if (m_ZoomLevel > 3)
+            if (_zoomLevel > 3)
             {
-                World.Visible = false;
+                _world.Visible = false;
                 LotControl.Visible = false;
             }
 
@@ -598,7 +597,7 @@ namespace FSO.Client.UI.Screens
             string filename = Path.GetFileName(path);
             try
             {
-                using (var file = new BinaryReader(File.OpenRead(Path.Combine(FSOEnvironment.UserDir, "LocalHouse/") + filename.Substring(0, filename.Length - 4) + ".fsov")))
+                using (var file = new BinaryReader(File.OpenRead($"{Path.Combine(FSOEnvironment.UserDir, "LocalHouse/")}{filename.Substring(0, filename.Length - 4)}.fsov")))
                 {
                     var marshal = new SimAntics.Marshals.VMMarshal();
                     marshal.Deserialize(file);
@@ -664,7 +663,7 @@ namespace FSO.Client.UI.Screens
             {
                 Downtown = true;
             }
-            SwitchLot = (int)lotId;
+            _switchLot = (int)lotId;
         }
 
         void Vm_OnChatEvent(VMChatEvent evt)

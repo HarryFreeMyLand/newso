@@ -349,10 +349,6 @@
       <Project>{a08ade32-27e2-44f4-bc52-11a16c56baa8}</Project>
       <Name>FSO.Server.Protocol</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FSO.Server.Updater\FSO.Server.Watchdog.csproj">
-      <Project>{bedcdf02-3349-4e64-9bfd-38c499303822}</Project>
-      <Name>FSO.Server.Watchdog</Name>
-    </ProjectReference>
     <ProjectReference Include="..\tso.common\FSO.Common.csproj">
       <Project>{c42962a1-8796-4f47-9dcd-79ed5904d8ca}</Project>
       <Name>FSO.Common</Name>

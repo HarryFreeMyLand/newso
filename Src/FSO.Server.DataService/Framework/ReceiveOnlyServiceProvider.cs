@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -40,10 +38,10 @@ namespace FSO.Common.DataService.Framework
             }
         }
 
-        private Task<object> ResolveMissingKey(object key)
+        Task<object> ResolveMissingKey(object key)
         {
             var cts = new CancellationTokenSource(LazyLoadTimeout);
-            return Task.Factory.StartNew<object>(() =>
+            return Task.Factory.StartNew(() =>
             {
                 return (object)CreateInstance((KEY)key);
             }, cts.Token);

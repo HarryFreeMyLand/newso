@@ -16,16 +16,16 @@ namespace FSO.Server.Servers.Tasks
 {
     public class TaskEngine
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private IKernel Kernel;
-        private IDAFactory DAFactory;
+        IKernel Kernel;
+        IDAFactory DAFactory;
 
-        private System.Timers.Timer Timer = new System.Timers.Timer(30000);
-        private List<TaskEngineEntry> Entries;
-        private List<ITask> Running;
-        private DateTime Last;
-        private List<ScheduledTaskRunOptions> _Schedule;
+        System.Timers.Timer Timer = new System.Timers.Timer(30000);
+        List<TaskEngineEntry> Entries;
+        List<ITask> Running;
+        DateTime Last;
+        List<ScheduledTaskRunOptions> _Schedule;
 
         public TaskEngine(IKernel kernel, IDAFactory daFactory)
         {
@@ -54,7 +54,7 @@ namespace FSO.Server.Servers.Tasks
             }
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             var time = DateTime.Now;
             if(time.Minute == Last.Minute){
@@ -216,7 +216,7 @@ namespace FSO.Server.Servers.Tasks
 
     public class TaskContext
     {
-        private TaskEngine Engine;
+        TaskEngine Engine;
         public int? ShardId;
         public string ParameterJson;
 
@@ -261,7 +261,7 @@ namespace FSO.Server.Servers.Tasks
 
         #region Private Instance Members
 
-        private readonly string _expression;
+        readonly string _expression;
         public List<int> minutes;
         public List<int> hours;
         public List<int> days_of_month;
@@ -306,7 +306,7 @@ namespace FSO.Server.Servers.Tasks
                    days_of_week.Contains((int)date_time.DayOfWeek);
         }
 
-        private void generate()
+        void generate()
         {
             if (!isValid()) return;
 
@@ -335,32 +335,32 @@ namespace FSO.Server.Servers.Tasks
                 generate_days_of_weeks("*");
         }
 
-        private void generate_minutes(string match)
+        void generate_minutes(string match)
         {
             minutes = generate_values(match, 0, 60);
         }
 
-        private void generate_hours(string match)
+        void generate_hours(string match)
         {
             hours = generate_values(match, 0, 24);
         }
 
-        private void generate_days_of_month(string match)
+        void generate_days_of_month(string match)
         {
             days_of_month = generate_values(match, 1, 32);
         }
 
-        private void generate_months(string match)
+        void generate_months(string match)
         {
             months = generate_values(match, 1, 13);
         }
 
-        private void generate_days_of_weeks(string match)
+        void generate_days_of_weeks(string match)
         {
             days_of_week = generate_values(match, 0, 7);
         }
 
-        private List<int> generate_values(string configuration, int start, int max)
+        List<int> generate_values(string configuration, int start, int max)
         {
             if (divided_regex.IsMatch(configuration)) return divided_array(configuration, start, max);
             if (range_regex.IsMatch(configuration)) return range_array(configuration);
@@ -370,7 +370,7 @@ namespace FSO.Server.Servers.Tasks
             return new List<int>();
         }
 
-        private List<int> divided_array(string configuration, int start, int max)
+        List<int> divided_array(string configuration, int start, int max)
         {
             if (!divided_regex.IsMatch(configuration))
                 return new List<int>();
@@ -386,7 +386,7 @@ namespace FSO.Server.Servers.Tasks
             return ret;
         }
 
-        private List<int> range_array(string configuration)
+        List<int> range_array(string configuration)
         {
             if (!range_regex.IsMatch(configuration))
                 return new List<int>();
@@ -415,7 +415,7 @@ namespace FSO.Server.Servers.Tasks
             return ret;
         }
 
-        private List<int> wild_array(string configuration, int start, int max)
+        List<int> wild_array(string configuration, int start, int max)
         {
             if (!wild_regex.IsMatch(configuration))
                 return new List<int>();
@@ -428,7 +428,7 @@ namespace FSO.Server.Servers.Tasks
             return ret;
         }
 
-        private List<int> list_array(string configuration)
+        List<int> list_array(string configuration)
         {
             if (!list_regex.IsMatch(configuration))
                 return new List<int>();

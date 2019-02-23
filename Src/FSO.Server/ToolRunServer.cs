@@ -1,4 +1,4 @@
-﻿using FSO.Common.DataService.Framework;
+using FSO.Common.DataService.Framework;
 using FSO.Common.Utils;
 using FSO.Server.DataService;
 using FSO.Server.Domain;
@@ -25,21 +25,21 @@ namespace FSO.Server
 {
     public class ToolRunServer : ITool
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private ServerConfiguration Config;
-        private IKernel Kernel;
+        ServerConfiguration Config;
+        IKernel Kernel;
 
-        private bool Running;
-        private List<AbstractServer> Servers;
-        private List<CityServer> CityServers;
-        private ApiServer ActiveApiServer;
-        private UserApi ActiveUApiServer;
-        private TaskServer ActiveTaskServer;
-        private RunServerOptions Options;
-        private Protocol.Gluon.Model.ShutdownType ShutdownMode;
+        bool Running;
+        List<AbstractServer> Servers;
+        List<CityServer> CityServers;
+        ApiServer ActiveApiServer;
+        UserApi ActiveUApiServer;
+        TaskServer ActiveTaskServer;
+        RunServerOptions Options;
+        Protocol.Gluon.Model.ShutdownType ShutdownMode;
 
-        private IGluonHostPool HostPool;
+        IGluonHostPool HostPool;
 
         public ToolRunServer(RunServerOptions options, ServerConfiguration config, IKernel kernel, IGluonHostPool hostPool)
         {
@@ -216,7 +216,7 @@ namespace FSO.Server
             return 1;
         }
 
-        private int[] ShutdownAlertTimings = new int[]
+        int[] ShutdownAlertTimings = new int[]
         {
             30*60, //30 mins
             15*60, //15 mins
@@ -229,7 +229,7 @@ namespace FSO.Server
             30
         };
 
-        private void BroadcastMessage(string sender, string title, string message)
+        void BroadcastMessage(string sender, string title, string message)
         {
             //TODO: select which shards to operate on
             try
@@ -254,7 +254,7 @@ namespace FSO.Server
         /// Disconnects a user ingame.
         /// </summary>
         /// <param name="user_id">ID of user to be disconnected.</param>
-        private void RequestedUserDisconnect(uint user_id)
+        void RequestedUserDisconnect(uint user_id)
         {
             //TODO: select shard to send disconnection request
             foreach (var city in CityServers)
@@ -270,7 +270,7 @@ namespace FSO.Server
         /// <param name="subject">The email subject.</param>
         /// <param name="body">The email body.</param>
         /// <param name="target_id">The recipient's user_id.</param>
-        private void RequestedMailNotify(int message_id, string subject, string body, uint target_id)
+        void RequestedMailNotify(int message_id, string subject, string body, uint target_id)
         {
             var messageItem = new Files.Formats.tsodata.MessageItem()
             {
@@ -307,7 +307,7 @@ namespace FSO.Server
             }
         }
 
-        private async void RequestedShutdown(uint time, Protocol.Gluon.Model.ShutdownType type)
+        async void RequestedShutdown(uint time, Protocol.Gluon.Model.ShutdownType type)
         {
             //TODO: select which shards to operate on
             ShutdownMode = type;
@@ -357,7 +357,7 @@ namespace FSO.Server
             }
         }
 
-        private void ServerInternalShutdown(AbstractServer server, Protocol.Gluon.Model.ShutdownType data)
+        void ServerInternalShutdown(AbstractServer server, Protocol.Gluon.Model.ShutdownType data)
         {
             lock (Servers)
             {
@@ -366,12 +366,12 @@ namespace FSO.Server
             ShutdownMode = data;
         }
 
-        private void CurrentDomain_DomainUnload(object sender, EventArgs e)
+        void CurrentDomain_DomainUnload(object sender, EventArgs e)
         {
             CurrentDomain_ProcessExit(sender, e);
         }
 
-        private void CurrentDomain_ProcessExit(object sender, EventArgs e)
+        void CurrentDomain_ProcessExit(object sender, EventArgs e)
         {
             HostPool.Stop();
 

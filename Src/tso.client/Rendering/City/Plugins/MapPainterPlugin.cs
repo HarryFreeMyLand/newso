@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Common.Rendering.Framework.Model;
@@ -489,7 +487,7 @@ namespace FSO.Client.Rendering.City.Plugins
                 }
             }
 
-            if (state.MouseState.LeftButton == Microsoft.Xna.Framework.Input.ButtonState.Released)
+            if (state.MouseState.LeftButton == ButtonState.Released)
             {
                 if (MouseDown) RestoreOld();
                 MouseDown = false;

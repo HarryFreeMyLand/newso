@@ -4,20 +4,16 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using FSO.Common.Content;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Engine.Scopes;
 using FSO.SimAntics.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.SimAntics.Engine
 {
     public class VMSuitProvider
     {
-        private static long[][][] JobOutfits = new long[][][] {
+            static long[][][] JobOutfits = new long[][][] {
                         new long[][]{ //male
                 new long[] { //robot
                     0x5870000000D,
@@ -118,8 +114,8 @@ namespace FSO.SimAntics.Engine
                     toHandCopy = new VMOutfitReference("f" + code + "_01,BODY=" + "f" + code + skn + "_01", false);
                     break;
                 case VMPersonSuits.JobOutfit:
-                    var jtype = avatar.GetPersonData(FSO.SimAntics.Model.VMPersonDataVariable.JobType);
-                    var level = avatar.GetPersonData(FSO.SimAntics.Model.VMPersonDataVariable.JobPromotionLevel);
+                    var jtype = avatar.GetPersonData(VMPersonDataVariable.JobType);
+                    var level = avatar.GetPersonData(VMPersonDataVariable.JobPromotionLevel);
 
                     var job = Content.GameContent.Get.Jobs.GetJobLevel(jtype, level);
 
@@ -183,7 +179,7 @@ namespace FSO.SimAntics.Engine
             return toHandCopy;
         }
 
-        private static bool IsValid(string suitName)
+            static bool IsValid(string suitName)
         {
             return !(suitName == null || suitName == "" || suitName == "ADDED");
         }

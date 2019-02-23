@@ -5,9 +5,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content
 {
@@ -49,11 +46,11 @@ namespace FSO.Content
 
         public CityMap Get(ulong id)
         {
-            CityMap result;
-            if (Cache.TryGetValue((int)id, out result))
+            if (Cache.TryGetValue((int)id, out var result))
             {
                 return result;
-            } else
+            }
+            else
             {
                 return Cache.GetOrAdd((int)id, new CityMap(DirCache[(int)id]));
             }

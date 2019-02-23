@@ -1,7 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Primitives;
 using FSO.SimAntics.NetPlay.Model;
@@ -21,9 +19,9 @@ namespace FSO.SimAntics.Engine.TSOTransaction
     /// </summary>
     public class VMTSOGlobalLinkStub : IVMTSOGlobalLink
     {
-        private Queue<VMNetArchitectureCmd> ArchBuffer = new Queue<VMNetArchitectureCmd>();
+        Queue<VMNetArchitectureCmd> _archBuffer = new Queue<VMNetArchitectureCmd>();
         public VMTSOStandaloneDatabase Database; // = new VMTSOStandaloneDatabase();
-        private bool WaitingOnArch;
+        bool _waitingOnArch;
 
         public void PerformTransaction(VM vm, bool testOnly, uint uid1, uint uid2, int amount, short type, short thread, VMAsyncTransactionCallback callback)
         {
@@ -47,7 +45,7 @@ namespace FSO.SimAntics.Engine.TSOTransaction
                         UID2 = uid2,
                         Budget2 = (obj2 == null) ? 0 : obj2.TSOState.Budget.Value
                     }));
-                    
+
                     callback(result, finalAmount,
                         uid1, (obj1 == null) ? 0 : obj1.TSOState.Budget.Value,
                         uid2, (obj2 == null) ? 0 : obj2.TSOState.Budget.Value);
@@ -61,16 +59,21 @@ namespace FSO.SimAntics.Engine.TSOTransaction
             var obj2 = vm.GetObjectByPersist(uid2);
 
             // max value ID is "maxis"
-            if ((uid1 != uint.MaxValue && obj1 == null) || (uid2 != uint.MaxValue && obj2 == null)) return false;
+            if ((uid1 != uint.MaxValue && obj1 == null) || (uid2 != uint.MaxValue && obj2 == null))
+                return false;
 
             // fail if the target is an object and they're not on lot
-            if (obj1 != null && !obj1.TSOState.Budget.CanTransact(-amount)) return false;
-            if (obj2 != null && !obj2.TSOState.Budget.CanTransact(amount)) return false;
+            if (obj1 != null && !obj1.TSOState.Budget.CanTransact(-amount))
+                return false;
+            if (obj2 != null && !obj2.TSOState.Budget.CanTransact(amount))
+                return false;
 
             if (!testOnly)
             {
-                if (obj1 != null) obj1.TSOState.Budget.Transaction(-amount);
-                if (obj2 != null) obj2.TSOState.Budget.Transaction(amount);
+                if (obj1 != null)
+                    obj1.TSOState.Budget.Transaction(-amount);
+                if (obj2 != null)
+                    obj2.TSOState.Budget.Transaction(amount);
             }
             return true;
         }
@@ -87,19 +90,19 @@ namespace FSO.SimAntics.Engine.TSOTransaction
 
         public void QueueArchitecture(VMNetArchitectureCmd cmd)
         {
-            lock (ArchBuffer)
+            lock (_archBuffer)
             {
-                ArchBuffer.Enqueue(cmd);
+                _archBuffer.Enqueue(cmd);
             }
         }
 
         public void Tick(VM vm)
         {
-            lock (ArchBuffer)
+            lock (_archBuffer)
             {
-                while (!WaitingOnArch && ArchBuffer.Count > 0)
+                while (!_waitingOnArch && _archBuffer.Count > 0)
                 {
-                    var cmd = ArchBuffer.Dequeue();
+                    var cmd = _archBuffer.Dequeue();
                     var cost = vm.Context.Architecture.SimulateCommands(cmd.Commands, false);
                     if (cost == 0)
                     {
@@ -110,13 +113,16 @@ namespace FSO.SimAntics.Engine.TSOTransaction
                     else
                     {
                         uint source, target;
-                        if (cost > 0) { source = cmd.ActorUID; target = uint.MaxValue; }
-                        else { source = uint.MaxValue; target = cmd.ActorUID; }
-                        WaitingOnArch = true;
+                        if (cost > 0)
+                        { source = cmd.ActorUID; target = uint.MaxValue; }
+                        else
+                        { source = uint.MaxValue; target = cmd.ActorUID; }
+                        _waitingOnArch = true;
                         PerformTransaction(vm, false, source, target, Math.Abs(cost),
                             (bool success, int transferAmount, uint uid1, uint budget1, uint uid2, uint budget2) =>
                             {
-                                lock (ArchBuffer) WaitingOnArch = false;
+                                lock (_archBuffer)
+                                    _waitingOnArch = false;
                                 if (success)
                                 {
                                     cmd.Verified = true;
@@ -180,9 +186,12 @@ namespace FSO.SimAntics.Engine.TSOTransaction
             var uid = Database.FindOrAddAvatar(ticket);
 
             var permissions = VMTSOAvatarPermissions.Visitor;
-            if (Database.Administrators.Contains(uid)) permissions = VMTSOAvatarPermissions.Admin;
-            else if (vm.TSOState.BuildRoommates.Contains(uid)) permissions = VMTSOAvatarPermissions.BuildBuyRoommate;
-            else if (vm.TSOState.Roommates.Contains(uid)) permissions = VMTSOAvatarPermissions.Roommate;
+            if (Database.Administrators.Contains(uid))
+                permissions = VMTSOAvatarPermissions.Admin;
+            else if (vm.TSOState.BuildRoommates.Contains(uid))
+                permissions = VMTSOAvatarPermissions.BuildBuyRoommate;
+            else if (vm.TSOState.Roommates.Contains(uid))
+                permissions = VMTSOAvatarPermissions.Roommate;
 
             //TODO!!!!!! This is a HACK to make sure SimJoin commands get sent AFTER the state sync.
             new System.Threading.Thread(() =>
@@ -194,7 +203,8 @@ namespace FSO.SimAntics.Engine.TSOTransaction
 
         public void LoadPluginPersist(VM vm, uint objectPID, uint pluginID, VMAsyncPluginLoadCallback callback)
         {
-            if (Database == null) callback(null);
+            if (Database == null)
+                callback(null);
             var dat = Database.LoadPluginPersist(objectPID, pluginID);
 
             new System.Threading.Thread(() =>
@@ -235,7 +245,7 @@ namespace FSO.SimAntics.Engine.TSOTransaction
         public void RetrieveFromInventory(VM vm, uint objectPID, uint ownerPID, bool setOnLot, VMAsyncInventoryRetrieveCallback callback)
         {
             //todo: nice stub for this using database?
-            callback(0, null); 
+            callback(0, null);
         }
 
         public void ForceInInventory(VM vm, uint objectPID, VMAsyncInventorySaveCallback callback)
@@ -287,7 +297,8 @@ namespace FSO.SimAntics.Engine.TSOTransaction
 
         public void GetDynPayouts(VMAsyncNewspaperCallback callback)
         {
-            callback(new VMEODFNewspaperData() {
+            callback(new VMEODFNewspaperData()
+            {
                 News = new List<VMEODFNewspaperNews>()
                 {
                     new VMEODFNewspaperNews() {
@@ -305,7 +316,7 @@ namespace FSO.SimAntics.Engine.TSOTransaction
                         "expand it into the upper view."
                     },
                 },
-                Points = 
+                Points =
                 new List<NetPlay.EODs.Handlers.VMEODFNewspaperPoint>()
             {
                 new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.0f, Skilltype = 0 },

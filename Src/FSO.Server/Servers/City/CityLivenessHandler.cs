@@ -16,12 +16,12 @@ namespace FSO.Server.Servers.City
 
     public class CityLivenessEngine
     {
-        private Thread LivenessThread;
-        private List<Action> LivenessActions = new List<Action>();
-        private AutoResetEvent OnChange = new AutoResetEvent(true);
-        private ISessions Sessions;
-        private EventSystem Events;
-        private bool Alive;
+        Thread LivenessThread;
+        List<Action> LivenessActions = new List<Action>();
+        AutoResetEvent OnChange = new AutoResetEvent(true);
+        ISessions Sessions;
+        EventSystem Events;
+        bool Alive;
 
         public CityLivenessEngine(ISessions sessions, EventSystem events)
         {
@@ -46,7 +46,7 @@ namespace FSO.Server.Servers.City
             }
         }
 
-        private void Run()
+        void Run()
         {
             while (Alive)
             {

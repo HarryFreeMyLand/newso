@@ -4,9 +4,6 @@ using FSO.SimAntics;
 using FSO.SimAntics.NetPlay.EODs.Utils;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs.Utils
 {
@@ -20,9 +17,9 @@ namespace FSO.Client.UI.Panels.EODs.Utils
 
         public UIEODLobby(UIEOD eod, int numPlayers)
         {
-            this.EOD = eod;
-            this.NumPlayers = numPlayers;
-            this.PlayerUI = new List<UIEODLobbyPlayer>();
+            EOD = eod;
+            NumPlayers = numPlayers;
+            PlayerUI = new List<UIEODLobbyPlayer>();
         }
 
         public UIEODLobby WithCaptionProvider(Func<UIEODLobbyPlayer, VMAvatar, string> func)
@@ -121,9 +118,9 @@ namespace FSO.Client.UI.Panels.EODs.Utils
 
         public UIEODLobbyPlayer(int slot, UIImage background, UILabel label)
         {
-            this.Slot = slot;
-            this.Image = background;
-            this.Label = label;
+            Slot = slot;
+            Image = background;
+            Label = label;
         }
     }
 }

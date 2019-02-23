@@ -6,15 +6,10 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Framework.Parser;
 using FSO.Client.UI.Model;
 using FSO.Common.Rendering.Framework.Model;
-using FSO.Common.Rendering.Framework.IO;
-using FSO.Client.Utils;
 using FSO.SimAntics.Engine;
 using FSO.SimAntics;
 using FSO.HIT;
@@ -98,7 +93,7 @@ namespace FSO.Client.UI.Panels
                 }
                 if (!found)
                 {
-                    this.Remove(itemui.UI);
+                    Remove(itemui.UI);
                     QueueItems.RemoveAt(i--); //not here anymore
                 }
                 else itemui.Update();
@@ -143,7 +138,7 @@ namespace FSO.Client.UI.Panels
                         itemui.TweenToPosition(position);
                         itemui.UpdateInteractionIcon();
                         itemui.Update();
-                        this.Add(itemui.UI);
+                        Add(itemui.UI);
                         QueueItems.Add(itemui);
 
                         PieMenuClickPos = new Vector2(-1, -1);

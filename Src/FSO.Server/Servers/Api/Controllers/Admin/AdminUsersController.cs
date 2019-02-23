@@ -14,7 +14,7 @@ namespace FSO.Server.Servers.Api.Controllers
     /// </summary>
     public class AdminUsersController : NancyModule
     {
-        private readonly IDAFactory _daFactory;
+        readonly IDAFactory _daFactory;
 
         public AdminUsersController(IDAFactory daFactory, JWTFactory jwt) : base("/admin")
         {

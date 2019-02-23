@@ -4,7 +4,7 @@ namespace FSO.Server.DataService
 {
     public class ServerNFSProvider : IServerNFSProvider
     {
-        private string BasePath;
+        string BasePath;
         public ServerNFSProvider(string basePath)
         {
             BasePath = basePath;

@@ -1,12 +1,9 @@
 ﻿using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
-using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -244,7 +241,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
             
-        private void LineLow(int x1, int y1, int x2, int y2, byte color)
+            void LineLow(int x1, int y1, int x2, int y2, byte color)
         {
             var dx = x2 - x1;
             var dy = y2 - y1;
@@ -266,7 +263,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void LineHigh(int x1, int y1, int x2, int y2, byte color)
+            void LineHigh(int x1, int y1, int x2, int y2, byte color)
         {
             var dx = x2 - x1;
             var dy = y2 - y1;
@@ -321,8 +318,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             DrawLine((int)Math.Round(v1.X), (int)Math.Round(v1.Y), (int)Math.Round(v2.X), (int)Math.Round(v2.Y), color);
         }
 
-        private int TileWrap;
-        private int Tock;
+            int TileWrap;
+            int Tock;
         public override void Tick()
         {
             base.Tick();
@@ -651,13 +648,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     var xp1 = sw / 2 - fm;
                     var xp2 = sw / 2 + fm;
 
-                    p.DrawRect(new Rectangle(0, ypos, sw, 2), (byte)0);
+                    p.DrawRect(new Rectangle(0, ypos, sw, 2), 0);
 
                     p.DrawRect(new Rectangle(xp1 - 1, ypos, 3, 2), (byte)(Color + 1));
                     p.DrawRect(new Rectangle(xp2 - 1, ypos, 3, 2), (byte)(Color + 1));
 
-                    p.DrawRect(new Rectangle(xp1, ypos, 1, 2), (byte)(Color));
-                    p.DrawRect(new Rectangle(xp2, ypos, 1, 2), (byte)(Color));
+                    p.DrawRect(new Rectangle(xp1, ypos, 1, 2), Color);
+                    p.DrawRect(new Rectangle(xp2, ypos, 1, 2), Color);
 
                     return (Frame < sw * 2);
             }

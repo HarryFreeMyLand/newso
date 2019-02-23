@@ -6,12 +6,8 @@ using FSO.Common.DataService.Model;
 using FSO.Common.Domain.Top100;
 using FSO.Common.Enum;
 using FSO.Content.Model;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -29,11 +25,11 @@ namespace FSO.Client.Controllers
 
         public GizmoTop100Controller(UIGizmoTop100 view, IDatabaseService databaseService, IClientDataService dataService, ITop100Domain top100, Content.GameContent content)
         {
-            this.View = view;
-            this.DatabaseService = databaseService;
-            this.DataService = dataService;
-            this.Domain = top100;
-            this.Content = content;
+            View = view;
+            DatabaseService = databaseService;
+            DataService = dataService;
+            Domain = top100;
+            Content = content;
 
             SetTab(UIGizmoTab.Property);
         }
@@ -65,7 +61,7 @@ namespace FSO.Client.Controllers
 
         public void SetCategory(Top100Category category)
         {
-            this.Category = category;
+            Category = category;
 
             if (category.IsLotCategory()){
                 LastLotCategory = category;

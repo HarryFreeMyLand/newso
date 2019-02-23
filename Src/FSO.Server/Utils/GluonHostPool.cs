@@ -25,21 +25,21 @@ namespace FSO.Server.Utils
     /// </summary>
     public class GluonHostPool : IGluonHostPool
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
         public const int POOL_HEALTH_CHECK_FREQUENCY = 30000;
         public const int POOL_REDISCOVER_INTERVAL = 60;
 
         internal IDAFactory DAFactory;
         internal IKernel Kernel;
 
-        private GluonHostPoolMonitor Monitor;
+        GluonHostPoolMonitor Monitor;
 
-        private Dictionary<string, GluonHost> Pool;
-        private Thread PoolHealthWatcher;
-        private bool PoolRunning;
-        private bool ForcePoolRefresh = true;
+        Dictionary<string, GluonHost> Pool;
+        Thread PoolHealthWatcher;
+        bool PoolRunning;
+        bool ForcePoolRefresh = true;
 
-        private int PoolDiscoverCounter = 0;
+        int PoolDiscoverCounter = 0;
 
         public string PoolHash
         {
@@ -79,7 +79,7 @@ namespace FSO.Server.Utils
             }
         }
 
-        private void HealthCheckLoop()
+        void HealthCheckLoop()
         {
             while (PoolRunning)
             {
@@ -136,7 +136,7 @@ namespace FSO.Server.Utils
 
     public class GluonHostPoolMonitor
     {
-        private GluonHostPool Pool;
+        GluonHostPool Pool;
         public string PoolHash { get; set; } = "";
 
         public GluonHostPoolMonitor(GluonHostPool pool){
@@ -213,7 +213,7 @@ namespace FSO.Server.Utils
             PoolHash = sb.ToString();
         }
 
-        private void OnHostDiscovered(DbHost dbHost)
+        void OnHostDiscovered(DbHost dbHost)
         {
             var host = (GluonHost)Pool.Get(dbHost.call_sign);
             host.Update(dbHost);
@@ -230,11 +230,11 @@ namespace FSO.Server.Utils
         public DateTime BootTime { get; set; }
         public int? ShardId { get; set; }
 
-        private GluonHostPool Pool;
-        private AriesClient Client;
+        GluonHostPool Pool;
+        AriesClient Client;
 
-        private Dictionary<Guid, TaskCompletionSource<IGluonCall>> Callbacks;
-        private AriesPacketRouter Router;
+        Dictionary<Guid, TaskCompletionSource<IGluonCall>> Callbacks;
+        AriesPacketRouter Router;
 
         public GluonHost(GluonHostPool pool, string callSign, IKernel kernel, ServerConfiguration config)
         {

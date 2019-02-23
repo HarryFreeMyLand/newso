@@ -1,9 +1,4 @@
 ﻿using FSO.Server.DataService.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Network
 {
@@ -22,14 +17,14 @@ namespace FSO.Client.Network
 
         public EntityMaskTopic(MaskedStruct mask, uint entityId)
         {
-            this.Mask = mask;
-            this.EntityId = entityId;
+            Mask = mask;
+            EntityId = entityId;
         }
 
         public override bool Equals(object obj)
         {
-            if(obj is EntityMaskTopic){
-                var cast = (EntityMaskTopic)obj;
+            if (obj is EntityMaskTopic cast)
+            {
                 return cast.Mask == Mask && cast.EntityId == EntityId;
             }
             return base.Equals(obj);

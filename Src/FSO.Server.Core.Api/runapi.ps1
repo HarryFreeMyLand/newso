@@ -1,1 +1,0 @@
-dotnet run FSO.Server.Api.dll

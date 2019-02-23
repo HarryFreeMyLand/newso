@@ -9,9 +9,9 @@ namespace FSO.Server.Servers.Shared.Handlers
 {
     public class GluonAuthenticationHandler
     {
-        private IGluonHostPool HostPool;
-        private ISessions Sessions;
-        private string Secret;
+        IGluonHostPool HostPool;
+        ISessions Sessions;
+        string Secret;
 
         public GluonAuthenticationHandler(ISessions sessions, ServerConfiguration config, IGluonHostPool hostPool){
             Sessions = sessions;

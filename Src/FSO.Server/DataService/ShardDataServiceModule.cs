@@ -6,7 +6,7 @@ namespace FSO.Server.DataService
 {
     public class ShardDataServiceModule : NinjectModule
     {
-        private ServerNFSProvider NFSProvider;
+        ServerNFSProvider NFSProvider;
         public ShardDataServiceModule(string simNFS)
         {
             NFSProvider = new ServerNFSProvider(simNFS);

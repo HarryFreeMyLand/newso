@@ -73,8 +73,8 @@ namespace FSO.Files.HIT
 
         public void LoadFrom(byte[] FileData)
         {
-            StreamReader Reader = new StreamReader(new MemoryStream(FileData));
-            HotReadMode ActiveState = HotReadMode.None;
+            var Reader = new StreamReader(new MemoryStream(FileData));
+            var ActiveState = HotReadMode.None;
 
             while (!Reader.EndOfStream)
             {
@@ -124,7 +124,7 @@ namespace FSO.Files.HIT
                             switch (ActiveState)
                             {
                                 case HotReadMode.EventMappingEquate:
-                                    EventMappingEquate EMappingEquate = new EventMappingEquate();
+                                    var EMappingEquate = new EventMappingEquate();
                                     EMappingEquate.Label = Params[0];
                                     EMappingEquate.Value = int.Parse(Params[1]);
                                     EventMappingEquate[EMappingEquate.Label] = EMappingEquate.Value;

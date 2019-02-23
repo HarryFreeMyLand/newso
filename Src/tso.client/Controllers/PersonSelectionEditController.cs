@@ -6,11 +6,6 @@ using FSO.Client.Utils;
 using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Protocol.Voltron.Packets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -21,8 +16,8 @@ namespace FSO.Client.Controllers
 
         public PersonSelectionEditController(PersonSelectionEdit view, CreateASimRegulator casRegulator)
         {
-            this.View = view;
-            this.CASRegulator = casRegulator;
+            View = view;
+            CASRegulator = casRegulator;
 
             CASRegulator.OnTransition += CASRegulator_OnTransition;
         }

@@ -6,15 +6,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Diagnostics;
-using FSO.Content.Framework;
 using FSO.Content.Model;
 using System.Text.RegularExpressions;
-using FSO.Common.Content;
 using System.IO;
-using System.Runtime.InteropServices;
 using FSO.Files.Formats.DBPF;
 using FSO.Files.XA;
 using FSO.Files.UTK;
@@ -345,17 +340,15 @@ namespace FSO.Content
             if (patch == null) return null;
             var InstanceID = patch.FileID;
             if (SFXCache.ContainsKey(InstanceID)) return SFXCache[InstanceID];
-            byte filetype = 0;
 
-            byte[] data = GetAudioFrom(InstanceID, TSOAudio, out filetype);
+            byte[] data = GetAudioFrom(InstanceID, TSOAudio, out var filetype);
             if (data == null) data = GetAudioFrom(InstanceID, tsov2, out filetype);
             if (data == null) data = GetAudioFrom(InstanceID, Stings, out filetype);
             if (data == null) data = GetAudioFrom(InstanceID, EP5Samps, out filetype);
             if (data == null) data = GetAudioFrom(InstanceID, EP2, out filetype);
             if (data == null)
             {
-                string source;
-                if (NightclubSounds.TryGetValue(InstanceID, out source))
+                if (NightclubSounds.TryGetValue(InstanceID, out var source))
                 {
                     data = new XAFile(source).DecompressedData;
                 }

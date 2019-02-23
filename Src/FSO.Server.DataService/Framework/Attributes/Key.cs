@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FSO.Common.DataService.Framework.Attributes
+﻿namespace FSO.Common.DataService.Framework.Attributes
 {
     /// <summary>
     /// The original TSO game is C++. It seems to me like TSO used to have some fixed size arrays in the data model and kept the

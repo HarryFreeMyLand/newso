@@ -2,11 +2,8 @@
 using FSO.Client.UI.Screens;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.SimAntics.NetPlay.Model.Commands;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {

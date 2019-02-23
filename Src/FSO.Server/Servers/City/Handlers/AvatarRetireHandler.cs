@@ -10,11 +10,11 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class AvatarRetireHandler
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private IDAFactory DA;
-        private IDataService DataService;
-        private CityServerContext Context;
-        private IKernel Kernel;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        IDAFactory DA;
+        IDataService DataService;
+        CityServerContext Context;
+        IKernel Kernel;
 
         public AvatarRetireHandler(CityServerContext context, IDAFactory da, IDataService dataService, IKernel kernel)
         {

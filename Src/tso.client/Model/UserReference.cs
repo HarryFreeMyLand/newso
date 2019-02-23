@@ -1,15 +1,11 @@
-﻿using FSO.Common.DataService;
+using FSO.Common.DataService;
 using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Model;
 using FSO.Common.Enum;
 using FSO.Common.Utils;
 using FSO.Content.Model;
 using Ninject;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Model
 {
@@ -17,44 +13,46 @@ namespace FSO.Client.Model
     {
         public abstract UserReferenceType Type { get; }
 
-        uint _Id;
+        uint _id;
+        ITextureRef _icon;
+        string _name = "Retrieving...";
+        static Dictionary<uint, UserReference> _cache = new Dictionary<uint, UserReference>();
+
         public uint Id
         {
-            get { return _Id; }
+            get { return _id; }
             protected set
             {
-                _Id = value;
+                _id = value;
                 NotifyPropertyChanged("Id");
             }
         }
 
-        string _Name = "Retrieving...";
+
         public string Name
         {
-            get { return _Name; }
+            get { return _name; }
             protected set
             {
-                _Name = value;
+                _name = value;
                 NotifyPropertyChanged("Name");
             }
         }
 
-        ITextureRef _Icon;
+
         public ITextureRef Icon
         {
-            get { return _Icon; }
+            get { return _icon; }
             protected set
             {
-                _Icon = value;
+                _icon = value;
                 NotifyPropertyChanged("Icon");
             }
         }
 
-        static Dictionary<uint, UserReference> Cache = new Dictionary<uint, UserReference>();
-
         public static void ResetCache()
         {
-            Cache.Clear();
+            _cache.Clear();
         }
 
         public static UserReference Wrap(Avatar avatar)
@@ -69,14 +67,14 @@ namespace FSO.Client.Model
 
         public static UserReference Of(UserReferenceType type, uint id)
         {
-            if(type == UserReferenceType.AVATAR)
+            if (type == UserReferenceType.AVATAR)
             {
-                if (Cache.ContainsKey(id))
+                if (_cache.ContainsKey(id))
                 {
-                    return Cache[id];
+                    return _cache[id];
                 }
                 var value = new AvatarUserReference(id);
-                Cache[id] = value;
+                _cache[id] = value;
                 return value;
             }
             else
@@ -88,13 +86,13 @@ namespace FSO.Client.Model
 
     public class BuiltInUserReference : UserReference
     {
-        UserReferenceType _Type;
+        readonly UserReferenceType _type;
 
         public BuiltInUserReference(UserReferenceType type)
         {
-            _Type = type;
+            _type = type;
 
-            var content = FSO.Content.GameContent.Get;
+            var content = Content.GameContent.Get;
             switch (type)
             {
                 case UserReferenceType.EA:
@@ -120,26 +118,27 @@ namespace FSO.Client.Model
         {
             get
             {
-                return _Type;
+                return _type;
             }
         }
     }
 
     public class AvatarUserReference : UserReference
     {
-        Binding<Avatar> CurrentAvatar;
+        Binding<Avatar> _currentAvatar;
+        ulong _headOutfitId;
 
         public AvatarUserReference(uint avatarId) : this()
         {
             FSOFacade.Kernel.Get<IClientDataService>().Get<Avatar>(avatarId).ContinueWith(x =>
             {
-                CurrentAvatar.Value = x.Result;
+                _currentAvatar.Value = x.Result;
             });
         }
 
         public AvatarUserReference(Avatar avatar) : this()
         {
-            CurrentAvatar.Value = avatar;
+            _currentAvatar.Value = avatar;
             Name = avatar.Avatar_Name;
             HeadOutfitId = avatar.Avatar_Appearance?.AvatarAppearance_HeadOutfitID ?? 0;
             Id = avatar.Avatar_Id;
@@ -147,7 +146,7 @@ namespace FSO.Client.Model
 
         protected AvatarUserReference()
         {
-            CurrentAvatar = new Binding<Avatar>()
+            _currentAvatar = new Binding<Avatar>()
                 .WithBinding(this, "Name", "Avatar_Name")
                 .WithBinding(this, "HeadOutfitId", "Avatar_Appearance.AvatarAppearance_HeadOutfitID")
                 .WithBinding(this, "Id", "Avatar_Id");
@@ -155,27 +154,27 @@ namespace FSO.Client.Model
 
         public void Dispose()
         {
-            CurrentAvatar.Dispose();
+            _currentAvatar.Dispose();
         }
 
-        ulong _HeadOutfitId;
+
         public ulong HeadOutfitId
         {
-            get { return _HeadOutfitId; }
+            get { return _headOutfitId; }
             set
             {
-                _HeadOutfitId = value;
+                _headOutfitId = value;
                 RefreshHead();
             }
         }
 
         void RefreshHead()
         {
-            var avatar = CurrentAvatar.Value;
+            var avatar = _currentAvatar.Value;
             if (avatar != null)
             {
-                var content = FSO.Content.GameContent.Get;
-                var outfit = content.AvatarOutfits.Get(_HeadOutfitId);
+                var content = Content.GameContent.Get;
+                var outfit = content.AvatarOutfits.Get(_headOutfitId);
                 var appearanceId = outfit.GetAppearance((Vitaboy.AppearanceType)avatar.Avatar_Appearance.AvatarAppearance_SkinTone);
                 var appearance = content.AvatarAppearances.Get(appearanceId);
                 var thumbnail = content.AvatarThumbnails.Get(appearance.ThumbnailID);

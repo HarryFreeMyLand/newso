@@ -5,14 +5,11 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Scopes;
 using FSO.SimAntics.Engine.Utils;
-using Microsoft.Xna.Framework;
 using FSO.LotView.Model;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Model;
@@ -23,8 +20,8 @@ namespace FSO.SimAntics.Primitives
 {
     public class VMSnap : VMPrimitiveHandler 
     {
-        private static uint GOTO_GUID = 0x000007C4;
-        private static short SHOO_INTERACTION = 3;
+            static uint GOTO_GUID = 0x000007C4;
+            static short SHOO_INTERACTION = 3;
 
         public override VMPrimitiveExitCode Execute(VMStackFrame context, VMPrimitiveOperand args)
         {
@@ -85,12 +82,12 @@ namespace FSO.SimAntics.Primitives
             return VMPrimitiveExitCode.GOTO_TRUE; 
         }
 
-        private bool SetPosition(VMEntity entity, LotTilePos pos, Direction dir, bool shooAva, VMContext context)
+            bool SetPosition(VMEntity entity, LotTilePos pos, Direction dir, bool shooAva, VMContext context)
         {
             return SetPosition(entity, pos, (float)(Math.Round(Math.Log((double)dir, 2))*(Math.PI/4)), shooAva, context);
         }
 
-        private bool SetPosition(VMEntity entity, LotTilePos pos, float radDir, bool shooAva, VMContext context)
+            bool SetPosition(VMEntity entity, LotTilePos pos, float radDir, bool shooAva, VMContext context)
         {
             var posChange = entity.SetPosition(pos, (Direction)(1 << (int)(Math.Round(DirectionUtils.PosMod(radDir, (float)Math.PI * 2) / (Math.PI/4)) % 8)), context);
             if (posChange.Status != VMPlacementError.Success)

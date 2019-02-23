@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.LotView.Model;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Utils;
@@ -61,17 +60,17 @@ namespace FSO.SimAntics
 
         public delegate void ArchitectureEvent(VMArchitecture caller);
 
-        private Blueprint WorldUI;
+            Blueprint WorldUI;
 
         public bool RealMode;
 
-        private bool WallsDirty;
-        private bool FloorsDirty;
-        private bool TerrainDirty;
+            bool WallsDirty;
+            bool FloorsDirty;
+            bool TerrainDirty;
 
-        private bool Redraw;
+            bool Redraw;
 
-        private Color[] m_TimeColors = new Color[]
+            Color[] m_TimeColors = new Color[]
         {
             new Color(50, 70, 122)*1.25f,
             new Color(50, 70, 122)*1.25f,
@@ -89,7 +88,7 @@ namespace FSO.SimAntics
             new Color(50, 70, 122)*1.25f,
         };
 
-        private float[] m_SkyColors = new float[]
+            float[] m_SkyColors = new float[]
         {
             4/8f,
             4/8f,
@@ -119,7 +118,7 @@ namespace FSO.SimAntics
 
         public VMArchitecture(int width, int height, Blueprint blueprint, VMContext context)
         {
-            if (Content.GameContent.Get.TS1)
+            if (GameContent.Get.TS1)
             {
                 DisableClip = true;
                 TerrainLimit = new Rectangle(1, 1, width - 2, height - 2);
@@ -231,7 +230,7 @@ namespace FSO.SimAntics
             RegenerateSupported(level+1);
         }
 
-        private Point[] SupportSpread =
+            Point[] SupportSpread =
         {
             new Point(0, 1),
             new Point(1, 0),
@@ -478,7 +477,7 @@ namespace FSO.SimAntics
                 var avatar = (transient)? null : (VMAvatar)avaEnt;
                 lastAvatar = avatar;
                 var styleInd = -1;
-                var walls = Content.GameContent.Get.WorldWalls;
+                var walls = GameContent.Get.WorldWalls;
                 walls.WallStyleToIndex.TryGetValue(com.style, out styleInd);
                 //if patterns are invalid, don't do anything.
                 switch (com.Type)
@@ -625,19 +624,17 @@ namespace FSO.SimAntics
             return cost;
         }
 
-        private WallReference GetPatternRef(ushort id)
+            WallReference GetPatternRef(ushort id)
         {
-            WallReference result = null;
-            var wallEntries = Content.GameContent.Get.WorldWalls.Entries;
-            wallEntries.TryGetValue(id, out result);
+            var wallEntries = GameContent.Get.WorldWalls.Entries;
+            wallEntries.TryGetValue(id, out var result);
             return result;
         }
 
 
-        private FloorReference GetFloorRef(ushort id)
+            FloorReference GetFloorRef(ushort id)
         {
-            FloorReference result = null;
-            Content.GameContent.Get.WorldFloors.Entries.TryGetValue(id, out result);
+            GameContent.Get.WorldFloors.Entries.TryGetValue(id, out var result);
             return result;
         }
 
@@ -885,7 +882,7 @@ namespace FSO.SimAntics
                 if (floor.Pattern > 65533 && level > 1 && RoomData[(int)Rooms[level - 2].Map[offset]&0xFFFF].IsOutside) return false;
                 if (floor.Pattern > 0 && level > 1 && !Supported[level - 2][offset]) return false;
                 //check if objects need/don't need floors
-                if (!Context.CheckFloorValid(LotTilePos.FromBigTile((short)tileX, (short)tileY, level), floor)) return false;
+                if (!Context.CheckFloorValid(LotTilePos.FromBigTile(tileX, tileY, level), floor)) return false;
             }
 
             Floors[level-1][offset] = floor;

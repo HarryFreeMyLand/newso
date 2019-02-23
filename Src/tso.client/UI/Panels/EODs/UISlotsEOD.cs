@@ -6,12 +6,7 @@ using FSO.Client.UI.Panels.EODs.Utils;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.IO;
 using System.Timers;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {
@@ -127,7 +122,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         public UISlotsEOD(UIEODController controller) : base(controller)
         {
-            Script = this.RenderScript("slotseod.uis");
+            Script = RenderScript("slotseod.uis");
 
             /*
              * special cases not included in script, Custom Content Slot Machine Types

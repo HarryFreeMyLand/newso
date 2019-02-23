@@ -6,15 +6,10 @@ http://mozilla.org/MPL/2.0/.
 
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using FSO.LotView.Model;
 using FSO.Common.Rendering.Framework.Model;
-using FSO.SimAntics;
 using FSO.SimAntics.Entities;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Controls.Catalog;
@@ -81,14 +76,14 @@ namespace FSO.Client.UI.Panels
             Holder = LotController.ObjectHolder;
 
             var useSmall = FSOEnvironment.UIZoomFactor>1f || GlobalSettings.Default.GraphicsWidth < 1024;
-            var script = this.RenderScript("buildpanel" + (useSmall ? "" : "1024") + ".uis");
+            var script = RenderScript("buildpanel" + (useSmall ? "" : "1024") + ".uis");
 
             Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
             {
                 Y = 0
             };
             Background.BlockInput();
-            this.AddAt(0, Background);
+            AddAt(0, Background);
 
             Size = Background.Size.ToVector2();
 
@@ -96,13 +91,13 @@ namespace FSO.Client.UI.Panels
             {
                 Position = new Vector2(337, 14)
             };
-            this.AddAt(1, Divider);
+            AddAt(1, Divider);
 
             SubToolBg = new UIImage(subtoolsBackground)
             {
                 Position = new Vector2(336, 5)
             };
-            this.AddAt(2, SubToolBg);
+            AddAt(2, SubToolBg);
 
             Catalog = new UICatalog(useSmall ? 10 : 20)
             {
@@ -110,7 +105,7 @@ namespace FSO.Client.UI.Panels
             };
             Catalog.OnSelectionChange += new CatalogSelectionChangeDelegate(Catalog_OnSelectionChange);
             Catalog.Position = new Vector2(364, 7);
-            this.Add(Catalog);
+            Add(Catalog);
 
             CategoryMap = new Dictionary<UIButton, int>
             {
@@ -159,7 +154,7 @@ namespace FSO.Client.UI.Panels
             ObjLimitLabel = new UILabel();
             ObjLimitLabel.CaptionStyle = ObjLimitLabel.CaptionStyle.Clone();
             ObjLimitLabel.CaptionStyle.Shadow = true;
-            ObjLimitLabel.CaptionStyle.Color = Microsoft.Xna.Framework.Color.White;
+            ObjLimitLabel.CaptionStyle.Color = Color.White;
             ObjLimitLabel.Caption = "127/250 Objects";
             ObjLimitLabel.Y = -20;
             ObjLimitLabel.X = Background.Width / 2 - 100;

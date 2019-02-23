@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FSO.SimAntics.Model
 {
@@ -19,8 +15,8 @@ namespace FSO.SimAntics.Model
 
         public short GetLimit(VMMotive motive)
         {
-            float result;
-            if (MotiveOverfill.TryGetValue((int)motive, out result)) return (short)result;
+            if (MotiveOverfill.TryGetValue((int)motive, out var result))
+                return (short)result;
             return 100;
         }
     }

@@ -1,10 +1,6 @@
 ﻿using FSO.SimAntics.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.Model.Commands
 {
@@ -13,7 +9,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         public byte SkillID;
         public byte LockLevel;
 
-        private static VMPersonDataVariable[] LockToSkill =
+            static VMPersonDataVariable[] LockToSkill =
         {
             VMPersonDataVariable.BodySkill,
             VMPersonDataVariable.CharismaSkill,

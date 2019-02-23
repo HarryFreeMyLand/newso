@@ -13,11 +13,11 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class JoinLotHandler
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private LotServerPicker PickingEngine;
-        private LotAllocations Lots;
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        LotServerPicker PickingEngine;
+        LotAllocations Lots;
+        IDAFactory DAFactory;
+        CityServerContext Context;
 
         public JoinLotHandler(LotAllocations lots, LotServerPicker pickingEngine, IDAFactory da, CityServerContext context)
         {

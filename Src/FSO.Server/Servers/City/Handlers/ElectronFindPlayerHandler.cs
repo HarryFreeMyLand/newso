@@ -7,8 +7,8 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class ElectronFindAvatarHandler
     {
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
+        IDAFactory DAFactory;
+        CityServerContext Context;
         public ElectronFindAvatarHandler(IDAFactory da, CityServerContext context)
         {
             DAFactory = da;

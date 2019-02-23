@@ -12,8 +12,8 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class DataServiceWrapperHandler
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private IDataService DataService;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        IDataService DataService;
 
         public DataServiceWrapperHandler(IDataService dataService)
         {

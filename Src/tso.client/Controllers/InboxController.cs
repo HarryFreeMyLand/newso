@@ -15,8 +15,6 @@ using FSO.Server.Protocol.Electron.Packets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -31,12 +29,12 @@ namespace FSO.Client.Controllers
 
         public InboxController(UIInbox view, IClientDataService dataService, IDatabaseService database, Network.Network net)
         {
-            this.View = view;
-            this.DataService = dataService;
-            this.DatabaseService = database;
-            this.Network = net;
+            View = view;
+            DataService = dataService;
+            DatabaseService = database;
+            Network = net;
 
-            this.InboxStore = UIMessageStore.Store;
+            InboxStore = UIMessageStore.Store;
             try
             {
                 InboxStore.Load((int)net.MyCharacter);
@@ -46,7 +44,7 @@ namespace FSO.Client.Controllers
                 //assuming it failed anywhere, it will download from server as if timestamp were 0.
             }
 
-            this.Network.CityClient.AddSubscriber(this);
+            Network.CityClient.AddSubscriber(this);
 
             Network.CityClient.Write(new MailRequest
             {
@@ -105,9 +103,8 @@ namespace FSO.Client.Controllers
 
         public void MessageReceived(AriesClient client, object message)
         {
-            if (message is MailResponse)
+            if (message is MailResponse msg)
             {
-                var msg = (MailResponse)message;
                 GameThread.NextUpdate(x =>
                 {
                     switch (msg.Type)
@@ -116,7 +113,8 @@ namespace FSO.Client.Controllers
                         case MailResponseType.POLL_RESPONSE:
                         case MailResponseType.SEND_SUCCESS:
                             //cool. we got mail, or got the mail we sent back. 
-                            if (msg.Messages.Length == 0) return; //didnt actually get anything
+                            if (msg.Messages.Length == 0)
+                                return; //didnt actually get anything
                             foreach (var mail in msg.Messages)
                             {
                                 InboxStore.Save(mail);
@@ -132,13 +130,13 @@ namespace FSO.Client.Controllers
                                     Message = GameFacade.Strings.GetString("225", msg.Messages.Length > 1 ? "3" : "2", new string[] { msg.Messages.Length.ToString() }),
                                     Buttons = new UIAlertButton[]
                                     {
-                                        new UIAlertButton(UI.Controls.UIAlertButtonType.Yes, btn =>
+                                        new UIAlertButton(UIAlertButtonType.Yes, btn =>
                                         {
                                             //show the inbox
                                             ((CoreGameScreen)UIScreen.Current).OpenInbox();
                                             UIScreen.RemoveDialog(alert);
                                         }),
-                                        new UIAlertButton(UI.Controls.UIAlertButtonType.No, btn =>
+                                        new UIAlertButton(UIAlertButtonType.No, btn =>
                                         {
                                             UIScreen.RemoveDialog(alert);
                                         })
@@ -151,7 +149,8 @@ namespace FSO.Client.Controllers
                                 //alert user that mail has been recieved via sound and flashing icon
                                 HIT.HITVM.Get.PlaySoundEvent(UISounds.LetterRecieve);
                                 ((CoreGameScreen)UIScreen.Current).FlashInbox(true);
-                            } else
+                            }
+                            else
                             {
                                 HIT.HITVM.Get.PlaySoundEvent(UISounds.LetterSend);
                             }

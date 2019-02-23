@@ -1,5 +1,3 @@
-﻿using FSO.Client.Controllers;
-using FSO.Client.Controllers.Panels;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Screens;
@@ -7,17 +5,16 @@ using FSO.Client.Utils;
 using FSO.Common;
 using FSO.Common.DataService.Model;
 using FSO.Common.Utils;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
     public class UISandboxSelector : UIDialog
     {
+        const string _port = "20910";
+
         public UIButton CloseButton { get; set; }
         public UIListBox BookmarkListBox { get; set; }
         public UIListBoxTextStyle BookmarkListBoxColors { get; set; }
@@ -35,11 +32,12 @@ namespace FSO.Client.UI.Panels
 
         public UISandboxSelector() : base(UIDialogStyle.Close, true)
         {
-            if (GlobalSettings.Default.DebugBody == 0) {
+            if (GlobalSettings.Default.DebugBody == 0)
+            {
                 GameThread.NextUpdate(x => FSOFacade.Controller.ShowPersonCreation(null));
             }
-            var ui = this.RenderScript("bookmarks.uis");
-            Caption = "Host a lot on :37564";
+            var ui = RenderScript("bookmarks.uis");
+            Caption = $"Host a lot on :{_port}";
 
             //var background = ui.Create<UIImage>("BookmarkBackground");
             //SimsTab = ui.Create<UIImage>("SimsTab");
@@ -73,7 +71,7 @@ namespace FSO.Client.UI.Panels
             //IgnoreTabButton.OnButtonClick += (btn) => { ChangeType(BookmarkType.IGNORE_AVATAR); };
             //SimsTabButton.OnButtonClick += (btn) => { ChangeType(BookmarkType.AVATAR); };
 
-            populateWithXMLHouses();
+            PopulateWithXMLHouses();
 
             var joinButton = new UIButton
             {
@@ -84,7 +82,7 @@ namespace FSO.Client.UI.Panels
                 UIAlert alert = null;
                 alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
                 {
-                    Message = "Enter the address of the server you wish to connect to. (can optionally include port, eg localhost:6666)",
+                    Message = "Enter the address of the server you wish to connect to. (can optionally include port, eg localhost:34656)",
                     Width = 400,
                     TextEntry = true,
                     Buttons = new UIAlertButton[]
@@ -95,7 +93,7 @@ namespace FSO.Client.UI.Panels
                             var addr = alert.ResponseText;
                             if (!addr.Contains(':'))
                             {
-                                addr += ":37564";
+                                addr += $":{_port}";
                             }
                             UIScreen.RemoveDialog(this);
                             LotSwitch(addr, true);
@@ -122,7 +120,7 @@ namespace FSO.Client.UI.Panels
                 FSOFacade.Controller.ShowPersonCreation(null);
             };
             casButton.Width = 50;
-            casButton.X = 300-(25+50);
+            casButton.X = 300 - (25 + 50);
             casButton.Y = 500 - 50;
             Add(casButton);
 
@@ -131,17 +129,17 @@ namespace FSO.Client.UI.Panels
 
         public void LotSwitch(string location, bool external)
         {
-            if (UIScreen.Current is SandboxGameScreen)
+            if (UIScreen.Current is SandboxGameScreen sand)
             {
-                var sand = (SandboxGameScreen)UIScreen.Current;
                 sand.Initialize(location, external);
-            } else
+            }
+            else
             {
                 FSOFacade.Controller.EnterSandboxMode(location, external);
             }
         }
 
-        public void populateWithXMLHouses()
+        public void PopulateWithXMLHouses()
         {
             var xmlHouses = new List<UIXMLLotEntry>();
 
@@ -160,7 +158,7 @@ namespace FSO.Client.UI.Panels
                 string filename = Path.GetFileName(entry);
                 xmlHouses.Add(new UIXMLLotEntry { Filename = filename, Path = entry });
             }
-            
+
             try
             {
 
@@ -194,7 +192,7 @@ namespace FSO.Client.UI.Panels
 
             BookmarkListBox.Columns[0].Alignment = TextAlignment.Left | TextAlignment.Top;
             BookmarkListBox.Columns[0].Width = (int)BookmarkListBox.Width;
-            BookmarkListBox.Items = xmlHouses.Select(x => new UIListBoxItem(x, x.Filename.Substring(0, x.Filename.Length-4))).ToList();
+            BookmarkListBox.Items = xmlHouses.Select(x => new UIListBoxItem(x, x.Filename.Substring(0, x.Filename.Length - 4))).ToList();
         }
 
         void ChangeType(BookmarkType type)
@@ -208,7 +206,8 @@ namespace FSO.Client.UI.Panels
 
         void BookmarkListBox_OnDoubleClick(UIElement button)
         {
-            if (BookmarkListBox.SelectedItem == null) { return; }
+            if (BookmarkListBox.SelectedItem == null)
+            { return; }
             var item = (UIXMLLotEntry)BookmarkListBox.SelectedItem.Data;
             UIScreen.RemoveDialog(this);
             LotSwitch(item.Path, false);

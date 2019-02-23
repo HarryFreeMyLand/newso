@@ -4,10 +4,6 @@ If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
 using Microsoft.Xna.Framework.Graphics;
@@ -27,10 +23,10 @@ namespace FSO.Client.UI.Panels
 
         public UISelectHouseView()
         {
-            var script = this.RenderScript("selecthouseview.uis");
+            var script = RenderScript("selecthouseview.uis");
 
             Background = new UIImage(BackgroundImage);
-            this.AddAt(0, Background);
+            AddAt(0, Background);
 
             WallsDownButton.OnButtonClick += new ButtonClickDelegate(WallsDownClick);
             WallsUpButton.OnButtonClick += new ButtonClickDelegate(WallsUpClick);

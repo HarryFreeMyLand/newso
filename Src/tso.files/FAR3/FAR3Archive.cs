@@ -64,7 +64,7 @@ namespace FSO.Files.FAR3
 
                 for (int i = 0; i < NumFiles; i++)
                 {
-                    Far3Entry Entry = new Far3Entry();
+                    var Entry = new Far3Entry();
                     Entry.DecompressedFileSize = m_Reader.ReadUInt32();
                     byte[] Dummy = m_Reader.ReadBytes(3);
                     Entry.CompressedFileSize = (uint)((Dummy[0] << 0) | (Dummy[1] << 8) | (Dummy[2]) << 16);
@@ -115,7 +115,7 @@ namespace FSO.Files.FAR3
                         byte[] Dummy = m_Reader.ReadBytes(3);
                         uint DecompressedSize = (uint)((Dummy[0] << 0x10) | (Dummy[1] << 0x08) | +Dummy[2]);
 
-                        Decompresser Dec = new Decompresser();
+                        var Dec = new Decompresser();
                         Dec.CompressedSize = Filesize;
                         Dec.DecompressedSize = DecompressedSize;
 
@@ -158,8 +158,8 @@ namespace FSO.Files.FAR3
         /// <returns>A List of KeyValuePair instances.</returns>
         public List<KeyValuePair<uint, byte[]>> GetAllEntries()
         {
-            List<KeyValuePair<uint, byte[]>> toReturn = new List<KeyValuePair<uint, byte[]>>();
-            foreach (Far3Entry Entry in m_EntriesList)
+            var toReturn = new List<KeyValuePair<uint, byte[]>>();
+            foreach (var Entry in m_EntriesList)
             {
                 toReturn.Add(new KeyValuePair<uint, byte[]>(Entry.FileID, GetEntry(Entry)));
             }
@@ -172,9 +172,9 @@ namespace FSO.Files.FAR3
         /// <returns>Returns the entries of this FAR3Archive as FAR3Entry instances in a List.</returns>
         public List<Far3Entry> GetAllFAR3Entries()
         {
-            List<Far3Entry> Entries = new List<Far3Entry>();
+            var Entries = new List<Far3Entry>();
 
-            foreach (KeyValuePair<string, Far3Entry> KVP in m_Entries)
+            foreach (var KVP in m_Entries)
                 Entries.Add(KVP.Value);
 
             return Entries;

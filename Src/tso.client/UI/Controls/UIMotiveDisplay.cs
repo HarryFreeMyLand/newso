@@ -6,15 +6,10 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Framework.Parser;
-using FSO.Client.UI.Model;
 using FSO.Common.Rendering.Framework.Model;
-using FSO.Common.Rendering.Framework.IO;
-using FSO.Client.Utils;
 using FSO.Common.Utils;
 
 namespace FSO.Client.UI.Controls

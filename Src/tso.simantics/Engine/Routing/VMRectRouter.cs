@@ -8,14 +8,12 @@ using FSO.SimAntics.Model.Routing;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.SimAntics.Engine.Routing
 {
     public class VMRectRouter
     {
-        private List<VMObstacle> Map;
+            List<VMObstacle> Map;
 
         public VMRectRouter(List<VMObstacle> map)
         {
@@ -97,13 +95,13 @@ namespace FSO.SimAntics.Engine.Routing
             return null; //failed
         }
 
-        private int PointDist(Point pt1, Point pt2)
+            int PointDist(Point pt1, Point pt2)
         {
             Point diff = pt1 - pt2;
             return (int)Math.Sqrt(diff.X * diff.X + diff.Y * diff.Y);
         }
 
-        private void OpenSetSortedInsert(List<VMWalkableRect> set, VMWalkableRect item)
+            void OpenSetSortedInsert(List<VMWalkableRect> set, VMWalkableRect item)
         {
             for (var i = 0; i < set.Count; i++)
             {
@@ -117,7 +115,7 @@ namespace FSO.SimAntics.Engine.Routing
         }
 
 
-        private Point RectIntersect(VMObstacle r1, VMObstacle r2, Point destPoint)
+            Point RectIntersect(VMObstacle r1, VMObstacle r2, Point destPoint)
         {
             bool vert = true;
             int d1, d2, p=0;
@@ -139,7 +137,7 @@ namespace FSO.SimAntics.Engine.Routing
             }
         }
 
-        private void ExtendFrom(VMWalkableRect source, int dir)
+            void ExtendFrom(VMWalkableRect source, int dir)
         {
             var free = source.Free[dir].List;
 
@@ -194,7 +192,7 @@ namespace FSO.SimAntics.Engine.Routing
             }
 		}
 
-        private VMExtendRectResult ExtendRect(int dir, int d1, int d2, int p)
+            VMExtendRectResult ExtendRect(int dir, int d1, int d2, int p)
         {
             int bestN = ((dir + 1) % 4 < 2) ? int.MinValue : int.MaxValue;
             var best = new List<VMExtendRegion>();
@@ -263,7 +261,7 @@ namespace FSO.SimAntics.Engine.Routing
 		    return new VMExtendRectResult { Best = best, BestN = bestN };
 	    }
 
-        private void ConstructFree(VMWalkableRect rect, bool d1, bool d2, bool d3, bool d4)
+            void ConstructFree(VMWalkableRect rect, bool d1, bool d2, bool d3, bool d4)
         {
             if (d1) rect.Free[0] = new VMFreeList(rect.x1, rect.x2);
             if (d2) rect.Free[1] = new VMFreeList(rect.y1, rect.y2);
@@ -321,7 +319,7 @@ namespace FSO.SimAntics.Engine.Routing
 	    }
 
 
-        private void ConstructFirstFree(VMWalkableRect rect)
+            void ConstructFirstFree(VMWalkableRect rect)
         {
             rect.Free[0] = new VMFreeList(rect.x1);
             rect.Free[1] = new VMFreeList(rect.y1);

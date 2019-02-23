@@ -14,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
@@ -190,11 +189,11 @@ namespace FSO.Client.UI.Panels
         public UIPersonPage()
         {
             BackgroundContractedImage = new UIImage();
-            this.AddAt(0, BackgroundContractedImage);
+            AddAt(0, BackgroundContractedImage);
             BackgroundExpandedImage = new UIImage();
-            this.AddAt(0, BackgroundExpandedImage);
+            AddAt(0, BackgroundExpandedImage);
             BackgroundNameImage = new UIImage();
-            this.Add(BackgroundNameImage);
+            Add(BackgroundNameImage);
 
             SelfRimImage = new UIImage();
             Add(SelfRimImage);
@@ -217,11 +216,11 @@ namespace FSO.Client.UI.Panels
             DescriptionTabBackgroundImage = new UIImage();
             Add(DescriptionTabBackgroundImage);
             DescriptionTabImage = new UIImage();
-            Add(this.DescriptionTabImage);
+            Add(DescriptionTabImage);
             DescriptionBackgroundReadImage = new UIImage();
-            Add(this.DescriptionBackgroundReadImage);
+            Add(DescriptionBackgroundReadImage);
             DescriptionBackgroundWriteImage = new UIImage();
-            Add(this.DescriptionBackgroundWriteImage);
+            Add(DescriptionBackgroundWriteImage);
 
             /** Accomplishments tab **/
             AccomplishmentsTabBackgroundImage = new UIImage();
@@ -272,7 +271,7 @@ namespace FSO.Client.UI.Panels
             OptionsBackgroundImage = new UIImage();
             Add(OptionsBackgroundImage);
 
-            var ui = this.RenderScript("personpage.uis");
+            var ui = RenderScript("personpage.uis");
 
             MechanicalSkillBar = ui.Create<UISkillBar>("MechanicalSkillBarArea");
             CookingSkillBar = ui.Create<UISkillBar>("CookingSkillBarArea");
@@ -338,7 +337,7 @@ namespace FSO.Client.UI.Panels
 
             SimBox = ui.Create<UISim>("Person3dView");
             SimBox.AutoRotate = true;
-            this.Add(SimBox);
+            Add(SimBox);
 
             ModButton = new UIButton();
             ModButton.OnButtonClick += ModButton_OnButtonClick;
@@ -348,10 +347,9 @@ namespace FSO.Client.UI.Panels
             Add(ModButton);
 
             //modify skill page a little to fix its layout for now
-            this.ChildrenWithinIdRange(600, 699).ForEach(x => {
-                if (x is UILabel)
+            ChildrenWithinIdRange(600, 699).ForEach(x => {
+                if (x is UILabel lbl)
                 {
-                    var lbl = (UILabel)x;
                     lbl.Y -= 5;
                     if (x.NumericId != 606)
                     {
@@ -368,28 +366,28 @@ namespace FSO.Client.UI.Panels
              */
 
             /** Bookmark **/
-            this.BookmarkButton.OnButtonClick += BookmarkButton_OnButtonClick;
-            this.IgnoreButton.OnButtonClick += IgnoreButton_OnButtonClick;
+            BookmarkButton.OnButtonClick += BookmarkButton_OnButtonClick;
+            IgnoreButton.OnButtonClick += IgnoreButton_OnButtonClick;
 
-            this.AdmitCheckBox.OnButtonClick += AdmitCheckBox_OnButtonClick;
-            this.BanCheckBox.OnButtonClick += BanCheckBox_OnButtonClick;
+            AdmitCheckBox.OnButtonClick += AdmitCheckBox_OnButtonClick;
+            BanCheckBox.OnButtonClick += BanCheckBox_OnButtonClick;
 
             InviteButton.OnButtonClick += InviteButton_OnButtonClick;
             KickOutButton.OnButtonClick += KickOutButton_OnButtonClick;
 
             /** Scroll bars **/
-            this.DescriptionSlider.AttachButtons(DescriptionScrollUpButton, DescriptionScrollDownButton, 1);
-            this.DescriptionText.AttachSlider(this.DescriptionSlider);
+            DescriptionSlider.AttachButtons(DescriptionScrollUpButton, DescriptionScrollDownButton, 1);
+            DescriptionText.AttachSlider(DescriptionSlider);
 
             /** Tab Buttons **/
-            this.DescriptionTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
-            this.AccomplishmentsTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
-            this.RelationshipsTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
-            this.OptionsTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
-            this.SkillsSubTabButton.OnButtonClick += new ButtonClickDelegate(AccompSubTabButton_OnButtonClick);
-            this.JobsSubTabButton.OnButtonClick += new ButtonClickDelegate(AccompSubTabButton_OnButtonClick);
-            this.OutgoingSubTabButton.OnButtonClick += new ButtonClickDelegate(RelationshipsTabButton_OnButtonClick);
-            this.IncomingSubTabButton.OnButtonClick += new ButtonClickDelegate(RelationshipsTabButton_OnButtonClick);
+            DescriptionTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
+            AccomplishmentsTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
+            RelationshipsTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
+            OptionsTabButton.OnButtonClick += new ButtonClickDelegate(TabButton_OnButtonClick);
+            SkillsSubTabButton.OnButtonClick += new ButtonClickDelegate(AccompSubTabButton_OnButtonClick);
+            JobsSubTabButton.OnButtonClick += new ButtonClickDelegate(AccompSubTabButton_OnButtonClick);
+            OutgoingSubTabButton.OnButtonClick += new ButtonClickDelegate(RelationshipsTabButton_OnButtonClick);
+            IncomingSubTabButton.OnButtonClick += new ButtonClickDelegate(RelationshipsTabButton_OnButtonClick);
 
             /** Drag **/
             UIUtils.MakeDraggable(BackgroundContractedImage, this, true);
@@ -759,11 +757,11 @@ namespace FSO.Client.UI.Panels
 
         void RelationshipsTabButton_OnButtonClick(UIElement button)
         {
-            if (button == this.OutgoingSubTabButton)
+            if (button == OutgoingSubTabButton)
             {
                 CurrentRelationshipsTab = UIRelationshipsTab.Outgoing;
             }
-            else if (button == this.IncomingSubTabButton)
+            else if (button == IncomingSubTabButton)
             {
                 CurrentRelationshipsTab = UIRelationshipsTab.Incoming;
             }
@@ -771,11 +769,11 @@ namespace FSO.Client.UI.Panels
 
         void AccompSubTabButton_OnButtonClick(UIElement button)
         {
-            if (button == this.SkillsSubTabButton)
+            if (button == SkillsSubTabButton)
             {
                 CurrentAccomplishmentsTab = UIAccomplishmentsTab.Skills;
             }
-            else if (button == this.JobsSubTabButton)
+            else if (button == JobsSubTabButton)
             {
                 CurrentAccomplishmentsTab = UIAccomplishmentsTab.Jobs;
             }
@@ -783,19 +781,19 @@ namespace FSO.Client.UI.Panels
 
         void TabButton_OnButtonClick(UIElement button)
         {
-            if (button == this.DescriptionTabButton)
+            if (button == DescriptionTabButton)
             {
                 CurrentTab = UIPersonPageTab.Description;
             }
-            else if (button == this.AccomplishmentsTabButton)
+            else if (button == AccomplishmentsTabButton)
             {
                 CurrentTab = UIPersonPageTab.Accomplishments;
             }
-            else if (button == this.RelationshipsTabButton)
+            else if (button == RelationshipsTabButton)
             {
                 CurrentTab = UIPersonPageTab.Relationships;
             }
-            else if (button == this.OptionsTabButton)
+            else if (button == OptionsTabButton)
             {
                 CurrentTab = UIPersonPageTab.Options;
             }
@@ -854,7 +852,7 @@ namespace FSO.Client.UI.Panels
 
         public void SetOpen(bool open)
         {
-            this.Open = open;
+            Open = open;
             Redraw();
             FindController<PersonPageController>()?.ForceRefreshData(_Tab);
         }
@@ -1020,24 +1018,24 @@ namespace FSO.Client.UI.Panels
             FindHouseButton.Disabled = !hasProperty;
 
             /** Tab Images **/
-            this.DescriptionTabButton.Visible = isOpen;
-            this.DescriptionTabBackgroundImage.Visible = isOpen && !isDesc;
-            this.DescriptionTabImage.Visible = isOpen && isDesc;
-            this.DescriptionBackgroundReadImage.Visible = isOpen && isDesc && !isMe;
-            this.DescriptionBackgroundWriteImage.Visible = isOpen && isDesc && isMe;
-            this.DescriptionText.Mode = isMe ? UITextEditMode.Editor : UITextEditMode.ReadOnly;
+            DescriptionTabButton.Visible = isOpen;
+            DescriptionTabBackgroundImage.Visible = isOpen && !isDesc;
+            DescriptionTabImage.Visible = isOpen && isDesc;
+            DescriptionBackgroundReadImage.Visible = isOpen && isDesc && !isMe;
+            DescriptionBackgroundWriteImage.Visible = isOpen && isDesc && isMe;
+            DescriptionText.Mode = isMe ? UITextEditMode.Editor : UITextEditMode.ReadOnly;
 
-            this.AccomplishmentsTabButton.Visible = isOpen;
-            this.AccomplishmentsTabBackgroundImage.Visible = isOpen && !isAccomp;
-            this.AccomplishmentsTabImage.Visible = isOpen && isAccomp;
-            this.AccomplishmentsBackgroundImage.Visible = isOpen && isAccomp;
-            this.SkillsSubTabBackgroundImage.Visible = isOpen && isAccomp && !isSkills;
-            this.SkillsSubTabImage.Visible = isOpen && isAccomp && isSkills;
-            this.SkillsBackgroundImage.Visible = isOpen && isAccomp && isSkills;
-            this.JobsSubTabBackgroundImage.Visible = isOpen && isAccomp && !isJobs;
-            this.JobsSubTabImage.Visible = isOpen && isAccomp && isJobs;
-            this.JobsBackgroundImage.Visible = isOpen && isAccomp && isJobs;
-            this.JobsHelpButtonBackgroundImage.Visible = false;
+            AccomplishmentsTabButton.Visible = isOpen;
+            AccomplishmentsTabBackgroundImage.Visible = isOpen && !isAccomp;
+            AccomplishmentsTabImage.Visible = isOpen && isAccomp;
+            AccomplishmentsBackgroundImage.Visible = isOpen && isAccomp;
+            SkillsSubTabBackgroundImage.Visible = isOpen && isAccomp && !isSkills;
+            SkillsSubTabImage.Visible = isOpen && isAccomp && isSkills;
+            SkillsBackgroundImage.Visible = isOpen && isAccomp && isSkills;
+            JobsSubTabBackgroundImage.Visible = isOpen && isAccomp && !isJobs;
+            JobsSubTabImage.Visible = isOpen && isAccomp && isJobs;
+            JobsBackgroundImage.Visible = isOpen && isAccomp && isJobs;
+            JobsHelpButtonBackgroundImage.Visible = false;
 
             RelationshipsTabButton.Visible = isOpen;
             RelationshipsTabBackgroundImage.Visible = isOpen && !isRelationships;
@@ -1060,24 +1058,24 @@ namespace FSO.Client.UI.Panels
 
             if (isClosed)
             {
-                this.ChildrenWithinIdRange(400, 1299).ForEach(x => x.Visible = false);
+                ChildrenWithinIdRange(400, 1299).ForEach(x => x.Visible = false);
                 return;
             }
 
             /** Description tab **/
-            this.ChildrenWithinIdRange(400, 499).ForEach(x => x.Visible = isDesc);
+            ChildrenWithinIdRange(400, 499).ForEach(x => x.Visible = isDesc);
 
 
             /** Accomplishments **/
-            this.ChildrenWithinIdRange(500, 599).ForEach(x => x.Visible = isAccomp);
-            this.ChildrenWithinIdRange(600, 699).ForEach(x => x.Visible = isSkills);
-            this.ChildrenWithinIdRange(900, 999).ForEach(x => x.Visible = isJobs);
+            ChildrenWithinIdRange(500, 599).ForEach(x => x.Visible = isAccomp);
+            ChildrenWithinIdRange(600, 699).ForEach(x => x.Visible = isSkills);
+            ChildrenWithinIdRange(900, 999).ForEach(x => x.Visible = isJobs);
 
             /** Relationships **/
-            this.ChildrenWithinIdRange(1000, 1099).ForEach(x => x.Visible = isRelationships);
+            ChildrenWithinIdRange(1000, 1099).ForEach(x => x.Visible = isRelationships);
 
             /** Options **/
-            this.ChildrenWithinIdRange(700, 799).ForEach(x => x.Visible = isOptions);
+            ChildrenWithinIdRange(700, 799).ForEach(x => x.Visible = isOptions);
             AdmitCheckBox.Disabled = isMe;
             BanCheckBox.Disabled = isMe;
             IgnoreButton.Disabled = isMe;

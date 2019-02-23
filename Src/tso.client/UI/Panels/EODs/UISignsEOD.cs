@@ -2,11 +2,6 @@
 using FSO.Client.UI.Framework;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {
@@ -51,7 +46,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         public UISignsEOD(UIEODController controller) : base(controller)
         {
-            var script = this.RenderScript("signseod.uis");
+            var script = RenderScript("signseod.uis");
 
             OwnerWriteTextSubpanel = script.Create<UIImage>("OwnerWriteTextSubpanel");
             AddAt(0, OwnerWriteTextSubpanel);

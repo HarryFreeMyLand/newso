@@ -3,8 +3,6 @@ using FSO.Files.HIT;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Audio;
 using FSO.Content.Framework;
 using System.Text.RegularExpressions;
@@ -205,15 +203,13 @@ namespace FSO.Content.TS1
 
         public Hitlist GetHitlist(uint InstanceID, HITResourceGroup group)
         {
-            Hitlist result = null;
-            group.hot.Hitlists.TryGetValue(InstanceID, out result);
+            group.hot.Hitlists.TryGetValue(InstanceID, out var result);
             return result;
         }
 
         public Track GetTrack(uint value, uint fallback, HITResourceGroup group)
         {
-            Track result = null;
-            group.hot.Tracks.TryGetValue(value, out result);
+            group.hot.Tracks.TryGetValue(value, out var result);
             return result;
         }
 
@@ -273,8 +269,7 @@ namespace FSO.Content.TS1
 
         public Patch GetPatch(uint id, HITResourceGroup group)
         {
-            Patch result = null;
-            group.hot.Patches.TryGetValue(id, out result);
+            group.hot.Patches.TryGetValue(id, out var result);
             return result;
         }
     }

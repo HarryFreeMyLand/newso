@@ -4,18 +4,10 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using FSO.Content.Framework;
-using FSO.Common.Content;
-using System.Xml;
-using FSO.Content.Codecs;
-using System.Text.RegularExpressions;
 using System.IO;
 using FSO.Files.Formats.IFF;
-using FSO.Files.Formats.IFF.Chunks;
 using FSO.Files.Formats.OTF;
 using FSO.Files.FAR1;
 

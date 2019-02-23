@@ -1,33 +1,30 @@
 ﻿using FSO.SimAntics.NetPlay.EODs.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODPizzaMakerPlugin : VMEODHandler
     {
-        private VMEODClient ControllerClient;
+            VMEODClient ControllerClient;
 
-        private int PhoneWaitSeconds = 5;
-        private int ContributionTimeoutSeconds = 120;
-        private int RestartDelaySeconds = 8;
-        private int CardsPerSmallIngredient = 16;
-        private int CardsPerMediumIngredient = 10;
-        private int CardsPerLargeIngredient = 8;
-        private int CardsPerBonusIngredientPerSize = 2;
+            int PhoneWaitSeconds = 5;
+            int ContributionTimeoutSeconds = 120;
+            int RestartDelaySeconds = 8;
+            int CardsPerSmallIngredient = 16;
+            int CardsPerMediumIngredient = 10;
+            int CardsPerLargeIngredient = 8;
+            int CardsPerBonusIngredientPerSize = 2;
 
-        private VMEODClient[] Players = new VMEODClient[4]; //Body, Cooking1, Charisma, Cooking2
-        private VMEODPizzaPlayer[] PizzaPlayers = new VMEODPizzaPlayer[4];
-        private List<VMEODIngredientCard> Cards; //pool of ingredients
-        private Random CardRandom = new Random();
+            VMEODClient[] Players = new VMEODClient[4]; //Body, Cooking1, Charisma, Cooking2
+            VMEODPizzaPlayer[] PizzaPlayers = new VMEODPizzaPlayer[4];
+            List<VMEODIngredientCard> Cards; //pool of ingredients
+            Random CardRandom = new Random();
 
-        private VMEODPizzaState State;
-        private int Timer;
-        private int TimerFrames = 0;
-        private int LastPizzaResult = 0;
+            VMEODPizzaState State;
+            int Timer;
+            int TimerFrames = 0;
+            int LastPizzaResult = 0;
 
         public VMEODPizzaMakerPlugin(VMEODServer server) : base(server)
         {
@@ -194,8 +191,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
         public void P_Ingredient(string evt, string text, VMEODClient client)
         {
-            int item;
-            if (ControllerClient == null || !int.TryParse(text, out item)) return; //invalid
+            if (ControllerClient == null || !int.TryParse(text, out var item))
+                return; //invalid
             var station = Array.IndexOf(Players, client);
             if (station == -1 || State != VMEODPizzaState.Contribution) return;
             var player = PizzaPlayers[station];
@@ -384,8 +381,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
         public VMEODIngredientCard(string code)
         {
-            byte bT, bS;
-            if (!byte.TryParse(code.Substring(0,1), out bT) || !byte.TryParse(code.Substring(1, 1), out bS)) return;
+            if (!byte.TryParse(code.Substring(0,1), out var bT) || !byte.TryParse(code.Substring(1, 1), out var bS)) return;
             Type = (VMEODIngredientType)bT;
             Size = (VMEODIngredientSize)bS;
         }

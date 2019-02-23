@@ -1,14 +1,9 @@
 ﻿using FSO.SimAntics.Model.TSOPlatform;
 using FSO.Vitaboy;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Marshals;
-using FSO.SimAntics.Engine;
 
 namespace FSO.SimAntics.NetPlay.Model
 {
@@ -34,7 +29,7 @@ namespace FSO.SimAntics.NetPlay.Model
         public bool IsWorker;
 
         public short[] MotiveData = new short[16]; //lots of this is garbage data. Copy relevant motives from DB.
-        private short[] PersonData = new short[27]; //special selection of things which should persist.
+            short[] PersonData = new short[27]; //special selection of things which should persist.
 
         //relationships
         public VMEntityPersistRelationshipMarshal[] Relationships = new VMEntityPersistRelationshipMarshal[0];

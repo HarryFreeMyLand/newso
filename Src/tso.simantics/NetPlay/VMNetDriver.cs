@@ -4,10 +4,6 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Engine.TSOTransaction;
@@ -24,7 +20,7 @@ namespace FSO.SimAntics.NetPlay
         public abstract bool Tick(VM vm);
         public abstract string GetUserIP(uint uid);
         public VMCloseNetReason CloseReason;
-        private BinaryWriter RecordStream;
+            BinaryWriter RecordStream;
         public VMNetCommand Executing;
 
         /// <summary>
@@ -34,7 +30,7 @@ namespace FSO.SimAntics.NetPlay
         public delegate void VMNetClosedHandler(VMCloseNetReason reason);
 
         public uint DesyncTick = 0;
-        private int DesyncCooldown = 30;
+            int DesyncCooldown = 30;
         public uint LastTick = 0;
         public uint GreatestTick = 0;
         public uint CurrentTick = 0;

@@ -1,8 +1,4 @@
 ﻿using FSO.SimAntics.NetPlay.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using FSO.SimAntics.Engine;
 using FSO.Files.Formats.IFF.Chunks;
@@ -36,7 +32,7 @@ namespace FSO.SimAntics.Marshals.Threads
         public sbyte InteractionResult = -1;
         public ushort ResultCheckCounter = 0;
 
-        private int Version;
+            int Version;
         public VMQueuedActionMarshal() { }
         public VMQueuedActionMarshal(int version) { Version = version; }
 
@@ -57,7 +53,7 @@ namespace FSO.SimAntics.Marshals.Threads
             writer.Write(InteractionNumber);
             writer.Write(Cancelled);
 
-            writer.Write((short)Priority);
+            writer.Write(Priority);
             writer.Write((byte)Mode);
             writer.Write((uint)Flags);
             writer.Write((uint)Flags2);

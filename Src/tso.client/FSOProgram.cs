@@ -1,16 +1,11 @@
 using FSO.Client.Utils;
 using FSO.Client.Utils.GameLocator;
 using FSO.Common;
-using FSO.Common.Rendering.Framework.IO;
 using FSO.UI;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 //using System.Windows.Forms;
 
 namespace FSO.Client
@@ -38,12 +33,20 @@ namespace FSO.Client
 
             ILocator gameLocator;
             bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
-            if (linux && Directory.Exists("/Users"))
-                gameLocator = new MacOSLocator();
-            else if (linux)
-                gameLocator = new LinuxLocator();
-            else
-                gameLocator = new WindowsLocator();
+
+            switch (pid)
+            {
+                case PlatformID.MacOSX:
+                    gameLocator = new MacOSLocator();
+                    break;
+                case PlatformID.Unix:
+                    gameLocator = new LinuxLocator();
+                    break;
+                default:
+                case PlatformID.Win32NT:
+                    gameLocator = new WindowsLocator();
+                    break;
+            }
 
             bool useDX = false;
 
@@ -118,20 +121,20 @@ namespace FSO.Client
 
             UseDX = MonogameLinker.Link(useDX);
 
-            var path = gameLocator.FindTheSimsOnline();
+            var path = gameLocator.FindTheSimsOnline;
 
             if (path != null)
             {
                 //check if this path has tso in it. tuning.dat should be a good indication.
                 if (!File.Exists(Path.Combine(path, "tuning.dat")))
                 {
-                    ShowDialog("The Sims Online appears to be missing. The game expects TSO at directory '" + path + "', but some core files are missing from that folder. If you know you installed TSO into a different directory, please move it into the directory specified.");
+                    ShowDialog($"The Sims Online appears to be missing. The game expects TSO at directory '{path}', but some core files are missing from that folder. If you know you installed TSO into a different directory, please move it into the directory specified.");
                     return false;
                 }
 
                 FSOEnvironment.Args = string.Join(" ", args);
                 FSOEnvironment.ContentDir = "Content/";
-                FSOEnvironment.GFXContentDir = "Content/" + (UseDX ? "DX/" : "OGL/");
+                FSOEnvironment.GFXContentDir = $"Content/{(UseDX ? "DX/" : "OGL/")}";
                 FSOEnvironment.Linux = linux;
                 FSOEnvironment.DirectX = UseDX;
                 FSOEnvironment.GameThread = Thread.CurrentThread;

@@ -3,10 +3,6 @@ using FSO.Common.DataService.Model;
 using FSO.Common.Utils;
 using FSO.Server.DataService.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers.Panels
 {
@@ -20,8 +16,8 @@ namespace FSO.Client.Controllers.Panels
 
         public SecureTradeController(IClientDataService dataService, Network.Network network)
         {
-            this.Network = network;
-            this.DataService = dataService;
+            Network = network;
+            DataService = dataService;
         }
 
         /// <summary>

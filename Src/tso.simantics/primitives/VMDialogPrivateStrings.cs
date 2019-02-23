@@ -6,12 +6,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.Files.Formats.IFF.Chunks;
-using FSO.SimAntics.NetPlay.Model;
 using System.IO;
 using FSO.SimAntics.Model.TSOPlatform;
 

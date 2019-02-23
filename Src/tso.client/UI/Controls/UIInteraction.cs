@@ -4,18 +4,14 @@ If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Framework.Parser;
 using FSO.Client.UI.Model;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Common.Rendering.Framework.IO;
 using FSO.Client.Utils;
-using FSO.SimAntics;
 using FSO.Common.Utils;
 using FSO.Client.UI.Panels;
 
@@ -47,7 +43,7 @@ namespace FSO.Client.UI.Controls
 
         public void SetActive(bool active)
         {
-            this.Active = active;
+            Active = active;
             if (active) Background = TextureGenerator.GetInteractionActive(GameFacade.GraphicsDevice);
             else Background = TextureGenerator.GetInteractionInactive(GameFacade.GraphicsDevice);
         }

@@ -4,13 +4,9 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using FSO.LotView.Model;
-using FSO.SimAntics.Primitives;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.Entities;
 using FSO.SimAntics.Model;
@@ -26,21 +22,21 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         public Direction dir;
         public bool Verified;
 
-        private int value = -1;
+            int value = -1;
 
-        private static HashSet<int> RoomieWhiteList = new HashSet<int>()
+            static HashSet<int> RoomieWhiteList = new HashSet<int>()
         {
             12, 13, 14, 15, 16, 17, 18, 19, 20
         };
-        private static HashSet<int> BuilderWhiteList = new HashSet<int>()
+            static HashSet<int> BuilderWhiteList = new HashSet<int>()
         {
             12, 13, 14, 15, 16, 17, 18, 19, 20,
             0, 1, 2, 3, 4, 5, 7, 8, 9 //29 is terrain tool
         };
 
-        private VMMultitileGroup CreatedGroup;
+            VMMultitileGroup CreatedGroup;
 
-        private List<uint> Blacklist = new List<uint>
+            List<uint> Blacklist = new List<uint>
         {
             0x24C95F99
         };
@@ -70,13 +66,13 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
 
                 var objDefinition = CreatedGroup.BaseObject.MasterDefinition ?? CreatedGroup.BaseObject.Object.OBJ;
 
-                CreatedGroup.InitialPrice = (int)value;
+                CreatedGroup.InitialPrice = value;
 
                 return true;
             }
             else if (vm.GlobalLink != null && item != null)
             {
-                vm.GlobalLink.PerformTransaction(vm, false, uint.MaxValue, caller.PersistID, (int)value,
+                vm.GlobalLink.PerformTransaction(vm, false, uint.MaxValue, caller.PersistID, value,
                 (bool success, int transferAmount, uint uid1, uint budget1, uint uid2, uint budget2) =>
                 {
                     //check if we got the money back? there's really no reason for that to fail
@@ -86,7 +82,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
             return false;
         }
 
-        private bool TryPlace(VM vm, VMAvatar caller)
+            bool TryPlace(VM vm, VMAvatar caller)
         {
             if (!vm.PlatformState.CanPlaceNewUserObject(vm)) return false;
             var catalog = Content.GameContent.Get.WorldCatalog;

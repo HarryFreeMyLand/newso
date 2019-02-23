@@ -3,7 +3,6 @@ using FSO.Client.UI.Panels;
 using FSO.Client.Utils;
 using FSO.Common.DataService;
 using FSO.Common.DataService.Framework;
-using FSO.Common.DataService.Model;
 using FSO.Common.Enum;
 using FSO.Common.Utils;
 using FSO.Files.Formats.tsodata;
@@ -13,8 +12,6 @@ using FSO.Server.Protocol.Electron.Packets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -29,13 +26,13 @@ namespace FSO.Client.Controllers
         IClientDataService DataService;
 
         public MessagingController(CoreGameScreenController game, UIMessageTray messageTray, Network.Network network, IClientDataService dataService){
-            this.Game = game;
-            this.Tray = messageTray;
-            this.Tray.SetController(this);
-            this.Network = network;
-            this.DataService = dataService;
+            Game = game;
+            Tray = messageTray;
+            Tray.SetController(this);
+            Network = network;
+            DataService = dataService;
 
-            this.Network.CityClient.AddSubscriber(this);
+            Network.CityClient.AddSubscriber(this);
         }
 
         public void SendLetter(MessageAuthor author){
@@ -265,9 +262,8 @@ namespace FSO.Client.Controllers
 
         public void MessageReceived(AriesClient client, object message)
         {
-            if(message is InstantMessage)
+            if (message is InstantMessage instantMsg)
             {
-                var instantMsg = (InstantMessage)message;
                 if (instantMsg.Type == InstantMessageType.MESSAGE || instantMsg.Type == InstantMessageType.FAILURE_ACK)
                 {
                     GameThread.NextUpdate((_) =>
@@ -280,7 +276,7 @@ namespace FSO.Client.Controllers
 
         public void Dispose()
         {
-            this.Network.CityClient.RemoveSubscriber(this);
+            Network.CityClient.RemoveSubscriber(this);
         }
     }
 

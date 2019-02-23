@@ -2,10 +2,7 @@
 using FSO.Client.UI.Framework;
 using FSO.SimAntics.NetPlay.Model;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace FSO.Client.UI.Panels
@@ -32,10 +29,10 @@ namespace FSO.Client.UI.Panels
 
             History = new List<VMChatEvent>();
 
-            this.RenderScript("chatdialog.uis");
-            this.SetSize(400, 255);
+            RenderScript("chatdialog.uis");
+            SetSize(400, 255);
 
-            this.Caption = "Property Log";
+            Caption = "Property Log";
 
             ChatHistoryBackground = new UIImage(GetTexture((ulong)0x7A400000001)).With9Slice(13, 13, 13, 13);
             ChatHistoryBackground.Position = new Vector2(19, 39);

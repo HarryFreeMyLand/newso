@@ -18,12 +18,12 @@ namespace FSO.Server.Servers.Lot
 {
     public class LotServer : AbstractAriesServer
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private LotServerConfiguration Config;
-        private CityConnections Connections;
-        private System.Timers.Timer LotLivenessTimer = new System.Timers.Timer(60000);
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        LotServerConfiguration Config;
+        CityConnections Connections;
+        System.Timers.Timer LotLivenessTimer = new System.Timers.Timer(60000);
 
-        private LotHost Lots;
+        LotHost Lots;
 
         public LotServer(LotServerConfiguration config, IKernel kernel) : base(config, kernel)
         {
@@ -40,7 +40,7 @@ namespace FSO.Server.Servers.Lot
             Lots = Kernel.Get<LotHost>();
         }
 
-        private void LivenessCheck(object sender, System.Timers.ElapsedEventArgs e)
+        void LivenessCheck(object sender, System.Timers.ElapsedEventArgs e)
         {
             Lots.CheckLiveness();
         }
@@ -79,7 +79,7 @@ namespace FSO.Server.Servers.Lot
             Connections.Start();
         }
 
-        private async void Connections_OnCityDisconnected(CityConnection connection)
+        async void Connections_OnCityDisconnected(CityConnection connection)
         {
             LOG.Warn("City connection lost... if it's not back in 30 seconds all its lots will be closed!");
             await Task.Delay(30000);

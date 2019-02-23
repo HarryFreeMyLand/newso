@@ -6,27 +6,22 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FSO.LotView;
 using FSO.LotView.Components;
 using FSO.LotView.Model;
 using FSO.Content;
-using FSO.Content.Model;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.HIT;
 using FSO.SimAntics.Engine;
 using FSO.SimAntics.Entities;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Model.Routing;
-using FSO.SimAntics.Marshals.Threads;
 using FSO.SimAntics.Marshals;
 using FSO.Common.Utils;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.Model.Sound;
 using FSO.SimAntics.Primitives;
-using FSO.LotView.Utils;
 using FSO.LotView.RC;
 using System.Linq;
 
@@ -83,7 +78,7 @@ namespace FSO.SimAntics
         /** Persistent state variables controlled by bhavs **/
         //in TS1, NumAttributes can be 0 and it will dynamically resize as required.
         //for backwards compatability, we support this.
-        private List<short> Attributes;
+            List<short> Attributes;
 
         public virtual short GetAttribute(int index)
         {
@@ -113,7 +108,7 @@ namespace FSO.SimAntics
         public ulong DynamicSpriteFlags2;
         public VMObstacle Footprint;
 
-        private LotTilePos _Position = new LotTilePos(LotTilePos.OUT_OF_WORLD);
+            LotTilePos _Position = new LotTilePos(LotTilePos.OUT_OF_WORLD);
         public EntityComponent WorldUI;
 
         public uint TimestampLockoutCount = 0;
@@ -152,7 +147,7 @@ namespace FSO.SimAntics
             }
         }
 
-        private bool DynamicMultitile
+            bool DynamicMultitile
         {
             get
             {
@@ -277,7 +272,7 @@ namespace FSO.SimAntics
             var GLOBChunks = obj.Resource.List<GLOB>();
             GameGlobal SemiGlobal = null;
 
-            if (GLOBChunks != null && GLOBChunks[0].Name != "") SemiGlobal = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(GLOBChunks[0].Name);
+            if (GLOBChunks != null && GLOBChunks[0].Name != "") SemiGlobal = GameContent.Get.WorldObjectGlobals.Get(GLOBChunks[0].Name);
 
             TreeTable = obj.Resource.Get<TTAB>(obj.OBJ.TreeTableID);
             if (TreeTable != null) TreeTableStrings = obj.Resource.Get<TTAs>(obj.OBJ.TreeTableID);
@@ -290,7 +285,7 @@ namespace FSO.SimAntics
 
         public void UseSemiGlobalTTAB(string sgFile, ushort id)
         {
-            GameGlobal obj = FSO.Content.GameContent.Get.WorldObjectGlobals.Get(sgFile);
+            GameGlobal obj = GameContent.Get.WorldObjectGlobals.Get(sgFile);
             if (obj == null) return;
 
             TreeTable = obj.Resource.Get<TTAB>(id);
@@ -496,7 +491,7 @@ namespace FSO.SimAntics
             }
         }
 
-        private bool InReset = false;
+            bool InReset = false;
         public virtual void Reset(VMContext context)
         {
             if (InReset) return;
@@ -726,7 +721,7 @@ namespace FSO.SimAntics
                 case VMStackObjectVariable.LockoutCount:
                     var count = ObjectData[(short)var];
                     if (TimestampLockoutCount > Thread.Context.VM.Scheduler.CurrentTickID) TimestampLockoutCount = 0; //lockout counts in the future are invalid.
-                    return (short)((Thread == null) ? count : Math.Max((long)count - (Thread.Context.VM.Scheduler.CurrentTickID - TimestampLockoutCount), 0));
+                    return (short)((Thread == null) ? count : Math.Max(count - (Thread.Context.VM.Scheduler.CurrentTickID - TimestampLockoutCount), 0));
                 case VMStackObjectVariable.CurrentValue:
                     return (short)MultitileGroup.InitialPrice;
             }
@@ -745,7 +740,7 @@ namespace FSO.SimAntics
                         this.Reset(Thread.Context);
                     break;
                 case VMStackObjectVariable.Direction:
-                    value = (short)(((int)value + 65536) % 8);
+                    value = (short)((value + 65536) % 8);
                     Direction = DirectionNotches[value];
                     break;
                 case VMStackObjectVariable.Hidden:
@@ -938,7 +933,7 @@ namespace FSO.SimAntics
             if (action != null) caller.Thread.EnqueueAction(action);
         }
 
-        private VMPlacementError IndividualUserMovable(VMContext context, bool deleting)
+            VMPlacementError IndividualUserMovable(VMContext context, bool deleting)
         {
             if (this is VMAvatar) return VMPlacementError.CantBePickedup;
             var movementFlags = (VMMovementFlags)GetValue(VMStackObjectVariable.MovementFlags);
@@ -1475,7 +1470,7 @@ namespace FSO.SimAntics
 
             if (input.MasterGUID != 0)
             {
-                var masterDef = FSO.Content.GameContent.Get.WorldObjects.Get(input.MasterGUID);
+                var masterDef = GameContent.Get.WorldObjects.Get(input.MasterGUID);
                 MasterDefinition = masterDef.OBJ;
                 UseTreeTableOf(masterDef);
             }

@@ -6,9 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FSO.Files.FAR3;
 using System.IO;
 using System.Text.RegularExpressions;
 using FSO.Common.Content;
@@ -163,8 +160,8 @@ namespace FSO.Content.Framework
 
         public List<Far1ProviderEntry<T>> GetEntriesForExtension(string ext)
         {
-            List<Far1ProviderEntry<T>> result = null;
-            if (EntriesOfType.TryGetValue(ext, out result)) return result;
+            if (EntriesOfType.TryGetValue(ext, out var result))
+                return result;
             return null;
         }
 
@@ -205,8 +202,7 @@ namespace FSO.Content.Framework
                     {
                         EntriesByName[entry.Filename] = referenceItem;
                         var ext = Path.GetExtension(entry.Filename).ToLowerInvariant();
-                        List<Far1ProviderEntry<T>> group = null;
-                        if (!EntriesOfType.TryGetValue(ext, out group))
+                        if (!EntriesOfType.TryGetValue(ext, out var group))
                         {
                             group = new List<Far1ProviderEntry<T>>();
                             EntriesOfType[ext] = group;

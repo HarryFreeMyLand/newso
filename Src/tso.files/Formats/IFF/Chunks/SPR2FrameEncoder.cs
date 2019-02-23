@@ -27,7 +27,7 @@ namespace FSO.Files.Formats.IFF.Chunks
             for (int y=0; y<frame.Height; y++)
             {
                 byte lastCmd = 0;
-                List<byte> dataBuf = new List<byte>();
+                var dataBuf = new List<byte>();
                 int rlecount = 0;
                 bool anySolid = false;
 

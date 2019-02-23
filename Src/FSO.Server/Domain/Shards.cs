@@ -10,9 +10,9 @@ namespace FSO.Server.Domain
 {
     public class Shards : IShardsDomain
     {
-        private List<ShardStatusItem> _Shards = new List<ShardStatusItem>();
-        private IDAFactory _DbFactory;
-        private DateTime _LastPoll;
+        List<ShardStatusItem> _Shards = new List<ShardStatusItem>();
+        IDAFactory _DbFactory;
+        DateTime _LastPoll;
 
         public Shards(IDAFactory factory)
         {
@@ -47,7 +47,7 @@ namespace FSO.Server.Domain
             });
         }
 
-        private void Poll()
+        void Poll()
         {
             _LastPoll = DateTime.UtcNow;
 

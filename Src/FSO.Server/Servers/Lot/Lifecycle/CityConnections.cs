@@ -15,15 +15,15 @@ namespace FSO.Server.Servers.Lot.Lifecycle
 {
     public class CityConnections
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private Dictionary<LotServerConfigurationCity, CityConnection> Connections;
-        private Thread ConnectionWatcher;
-        private AutoResetEvent ConnectionChanged = new AutoResetEvent(false);
-        private bool _Running;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        Dictionary<LotServerConfigurationCity, CityConnection> Connections;
+        Thread ConnectionWatcher;
+        AutoResetEvent ConnectionChanged = new AutoResetEvent(false);
+        bool _Running;
         public short LotCount;
 
-        private PerformanceCounter CpuCounter;
-        private LotServerConfiguration Config;
+        PerformanceCounter CpuCounter;
+        LotServerConfiguration Config;
 
         public event CityConnectionEvent OnCityDisconnected;
         
@@ -51,7 +51,7 @@ namespace FSO.Server.Servers.Lot.Lifecycle
             }
         }
 
-        private void Connection_OnDisconnected(CityConnection connection)
+        void Connection_OnDisconnected(CityConnection connection)
         {
             if(OnCityDisconnected != null)
             {
@@ -88,7 +88,7 @@ namespace FSO.Server.Servers.Lot.Lifecycle
             }
         }
 
-        private void CheckConnections()
+        void CheckConnections()
         {
             bool nextSleep = false;
             while (_Running)
@@ -127,9 +127,9 @@ namespace FSO.Server.Servers.Lot.Lifecycle
 
     public class CityConnection : IAriesEventSubscriber, IAriesMessageSubscriber, IGluonSession
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
         
-        private AriesClient Client;
+        AriesClient Client;
         public LotServerConfigurationCity CityConfig;
         public bool Connected { get; internal set; }
 
@@ -142,10 +142,10 @@ namespace FSO.Server.Servers.Lot.Lifecycle
         }
         public uint LastRecv { get; set; }
 
-        private bool _Connecting = false;
-        private DateTime _ConnectingStart;
-        private IAriesPacketRouter _Router;
-        private LotServerConfiguration LotServerConfig;
+        bool _Connecting = false;
+        DateTime _ConnectingStart;
+        IAriesPacketRouter _Router;
+        LotServerConfiguration LotServerConfig;
 
         public event CityConnectionEvent OnConnected;
         public event CityConnectionEvent OnDisconnected;

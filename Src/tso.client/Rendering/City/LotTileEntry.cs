@@ -7,7 +7,6 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FSO.Client.Rendering.City
 {
@@ -27,10 +26,10 @@ namespace FSO.Client.Rendering.City
 
         public LotTileEntry(int Lotid, short X, short Y, LotTileFlags Flags)
         {
-            this.lotid = Lotid;
-            this.x = X;
-            this.y = Y;
-            this.flags = Flags;
+            lotid = Lotid;
+            x = X;
+            y = Y;
+            flags = Flags;
         }
 
         public static LotTileEntry[] GenFromCity(Common.DataService.Model.City city)

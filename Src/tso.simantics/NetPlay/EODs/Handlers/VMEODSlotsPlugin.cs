@@ -1,39 +1,31 @@
-﻿using FSO.SimAntics.Primitives;
-using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.SimAntics.NetPlay.EODs.Model;
+﻿using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.Engine;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODSlotsPlugin : VMEODHandler
     {
-        private VMEODClient UserClient;
-        private Random SlotsRandom = new Random();
-        private byte MachineType;
-        private byte MachineBetDenomination;
-        private short MachinePaybackPercent;
-        private int MachineBalance = 0;
-        private int MachineBalanceMax = 0;
-        private int MachineBalanceMin = 0;
-        private int CurrentWinnings = 0;
+            VMEODClient UserClient;
+            Random SlotsRandom = new Random();
+            byte MachineType;
+            byte MachineBetDenomination;
+            short MachinePaybackPercent;
+            int MachineBalance = 0;
+            int MachineBalanceMax = 0;
+            int MachineBalanceMin = 0;
+            int CurrentWinnings = 0;
         // wheel stops possibilities
-        private int TotalStops = 0;
-        private int InitialBlankStops;
-        private int TotalBlankStops;
-        private int TotalFirstStops;
-        private int TotalSecondStops;
-        private int TotalThirdStops;
-        private int TotalFourthStops;
-        private int TotalFifthStops;
-        private int TotalSixthStops;
-        private VMEODSlotsStops[] SlotsStops;
+            int TotalStops = 0;
+            int InitialBlankStops;
+            int TotalBlankStops;
+            int TotalFirstStops;
+            int TotalSecondStops;
+            int TotalThirdStops;
+            int TotalFourthStops;
+            int TotalFifthStops;
+            int TotalSixthStops;
+            VMEODSlotsStops[] SlotsStops;
         // payout constants
         public const int SIX_SIX_SIX_PAYOUT_MULTIPLIER = 500;
         public const int FIVE_FIVE_FIVE_PAYOUT_MULTIPLIER = 150;
@@ -204,7 +196,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             client.Send("slots_cleanup", "");
             base.OnDisconnection(client);
         }
-        private void GameOverHandler(short eventID, VMEODClient player)
+            void GameOverHandler(short eventID, VMEODClient player)
         {
             // check if object has enough money or too much money, then start new game or send offline message to the player
             if (IsObjectBalanceInBounds())
@@ -216,13 +208,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 player.Send("slots_close_machine", "");
             }
         }
-        private void ToggleOnOffHandler(string evt, string OnOffStateString, VMEODClient client)
+            void ToggleOnOffHandler(string evt, string OnOffStateString, VMEODClient client)
         {
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == UserClient.Avatar.PersistID);
             if (isOwner)
                 client.SendOBJEvent(new VMEODEvent((short)VMOEDSlotsObjectEvents.ToggleOnOff));
         }
-        private void NewOddsHandler(string evt, Byte[] args, VMEODClient client)
+            void NewOddsHandler(string evt, Byte[] args, VMEODClient client)
         {
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == UserClient.Avatar.PersistID);
             if (isOwner)
@@ -239,13 +231,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.SendOBJEvent(new VMEODEvent((short)VMOEDSlotsObjectEvents.SetNewPayout, new short[1] { MachinePaybackPercent }));
             }
         }
-        private void WithdrawHandler(string evt, string amountString, VMEODClient client)
+            void WithdrawHandler(string evt, string amountString, VMEODClient client)
         {
             string failureReason = "";
 
             // try to parse the withdraw amount
-            int withdrawAmount;
-            var result = Int32.TryParse(amountString.Trim(), out withdrawAmount);
+            var result = Int32.TryParse(amountString.Trim(), out var withdrawAmount);
             if (result)
             {
                 // check the successfully parsed amount to make sure it's non-negative and against the MachineBalance to determine if valid amount
@@ -289,13 +280,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.Send("slots_withdraw_fail", failureReason);
             }
         }
-        private void DepositHandler(string evt, string amountString, VMEODClient client)
+            void DepositHandler(string evt, string amountString, VMEODClient client)
         {
             string failureReason = "";
 
             // try to parse the deposit amount
-            int depositAmount;
-            var result = Int32.TryParse(amountString.Trim(), out depositAmount);
+            var result = Int32.TryParse(amountString.Trim(), out var depositAmount);
             if (result)
             {
                 // check the successfully parsed amount to make sure it's non-negative and against the MachineBalanceMax to determine if valid amount
@@ -342,11 +332,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.Send("slots_deposit_fail", failureReason);
             }
         }
-        private void BetHandler(string evt, string betAmountString, VMEODClient client)
+            void BetHandler(string evt, string betAmountString, VMEODClient client)
         {
             bool betIsValid = false;
-            short betAmount;
-            bool inputIsValid = Int16.TryParse(betAmountString, out betAmount);
+            bool inputIsValid = Int16.TryParse(betAmountString, out var betAmount);
 
             // Check to make sure the valid input is actually a valid bet by testing MachineBetDenomination and betAmount
             if (inputIsValid)
@@ -370,7 +359,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 // attempt to debit player the bet amount
                 var VM = client.vm;
 
-                VM.GlobalLink.PerformTransaction(VM, false, client.Avatar.PersistID, Server.Object.PersistID, (int)(betAmount),
+                VM.GlobalLink.PerformTransaction(VM, false, client.Avatar.PersistID, Server.Object.PersistID, betAmount,
 
                 (bool success, int transferAmount, uint uid1, uint budget1, uint uid2, uint budget2) =>
                 {
@@ -408,7 +397,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.SendOBJEvent(new VMEODEvent((short)VMOEDSlotsObjectEvents.InsufficientFunds));
             }
         }
-        private int SlotResultHandler(int[] betAndSlotResults)
+            int SlotResultHandler(int[] betAndSlotResults)
         {
             // the bet argument here has already been checked for validity and authenticity
             short betAmount = (short)(betAndSlotResults[0]);
@@ -494,18 +483,18 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
             return winnings;
         }
-        private void SlotsCloseHandler(string evt, string arg, VMEODClient client)
+            void SlotsCloseHandler(string evt, string arg, VMEODClient client)
         {
             Server.Disconnect(client);
         }
-        private int[] RollNewGame(int betAmount)
+            int[] RollNewGame(int betAmount)
         {
             int wheelOneStop = SlotsRandom.Next(TotalStops);
             int wheelTwoStop = SlotsRandom.Next(TotalStops);
             int wheelThreeStop = SlotsRandom.Next(TotalStops);
             return new int[4] { betAmount, wheelOneStop, wheelTwoStop, wheelThreeStop };
         }
-        private void WheelsStoppedHandler(string evt, string uselessString, VMEODClient client)
+            void WheelsStoppedHandler(string evt, string uselessString, VMEODClient client)
         {
             var winnings = CurrentWinnings;
             CurrentWinnings = 0;
@@ -531,14 +520,14 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.Send("slots_display_loss", "" + SlotsRandom.Next(30, 35));
             }
         }
-        private bool IsObjectBalanceInBounds()
+            bool IsObjectBalanceInBounds()
         {
             if ((MachineBalance >= MachineBalanceMin) && (MachineBalance < MachineBalanceMax))
                 return true;
             else
                 return false;
         }
-        private void CalculateWheelStops(short paybackPercent)
+            void CalculateWheelStops(short paybackPercent)
         {
             // calculate to decimal and get inverse, in order to increase or decrease number of blank stops to affect winning odds
             float paybackDecimal = 1F - (paybackPercent / 100F);

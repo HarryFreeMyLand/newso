@@ -4,10 +4,6 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Content;
 using FSO.SimAntics.Marshals.Threads;
 using FSO.Files.Formats.IFF.Chunks;
@@ -23,7 +19,7 @@ namespace FSO.SimAntics.Engine
         public VMEntity Callee;
         public VMEntity StackObject; //set to callee for interactions
 
-        private VMEntity _IconOwner = null; //defaults to callee
+            VMEntity _IconOwner = null; //defaults to callee
         public VMEntity IconOwner {
             get {
                 return (_IconOwner == null)?Callee:_IconOwner;
@@ -98,7 +94,7 @@ namespace FSO.SimAntics.Engine
 
         public void Load(VMQueuedActionMarshal input, VMContext context)
         {
-            CodeOwner = FSO.Content.GameContent.Get.WorldObjects.Get(input.CodeOwnerGUID);
+            CodeOwner = GameContent.Get.WorldObjects.Get(input.CodeOwnerGUID);
 
             if (input.RoutineID >= 8192) ActionRoutine = (VMRoutine)CodeOwner.Resource.SemiGlobal.GetRoutine(input.RoutineID);
             else if (input.RoutineID >= 4096) ActionRoutine = (VMRoutine)CodeOwner.Resource.GetRoutine(input.RoutineID);

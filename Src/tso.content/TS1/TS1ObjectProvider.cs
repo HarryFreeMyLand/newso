@@ -6,9 +6,6 @@ using FSO.Files.Formats.IFF.Chunks;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content.TS1
 {
@@ -137,10 +134,10 @@ namespace FSO.Content.TS1
 
         public ObjectCatalogItem? GetItemByGUID(uint guid)
         {
-            ObjectCatalogItem item;
-            if (ItemsByGUID.TryGetValue(guid, out item))
+            if (ItemsByGUID.TryGetValue(guid, out var item))
                 return item;
-            else return null;
+            else
+                return null;
         }
     }
 }

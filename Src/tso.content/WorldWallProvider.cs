@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Common.Content;
 using FSO.Content.Model;
 using FSO.Files.Formats.IFF;
@@ -368,8 +367,8 @@ namespace FSO.Content
             else
             {
                 //get from iff
-                WallReference entry = null;
-                if (!Entries.TryGetValue((ushort)id, out entry)) entry = Entries.Values.First(x => x.ID > 255);
+                if (!Entries.TryGetValue((ushort)id, out var entry))
+                    entry = Entries.Values.First(x => x.ID > 255);
                 IffFile iff = this.Walls.Get(entry.FileName);
                 if (iff == null) return null;
 

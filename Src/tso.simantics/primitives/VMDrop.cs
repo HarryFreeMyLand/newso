@@ -5,9 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.LotView.Model;
@@ -18,7 +15,7 @@ namespace FSO.SimAntics.Primitives
 
     public class VMDrop : VMPrimitiveHandler
     {
-        private static LotTilePos[] Positions = { 
+            static LotTilePos[] Positions = { 
             new LotTilePos(0, -16, 0), //NORTH
             new LotTilePos(16, -16, 0), //NORTHWEST
             new LotTilePos(16, 0, 0), //WEST

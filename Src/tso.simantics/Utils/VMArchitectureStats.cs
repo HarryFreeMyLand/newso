@@ -1,10 +1,7 @@
 ﻿using FSO.Content;
 using FSO.LotView.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Utils
 {
@@ -15,8 +12,8 @@ namespace FSO.SimAntics.Utils
 
         public static int GetArchValue(VMArchitecture arch)
         {
-            Floors = Content.GameContent.Get.WorldFloors;
-            Walls = Content.GameContent.Get.WorldWalls;
+            Floors = GameContent.Get.WorldFloors;
+            Walls = GameContent.Get.WorldWalls;
 
             int value = 0;
             for (int level = 0; level < arch.Stories; level++)
@@ -96,34 +93,32 @@ namespace FSO.SimAntics.Utils
             return new Tuple<int, int>(value, archValue);
         }
 
-        private static int GetWallPrice(ushort id)
+            static int GetWallPrice(ushort id)
         {
             return Walls.GetWallStyle(id)?.Price ?? 0;
         }
 
-        private static int GetPatternPrice(ushort id)
+            static int GetPatternPrice(ushort id)
         {
             var pref = GetPatternRef(id);
             return (pref == null) ? 0 : pref.Price;
         }
 
-        private static int GetFloorPrice(ushort id)
+            static int GetFloorPrice(ushort id)
         {
             if (id == 1) return 0;
             var fref = GetFloorRef(id);
             return (fref == null) ? 0 : fref.Price;
         }
 
-        private static WallReference GetPatternRef(ushort id)
+            static WallReference GetPatternRef(ushort id)
         {
-            WallReference result = null;
-            Walls.Entries.TryGetValue(id, out result);
+            Walls.Entries.TryGetValue(id, out var result);
             return result;
         }
-        private static FloorReference GetFloorRef(ushort id)
+            static FloorReference GetFloorRef(ushort id)
         {
-            FloorReference result = null;
-            Floors.Entries.TryGetValue(id, out result);
+            Floors.Entries.TryGetValue(id, out var result);
             return result;
         }
     }

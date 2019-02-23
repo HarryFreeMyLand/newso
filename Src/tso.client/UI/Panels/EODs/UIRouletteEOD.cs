@@ -1,16 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
-using FSO.Client.UI.Model;
 using FSO.Client.UI.Panels.EODs.Utils;
 using FSO.Common.Rendering.Framework.IO;
 using FSO.Common.Rendering.Framework.Model;
-using FSO.SimAntics;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using System.Timers;
 using Microsoft.Xna.Framework.Graphics;
@@ -909,7 +905,7 @@ namespace FSO.Client.UI.Panels.EODs
             // listen to the betting area for a mouse off, to see if chip was dragged out of playable area
             // listen to betting area for a mouse up (click), to see if a chip was placed
             // listen to betting area for a mouse over, to 'animate' the shadows
-            RouletteGraphMouseHandler = this.ListenForMouse(new Rectangle(20, 20, (int)(RouletteTable.Width + RouletteTable.X - 10),
+            RouletteGraphMouseHandler = ListenForMouse(new Rectangle(20, 20, (int)(RouletteTable.Width + RouletteTable.X - 10),
                 (int)(RouletteTable.Height + RouletteTable.Y - 10)), OnTableMouseEvent);
         }
         // hide the stacks belonging to this player and display the bets from other player (if there are any), synchronized by the server

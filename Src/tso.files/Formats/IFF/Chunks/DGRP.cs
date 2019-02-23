@@ -43,7 +43,7 @@ namespace FSO.Files.Formats.IFF.Chunks
             int rotateBits = (int)direction << ((int)worldRotation * 2);
             rotatedDirection = (uint)((rotateBits & 255) | (rotateBits >> 8));
 
-            foreach(DGRPImage image in Images)
+            foreach(var image in Images)
             {
                 if (image.Direction == rotatedDirection && image.Zoom == zoom)
                 {

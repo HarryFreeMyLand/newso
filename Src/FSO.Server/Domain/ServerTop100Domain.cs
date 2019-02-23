@@ -12,9 +12,9 @@ namespace FSO.Server.Domain
 {
     public class ServerTop100Domain : Top100Domain
     {
-        private MemoryCache Cache;
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
+        MemoryCache Cache;
+        IDAFactory DAFactory;
+        CityServerContext Context;
 
         public ServerTop100Domain(IDAFactory DAFactory, CityServerContext context, MemoryCache cache)
         {

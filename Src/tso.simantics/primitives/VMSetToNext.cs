@@ -5,9 +5,7 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Scopes;
@@ -22,7 +20,7 @@ namespace FSO.SimAntics.Primitives
     public class VMSetToNext : VMPrimitiveHandler
     {
         //position steps for object adjacent to object in local
-        private static Point[] AdjStep =
+            static Point[] AdjStep =
         {
             new Point(0, -1),
             new Point(1, 0),
@@ -79,7 +77,7 @@ namespace FSO.SimAntics.Primitives
             }
             else if (operand.SearchType == VMSetToNextSearchType.ObjectAdjacentToObjectInLocal)
             {
-                VMEntity anchor = context.VM.GetObjectById((short)context.Locals[operand.Local]);
+                VMEntity anchor = context.VM.GetObjectById(context.Locals[operand.Local]);
                 int ptrDir = -1;
 
                 targetValue = 0;
@@ -198,7 +196,7 @@ namespace FSO.SimAntics.Primitives
             return VMPrimitiveExitCode.GOTO_FALSE; //ran out of objects to test
         }
 
-        private int getAdjDir(VMEntity src, VMEntity dest)
+            int getAdjDir(VMEntity src, VMEntity dest)
         {
             int diffX = dest.Position.TileX - src.Position.TileX;
             int diffY = dest.Position.TileY - src.Position.TileY;
@@ -206,7 +204,7 @@ namespace FSO.SimAntics.Primitives
             return getAdjDir(diffX, diffY);
         }
 
-        private int getAdjDir(int diffX, int diffY)
+            int getAdjDir(int diffX, int diffY)
         {
 
             //negative y is anchor

@@ -2,11 +2,8 @@
 using FSO.Client.UI.Framework;
 using FSO.Common.DatabaseService.Model;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
@@ -28,11 +25,11 @@ namespace FSO.Client.UI.Panels
         public UIBonusDialog(List<LoadAvatarBonus> bonus)
             : base(UIDialogStyle.Close, true)
         {
-            this.Opacity = 0.9f;
+            Opacity = 0.9f;
 
-            var script = this.RenderScript("visitorbonusdialog.uis");
-            this.DialogSize = (Point)script.GetControlProperty("DialogSize");
-            this.Caption = (string)script["TitleString"];
+            var script = RenderScript("visitorbonusdialog.uis");
+            DialogSize = (Point)script.GetControlProperty("DialogSize");
+            Caption = (string)script["TitleString"];
 
             BonusListBox.AttachSlider(BonusListSlider);
             BonusListSlider.AttachButtons(BonusListScrollUpButton, BonusListScrollDownButton, 1);

@@ -7,7 +7,6 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
@@ -67,10 +66,10 @@ namespace FSO.Client.UI.Panels
 
         public UIInbox()
         {
-            var script = this.RenderScript("messageinbox.uis");
+            var script = RenderScript("messageinbox.uis");
 
             Background = new UIImage(backgroundImage);
-            this.AddAt(0, Background);
+            AddAt(0, Background);
             CloseButton.OnButtonClick += new ButtonClickDelegate(Close);
             UIUtils.MakeDraggable(Background, this);
 
@@ -142,7 +141,7 @@ namespace FSO.Client.UI.Panels
                 X = 162,
                 Y = 13
             };
-            this.Add(Dropdown);
+            Add(Dropdown);
 
             SummaryInfoTextLabel.Alignment = TextAlignment.Center | TextAlignment.Middle;
 
@@ -286,9 +285,9 @@ namespace FSO.Client.UI.Panels
 
         public UIInboxDropdown()
         {
-            Script = this.RenderScript("messageinboxmenu.uis");
+            Script = RenderScript("messageinboxmenu.uis");
             Background = new UIImage(backgroundCollapsedImage);
-            this.AddAt(0, Background);
+            AddAt(0, Background);
 
             open = true;
             ToggleOpen();

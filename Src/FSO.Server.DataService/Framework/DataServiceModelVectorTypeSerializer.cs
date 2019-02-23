@@ -4,18 +4,15 @@ using FSO.Files.Formats.tsodata;
 using Mina.Core.Buffer;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Framework
 {
     public class DataServiceModelVectorTypeSerializer : DataServiceModelTypeSerializer
     {
         //0xA97384A3: cTSOValueVector<class cRZAutoRefCount<class cITSOProperty> >
-        private readonly uint CLSID = 0xA97384A3;
+        readonly uint CLSID = 0xA97384A3;
 
         public DataServiceModelVectorTypeSerializer(TSODataDefinition model) : base(model)
         {
@@ -85,7 +82,7 @@ namespace FSO.Common.DataService.Framework
 
         public override void Serialize(IoBuffer output, object value, ISerializationContext context)
         {
-            IList list = (IList)value;
+            var list = (IList)value;
             var genericType = value.GetType().GetGenericArguments()[0];
 
             var _struct = GetStruct(genericType);

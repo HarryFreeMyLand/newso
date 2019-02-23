@@ -4,14 +4,8 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FSO.Files.Formats.IFF;
 using FSO.Content;
 using FSO.SimAntics.Marshals.Threads;
-using FSO.Files.Formats.IFF.Chunks;
 
 namespace FSO.SimAntics.Engine
 {
@@ -56,7 +50,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private VMEntity _StackObject;
+            VMEntity _StackObject;
         public short _StackObjectID;
 
         /** If true, this stack frame is not a subroutine. Return with a continue. **/
@@ -155,7 +149,7 @@ namespace FSO.SimAntics.Engine
 
         public virtual void Load(VMStackFrameMarshal input, VMContext context)
         {
-            CodeOwner = FSO.Content.GameContent.Get.WorldObjects.Get(input.CodeOwnerGUID);
+            CodeOwner = GameContent.Get.WorldObjects.Get(input.CodeOwnerGUID);
 
             Routine = null;
             if (input.RoutineID >= 8192) Routine = (VMRoutine)ScopeResource.SemiGlobal.GetRoutine(input.RoutineID);

@@ -16,11 +16,11 @@ namespace FSO.Server.Servers.City.Domain
 {
     public class LotAllocations
     {
-        private ConcurrentDictionary<uint, LotAllocation> _Locks = new ConcurrentDictionary<uint, LotAllocation>();
-        private LotServerPicker PickingEngine;
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
-        private JobMatchmaker Matchmaker;
+        ConcurrentDictionary<uint, LotAllocation> _Locks = new ConcurrentDictionary<uint, LotAllocation>();
+        LotServerPicker PickingEngine;
+        IDAFactory DAFactory;
+        CityServerContext Context;
+        JobMatchmaker Matchmaker;
 
         public LotAllocations(LotServerPicker PickingEngine, IDAFactory daFactory, CityServerContext context, IKernel kernel)
         {
@@ -135,7 +135,7 @@ namespace FSO.Server.Servers.City.Domain
         /// <param name="openIfClosed"></param>
         /// <returns></returns>
 
-        private Task<TryFindLotResult> TryFind(uint lotId, uint avatarId, bool openIfClosed, ISecurityContext security)
+        Task<TryFindLotResult> TryFind(uint lotId, uint avatarId, bool openIfClosed, ISecurityContext security)
         {
             bool jobLot = false;
             var originalId = lotId;
@@ -338,21 +338,21 @@ namespace FSO.Server.Servers.City.Domain
             }
         }
 
-        private Task<T> Immediate<T>(T data)
+        Task<T> Immediate<T>(T data)
         {
             var tcs = new TaskCompletionSource<T>();
             tcs.SetResult(data);
             return tcs.Task;
         }
 
-        private LotAllocation Get(uint lotId)
+        LotAllocation Get(uint lotId)
         {
             return _Locks.GetOrAdd(lotId, x => {
                 return new LotAllocation(DAFactory, Context);
             });
         }
 
-        private LotAllocation Remove(uint lotId)
+        LotAllocation Remove(uint lotId)
         {
             LotAllocation removed = null;
             if ((lotId & 0x40000000) > 0) Matchmaker.RemoveJobLot(lotId & 0x3FFFFFFF);
@@ -374,15 +374,15 @@ namespace FSO.Server.Servers.City.Domain
         public LotAllocationState State { get; internal set; } = LotAllocationState.NOT_ALLOCATED;
         public LotPickerAttempt PickingAttempt { get; internal set; }
 
-        private uint? ClaimId { get; set; }
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
+        uint? ClaimId { get; set; }
+        IDAFactory DAFactory;
+        CityServerContext Context;
 
-        private TaskCompletionSource<LotPickResult> PickingTask;
-        private Task<LotPickResult> PickingTaskWithTimeout;
-        private DbLot Lot;
-        private uint SpecialId;
-        private ClaimAction OpenAction;
+        TaskCompletionSource<LotPickResult> PickingTask;
+        Task<LotPickResult> PickingTaskWithTimeout;
+        DbLot Lot;
+        uint SpecialId;
+        ClaimAction OpenAction;
 
         public LotAllocation(IDAFactory da, CityServerContext context)
         {

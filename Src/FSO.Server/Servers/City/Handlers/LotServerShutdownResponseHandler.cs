@@ -6,7 +6,7 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class LotServerShutdownResponseHandler
     {
-        private LotServerPicker Picker;
+        LotServerPicker Picker;
         public LotServerShutdownResponseHandler(LotServerPicker picker)
         {
             Picker = picker;

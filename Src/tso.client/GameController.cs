@@ -5,9 +5,6 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Screens;
 using FSO.Client.Network;
 using FSO.Client.UI.Framework;
@@ -43,7 +40,7 @@ namespace FSO.Client
 
         public GameController(IKernel kernel)
         {
-            this.Kernel = kernel;
+            Kernel = kernel;
             if (DummyLinker) LinkEveryController();
         }
 

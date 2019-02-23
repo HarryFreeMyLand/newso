@@ -8,9 +8,9 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class ModerationHandler
     {
-        private ISessions Sessions;
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
+        ISessions Sessions;
+        IDAFactory DAFactory;
+        CityServerContext Context;
         public ModerationHandler(IDAFactory da, ISessions sessions, CityServerContext context)
         {
             DAFactory = da;

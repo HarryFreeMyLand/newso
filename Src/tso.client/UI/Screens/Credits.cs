@@ -4,14 +4,9 @@ If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Controls;
-using FSO.Client.UI.Framework.Parser;
 
 namespace FSO.Client.UI.Screens
 {
@@ -23,13 +18,13 @@ namespace FSO.Client.UI.Screens
 
         public Credits()
         {
-            var ui = this.RenderScript("credits.uis");
+            var ui = RenderScript("credits.uis");
 
-            this.X = (float)(double)(ScreenWidth - 800) / 2;
-            this.Y = (float)(double)(ScreenHeight - 600) / 2;
+            X = (float)(double)(ScreenWidth - 800) / 2;
+            Y = (float)(double)(ScreenHeight - 600) / 2;
 
-            this.AddAt(0, new UIImage(BackgroundImage));
-            this.Add(ui.Create<UIImage>("TSOLogoImage"));
+            AddAt(0, new UIImage(BackgroundImage));
+            Add(ui.Create<UIImage>("TSOLogoImage"));
 
 
             BackButton.OnButtonClick += new ButtonClickDelegate(BackButton_OnButtonClick);

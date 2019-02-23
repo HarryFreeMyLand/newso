@@ -1,10 +1,5 @@
 ﻿using FSO.SimAntics.NetPlay.EODs.Model;
-using FSO.SimAntics.NetPlay.EODs.Utils;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Utils;
 using FSO.SimAntics.Engine.TSOGlobalLink.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
@@ -22,10 +17,9 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             PlaintextHandlers["dresser_delete_outfit"] = DeleteOutfit;
         }
 
-        private void DeleteOutfit(string evt, string data, VMEODClient client)
+            void DeleteOutfit(string evt, string data, VMEODClient client)
         {
-            uint outfitId = 0;
-            if (!uint.TryParse(data, out outfitId))
+            if (!uint.TryParse(data, out var outfitId))
             {
                 return;
             }
@@ -72,14 +66,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void SetDefault(string evt, string data, VMEODClient client)
+            void SetDefault(string evt, string data, VMEODClient client)
         {
             var split = data.Split(',');
-            short categoryId = 0;
-            uint outfitId = 0;
 
-            if(!short.TryParse(split[0], out categoryId) ||
-                !uint.TryParse(split[1], out outfitId)){
+            if (!short.TryParse(split[0], out var categoryId) ||
+                !uint.TryParse(split[1], out var outfitId))
+            {
                 return;
             }
 
@@ -92,7 +85,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             StoreDefaultSuit(client, category, outfitId);
         }
 
-        private void StoreDefaultSuit(VMEODClient client, VMPersonSuits category, uint outfitId)
+            void StoreDefaultSuit(VMEODClient client, VMPersonSuits category, uint outfitId)
         {
             GetOutfit(client.vm, outfitId, outfit => {
                 if (outfit == null){
@@ -117,10 +110,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void ChangeOutfit(string evt, string data, VMEODClient client)
+            void ChangeOutfit(string evt, string data, VMEODClient client)
         {
-            uint outfitId = 0;
-            if(!uint.TryParse(data, out outfitId)){
+            if (!uint.TryParse(data, out var outfitId))
+            {
                 return;
             }
 

@@ -4,11 +4,7 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using FSO.LotView.Model;
 using FSO.SimAntics.Engine;
 
@@ -22,7 +18,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         public short y;
         public sbyte level;
 
-        private static uint GOTO_GUID = 0x000007C4;
+            static uint GOTO_GUID = 0x000007C4;
 
         public override bool Execute(VM vm, VMAvatar caller)
         {

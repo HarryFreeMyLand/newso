@@ -6,10 +6,6 @@ using FSO.Common.Rendering.Framework;
 using FSO.Common.Utils;
 using FSO.Server.Protocol.Electron.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -20,7 +16,7 @@ namespace FSO.Client.Controllers
 
         public JoinLotProgressController(UIJoinLotProgress view, LotConnectionRegulator regulator)
         {
-            this.View = view;
+            View = view;
 
             regulator.OnError += Regulator_OnError;
             regulator.OnTransition += Regulator_OnTransition;
@@ -43,10 +39,8 @@ namespace FSO.Client.Controllers
             var errorTitle = GameFacade.Strings.GetString("211", "45");
             var errorBody = GameFacade.Strings.GetString("211", "45");
 
-            if (data is FindLotResponseStatus)
+            if (data is FindLotResponseStatus status)
             {
-                var status = (FindLotResponseStatus)data;
-
                 switch (status)
                 {
                     case FindLotResponseStatus.NOT_OPEN:

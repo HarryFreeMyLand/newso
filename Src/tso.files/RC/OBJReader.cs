@@ -29,7 +29,7 @@ namespace FSO.Files.RC
         {
             string objGroup = "_default";
             string line = "";
-            List<int[]> indices = new List<int[]>();
+            var indices = new List<int[]>();
             FacesByObjgroup[objGroup] = indices;
             while ((line = read.ReadLine()) != null)
             {

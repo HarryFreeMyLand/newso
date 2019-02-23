@@ -1,11 +1,6 @@
-﻿using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
-using FSO.SimAntics.NetPlay.EODs.Model;
+﻿using FSO.SimAntics.NetPlay.EODs.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -40,8 +35,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     Code = 0;
                     if (data != null)
                     {
-                        uint result = 0;
-                        uint.TryParse(System.Text.Encoding.UTF8.GetString(data), out result);
+                        uint.TryParse(System.Text.Encoding.UTF8.GetString(data), out var result);
                         Code = result;
                     }
                 }
@@ -62,8 +56,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             {
                 //verify that the code is at most a 4 digit number
 
-                uint code = 0;
-                if (!uint.TryParse(data, out code) || code > 999999999) return;
+                if (!uint.TryParse(data, out var code) || code > 999999999)
+                    return;
 
                 var newData = System.Text.Encoding.UTF8.GetBytes(code.ToString());
 
@@ -79,8 +73,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             {
                 if (!SentMessage) { Server.Shutdown(); return; }
                 //verify that the code is at most a 4 digit number
-                uint code = 0;
-                if (!uint.TryParse(data, out code) || code > 999999999)
+                if (!uint.TryParse(data, out var code) || code > 999999999)
                 { Server.Shutdown(); return; }
 
                 foreach (var cli in Server.Clients)
@@ -93,8 +86,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         public void P_SetState(string evt, string data, VMEODClient client)
         {
             if (Mode != VMEODPermissionDoorMode.Edit) return;
-            ushort code = 0;
-            if (!ushort.TryParse(data, out code) || code > 2) return;
+            if (!ushort.TryParse(data, out var code) || code > 2)
+                return;
 
             foreach (var cli in Server.Clients)
                 cli.SendOBJEvent(new VMEODEvent((short)VMEODPermissionDoorEvent.PermStateInTemp0, (short)code));
@@ -103,8 +96,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         public void P_SetFee(string evt, string data, VMEODClient client)
         {
             if (Mode != VMEODPermissionDoorMode.Edit) return;
-            ushort code = 0;
-            if (!ushort.TryParse(data, out code) || code > MaxFee) return;
+            if (!ushort.TryParse(data, out var code) || code > MaxFee)
+                return;
 
             foreach (var cli in Server.Clients)
                 cli.SendOBJEvent(new VMEODEvent((short)VMEODPermissionDoorEvent.FeeInTemp0, (short)code));
@@ -113,8 +106,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         public void P_SetFlags(string evt, string data, VMEODClient client)
         {
             if (Mode != VMEODPermissionDoorMode.Edit) return;
-            ushort flags = 0;
-            if (!ushort.TryParse(data, out flags)) return;
+            if (!ushort.TryParse(data, out var flags))
+                return;
 
             flags &= (ushort)VMEODPermissionDoorFlags.All;
 

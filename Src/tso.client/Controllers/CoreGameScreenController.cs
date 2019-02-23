@@ -1,9 +1,7 @@
 ﻿using FSO.Client.Controllers.Panels;
 using FSO.Client.Model;
 using FSO.Client.Regulators;
-using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Panels;
 using FSO.Client.UI.Screens;
 using FSO.Common.DataService;
 using FSO.Common.DataService.Model;
@@ -18,11 +16,8 @@ using Microsoft.Xna.Framework;
 using Ninject;
 using Ninject.Parameters;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -43,12 +38,12 @@ namespace FSO.Client.Controllers
 
         public CoreGameScreenController(CoreGameScreen view, Network.Network network, IClientDataService dataService, IKernel kernel, LotConnectionRegulator joinLotRegulator)
         {
-            this.Screen = view;
-            this.Network = network;
-            this.DataService = dataService;
-            this.Chat = new MessagingController(this, view.MessageTray, network, dataService);
-            this.JoinLotRegulator = joinLotRegulator;
-            this.RoommateProtocol = new RoommateRequestController(this, network, dataService);
+            Screen = view;
+            Network = network;
+            DataService = dataService;
+            Chat = new MessagingController(this, view.MessageTray, network, dataService);
+            JoinLotRegulator = joinLotRegulator;
+            RoommateProtocol = new RoommateRequestController(this, network, dataService);
 
             joinLotRegulator.OnTransition += JoinLotRegulator_OnTransition;
 
@@ -302,7 +297,7 @@ namespace FSO.Client.Controllers
             RoommateProtocol.OnMoveoutResult = onResult;
             Network.CityClient.Write(new ChangeRoommateRequest()
             {
-                Type = Server.Protocol.Electron.Model.ChangeRoommateType.KICK,
+                Type = ChangeRoommateType.KICK,
                 AvatarId = Network.MyCharacter,
                 LotLocation = target_lot
             });

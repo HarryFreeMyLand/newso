@@ -2,10 +2,7 @@
 using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
 using FSO.SimAntics.NetPlay.EODs.Model;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -18,7 +15,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         public VMEODSignsMode Mode;
         public int MaxLength;
         public bool SentMessage = false; //if false and we have a message, send it to the client.
-        private bool DisableRead = false; //don't have read permission
+            bool DisableRead = false; //don't have read permission
 
         public VMEODSignsPlugin(VMEODServer server) : base(server)
         {

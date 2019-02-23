@@ -19,12 +19,12 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class ChangeRoommateHandler
     {
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
-        private ISessions Sessions;
-        private IDataService DataService;
-        private LotServerPicker LotServers;
-        private LotAllocations Lots;
+        IDAFactory DAFactory;
+        CityServerContext Context;
+        ISessions Sessions;
+        IDataService DataService;
+        LotServerPicker LotServers;
+        LotAllocations Lots;
 
         public ChangeRoommateHandler(ISessions sessions, IDAFactory da, CityServerContext context, IDataService dataService, LotServerPicker lotServers, LotAllocations lots)
         {
@@ -36,7 +36,7 @@ namespace FSO.Server.Servers.City.Handlers
             Lots = lots;
         }
 
-        private void Status(IVoltronSession session, ChangeRoommateResponseStatus status)
+        void Status(IVoltronSession session, ChangeRoommateResponseStatus status)
         {
             session.Write(new ChangeRoommateResponse { Type = status });
         }

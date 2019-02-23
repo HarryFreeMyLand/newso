@@ -29,7 +29,7 @@ namespace FSO.Files.RC
                     var split = group.Key.Split('_');
                     if (split.Length > 1 && split[1] == "floor")
                     {
-                        Vector2 minLocation = new Vector2(999999999, 999999999);
+                        var minLocation = new Vector2(999999999, 999999999);
                         var candidates = new List<Vector3>();
                         foreach (var inds in group.Value)
                         {

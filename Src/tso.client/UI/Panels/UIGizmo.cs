@@ -4,19 +4,15 @@ If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework.Parser;
 using FSO.Client.Utils;
 using System.IO;
 using FSO.Client.UI.Screens;
 using FSO.Common.Rendering.Framework.Model;
-using FSO.Client.Network;
 using FSO.Common.Utils;
 using FSO.Common.DataService.Model;
 using FSO.Client.Controllers;
@@ -49,13 +45,13 @@ namespace FSO.Client.UI.Panels
         public UIGizmoPropertyFilters(UIScript script, UIGizmo parent)
         {
             Background = script.Create<UIImage>("BackgroundImageFilters");
-            this.Add(Background);
+            Add(Background);
 
             var filterChildren = parent.GetChildren().Where(x => x.ID != null && x.ID.StartsWith("PropertyFilterButton_")).ToList();
             foreach (var child in filterChildren)
             {
                 child.Parent.Remove(child);
-                this.Add(child);
+                Add(child);
 
                 ((UIButton)child).OnButtonClick += FilterClicked;
             }
@@ -110,7 +106,7 @@ namespace FSO.Client.UI.Panels
         public UIGizmoSearch(UIScript script, UIGizmo parent)
         {
             Background = script.Create<UIImage>("BackgroundImageSearch");
-            this.Add(Background);
+            Add(Background);
 
             script.LinkMembers(this, true);
 
@@ -253,7 +249,7 @@ namespace FSO.Client.UI.Panels
         {
 
             Background = script.Create<UIImage>("BackgroundImageTop100Lists");
-            this.Add(Background);
+            Add(Background);
             
             script.LinkMembers(this, true);
 
@@ -510,7 +506,7 @@ namespace FSO.Client.UI.Panels
 
         public UIGizmo()
         {
-            var ui = this.RenderScript("gizmo.uis");
+            var ui = RenderScript("gizmo.uis");
 
             AddAt(0, PeopleTab = ui.Create<UIImage>("PeopleTab"));
             AddAt(0, HousesTab = ui.Create<UIImage>("HousesTab"));
@@ -519,30 +515,30 @@ namespace FSO.Client.UI.Panels
             AddAt(0, HousesTabBackground = ui.Create<UIImage>("HousesTabBackground"));
 
             BackgroundImageGizmo = ui.Create<UIImage>("BackgroundImageGizmo");
-            this.AddAt(0, BackgroundImageGizmo);
+            AddAt(0, BackgroundImageGizmo);
 
             BackgroundImageGizmoPanel = ui.Create<UIImage>("BackgroundImageGizmoPanel");
-            this.AddAt(0, BackgroundImageGizmoPanel);
+            AddAt(0, BackgroundImageGizmoPanel);
 
             BackgroundImagePanel = ui.Create<UIImage>("BackgroundImagePanel");
-            this.AddAt(0, BackgroundImagePanel);
+            AddAt(0, BackgroundImagePanel);
 
             UIUtils.MakeDraggable(BackgroundImageGizmo, this);
             UIUtils.MakeDraggable(BackgroundImageGizmoPanel, this);
             UIUtils.MakeDraggable(BackgroundImagePanel, this);
 
             ButtonContainer = new UIContainer();
-            this.Remove(ExpandButton);
+            Remove(ExpandButton);
             ButtonContainer.Add(ExpandButton);
-            this.Remove(ContractButton);
+            Remove(ContractButton);
             ButtonContainer.Add(ContractButton);
-            this.Remove(FiltersButton);
+            Remove(FiltersButton);
             ButtonContainer.Add(FiltersButton);
-            this.Remove(SearchButton);
+            Remove(SearchButton);
             ButtonContainer.Add(SearchButton);
-            this.Remove(Top100ListsButton);
+            Remove(Top100ListsButton);
             ButtonContainer.Add(Top100ListsButton);
-            this.Add(ButtonContainer);
+            Add(ButtonContainer);
 
 
 
@@ -550,18 +546,18 @@ namespace FSO.Client.UI.Panels
             {
                 Visible = false
             };
-            this.Add(FiltersProperty);
+            Add(FiltersProperty);
 
             Search = new UIGizmoSearch(ui, this);
             ControllerUtils.BindController<GizmoSearchController>(Search);
             Search.Visible = false;
-            this.Add(Search);
+            Add(Search);
 
             Top100 = new UIGizmoTop100(ui, this);
             ControllerUtils.BindController<GizmoTop100Controller>(Top100);
             Top100.Visible = false;
             Top100.Background.Visible = false;
-            this.Add(Top100);
+            Add(Top100);
 
             ExpandButton.OnButtonClick += new ButtonClickDelegate(ExpandButton_OnButtonClick);
             ContractButton.OnButtonClick += new ButtonClickDelegate(ContractButton_OnButtonClick);

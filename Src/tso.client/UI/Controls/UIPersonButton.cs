@@ -2,13 +2,7 @@
 using FSO.Client.Utils;
 using FSO.Common.DataService.Model;
 using FSO.Common.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.Model;
 using FSO.Content.Model;
 using FSO.Client.Controllers;
@@ -104,11 +98,11 @@ namespace FSO.Client.UI.Controls
 
                 if(_Size == UIPersonButtonSize.SMALL)
                 {
-                    _Button.Texture = FSO.Content.GameContent.Get.UIGraphics.Get(2564095475713).Get(GameFacade.GraphicsDevice);
+                    _Button.Texture = Content.GameContent.Get.UIGraphics.Get(2564095475713).Get(GameFacade.GraphicsDevice);
                 }
                 else
                 {
-                    _Button.Texture = FSO.Content.GameContent.Get.UIGraphics.Get(2551210573825).Get(GameFacade.GraphicsDevice);
+                    _Button.Texture = Content.GameContent.Get.UIGraphics.Get(2551210573825).Get(GameFacade.GraphicsDevice);
                 }
             }
         }

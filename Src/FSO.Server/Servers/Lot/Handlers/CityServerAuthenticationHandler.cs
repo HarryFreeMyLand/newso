@@ -10,7 +10,7 @@ namespace FSO.Server.Servers.Lot.Handlers
     /// </summary>
     public class CityServerAuthenticationHandler
     {
-        private string Secret;
+        string Secret;
 
         public CityServerAuthenticationHandler(ServerConfiguration config)
         {

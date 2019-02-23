@@ -6,8 +6,6 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.LotView;
 using FSO.SimAntics;
 using FSO.Common.Rendering.Framework.Model;
@@ -76,7 +74,7 @@ namespace FSO.Client.UI.Panels
                 target.ExecuteEntryPoint(10, vm.Context, true, target);
                 target.SetRoom(65534);
                 if (target is VMGameObject) ((ObjectComponent)target.WorldUI).ForceDynamic = true;
-                CursorTiles[i] = vm.Context.CreateObjectInstance(0x00000437, new LotTilePos(target.Position), FSO.LotView.Model.Direction.NORTH, true).Objects[0];
+                CursorTiles[i] = vm.Context.CreateObjectInstance(0x00000437, new LotTilePos(target.Position), Direction.NORTH, true).Objects[0];
                 CursorTiles[i].SetPosition(new LotTilePos(0,0,1), Direction.NORTH, vm.Context);
                 ((ObjectComponent)CursorTiles[i].WorldUI).ForceDynamic = true;
             }

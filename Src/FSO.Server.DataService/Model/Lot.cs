@@ -2,13 +2,7 @@
 using FSO.Common.DataService.Framework.Attributes;
 using FSO.Common.Domain.Realestate;
 using FSO.Common.Serialization.Primitives;
-using FSO.Server.Common;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Model
 {
@@ -19,7 +13,7 @@ namespace FSO.Common.DataService.Model
         [Key]
         public uint Id { get; set; }
 
-        private byte _Lot_NumOccupants;
+        byte _Lot_NumOccupants;
         public byte Lot_NumOccupants
         {
             get { return _Lot_NumOccupants; }
@@ -30,7 +24,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private bool _Lot_IsOnline;
+        bool _Lot_IsOnline;
         [Persist] //bit of a hack here... this "persists" through to the city representation. TODO: make not stupid
         public bool Lot_IsOnline
         {
@@ -42,7 +36,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private string _Lot_SpotLightText; //FSO specific var
+        string _Lot_SpotLightText; //FSO specific var
         [Persist] //bit of a hack here... this "persists" through to the city representation. TODO: make not stupid
         public string Lot_SpotLightText
         {
@@ -54,7 +48,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private string _Lot_Name;
+        string _Lot_Name;
         public string Lot_Name
         {
             get { return _Lot_Name; }
@@ -65,7 +59,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private uint _Lot_Price;
+        uint _Lot_Price;
         public uint Lot_Price
         {
             get { return _Lot_Price; }
@@ -101,7 +95,7 @@ namespace FSO.Common.DataService.Model
         }
 
 
-        private uint _Lot_LastCatChange;
+        uint _Lot_LastCatChange;
         public uint Lot_LastCatChange
         {
             get { return _Lot_LastCatChange; }
@@ -113,7 +107,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private byte _Lot_Category;
+        byte _Lot_Category;
 
         [Persist]
         public byte Lot_Category
@@ -126,7 +120,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private uint _Lot_HoursSinceLastLotCatChange;
+        uint _Lot_HoursSinceLastLotCatChange;
         public uint Lot_HoursSinceLastLotCatChange
         {
             get{
@@ -140,7 +134,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ImmutableList<uint> _Lot_OwnerVec;
+        ImmutableList<uint> _Lot_OwnerVec;
         public ImmutableList<uint> Lot_OwnerVec
         {
             get { return _Lot_OwnerVec; }
@@ -151,21 +145,21 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ImmutableList<uint> _Lot_RoommateVec;
+        ImmutableList<uint> _Lot_RoommateVec;
         public ImmutableList<uint> Lot_RoommateVec
         {
             get { return _Lot_RoommateVec; }
             set { _Lot_RoommateVec = value; NotifyPropertyChanged("Lot_RoommateVec"); }
         }
 
-        private LotAdmitInfo _Lot_LotAdmitInfo;
+        LotAdmitInfo _Lot_LotAdmitInfo;
         public LotAdmitInfo Lot_LotAdmitInfo
         {
             get { return _Lot_LotAdmitInfo; }
             set { _Lot_LotAdmitInfo = value; NotifyPropertyChanged("Lot_LotAdmitInfo"); }
         }
 
-        private uint _Lot_SkillGamemode;
+        uint _Lot_SkillGamemode;
         [Persist]
         public uint Lot_SkillGamemode
         {

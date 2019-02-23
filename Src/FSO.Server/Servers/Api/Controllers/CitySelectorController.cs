@@ -17,29 +17,29 @@ namespace FSO.Server.Servers.Api.Controllers
 {
     public class CitySelectorController : NancyModule
     {
-        private static String ERROR_MISSING_TOKEN_CODE = "501";
-        private static String ERROR_MISSING_TOKEN_MSG = "Token not found";
+        static String ERROR_MISSING_TOKEN_CODE = "501";
+        static String ERROR_MISSING_TOKEN_MSG = "Token not found";
 
-        private static String ERROR_EXPIRED_TOKEN_CODE = "502";
-        private static String ERROR_EXPIRED_TOKEN_MSG = "Token has expired";
+        static String ERROR_EXPIRED_TOKEN_CODE = "502";
+        static String ERROR_EXPIRED_TOKEN_MSG = "Token has expired";
 
-        private static String ERROR_SHARD_NOT_FOUND_CODE = "503";
-        private static String ERROR_SHARD_NOT_FOUND_MSG = "Shard not found";
+        static String ERROR_SHARD_NOT_FOUND_CODE = "503";
+        static String ERROR_SHARD_NOT_FOUND_MSG = "Shard not found";
 
-        private static String ERROR_AVATAR_NOT_FOUND_CODE = "504";
-        private static String ERROR_AVATAR_NOT_FOUND_MSG = "Avatar not found";
+        static String ERROR_AVATAR_NOT_FOUND_CODE = "504";
+        static String ERROR_AVATAR_NOT_FOUND_MSG = "Avatar not found";
 
-        private static String ERROR_AVATAR_NOT_YOURS_CODE = "505";
-        private static String ERROR_AVATAR_NOT_YOURS_MSG = "You do not own this avatar!";
+        static String ERROR_AVATAR_NOT_YOURS_CODE = "505";
+        static String ERROR_AVATAR_NOT_YOURS_MSG = "You do not own this avatar!";
 
-        private static String ERROR_BANNED_CODE = "506";
-        private static String ERROR_BANNED_MSG = "Your account has been banned.";
+        static String ERROR_BANNED_CODE = "506";
+        static String ERROR_BANNED_MSG = "Your account has been banned.";
 
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private string VersionNumber = "0";
-        private string VersionName;
-        private string DownloadURL;
+        string VersionNumber = "0";
+        string VersionName;
+        string DownloadURL;
 
         public CitySelectorController(IDAFactory DAFactory, ApiServerConfiguration config, JWTFactory jwt, IShardsDomain shardsDomain) : base("/cityselector")
         {
@@ -269,7 +269,7 @@ namespace FSO.Server.Servers.Api.Controllers
             };
         }
 
-        private static string GetServerVersion()
+        static string GetServerVersion()
         {
             return GameConsts.TCBranch;
             /*

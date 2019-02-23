@@ -2,26 +2,22 @@
 using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.NetPlay.EODs.Utils;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODPaperChasePlugin : VMEODHandler
     {
-        private VMEODClient Controller;
-        private EODLobby<VMEODPaperChaseSlot> Lobby;
-        private StateMachine<VMEODPaperChaseState> StateMachine;
-        private Random Random = new Random();
-        private short[] CurrentCombination;
+            VMEODClient Controller;
+            EODLobby<VMEODPaperChaseSlot> Lobby;
+            StateMachine<VMEODPaperChaseState> StateMachine;
+            Random Random = new Random();
+            short[] CurrentCombination;
 
-        private int Ticks = 0;
-        private short Matches = -1;
-        private short PreviousMatches = -1;
+            int Ticks = 0;
+            short Matches = -1;
+            short PreviousMatches = -1;
 
-        private short[][] Combinations;
+            short[][] Combinations;
 
         
         public VMEODPaperChasePlugin(VMEODServer server) : base(server)
@@ -82,7 +78,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void StateMachine_OnTransition(VMEODPaperChaseState from, VMEODPaperChaseState to)
+            void StateMachine_OnTransition(VMEODPaperChaseState from, VMEODPaperChaseState to)
         {
             Lobby.Broadcast("paperchase_state", ((byte)to).ToString());
 
@@ -138,7 +134,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void ResetGame()
+            void ResetGame()
         {
             PreviousMatches = -1;
             Matches = -1;
@@ -155,13 +151,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void SetPlayerLetter(string evt, string body, VMEODClient client)
+            void SetPlayerLetter(string evt, string body, VMEODClient client)
         {
             //Only the controller updates this
             if (Controller == null) { return; }
 
             //If we don't recognise the letter, ignore the request
-            var letter = (short)VMEODPaperChaseLetters.A;
+            var letter = VMEODPaperChaseLetters.A;
             if(!short.TryParse(body, out letter) || letter < VMEODPaperChaseLetters.A || letter > VMEODPaperChaseLetters.C)
             {
                 return;
@@ -187,7 +183,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             CheckAllLettersSet();
         }
 
-        private void CheckAllLettersSet()
+            void CheckAllLettersSet()
         {
             for (var i = 0; i < 3; i++)
             {
@@ -210,7 +206,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void BroadcastPlayerLetters()
+            void BroadcastPlayerLetters()
         {
             var letters = new short[7];
 

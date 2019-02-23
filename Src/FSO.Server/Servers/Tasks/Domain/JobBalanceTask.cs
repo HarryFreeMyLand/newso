@@ -10,11 +10,11 @@ namespace FSO.Server.Servers.Tasks.Domain
 {
     public class JobBalanceTask : ITask
     {
-        private IDAFactory DAFactory;
-        private bool Running;
-        private TaskTuning Tuning;
+        IDAFactory DAFactory;
+        bool Running;
+        TaskTuning Tuning;
 
-        private static Dictionary<int, int> TransactionToType = new Dictionary<int, int>()
+        static Dictionary<int, int> TransactionToType = new Dictionary<int, int>()
         {
             { 41, 0 }, //typewriter
             {42, 1 }, //easel
@@ -25,10 +25,10 @@ namespace FSO.Server.Servers.Tasks.Domain
             {48, 6 }, //pinata
             {50, 7 } //telemarketing
         };
-        private static Dictionary<int, int> TypeToTransaction = TransactionToType.ToDictionary(x => x.Value, x => x.Key);
+        static Dictionary<int, int> TypeToTransaction = TransactionToType.ToDictionary(x => x.Value, x => x.Key);
 
-        private float BaseCompletionTime = 270f;
-        private static float[] TypeCompletionTimes = new float[]
+        float BaseCompletionTime = 270f;
+        static float[] TypeCompletionTimes = new float[]
         {
             292.21f, //typewriter
             289.23f, //easel
@@ -40,7 +40,7 @@ namespace FSO.Server.Servers.Tasks.Domain
             288.13f //telemarketing
         };
 
-        private static int[] ToTuningIndex = new int[] //see skillobjects.otf
+        static int[] ToTuningIndex = new int[] //see skillobjects.otf
         {
             6, //typewriter
             3, //easel

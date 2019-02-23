@@ -4,11 +4,7 @@ using FSO.SimAntics.Marshals;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Model.TSOPlatform;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.Model.Commands
 {
@@ -26,7 +22,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         public byte[] Data;
 
         //internal
-        private VMMultitileGroup CreatedGroup;
+            VMMultitileGroup CreatedGroup;
         public bool Verified;
 
         /// <summary>
@@ -72,7 +68,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
             return false;
         }
 
-        private bool TryPlace(VM vm, VMAvatar caller)
+            bool TryPlace(VM vm, VMAvatar caller)
         {
             if (!vm.TSOState.CanPlaceNewUserObject(vm)) return false;
             VMStandaloneObjectMarshal state;

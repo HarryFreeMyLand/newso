@@ -5,7 +5,7 @@ namespace FSO.Server.Servers.Api.JsonWebToken
 {
     public class JWTTokenAuthentication
     {
-        private const string Scheme = "bearer";
+        const string Scheme = "bearer";
 
         public static void Enable(INancyModule module, JWTFactory factory)
         {
@@ -17,7 +17,7 @@ namespace FSO.Server.Servers.Api.JsonWebToken
             module.Before.AddItemToStartOfPipeline(GetCredentialRetrievalHook(factory));
         }
 
-        private static Func<NancyContext, Response> GetCredentialRetrievalHook(JWTFactory factory)
+        static Func<NancyContext, Response> GetCredentialRetrievalHook(JWTFactory factory)
         {
             if (factory == null)
             {
@@ -31,7 +31,7 @@ namespace FSO.Server.Servers.Api.JsonWebToken
             };
         }
 
-        private static void RetrieveCredentials(NancyContext context, JWTFactory factory)
+        static void RetrieveCredentials(NancyContext context, JWTFactory factory)
         {
             var token = ExtractTokenFromHeader(context.Request);
             if (token == null)
@@ -55,7 +55,7 @@ namespace FSO.Server.Servers.Api.JsonWebToken
             }
         }
 
-        private static string ExtractTokenFromHeader(Request request)
+        static string ExtractTokenFromHeader(Request request)
         {
             var authorization = request.Headers.Authorization;
 

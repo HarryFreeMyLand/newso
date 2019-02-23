@@ -4,15 +4,9 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Files.Utils;
-using FSO.SimAntics.Engine.Scopes;
-using FSO.SimAntics.Engine.Utils;
 using FSO.LotView.Model;
-using Microsoft.Xna.Framework;
 using System.IO;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.Files.Formats.IFF.Chunks;
@@ -35,12 +29,12 @@ namespace FSO.SimAntics.Engine.Primitives
                     dir = context.Caller.Direction;
                     break;
                 case VMCreateObjectPosition.BelowObjectInLocal:
-                    var lObj = context.VM.GetObjectById((short)context.Locals[operand.LocalToUse]);
+                    var lObj = context.VM.GetObjectById(context.Locals[operand.LocalToUse]);
                     tpos = new LotTilePos(lObj.Position);
                     dir = lObj.Direction;
                     break;
                 case VMCreateObjectPosition.BelowObjectInStackParam0:
-                    var pObj = context.VM.GetObjectById((short)context.Args[0]);
+                    var pObj = context.VM.GetObjectById(context.Args[0]);
                     tpos = new LotTilePos(pObj.Position);
                     dir = pObj.Direction;
                     break;
@@ -59,16 +53,16 @@ namespace FSO.SimAntics.Engine.Primitives
                     tpos = new LotTilePos(objp.Position);
                     switch (objp.Direction)
                     {
-                        case FSO.LotView.Model.Direction.SOUTH:
+                        case Direction.SOUTH:
                             tpos.y += 16;
                             break;
-                        case FSO.LotView.Model.Direction.WEST:
+                        case Direction.WEST:
                             tpos.x -= 16;
                             break;
-                        case FSO.LotView.Model.Direction.EAST:
+                        case Direction.EAST:
                             tpos.x += 16;
                             break;
-                        case FSO.LotView.Model.Direction.NORTH:
+                        case Direction.NORTH:
                             tpos.y -= 16;
                             break;
                     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FSO.LotView.Model;
+﻿using FSO.LotView.Model;
 using FSO.SimAntics.Marshals;
 using Microsoft.Xna.Framework;
 
@@ -14,8 +9,8 @@ namespace FSO.SimAntics.Utils
     /// </summary>
     public class VMLotRotate
     {
-        private VMArchitectureMarshal Arch;
-        private VMEntityMarshal[] Ents;
+            VMArchitectureMarshal Arch;
+            VMEntityMarshal[] Ents;
 
         //variables for rotation transform
 
@@ -25,7 +20,7 @@ namespace FSO.SimAntics.Utils
             Ents = marshal.Entities;
         }
 
-        private static Point[] XForward = new Point[]
+            static Point[] XForward = new Point[]
         {
             new Point(1, 0), //top going to right
             new Point(0, 1), //right going to bottom
@@ -33,7 +28,7 @@ namespace FSO.SimAntics.Utils
             new Point(0, -1)
         };
 
-        private static Point[] Offset = new Point[]
+            static Point[] Offset = new Point[]
         {
             new Point(0, 0), //top
             new Point(1, 0), //right (width)
@@ -104,12 +99,12 @@ namespace FSO.SimAntics.Utils
             return (Direction)rotPart;
         }
 
-        private int GetOffset(int x, int y)
+            int GetOffset(int x, int y)
         {
             return Arch.Width * y + x;
         }
 
-        private WallTile RotateWall(int rotN, WallTile input, short x, short y, sbyte level)
+            WallTile RotateWall(int rotN, WallTile input, short x, short y, sbyte level)
         {
             var output = new WallTile();
             if (rotN != 0)

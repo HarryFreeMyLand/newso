@@ -4,14 +4,11 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using FSO.SimAntics.Engine.TSOTransaction;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.NetPlay.Drivers;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace FSO.SimAntics.NetPlay.Model.Commands
 {

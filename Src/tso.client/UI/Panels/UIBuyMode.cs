@@ -6,8 +6,6 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
 using Microsoft.Xna.Framework.Graphics;
@@ -16,11 +14,9 @@ using FSO.Client.UI.Controls.Catalog;
 using FSO.LotView.Model;
 using FSO.SimAntics.Entities;
 using FSO.Common.Rendering.Framework.Model;
-using Microsoft.Xna.Framework.Input;
 using FSO.SimAntics.Model;
 using FSO.Common;
 using Microsoft.Xna.Framework;
-using FSO.Content;
 using FSO.Content.Interfaces;
 
 namespace FSO.Client.UI.Panels
@@ -103,30 +99,30 @@ namespace FSO.Client.UI.Panels
 
             var useSmall = FSOEnvironment.UIZoomFactor > 1f || GlobalSettings.Default.GraphicsWidth < 1024;
             UseSmall = useSmall;
-            var script = this.RenderScript("buypanel"+(useSmall?"":"1024")+".uis");
+            var script = RenderScript("buypanel"+(useSmall?"":"1024")+".uis");
 
             Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
             {
                 Y = 0
             };
             Background.BlockInput();
-            this.AddAt(0, Background);
+            AddAt(0, Background);
             Size = Background.Size.ToVector2();
 
             InventoryButtonBackgroundImage = script.Create<UIImage>("InventoryButtonBackgroundImage");
-            this.AddAt(1, InventoryButtonBackgroundImage);
+            AddAt(1, InventoryButtonBackgroundImage);
             
             CatBg = script.Create<UIImage>("ProductCatalogImage");
-            this.AddAt(2, CatBg);
+            AddAt(2, CatBg);
 
             InventoryCatBg = script.Create<UIImage>("InventoryCatalogRoommateImage");
-            this.AddAt(3, InventoryCatBg);
+            AddAt(3, InventoryCatBg);
 
             NonRMInventoryCatBg = script.Create<UIImage>("InventoryCatalogVisitorImage");
-            this.AddAt(4, NonRMInventoryCatBg);
+            AddAt(4, NonRMInventoryCatBg);
 
             InventoryCatalogVisitorIcon = script.Create<UIImage>("InventoryCatalogVisitorIcon");
-            this.AddAt(5, InventoryCatalogVisitorIcon);
+            AddAt(5, InventoryCatalogVisitorIcon);
 
             Catalog = new UICatalog(useSmall ? 14 : 24)
             {
@@ -134,7 +130,7 @@ namespace FSO.Client.UI.Panels
             };
             Catalog.OnSelectionChange += new CatalogSelectionChangeDelegate(Catalog_OnSelectionChange);
             Catalog.Position = new Vector2(275, 7);
-            this.Add(Catalog);
+            Add(Catalog);
 
             CategoryMap = new Dictionary<UIButton, int>
             {
@@ -188,7 +184,7 @@ namespace FSO.Client.UI.Panels
             ObjLimitLabel = new UILabel();
             ObjLimitLabel.CaptionStyle = ObjLimitLabel.CaptionStyle.Clone();
             ObjLimitLabel.CaptionStyle.Shadow = true;
-            ObjLimitLabel.CaptionStyle.Color = Microsoft.Xna.Framework.Color.White;
+            ObjLimitLabel.CaptionStyle.Color = Color.White;
             ObjLimitLabel.Caption = "127/250 Objects";
             ObjLimitLabel.Y = -20;
             ObjLimitLabel.X = Background.Width/2 - 100;

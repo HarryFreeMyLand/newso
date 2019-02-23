@@ -1,12 +1,10 @@
-﻿using Mina.Core.Service;
+using Mina.Core.Service;
 using Mina.Filter.Codec;
 using Mina.Transport.Socket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Mina.Core.Session;
 using FSO.SimAntics.NetPlay.Model;
 using System.IO;
@@ -24,11 +22,12 @@ namespace FSO.Client.Network.Sandbox
         public event Action<VMNetClient> OnConnect;
         public event Action<VMNetClient> OnDisconnect;
 
-        List<IoSession> Sessions = new List<IoSession>();
+        List<IoSession> _sessions = new List<IoSession>();
 
         public void ForceDisconnect(VMNetClient cli)
         {
-            if (cli.NetHandle == null) return;
+            if (cli.NetHandle == null)
+                return;
             ((IoSession)cli.NetHandle).Close(false);
         }
 
@@ -39,17 +38,20 @@ namespace FSO.Client.Network.Sandbox
 
         public void SendMessage(VMNetClient cli, VMNetMessage msg)
         {
-            if (cli.NetHandle == null) return;
+            if (cli.NetHandle == null)
+                return;
             ((IoSession)cli.NetHandle).Write(msg);
         }
 
         public void Broadcast(VMNetMessage msg, HashSet<VMNetClient> ignore)
         {
             List<IoSession> cliClone;
-            lock (Sessions) cliClone = new List<IoSession>(Sessions);
+            lock (_sessions)
+                cliClone = new List<IoSession>(_sessions);
             foreach (var s in cliClone)
             {
-                if (ignore.Contains(s.GetAttribute('c'))) continue;
+                if (ignore.Contains(s.GetAttribute('c')))
+                    continue;
                 s.Write(msg);
             }
         }
@@ -102,12 +104,14 @@ namespace FSO.Client.Network.Sandbox
         public void SessionClosed(IoSession session)
         {
             var cli = (VMNetClient)session.GetAttribute('c');
-            if (cli != null) GameThread.NextUpdate(x =>
-            {
-                OnDisconnect(cli);
-            });
+            if (cli != null)
+                GameThread.NextUpdate(x =>
+                {
+                    OnDisconnect(cli);
+                });
 
-            lock (Sessions) Sessions.Remove(session);
+            lock (_sessions)
+                _sessions.Remove(session);
         }
 
         public void SessionCreated(IoSession session)
@@ -121,7 +125,8 @@ namespace FSO.Client.Network.Sandbox
             cli.NetHandle = session;
             session.SetAttribute('c', cli);
 
-            lock (Sessions) Sessions.Add(session);
+            lock (_sessions)
+                _sessions.Add(session);
         }
 
         public void SessionIdle(IoSession session, IdleStatus status)
@@ -133,20 +138,20 @@ namespace FSO.Client.Network.Sandbox
         {
         }
 
-        AsyncSocketAcceptor Acceptor;
+        AsyncSocketAcceptor _acceptor;
 
         public void Start(ushort port)
         {
-            Acceptor = new AsyncSocketAcceptor();
-            Acceptor.FilterChain.AddLast("protocol", new ProtocolCodecFilter(new FSOSandboxProtocol()));
-            Acceptor.Handler = this;
-            IPAddress ip;
-            System.Net.IPAddress.TryParse("0.0.0.0", out ip);
+            _acceptor = new AsyncSocketAcceptor();
+            _acceptor.FilterChain.AddLast("protocol", new ProtocolCodecFilter(new FSOSandboxProtocol()));
+            _acceptor.Handler = this;
+            IPAddress.TryParse("0.0.0.0", out var ip);
 
             try
             {
-                Acceptor.Bind(new IPEndPoint(ip, port));
-            } catch
+                _acceptor.Bind(new IPEndPoint(ip, port));
+            }
+            catch
             {
 
             }
@@ -154,10 +159,11 @@ namespace FSO.Client.Network.Sandbox
 
         public void Shutdown()
         {
-            Acceptor?.Dispose();
-            lock (Sessions)
+            _acceptor?.Dispose();
+            lock (_sessions)
             {
-                foreach (var s in Sessions) s.Close(true);
+                foreach (var s in _sessions)
+                    s.Close(true);
             }
         }
     }

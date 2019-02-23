@@ -5,9 +5,6 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Controls;
@@ -46,10 +43,10 @@ namespace FSO.Client.UI.Panels
 
         public UIOptions()
         {
-            var script = this.RenderScript("optionspanel.uis");
+            var script = RenderScript("optionspanel.uis");
 
             Background = new UIImage(GetTexture((FSOEnvironment.UIZoomFactor>1f || GlobalSettings.Default.GraphicsWidth < 1024) ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002));
-            this.AddAt(0, Background);
+            AddAt(0, Background);
             Background.BlockInput();
             Size = Background.Size.ToVector2();
 
@@ -58,7 +55,7 @@ namespace FSO.Client.UI.Panels
                 X = 227,
                 Y = 17
             };
-            this.Add(Divider);
+            Add(Divider);
 
             ExitButton.OnButtonClick += new ButtonClickDelegate(ExitButton_OnButtonClick);
             SelectSimButton.OnButtonClick += new ButtonClickDelegate(SelectSimButton_OnButtonClick);
@@ -76,7 +73,7 @@ namespace FSO.Client.UI.Panels
             ProfanityButton.Selected = false;
             SoundButton.Selected = false;
 
-            if (CurrentPanel != -1) this.Remove(Panel);
+            if (CurrentPanel != -1) Remove(Panel);
             if (newPanel != CurrentPanel)
             {
                 switch (newPanel)
@@ -103,7 +100,7 @@ namespace FSO.Client.UI.Panels
                 }
                 Panel.X = 240;
                 Panel.Y = 0;
-                this.Add(Panel);
+                Add(Panel);
                 CurrentPanel = newPanel;
             }
             else
@@ -174,7 +171,7 @@ namespace FSO.Client.UI.Panels
         public UIProfanityOptions()
         {
             //var alert = UIScreen.GlobalShowAlert(new UIAlertOptions { Title = "Not Implemented", Message = "This feature is not implemented yet!" }, true);
-            var uis = this.RenderScript("profanitypanel.uis");
+            var uis = RenderScript("profanitypanel.uis");
             //don't draw, this currently breaks the uis parser
             //var bg = uis.Create<UIImage>("Background");
             //AddAt(0, bg);
@@ -393,7 +390,7 @@ namespace FSO.Client.UI.Panels
 
         public UISoundOptions()
         {
-            this.RenderScript("soundpanel.uis");
+            RenderScript("soundpanel.uis");
 
             FXSlider.OnChange += new ChangeDelegate(ChangeVolume);
             MusicSlider.OnChange += new ChangeDelegate(ChangeVolume);
@@ -458,7 +455,7 @@ namespace FSO.Client.UI.Panels
 
         public UIGraphicOptions()
         {
-            var script = this.RenderScript("graphicspanel.uis");
+            var script = RenderScript("graphicspanel.uis");
             
             UIEffectsLabel.Caption = GameFacade.Strings.GetString("f103", "2");
             UIEffectsLabel.Alignment = TextAlignment.Middle;

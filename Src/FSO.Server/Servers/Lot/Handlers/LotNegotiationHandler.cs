@@ -7,8 +7,8 @@ namespace FSO.Server.Servers.Lot.Handlers
 {
     public class LotNegotiationHandler
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private LotHost Lots;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        LotHost Lots;
 
         public LotNegotiationHandler(LotHost lots)
         {

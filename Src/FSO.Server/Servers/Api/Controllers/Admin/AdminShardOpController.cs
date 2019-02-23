@@ -8,8 +8,8 @@ namespace FSO.Server.Servers.Api.Controllers.Admin
 {
     public class AdminShardOpController : NancyModule
     {
-        private IDAFactory DAFactory;
-        private ApiServer Server;
+        IDAFactory DAFactory;
+        ApiServer Server;
 
         public AdminShardOpController(IDAFactory daFactory, JWTFactory jwt, ApiServer server) : base("/admin/shards")
         {

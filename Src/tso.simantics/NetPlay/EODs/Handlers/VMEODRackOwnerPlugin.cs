@@ -1,21 +1,8 @@
-﻿using FSO.Common.Serialization;
-using FSO.Content.Model;
-using FSO.SimAntics.NetPlay.EODs.Model;
-using FSO.SimAntics.NetPlay.EODs.Utils;
-using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.SimAntics.Primitives;
-using System;
-using System.Collections.Generic;
+﻿using FSO.SimAntics.NetPlay.EODs.Model;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Mina.Core.Buffer;
 using FSO.SimAntics.Engine.TSOGlobalLink.Model;
-using FSO.SimAntics.Engine.TSOTransaction;
-using FSO.SimAntics.Engine.Utils;
 using FSO.SimAntics.Model.TSOPlatform;
 using System.Text.RegularExpressions;
-using FSO.SimAntics.Engine.Scopes;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -34,7 +21,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             PlaintextHandlers["rackowner_update_price"] = UpdatePrice;
         }
 
-        private void UpdateNameHandler(string evt, string proposedNewName, VMEODClient client)
+            void UpdateNameHandler(string evt, string proposedNewName, VMEODClient client)
         {
             // validate the proposedNewName, if valid store to be sent to server upon disconnection
             // should there be other methods of validating in case of illegal characters?
@@ -46,7 +33,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void UpdatePrice(string evt, string data, VMEODClient client)
+            void UpdatePrice(string evt, string data, VMEODClient client)
         {
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if ((Lobby.GetPlayerSlot(client) != 0) || (!isOwner))
@@ -55,11 +42,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
 
             var split = data.Split(',');
-            uint outfitId = 0;
-            int newSalePrice = 0;
-            
-            if(!uint.TryParse(split[0], out outfitId) || 
-                !int.TryParse(split[1], out newSalePrice)){
+
+            if (!uint.TryParse(split[0], out var outfitId) ||
+                !int.TryParse(split[1], out var newSalePrice))
+            {
                 return;
             }
 
@@ -74,7 +60,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void DeleteStock(string evt, string data, VMEODClient client)
+            void DeleteStock(string evt, string data, VMEODClient client)
         {
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if ((Lobby.GetPlayerSlot(client) != 0) || (!isOwner))
@@ -82,8 +68,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 return;
             }
 
-            uint outfitId;
-            var valid = uint.TryParse(data, out outfitId);
+            var valid = uint.TryParse(data, out var outfitId);
 
             if (!valid)
                 return;
@@ -96,15 +81,14 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void Stock(string evt, string data, VMEODClient client){
+            void Stock(string evt, string data, VMEODClient client){
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if ((Lobby.GetPlayerSlot(client) != 0) || (!isOwner))
             {
                 return;
             }
 
-            ulong outfitAssetId;
-            var valid = ulong.TryParse(data, out outfitAssetId);
+            var valid = ulong.TryParse(data, out var outfitAssetId);
 
             if (!valid)
                 return;
@@ -115,7 +99,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             var VM = client.vm;
 
             //TODO: Do stores get bulk discounts on clothes?
-            VM.GlobalLink.PerformTransaction(VM, false, client.Avatar.PersistID, uint.MaxValue, (int)outfit.Price,
+            VM.GlobalLink.PerformTransaction(VM, false, client.Avatar.PersistID, uint.MaxValue, outfit.Price,
                         
                 (bool success, int transferAmount, uint uid1, uint budget1, uint uid2, uint budget2) =>
                 {

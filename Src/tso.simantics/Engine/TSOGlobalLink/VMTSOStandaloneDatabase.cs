@@ -1,8 +1,6 @@
-﻿using FSO.SimAntics.NetPlay.Model;
+using FSO.SimAntics.NetPlay.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using FSO.Common;
 
@@ -10,7 +8,10 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
 {
     public class VMTSOStandaloneDatabase : VMSerializable
     {
-        public static readonly int CURRENT_VERSION = 2;
+        const string _dbFile = "stubdb.fsodb";
+        const string _dbBackupFile = "stubdb_backup.fsodb";
+
+        public const int CURRENT_VERSION = 2;
         public int Version = CURRENT_VERSION;
 
         public Dictionary<string, uint> IpNameToPersist;
@@ -26,15 +27,17 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
             //attempt to load first
             try
             {
-                using (var db = File.OpenRead(Path.Combine(FSOEnvironment.UserDir, "stubdb.fsodb")))
+                using (var db = File.OpenRead(Path.Combine(FSOEnvironment.UserDir, _dbFile)))
                 {
                     Deserialize(new BinaryReader(db));
                     return;
                 }
-            } catch (Exception) {
+            }
+            catch (Exception)
+            {
                 try
                 {
-                    using (var db = File.OpenRead(Path.Combine(FSOEnvironment.UserDir, "stubdb_backup.fsodb")))
+                    using (var db = File.OpenRead(Path.Combine(FSOEnvironment.UserDir, _dbBackupFile)))
                     {
                         Deserialize(new BinaryReader(db));
                         return;
@@ -53,36 +56,39 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
         {
             try
             {
-                File.Copy(Path.Combine(FSOEnvironment.UserDir, "stubdb.fsodb"), Path.Combine(FSOEnvironment.UserDir, "stubdb_backup.fsodb"), true);
+                File.Copy(Path.Combine(FSOEnvironment.UserDir, _dbFile), Path.Combine(FSOEnvironment.UserDir, _dbBackupFile), true);
             }
             catch (Exception e) { }
-            using (var writer = new BinaryWriter(File.Open(Path.Combine(FSOEnvironment.UserDir, "stubdb.fsodb"), FileMode.Create))) SerializeInto(writer);
+            using (var writer = new BinaryWriter(File.Open(Path.Combine(FSOEnvironment.UserDir, _dbFile), FileMode.Create)))
+                SerializeInto(writer);
         }
 
         public uint FindOrAddAvatar(string idString)
         {
-            uint result = 0;
-            if (IpNameToPersist.TryGetValue(idString, out result))
+            if (IpNameToPersist.TryGetValue(idString, out var result))
             {
                 return result;
-            } else
+            }
+            else
             {
                 var rand = new Random();
-                uint ID = ((uint)rand.Next())+65536;
-                while (TakenAvatarPersist.Contains(ID)) ID = ((uint)rand.Next()) + 65536;
-                if (idString == "local:server") ID = uint.MaxValue - 1;
+                uint ID = ((uint)rand.Next()) + 65536;
+                while (TakenAvatarPersist.Contains(ID))
+                    ID = ((uint)rand.Next()) + 65536;
+                if (idString == "local:server")
+                    ID = uint.MaxValue - 1;
                 //ok so we got one, add it to db
                 IpNameToPersist.Add(idString, ID);
                 TakenAvatarPersist.Add(ID);
-                if (idString.StartsWith("local:")) Administrators.Add(ID);
+                if (idString.StartsWith("local:"))
+                    Administrators.Add(ID);
                 return ID;
             }
         }
 
         public void SavePluginPersist(uint obj, uint plugin, byte[] data)
         {
-            Dictionary<uint, byte[]> objDat = null;
-            if (!PluginStorage.TryGetValue(obj, out objDat))
+            if (!PluginStorage.TryGetValue(obj, out var objDat))
             {
                 objDat = new Dictionary<uint, byte[]>();
                 PluginStorage.Add(obj, objDat);
@@ -94,13 +100,11 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
 
         public byte[] LoadPluginPersist(uint obj, uint plugin)
         {
-            Dictionary<uint, byte[]> objDat = null;
-            if (!PluginStorage.TryGetValue(obj, out objDat))
+            if (!PluginStorage.TryGetValue(obj, out var objDat))
             {
                 return null;
             }
-            byte[] dat = null;
-            objDat.TryGetValue(plugin, out dat);
+            objDat.TryGetValue(plugin, out var dat);
             return dat;
         }
 
@@ -116,7 +120,8 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
             }
 
             writer.Write(Administrators.Count);
-            foreach (var admin in Administrators) writer.Write(admin);
+            foreach (var admin in Administrators)
+                writer.Write(admin);
 
             writer.Write(PluginStorage.Count);
             foreach (var owner in PluginStorage)
@@ -134,11 +139,12 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
 
         public void Deserialize(BinaryReader reader)
         {
-            if (new string(reader.ReadChars(4)) != "FSOd") return;
+            if (new string(reader.ReadChars(4)) != "FSOd")
+                return;
             Version = reader.ReadInt32();
             var avaCount = reader.ReadInt32();
             IpNameToPersist = new Dictionary<string, uint>();
-            for (int i=0; i<avaCount; i++)
+            for (int i = 0; i < avaCount; i++)
             {
                 IpNameToPersist.Add(reader.ReadString(), reader.ReadUInt32());
             }
@@ -160,7 +166,7 @@ namespace FSO.SimAntics.Engine.TSOGlobalLink
                     var ownerID = reader.ReadUInt32();
                     var ownerPlugins = new Dictionary<uint, byte[]>();
                     var plugins = reader.ReadInt32();
-                    for (int j=0; j<plugins; j++)
+                    for (int j = 0; j < plugins; j++)
                     {
                         var plugin = reader.ReadUInt32();
                         var byteCount = reader.ReadInt32();

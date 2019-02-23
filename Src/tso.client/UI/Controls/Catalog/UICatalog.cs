@@ -6,18 +6,11 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
-using System.Xml;
-using System.IO;
 using FSO.Content;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Files.Formats.IFF.Chunks;
-using FSO.Client.UI.Controls;
 using FSO.Client.UI.Panels.LotControls;
-using static FSO.Content.WorldObjectCatalog;
-using FSO.Common;
 using FSO.SimAntics;
 using FSO.SimAntics.Model;
 using FSO.Content.Interfaces;
@@ -304,7 +297,7 @@ namespace FSO.Client.UI.Controls.Catalog
             {
                 for (int i = 0; i < CatalogItems.Length; i++)
                 {
-                    this.Remove(CatalogItems[i]);
+                    Remove(CatalogItems[i]);
                 }
             }
 
@@ -336,7 +329,7 @@ namespace FSO.Client.UI.Controls.Catalog
                 elem.OnMouseEvent += new ButtonClickDelegate(InnerSelect);
                 elem.SetDisabled(elem.Info.CalcPrice > Budget);
                 CatalogItems[i] = elem;
-                this.Add(elem);
+                Add(elem);
             }
             Page = page;
         }

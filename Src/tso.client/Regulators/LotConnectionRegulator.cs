@@ -2,15 +2,10 @@
 using FSO.Server.Clients;
 using FSO.Server.Clients.Framework;
 using FSO.Server.Protocol.Aries.Packets;
-using FSO.Server.Protocol.CitySelector;
 using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Protocol.Voltron.Packets;
 using Ninject;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Regulators
 {
@@ -27,13 +22,13 @@ namespace FSO.Client.Regulators
 
         public LotConnectionRegulator([Named("City")] AriesClient cityClient, [Named("Lot")] AriesClient lotClient, IClientDataService dataService)
         {
-            this.City = cityClient;
-            this.City.AddSubscriber(this);
+            City = cityClient;
+            City.AddSubscriber(this);
 
-            this.Client = lotClient;
-            this.Client.AddSubscriber(this);
+            Client = lotClient;
+            Client.AddSubscriber(this);
 
-            this.DataService = dataService;
+            DataService = dataService;
 
             City.AddSubscriber(this);
 
@@ -114,7 +109,7 @@ namespace FSO.Client.Regulators
                     var address = data as string;
                     if (address == null)
                     {
-                        this.ThrowErrorAndReset(new Exception("Unknown parameter"));
+                        ThrowErrorAndReset(new Exception("Unknown parameter"));
                     }
                     else
                     {
@@ -204,14 +199,14 @@ namespace FSO.Client.Regulators
                     message is FSOVMDirectToClient)
                 {
                     //force in order
-                    this.SyncProcessMessage(message);
+                    SyncProcessMessage(message);
                 }
             }
         }
 
         public void SessionCreated(AriesClient client)
         {
-            this.AsyncProcessMessage(new AriesConnected());
+            AsyncProcessMessage(new AriesConnected());
         }
 
         public void SessionOpened(AriesClient client)

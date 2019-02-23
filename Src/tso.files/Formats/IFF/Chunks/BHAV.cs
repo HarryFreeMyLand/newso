@@ -31,7 +31,7 @@ namespace FSO.Files.Formats.IFF.Chunks
         /// </summary>
         /// <param name="iff">Iff instance.</param>
         /// <param name="stream">A Stream instance holding a BHAV chunk.</param>
-        public override void Read(IffFile iff, System.IO.Stream stream)
+        public override void Read(IffFile iff, Stream stream)
         {
             using (var io = IoBuffer.FromStream(stream, ByteOrder.LITTLE_ENDIAN))
             {

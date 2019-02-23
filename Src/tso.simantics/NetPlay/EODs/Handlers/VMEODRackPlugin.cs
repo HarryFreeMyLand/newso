@@ -1,15 +1,7 @@
-﻿using FSO.Common.Utils;
-using FSO.Content.Model;
-using FSO.SimAntics.Engine.Scopes;
-using FSO.SimAntics.Engine.TSOGlobalLink.Model;
+﻿using FSO.SimAntics.Engine.TSOGlobalLink.Model;
 using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.SimAntics.Primitives;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -21,18 +13,18 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             PlaintextHandlers["rack_purchase"] = Purchase;
         }
 
-        private void Purchase(string evt, string data, VMEODClient client)
+            void Purchase(string evt, string data, VMEODClient client)
         {
             var split = data.Split(',');
             if (split.Length != 2) { return; }
 
-            uint outfitId = 0;
-            if (!uint.TryParse(split[0], out outfitId)){
+            if (!uint.TryParse(split[0], out var outfitId))
+            {
                 return;
             }
 
-            var putOnNow = false;
-            if(!bool.TryParse(split[1], out putOnNow)){
+            if (!bool.TryParse(split[1], out var putOnNow))
+            {
                 return;
             }
 
@@ -53,7 +45,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     }
 
                     //Take payment
-                    VM.GlobalLink.PerformTransaction(VM, false, client.Avatar.PersistID, Server.Object.PersistID, (int)outfit.sale_price,
+                    VM.GlobalLink.PerformTransaction(VM, false, client.Avatar.PersistID, Server.Object.PersistID, outfit.sale_price,
 
                     (bool success, int transferAmount, uint uid1, uint budget1, uint uid2, uint budget2) =>
                     {
@@ -76,7 +68,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void PutOnNow(VMGLOutfit outfit, VMEODClient client)
+            void PutOnNow(VMGLOutfit outfit, VMEODClient client)
         {
             var slot = GetSuitSlot(false);
             client.vm.SendCommand(new VMNetSetOutfitCmd
@@ -88,10 +80,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             client.SendOBJEvent(new VMEODEvent((short)VMEODRackEvent.PutOnNow, (short)RackType));
         }
 
-        private void TryOutfitOn(string evt, string data, VMEODClient client)
+            void TryOutfitOn(string evt, string data, VMEODClient client)
         {
-            uint outfitId = 0;
-            if(!uint.TryParse(data, out outfitId)){
+            if (!uint.TryParse(data, out var outfitId))
+            {
                 return;
             }
 

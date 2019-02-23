@@ -1,11 +1,6 @@
-﻿using FSO.SimAntics.Engine.TSOTransaction;
-using FSO.SimAntics.Model;
+﻿using FSO.SimAntics.Model;
 using FSO.SimAntics.Model.TSOPlatform;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace FSO.SimAntics.NetPlay.Model.Commands
 {
@@ -67,7 +62,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
             return base.Execute(vm);
         }
 
-        private bool ChangeUserLevel(VM vm, uint pid, VMTSOAvatarPermissions level)
+            bool ChangeUserLevel(VM vm, uint pid, VMTSOAvatarPermissions level)
         {
             var obj = vm.GetAvatarByPersist(pid);
             var roomieChange = false;

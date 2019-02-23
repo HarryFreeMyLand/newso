@@ -1,5 +1,4 @@
 ﻿using FSO.Common;
-using FSO.Common.Content;
 using FSO.Common.Utils;
 using FSO.Files;
 using FSO.Files.Formats.IFF.Chunks;
@@ -9,10 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content
 {
@@ -47,10 +43,9 @@ namespace FSO.Content
 
         public DGRP3DMesh Get(DGRP dgrp, OBJD obj)
         {
-            DGRP3DMesh result = null;
             var repldir = Path.Combine(FSOEnvironment.ContentDir, "MeshReplace/");
             var dir = Path.Combine(FSOEnvironment.UserDir, "MeshCache/");
-            if (!Cache.TryGetValue(dgrp, out result))
+            if (!Cache.TryGetValue(dgrp, out var result))
             {
                 //does it exist in replacements
                 var name = obj.ChunkParent.Filename.Replace('.', '_').ToLowerInvariant() + "_" + dgrp.ChunkID + ".fsom";
@@ -117,9 +112,8 @@ namespace FSO.Content
 
         public DGRP3DMesh Get(string name)
         {
-            DGRP3DMesh result = null;
             var repldir = Path.Combine(FSOEnvironment.ContentDir, "3D/");
-            if (!NameCache.TryGetValue(name, out result))
+            if (!NameCache.TryGetValue(name, out var result))
             {
                 //does it exist in replacements
                 try
@@ -160,8 +154,7 @@ namespace FSO.Content
 
         public Texture2D GetTex(string name)
         {
-            Texture2D result = null;
-            if (!ReplacementTex.TryGetValue(name, out result))
+            if (!ReplacementTex.TryGetValue(name, out var result))
             {
                 string dir;
                 if (name.StartsWith("FSO_"))
@@ -169,7 +162,8 @@ namespace FSO.Content
                     dir = Path.Combine(FSOEnvironment.ContentDir, "3D/");
                     name = name.Substring(4);
                 }
-                else dir = Path.Combine(FSOEnvironment.ContentDir, "MeshReplace/");
+                else
+                    dir = Path.Combine(FSOEnvironment.ContentDir, "MeshReplace/");
                 //load from meshreplace folder
                 try
                 {

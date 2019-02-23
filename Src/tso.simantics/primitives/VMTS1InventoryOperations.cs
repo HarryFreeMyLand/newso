@@ -1,12 +1,9 @@
 ﻿using FSO.Files.Formats.IFF.Chunks;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Primitives
 {
@@ -158,7 +155,7 @@ namespace FSO.SimAntics.Primitives
             }
         }
 
-        private List<InventoryItem> InitInventory( short neighbour, List<InventoryItem> inventory)
+            List<InventoryItem> InitInventory( short neighbour, List<InventoryItem> inventory)
         {
             if (inventory == null)
             {

@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Model;
@@ -158,7 +157,7 @@ namespace FSO.SimAntics.Primitives
                     var avatar = context.VM.GetObjectById(context.Thread.TempRegisters[0]);
                     if (avatar.PersistID == context.VM.MyUID)
                     {
-                        context.VM.SignalGenericVMEvt(VMEventType.TSOUnignore, (uint)context.VM.GetObjectById(context.Thread.TempRegisters[1]).PersistID);
+                        context.VM.SignalGenericVMEvt(VMEventType.TSOUnignore, context.VM.GetObjectById(context.Thread.TempRegisters[1]).PersistID);
                     }
                     return VMPrimitiveExitCode.GOTO_TRUE;
                 case VMGenericTSOCallMode.GlobalRepairCostInTempXL0: //34
@@ -275,11 +274,11 @@ namespace FSO.SimAntics.Primitives
                     var item = catalog.GetItemByGUID(guid);
                     if (item != null)
                     {
-                        string compString = null;
-                        if (table.KeyValues.TryGetValue(item.Value.Category.ToString(), out compString))
+                        if (table.KeyValues.TryGetValue(item.Value.Category.ToString(), out var compString))
                         {
                             var commentInd = compString.IndexOf(';');
-                            if (commentInd == -1) commentInd = compString.Length;
+                            if (commentInd == -1)
+                                commentInd = compString.Length;
                             var substr = compString.Substring(0, commentInd);
                             componentTable = substr.Split(',').Select(x => int.Parse(x)).ToArray();
                         }
@@ -301,8 +300,8 @@ namespace FSO.SimAntics.Primitives
 
                 // === FREESO SPECIFIC ===
                 case VMGenericTSOCallMode.FSOLightRGBFromTemp012: //128
-                    context.StackObject.LightColor = new Color((int)context.Thread.TempRegisters[0], (int)context.Thread.TempRegisters[1],
-                        (int)context.Thread.TempRegisters[2], (int)1);
+                    context.StackObject.LightColor = new Color(context.Thread.TempRegisters[0], context.Thread.TempRegisters[1],
+                        context.Thread.TempRegisters[2], 1);
                     if (context.StackObject.GetValue(VMStackObjectVariable.LightingContribution) > 0)
                         context.VM.Context.RefreshLighting(context.VM.Context.GetObjectRoom(context.StackObject), true, new HashSet<ushort>());
                     return VMPrimitiveExitCode.GOTO_TRUE;

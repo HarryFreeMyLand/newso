@@ -7,16 +7,12 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.IO;
 using FSO.Client.UI.Controls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FSO.Client.UI.Screens;
 using FSO.Client.Utils;
 using FSO.Client.UI.Framework;
-using FSO.Client.Network;
-using FSO.Files;
 using FSO.Common.Utils;
 using FSO.Server.Protocol.CitySelector;
 using FSO.Common;
@@ -67,27 +63,27 @@ namespace FSO.Client.UI.Panels
         public UICitySelector(List<ShardStatusItem> shards)
             : base(UIDialogStyle.Standard, true)
         {
-            this.Opacity = 0.9f;
+            Opacity = 0.9f;
 
 
             CityListBoxBackground = new UIImage(UITextBox.StandardBackground);
-            this.Add(CityListBoxBackground);
+            Add(CityListBoxBackground);
             CityDescriptionBackground = new UIImage(UITextBox.StandardBackground);
-            this.Add(CityDescriptionBackground);
+            Add(CityDescriptionBackground);
 
-            var script = this.RenderScript("cityselector.uis");
-            this.DialogSize = (Point)script.GetControlProperty("DialogSize");
+            var script = RenderScript("cityselector.uis");
+            DialogSize = (Point)script.GetControlProperty("DialogSize");
 
             var cityThumbBG = new UIImage(thumbnailBackgroundImage)
             {
                 Position = (Vector2)script.GetControlProperty("CityThumbnailBackgroundPosition")
             };
-            this.Add(cityThumbBG);
+            Add(cityThumbBG);
             CityThumb = new UIImage
             {
                 Position = (Vector2)script.GetControlProperty("CityThumbnailPosition")
             };
-            this.Add(CityThumb);
+            Add(CityThumb);
 
             CityDescriptionSlider.AttachButtons(CityDescriptionScrollUpButton, CityDescriptionDownButton, 1);
             DescriptionText.AttachSlider(CityDescriptionSlider);
@@ -96,7 +92,7 @@ namespace FSO.Client.UI.Panels
             OkButton.OnButtonClick += new ButtonClickDelegate(OkButton_OnButtonClick);
             CancelButton.OnButtonClick += new ButtonClickDelegate(CancelButton_OnButtonClick);
 
-            this.Caption = (string)script["TitleString"];
+            Caption = (string)script["TitleString"];
 
 
             /** Parse the list styles **/

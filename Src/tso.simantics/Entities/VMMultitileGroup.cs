@@ -7,10 +7,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.LotView.Model;
 using Microsoft.Xna.Framework;
-using FSO.LotView.Components;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.Marshals;
 using FSO.SimAntics.Model.TSOPlatform;

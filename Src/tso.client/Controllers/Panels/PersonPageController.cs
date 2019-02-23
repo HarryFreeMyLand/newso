@@ -11,10 +11,6 @@ using FSO.Server.Protocol.Electron.Model;
 using FSO.Server.Protocol.Electron.Packets;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace FSO.Client.Controllers
 {
@@ -32,9 +28,9 @@ namespace FSO.Client.Controllers
 
         public PersonPageController(UIPersonPage view, IClientDataService dataService, Network.Network network)
         {
-            this.View = view;
-            this.DataService = dataService;
-            this.Network = network;
+            View = view;
+            DataService = dataService;
+            Network = network;
             Topic = dataService.CreateTopicSubscription();
 
             Network.CityClient.AddSubscriber(this);
@@ -188,9 +184,8 @@ namespace FSO.Client.Controllers
 
         public void MessageReceived(AriesClient client, object message)
         {
-            if (message is FindAvatarResponse)
+            if (message is FindAvatarResponse loc)
             {
-                var loc = (FindAvatarResponse)message;
                 GameThread.InUpdate(() =>
                 {
                     switch (loc.Status)
@@ -199,12 +194,13 @@ namespace FSO.Client.Controllers
                             View.FindController<CoreGameScreenController>()?.ShowLotPage(loc.LotId & 0x3FFFFFFF); //ignore transient part
                             break;
                         default:
-                            if (loc.Status == FindAvatarResponseStatus.PRIVACY_ENABLED) loc.Status = FindAvatarResponseStatus.NOT_ON_LOT;
+                            if (loc.Status == FindAvatarResponseStatus.PRIVACY_ENABLED)
+                                loc.Status = FindAvatarResponseStatus.NOT_ON_LOT;
                             UIAlert alert = null;
                             alert = UIScreen.GlobalShowAlert(new UIAlertOptions()
                             {
                                 Title = "",
-                                Message = GameFacade.Strings.GetString("189", (49+(int)loc.Status).ToString()),
+                                Message = GameFacade.Strings.GetString("189", (49 + (int)loc.Status).ToString()),
                                 Buttons = UIAlertButton.Ok((btn) => UIScreen.RemoveDialog(alert)),
                                 Alignment = TextAlignment.Left
                             }, true);

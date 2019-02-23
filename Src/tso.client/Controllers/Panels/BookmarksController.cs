@@ -2,12 +2,9 @@
 using FSO.Common.DataService;
 using FSO.Common.DataService.Model;
 using FSO.Common.Utils;
-using FSO.Server.DataService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers.Panels
 {
@@ -21,10 +18,10 @@ namespace FSO.Client.Controllers.Panels
 
         public BookmarksController(UIBookmarks view, IClientDataService dataService, Network.Network network)
         {
-            this.Network = network;
-            this.DataService = dataService;
-            this.View = view;
-            this.Binding = new Binding<Avatar>().WithMultiBinding(x => { RefreshResults(); }, "Avatar_BookmarksVec");
+            Network = network;
+            DataService = dataService;
+            View = view;
+            Binding = new Binding<Avatar>().WithMultiBinding(x => { RefreshResults(); }, "Avatar_BookmarksVec");
 
             Init();
         }

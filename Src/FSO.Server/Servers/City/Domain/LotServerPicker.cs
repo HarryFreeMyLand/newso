@@ -9,10 +9,10 @@ namespace FSO.Server.Servers.City.Domain
 {
     public class LotServerPicker
     {
-        private List<LotServerState> Servers = new List<LotServerState>();
-        private Dictionary<string, LotServerState> ServersByCallsign = new Dictionary<string, LotServerState>();
-        private TaskCompletionSource<bool> AllServersShutdown;
-        private HashSet<IGluonSession> ServersShutdown;
+        List<LotServerState> Servers = new List<LotServerState>();
+        Dictionary<string, LotServerState> ServersByCallsign = new Dictionary<string, LotServerState>();
+        TaskCompletionSource<bool> AllServersShutdown;
+        HashSet<IGluonSession> ServersShutdown;
 
         public Task<object> Pick(uint claimId)
         {
@@ -106,7 +106,7 @@ namespace FSO.Server.Servers.City.Domain
             }
         }
 
-        private LotServerState GetState(IGluonSession session)
+        LotServerState GetState(IGluonSession session)
         {
             var server = Servers.FirstOrDefault(x => x.Session == session);
             return server;
@@ -138,7 +138,7 @@ namespace FSO.Server.Servers.City.Domain
     public class LotPickerAttempt
     {
         public bool Success;
-        private LotServerState State;
+        LotServerState State;
 
         public LotPickerAttempt(LotServerState state)
         {

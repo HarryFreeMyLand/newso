@@ -6,12 +6,9 @@ using FSO.SimAntics.Engine;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Utils;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Primitives
 {
@@ -166,7 +163,7 @@ namespace FSO.SimAntics.Primitives
                     var ntarget = (VMAvatar)context.VM.GetObjectById(context.Thread.TempRegisters[0]);
                     context.Thread.TempRegisters[0] = -1;
                     if (ntarget == null) return VMPrimitiveExitCode.GOTO_FALSE; //vacation?
-                    var neighbour = ntarget.GetPersonData(Model.VMPersonDataVariable.NeighborId);
+                    var neighbour = ntarget.GetPersonData(VMPersonDataVariable.NeighborId);
                     var inventory = neighbourhood.GetInventoryByNID(neighbour);
                     if (inventory != null)
                     {
@@ -312,12 +309,12 @@ namespace FSO.SimAntics.Primitives
             return VMPrimitiveExitCode.GOTO_TRUE;
         }
 
-        private short GetIData(List<InventoryItem> inventory, uint guid)
+            short GetIData(List<InventoryItem> inventory, uint guid)
         {
             return (short)(inventory.FirstOrDefault(x => x.Type == 2 && x.GUID == guid)?.Count ?? 0);
         }
 
-        private void SaveIData(List<InventoryItem> inventory, uint guid, short data)
+            void SaveIData(List<InventoryItem> inventory, uint guid, short data)
         {
             var replace = inventory.FirstOrDefault(x => x.Type == 2 && x.GUID == guid);
             if (replace == null)
@@ -328,7 +325,7 @@ namespace FSO.SimAntics.Primitives
             replace.Count = (ushort)data;
         }
 
-        private List<InventoryItem> InitInventory(short neighbour)
+            List<InventoryItem> InitInventory(short neighbour)
         {
             var neighbourhood = Content.GameContent.Get.Neighborhood;
             var inventory = neighbourhood.GetInventoryByNID(neighbour);
@@ -341,7 +338,7 @@ namespace FSO.SimAntics.Primitives
             return inventory;
         }
 
-        private void TryDeleteFamily(FAMI family)
+            void TryDeleteFamily(FAMI family)
         {
             //delete the family if there's no people in it
             if (family.FamilyGUIDs.Length == 0)
@@ -350,7 +347,7 @@ namespace FSO.SimAntics.Primitives
             }
         }
 
-        private void AddToFamily(FAMI family, Neighbour neigh, VM vm)
+            void AddToFamily(FAMI family, Neighbour neigh, VM vm)
         {
             //was the neighbor already in a family?
             if (neigh.PersonData != null) {
@@ -375,7 +372,7 @@ namespace FSO.SimAntics.Primitives
             runtime?.SetPersonData(VMPersonDataVariable.TS1FamilyNumber, (short)family.ChunkID);
         }
 
-        private VMAvatar GetRuntimeNeigh(VM vm, ushort neighborID)
+            VMAvatar GetRuntimeNeigh(VM vm, ushort neighborID)
         {
             return (VMAvatar)vm.Context.ObjectQueries.Avatars.FirstOrDefault(x => ((VMAvatar)x).GetPersonData(VMPersonDataVariable.NeighborId) == neighborID);
         }

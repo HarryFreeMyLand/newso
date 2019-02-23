@@ -5,7 +5,7 @@ namespace FSO.Server.Servers.Api.Controllers
 {
     public class StatusCodeHandler : IStatusCodeHandler
     {
-        private readonly IRootPathProvider _rootPathProvider;
+        readonly IRootPathProvider _rootPathProvider;
 
         public StatusCodeHandler(IRootPathProvider rootPathProvider)
         {

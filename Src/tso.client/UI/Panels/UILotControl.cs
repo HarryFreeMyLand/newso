@@ -7,19 +7,14 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Panels;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Model;
-using FSO.Client.Rendering.City;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using FSO.Client.Utils;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Common.Rendering.Framework.IO;
 using FSO.Common.Rendering.Framework;
-using FSO.Files.Formats.IFF.Chunks;
 using FSO.HIT;
 
 using FSO.LotView;
@@ -145,11 +140,11 @@ namespace FSO.Client.UI.Panels
             this.World = World;
 
             ActiveEntity = vm.Entities.FirstOrDefault(x => x is VMAvatar);
-            MouseEvt = this.ListenForMouse(new Rectangle(0, 0,
+            MouseEvt = ListenForMouse(new Rectangle(0, 0,
                 GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight), OnMouse);
 
             Queue = new UIInteractionQueue(ActiveEntity, vm);
-            this.Add(Queue);
+            Add(Queue);
 
             ObjectHolder = new UIObjectHolder(vm, World, this);
             Touch = new UILotControlTouchHelper(this);
@@ -157,7 +152,7 @@ namespace FSO.Client.UI.Panels
             SetupQuery();
 
             ChatPanel = new UIChatPanel(vm, this);
-            this.Add(ChatPanel);
+            Add(ChatPanel);
 
             RMBCursor = GetTexture(0x24B00000001); //exploreanchor.bmp
 
@@ -166,7 +161,7 @@ namespace FSO.Client.UI.Panels
             vm.OnBreakpoint += Vm_OnBreakpoint;
 
             Cheats = new UICheatHandler(this);
-            this.Add(Cheats);
+            Add(Cheats);
             AvatarDS = new UIAvatarDataServiceUpdater(this);
             EODs = new UIEODController(this);
         }
@@ -495,7 +490,7 @@ namespace FSO.Client.UI.Panels
                             {
                                 HITVM.Get.PlaySoundEvent(UISounds.PieMenuAppear);
                                 PieMenu = new UIPieMenu(menu, obj, ActiveEntity, this);
-                                this.Add(PieMenu);
+                                Add(PieMenu);
                                 PieMenu.X = state.MouseState.X / FSOEnvironment.DPIScaleFactor;
                                 PieMenu.Y = state.MouseState.Y / FSOEnvironment.DPIScaleFactor;
                                 PieMenu.UpdateHeadPosition(state.MouseState.X, state.MouseState.Y);
@@ -517,7 +512,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (PieMenu != null)
                     PieMenu.RemoveSimScene();
-                this.Remove(PieMenu);
+                Remove(PieMenu);
                 PieMenu = null;
             }
         }
@@ -543,7 +538,7 @@ namespace FSO.Client.UI.Panels
             {
                 PieMenu.RemoveSimScene();
                 Queue.PieMenuClickPos = PieMenu.Position;
-                this.Remove(PieMenu);
+                Remove(PieMenu);
                 PieMenu = null;
             }
         }
@@ -748,7 +743,7 @@ namespace FSO.Client.UI.Panels
             if (vm.Context.Blueprint != null && LastCuts != null)
             {
                 vm.Context.Blueprint.Cutaway = LastCuts;
-                vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                vm.Context.Blueprint.Damage.Add(new BlueprintDamage(BlueprintDamageType.WALL_CUT_CHANGED));
             }
 
             //MouseCutRect = new Rectangle(0,0,0,0);
@@ -1162,7 +1157,7 @@ namespace FSO.Client.UI.Panels
                     {
                         LastCuts = new bool[vm.Context.Architecture.Width * vm.Context.Architecture.Height];
                         vm.Context.Blueprint.Cutaway = LastCuts;
-                        vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                        vm.Context.Blueprint.Damage.Add(new BlueprintDamage(BlueprintDamageType.WALL_CUT_CHANGED));
                         for (int i = 0; i < LastCuts.Length; i++)
                             LastCuts[i] = true;
                     }
@@ -1175,7 +1170,7 @@ namespace FSO.Client.UI.Panels
                     {
                         LastCuts = new bool[vm.Context.Architecture.Width * vm.Context.Architecture.Height];
                         vm.Context.Blueprint.Cutaway = LastCuts;
-                        vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                        vm.Context.Blueprint.Damage.Add(new BlueprintDamage(BlueprintDamageType.WALL_CUT_CHANGED));
                     }
                     LastWallMode = WallsMode;
                 }
@@ -1213,7 +1208,7 @@ namespace FSO.Client.UI.Panels
                         if (recut > 1 || notableChange || LastRectCutNotable)
                         {
                             vm.Context.Blueprint.Cutaway = finalCut;
-                            vm.Context.Blueprint.Damage.Add(new BlueprintDamage(FSO.LotView.Model.BlueprintDamageType.WALL_CUT_CHANGED));
+                            vm.Context.Blueprint.Damage.Add(new BlueprintDamage(BlueprintDamageType.WALL_CUT_CHANGED));
                         }
                         LastRectCutNotable = notableChange;
                     }

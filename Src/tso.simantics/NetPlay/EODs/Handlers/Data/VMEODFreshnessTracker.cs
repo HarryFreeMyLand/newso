@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers.Data
 {
     public class VMEODFreshnessTracker
     {
-        private const float FRESH_DECREMENT = 1f / (30 * 30); //about 30 seconds of the same thing to get from 1 freshness to .5
-        private const float FRESH_PER_NEW_CMD = 0.15f;
-        private float InternalFreshness = 0f;
+            const float FRESH_DECREMENT = 1f / (30 * 30); //about 30 seconds of the same thing to get from 1 freshness to .5
+            const float FRESH_PER_NEW_CMD = 0.15f;
+            float InternalFreshness = 0f;
         public float Freshness
         {
             get

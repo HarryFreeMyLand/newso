@@ -3,11 +3,7 @@ using FSO.Common.DatabaseService;
 using FSO.Common.DatabaseService.Model;
 using FSO.Common.DataService;
 using FSO.Common.DataService.Model;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -19,9 +15,9 @@ namespace FSO.Client.Controllers
 
         public GizmoSearchController(UIGizmoSearch view, IClientDataService dataService, IDatabaseService database)
         {
-            this.View = view;
-            this.DataService = dataService;
-            this.DatabaseService = database;
+            View = view;
+            DataService = dataService;
+            DatabaseService = database;
         }
 
         public void Search(string query, SearchType type, bool exact)

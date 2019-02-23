@@ -4,23 +4,18 @@ using FSO.Client.UI;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Panels;
-using FSO.Client.UI.Screens;
 using FSO.Common.DataService;
 using FSO.Common.DataService.Model;
 using FSO.Common.Domain.Realestate;
 using FSO.Common.Domain.RealestateDomain;
 using FSO.Common.Utils;
-using FSO.Files;
 using FSO.Files.RC;
 using FSO.Server.DataService.Model;
 using FSO.Server.Protocol.Electron.Packets;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace FSO.Client.Controllers
 {
@@ -40,9 +35,9 @@ namespace FSO.Client.Controllers
 
         public TerrainController(CoreGameScreenController parent, IClientDataService ds, Network.Network network, IRealestateDomain domain, PurchaseLotRegulator purchaseRegulator)
         {
-            this.Parent = parent;
-            this.DataService = ds;
-            this.PurchaseRegulator = purchaseRegulator;
+            Parent = parent;
+            DataService = ds;
+            PurchaseRegulator = purchaseRegulator;
             Network = network;
 
             PurchaseRegulator.OnError += PurchaseRegulator_OnError;
@@ -144,7 +139,7 @@ namespace FSO.Client.Controllers
             DataService.Get<City>((uint)0).ContinueWith(city =>
             {
                 CurrentCity.Value = city.Result;
-                DataService.Request(Server.DataService.Model.MaskedStruct.CurrentCity, 0);
+                DataService.Request(MaskedStruct.CurrentCity, 0);
             });
         }
 

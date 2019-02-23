@@ -7,8 +7,6 @@
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.LotView.Model;
 using FSO.Content;
 using FSO.LotView;
@@ -17,7 +15,7 @@ namespace FSO.SimAntics.Utils
 {
     public static class VMArchitectureTools
     {
-        private static Point[] WLStartOff = {
+            static Point[] WLStartOff = {
             
             // Look at this way up <----
             // Starting at % line, going cw. Middle is (0,0), and below it is the tile (0,0)..
@@ -41,7 +39,7 @@ namespace FSO.SimAntics.Utils
             new Point(0, -1),
         };
 
-        private static WallSegments[] WLMainSeg =
+            static WallSegments[] WLMainSeg =
         {
             WallSegments.TopRight,
             WallSegments.VerticalDiag,
@@ -53,7 +51,7 @@ namespace FSO.SimAntics.Utils
             WallSegments.HorizontalDiag
         };
 
-        private static Point[] WLSubOff =
+            static Point[] WLSubOff =
         {
             new Point(0, -1),
             new Point(-1, 0),
@@ -61,7 +59,7 @@ namespace FSO.SimAntics.Utils
             new Point(-1, 0),
         };
 
-        private static WallSegments[] WLSubSeg =
+            static WallSegments[] WLSubSeg =
         {
             WallSegments.BottomLeft,
             WallSegments.BottomRight,
@@ -69,7 +67,7 @@ namespace FSO.SimAntics.Utils
             WallSegments.BottomRight,
         };
 
-        private static Point[] WLStep =
+            static Point[] WLStep =
         {
             new Point(1, 0),
             new Point(1, 1),
@@ -81,7 +79,7 @@ namespace FSO.SimAntics.Utils
             new Point(1, -1),
         };
 
-        private static WallSegments AnyDiag = WallSegments.HorizontalDiag | WallSegments.VerticalDiag;
+            static WallSegments AnyDiag = WallSegments.HorizontalDiag | WallSegments.VerticalDiag;
 
         //things 2 note
         //default style is 1
@@ -422,7 +420,7 @@ namespace FSO.SimAntics.Utils
             return wallsCovered;
         }
 
-        private static PatternReplaceCount SpreadOnto(WallTile[] walls, int x, int y, int inDir, byte[] map, int width, int height, Stack<Point> spread, ushort pattern, bool floorMode)
+            static PatternReplaceCount SpreadOnto(WallTile[] walls, int x, int y, int inDir, byte[] map, int width, int height, Stack<Point> spread, ushort pattern, bool floorMode)
         {
             PatternReplaceCount filled = new PatternReplaceCount(false);
             var wall = walls[x + y * width];
@@ -723,8 +721,7 @@ namespace FSO.SimAntics.Utils
                         target.LastFailReason = 3;
                         return 0;
                     }
-                    short ht;
-                    if (!considered.TryGetValue(a, out ht))
+                    if (!considered.TryGetValue(a, out var ht))
                         ht = tr.Heights[a.Y * tr.Width + a.X];
                     short oht = ht;
                     var diff = myHeight - ht;
@@ -808,7 +805,7 @@ namespace FSO.SimAntics.Utils
             return cost;
         }
 
-        private static double DistanceToRect(Point pt, Rectangle rect)
+            static double DistanceToRect(Point pt, Rectangle rect)
         {
             var xDist = 0;
             if (pt.X < rect.Left) xDist = pt.X - rect.Left;
@@ -926,7 +923,7 @@ namespace FSO.SimAntics.Utils
         public PatternReplaceCount(bool floor) {
             if (Floors == null)
             {
-                var content = Content.GameContent.Get;
+                var content = GameContent.Get;
                 Walls = content.WorldWalls;
                 Floors = content.WorldFloors;
             }
@@ -954,29 +951,27 @@ namespace FSO.SimAntics.Utils
             Total += 2;
         }
 
-        private static int GetPatternPrice(ushort id)
+            static int GetPatternPrice(ushort id)
         {
             var pref = GetPatternRef(id);
             return (pref == null) ? 0 : pref.Price;
         }
 
-        private static int GetFloorPrice(ushort id)
+            static int GetFloorPrice(ushort id)
         {
             if (id == 1) return 0;
             var fref = GetFloorRef(id);
             return (fref == null) ? 0 : fref.Price;
         }
 
-        private static WallReference GetPatternRef(ushort id)
+            static WallReference GetPatternRef(ushort id)
         {
-            WallReference result = null;
-            Walls.Entries.TryGetValue(id, out result);
+            Walls.Entries.TryGetValue(id, out var result);
             return result;
         }
-        private static FloorReference GetFloorRef(ushort id)
+            static FloorReference GetFloorRef(ushort id)
         {
-            FloorReference result = null;
-            Floors.Entries.TryGetValue(id, out result);
+            Floors.Entries.TryGetValue(id, out var result);
             return result;
         }
     }

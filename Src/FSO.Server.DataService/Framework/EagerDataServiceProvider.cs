@@ -1,9 +1,6 @@
 ﻿using FSO.Common.Utils;
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -79,17 +76,17 @@ namespace FSO.Common.DataService.Framework
             Insert((KEY)key, (VALUE)replacement);
         }
 
-        private Task<object> Immediate(object value)
+        Task<object> Immediate(object value)
         {
             var tcs = new TaskCompletionSource<object>();
             tcs.SetResult(value);
             return tcs.Task;
         }
 
-        private Task<object> ResolveMissingKey(object key)
+        Task<object> ResolveMissingKey(object key)
         {
             var cts = new CancellationTokenSource(LazyLoadTimeout);
-            return Task.Factory.StartNew<object>(() =>
+            return Task.Factory.StartNew(() =>
             {
                 return (object)LazyLoad((KEY)key);
             }, cts.Token);

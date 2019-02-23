@@ -1,12 +1,8 @@
-﻿
+
 using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Framework.Attributes;
 using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Model
 {
@@ -17,20 +13,21 @@ namespace FSO.Common.DataService.Model
 
         public uint FetchTime;
 
-        private bool _Avatar_IsFounder;
-        public bool Avatar_IsFounder {
-            get { return _Avatar_IsFounder; }
-            set { _Avatar_IsFounder = value; NotifyPropertyChanged("Avatar_IsFounder"); }
+        bool _avatar_IsFounder;
+        public bool Avatar_IsFounder
+        {
+            get { return _avatar_IsFounder; }
+            set { _avatar_IsFounder = value; NotifyPropertyChanged("Avatar_IsFounder"); }
         }
 
-        private string _Avatar_Name;
+        string _Avatar_Name;
         public string Avatar_Name
         {
             get { return _Avatar_Name; }
-            set { _Avatar_Name = value;  NotifyPropertyChanged("Avatar_Name"); }
+            set { _Avatar_Name = value; NotifyPropertyChanged("Avatar_Name"); }
         }
 
-        private string _Avatar_Description { get; set; }
+        string _Avatar_Description { get; set; }
         [Persist]
         public string Avatar_Description
         {
@@ -38,14 +35,14 @@ namespace FSO.Common.DataService.Model
             set { _Avatar_Description = value; NotifyPropertyChanged("Avatar_Description"); }
         }
 
-        private bool _Avatar_IsParentalControlLocked { get; set; }
+        bool _Avatar_IsParentalControlLocked { get; set; }
         public bool Avatar_IsParentalControlLocked
         {
             get { return _Avatar_IsParentalControlLocked; }
-            set { _Avatar_IsParentalControlLocked = value;  NotifyPropertyChanged("Avatar_IsParentalControlLocked"); }
+            set { _Avatar_IsParentalControlLocked = value; NotifyPropertyChanged("Avatar_IsParentalControlLocked"); }
         }
 
-        private byte _Avatar_PrivacyMode { get; set; }
+        byte _Avatar_PrivacyMode { get; set; }
         [Persist]
         public byte Avatar_PrivacyMode
         {
@@ -53,7 +50,7 @@ namespace FSO.Common.DataService.Model
             set { _Avatar_PrivacyMode = value; NotifyPropertyChanged("Avatar_PrivacyMode"); }
         }
 
-        private ushort _Avatar_CurrentJob { get; set; }
+        ushort _Avatar_CurrentJob { get; set; }
         [ClientSourced]
         public ushort Avatar_CurrentJob
         {
@@ -70,14 +67,15 @@ namespace FSO.Common.DataService.Model
         //It would be a nightmare making these fully async, so they are loaded sync when the user requests them.
 
         public Func<uint, ImmutableList<JobLevel>> JobLevelProvider;
-        private ImmutableList<JobLevel> _Avatar_JobLevelVec { get; set; }
+        ImmutableList<JobLevel> _Avatar_JobLevelVec { get; set; }
         [ClientSourced]
         public ImmutableList<JobLevel> Avatar_JobLevelVec
         {
-            get {
+            get
+            {
                 if (_Avatar_JobLevelVec == null && JobLevelProvider != null)
                 {
-                    lock(this)
+                    lock (this)
                     {
                         if (_Avatar_JobLevelVec == null) //lock to prevent getting the same data twice
                             _Avatar_JobLevelVec = JobLevelProvider(this.Avatar_Id);
@@ -90,13 +88,14 @@ namespace FSO.Common.DataService.Model
 
         //todo: client sourced. (incoming relationships will be really tricky)
         public Func<uint, ImmutableList<Relationship>> RelationshipProvider;
-        private ImmutableList<Relationship> _Avatar_FriendshipVec { get; set; }
+        ImmutableList<Relationship> _Avatar_FriendshipVec { get; set; }
         public ImmutableList<Relationship> Avatar_FriendshipVec
         {
-            get {
+            get
+            {
                 if (_Avatar_FriendshipVec == null && RelationshipProvider != null)
                 {
-                    lock(this)
+                    lock (this)
                     {
                         if (_Avatar_FriendshipVec == null) //lock to prevent getting the same data twice
                             _Avatar_FriendshipVec = RelationshipProvider(this.Avatar_Id);
@@ -108,31 +107,32 @@ namespace FSO.Common.DataService.Model
         }
 
         public Func<uint, ImmutableList<Bookmark>> BookmarkProvider;
-        private ImmutableList<Bookmark> _Avatar_BookmarksVec;
+        ImmutableList<Bookmark> _avatar_BookmarksVec;
         [Persist]
         public ImmutableList<Bookmark> Avatar_BookmarksVec
         {
-            get {
-                if (_Avatar_BookmarksVec == null && BookmarkProvider != null)
+            get
+            {
+                if (_avatar_BookmarksVec == null && BookmarkProvider != null)
                 {
                     lock (this)
                     {
-                        if (_Avatar_BookmarksVec == null) //lock to prevent getting the same data twice
-                            _Avatar_BookmarksVec = BookmarkProvider(this.Avatar_Id);
+                        if (_avatar_BookmarksVec == null) //lock to prevent getting the same data twice
+                            _avatar_BookmarksVec = BookmarkProvider(this.Avatar_Id);
                     }
                 }
-                return _Avatar_BookmarksVec;
+                return _avatar_BookmarksVec;
             }
             set
             {
-                _Avatar_BookmarksVec = value;
+                _avatar_BookmarksVec = value;
                 NotifyPropertyChanged("Avatar_BookmarksVec");
             }
         }
 
         #endregion
 
-        private bool _Avatar_IsOnline { get; set; }
+        bool _Avatar_IsOnline { get; set; }
         public bool Avatar_IsOnline
         {
             get { return _Avatar_IsOnline; }
@@ -144,21 +144,21 @@ namespace FSO.Common.DataService.Model
             get { return !Avatar_IsOnline; }
         }
 
-        private uint _Avatar_LotGridXY;
+        uint _Avatar_LotGridXY;
         public uint Avatar_LotGridXY
         {
             get { return _Avatar_LotGridXY; }
             set { _Avatar_LotGridXY = value; NotifyPropertyChanged("Avatar_LotGridXY"); }
         }
 
-        private uint _Avatar_Age;
+        uint _Avatar_Age;
         public uint Avatar_Age
         {
             get { return _Avatar_Age; }
             set { _Avatar_Age = value; NotifyPropertyChanged("Avatar_Age"); }
         }
 
-        private ushort _Avatar_SkillsLockPoints;
+        ushort _Avatar_SkillsLockPoints;
         [ClientSourced]
         public ushort Avatar_SkillsLockPoints
         {
@@ -166,7 +166,7 @@ namespace FSO.Common.DataService.Model
             set { _Avatar_SkillsLockPoints = value; NotifyPropertyChanged("Avatar_SkillsLockPoints"); }
         }
 
-        private AvatarAppearance _Avatar_Appearance;
+        AvatarAppearance _Avatar_Appearance;
         public AvatarAppearance Avatar_Appearance
         {
             get { return _Avatar_Appearance; }
@@ -177,7 +177,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private AvatarSkills _Avatar_Skills;
+        AvatarSkills _Avatar_Skills;
         [ClientSourced]
         public AvatarSkills Avatar_Skills
         {
@@ -189,7 +189,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private Top100ListFilter _Avatar_Top100ListFilter;
+        Top100ListFilter _Avatar_Top100ListFilter;
         public Top100ListFilter Avatar_Top100ListFilter
         {
             get { return _Avatar_Top100ListFilter; }

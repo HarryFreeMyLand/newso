@@ -7,8 +7,8 @@ namespace FSO.Server.Servers.Lot.Handlers
 {
     public class ShardShutdownHandler
     {
-        private LotHost Lots;
-        private IKernel Kernel;
+        LotHost Lots;
+        IKernel Kernel;
 
         public ShardShutdownHandler(LotHost lots, IKernel kernel)
         {

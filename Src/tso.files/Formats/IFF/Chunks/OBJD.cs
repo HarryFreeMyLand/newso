@@ -297,14 +297,14 @@ namespace FSO.Files.Formats.IFF.Chunks
 
         public T GetPropertyByName<T>(string name)
         {
-            Type me = typeof(OBJD);
+            var me = typeof(OBJD);
             var prop = me.GetProperty(name);
             return (T)Convert.ChangeType(prop.GetValue(this, null), typeof(T));
         }
 
         public void SetPropertyByName(string name, object value)
         {
-            Type me = typeof(OBJD);
+            var me = typeof(OBJD);
             var prop = me.GetProperty(name);
             try
             {

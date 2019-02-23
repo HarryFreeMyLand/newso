@@ -1,5 +1,4 @@
-﻿using FSO.Client.UI;
-using FSO.Client.UI.Controls;
+﻿using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Common.DataService;
 using FSO.Common.DataService.Model;
@@ -9,10 +8,6 @@ using FSO.Server.DataService.Model;
 using FSO.Server.Protocol.Electron.Model;
 using FSO.Server.Protocol.Electron.Packets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -25,11 +20,11 @@ namespace FSO.Client.Controllers
 
         public RoommateRequestController(CoreGameScreenController game, Network.Network network, IClientDataService dataService)
         {
-            this.Game = game;
-            this.Network = network;
-            this.DataService = dataService;
+            Game = game;
+            Network = network;
+            DataService = dataService;
 
-            this.Network.CityClient.AddSubscriber(this);
+            Network.CityClient.AddSubscriber(this);
 
             Network.CityClient.Write(new ChangeRoommateRequest
             {
@@ -39,21 +34,21 @@ namespace FSO.Client.Controllers
 
         public void Dispose()
         {
-            this.Network.CityClient.RemoveSubscriber(this);
+            Network.CityClient.RemoveSubscriber(this);
         }
 
         public void MessageReceived(AriesClient client, object message)
         {
-            if (message is ChangeRoommateRequest)
+            if (message is ChangeRoommateRequest req)
             {
-                var req = (ChangeRoommateRequest)message;
                 if (req.Type == ChangeRoommateType.INVITE)
                 {
                     DataService.Request(MaskedStruct.SimPage_Main, req.AvatarId).ContinueWith(x =>
                     {
                         GameThread.InUpdate(() =>
                         {
-                            if (((Avatar)x.Result)?.Avatar_Name == null) return;
+                            if (((Avatar)x.Result)?.Avatar_Name == null)
+                                return;
                             var name = ((Avatar)x.Result).Avatar_Name;
 
                             UIAlert alert = null;
@@ -103,7 +98,7 @@ namespace FSO.Client.Controllers
                     case ChangeRoommateResponseStatus.KICK_SUCCESS:
                         title = GameFacade.Strings.GetString("208", "70");
                         msg = GameFacade.Strings.GetString("208", "73");
-                        break;  
+                        break;
                     case ChangeRoommateResponseStatus.SELFKICK_SUCCESS:
                         title = GameFacade.Strings.GetString("208", "130");
                         msg = GameFacade.Strings.GetString("208", "133");
@@ -133,7 +128,8 @@ namespace FSO.Client.Controllers
                         {
                             GameThread.InUpdate(() =>
                             {
-                                if (((Avatar)x.Result)?.Avatar_Name == null) return;
+                                if (((Avatar)x.Result)?.Avatar_Name == null)
+                                    return;
                                 var name = ((Avatar)x.Result).Avatar_Name;
                                 UIScreen.GlobalShowDialog(new UIAlert(new UIAlertOptions()
                                 {

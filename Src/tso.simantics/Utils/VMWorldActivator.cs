@@ -4,16 +4,11 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.LotView;
 using FSO.LotView.Model;
 using FSO.LotView.Components;
-using FSO.Content;
 using Microsoft.Xna.Framework;
-using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Model;
 
 namespace FSO.SimAntics.Utils
@@ -23,9 +18,9 @@ namespace FSO.SimAntics.Utils
     /// </summary>
     public class VMWorldActivator
     {
-        private VM VM;
-        private LotView.World World;
-        private Blueprint Blueprint;
+            VM VM;
+            LotView.World World;
+            Blueprint Blueprint;
 
         public Rectangle FloorClip;
         public Point Offset;
@@ -102,7 +97,7 @@ namespace FSO.SimAntics.Utils
             return this.Blueprint;
         }
 
-        private TerrainComponent CreateTerrain(XmlHouseData model)
+            TerrainComponent CreateTerrain(XmlHouseData model)
         {
             var terrain = new TerrainComponent(new Rectangle(0, 0, model.Size, model.Size), Blueprint);
             this.InitWorldComponent(terrain);
@@ -134,7 +129,7 @@ namespace FSO.SimAntics.Utils
         }
 
 
-        private void InitWorldComponent(WorldComponent component)
+            void InitWorldComponent(WorldComponent component)
         {
             component.Initialize(this.World.State.Device, this.World.State);
         }

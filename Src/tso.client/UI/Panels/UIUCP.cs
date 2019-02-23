@@ -6,18 +6,12 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Screens;
-using FSO.Client.Rendering.City;
 using FSO.SimAntics;
-using FSO.SimAntics.Model;
-using FSO.LotView;
-using FSO.Client.Network;
 using Microsoft.Xna.Framework;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.Client.Controllers;
@@ -120,12 +114,12 @@ namespace FSO.Client.UI.Panels
 
         public UIUCP(UIScreen owner)
         {
-            this.RenderScript("ucp.uis");
+            RenderScript("ucp.uis");
 
             Game = (IGameScreen)owner;
 
             Background = new UIImage(BackgroundGameImage);
-            this.AddAt(0, Background);
+            AddAt(0, Background);
             Background.BlockInput();
             Size = new Vector2(Background.Width, Background.Height); //for caching
 
@@ -134,7 +128,7 @@ namespace FSO.Client.UI.Panels
             {
                 Y = 81
             };
-            this.AddAt(0, BackgroundMatchmaker);
+            AddAt(0, BackgroundMatchmaker);
             BackgroundMatchmaker.BlockInput();
 
             TimeText.Caption = "12:00 am";
@@ -332,7 +326,7 @@ namespace FSO.Client.UI.Panels
                     Y = 48
                 };
                 SelWallsPanel.OnModeSelection += new HouseViewSelection(UpdateWallsViewCallback);
-                this.Add(SelWallsPanel);
+                Add(SelWallsPanel);
             }
         }
 

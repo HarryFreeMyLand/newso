@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using FSO.SimAntics.NetPlay.Model.Commands;
 
 namespace FSO.SimAntics.NetPlay.Model

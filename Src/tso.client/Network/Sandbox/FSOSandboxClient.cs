@@ -1,9 +1,5 @@
 ﻿using Mina.Core.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Mina.Core.Session;
 using System.Net;
 using System.Globalization;
@@ -50,7 +46,7 @@ namespace FSO.Client.Network.Sandbox
 
         void OnConnect(IoSession session, IConnectFuture future)
         {
-            this.Session = session;
+            Session = session;
             GameThread.NextUpdate(x =>
             {
                 OnConnectComplete();
@@ -59,9 +55,9 @@ namespace FSO.Client.Network.Sandbox
 
         public void Write(params object[] packets)
         {
-            if (this.Session != null)
+            if (Session != null)
             {
-                this.Session.Write(packets);
+                Session.Write(packets);
             }
         }
 
@@ -78,7 +74,7 @@ namespace FSO.Client.Network.Sandbox
             string[] ep = endPoint.Split(':');
             if (ep.Length != 2) throw new FormatException("Invalid endpoint format");
             IPAddress ip;
-            if (!System.Net.IPAddress.TryParse(ep[0], out ip))
+            if (!IPAddress.TryParse(ep[0], out ip))
             {
                 var addrs = Dns.GetHostEntry(ep[0]).AddressList;
                 if (addrs.Length == 0)
@@ -106,9 +102,8 @@ namespace FSO.Client.Network.Sandbox
 
         public void MessageReceived(IoSession session, object message)
         {
-            if (message is VMNetMessage)
+            if (message is VMNetMessage nmsg)
             {
-                var nmsg = (VMNetMessage)message;
                 OnMessage(nmsg);
             }
         }

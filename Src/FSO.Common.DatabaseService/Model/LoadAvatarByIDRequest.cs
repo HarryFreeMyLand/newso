@@ -14,13 +14,13 @@ namespace FSO.Common.DatabaseService.Model
 
         public void Deserialize(IoBuffer input, ISerializationContext context)
         {
-            this.AvatarId = input.GetUInt32();
-            this.Unknown1 = input.GetUInt32();
+            AvatarId = input.GetUInt32();
+            Unknown1 = input.GetUInt32();
 
             //Reserved - 32 bytes of uninitialized memory (just like Heartbleed); equal to "BA AD F0 0D BA AD F0 0D ..." if you are running the game in a debugger
             input.Skip(32);
 
-            this.Unknown2 = input.GetUInt32();
+            Unknown2 = input.GetUInt32();
         }
 
         public void Serialize(IoBuffer output, ISerializationContext context)

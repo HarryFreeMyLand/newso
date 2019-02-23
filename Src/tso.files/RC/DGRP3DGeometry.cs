@@ -158,7 +158,7 @@ namespace FSO.Files.RC
                 {
                     //add a vertex
                     targ = SVerts.Count;
-                    Vector3 normal = Vector3.Zero;
+                    var normal = Vector3.Zero;
                     if (tup.Item3 > -1)
                     {
                         normal = obj.Normals[tup.Item3 - 1];

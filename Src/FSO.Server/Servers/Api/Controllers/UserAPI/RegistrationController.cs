@@ -12,13 +12,13 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
 {
     public class RegistrationController : NancyModule
     {
-        private IDAFactory DAFactory;
-        private const int REGISTER_THROTTLE_SECS = 60*60*24;
+        IDAFactory DAFactory;
+        const int REGISTER_THROTTLE_SECS = 60*60*24;
 
         /// <summary>
         /// Alphanumeric (lowercase), no whitespace or special chars, cannot start with an underscore.
         /// </summary>
-        private static Regex USERNAME_VALIDATION = new Regex("^([a-z0-9]){1}([a-z0-9_]){2,23}$");
+        static Regex USERNAME_VALIDATION = new Regex("^([a-z0-9]){1}([a-z0-9_]){2,23}$");
 
         public RegistrationController(IDAFactory daFactory, JWTFactory jwt, ApiServerConfiguration config) : base("/userapi/registration")
         {

@@ -1,4 +1,4 @@
-﻿using FSO.Common.DatabaseService.Model;
+using FSO.Common.DatabaseService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace FSO.Common.DatabaseService.Framework
 {
-    [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true)]
-    public class DatabaseRequest : System.Attribute
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class DatabaseRequest : Attribute
     {
         public DBRequestType Type;
 
         public DatabaseRequest(DBRequestType type)
         {
-            this.Type = type;
+            Type = type;
         }
     }
 }

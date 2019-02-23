@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Framework
 {
@@ -11,7 +6,8 @@ namespace FSO.Common.DataService.Framework
     public abstract class AbstractModel : INotifyPropertyChanged, IModel
     {
         public bool ClientSourced;
-        public bool RequestDefaultData {
+        public bool RequestDefaultData
+        {
             get; set;
         } = false;
 
@@ -19,11 +15,7 @@ namespace FSO.Common.DataService.Framework
 
         protected void NotifyPropertyChanged(string name)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using FSO.Client.GameContent;
+using FSO.Client.GameContent;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Common.Utils;
@@ -6,11 +6,7 @@ using FSO.Files;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
@@ -18,12 +14,12 @@ namespace FSO.Client.UI.Panels
     {
         static string _uigraphicsHolidayDir = $"{GlobalSettings.Default.StartupPath}uigraphics/holiday/";
 
-        public static string customLoadingScreen = "Content/setup.png";
-        public static string vdayLoadingScreen = $"{_uigraphicsHolidayDir}setup_valentine.png";
-        public static string thanksgivingLoadingScreen = $"{_uigraphicsHolidayDir}setup_thanksgiving.bmp";
-        public static string holloweenLoadingScreen = $"{_uigraphicsHolidayDir}setup_halloween.bmp";
-        public static string xmasLoadingScreen = $"{_uigraphicsHolidayDir}setup_xmas.png";
-        public static string paddysDayLoadingScrn = $"{_uigraphicsHolidayDir}setup_paddys_day.png";
+        public static string CustomLoadingScreen = "Content/setup.png";
+        public static string VDayLoadingScreen = $"{_uigraphicsHolidayDir}setup_valentine.png";
+        public static string ThanksgivingLoadingScreen = $"{_uigraphicsHolidayDir}setup_thanksgiving.bmp";
+        public static string HolloweenLoadingScreen = $"{_uigraphicsHolidayDir}setup_halloween.bmp";
+        public static string XmasLoadingScreen = $"{_uigraphicsHolidayDir}setup_xmas.png";
+        public static string PaddysDayLoadingScrn = $"{_uigraphicsHolidayDir}setup_paddys_day.png";
     }
 
     public class UISetupBackground : UIContainer
@@ -43,19 +39,20 @@ namespace FSO.Client.UI.Panels
             /** Background image **/
             Texture2D setupTex;
 
-            if (File.Exists(LoadingScreens.customLoadingScreen))
+            if (File.Exists(LoadingScreens.CustomLoadingScreen))
             {
-                using (var logostrm = File.Open(LoadingScreens.customLoadingScreen, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var logostrm = File.Open(LoadingScreens.CustomLoadingScreen, FileMode.Open, FileAccess.Read, FileShare.Read))
                     setupTex = ImageLoader.FromStream(GameFacade.GraphicsDevice, logostrm);
             }
             // In the future servers should be allowed to have their own custom holiday splash screens
-            else if (DateTime.UtcNow.Month == 12 && File.Exists(LoadingScreens.xmasLoadingScreen)
+            else if (DateTime.UtcNow.Month == 12 && File.Exists(LoadingScreens.XmasLoadingScreen)
                 && GlobalSettings.Default.HolidayLoadingScreens == true)
             {
-                using (var logostrm = File.Open(LoadingScreens.xmasLoadingScreen, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var logostrm = File.Open(LoadingScreens.XmasLoadingScreen, FileMode.Open, FileAccess.Read, FileShare.Read))
                     setupTex = ImageLoader.FromStream(GameFacade.GraphicsDevice, logostrm);
             }
-            else setupTex = GetTexture((ulong)FileIDs.UIFileIDs.setup);
+            else
+                setupTex = GetTexture((ulong)FileIDs.UIFileIDs.setup);
 
             Background = new UIImage(setupTex);
             var bgScale = 600f / setupTex.Height;

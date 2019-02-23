@@ -5,11 +5,7 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.LotView;
 using FSO.LotView.Components;
 using FSO.LotView.Model;
@@ -46,7 +42,7 @@ namespace FSO.Client.UI.Panels.LotControls
             this.vm = vm;
             World = parent.World;
             Parent = parent;
-            WallCursor = vm.Context.CreateObjectInstance(0x00000439, LotTilePos.OUT_OF_WORLD, FSO.LotView.Model.Direction.NORTH, true);
+            WallCursor = vm.Context.CreateObjectInstance(0x00000439, LotTilePos.OUT_OF_WORLD, Direction.NORTH, true);
 
             ((ObjectComponent)WallCursor.Objects[0].WorldUI).ForceDynamic = true;
             Commands = new List<VMArchitectureCommand>();

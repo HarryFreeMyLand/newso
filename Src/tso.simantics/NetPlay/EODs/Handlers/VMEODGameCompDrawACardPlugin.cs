@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FSO.Client;
 using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
@@ -15,14 +11,14 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
      */
     public class VMEODGameCompDrawACardPlugin : VMEODHandler
     {
-        private VMEODGameCompDrawACardData Data;
-        private VMEODClient UserClient;
-        private CarducopiaDrawACardGame Game;
-        private bool DeckHasChanged;
-        private Random DrawCard = new Random();
-        private bool ResponseFromServer;
-        private bool UIInitialized;
-        private VMEODGameCompDrawACardModes Mode;
+            VMEODGameCompDrawACardData Data;
+            VMEODClient UserClient;
+            CarducopiaDrawACardGame Game;
+            bool DeckHasChanged;
+            Random DrawCard = new Random();
+            bool ResponseFromServer;
+            bool UIInitialized;
+            VMEODGameCompDrawACardModes Mode;
 
         // constants
         public const string DEFAULT_GAME_TITLE = "Tsomania Carducopia Card Game";
@@ -233,7 +229,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * which had to be updated when the user navigated to the card that they see and wish to delete. If args[0] != Game.CurrentCardIndex, then this
          * command was sent from a modified client. I left this check in place in case there is action to be taken against modified clients in the future.
          */
-        private void DeleteCurrentCardHandler(string evt, byte[] args, VMEODClient client)
+            void DeleteCurrentCardHandler(string evt, byte[] args, VMEODClient client)
         {
             // client has to be the object owner
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == UserClient.Avatar.PersistID);
@@ -275,7 +271,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * its chances of being drawn. It must be greater than 0 and less than 100. This plugin does not support the preserving of cards with 0 frequency, and
          * due to the 2 character limit of the UITextEdit:NumDrawChancesTextEdit from which the value is taken, newFrequency[0] cannot be greater than 100.
          */
-        private void SetCardFrequencyHandler(string evt, byte[] newFrequency, VMEODClient client)
+            void SetCardFrequencyHandler(string evt, byte[] newFrequency, VMEODClient client)
         {
             // client has to be the object owner
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == UserClient.Avatar.PersistID);
@@ -303,7 +299,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * @note: arg[0] contains the byte to which to change Game.CurrentCardIndex by way of Game.GoToCard(), which also updates Game.CurrentCardText to be
          * used in the callback Event "DrawCard_Update_Card"
          */
-        private void GotoCardHandler(string evt, byte[] cardIndex, VMEODClient client)
+            void GotoCardHandler(string evt, byte[] cardIndex, VMEODClient client)
         {
             // client has to be the object owner
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == UserClient.Avatar.PersistID);
@@ -325,7 +321,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * @note: Due to the MaxChars limit of 256 of the UITextEdit:EditCardTextEdit, cardText:String must not have a length greater than 256.
          * @note: No callback function is needed, which means the client's ability to interact with the UI is unaffected and not dependent on this handler.
          */
-        private void EditCurrentCardHandler(string evt, byte[] cardTextArray, VMEODClient client)
+            void EditCurrentCardHandler(string evt, byte[] cardTextArray, VMEODClient client)
         {
             // client has to be the object owner
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == UserClient.Avatar.PersistID);
@@ -365,7 +361,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * its chances of being drawn. It must be greater than 0 and less than 100. This plugin does not support the preserving of cards with 0 frequency, and
          * due to the 2 character limit of the UITextEdit:NumDrawChancesTextEdit from which the value is taken, (int)split[1] cannot be greater than 100.
          */
-        private void PushNewCardHandler(string evt, byte[] newCardTextAndFrequencyArray, VMEODClient client)
+            void PushNewCardHandler(string evt, byte[] newCardTextAndFrequencyArray, VMEODClient client)
         {
             if (newCardTextAndFrequencyArray == null)
                 return;
@@ -404,7 +400,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * @param evt:String containing the name of the event
          * @param newCardTextAndFrequency:String containing the desired new name and description to be set as Game.GameTitle and Game.Description
          */
-        private void EditGameHandler(string evt, byte[] gameTitleAndDescriptionByteArray, VMEODClient client)
+            void EditGameHandler(string evt, byte[] gameTitleAndDescriptionByteArray, VMEODClient client)
         {
             if (gameTitleAndDescriptionByteArray == null)
                 return;
@@ -442,15 +438,15 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 }
             }
         }
-        private void CloseHandler(string evt, string msg, VMEODClient client)
+            void CloseHandler(string evt, string msg, VMEODClient client)
         {
             Server.Disconnect(client);
         }
-        private byte[] GetCardNumberData()
+            byte[] GetCardNumberData()
         {
             return VMEODGameCompDrawACardData.SerializeStrings(Game.UniqueCardCount + "", Game.GrandTotalCardsCount + "");
         }
-        private byte[] GetDeckListBoxData()
+            byte[] GetDeckListBoxData()
         {
             if (Game.UniqueCardCount == 0)
                 return new byte[] { 0 };
@@ -465,14 +461,14 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
             return VMEODGameCompDrawACardData.SerializeStrings(deckListBoxList.ToArray());
         }
-        private byte[] GetCurrentCardData()
+            byte[] GetCurrentCardData()
         {
             if ((Game.CurrentCardText == null) || (Game.CurrentCardText == ""))
                 return null;
             else
                 return VMEODGameCompDrawACardData.SerializeStrings(Game.CurrentCardText, Game.CurrentCardFrequency + "");
         }
-        private byte[] GetGameInfoMessage()
+            byte[] GetGameInfoMessage()
         {
             return VMEODGameCompDrawACardData.SerializeStrings(Game.GameTitle, Game.GameDescription);
         }
@@ -491,11 +487,11 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
      */
     class CarducopiaDrawACardGame
     {
-        private string m_GameTitle;
-        private string m_GameDescription;
+            string m_GameTitle;
+            string m_GameDescription;
         public string CurrentCardText;
-        private int m_UniqueCardCount;
-        private int m_GrandTotalCardsCount;
+            int m_UniqueCardCount;
+            int m_GrandTotalCardsCount;
         public int CurrentCardFrequency;
         public int CurrentCardIndex;
         public List<CarducopiaCard> Deck;
@@ -624,7 +620,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 UpdateCurrentCard();
             }
         }
-        private void UpdateCurrentCard()
+            void UpdateCurrentCard()
         {
             if (m_UniqueCardCount == 0)
             {
@@ -637,7 +633,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 CurrentCardFrequency = Deck[CurrentCardIndex].Frequency;
             }
         }
-        private void CalculateGrandTotal()
+            void CalculateGrandTotal()
         {
             m_GrandTotalCardsCount = 0;
             if (Deck.Count == 0) return;
@@ -653,8 +649,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
      */
     class CarducopiaCard
     {
-        private string m_Text;
-        private byte m_Frequency;
+            string m_Text;
+            byte m_Frequency;
 
         public CarducopiaCard(string text, byte frequency)
         {

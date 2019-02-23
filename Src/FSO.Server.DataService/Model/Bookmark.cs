@@ -1,16 +1,11 @@
 ﻿using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Framework.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Model
 {
     public class Bookmark : AbstractModel
     {
-        private uint _Bookmark_TargetID;
+        uint _Bookmark_TargetID;
 
         [Key]
         public uint Bookmark_TargetID
@@ -23,7 +18,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private byte _Bookmark_Type;
+        byte _Bookmark_Type;
         public byte Bookmark_Type
         {
             get { return _Bookmark_Type; }

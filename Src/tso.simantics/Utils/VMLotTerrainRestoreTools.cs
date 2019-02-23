@@ -9,11 +9,8 @@ using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.NetPlay.Drivers;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Utils
 {
@@ -231,7 +228,7 @@ namespace FSO.SimAntics.Utils
 
         #region Water Surroundings Map Data
 
-        private const short W = -2;
+            const short W = -2;
 
         public static short[] TopWaterCorner =
         {
@@ -548,7 +545,7 @@ namespace FSO.SimAntics.Utils
             return baseLevel;
         }
 
-        private static float Cubic(float v0, float v1, float v2, float v3, float fracy)
+            static float Cubic(float v0, float v1, float v2, float v3, float fracy)
         {
             float mu = fracy;
             float tension = 1f;
@@ -689,7 +686,7 @@ namespace FSO.SimAntics.Utils
             return 0;
         }
 
-        private class GUIDToPosition
+            class GUIDToPosition
         {
             public uint GUID;
             public short X;
@@ -709,7 +706,7 @@ namespace FSO.SimAntics.Utils
         // |^^^^^^^^^
         // 2    1
 
-        private static GUIDToPosition[] MovePositions = {
+            static GUIDToPosition[] MovePositions = {
             //center relative (vertical line above)
             new GUIDToPosition(0x39CCF441, -1, 0, 0), //mailbox (2tile)
             new GUIDToPosition(0xA4258067, 1, 1, 0), //bin
@@ -794,12 +791,12 @@ namespace FSO.SimAntics.Utils
             }
         }
 
-        private static VMEntity EntityByGUID(VM vm, uint GUID)
+            static VMEntity EntityByGUID(VM vm, uint GUID)
         {
             return vm.Entities.FindAll(x => (x.MasterDefinition?.GUID ?? 0) == GUID || x.Object.GUID == GUID).FirstOrDefault();
         }
 
-        private static byte RotateByte(byte flags, int amount)
+            static byte RotateByte(byte flags, int amount)
         {
             return (byte)((255 & (flags << amount)) | (flags >> (8 - amount)));
         }

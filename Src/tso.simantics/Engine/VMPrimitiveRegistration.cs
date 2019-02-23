@@ -5,15 +5,12 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.SimAntics.Engine
 {
     public class VMPrimitiveRegistration
     {
-        private VMPrimitiveHandler Handler;
+            VMPrimitiveHandler Handler;
         public VMPrimitiveRegistration(VMPrimitiveHandler handler)
         {
             this.Handler = handler;

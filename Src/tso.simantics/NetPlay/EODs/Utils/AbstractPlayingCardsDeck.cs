@@ -1,17 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Utils
 {
     public class AbstractPlayingCardsDeck
     {
-        private CardQueue DrawStack;
-        private PlayingCard _LastDrawnCard;
-        private CardQueue DiscardStack;
-        private bool UseDiscardStack;
+            CardQueue DrawStack;
+            PlayingCard _LastDrawnCard;
+            CardQueue DiscardStack;
+            bool UseDiscardStack;
         
         /*
          * Gets the compatible short-hand name of the card in order that it may be parsed by the HandEvaluator Project
@@ -179,10 +176,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
     }
     internal class CardQueue
     {
-        private PlayingCard TopCard; // first, head
-        private PlayingCard BottomCard; // last, tail
-        private int TotalCards;
-        private Random Random = new Random();
+            PlayingCard TopCard; // first, head
+            PlayingCard BottomCard; // last, tail
+            int TotalCards;
+            Random Random = new Random();
 
         public CardQueue(int numberOfDecks)
         {
@@ -220,9 +217,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
         }
         public void Enqueue(string cardValue, string cardSuit)
         {
-            PlayingCardValues value;
-            PlayingCardSuits suit;
-            if (Enum.TryParse<PlayingCardValues>(cardValue, true, out value) && Enum.TryParse<PlayingCardSuits>(cardSuit, true, out suit))
+            if (Enum.TryParse<PlayingCardValues>(cardValue, true, out var value) && Enum.TryParse<PlayingCardSuits>(cardSuit, true, out var suit))
                 Enqueue(new PlayingCard(value, suit));
         }
         public void Enqueue(PlayingCardValues cardValue, PlayingCardSuits cardSuit)
@@ -266,7 +261,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
             j ← random integer such that 0 ≤ j ≤ i
             exchange a[j] and a[i]
          */
-        private void Shuffle()
+            void Shuffle()
         {
             if (TotalCards > 1)
             {
@@ -299,9 +294,9 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
     }
     public class PlayingCard
     {
-        private PlayingCardValues _Value;
-        private PlayingCardSuits _Suit;
-        private PlayingCard _Next;
+            PlayingCardValues _Value;
+            PlayingCardSuits _Suit;
+            PlayingCard _Next;
 
         public PlayingCard(PlayingCardValues value, PlayingCardSuits suit)
         {

@@ -6,8 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine;
 using System.IO;

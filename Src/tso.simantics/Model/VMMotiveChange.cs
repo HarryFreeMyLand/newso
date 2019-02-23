@@ -6,9 +6,6 @@
 
 using FSO.SimAntics.NetPlay.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using FSO.Files;
 using FSO.SimAntics.Entities;
@@ -20,7 +17,7 @@ namespace FSO.SimAntics.Model
         public short PerHourChange;
         public short MaxValue;
         public VMMotive Motive;
-        private double fractional;
+            double fractional;
         public bool Ticked;
 
         public static TuningEntry? LotMotives;
@@ -83,12 +80,12 @@ namespace FSO.SimAntics.Model
             return (short)((oldMax - 100) + vm.TuningCache.GetLimit(type));
         }
 
-        private static int ToFixed1000(float input)
+            static int ToFixed1000(float input)
         {
             return (int)(input * 1000);
         }
 
-        private static int FracMul(int input, int frac)
+            static int FracMul(int input, int frac)
         {
             return (int)((long)input * frac) / 1000;
         }

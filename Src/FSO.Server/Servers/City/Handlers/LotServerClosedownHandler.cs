@@ -8,8 +8,8 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class LotServerClosedownHandler
     {
-        private LotAllocations Lots;
-        private IDAFactory DAFactory;
+        LotAllocations Lots;
+        IDAFactory DAFactory;
 
         public LotServerClosedownHandler(LotAllocations lots, IDAFactory daFactory)
         {

@@ -1,11 +1,6 @@
 ﻿using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {
@@ -61,7 +56,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         public UIPermissionDoorEOD(UIEODController controller) : base(controller)
         {
-            var script = this.RenderScript("dooreod.uis");
+            var script = RenderScript("dooreod.uis");
 
             Loading.Visible = false;
             //SubpanelBackground = script.Create<UIImage>("SubpanelBackground");
@@ -85,7 +80,7 @@ namespace FSO.Client.UI.Panels.EODs
             CodeTextEntry.MaxChars = 9;
             CodeTextEntry.X -= 14;
             CodeTextEntry.OnChange += CodeTextEntry_OnChange;
-            CodeTextEntry.Alignment = Framework.TextAlignment.Center;
+            CodeTextEntry.Alignment = TextAlignment.Center;
             CodeDoorDirections.Wrapped = true;
 
             PlaintextHandlers["door_init"] = P_Init;

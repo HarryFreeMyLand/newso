@@ -1,11 +1,8 @@
-﻿using FSO.Content;
-using FSO.LotView.Model;
+﻿using FSO.LotView.Model;
 using FSO.SimAntics.NetPlay.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FSO.SimAntics.Marshals
@@ -44,7 +41,7 @@ namespace FSO.SimAntics.Marshals
                     //this can get stupid. diagonal walls can also contain floors, obviously.
                     //styles don't need remapping since they are limited to the base game ones, and custom temp wall styles are restored from objects.
 
-                    if ((wall.Segments & LotView.Model.WallSegments.AnyDiag) > 0)
+                    if ((wall.Segments & WallSegments.AnyDiag) > 0)
                     {
                         if (wall.TopLeftPattern != 0) floorids.Add(wall.TopLeftPattern);
                         if (wall.TopLeftStyle != 0) floorids.Add(wall.TopLeftStyle);
@@ -52,7 +49,7 @@ namespace FSO.SimAntics.Marshals
                         if (wall.BottomLeftPattern != 0) wallids.Add(wall.BottomLeftPattern);
                         if (wall.BottomRightPattern != 0) wallids.Add(wall.BottomRightPattern);
                     }
-                    else if ((wall.Segments & LotView.Model.WallSegments.AnyAdj) > 0)
+                    else if ((wall.Segments & WallSegments.AnyAdj) > 0)
                     {
                         if (wall.BottomLeftPattern != 0) wallids.Add(wall.BottomLeftPattern);
                         if (wall.BottomRightPattern != 0) wallids.Add(wall.BottomRightPattern);
@@ -64,8 +61,7 @@ namespace FSO.SimAntics.Marshals
             }
 
             foreach (var x in floorids) {
-                FloorReference fref;
-                if (content.WorldFloors.Entries.TryGetValue(x, out fref) && fref.FileName != "global")
+                if (content.WorldFloors.Entries.TryGetValue(x, out var fref) && fref.FileName != "global")
                 {
                     FloorNamesByID.Add(x, new string(fref.FileName.ToLowerInvariant().TakeWhile(y => y != '.').ToArray()));
                 }
@@ -73,8 +69,7 @@ namespace FSO.SimAntics.Marshals
 
             foreach (var x in wallids)
             {
-                WallReference wref;
-                if (content.WorldWalls.Entries.TryGetValue(x, out wref) && wref.FileName != "global")
+                if (content.WorldWalls.Entries.TryGetValue(x, out var wref) && wref.FileName != "global")
                 {
                     WallNamesByID.Add(x, new string(wref.FileName.ToLowerInvariant().TakeWhile(y => y != '.').ToArray()));
                 }
@@ -101,8 +96,7 @@ namespace FSO.SimAntics.Marshals
                     var floor = floors[i];
                     if (floor.Pattern != 0)
                     {
-                        ushort newID;
-                        if (floorMap.TryGetValue(floor.Pattern, out newID))
+                        if (floorMap.TryGetValue(floor.Pattern, out var newID))
                         {
                             floors[i].Pattern = newID;
                         }
@@ -166,16 +160,16 @@ namespace FSO.SimAntics.Marshals
             return failures;
         }
 
-        private Dictionary<ushort, ushort> BuildDict(Dictionary<ushort, string> oldIDToName, Dictionary<string, ushort> nameToID, ref int failCount)
+            Dictionary<ushort, ushort> BuildDict(Dictionary<ushort, string> oldIDToName, Dictionary<string, ushort> nameToID, ref int failCount)
         {
             var result = new Dictionary<ushort, ushort>();
             foreach (var entry in oldIDToName)
             {
-                ushort newID;
-                if (nameToID.TryGetValue(entry.Value, out newID))
+                if (nameToID.TryGetValue(entry.Value, out var newID))
                 {
                     result[entry.Key] = newID;
-                } else
+                }
+                else
                 {
                     failCount++;
                 }

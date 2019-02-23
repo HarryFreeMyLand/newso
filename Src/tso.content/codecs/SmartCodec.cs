@@ -1,10 +1,6 @@
 ﻿using FSO.Content.Framework;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content.Codecs
 {
@@ -32,8 +28,7 @@ namespace FSO.Content.Codecs
         public static object Decode(Stream stream, string extension)
         {
             extension = extension.ToLowerInvariant();
-            IGenericContentCodec codec = null;
-            if (CodecForExtension.TryGetValue(extension, out codec))
+            if (CodecForExtension.TryGetValue(extension, out var codec))
             {
                 return codec.GenDecode(stream);
             }

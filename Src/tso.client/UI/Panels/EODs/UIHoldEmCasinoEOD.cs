@@ -2,13 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Framework.Parser;
 using FSO.Client.UI.Panels.EODs.Utils;
-using FSO.Client.UI.Panels.EODs.Archetypes;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
 using Microsoft.Xna.Framework.Graphics;
@@ -147,9 +143,9 @@ namespace FSO.Client.UI.Panels.EODs
         Dictionary<byte, string> AlertStrings = new Dictionary<byte, string>()
         {
             { (byte)VMEODHoldEmCasinoAlerts.Ante_Bet_Help, GameFacade.Strings.GetString("f111", "38")
-                + System.Environment.NewLine + System.Environment.NewLine + GameFacade.Strings.GetString( "f111", "71")},
+                + Environment.NewLine + Environment.NewLine + GameFacade.Strings.GetString( "f111", "71")},
             { (byte)VMEODHoldEmCasinoAlerts.Side_Bet_Help, GameFacade.Strings.GetString("f111", "43")
-                + System.Environment.NewLine + System.Environment.NewLine + GameFacade.Strings.GetString( "f111", "71")},
+                + Environment.NewLine + Environment.NewLine + GameFacade.Strings.GetString( "f111", "71")},
             { (byte)VMEODHoldEmCasinoAlerts.Invalid_Ante, GameFacade.Strings.GetString("f111", "55") },
             { (byte)VMEODHoldEmCasinoAlerts.Invalid_Number, GameFacade.Strings.GetString("f111", "57") },
             { (byte)VMEODHoldEmCasinoAlerts.Invalid_Side_Valid_Ante, GameFacade.Strings.GetString("f111", "56") },

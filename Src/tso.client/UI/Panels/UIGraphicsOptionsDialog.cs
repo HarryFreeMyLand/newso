@@ -5,9 +5,6 @@ using FSO.Common;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Common.Utils;
 
@@ -60,7 +57,7 @@ namespace FSO.Client.UI.Panels
         public UIGraphicsOptionsDialog() : base(UIDialogStyle.OK, true)
         {
             SetSize(460, 300);
-            var script = this.RenderScript("graphicspanel.uis");
+            var script = RenderScript("graphicspanel.uis");
 
             UIEffectsLabel.Caption = GameFacade.Strings.GetString("f103", "2");
             UIEffectsLabel.Alignment = TextAlignment.Middle;

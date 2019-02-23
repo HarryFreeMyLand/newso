@@ -1,10 +1,6 @@
 ﻿using FSO.SimAntics.NetPlay.EODs.Utils;
 using FSO.SimAntics.NetPlay.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using FSO.SimAntics.Model.TSOPlatform;
 
@@ -12,11 +8,11 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODSecureTradePlugin : VMEODHandler
     {
-        private EODLobby<VMEODSecureTradePlayer> Lobby;
-        private bool Locked;
-        private bool Kill = false;
-        private bool HadTwoPlayers = false;
-        private int TicksToAcceptable = 0;
+            EODLobby<VMEODSecureTradePlayer> Lobby;
+            bool Locked;
+            bool Kill = false;
+            bool HadTwoPlayers = false;
+            int TicksToAcceptable = 0;
 
         public VMEODSecureTradePlugin(VMEODServer server) : base(server)
         {
@@ -29,7 +25,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             PlaintextHandlers["trade_offer"] = TradeOffer; 
         }
 
-        private void OnConnected(VMEODClient client)
+            void OnConnected(VMEODClient client)
         {
             Lobby.GetSlotData(client).PlayerPersist = client.Avatar.PersistID;
             if (Lobby.IsFull())
@@ -39,7 +35,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void ResetTradeTime()
+            void ResetTradeTime()
         {
             TicksToAcceptable = 5*30;
             Lobby.Broadcast("trade_time", "5");

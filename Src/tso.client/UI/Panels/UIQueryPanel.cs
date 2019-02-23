@@ -6,7 +6,6 @@ http://mozilla.org/MPL/2.0/.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
@@ -235,8 +234,8 @@ namespace FSO.Client.UI.Panels
                     Size = QuerybackTrade.Size.ToVector2() + new Vector2(22, 42);
                     BackOffset = new Point(40, 0);
                 }
-                this.Y = (value>0)?-114:0;
-                this.X = (value==2)?-128:0;
+                Y = (value>0)?-114:0;
+                X = (value==2)?-128:0;
                 QuerybackPanel.Visible = value == 0;
                 QuerybackCatalog.Visible = value == 1;
                 QuerybackTrade.Visible = value == 2;
@@ -258,7 +257,7 @@ namespace FSO.Client.UI.Panels
             }
 
             var useSmall = (GlobalSettings.Default.GraphicsWidth < 1024) || FSOEnvironment.UIZoomFactor > 1f;
-            var script = this.RenderScript("querypanel"+(useSmall?"":"1024")+".uis");
+            var script = RenderScript("querypanel"+(useSmall?"":"1024")+".uis");
 
             //NOTE: the background and position of this element changes with the context it is used in.
             //other elements that are only used for certain modes will be flagged as such with comments.
@@ -267,7 +266,7 @@ namespace FSO.Client.UI.Panels
             {
                 Y = 0
             };
-            this.AddAt(0, QuerybackPanel);
+            AddAt(0, QuerybackPanel);
 
             ListenForMouse(new Rectangle(0, 0, QuerybackPanel.Texture.Width, QuerybackPanel.Texture.Height), (t, s) => { });
 
@@ -278,14 +277,14 @@ namespace FSO.Client.UI.Panels
             {
                 Position = new Vector2(-22, 0)
             };
-            this.AddAt(1, QuerybackCatalog);
+            AddAt(1, QuerybackCatalog);
 
             QuerybackTrade = new UIImage(BackgroundImageTrade)
             {
                 X = -40,
                 Y = 0
             };
-            this.AddAt(2, QuerybackTrade);
+            AddAt(2, QuerybackTrade);
 
             //init general tab specific backgrounds
 
@@ -293,31 +292,31 @@ namespace FSO.Client.UI.Panels
             {
                 Position = new Vector2(119, 7)
             };
-            this.AddAt(3, DescriptionBackgroundImage);
+            AddAt(3, DescriptionBackgroundImage);
 
             MotivesBackgroundImage = new UIImage(ImageMotivesBackground)
             {
                 Position = new Vector2(useSmall ? 395 : 619, 7)
             };
-            this.AddAt(3, MotivesBackgroundImage);
+            AddAt(3, MotivesBackgroundImage);
 
             GeneralTabImage = new UIImage(ImageGeneralTab)
             {
                 Position = new Vector2(useSmall ? 563 : 787, 0)
             };
-            this.AddAt(3, GeneralTabImage);
+            AddAt(3, GeneralTabImage);
 
             SpecificTabImage = new UIImage(ImageSpecificTab)
             {
                 Position = new Vector2(useSmall ? 563 : 787, 0)
             };
-            this.AddAt(3, SpecificTabImage);
+            AddAt(3, SpecificTabImage);
 
             OwnerPriceBack = script.Create<UIImage>("OwnerPriceBack");
-            this.AddAt(3, OwnerPriceBack);
+            AddAt(3, OwnerPriceBack);
 
             BuyerPriceBack = script.Create<UIImage>("BuyerPriceBack");
-            this.AddAt(3, BuyerPriceBack);
+            AddAt(3, BuyerPriceBack);
 
             OwnerPriceBack.X = ForSalePrice.X;
             BuyerPriceBack.X = ForSalePrice.X;
@@ -329,7 +328,7 @@ namespace FSO.Client.UI.Panels
                 Position = new Vector2(24, 11)
             };
             Thumbnail.SetSize(90, 90);
-            this.Add(Thumbnail);
+            Add(Thumbnail);
 
             DescriptionText.CurrentText = "No Object Selected"; //user should not see this.
             DescriptionSlider.AttachButtons(DescriptionScrollUpButton, DescriptionScrollDownButton, 1);
@@ -377,7 +376,7 @@ namespace FSO.Client.UI.Panels
             {
                 Position = button.Position - new Vector2(3, 3)
             };
-            this.AddAt(3, bg);
+            AddAt(3, bg);
             return bg;
         }
 

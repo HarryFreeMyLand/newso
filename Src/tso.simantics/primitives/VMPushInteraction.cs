@@ -5,13 +5,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.Files.Formats.IFF.Chunks;
-using FSO.Content;
 using System.IO;
 
 namespace FSO.SimAntics.Engine.Primitives
@@ -25,8 +20,8 @@ namespace FSO.SimAntics.Engine.Primitives
             var operand = (VMPushInteractionOperand)args;
             VMEntity interactionSource;
 
-            if (operand.ObjectInLocal) interactionSource = context.VM.GetObjectById((short)context.Locals[operand.ObjectLocation]);
-            else interactionSource = context.VM.GetObjectById((short)context.Args[operand.ObjectLocation]);
+            if (operand.ObjectInLocal) interactionSource = context.VM.GetObjectById(context.Locals[operand.ObjectLocation]);
+            else interactionSource = context.VM.GetObjectById(context.Args[operand.ObjectLocation]);
 
             short priority = 0;
             VMQueueMode mode = VMQueueMode.Normal;
@@ -52,7 +47,7 @@ namespace FSO.SimAntics.Engine.Primitives
 
             var action = interactionSource.GetAction(operand.Interaction, context.StackObject, context.VM.Context, false);
             if (action == null) return VMPrimitiveExitCode.GOTO_FALSE;
-            if (operand.UseCustomIcon) action.IconOwner = context.VM.GetObjectById((short)context.Locals[operand.IconLocation]);
+            if (operand.UseCustomIcon) action.IconOwner = context.VM.GetObjectById(context.Locals[operand.IconLocation]);
             action.Mode = mode;
             action.Priority = priority;
             action.Flags |= TTABFlags.FSOSkipPermissions;

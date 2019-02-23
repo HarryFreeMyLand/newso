@@ -2,7 +2,6 @@
 using FSO.Client.UI.Framework;
 using FSO.SimAntics.NetPlay.Model;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,10 +49,10 @@ namespace FSO.Client.UI.Panels
             Owner = owner;
             History = new List<VMChatEvent>();
 
-            this.RenderScript("chatdialog.uis");
-            this.SetSize(400, 255);
+            RenderScript("chatdialog.uis");
+            SetSize(400, 255);
 
-            this.Caption = "Property Chat (?) - ???";
+            Caption = "Property Chat (?) - ???";
 
             ChatEntryBackground = new UIImage(GetTexture((ulong)0x7A400000001)).With9Slice(13, 13, 13, 13);
             ChatEntryBackground.Position = new Vector2(25, 211);
@@ -129,7 +128,7 @@ namespace FSO.Client.UI.Panels
                 delta.Y -= yDelta;
             }
 
-            this.SetSize((int)size.X, (int)size.Y);
+            SetSize((int)size.X, (int)size.Y);
 
             ChatHistoryBackground.SetSize(ChatHistoryBackground.Size.X + delta.X, ChatHistoryBackground.Size.Y + delta.Y);
             ChatHistoryText.SetSize(ChatHistoryBackground.Size.X - 19, ChatHistoryBackground.Size.Y - 16);
@@ -160,7 +159,7 @@ namespace FSO.Client.UI.Panels
             {
                 case UIMouseEventType.MouseDown:
                     /** Start drag **/
-                    var position = this.GetMousePosition(state.MouseState);
+                    var position = GetMousePosition(state.MouseState);
 
                     m_dragOffset = position;
                     m_doResizeX = position.X > Width - 20;
@@ -175,10 +174,10 @@ namespace FSO.Client.UI.Panels
                     m_doDrag = false;
                     m_doResizeX = false;
                     m_doResizeY = false;
-                    GlobalSettings.Default.ChatSizeX = this.Size.X;
-                    GlobalSettings.Default.ChatSizeY = this.Size.Y;
-                    GlobalSettings.Default.ChatLocationX = this.X;
-                    GlobalSettings.Default.ChatLocationY = this.Y;
+                    GlobalSettings.Default.ChatSizeX = Size.X;
+                    GlobalSettings.Default.ChatSizeY = Size.Y;
+                    GlobalSettings.Default.ChatLocationX = X;
+                    GlobalSettings.Default.ChatLocationY = Y;
                     GlobalSettings.Default.Save();
                     break;
             }
@@ -275,9 +274,9 @@ namespace FSO.Client.UI.Panels
                 var position = Parent.GetMousePosition(state.MouseState);
 
                 if ((position.X - m_dragOffset.X) < (GlobalSettings.Default.GraphicsWidth - m_DragTolerance) && (position.X - m_dragOffset.X) > 0)
-                    this.X = position.X - m_dragOffset.X;
+                    X = position.X - m_dragOffset.X;
                 if ((position.Y - m_dragOffset.Y) < (GlobalSettings.Default.GraphicsHeight - m_DragTolerance) && (position.Y - m_dragOffset.Y) > 0)
-                    this.Y = position.Y - m_dragOffset.Y;
+                    Y = position.Y - m_dragOffset.Y;
             } else if (m_doResizeX || m_doResizeY)
             {
                 var position = GetMousePosition(state.MouseState);

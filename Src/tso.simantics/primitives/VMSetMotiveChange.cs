@@ -5,9 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Scopes;
@@ -30,8 +27,8 @@ namespace FSO.SimAntics.Primitives
             }
             else
             {
-                var rate = (short)VMMotiveChange.ScaleRate(context.VM, VMMemory.GetVariable(context, (VMVariableScope)operand.DeltaOwner, operand.DeltaData), operand.Motive);
-                var MaxValue = VMMotiveChange.ScaleMax(context.VM, VMMemory.GetVariable(context, (VMVariableScope)operand.MaxOwner, operand.MaxData), operand.Motive);
+                var rate = (short)VMMotiveChange.ScaleRate(context.VM, VMMemory.GetVariable(context, operand.DeltaOwner, operand.DeltaData), operand.Motive);
+                var MaxValue = VMMotiveChange.ScaleMax(context.VM, VMMemory.GetVariable(context, operand.MaxOwner, operand.MaxData), operand.Motive);
                 if (operand.Once) {
                     var motive = avatar.GetMotiveData(operand.Motive);
 

@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content.TS1
 {
@@ -120,9 +118,8 @@ namespace FSO.Content.TS1
             {
                 if (Path.GetExtension(filename) != ".iff") return;
 
-                int userID;
                 var name = Path.GetFileName(filename);
-                if (name.Length > 8 && int.TryParse(name.Substring(4, 5), out userID) && userID >= NextSim)
+                if (name.Length > 8 && int.TryParse(name.Substring(4, 5), out var userID) && userID >= NextSim)
                 {
                     NextSim = userID + 1;
                 }
@@ -171,15 +168,13 @@ namespace FSO.Content.TS1
 
         public Neighbour GetNeighborByID(short ID)
         {
-            Neighbour result = null;
-            Neighbors.NeighbourByID.TryGetValue(ID, out result);
+            Neighbors.NeighbourByID.TryGetValue(ID, out var result);
             return result;
         }
 
         public FAMI GetFamilyForHouse(short ID)
         {
-            FAMI result = null;
-            FamilyForHouse.TryGetValue(ID, out result);
+            FamilyForHouse.TryGetValue(ID, out var result);
             return result;
         }
 
@@ -223,16 +218,14 @@ namespace FSO.Content.TS1
 
         public short? GetNeighborIDForGUID(uint GUID)
         {
-            short result = 0;
-            if (Neighbors.DefaultNeighbourByGUID.TryGetValue(GUID, out result))
+            if (Neighbors.DefaultNeighbourByGUID.TryGetValue(GUID, out var result))
                 return result;
             return null;
         }
 
         public List<InventoryItem> GetInventoryByNID(short ID)
         {
-            List<InventoryItem> result = null;
-            Neighborhood.InventoryByID.TryGetValue(ID, out result);
+            Neighborhood.InventoryByID.TryGetValue(ID, out var result);
             return result;
         }
 
@@ -304,11 +297,12 @@ namespace FSO.Content.TS1
 
         public short GetTATT(uint guid, int index)
         {
-            short[] dat = null;
-            if (TypeAttributes.TypeAttributesByGUID.TryGetValue(guid, out dat))
+            if (TypeAttributes.TypeAttributesByGUID.TryGetValue(guid, out var dat))
             {
-                if (index >= dat.Length) return 0;
-                else return dat[index];
+                if (index >= dat.Length)
+                    return 0;
+                else
+                    return dat[index];
             }
             return 0;
         }
@@ -326,11 +320,11 @@ namespace FSO.Content.TS1
 
         public void SetTATT(uint guid, int index, short value)
         {
-            short[] dat = null;
-            if (!TypeAttributes.TypeAttributesByGUID.TryGetValue(guid, out dat))
+            if (!TypeAttributes.TypeAttributesByGUID.TryGetValue(guid, out var dat))
             {
                 var obj = ContentManager.WorldObjects.Get(guid);
-                if (obj == null) return;
+                if (obj == null)
+                    return;
                 dat = new short[32];
                 TypeAttributes.TypeAttributesByGUID[guid] = dat;
             }

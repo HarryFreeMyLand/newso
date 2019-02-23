@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
@@ -21,9 +21,9 @@ namespace FSO.Files
         public static int PremultiplyPNG = 0;
 
         public static HashSet<uint> MASK_COLORS = new HashSet<uint>{
-            new Microsoft.Xna.Framework.Color(0xFF, 0x00, 0xFF, 0xFF).PackedValue,
-            new Microsoft.Xna.Framework.Color(0xFE, 0x02, 0xFE, 0xFF).PackedValue,
-            new Microsoft.Xna.Framework.Color(0xFF, 0x01, 0xFF, 0xFF).PackedValue
+            new Color(0xFF, 0x00, 0xFF, 0xFF).PackedValue,
+            new Color(0xFE, 0x02, 0xFE, 0xFF).PackedValue,
+            new Color(0xFF, 0x01, 0xFF, 0xFF).PackedValue
         };
 
         public static Func<GraphicsDevice, Stream, Texture2D> BaseFunction = WinFromStream;
@@ -57,7 +57,8 @@ namespace FSO.Files
                     if (ImageLoaderHelpers.BitmapFunction != null)
                     {
                         var bmp = ImageLoaderHelpers.BitmapFunction(str);
-                        if (bmp == null) return null;
+                        if (bmp == null)
+                            return null;
                         tex = new Texture2D(gd, bmp.Item2, bmp.Item3);
                         tex.SetData(bmp.Item1);
                     }
@@ -80,7 +81,7 @@ namespace FSO.Files
                 byte[] sig = new byte[16];
                 str.Read(sig, 0, 16);
                 str.Seek(0, SeekOrigin.Begin);
-                if (ASCIIEncoding.Default.GetString(sig) == "TRUEVISION-XFILE")
+                if (Encoding.Default.GetString(sig) == "TRUEVISION-XFILE")
                 {
                     try
                     {
@@ -104,7 +105,8 @@ namespace FSO.Files
                         if (ImageLoaderHelpers.BitmapFunction != null)
                         {
                             var bmp = ImageLoaderHelpers.BitmapFunction(str);
-                            if (bmp == null) return null;
+                            if (bmp == null)
+                                return null;
                             tex = new Texture2D(gd, bmp.Item2, bmp.Item3);
                             tex.SetData(bmp.Item1);
 
@@ -121,7 +123,7 @@ namespace FSO.Files
                             if (buffer == null)
                             {
                                 buffer = new Color[tex.Width * tex.Height];
-                                tex.GetData<Color>(buffer);
+                                tex.GetData(buffer);
                             }
 
                             for (int i = 0; i < buffer.Length; i++)
@@ -136,7 +138,7 @@ namespace FSO.Files
                             if (buffer == null)
                             {
                                 buffer = new Color[tex.Width * tex.Height];
-                                tex.GetData<Color>(buffer);
+                                tex.GetData(buffer);
                             }
 
                             for (int i = 0; i < buffer.Length; i++)
@@ -164,7 +166,7 @@ namespace FSO.Files
             var size = Texture.Width * Texture.Height * 4;
             byte[] buffer = new byte[size];
 
-            Texture.GetData<byte>(buffer);
+            Texture.GetData(buffer);
 
             var didChange = false;
 
@@ -181,7 +183,8 @@ namespace FSO.Files
             {
                 Texture.SetData(buffer);
             }
-            else return;
+            else
+                return;
         }
 
     }

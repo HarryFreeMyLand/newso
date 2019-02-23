@@ -15,18 +15,15 @@ using FSO.Client.UI.Panels;
 using FSO.Client.UI.Framework.Parser;
 using Microsoft.Xna.Framework;
 using FSO.Files;
-using FSO.Client.Network;
 using FSO.Common.Utils;
 using FSO.Server.Protocol.CitySelector;
 using FSO.Vitaboy;
 using FSO.Client.Regulators;
-using Ninject;
 using FSO.Client.Controllers;
 using FSO.HIT;
 using FSO.Client.UI.Model;
 using FSO.Common;
 using FSO.Common.Utils.Cache;
-using FSO.Common.Domain.Shards;
 using FSO.Server.Clients;
 
 namespace FSO.Client.UI.Screens
@@ -60,12 +57,12 @@ namespace FSO.Client.UI.Screens
         public PersonSelection(LoginRegulator loginRegulator, ICache cache) : base()
         {
             //Arrange UI
-            this.LoginRegulator = loginRegulator;
-            this.Cache = cache;
+            LoginRegulator = loginRegulator;
+            Cache = cache;
             Api = new ApiClient(ApiClient.CDNUrl ?? GlobalSettings.Default.GameEntryUrl);
 
             UIScript ui = null;
-            ui = this.RenderScript("personselection1024.uis");
+            ui = RenderScript("personselection1024.uis");
 
             Position = new Vector2((GlobalSettings.Default.GraphicsWidth - 1024) / 2, (GlobalSettings.Default.GraphicsHeight - 768) / 2) * FSOEnvironment.DPIScaleFactor;
 
@@ -83,13 +80,13 @@ namespace FSO.Client.UI.Screens
 
                 /** Tab Background **/
                 var tabBackground = ui.Create<UIImage>("TabBackgroundImage" + index);
-                this.Add(tabBackground);
+                Add(tabBackground);
 
                 var enterTabImage = ui.Create<UIImage>("EnterTabImage" + index);
-                this.Add(enterTabImage);
+                Add(enterTabImage);
 
                 var descTabImage = ui.Create<UIImage>("DescriptionTabImage" + index);
-                this.Add(descTabImage);
+                Add(descTabImage);
 
                 var descTabBgImage = ui.Create<UIImage>("DescriptionTabBackgroundImage" + index);
                 var enterIcons = ui.Create<UIImage>("EnterTabBackgroundImage" + index);
@@ -118,8 +115,8 @@ namespace FSO.Client.UI.Screens
                     TabDescBackground = descTabImage
                 };
 
-                this.AddBefore(descTabBgImage, personSlot.PersonDescriptionText);
-                this.AddBefore(enterIcons, personSlot.CityButton);
+                AddBefore(descTabBgImage, personSlot.PersonDescriptionText);
+                AddBefore(enterIcons, personSlot.CityButton);
 
                 personSlot.Init();
                 personSlot.SetSlotAvailable(true);
@@ -134,14 +131,14 @@ namespace FSO.Client.UI.Screens
 
             /** Backgrounds **/
             var bg = new UIImage(BackgroundImage).With9Slice(128, 128, 84, 84);
-            this.AddAt(0, bg);
+            AddAt(0, bg);
             bg.SetSize(GlobalSettings.Default.GraphicsWidth, GlobalSettings.Default.GraphicsHeight);
             bg.Position = new Vector2((GlobalSettings.Default.GraphicsWidth - 1024) / -2, (GlobalSettings.Default.GraphicsHeight - 768) / -2);
             Background = bg;
 
             if (BackgroundImageDialog != null)
             {
-                this.AddAt(1, new UIImage(BackgroundImageDialog)
+                AddAt(1, new UIImage(BackgroundImageDialog)
                 {
                     X = 112,
                     Y = 84
@@ -186,7 +183,7 @@ namespace FSO.Client.UI.Screens
                 {
                     GameThread.NextUpdate(x =>
                     {
-                        if (UIScreen.Current != this) return;
+                        if (Current != this) return;
                         using (var mem = new MemoryStream(data))
                         {
                             try
@@ -249,7 +246,7 @@ namespace FSO.Client.UI.Screens
         
         void m_ExitButton_OnButtonClick(UIElement button)
         {
-            UIScreen.ShowDialog(new UIExitDialog(), true);
+            ShowDialog(new UIExitDialog(), true);
         }
 
         void CreditsButton_OnButtonClick(UIElement button)
@@ -303,7 +300,7 @@ namespace FSO.Client.UI.Screens
 
         public PersonSlot(PersonSelection screen)
         {
-            this.Screen = screen;
+            Screen = screen;
         }
 
         /// <summary>
@@ -363,7 +360,7 @@ namespace FSO.Client.UI.Screens
 
         void OnSelect(UIElement button)
         {
-            if (this.Avatar != null)
+            if (Avatar != null)
             {
                 ((PersonSelectionController)Screen.Controller).ConnectToAvatar(Avatar, button == HouseButton);
             }
@@ -404,7 +401,7 @@ namespace FSO.Client.UI.Screens
         /// <param name="avatar"></param>
         public void DisplayAvatar(AvatarData avatar)
         {
-            this.Avatar = avatar;
+            Avatar = avatar;
             var isUsed = avatar != null;
 
             SetSlotAvailable(!isUsed);
@@ -465,7 +462,7 @@ namespace FSO.Client.UI.Screens
         {
             if (isAvailable)
             {
-                this.Avatar = null;
+                Avatar = null;
             }
 
             EnterTabButton.Disabled = isAvailable;
@@ -540,7 +537,7 @@ namespace FSO.Client.UI.Screens
         }
 
         public void DeviceReset(GraphicsDevice device){
-            DisplayAvatar(this.Avatar);
+            DisplayAvatar(Avatar);
         }
     }
 

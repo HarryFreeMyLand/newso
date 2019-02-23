@@ -40,7 +40,7 @@ namespace FSO.Files.HIT
         /// <param name="Filedata">The data to create the track from.</param>
         public Track(byte[] Filedata)
         {
-            BinaryReader Reader = new BinaryReader(new MemoryStream(Filedata));
+            var Reader = new BinaryReader(new MemoryStream(Filedata));
 
             MagicNumber = new string(Reader.ReadChars(4));
 

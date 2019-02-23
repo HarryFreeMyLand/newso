@@ -41,7 +41,7 @@ namespace FSO.Server
 
     public class ServerConfigurationModule : NinjectModule
     {
-        private ServerConfiguration GetConfiguration(IContext context)
+        ServerConfiguration GetConfiguration(IContext context)
         {
             //TODO: Allow config path to be overriden in a switch
             var configPath = "config.json";
@@ -61,9 +61,9 @@ namespace FSO.Server
             }
         }
 
-        private class DatabaseConfigurationProvider : IProvider<DatabaseConfiguration>
+        class DatabaseConfigurationProvider : IProvider<DatabaseConfiguration>
         {
-            private ServerConfiguration Config;
+            ServerConfiguration Config;
 
             public DatabaseConfigurationProvider(ServerConfiguration config)
             {
@@ -86,9 +86,9 @@ namespace FSO.Server
         }
 
 
-        private class JWTConfigurationProvider : IProvider<JWTConfiguration>
+        class JWTConfigurationProvider : IProvider<JWTConfiguration>
         {
-            private ServerConfiguration Config;
+            ServerConfiguration Config;
 
             public JWTConfigurationProvider(ServerConfiguration config)
             {

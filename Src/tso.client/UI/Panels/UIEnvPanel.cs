@@ -3,11 +3,7 @@ using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
@@ -31,7 +27,7 @@ namespace FSO.Client.UI.Panels
 
         public UIEnvPanel(UILotControl lotController)
         {
-            var script = this.RenderScript("envpanel.uis");
+            var script = RenderScript("envpanel.uis");
             Divider = script.Create<UIImage>("Divider");
             Divider.Texture = DividerImage;
             Add(Divider);
@@ -59,7 +55,7 @@ namespace FSO.Client.UI.Panels
             foreach (var ui in BtnToMode.Keys)
                 ui.Selected = false;
 
-            if (CurrentPanel != -1) this.Remove(Panel);
+            if (CurrentPanel != -1) Remove(Panel);
             if (newPanel != CurrentPanel)
             {
                 btn.Selected = true;
@@ -91,7 +87,7 @@ namespace FSO.Client.UI.Panels
                         break;
                 }
 
-                this.Add(Panel);
+                Add(Panel);
                 CurrentPanel = newPanel;
             }
             else
@@ -108,7 +104,7 @@ namespace FSO.Client.UI.Panels
     {
         public UITimeOfDayPanel(UILotControl lotController)
         {
-            this.RenderScript("timeofdaypanel.uis");
+            RenderScript("timeofdaypanel.uis");
         }
     }
 
@@ -119,7 +115,7 @@ namespace FSO.Client.UI.Panels
     {
         public UILightingPanel(UILotControl lotController)
         {
-            this.RenderScript("lightingpanel.uis");
+            RenderScript("lightingpanel.uis");
         }
     }
 
@@ -261,7 +257,7 @@ namespace FSO.Client.UI.Panels
 
         public UISoundsPanel(UILotControl lotController)
         {
-            var script = this.RenderScript("soundspanel.uis");
+            var script = RenderScript("soundspanel.uis");
 
             Background = new UIImage(BackgroundImage);
             AddAt(0, Background);

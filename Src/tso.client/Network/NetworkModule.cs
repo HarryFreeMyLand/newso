@@ -1,5 +1,4 @@
-﻿using FSO.Client.Regulators;
-using FSO.Common.DatabaseService;
+﻿using FSO.Common.DatabaseService;
 using FSO.Common.DatabaseService.Framework;
 using FSO.Common.DataService;
 using FSO.Common.DataService.Framework;
@@ -9,9 +8,6 @@ using FSO.Server.Protocol.Voltron.DataService;
 using Ninject.Activation;
 using Ninject.Modules;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.Client.Network
 {
@@ -39,7 +35,7 @@ namespace FSO.Client.Network
 
         public ModelSerializerProvider(Content.GameContent content)
         {
-            this.Content = content;
+            Content = content;
         }
 
         public Type Type
@@ -66,7 +62,7 @@ namespace FSO.Client.Network
 
         public cTSOSerializerProvider(Content.GameContent content)
         {
-            this.Content = content;
+            Content = content;
         }
 
         public Type Type
@@ -79,7 +75,7 @@ namespace FSO.Client.Network
 
         public object Create(IContext context)
         {
-            return new cTSOSerializer(this.Content.DataDefinition);
+            return new cTSOSerializer(Content.DataDefinition);
         }
     }
 
@@ -88,7 +84,7 @@ namespace FSO.Client.Network
         Content.GameContent Content;
 
         public AuthClientProvider(Content.GameContent content){
-            this.Content = content;
+            Content = content;
         }
 
         public Type Type
@@ -133,7 +129,7 @@ namespace FSO.Client.Network
 
         public CityClientProvider(Content.GameContent content)
         {
-            this.Content = content;
+            Content = content;
         }
 
         public Type Type

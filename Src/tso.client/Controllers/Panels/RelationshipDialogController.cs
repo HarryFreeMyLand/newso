@@ -7,8 +7,6 @@ using FSO.Server.DataService.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers.Panels
 {
@@ -22,10 +20,10 @@ namespace FSO.Client.Controllers.Panels
 
         public RelationshipDialogController(UIRelationshipDialog view, IClientDataService dataService, Network.Network network, IDatabaseService database)
         {
-            this.Network = network;
-            this.DataService = dataService;
-            this.View = view;
-            this.DatabaseService = database;
+            Network = network;
+            DataService = dataService;
+            View = view;
+            DatabaseService = database;
             //this.Binding = new Binding<Avatar>().WithMultiBinding(x => { RefreshResults(); }, "Avatar_BookmarksVec");
 
             //Init();

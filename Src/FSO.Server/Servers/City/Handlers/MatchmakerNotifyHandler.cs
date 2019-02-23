@@ -6,8 +6,8 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class MatchmakerNotifyHandler
     {
-        private JobMatchmaker Matchmaker;
-        private CityServerContext Context;
+        JobMatchmaker Matchmaker;
+        CityServerContext Context;
 
         public MatchmakerNotifyHandler(JobMatchmaker mm, CityServerContext context)
         {

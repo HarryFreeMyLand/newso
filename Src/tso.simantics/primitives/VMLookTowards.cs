@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.LotView.Model;
@@ -60,11 +58,11 @@ namespace FSO.SimAntics.Primitives
             return VMPrimitiveExitCode.CONTINUE;
         }
 
-        private double GetDirectionTo(LotTilePos pos1, LotTilePos pos2)
+            double GetDirectionTo(LotTilePos pos1, LotTilePos pos2)
         {
             return Math.Atan2(pos2.x - pos1.x, -(pos2.y - pos1.y));
         }
-        private SLOTFlags RadianToFlags(double rad)
+            SLOTFlags RadianToFlags(double rad)
         {
             int result = (int)(Math.Round((rad / (Math.PI * 2)) * 8) + 80) % 8; //for best results, make sure rad is >-pi and <pi
             return (SLOTFlags)(1 << result);

@@ -4,16 +4,11 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Scopes;
 using FSO.SimAntics.Engine.Utils;
 using FSO.Vitaboy;
 using FSO.SimAntics.Model;
-using FSO.SimAntics.Utils;
 using System.IO;
 using FSO.Content;
 
@@ -39,7 +34,7 @@ namespace FSO.SimAntics.Engine.Primitives
                 if (posture != 1 && posture != 2) posture = 3; //sit and kneel are 1 and 2, 0 is stand but in walk animations it's 3.
                 //todo: swimming??
 
-                animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(avatar.WalkAnimations[posture] + ".anim");
+                animation = GameContent.Get.AvatarAnimations.Get(avatar.WalkAnimations[posture] + ".anim");
                 if (animation == null) return VMPrimitiveExitCode.GOTO_TRUE;
                 var state = new VMAnimationState(animation, operand.PlayBackwards);
                 if (context.VM.TS1 || newMode)
@@ -52,7 +47,7 @@ namespace FSO.SimAntics.Engine.Primitives
                 if (avatar.GetSlot(0) != null) //if we're carrying something, set carry animation to default carry.
                 {
                     if (avatar.CarryAnimationState == null)
-                        avatar.CarryAnimationState = new VMAnimationState(FSO.Content.GameContent.Get.AvatarAnimations.Get("a2o-rarm-carry-loop.anim"), false);
+                        avatar.CarryAnimationState = new VMAnimationState(GameContent.Get.AvatarAnimations.Get("a2o-rarm-carry-loop.anim"), false);
                 }
                 else avatar.CarryAnimationState = null;
                 return VMPrimitiveExitCode.GOTO_TRUE;
@@ -152,7 +147,7 @@ namespace FSO.SimAntics.Engine.Primitives
     }
 
     public class VMAnimateSimOperand : VMPrimitiveOperand {
-        private ushort _AnimationID;
+            ushort _AnimationID;
         public ushort AnimationID
         {
             get

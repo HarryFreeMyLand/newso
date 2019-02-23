@@ -1,4 +1,4 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
@@ -130,8 +130,7 @@ namespace FSO.Client.GameContent
             var iff = new IffFile(path);
 
             var dirName = "UIText";
-            Dictionary<string, Dictionary<string, string>> table;
-            if (!StringTable.TryGetValue(dirName, out table))
+            if (!StringTable.TryGetValue(dirName, out var table))
             {
                 table = new Dictionary<string, Dictionary<string, string>>();
                 StringTable.Add(dirName, table);
@@ -141,9 +140,9 @@ namespace FSO.Client.GameContent
             foreach (var str in tables)
             {
                 var tableData = new Dictionary<string, string>();
-                for (int i=0; i<str.Length; i++)
+                for (int i = 0; i < str.Length; i++)
                 {
-                    tableData[i.ToString()] = str.GetString(i); 
+                    tableData[i.ToString()] = str.GetString(i);
                 }
                 table[str.ChunkID.ToString()] = tableData; //overwrites previous.
             }
@@ -168,7 +167,8 @@ namespace FSO.Client.GameContent
             {
                 var tableID = Path.GetFileName(file);
                 var second_ = tableID.IndexOf("_", 1);
-                if (second_ == -1) return;
+                if (second_ == -1)
+                    return;
 
                 tableID = tableID.Substring(1, second_ - 1);
 
@@ -181,7 +181,8 @@ namespace FSO.Client.GameContent
                 var pos = 0;
                 var index = 0;
 
-                for (int i = 0; i < contentLines.Count; i++){
+                for (int i = 0; i < contentLines.Count; i++)
+                {
                     var line = contentLines[i];
                     if (line.StartsWith("//"))
                     {
@@ -191,7 +192,7 @@ namespace FSO.Client.GameContent
                     }
                 }
 
-                var content = String.Join("\r\n", contentLines.ToArray());
+                var content = string.Join("\r\n", contentLines.ToArray());
 
                 while ((pos = content.IndexOf("^", io)) != -1)
                 {
@@ -202,7 +203,8 @@ namespace FSO.Client.GameContent
                         id = id.Substring(lastLB + 2).Trim();
                     }
                     var endPOW = content.IndexOf("^", pos + 1);
-                    if (endPOW == -1) { break; }
+                    if (endPOW == -1)
+                    { break; }
 
                     pos++;
                     var strValue = content.Substring(pos, endPOW - pos);

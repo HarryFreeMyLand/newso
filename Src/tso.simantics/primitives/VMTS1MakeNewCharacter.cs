@@ -1,14 +1,10 @@
 ﻿using FSO.Content.TS1;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine;
-using FSO.SimAntics.Engine.Scopes;
 using FSO.SimAntics.Utils;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Primitives
 {
@@ -128,14 +124,14 @@ namespace FSO.SimAntics.Primitives
             return VMPrimitiveExitCode.GOTO_TRUE;
         }
 
-        private string FindHG(string item)
+            string FindHG(string item)
         {
             var ind = item.IndexOf('_');
             if (ind != -1) item = item.Substring(ind);
             return item;
         }
 
-        private string RemoveExt(string item)
+            string RemoveExt(string item)
         {
             if (item == null) return null;
             var ind = item.LastIndexOf('.');
@@ -143,7 +139,7 @@ namespace FSO.SimAntics.Primitives
             return item;
         }
 
-        private string ExtractID(string item, string skncol)
+            string ExtractID(string item, string skncol)
         {
             var ind = item.IndexOf('_');
             if (ind != -1) item = item.Substring(0, ind);

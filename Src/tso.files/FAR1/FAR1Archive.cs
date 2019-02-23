@@ -68,7 +68,7 @@ namespace FSO.Files.FAR1
             
             for (int i = 0; i < m_NumFiles; i++)
             {
-                FarEntry Entry = new FarEntry();
+                var Entry = new FarEntry();
                 Entry.DataLength = m_Reader.ReadInt32();
                 Entry.DataLength2 = m_Reader.ReadInt32();
                 Entry.DataOffset = m_Reader.ReadInt32();
@@ -86,7 +86,7 @@ namespace FSO.Files.FAR1
         /// <returns>A FarEntry or null if the entry wasn't found.</returns>
         public byte[] GetEntry(KeyValuePair<string, byte[]> Entry)
         {
-            foreach (FarEntry Ent in m_Entries)
+            foreach (var Ent in m_Entries)
             {
                 if (Ent.Filename == Entry.Key)
                 {
@@ -105,7 +105,7 @@ namespace FSO.Files.FAR1
         /// <returns>The entry's data.</returns>
         public byte[] GetEntry(FarEntry Entry)
         {
-            foreach (FarEntry Ent in m_Entries)
+            foreach (var Ent in m_Entries)
             {
                 if (Ent.Filename == Entry.Filename)
                 {
@@ -132,14 +132,14 @@ namespace FSO.Files.FAR1
         /// <returns>A List of KeyValuePair instances.</returns>
         public List<KeyValuePair<string, byte[]>> GetAllEntries()
         {
-            List<KeyValuePair<string, byte[]>> Entries = new List<KeyValuePair<string,byte[]>>();
+            var Entries = new List<KeyValuePair<string,byte[]>>();
 
-            foreach (FarEntry Entry in m_Entries)
+            foreach (var Entry in m_Entries)
             {
                 m_Reader.BaseStream.Seek(Entry.DataOffset, SeekOrigin.Begin);
                 byte[] Data = m_Reader.ReadBytes(Entry.DataLength);
 
-                KeyValuePair<string, byte[]> KvP = new KeyValuePair<string, byte[]>(Entry.Filename, Data);
+                var KvP = new KeyValuePair<string, byte[]>(Entry.Filename, Data);
                 Entries.Add(KvP);
             }
 

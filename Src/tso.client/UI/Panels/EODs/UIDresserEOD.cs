@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework.Parser;
 using Microsoft.Xna.Framework.Graphics;
@@ -56,7 +53,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         void InitUI()
         {
-            Script = this.RenderScript("dressereod.uis");
+            Script = RenderScript("dressereod.uis");
             Background = Script.Create<UIImage>("controlBackgroundPos");
             Background.Texture = imageBackgroundDay;
             AddAt(0, Background);

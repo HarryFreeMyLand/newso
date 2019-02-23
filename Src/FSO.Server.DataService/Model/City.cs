@@ -1,11 +1,6 @@
 ﻿using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Framework.Attributes;
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Model
 {
@@ -14,20 +9,20 @@ namespace FSO.Common.DataService.Model
         [Key]
         public uint City_Id { get; set; } //unused
 
-        private ImmutableList<bool> _City_ReservedLotVector;
+        ImmutableList<bool> _City_ReservedLotVector;
         public ImmutableList<bool> City_ReservedLotVector {
             get { return _City_ReservedLotVector; }
             set { _City_ReservedLotVector = value; NotifyPropertyChanged("City_ReservedLotVector"); }
         }
 
-        private ImmutableList<bool> _City_OnlineLotVector;
+        ImmutableList<bool> _City_OnlineLotVector;
         public ImmutableList<bool> City_OnlineLotVector
         {
             get { return _City_OnlineLotVector; }
             set { _City_OnlineLotVector = value; NotifyPropertyChanged("City_OnlineLotVector"); }
         }
 
-        private ImmutableList<uint> _City_TopTenNeighborhoodsVector;
+        ImmutableList<uint> _City_TopTenNeighborhoodsVector;
         public ImmutableList<uint> City_TopTenNeighborhoodsVector
         {
             get { return _City_TopTenNeighborhoodsVector; }
@@ -36,21 +31,21 @@ namespace FSO.Common.DataService.Model
 
         //City_LotDBIDByInstanceID map
 
-        private ImmutableList<uint> _City_NeighborhoodsVec;
+        ImmutableList<uint> _City_NeighborhoodsVec;
         public ImmutableList<uint> City_NeighborhoodsVec
         {
             get { return _City_NeighborhoodsVec; }
             set { _City_NeighborhoodsVec = value; NotifyPropertyChanged("City_NeighborhoodsVec"); }
         }
 
-        private ImmutableDictionary<uint, bool> _City_ReservedLotInfo;
+        ImmutableDictionary<uint, bool> _City_ReservedLotInfo;
         public ImmutableDictionary<uint, bool> City_ReservedLotInfo
         {
             get { return _City_ReservedLotInfo; }
             set { _City_ReservedLotInfo = value; NotifyPropertyChanged("City_ReservedLotInfo"); }
         }
 
-        private ImmutableList<uint> _City_SpotlightsVector;
+        ImmutableList<uint> _City_SpotlightsVector;
         public ImmutableList<uint> City_SpotlightsVector
         {
             get { return _City_SpotlightsVector; }
@@ -59,7 +54,7 @@ namespace FSO.Common.DataService.Model
 
         //City_LotInstanceIDByDBID map
 
-        private ImmutableList<uint> _City_Top100ListIDs;
+        ImmutableList<uint> _City_Top100ListIDs;
         public ImmutableList<uint> City_Top100ListIDs
         {
             get { return _City_Top100ListIDs; }

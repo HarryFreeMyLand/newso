@@ -7,14 +7,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.SimAntics.Model;
 using Microsoft.Xna.Framework;
 using FSO.LotView.Model;
 using FSO.Files.Formats.IFF.Chunks;
-using FSO.LotView.Components;
-using FSO.Vitaboy;
-using FSO.SimAntics.Utils;
 using FSO.Common.Utils;
 using FSO.SimAntics.Engine.Routing;
 using FSO.SimAntics.Model.Routing;
@@ -51,39 +47,39 @@ namespace FSO.SimAntics.Engine
     public class VMRoutingFrame : VMStackFrame
     {
 
-        private static ushort ROUTE_FAIL_TREE = 398;
-        private static uint GOTO_GUID = 0x000007C4;
-        private static short SHOO_INTERACTION = 3;
-        private static ushort SHOO_TREE = 4107;
+            static ushort ROUTE_FAIL_TREE = 398;
+            static uint GOTO_GUID = 0x000007C4;
+            static short SHOO_INTERACTION = 3;
+            static ushort SHOO_TREE = 4107;
 
         //each within-room route gets these allowances separately.
-        private static int WAIT_TIMEOUT = 10 * 30; //10 seconds
-        private static int MAX_RETRIES = 5;
+            static int WAIT_TIMEOUT = 10 * 30; //10 seconds
+            static int MAX_RETRIES = 5;
 
-        private Stack<VMRoomPortal> Rooms = new Stack<VMRoomPortal>();
-        private VMRoomPortal CurrentPortal;
+            Stack<VMRoomPortal> Rooms = new Stack<VMRoomPortal>();
+            VMRoomPortal CurrentPortal;
 
         public LinkedList<Point> WalkTo;
-        private double WalkDirection;
-        private double TargetDirection;
-        private bool IgnoreRooms;
+            double WalkDirection;
+            double TargetDirection;
+            bool IgnoreRooms;
 
         public VMRoutingFrameState State = VMRoutingFrameState.INITIAL;
         public int PortalTurns = 0;
         public int WaitTime = 0;
-        private int Timeout = WAIT_TIMEOUT;
-        private int Retries = MAX_RETRIES;
+            int Timeout = WAIT_TIMEOUT;
+            int Retries = MAX_RETRIES;
 
-        private bool AttemptedChair = false;
-        private float TurnTweak = 0;
-        private int TurnFrames = 0;
+            bool AttemptedChair = false;
+            float TurnTweak = 0;
+            int TurnFrames = 0;
 
-        private int MoveTotalFrames = 0;
-        private int MoveFrames = 0;
-        private int Velocity = 0;
-        private VMRoutingFrame ParentRoute;
+            int MoveTotalFrames = 0;
+            int MoveFrames = 0;
+            int Velocity = 0;
+            VMRoutingFrame ParentRoute;
 
-        private short WalkStyle
+            short WalkStyle
         {
             get
             {
@@ -95,7 +91,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private bool InPool
+            bool InPool
         {
             get
             {
@@ -105,22 +101,22 @@ namespace FSO.SimAntics.Engine
 
         public bool CallFailureTrees = false;
 
-        private HashSet<VMRoomPortal> IgnoredRooms = new HashSet<VMRoomPortal>();
-        private HashSet<VMAvatar> AvatarsToConsider = new HashSet<VMAvatar>();
+            HashSet<VMRoomPortal> IgnoredRooms = new HashSet<VMRoomPortal>();
+            HashSet<VMAvatar> AvatarsToConsider = new HashSet<VMAvatar>();
 
-        private LotTilePos PreviousPosition;
-        private LotTilePos CurrentWaypoint = LotTilePos.OUT_OF_WORLD;
+            LotTilePos PreviousPosition;
+            LotTilePos CurrentWaypoint = LotTilePos.OUT_OF_WORLD;
 
-        private bool RoomRouteInvalid;
-        private SLOTItem Slot;
-        private VMEntity Target;
-        private List<VMFindLocationResult> Choices;
-        private VMFindLocationResult CurRoute;
-        private short LastWalkStyle = -1;
+            bool RoomRouteInvalid;
+            SLOTItem Slot;
+            VMEntity Target;
+            List<VMFindLocationResult> Choices;
+            VMFindLocationResult CurRoute;
+            short LastWalkStyle = -1;
 
         public VMRoutingFrame() { }
         
-        private void Init()
+            void Init()
         {
             ParentRoute = GetParentFrame();
             if (ParentRoute != null)
@@ -203,7 +199,7 @@ namespace FSO.SimAntics.Engine
             if (found != VMRouteFailCode.Success) HardFail(code, blocker);
         }
 
-        private void HardFail(VMRouteFailCode code, VMEntity blocker)
+            void HardFail(VMRouteFailCode code, VMEntity blocker)
         {
             State = VMRoutingFrameState.FAILED;
             var avatar = (VMAvatar)Caller;
@@ -215,7 +211,7 @@ namespace FSO.SimAntics.Engine
             avatar.SetPersonData(VMPersonDataVariable.RouteResult, (short)code);
         }
 
-        private bool DoRoomRoute(VMFindLocationResult route)
+            bool DoRoomRoute(VMFindLocationResult route)
         {
             Rooms = new Stack<VMRoomPortal>();
 
@@ -304,7 +300,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private VMRouteFailCode AttemptRoute(VMFindLocationResult route) { //returns false if there is no room portal route to the destination room.
+            VMRouteFailCode AttemptRoute(VMFindLocationResult route) { //returns false if there is no room portal route to the destination room.
                                                                            //if route is not null, we are on a DIRECT route, where either the SLOT has been resolved or a route has already been passed to us.
                                                                            //resets some variables either way, so that the route can start again.
             if (LastWalkStyle != -1) WalkStyle = LastWalkStyle;
@@ -325,7 +321,7 @@ namespace FSO.SimAntics.Engine
         /// <summary>
         /// Pathfinds to the destination position from the current. The room pathfind should get us to the same room before we do this.
         /// </summary>
-        private bool AttemptWalk() 
+            bool AttemptWalk() 
         {
             //find shortest path to destination tile. Simple A* pathfind.
             //portals are used to traverse floors, so we do not care about the floor each point is on.
@@ -335,8 +331,8 @@ namespace FSO.SimAntics.Engine
             CurrentWaypoint = CurRoute.Position;
             WalkTo = null;
 
-            var startPoint = new Point((int)startPos.x, (int)startPos.y);
-            var endPoint = new Point((int)CurRoute.Position.x, (int)CurRoute.Position.y);
+            var startPoint = new Point(startPos.x, startPos.y);
+            var endPoint = new Point(CurRoute.Position.x, CurRoute.Position.y);
 
             if (startPoint == endPoint)
             {
@@ -394,7 +390,7 @@ namespace FSO.SimAntics.Engine
             return (WalkTo != null);
         }
 
-        private void OpenSetSortedInsert(List<VMRoomPortal> set, Dictionary<VMRoomPortal, double> fScore, VMRoomPortal portal)
+            void OpenSetSortedInsert(List<VMRoomPortal> set, Dictionary<VMRoomPortal, double> fScore, VMRoomPortal portal)
         {
             var myScore = fScore[portal];
             for (int i = 0; i < set.Count; i++)
@@ -408,12 +404,12 @@ namespace FSO.SimAntics.Engine
             set.Add(portal);
         }
 
-        private double GetDist(LotTilePos pos1, LotTilePos pos2)
+            double GetDist(LotTilePos pos1, LotTilePos pos2)
         {
             return Math.Sqrt(Math.Pow(pos1.x - pos2.x, 2) + Math.Pow(pos1.y - pos2.y, 2))/16.0 + Math.Abs(pos1.Level-pos2.Level)*10;
         }
 
-        private bool PushEntryPoint(int entryPoint, VMEntity ent) {
+            bool PushEntryPoint(int entryPoint, VMEntity ent) {
             if (ent.EntryPoints[entryPoint].ActionFunction != 0)
             {
                 bool Execute;
@@ -677,7 +673,7 @@ namespace FSO.SimAntics.Engine
 
                             var anims = InPool ? avatar.SwimAnimations : avatar.WalkAnimations;
 
-                            var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(anims[3] + ".anim");
+                            var animation = Content.GameContent.Get.AvatarAnimations.Get(anims[3] + ".anim");
                             var state = new VMAnimationState(animation, false);
                             state.Loop = true;
                             avatar.Animations.Add(state);
@@ -891,7 +887,7 @@ namespace FSO.SimAntics.Engine
             return VMPrimitiveExitCode.GOTO_FALSE; //???
         }
 
-        private void PreExit()
+            void PreExit()
         {
             //about to exit the routing frame
             if (ParentRoute == null)
@@ -920,7 +916,7 @@ namespace FSO.SimAntics.Engine
             if (LastWalkStyle != -1) WalkStyle = LastWalkStyle;
         }
 
-        private bool CanShooAvatar(VMAvatar avatar)
+            bool CanShooAvatar(VMAvatar avatar)
         {
             VMRoutingFrame topRoute = null;
             //look for top frame
@@ -958,7 +954,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private VMRoutingFrame GetParentFrame()
+            VMRoutingFrame GetParentFrame()
         {
             //look for parent frame
             for (int i = Thread.Stack.Count - 2; i >= 0; i--)
@@ -973,14 +969,14 @@ namespace FSO.SimAntics.Engine
             return null;
         }
 
-        private bool CanPortalTurn()
+            bool CanPortalTurn()
         {
             var rf = ParentRoute;
             if (rf == null) rf = this;
             return (rf.State != VMRoutingFrameState.ROOM_PORTAL || rf.PortalTurns++ == 0);
         }
 
-        private void AutoWalkSpeed()
+            void AutoWalkSpeed()
         {
             LastWalkStyle = WalkStyle;
             var dist = ((CurRoute?.Position ?? Target.Position) - Caller.Position).ToVector3().Length();
@@ -990,7 +986,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private void BeginWalk()
+            void BeginWalk()
         { //faces the avatar towards the initial walk direction and begins walking.
             WalkDirection = Caller.RadianDirection;
             var directionDiff = DirectionUtils.Difference(Caller.RadianDirection, TargetDirection);
@@ -1010,7 +1006,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private bool EndWalk() //returns true if we should exit immediately.
+            bool EndWalk() //returns true if we should exit immediately.
         {
             var avatar = (VMAvatar)Caller;
             WalkDirection = Caller.RadianDirection;
@@ -1031,7 +1027,7 @@ namespace FSO.SimAntics.Engine
             return false;
         }
 
-        private bool Turn(double directionDiff)
+            bool Turn(double directionDiff)
         {
             var obj = (VMAvatar)Caller;
             int off = (directionDiff > 0) ? 0 : 1;
@@ -1068,7 +1064,7 @@ namespace FSO.SimAntics.Engine
             return true;
         }
 
-        private void StartWalkAnimation()
+            void StartWalkAnimation()
         {
             var obj = (VMAvatar)Caller;
             var pool = VM.Context.RoomInfo[VM.Context.GetRoomAt(Caller.Position)].Room.IsPool;
@@ -1098,15 +1094,15 @@ namespace FSO.SimAntics.Engine
             anim.Loop = true;
         }
 
-        private VMAnimationState PlayAnim(string name, VMAvatar avatar)
+            VMAnimationState PlayAnim(string name, VMAvatar avatar)
         {
-            var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(name + ".anim");
+            var animation = Content.GameContent.Get.AvatarAnimations.Get(name + ".anim");
             var state = new VMAnimationState(animation, false);
             avatar.Animations.Add(state);
             return state;
         }
 
-        private bool AdvanceWaypoint()
+            bool AdvanceWaypoint()
         {
             if (WalkTo.Count == 0) return false;
 

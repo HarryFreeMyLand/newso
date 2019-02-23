@@ -39,7 +39,7 @@ namespace FSO.Files.HIT
         private void ReadFile(Stream data)
         {
             Entries = new List<EVTEntry>();
-            BinaryReader Reader = new BinaryReader(data);
+            var Reader = new BinaryReader(data);
 
             string CommaSeparatedValues = new string(Reader.ReadChars((int)data.Length));
             string[] Lines = CommaSeparatedValues.Split(new string[] { "\r\n" }, StringSplitOptions.None);

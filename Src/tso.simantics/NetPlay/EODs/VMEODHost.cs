@@ -1,12 +1,7 @@
 ﻿using FSO.SimAntics.NetPlay.EODs.Handlers;
-using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.SimAntics.Primitives;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs
 {
@@ -77,8 +72,7 @@ namespace FSO.SimAntics.NetPlay.EODs
 
         public void Deliver(VMNetEODMessageCmd msg, VMAvatar avatar)
         {
-            VMEODServer server = null;
-            if (AvatarToEOD.TryGetValue(avatar.ObjectID, out server))
+            if (AvatarToEOD.TryGetValue(avatar.ObjectID, out var server))
             {
                 var avatarClient = server.Clients.FirstOrDefault(x => x.Avatar == avatar);
                 if (avatarClient != null)
@@ -90,8 +84,7 @@ namespace FSO.SimAntics.NetPlay.EODs
 
         public void SimanticsDeliver(short evt, VMEntity invoker)
         {
-            VMEODServer server = null;
-            if (InvokerToEOD.TryGetValue(invoker.ObjectID, out server))
+            if (InvokerToEOD.TryGetValue(invoker.ObjectID, out var server))
             {
                 var invokerClient = server.Clients.FirstOrDefault(x => x.Invoker == invoker);
                 if (invokerClient != null)
@@ -111,8 +104,7 @@ namespace FSO.SimAntics.NetPlay.EODs
 
         public void ForceDisconnectObj(VMEntity invoker)
         {
-            VMEODServer server = null;
-            if (InvokerToEOD.TryGetValue(invoker.ObjectID, out server))
+            if (InvokerToEOD.TryGetValue(invoker.ObjectID, out var server))
             {
                 var invokerClient = server.Clients.FirstOrDefault(x => x.Invoker == invoker);
                 if (invokerClient != null)
@@ -124,8 +116,7 @@ namespace FSO.SimAntics.NetPlay.EODs
 
         public void ForceDisconnect(VMAvatar avatar)
         {
-            VMEODServer server = null;
-            if (AvatarToEOD.TryGetValue(avatar.ObjectID, out server))
+            if (AvatarToEOD.TryGetValue(avatar.ObjectID, out var server))
             {
                 var avatarClient = server.Clients.FirstOrDefault(x => x.Avatar == avatar);
                 if (avatarClient != null)
@@ -137,10 +128,10 @@ namespace FSO.SimAntics.NetPlay.EODs
 
         public void ActionCancelDisconnect(VMAvatar avatar)
         {
-            VMEODServer server = null;
-            if (AvatarToEOD.TryGetValue(avatar.ObjectID, out server))
+            if (AvatarToEOD.TryGetValue(avatar.ObjectID, out var server))
             {
-                if (!server.CanBeActionCancelled) return;
+                if (!server.CanBeActionCancelled)
+                    return;
                 var avatarClient = server.Clients.FirstOrDefault(x => x.Avatar == avatar);
                 if (avatarClient != null)
                 {

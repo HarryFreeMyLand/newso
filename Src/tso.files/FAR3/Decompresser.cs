@@ -101,9 +101,9 @@ namespace FSO.Files.FAR3
 	            // compression for Big Files)
 	            const int QFS_MAXITER = 0x80;
 
-	            // contains the latest offset for a combination of two
-	            // characters
-	            Dictionary<int, ArrayList> cmpmap2 = new Dictionary<int, ArrayList>();
+                // contains the latest offset for a combination of two
+                // characters
+                var cmpmap2 = new Dictionary<int, ArrayList>();
 
 	            // will contain the compressed data (maximal size =
 	            // uncompressedSize+MAX_COPY_COUNT)
@@ -269,8 +269,8 @@ namespace FSO.Files.FAR3
 	            writeIndex += copyCount;
 	            lastReadIndex += copyCount;
 
-                MemoryStream DataStream = new MemoryStream();
-                BinaryWriter Writer = new BinaryWriter(DataStream);
+                var DataStream = new MemoryStream();
+                var Writer = new BinaryWriter(DataStream);
 
 	            // write the header for the compressed data
 	            // set the compressed size
@@ -303,8 +303,8 @@ namespace FSO.Files.FAR3
         public byte[] Decompress(byte[] Data)
         {
 
-            MemoryStream MemData = new MemoryStream(Data);
-            BinaryReader Reader = new BinaryReader(MemData);
+            var MemData = new MemoryStream(Data);
+            var Reader = new BinaryReader(MemData);
 
             if (Data.Length > 6)
             {

@@ -6,7 +6,7 @@ namespace FSO.Server.Servers.Tasks.Handlers
 {
     public class TaskEngineHandler
     {
-        private TaskEngine TaskEngine;
+        TaskEngine TaskEngine;
 
         public TaskEngineHandler(TaskEngine engine)
         {

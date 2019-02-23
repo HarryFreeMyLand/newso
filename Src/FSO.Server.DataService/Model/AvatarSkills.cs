@@ -1,10 +1,5 @@
 ﻿using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Framework.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Model
 {
@@ -13,7 +8,7 @@ namespace FSO.Common.DataService.Model
         [Key]
         public uint Avatar_Id { get; set; } //just used for client sync
 
-        private ushort _AvatarSkills_Logic;
+        ushort _AvatarSkills_Logic;
         public ushort AvatarSkills_Logic
         {
             get { return _AvatarSkills_Logic; }
@@ -24,7 +19,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_LockLv_Logic;
+        ushort _AvatarSkills_LockLv_Logic;
         public ushort AvatarSkills_LockLv_Logic
         {
             get { return _AvatarSkills_LockLv_Logic; }
@@ -35,7 +30,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_Body;
+        ushort _AvatarSkills_Body;
         public ushort AvatarSkills_Body
         {
             get { return _AvatarSkills_Body; }
@@ -46,7 +41,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_LockLv_Body;
+        ushort _AvatarSkills_LockLv_Body;
         public ushort AvatarSkills_LockLv_Body
         {
             get { return _AvatarSkills_LockLv_Body; }
@@ -57,7 +52,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_LockLv_Mechanical;
+        ushort _AvatarSkills_LockLv_Mechanical;
         public ushort AvatarSkills_LockLv_Mechanical
         {
             get { return _AvatarSkills_LockLv_Mechanical; }
@@ -68,7 +63,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_LockLv_Creativity;
+        ushort _AvatarSkills_LockLv_Creativity;
         public ushort AvatarSkills_LockLv_Creativity
         {
             get { return _AvatarSkills_LockLv_Creativity; }
@@ -79,7 +74,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_LockLv_Cooking;
+        ushort _AvatarSkills_LockLv_Cooking;
         public ushort AvatarSkills_LockLv_Cooking
         {
             get { return _AvatarSkills_LockLv_Cooking; }
@@ -90,7 +85,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_Cooking;
+        ushort _AvatarSkills_Cooking;
         public ushort AvatarSkills_Cooking
         {
             get { return _AvatarSkills_Cooking; }
@@ -101,7 +96,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_Charisma;
+        ushort _AvatarSkills_Charisma;
         public ushort AvatarSkills_Charisma
         {
             get { return _AvatarSkills_Charisma; }
@@ -112,7 +107,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_LockLv_Charisma;
+        ushort _AvatarSkills_LockLv_Charisma;
         public ushort AvatarSkills_LockLv_Charisma
         {
             get { return _AvatarSkills_LockLv_Charisma; }
@@ -123,7 +118,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_Mechanical;
+        ushort _AvatarSkills_Mechanical;
         public ushort AvatarSkills_Mechanical
         {
             get { return _AvatarSkills_Mechanical; }
@@ -134,7 +129,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private ushort _AvatarSkills_Creativity;
+        ushort _AvatarSkills_Creativity;
         public ushort AvatarSkills_Creativity
         {
             get { return _AvatarSkills_Creativity; }

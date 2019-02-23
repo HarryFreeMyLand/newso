@@ -30,14 +30,14 @@ namespace FSO.Server.DataService.Providers
             { LotCategory.welcome, 1 },
         };
 
-        private Dictionary<string, Lot> LotsByName = new Dictionary<string, Lot>();
+        Dictionary<string, Lot> LotsByName = new Dictionary<string, Lot>();
         public City CityRepresentation;
 
-        private IRealestateDomain GlobalRealestate;
-        private IShardRealestateDomain Realestate;
-        private int ShardId;
-        private IDAFactory DAFactory;
-        private IServerNFSProvider NFS;
+        IRealestateDomain GlobalRealestate;
+        IShardRealestateDomain Realestate;
+        int ShardId;
+        IDAFactory DAFactory;
+        IServerNFSProvider NFS;
 
         public ServerLotProvider([Named("ShardId")] int shardId, IRealestateDomain realestate, IDAFactory daFactory, IServerNFSProvider nfs)
         {
@@ -379,7 +379,7 @@ namespace FSO.Server.DataService.Providers
             }
         }
 
-        private void TryChangeLotName(Lot lot, string name)
+        void TryChangeLotName(Lot lot, string name)
         {
             using (var db = DAFactory.Get)
             {

@@ -23,7 +23,7 @@ namespace FSO.Server.DataService
 
     class ModelSerializerProvider : IProvider<IModelSerializer>
     {
-        private Content.GameContent Content;
+        Content.GameContent Content;
 
         public ModelSerializerProvider(Content.GameContent content)
         {
@@ -50,7 +50,7 @@ namespace FSO.Server.DataService
 
     class cTSOSerializerProvider : IProvider<cTSOSerializer>
     {
-        private Content.GameContent Content;
+        Content.GameContent Content;
 
         public cTSOSerializerProvider(Content.GameContent content)
         {

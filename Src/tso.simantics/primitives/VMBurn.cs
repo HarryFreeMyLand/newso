@@ -1,12 +1,9 @@
 ﻿using FSO.Files.Utils;
 using FSO.LotView.Model;
 using FSO.SimAntics.Engine;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.Primitives
 {
@@ -43,16 +40,16 @@ namespace FSO.SimAntics.Primitives
                     pos = new LotTilePos(context.StackObject.Position);
                     switch (context.StackObject.Direction)
                     {
-                        case FSO.LotView.Model.Direction.SOUTH:
+                        case Direction.SOUTH:
                             pos.y += 16;
                             break;
-                        case FSO.LotView.Model.Direction.WEST:
+                        case Direction.WEST:
                             pos.x -= 16;
                             break;
-                        case FSO.LotView.Model.Direction.EAST:
+                        case Direction.EAST:
                             pos.x += 16;
                             break;
-                        case FSO.LotView.Model.Direction.NORTH:
+                        case Direction.NORTH:
                             pos.y -= 16;
                             break;
                     }

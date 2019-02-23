@@ -7,14 +7,10 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Panels;
 using FSO.Client.UI.Model;
 using FSO.Client.UI.Controls;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using FSO.Client.Utils;
 using FSO.SimAntics;
 using FSO.HIT;
 using FSO.Vitaboy;
@@ -55,10 +51,10 @@ namespace FSO.Client.UI.Panels
             if (FSOEnvironment.UIZoomFactor>1.33f) ScaleX = ScaleY = FSOEnvironment.UIZoomFactor*0.75f;
             TrueScale = ScaleX *FSOEnvironment.DPIScaleFactor;
             m_PieButtons = new List<UIButton>();
-            this.m_Obj = obj;
-            this.m_Caller = caller;
-            this.m_Parent = parent;
-            this.ButtonStyle = new TextStyle
+            m_Obj = obj;
+            m_Caller = caller;
+            m_Parent = parent;
+            ButtonStyle = new TextStyle
             {
                 Font = GameFacade.MainFont,
                 Size = 12,
@@ -72,7 +68,7 @@ namespace FSO.Client.UI.Panels
 
             m_Bg = new UIImage(TextureGenerator.GetPieBG(GameFacade.GraphicsDevice));
             m_Bg.SetSize(0, 0); //is scaled up later
-            this.AddAt(0, m_Bg);
+            AddAt(0, m_Bg);
 
             m_PieTree = new UIPieMenuItem()
             {
@@ -201,7 +197,7 @@ namespace FSO.Client.UI.Panels
         {
             for (int i = 0; i < m_PieButtons.Count; i++) //remove previous buttons
             {
-                this.Remove(m_PieButtons[i]);
+                Remove(m_PieButtons[i]);
             }
             m_PieButtons.Clear();
 
@@ -244,7 +240,7 @@ namespace FSO.Client.UI.Panels
                     but.Y = (float)((Math.Cos(dir) * -60) - but.Size.Y / 2);
                 }
 
-                this.Add(but);
+                Add(but);
                 m_PieButtons.Add(but);
                 but.OnButtonClick += new ButtonClickDelegate(PieButtonClick);
                 but.OnButtonHover += new ButtonClickDelegate(PieButtonHover);
@@ -273,7 +269,7 @@ namespace FSO.Client.UI.Panels
                     but.Y = (float)(60 + but.Size.Y * ((i - 8) / 2 + 1));
                 }
 
-                this.Add(but);
+                Add(but);
                 m_PieButtons.Add(but);
                 but.OnButtonClick += new ButtonClickDelegate(PieButtonClick);
                 but.OnButtonHover += new ButtonClickDelegate(PieButtonHover);
@@ -295,7 +291,7 @@ namespace FSO.Client.UI.Panels
                 but.AutoMargins = 4;
                 but.X = (float)(- but.Width / 2);
                 but.Y = (float)(- but.Size.Y / 2);
-                this.Add(but);
+                Add(but);
                 m_PieButtons.Add(but);
                 but.OnButtonClick += new ButtonClickDelegate(BackButtonPress);
             }

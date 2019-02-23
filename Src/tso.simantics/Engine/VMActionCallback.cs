@@ -4,10 +4,7 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.Content;
 using FSO.SimAntics.Marshals.Threads;
@@ -17,16 +14,16 @@ namespace FSO.SimAntics.Engine
 {
     public class VMActionCallback
     {
-        private int type;
+            int type;
 
         //type 1 variables
-        private VMEntity Target;
-        private short Interaction;
-        private bool SetParam;
-        private VM vm;
-        private VMEntity StackObject;
-        private VMEntity Caller;
-        private bool IsTree; //true if we're calling a tree instead of an interaction number
+            VMEntity Target;
+            short Interaction;
+            bool SetParam;
+            VM vm;
+            VMEntity StackObject;
+            VMEntity Caller;
+            bool IsTree; //true if we're calling a tree instead of an interaction number
 
         public VMActionCallback(VM vm, short interactionNumber, VMEntity target, VMEntity stackObj, VMEntity caller, bool paramAsObjectID, bool isTree) //type 1: interaction callback
         {

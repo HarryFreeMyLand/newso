@@ -7,10 +7,7 @@
 using FSO.SimAntics.Model.Routing;
 using FSO.SimAntics.NetPlay.Model;
 using Microsoft.Xna.Framework;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using FSO.LotView.Model;
 
@@ -71,9 +68,9 @@ namespace FSO.SimAntics.Model
             return !equals(c1, c2);
         }
 
-        private static bool equals(VMRoomPortal c1, VMRoomPortal c2)
+            static bool equals(VMRoomPortal c1, VMRoomPortal c2)
         {
-            if ((object)c1 == (object)c2) return true;
+            if (c1 == (object)c2) return true;
             if ((object)c1 == null || (object)c2 == null) return false;
             return c1.ObjectID == c2.ObjectID && c1.TargetRoom == c2.TargetRoom;
         }

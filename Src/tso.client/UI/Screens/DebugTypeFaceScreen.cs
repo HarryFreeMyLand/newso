@@ -5,13 +5,8 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
-using FSO.Client.Utils;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using FSO.Common.Utils;
 
@@ -24,7 +19,7 @@ namespace FSO.Client.UI.Screens
             var msg = "The quick brown fox jumps over the lazy dog";
             var sizes = new int[] { 10, 12, 14, 16, 20 };
 
-            this.Add(new UILabel()
+            Add(new UILabel()
             {
                 X = 10.0f,
                 Y = 30.0f,
@@ -55,21 +50,21 @@ namespace FSO.Client.UI.Screens
                 origLine.SetSize(800.0f, 1.0f);
                 origLine.X = 10;
                 origLine.Y = yPosition;
-                this.Add(origLine);
+                Add(origLine);
 
 
                 var baseLine = new UIImage(redTexture);
                 baseLine.SetSize(800.0f, 1.0f);
                 baseLine.X = 10;
                 baseLine.Y = yPosition + label.CaptionStyle.BaselineOffset;
-                this.Add(baseLine);
+                Add(baseLine);
 
                 yPosition += (float)Math.Round(label.CaptionStyle.MeasureString(msg).Y);
                 yPosition += 20.0f;
-                this.Add(label);
+                Add(label);
             }
 
-            this.Add(new UILabel()
+            Add(new UILabel()
             {
                 X = 10.0f,
                 Y = yPosition + 30.0f,
@@ -109,7 +104,7 @@ namespace FSO.Client.UI.Screens
                     area.SetSize(800.0f, 50.0f);
                     area.X = 10;
                     area.Y = yPosition;
-                    this.Add(area);
+                    Add(area);
 
                     ///** Origin line **/
                     //var origLine = new UIImage(greenTexture);
@@ -127,7 +122,7 @@ namespace FSO.Client.UI.Screens
 
                     yPosition += 50.0f;//(float)Math.Round(label.CaptionStyle.MeasureString(msg).Y);
                     yPosition += 20.0f;
-                    this.Add(label);
+                    Add(label);
                 }
             }
 

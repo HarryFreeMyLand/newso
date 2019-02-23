@@ -3,10 +3,6 @@ using FSO.Common.DataService;
 using FSO.Common.DataService.Model;
 using FSO.Common.Enum;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -18,9 +14,9 @@ namespace FSO.Client.Controllers
 
         public GizmoController(UIGizmo view, Network.Network network, IClientDataService dataService)
         {
-            this.Gizmo = view;
-            this.Network = network;
-            this.DataService = dataService;
+            Gizmo = view;
+            Network = network;
+            DataService = dataService;
 
             Initialize();
         }

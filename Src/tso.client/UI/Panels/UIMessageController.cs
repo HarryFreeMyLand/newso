@@ -7,12 +7,8 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Microsoft.Xna.Framework.Graphics;
-using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Model;
-using FSO.Client.Utils;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.HIT;
 
@@ -43,7 +39,7 @@ namespace FSO.Client.UI.Panels
         {
             MessageWindows = new List<UIMessageGroup>();
             PendingEmails = new List<EmailStore>();
-            this.AddUpdateHook(new UpdateHookDelegate(MCUpdate));
+            AddUpdateHook(new UpdateHookDelegate(MCUpdate));
         }
 
         /// <summary>
@@ -98,7 +94,7 @@ namespace FSO.Client.UI.Panels
             {
                 var group = new UIMessageGroup(UIMessageType.Read, sender, this);
                 MessageWindows.Add(group);
-                this.Add(group);
+                Add(group);
 
                 group.SetEmail(subject, message);
             }
@@ -112,7 +108,7 @@ namespace FSO.Client.UI.Panels
         public void RemoveMessageGroup(UIMessageGroup grp)
         {
             MessageWindows.Remove(grp);
-            this.Remove(grp);
+            Remove(grp);
             ReorderIcons();
         }
 

@@ -4,12 +4,9 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Vitaboy;
-using FSO.SimAntics.Utils;
 using FSO.SimAntics.Marshals;
 
 namespace FSO.SimAntics.Model
@@ -39,7 +36,7 @@ namespace FSO.SimAntics.Model
             GetTimeProps();
         }
         
-        private void GetTimeProps()
+            void GetTimeProps()
         {
             var animation = Anim;
             foreach (var motion in animation.Motions)
@@ -79,7 +76,7 @@ namespace FSO.SimAntics.Model
 
         public virtual void Load(VMAnimationStateMarshal input)
         {
-            Anim = FSO.Content.GameContent.Get.AvatarAnimations.Get(input.Anim + ".anim");
+            Anim = Content.GameContent.Get.AvatarAnimations.Get(input.Anim + ".anim");
             CurrentFrame = input.CurrentFrame;
             EventQueue = new List<short>(input.EventQueue);
             EventsRun = input.EventsRun;

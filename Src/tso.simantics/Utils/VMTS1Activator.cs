@@ -9,8 +9,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static FSO.Files.Formats.IFF.Chunks.OBJM;
 
 namespace FSO.SimAntics.Utils
@@ -52,12 +50,12 @@ namespace FSO.SimAntics.Utils
             { 99, TerrainType.TS1Cloud }
         };
 
-        private VM VM;
-        private LotView.World World;
-        private Blueprint Blueprint;
-        private int Size;
-        private bool FlipRoad;
-        private short HouseNumber;
+            VM VM;
+            LotView.World World;
+            Blueprint Blueprint;
+            int Size;
+            bool FlipRoad;
+            short HouseNumber;
 
         public VMTS1Activator(VM vm, LotView.World world, short hn)
         {
@@ -181,8 +179,8 @@ namespace FSO.SimAntics.Utils
             for (int i = 0; i < objm.IDToOBJT.Length; i += 2)
             {
                 if (objm.IDToOBJT[i] == 0) continue;
-                MappedObject target;
-                if (!objm.ObjectData.TryGetValue(objm.IDToOBJT[i], out target)) continue;
+                if (!objm.ObjectData.TryGetValue(objm.IDToOBJT[i], out var target))
+                    continue;
                 var entry = objt.Entries[objm.IDToOBJT[i + 1] - 1];
                 target.Name = entry.Name;
                 target.GUID = entry.GUID;
@@ -202,8 +200,8 @@ namespace FSO.SimAntics.Utils
                     {
                         var x = i % 64;
                         var y = i / 64;
-                        MappedObject targ;
-                        if (!objm.ObjectData.TryGetValue(obj, out targ)) continue;
+                        if (!objm.ObjectData.TryGetValue(obj, out var targ))
+                            continue;
                         targ.ArryX = x;
                         targ.ArryY = y;
                         targ.ArryLevel = flr + 1;
@@ -297,7 +295,7 @@ namespace FSO.SimAntics.Utils
             return this.Blueprint;
         }
 
-        private bool[] ResizeFlags(byte[] flags, int size)
+            bool[] ResizeFlags(byte[] flags, int size)
         {
             //flag 1 = not sloped
             //flag 2 = ? (tends to be active alongside 4)
@@ -320,7 +318,7 @@ namespace FSO.SimAntics.Utils
             return result;
         }
 
-        private FloorTile[] ResizeFloors(FloorTile[] floors, int size)
+            FloorTile[] ResizeFloors(FloorTile[] floors, int size)
         {
             if (size >= 64) return floors;
             var result = new FloorTile[size * size];
@@ -339,7 +337,7 @@ namespace FSO.SimAntics.Utils
             return result;
         }
 
-        private WallTile[] ResizeWalls(WallTile[] walls, int size)
+            WallTile[] ResizeWalls(WallTile[] walls, int size)
         {
             if (size >= 64) return walls;
             var result = new WallTile[size * size];
@@ -357,7 +355,7 @@ namespace FSO.SimAntics.Utils
             return result;
         }
 
-        private byte[] ResizeGrass(byte[] data, int size)
+            byte[] ResizeGrass(byte[] data, int size)
         {
             if (size >= 64) return data;
             var result = new byte[size * size];
@@ -375,7 +373,7 @@ namespace FSO.SimAntics.Utils
             return result;
         }
 
-        private byte[] DecodeHeights(byte[] heights)
+            byte[] DecodeHeights(byte[] heights)
         {
             var result = new byte[heights.Length / 4];
             int j = 0;
@@ -386,7 +384,7 @@ namespace FSO.SimAntics.Utils
             return result;
         }
 
-        private FloorTile[] RemapFloors(FloorTile[] floors, Dictionary<byte, ushort> dict, byte[] flags)
+            FloorTile[] RemapFloors(FloorTile[] floors, Dictionary<byte, ushort> dict, byte[] flags)
         {
             for (int i=0; i<floors.Length; i++)
             {
@@ -400,8 +398,7 @@ namespace FSO.SimAntics.Utils
                 }
                 if (floor.Pattern != 0 && ((flags[i] & 32) == 0) || floor.Pattern > 30)
                 {
-                    ushort newID;
-                    if (dict.TryGetValue((byte)floor.Pattern, out newID))
+                    if (dict.TryGetValue((byte)floor.Pattern, out var newID))
                     {
                         floors[i].Pattern = newID;
                     }
@@ -410,7 +407,7 @@ namespace FSO.SimAntics.Utils
             return floors;
         }
 
-        private WallTile[] RemapWalls(WallTile[] walls, Dictionary<byte, ushort> dict, Dictionary<byte, ushort> floorDict)
+            WallTile[] RemapWalls(WallTile[] walls, Dictionary<byte, ushort> dict, Dictionary<byte, ushort> floorDict)
         {
             for (int i = 0; i < walls.Length; i++)
             {
@@ -457,42 +454,42 @@ namespace FSO.SimAntics.Utils
             return walls;
         }
 
-        private Dictionary<byte, ushort> BuildFloorDict (List<WALmEntry> entries)
+            Dictionary<byte, ushort> BuildFloorDict (List<WALmEntry> entries)
         {
             var c = Content.GameContent.Get.WorldFloors.DynamicFloorFromID;
             var result = new Dictionary<byte, ushort>();
             foreach (var entry in entries)
             {
-                ushort newID;
-                if (c.TryGetValue(new string(entry.Name.TakeWhile(x => x != '.').ToArray()).ToLowerInvariant(), out newID)) {
+                if (c.TryGetValue(new string(entry.Name.TakeWhile(x => x != '.').ToArray()).ToLowerInvariant(), out var newID))
+                {
                     result[entry.ID] = newID;
                 }
             }
             return result;
         }
 
-        private Dictionary<byte, ushort> BuildWallDict(List<WALmEntry> entries)
+            Dictionary<byte, ushort> BuildWallDict(List<WALmEntry> entries)
         {
             var c = Content.GameContent.Get.WorldWalls.DynamicWallFromID;
             var result = new Dictionary<byte, ushort>();
             foreach (var entry in entries)
             {
-                ushort newID;
-                if (c.TryGetValue(new string(entry.Name.TakeWhile(x => x != '.').ToArray()).ToLowerInvariant(), out newID)) {
+                if (c.TryGetValue(new string(entry.Name.TakeWhile(x => x != '.').ToArray()).ToLowerInvariant(), out var newID))
+                {
                     result[entry.ID] = newID;
                 }
             }
             return result;
         }
 
-        private TerrainComponent CreateTerrain(int size)
+            TerrainComponent CreateTerrain(int size)
         {
             var terrain = new TerrainComponent(new Rectangle(0, 0, size, size), Blueprint);
             this.InitWorldComponent(terrain);
             return terrain;
         }
 
-        private void InitWorldComponent(WorldComponent component)
+            void InitWorldComponent(WorldComponent component)
         {
             component.Initialize(this.World.State.Device, this.World.State);
         }
@@ -540,12 +537,12 @@ namespace FSO.SimAntics.Utils
                 var tile = new WallTile
                 {
                     Segments = (WallSegments)data[i],
-                    TopLeftStyle = (ushort)(data[i + 2]),
-                    TopRightStyle = (ushort)(data[i + 3]),
-                    TopLeftPattern = (ushort)(data[i + 4]),
-                    TopRightPattern = (ushort)(data[i + 5]),
-                    BottomLeftPattern = (ushort)(data[i + 6]),
-                    BottomRightPattern = (ushort)(data[i + 7])
+                    TopLeftStyle = data[i + 2],
+                    TopRightStyle = data[i + 3],
+                    TopLeftPattern = data[i + 4],
+                    TopRightPattern = data[i + 5],
+                    BottomLeftPattern = data[i + 6],
+                    BottomRightPattern = data[i + 7]
                 };
 
                 if ((tile.Segments & WallSegments.AnyDiag) == 0) {

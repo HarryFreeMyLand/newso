@@ -29,14 +29,14 @@ namespace FSO.Files.HIT
         /// <param name="Filedata">The data to create the tracklogic instance from.</param>
         public TLO(byte[] Filedata)
         {
-            BinaryReader Reader = new BinaryReader(new MemoryStream(Filedata));
+            var Reader = new BinaryReader(new MemoryStream(Filedata));
 
             Reader.ReadBytes(4); //Reserved.
             m_Count = Reader.ReadUInt32();
 
             for (int i = 0; i < m_Count; i++)
             {
-                TLOSection Section = new TLOSection();
+                var Section = new TLOSection();
                 Section.Name = new string(Reader.ReadChars(Reader.ReadInt32()));
                 Section.GroupID1 = Reader.ReadUInt32();
                 Section.FileID1 = Reader.ReadUInt32();
@@ -58,14 +58,14 @@ namespace FSO.Files.HIT
         /// <param name="Filepath">The path to the tracklogic file to read.</param>
         public TLO(string Filepath)
         {
-            BinaryReader Reader = new BinaryReader(File.Open(Filepath, FileMode.Open, FileAccess.Read, FileShare.Read));
+            var Reader = new BinaryReader(File.Open(Filepath, FileMode.Open, FileAccess.Read, FileShare.Read));
 
             Reader.ReadBytes(4); //Reserved.
             m_Count = Reader.ReadUInt32();
 
             for (int i = 0; i < m_Count; i++)
             {
-                TLOSection Section = new TLOSection();
+                var Section = new TLOSection();
                 Section.Name = new string(Reader.ReadChars(Reader.ReadInt32()));
                 Section.GroupID1 = Reader.ReadUInt32();
                 Section.FileID1 = Reader.ReadUInt32();

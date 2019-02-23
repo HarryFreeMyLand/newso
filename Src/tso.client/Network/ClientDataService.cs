@@ -4,16 +4,13 @@ using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using FSO.Server.DataService.Model;
 using FSO.Server.Protocol.Voltron.Packets;
 using FSO.Common.Serialization.Primitives;
 using FSO.Server.Clients;
 using FSO.Common.Security;
-using System.Threading;
 using FSO.Common.DataService.Framework;
-using FSO.Client;
 using FSO.Common.Utils;
 using FSO.Common.DataService.Providers.Client;
 using FSO.Client.Network;
@@ -246,7 +243,7 @@ namespace FSO.Common.DataService
 
                 if (dataPacket.Body is cTSOTopicUpdateMessage)
                 {
-                    this.ApplyUpdate((cTSOTopicUpdateMessage)dataPacket.Body, NullSecurityContext.INSTANCE);
+                    ApplyUpdate((cTSOTopicUpdateMessage)dataPacket.Body, NullSecurityContext.INSTANCE);
                 }
 
                 if (PendingCallbacks.ContainsKey(dataPacket.SendingAvatarID)) {
@@ -309,9 +306,8 @@ namespace FSO.Common.DataService
         {
             foreach (var topic in topics)
             {
-                if (topic is EntityMaskTopic)
+                if (topic is EntityMaskTopic entityMaskTopic)
                 {
-                    var entityMaskTopic = (EntityMaskTopic)topic;
                     Request(entityMaskTopic.Mask, entityMaskTopic.EntityId);
                 }
             }
@@ -379,9 +375,8 @@ namespace FSO.Common.DataService
             var result = base.Get(provider, key);
             return result.ContinueWith(x =>
             {
-                if(x.Result is IModel)
+                if (x.Result is IModel model)
                 {
-                    var model = (IModel)x.Result;
                     if (model.RequestDefaultData)
                     {
                         model.RequestDefaultData = false;
@@ -408,9 +403,9 @@ namespace FSO.Common.DataService
 
         public PendingDataRequest(uint messageId, IClientDataService ds, Task<object> resolver)
         {
-            this.MessageId = messageId;
-            this.DataService = ds;
-            this.Resolver = resolver;
+            MessageId = messageId;
+            DataService = ds;
+            Resolver = resolver;
         }
 
         public Task<object> Task

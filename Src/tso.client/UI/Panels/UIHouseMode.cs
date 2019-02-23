@@ -6,7 +6,6 @@ http://mozilla.org/MPL/2.0/.
 
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Common;
 using FSO.Common.Utils;
 using FSO.SimAntics.Model;
 using Microsoft.Xna.Framework;
@@ -15,7 +14,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.HIT;
@@ -58,20 +56,20 @@ namespace FSO.Client.UI.Panels
         public UIHouseMode(UILotControl lotController)
         {
             var useSmall = true;  //(FSOEnvironment.UIZoomFactor > 1f || GlobalSettings.Default.GraphicsWidth < 1024);
-            var script = this.RenderScript("housepanel.uis");
+            var script = RenderScript("housepanel.uis");
 
             Background = new UIImage(GetTexture(useSmall ? (ulong)0x000000D800000002 : (ulong)0x0000018300000002))
             {
                 Y = 9
             };
             Background.BlockInput();
-            this.AddAt(0, Background);
+            AddAt(0, Background);
 
             Size = Background.Size.ToVector2()+new Vector2(0, 9);
 
             Divider = script.Create<UIImage>("Divider");
             Divider.Texture = DividerImage;
-            this.Add(Divider);
+            Add(Divider);
 
             BtnToMode = new Dictionary<UIButton, int>()
             {
@@ -119,7 +117,7 @@ namespace FSO.Client.UI.Panels
             {
                 if (Panel is IDisposable)
                     ((IDisposable)Panel)?.Dispose();
-                this.Remove(Panel);
+                Remove(Panel);
             }
             if (newPanel != CurrentPanel)
             {
@@ -160,7 +158,7 @@ namespace FSO.Client.UI.Panels
                         Panel.X = 225; //TODO: use uiscript positions
                         Panel.Y = 9;
                     }
-                    this.Add(Panel);
+                    Add(Panel);
                     CurrentPanel = newPanel;
                 }
             }
@@ -187,7 +185,7 @@ namespace FSO.Client.UI.Panels
     {
         public UIStatsPanel(UILotControl lotController)
         {
-            this.RenderScript("statisticspanel.uis");
+            RenderScript("statisticspanel.uis");
         }
     }
     
@@ -206,8 +204,8 @@ namespace FSO.Client.UI.Panels
 
         public UIRoommatesPanel(UILotControl lotController)
         {
-            this.LotControl = lotController;
-            var script = this.RenderScript("roommatespanel.uis");
+            LotControl = lotController;
+            var script = RenderScript("roommatespanel.uis");
             RoommateList = script.Create<UIRoommateCheckList>("RoommateList");
             RoommateList.OnCheckChange += RoommateList_OnCheckChange;
             Add(RoommateList);
@@ -315,7 +313,7 @@ namespace FSO.Client.UI.Panels
     {
         public UILogPanel(UILotControl lotController)
         {
-            this.RenderScript("logpanel.uis");
+            RenderScript("logpanel.uis");
         }
     }
 
@@ -358,21 +356,20 @@ namespace FSO.Client.UI.Panels
         UIAdmitList AdmitList;
         public UIAdmitBanPanel(UILotControl lotController)
         {
-            var script = this.RenderScript("admitbanpanel.uis");
+            var script = RenderScript("admitbanpanel.uis");
             foreach (var child in Children)
             {
-                if (child is UILabel)
+                if (child is UILabel label)
                 {
-                    var label = (UILabel)child;
                     label.CaptionStyle = label.CaptionStyle.Clone();
                     label.CaptionStyle.Shadow = true;
                     label.Alignment = TextAlignment.Right;
                 }
             }
             Background = script.Create<UIImage>("Background");
-            this.AddAt(0, Background);
+            AddAt(0, Background);
             AdmitList = script.Create<UIAdmitList>("AdmitInfoListSetup");
-            this.Add(AdmitList);
+            Add(AdmitList);
 
             AdmitAllButton.OnButtonClick += (btn) => { _Mode = 0; SetMode(true); };
             AdmitListButton.OnButtonClick += (btn) => { _Mode = 1; SetMode(true); };
@@ -383,9 +380,8 @@ namespace FSO.Client.UI.Panels
             NextPageButton.OnButtonClick += (btn) => ChangePage(1);
             AdmitList.OnAvatarClick += (id) =>
             {
-                if (UIScreen.Current is CoreGameScreen)
+                if (UIScreen.Current is CoreGameScreen cg)
                 {
-                    var cg = (CoreGameScreen)UIScreen.Current;
                     cg.PersonPage.FindController<PersonPageController>()?.Show(id);
                 }
             };
@@ -570,9 +566,9 @@ namespace FSO.Client.UI.Panels
 
         public UIBuildableAreaPanel(UILotControl lotController)
         {
-            var script = this.RenderScript("buildableareapanel.uis");
+            var script = RenderScript("buildableareapanel.uis");
             BuildableAreaBackground = script.Create<UIImage>("BuildableAreaBackground");
-            this.AddAt(0, BuildableAreaBackground);
+            AddAt(0, BuildableAreaBackground);
 
             Labels = new List<UILabel>()
             {

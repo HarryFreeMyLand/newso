@@ -1,14 +1,9 @@
 ﻿using FSO.Common.Rendering.Framework.Camera;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Client.Controllers;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.LotView;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Common;
 using FSO.Common.Rendering.Framework;
 using Microsoft.Xna.Framework.Input;
@@ -318,7 +313,7 @@ namespace FSO.Client.Rendering.City
             targHeight = Math.Max(city.InterpElevationAt(new Vector2(Position.X, Position.Z)), terrainHeight);
             CamHeight += (targHeight - CamHeight) * (1f - (float)Math.Pow(0.8f, 60f / FSOEnvironment.RefreshRate));
 
-            if (inCity && state.NewKeys.Contains(Microsoft.Xna.Framework.Input.Keys.Tab))
+            if (inCity && state.NewKeys.Contains(Keys.Tab))
             {
                 CameraMode = !CameraMode;
             }
@@ -382,7 +377,7 @@ namespace FSO.Client.Rendering.City
             else
             {
                 LastFP = false;
-                var md = state.MouseState.MiddleButton == Microsoft.Xna.Framework.Input.ButtonState.Pressed;
+                var md = state.MouseState.MiddleButton == ButtonState.Pressed;
 
                 if (_Zoomed != TerrainZoomMode.Lot && UserModZoom)
                 {

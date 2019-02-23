@@ -3,11 +3,6 @@ using FSO.Server.Clients.Framework;
 using FSO.Server.Protocol.Electron.Packets;
 using FSO.Server.Protocol.Voltron.Packets;
 using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Regulators
 {
@@ -17,8 +12,8 @@ namespace FSO.Client.Regulators
 
         public CreateASimRegulator([Named("City")] AriesClient cityClient)
         {
-            this.City = cityClient;
-            this.City.AddSubscriber(this);
+            City = cityClient;
+            City.AddSubscriber(this);
 
             AddState("Idle")
                 .Default()
@@ -38,11 +33,11 @@ namespace FSO.Client.Regulators
         }
 
         ~CreateASimRegulator(){
-            this.City.RemoveSubscriber(this);
+            City.RemoveSubscriber(this);
         }
 
         public void CreateSim(RSGZWrapperPDU packet){
-            this.AsyncProcessMessage(packet);
+            AsyncProcessMessage(packet);
         }
 
         protected override void OnAfterTransition(RegulatorState oldState, RegulatorState newState, object data)

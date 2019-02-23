@@ -1,12 +1,6 @@
 ﻿using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Screens;
-using FSO.Debug.Content;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Server.Clients;
 using Ninject;

@@ -4,12 +4,7 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Content.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Content.Codecs;
 using System.Text.RegularExpressions;
 using FSO.Content.Model;

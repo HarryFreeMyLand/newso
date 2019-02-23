@@ -2,18 +2,16 @@
 using FSO.SimAntics.Entities;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.SimAntics.Model
 {
     public class VMObjectQueries
     {
-        private VMContext Context;
-        private Dictionary<int, List<VMEntity>> TileToObjects = new Dictionary<int, List<VMEntity>>();
+            VMContext Context;
+            Dictionary<int, List<VMEntity>> TileToObjects = new Dictionary<int, List<VMEntity>>();
 
-        private Dictionary<uint, List<VMEntity>> ObjectsByGUID = new Dictionary<uint, List<VMEntity>>();
-        private Dictionary<short, List<VMEntity>> ObjectsByCategory = new Dictionary<short, List<VMEntity>>();
+            Dictionary<uint, List<VMEntity>> ObjectsByGUID = new Dictionary<uint, List<VMEntity>>();
+            Dictionary<short, List<VMEntity>> ObjectsByCategory = new Dictionary<short, List<VMEntity>>();
         public List<VMEntity> Avatars = new List<VMEntity>();
         public Dictionary<uint, VMAvatar> AvatarsByPersist = new Dictionary<uint, VMAvatar>();
         public Dictionary<uint, VMMultitileGroup> MultitileByPersist = new Dictionary<uint, VMMultitileGroup>();
@@ -31,7 +29,7 @@ namespace FSO.SimAntics.Model
             Context = context;
         }
 
-        private int GetOffest(LotTilePos pos)
+            int GetOffest(LotTilePos pos)
         {
             if (pos == LotTilePos.OUT_OF_WORLD) return -1;
             return pos.TileX + pos.TileY * Context.Architecture.Width + (pos.Level - 1) * Context.Architecture.Width * Context.Architecture.Height;
@@ -40,8 +38,7 @@ namespace FSO.SimAntics.Model
         public void RegisterObjectPos(VMEntity ent)
         {
             var off = GetOffest(ent.Position);
-            List<VMEntity> tile = null;
-            TileToObjects.TryGetValue(off, out tile);
+            TileToObjects.TryGetValue(off, out var tile);
             if (tile == null)
             {
                 tile = new List<VMEntity>();
@@ -53,8 +50,7 @@ namespace FSO.SimAntics.Model
         public void UnregisterObjectPos(VMEntity ent)
         {
             var off = GetOffest(ent.Position);
-            List<VMEntity> tile = null;
-            TileToObjects.TryGetValue(off, out tile);
+            TileToObjects.TryGetValue(off, out var tile);
             if (tile == null) return; //???
             tile.Remove(ent);
             if (tile.Count == 0) TileToObjects.Remove(off);
@@ -108,8 +104,7 @@ namespace FSO.SimAntics.Model
 
         public void RegisterCategory(VMEntity obj, short category)
         {
-            List<VMEntity> tile = null;
-            ObjectsByCategory.TryGetValue(category, out tile);
+            ObjectsByCategory.TryGetValue(category, out var tile);
             if (tile == null)
             {
                 tile = new List<VMEntity>();
@@ -121,8 +116,7 @@ namespace FSO.SimAntics.Model
 
         public void RemoveCategory(VMEntity obj, short category)
         {
-            List<VMEntity> tile = null;
-            ObjectsByCategory.TryGetValue(category, out tile);
+            ObjectsByCategory.TryGetValue(category, out var tile);
             if (tile == null) return; //???
             tile.Remove(obj);
             if (tile.Count == 0) ObjectsByCategory.Remove(category);
@@ -131,8 +125,7 @@ namespace FSO.SimAntics.Model
         public void NewObject(VMEntity obj)
         {
             var guid = obj.Object.OBJ.GUID;
-            List<VMEntity> list = null;
-            ObjectsByGUID.TryGetValue(guid, out list);
+            ObjectsByGUID.TryGetValue(guid, out var list);
             if (list == null)
             {
                 list = new List<VMEntity>();
@@ -151,8 +144,7 @@ namespace FSO.SimAntics.Model
         public void RemoveObject(VMEntity obj)
         {
             var guid = obj.Object.OBJ.GUID;
-            List<VMEntity> list = null;
-            ObjectsByGUID.TryGetValue(guid, out list);
+            ObjectsByGUID.TryGetValue(guid, out var list);
             if (list != null)
             {
                 list.Remove(obj);
@@ -178,22 +170,19 @@ namespace FSO.SimAntics.Model
         public List<VMEntity> GetObjectsAt(LotTilePos pos)
         {
             var off = GetOffest(pos);
-            List<VMEntity> tile = null;
-            TileToObjects.TryGetValue(off, out tile);
+            TileToObjects.TryGetValue(off, out var tile);
             return tile;
         }
 
         public List<VMEntity> GetObjectsByGUID(uint guid)
         {
-            List<VMEntity> tile = null;
-            ObjectsByGUID.TryGetValue(guid, out tile);
+            ObjectsByGUID.TryGetValue(guid, out var tile);
             return tile;
         }
 
         public List<VMEntity> GetObjectsByCategory(short category)
         {
-            List<VMEntity> tile = null;
-            ObjectsByCategory.TryGetValue(category, out tile);
+            ObjectsByCategory.TryGetValue(category, out var tile);
             return tile;
         }
     }

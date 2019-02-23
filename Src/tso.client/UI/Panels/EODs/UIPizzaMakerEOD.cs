@@ -5,11 +5,6 @@ using FSO.SimAntics;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {
@@ -46,7 +41,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         public UIPizzaMakerEOD(UIEODController controller) : base(controller)
         {
-            var script = this.RenderScript("pizzamakereod.uis");
+            var script = RenderScript("pizzamakereod.uis");
             Script = script;
 
             background = script.Create<UIImage>("background");

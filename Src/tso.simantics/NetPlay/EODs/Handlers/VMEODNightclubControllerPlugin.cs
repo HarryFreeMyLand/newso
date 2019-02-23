@@ -1,11 +1,7 @@
-﻿using FSO.SimAntics.NetPlay.EODs.Model;
-using FSO.SimAntics.NetPlay.Model;
-using FSO.SimAntics.NetPlay.Model.Commands;
+﻿using FSO.SimAntics.NetPlay.Model.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -186,7 +182,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return RoundTicks / (30 * 5 * 60f);
         }
 
-        private void RoundStartHandler(short evt, VMEODClient client)
+            void RoundStartHandler(short evt, VMEODClient client)
         {
             //init dance mode
             //random dancer pattern is set on tick
@@ -224,7 +220,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void RoundEndHandler(short evt, VMEODClient client)
+            void RoundEndHandler(short evt, VMEODClient client)
         {
             RoundTicks = -1;
         }

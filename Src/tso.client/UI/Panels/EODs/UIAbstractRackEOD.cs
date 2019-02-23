@@ -8,11 +8,7 @@ using FSO.SimAntics.Engine.TSOGlobalLink.Model;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.Vitaboy;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {
@@ -51,7 +47,7 @@ namespace FSO.Client.UI.Panels.EODs
 
         protected virtual void InitUI()
         {
-            Script = this.RenderScript(UIScriptPath);
+            Script = RenderScript(UIScriptPath);
             AddAt(0, Script.Create<UIImage>("controlBackground"));
 
             OutfitBrowser = Script.Create<UICollectionViewer>("OutfitBrowser");

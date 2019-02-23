@@ -5,10 +5,8 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Globalization;
 using FSO.SimAntics.Engine.Utils;
 using FSO.SimAntics.Primitives;
 using FSO.Files.Formats.IFF.Chunks;
@@ -19,7 +17,7 @@ namespace FSO.SimAntics.Engine
     public static class VMDialogHandler
     {
         //should use a Trie for this in future, for performance reasons
-        private static string[] valid = {
+            static string[] valid = {
             "Object", "Me", "TempXL:", "Temp:", "$", "Attribute:", "DynamicStringLocal:", "Local:", "TimeLocal:", "NameLocal:",
             "FixedLocal:", "DynamicObjectName", "MoneyXL:", "JobOffer:", "Job:", "JobDesc:", "Param:", "Neighbor", "\r\n", "ListObject",
             "CatalogLocal:", "\\n"
@@ -45,7 +43,7 @@ namespace FSO.SimAntics.Engine
             context.VM.SignalDialog(info);
         }
 
-        private static bool CommandSubstrValid(string command)
+            static bool CommandSubstrValid(string command)
         {
             for (int i = 0; i < valid.Length; i++)
             {
@@ -161,7 +159,7 @@ namespace FSO.SimAntics.Engine
                                     STR res = null;
                                     if (values[2] != -1 && values[1] != -1)
                                     {
-                                        VMEntity obj = context.VM.GetObjectById((short)context.Locals[values[2]]);
+                                        VMEntity obj = context.VM.GetObjectById(context.Locals[values[2]]);
                                         if (obj == null) break;
                                         ushort tableID = (ushort)context.Locals[values[1]];
 

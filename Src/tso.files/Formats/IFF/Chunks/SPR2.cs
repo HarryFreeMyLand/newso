@@ -246,7 +246,7 @@ namespace FSO.Files.Formats.IFF.Chunks
         {
             if (ToDecode != null && ((this.Flags & 0x02) == 0x02 && z && ZBufferData == null) || (!z && PixelData == null))
             {
-                using (IoBuffer buf = IoBuffer.FromStream(new MemoryStream(ToDecode), ByteOrder.LITTLE_ENDIAN))
+                using (var buf = IoBuffer.FromStream(new MemoryStream(ToDecode), ByteOrder.LITTLE_ENDIAN))
                 {
                     ReadDeferred(Version, buf);
                 }
@@ -619,14 +619,14 @@ namespace FSO.Files.Formats.IFF.Chunks
                     else
                     {
                         var dxt = TextureUtils.DXT5Compress(this.PixelData, this.Width, this.Height);
-                        result.SetData<byte>(dxt.Item1);
+                        result.SetData(dxt.Item1);
                     }
                 }
                 else
                 {
                     result = new CachableTexture2D(device, this.Width, this.Height, mip, SurfaceFormat.Color);
                     if (mip) TextureUtils.UploadWithMips(result, device, this.PixelData);
-                    else result.SetData<Color>(this.PixelData);
+                    else result.SetData(this.PixelData);
                 }
                 result.Tag = new TextureInfo(result, Width, Height);
                 PixelCache = new WeakReference<Texture2D>(result);
@@ -690,12 +690,12 @@ namespace FSO.Files.Formats.IFF.Chunks
                         dind += result.Width;
                     }
                     
-                    result.SetData<byte>(tempZ);
+                    result.SetData(tempZ);
                 }
                 else
                 {
                     result = new CachableTexture2D(device, this.Width, this.Height, false, SurfaceFormat.Alpha8);
-                    result.SetData<byte>(this.ZBufferData);
+                    result.SetData(this.ZBufferData);
                 }
                 ZCache = new WeakReference<Texture2D>(result);
                 if (TimedReferenceController.CurrentType == CacheType.PERMANENT) PermaRefZ = result;

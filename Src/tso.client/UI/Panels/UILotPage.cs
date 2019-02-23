@@ -1,6 +1,5 @@
 ﻿using FSO.Client.Controllers;
 using FSO.Client.Controllers.Panels;
-using FSO.Client.Model;
 using FSO.Client.Rendering.City;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
@@ -9,15 +8,10 @@ using FSO.Client.Utils;
 using FSO.Common.DataService.Model;
 using FSO.Common.Enum;
 using FSO.Common.Utils;
-using FSO.Files;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 
 namespace FSO.Client.UI.Panels
@@ -109,12 +103,12 @@ namespace FSO.Client.UI.Panels
             {
                 Texture = ContractedBackgroundImage
             };
-            this.AddAt(0, BackgroundContractedImage);
+            AddAt(0, BackgroundContractedImage);
             BackgroundExpandedImage = new UIImage
             {
                 Texture = ExpandedBackgroundImage
             };
-            this.AddAt(0, BackgroundExpandedImage);
+            AddAt(0, BackgroundExpandedImage);
 
             ContractButton.OnButtonClick += (x) => Open = false;
             ExpandButton.OnButtonClick += (x) => Open = true;

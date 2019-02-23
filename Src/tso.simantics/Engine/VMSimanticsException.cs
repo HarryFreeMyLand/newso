@@ -6,15 +6,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
 namespace FSO.SimAntics.Engine
 {
     public class VMSimanticsException : Exception
     {
-        private string message;
-        private VMStackFrame context;
+            string message;
+            VMStackFrame context;
         public VMSimanticsException(string message, VMStackFrame context) : base(message)
         {
             this.context = context;

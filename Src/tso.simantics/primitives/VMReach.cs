@@ -5,15 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Files.Utils;
-using FSO.SimAntics.Engine.Scopes;
-using FSO.SimAntics.Engine.Utils;
 using FSO.Vitaboy;
 using FSO.SimAntics.Model;
-using FSO.SimAntics.Utils;
 using FSO.SimAntics.Engine;
 using FSO.Files.Formats.IFF.Chunks;
 using System.IO;
@@ -70,7 +64,7 @@ namespace FSO.SimAntics.Primitives
             else animationName = "a2o-reach-tableht.anim";
 
 
-            var animation = FSO.Content.GameContent.Get.AvatarAnimations.Get(animationName);
+            var animation = Content.GameContent.Get.AvatarAnimations.Get(animationName);
             if (animation == null) {
                 return VMPrimitiveExitCode.GOTO_FALSE;
             }

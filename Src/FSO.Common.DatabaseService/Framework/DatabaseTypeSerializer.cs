@@ -14,11 +14,11 @@ namespace FSO.Common.DatabaseService.Framework
     {
         protected override void ScanAssembly(Assembly assembly)
         {
-            foreach (Type type in assembly.GetTypes())
+            foreach (var type in assembly.GetTypes())
             {
-                System.Attribute[] attributes = System.Attribute.GetCustomAttributes(type);
+                Attribute[] attributes = Attribute.GetCustomAttributes(type);
 
-                foreach (Attribute attribute in attributes)
+                foreach (var attribute in attributes)
                 {
                     if (attribute is DatabaseRequest)
                     {

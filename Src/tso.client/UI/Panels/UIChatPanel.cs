@@ -5,19 +5,14 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using FSO.LotView.Components;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.SimAntics;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Client.Utils;
 using FSO.Common.Utils;
 using FSO.SimAntics.NetPlay.Model;
 using FSO.Common;
@@ -57,7 +52,7 @@ namespace FSO.Client.UI.Panels
         public UIChatPanel(VM vm, UILotControl owner)
         {
             this.vm = vm;
-            this.Owner = owner;
+            Owner = owner;
 
             if (FSOEnvironment.SoftwareKeyboard)
             {
@@ -113,7 +108,7 @@ namespace FSO.Client.UI.Panels
                 Opacity = 0.8f
             };
             HistoryDialog.OnSendMessage += SendMessage;
-            this.Add(HistoryDialog);
+            Add(HistoryDialog);
 
             PropertyLog = new UIPropertyLog
             {
@@ -121,7 +116,7 @@ namespace FSO.Client.UI.Panels
                 Visible = false,
                 Opacity = 0.8f
             };
-            this.Add(PropertyLog);
+            Add(PropertyLog);
         }
 
         public void SetVisitorCount(int visitors)
@@ -208,11 +203,11 @@ namespace FSO.Client.UI.Panels
 
         public override void Update(UpdateState state)
         {
-            if (this.HistoryDialog.Opacity != GlobalSettings.Default.ChatWindowsOpacity)
+            if (HistoryDialog.Opacity != GlobalSettings.Default.ChatWindowsOpacity)
             {
                 var opacity = GlobalSettings.Default.ChatWindowsOpacity;
-                this.HistoryDialog.Opacity = opacity;
-                this.PropertyLog.Opacity = opacity;
+                HistoryDialog.Opacity = opacity;
+                PropertyLog.Opacity = opacity;
             }
             Inputs = state.InputManager;
             if (!VM.UseWorld || vm.FSOVAsyncLoading) return;

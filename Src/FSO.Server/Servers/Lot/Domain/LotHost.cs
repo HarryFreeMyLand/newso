@@ -24,18 +24,18 @@ namespace FSO.Server.Servers.Lot.Domain
 {
     public class LotHost
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private Dictionary<int, LotHostEntry> Lots = new Dictionary<int, LotHostEntry>();
-        private LotServerConfiguration Config;
-        private IDAFactory DAFactory;
-        private IKernel Kernel;
-        private IDataServiceSync<FSO.Common.DataService.Model.Lot> LotStatusSync;
-        private IDataServiceSync<FSO.Common.DataService.Model.Lot> LotRoomiesSync;
-        private CityConnections CityConnections;
+        Dictionary<int, LotHostEntry> Lots = new Dictionary<int, LotHostEntry>();
+        LotServerConfiguration Config;
+        IDAFactory DAFactory;
+        IKernel Kernel;
+        IDataServiceSync<FSO.Common.DataService.Model.Lot> LotStatusSync;
+        IDataServiceSync<FSO.Common.DataService.Model.Lot> LotRoomiesSync;
+        CityConnections CityConnections;
 
-        private bool AwaitingShutdown;
-        private TaskCompletionSource<bool> ShutdownWait = new TaskCompletionSource<bool>();
+        bool AwaitingShutdown;
+        TaskCompletionSource<bool> ShutdownWait = new TaskCompletionSource<bool>();
 
         public LotHost(LotServerConfiguration config, IDAFactory da, IKernel kernel, IDataServiceSyncFactory ds, CityConnections connections)
         {
@@ -193,7 +193,7 @@ namespace FSO.Server.Servers.Lot.Domain
         }
 
 
-        private LotHostEntry GetLot(IVoltronSession session)
+        LotHostEntry GetLot(IVoltronSession session)
         {
             var lotId = (int?)session.GetAttribute("currentLot");
             if (lotId == null)
@@ -210,7 +210,7 @@ namespace FSO.Server.Servers.Lot.Domain
             return null;
         }
 
-        private LotHostEntry GetLot(int id)
+        LotHostEntry GetLot(int id)
         {
             lock (Lots)
             {
@@ -316,28 +316,28 @@ namespace FSO.Server.Servers.Lot.Domain
 
     public class LotHostEntry : ILotHost
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
         //Partial model for syncing updates
-        private FSO.Common.DataService.Model.Lot Model;
-        private LotHost Host;
+        FSO.Common.DataService.Model.Lot Model;
+        LotHost Host;
 
         public LotContainer Container { get; internal set; }
-        private Dictionary<uint, IVoltronSession> _Visitors = new Dictionary<uint, IVoltronSession>();
+        Dictionary<uint, IVoltronSession> _Visitors = new Dictionary<uint, IVoltronSession>();
         public IGluonSession CityConnection;
-        private IKernel ParentKernel;
-        private IKernel Kernel;
+        IKernel ParentKernel;
+        IKernel Kernel;
 
-        private LotServerConfiguration Config;
-        private IDAFactory DAFactory;
+        LotServerConfiguration Config;
+        IDAFactory DAFactory;
 
-        private Thread MainThread;
-        private LotContext Context;
+        Thread MainThread;
+        LotContext Context;
 
-        private AutoResetEvent BackgroundNotify = new AutoResetEvent(false);
-        private Thread BackgroundThread;
-        private List<Callback> BackgroundTasks = new List<Callback>();
-        private bool ShuttingDown;
+        AutoResetEvent BackgroundNotify = new AutoResetEvent(false);
+        Thread BackgroundThread;
+        List<Callback> BackgroundTasks = new List<Callback>();
+        bool ShuttingDown;
 
         public LotHostEntry(LotHost host, IKernel kernel, IDAFactory da, LotServerConfiguration config)
         {
@@ -465,16 +465,16 @@ namespace FSO.Server.Servers.Lot.Domain
         }
 
         //timeout for the background thread recieving more tasks.
-        private static readonly int BACKGROUND_NOTIFY_TIMEOUT = 2000;
+        static readonly int BACKGROUND_NOTIFY_TIMEOUT = 2000;
         //the number of times recieving no background tasks after which we assume the main thread is stuck in an infinite loop.
-        private static readonly int BACKGROUND_TIMEOUT_ABANDON_COUNT = 4;
-        private static readonly int BACKGROUND_TIMEOUT_SECONDS = 30;
-        private uint LastTaskRecv = 0;
-        private int BgTimeoutExpiredCount = 0;
+        static readonly int BACKGROUND_TIMEOUT_ABANDON_COUNT = 4;
+        static readonly int BACKGROUND_TIMEOUT_SECONDS = 30;
+        uint LastTaskRecv = 0;
+        int BgTimeoutExpiredCount = 0;
         public uint LastActivity = Epoch.Now;
-        private bool BgAlive = true;
-        private bool BgKilled;
-        private void _DigestBackground()
+        bool BgAlive = true;
+        bool BgKilled;
+        void _DigestBackground()
         {
             try
             {
@@ -631,7 +631,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void SyncNumVisitors()
+        void SyncNumVisitors()
         {
             lock (_Visitors) Model.Lot_NumOccupants = (byte)_Visitors.Count;
             Host.Sync(Context, Model);

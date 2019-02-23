@@ -14,8 +14,8 @@ namespace FSO.Server
     /// </summary>
     public class ToolInitDatabase : ITool
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private IDAFactory DAFactory;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        IDAFactory DAFactory;
 
         public ToolInitDatabase(DatabaseInitOptions options, IDAFactory factory)
         {

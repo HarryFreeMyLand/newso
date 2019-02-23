@@ -6,15 +6,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
-using FSO.SimAntics.Engine.Utils;
-using FSO.SimAntics.Engine.Scopes;
-using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Model;
-using FSO.Content;
 using FSO.LotView.Model;
 using System.IO;
 
@@ -80,7 +73,7 @@ namespace FSO.SimAntics.Engine.Primitives
             int bestScore = int.MinValue;
             VMEntity bestObj = null;
 
-            var entry = VMFindBestObjectForFunction.FunctionToEntryPoint[operand.Function];
+            var entry = FunctionToEntryPoint[operand.Function];
             for (int i=0; i<entities.Count; i++) {
                 var ent = entities[i];
 
@@ -123,12 +116,13 @@ namespace FSO.SimAntics.Engine.Primitives
                         if (ScoreVar[operand.Function] != VMStackObjectVariable.Invalid) {
                             var funcVar = ScoreVar[operand.Function];
                             score = ent.GetValue(funcVar);
-                            short threshold;
                             if (context.VM.TS1 || funcVar != VMStackObjectVariable.RepairState)
                             {
-                                if (Thresholds.TryGetValue(funcVar, out threshold) && score < threshold) continue;
+                                if (Thresholds.TryGetValue(funcVar, out var threshold) && score < threshold)
+                                    continue;
                             }
-                            else if (ent is VMAvatar || !((Model.TSOPlatform.VMTSOObjectState)ent.TSOState).Broken) continue;
+                            else if (ent is VMAvatar || !((Model.TSOPlatform.VMTSOObjectState)ent.TSOState).Broken)
+                                continue;
                         }
 
                         LotTilePos posDiff = ent.Position - context.Caller.Position;

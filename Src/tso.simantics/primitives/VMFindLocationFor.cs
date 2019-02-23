@@ -5,13 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Model;
-using FSO.LotView.Components;
 using FSO.LotView.Model;
 using System.IO;
 
@@ -19,7 +15,7 @@ namespace FSO.SimAntics.Primitives
 {
     public class VMFindLocationFor : VMPrimitiveHandler
     {
-        private static LotTilePos[] DirectionVectors = {
+            static LotTilePos[] DirectionVectors = {
             new LotTilePos(0, 16, 0),
             new LotTilePos(-16, 16, 0),
             new LotTilePos(-16, 0, 0),
@@ -33,7 +29,7 @@ namespace FSO.SimAntics.Primitives
         public override VMPrimitiveExitCode Execute(VMStackFrame context, VMPrimitiveOperand args)
         {
             var operand = (VMFindLocationForOperand)args;
-            var refObj = (operand.UseLocalAsRef) ? context.VM.GetObjectById((short)context.Locals[operand.Local]) : context.Caller;
+            var refObj = (operand.UseLocalAsRef) ? context.VM.GetObjectById(context.Locals[operand.Local]) : context.Caller;
 
             var obj = context.StackObject;
             var flags = VMPlaceRequestFlags.AcceptSlots;

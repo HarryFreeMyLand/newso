@@ -1,7 +1,6 @@
 ﻿using FSO.Client.Model;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Client.Utils;
 using FSO.Common.DatabaseService;
 using FSO.Common.DatabaseService.Model;
 using FSO.Common.DataService;
@@ -13,14 +12,10 @@ using FSO.Server.DataService.Model;
 using FSO.Server.Protocol.Aries.Packets;
 using FSO.Server.Protocol.CitySelector;
 using FSO.Server.Protocol.Electron.Packets;
-using FSO.Server.Protocol.Voltron.DataService;
 using FSO.Server.Protocol.Voltron.Packets;
 using Ninject;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Regulators
 {
@@ -38,12 +33,12 @@ namespace FSO.Client.Regulators
 
         public CityConnectionRegulator(CityClient cityApi, [Named("City")] AriesClient cityClient, IDatabaseService db, IClientDataService ds, IKernel kernel, IShardsDomain shards)
         {
-            this.CityApi = cityApi;
-            this.Client = cityClient;
-            this.Client.AddSubscriber(this);
-            this.DB = db;
-            this.DataService = ds;
-            this.Shards = shards;
+            CityApi = cityApi;
+            Client = cityClient;
+            Client.AddSubscriber(this);
+            DB = db;
+            DataService = ds;
+            Shards = shards;
 
             AddState("Disconnected")
                 .Default()
@@ -123,9 +118,9 @@ namespace FSO.Client.Regulators
 
         public void Connect(CityConnectionMode mode, ShardSelectorServletRequest shard)
         {
-            if(shard.ShardName == null && this.CurrentShard != null)
+            if(shard.ShardName == null && CurrentShard != null)
             {
-                shard.ShardName = this.CurrentShard.ShardName;
+                shard.ShardName = CurrentShard.ShardName;
             }
             Mode = mode;
             if (CurrentState.Name != "Disconnected")
@@ -158,27 +153,27 @@ namespace FSO.Client.Regulators
                     var shard = data as ShardSelectorServletRequest;
                     if (shard == null)
                     {
-                        this.ThrowErrorAndReset(new Exception("Unknown parameter"));
+                        ThrowErrorAndReset(new Exception("Unknown parameter"));
                     }
 
-                    this.AsyncTransition("ConnectToCitySelector", shard);
+                    AsyncTransition("ConnectToCitySelector", shard);
                     break;
 
                 case "ConnectToCitySelector":
                     shard = data as ShardSelectorServletRequest;
                     CurrentShard = shard;
                     ShardSelectResponse = CityApi.ShardSelectorServlet(shard);
-                    this.AsyncProcessMessage(ShardSelectResponse);
+                    AsyncProcessMessage(ShardSelectResponse);
                     break;
 
                 case "CitySelected":
-                    this.AsyncProcessMessage(data);
+                    AsyncProcessMessage(data);
                     break;
 
                 case "OpenSocket":
                     var settings = data as ShardSelectorServletResponse;
                     if (settings == null){
-                        this.ThrowErrorAndReset(new Exception("Unknown parameter"));
+                        ThrowErrorAndReset(new Exception("Unknown parameter"));
                     }else{
                         //101 is plain
                         Client.Connect(settings.Address + "101");
@@ -317,7 +312,7 @@ namespace FSO.Client.Regulators
 
             if (message is RequestClientSession || 
                 message is HostOnlinePDU){
-                this.AsyncProcessMessage(message);
+                AsyncProcessMessage(message);
             }
             else if (message is AnnouncementMsgPDU)
             {
@@ -342,7 +337,7 @@ namespace FSO.Client.Regulators
 
         public void SessionCreated(AriesClient client)
         {
-            this.AsyncProcessMessage(new AriesConnected());
+            AsyncProcessMessage(new AriesConnected());
         }
 
         public void SessionOpened(AriesClient client)

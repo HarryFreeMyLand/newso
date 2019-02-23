@@ -22,24 +22,24 @@ namespace FSO.Server.Servers.City.Handlers
         /// At least 3 characters
         /// No more than 24 characters
         /// </summary>
-        private static Regex NAME_VALIDATION = new Regex("^([a-zA-Z]){1}([a-zA-Z ]){2,23}$");
+        static Regex NAME_VALIDATION = new Regex("^([a-zA-Z]){1}([a-zA-Z ]){2,23}$");
 
         /// <summary>
         /// Only printable ascii characters
         /// Minimum 0 characters
         /// Maximum 499 characters
         /// </summary>
-        private static Regex DESC_VALIDATION = new Regex("^([a-zA-Z0-9\\s\\x20-\\x7F]){0,499}$");
+        static Regex DESC_VALIDATION = new Regex("^([a-zA-Z0-9\\s\\x20-\\x7F]){0,499}$");
 
-        private CityServerContext Context;
-        private IDAFactory DAFactory;
-        private GameContent Content;
+        CityServerContext Context;
+        IDAFactory DAFactory;
+        GameContent Content;
         
         /// <summary>
         /// Used for validation
         /// </summary>
-        private Dictionary<uint, PurchasableOutfit> ValidFemaleOutfits = new Dictionary<uint, PurchasableOutfit>();
-        private Dictionary<uint, PurchasableOutfit> ValidMaleOutfits = new Dictionary<uint, PurchasableOutfit>();
+        Dictionary<uint, PurchasableOutfit> ValidFemaleOutfits = new Dictionary<uint, PurchasableOutfit>();
+        Dictionary<uint, PurchasableOutfit> ValidMaleOutfits = new Dictionary<uint, PurchasableOutfit>();
 
         public RegistrationHandler(CityServerContext context, IDAFactory daFactory, GameContent content)
         {

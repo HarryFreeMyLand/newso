@@ -3,11 +3,6 @@ using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
 using Microsoft.Xna.Framework.Graphics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels
 {
@@ -42,7 +37,7 @@ namespace FSO.Client.UI.Panels
             SimBox.Avatar.HeadOutfitId = 5076651343885;
             SimBox.Size = new Microsoft.Xna.Framework.Vector2(75,140);
             SimBox.AutoRotate = true;
-            this.Add(SimBox);
+            Add(SimBox);
         }
 
         [UI("buttonImage")]

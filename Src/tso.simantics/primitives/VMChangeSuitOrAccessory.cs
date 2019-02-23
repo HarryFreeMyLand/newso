@@ -5,15 +5,10 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Scopes;
-using FSO.SimAntics.Engine.Utils;
 using FSO.Files.Formats.IFF.Chunks;
-using FSO.Vitaboy;
 using System.IO;
 using FSO.SimAntics.Model;
 
@@ -42,7 +37,7 @@ namespace FSO.SimAntics.Primitives
                 if (suit is string)
                 {
                     var suitFile = (string)suit;
-                    var apr = (VM.UseWorld) ? FSO.Content.GameContent.Get.AvatarAppearances.Get(suitFile) : null;
+                    var apr = (VM.UseWorld) ? Content.GameContent.Get.AvatarAppearances.Get(suitFile) : null;
                     if ((operand.Flags & VMChangeSuitOrAccessoryFlags.Remove) == VMChangeSuitOrAccessoryFlags.Remove)
                     {
                         avatar.BoundAppearances.Remove(suitFile);
@@ -55,13 +50,13 @@ namespace FSO.SimAntics.Primitives
                     }
                 } else if (suit is VMOutfitReference)
                 {
-                    avatar.SetPersonData(Model.VMPersonDataVariable.CurrentOutfit, operand.SuitData);
+                    avatar.SetPersonData(VMPersonDataVariable.CurrentOutfit, operand.SuitData);
                     avatar.BodyOutfit = (VMOutfitReference)suit;
                 } else if (suit is ulong)
                 {
                     if (outfitType == OutfitType.BODY)
                     {
-                        avatar.SetPersonData(Model.VMPersonDataVariable.CurrentOutfit, operand.SuitData);
+                        avatar.SetPersonData(VMPersonDataVariable.CurrentOutfit, operand.SuitData);
                         avatar.BodyOutfit = new VMOutfitReference((ulong)suit);
                     }else if(outfitType == OutfitType.ACCESSORY){
                         if (VM.UseWorld){
@@ -125,7 +120,7 @@ namespace FSO.SimAntics.Primitives
         }
 
 
-        private OutfitType GetOutfitType(VMChangeSuitOrAccessoryOperand operand)
+            OutfitType GetOutfitType(VMChangeSuitOrAccessoryOperand operand)
         {
             switch (operand.SuitScope)
             {

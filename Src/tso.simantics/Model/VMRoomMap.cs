@@ -23,7 +23,7 @@ namespace FSO.SimAntics.Model
         public int Width;
         public int Height;
 
-        private ushort ExpectedTile;
+            ushort ExpectedTile;
 
         /// <summary>
         /// Generates the room map for the specified walls array.
@@ -310,7 +310,7 @@ namespace FSO.SimAntics.Model
             }
         }
 
-        private static void SpreadOnto(WallTile[] walls, FloorTile[] floors, int x, int y, int inDir, uint[] map, int width, int height, 
+            static void SpreadOnto(WallTile[] walls, FloorTile[] floors, int x, int y, int inDir, uint[] map, int width, int height, 
             Stack<SpreadItem> spread, ushort room, ushort expectedTile, bool noAir, HashSet<ushort> adjRoom, bool forceAdj)
         {
             var index = x + y * width;

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FSO.SimAntics.Engine
 {
     public class VMScheduler
     {
-        private VM vm;
-        private Dictionary<uint, List<VMEntity>> TickSchedule = new Dictionary<uint, List<VMEntity>>();
-        private List<VMEntity> TickThisFrame;
+            VM vm;
+            Dictionary<uint, List<VMEntity>> TickSchedule = new Dictionary<uint, List<VMEntity>>();
+            List<VMEntity> TickThisFrame;
         public HashSet<VMEntity> PendingDeletion = new HashSet<VMEntity>();
         public uint CurrentTickID;
         public short CurrentObjectID;
@@ -29,8 +25,7 @@ namespace FSO.SimAntics.Engine
 
         public void ScheduleTick(VMEntity ent, uint tick)
         {
-            List<VMEntity> targEnts;
-            if (!TickSchedule.TryGetValue(tick, out targEnts))
+            if (!TickSchedule.TryGetValue(tick, out var targEnts))
             {
                 targEnts = new List<VMEntity>();
                 TickSchedule[tick] = targEnts;
@@ -68,11 +63,11 @@ namespace FSO.SimAntics.Engine
             if (CurrentTickID == 0)
             {
                 //if we were on tick 0 it's likely we just resynced. Migrate ticks to the the correct tick id.
-                List<VMEntity> firstTick;
-                if (TickSchedule.TryGetValue(1, out firstTick))
+                if (TickSchedule.TryGetValue(1, out var firstTick))
                 {
                     TickSchedule[tickID] = firstTick; //new objects are queued on next tick.
-                    if (tickID != 1) TickSchedule.Remove(1);
+                    if (tickID != 1)
+                        TickSchedule.Remove(1);
                 }
             }
             CurrentTickID = tickID;

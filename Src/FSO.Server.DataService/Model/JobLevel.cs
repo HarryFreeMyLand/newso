@@ -1,15 +1,10 @@
-﻿using FSO.Common.DataService.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FSO.Common.DataService.Framework;
 
 namespace FSO.Common.DataService.Model
 {
     public class JobLevel : AbstractModel
     {
-        private ushort _JobLevel_JobType;
+        ushort _JobLevel_JobType;
         public ushort JobLevel_JobType
         {
             get { return _JobLevel_JobType; }
@@ -19,7 +14,7 @@ namespace FSO.Common.DataService.Model
                 NotifyPropertyChanged("JobLevel_JobType");
             }
         }
-        private ushort _JobLevel_JobGrade;
+        ushort _JobLevel_JobGrade;
         public ushort JobLevel_JobGrade
         {
             get { return _JobLevel_JobGrade; }
@@ -29,7 +24,7 @@ namespace FSO.Common.DataService.Model
                 NotifyPropertyChanged("JobLevel_JobGrade");
             }
         }
-        private uint _JobLevel_JobExperience;
+        uint _JobLevel_JobExperience;
         public uint JobLevel_JobExperience
         {
             get { return _JobLevel_JobExperience; }

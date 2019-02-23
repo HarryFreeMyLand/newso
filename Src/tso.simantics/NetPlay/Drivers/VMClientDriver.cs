@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using FSO.SimAntics.NetPlay.Model;
 using System.Diagnostics;
 
@@ -17,20 +16,20 @@ namespace FSO.SimAntics.NetPlay.Drivers
 
     public class VMClientDriver : VMNetDriver
     {
-        private Queue<VMNetTick> TickBuffer;
+            Queue<VMNetTick> TickBuffer;
 
-        private Queue<VMNetCommandBodyAbstract> OutgoingCommands;
-        private Queue<VMNetMessage> ServerMessages;
-        private const int TICKS_PER_PACKET = 4;
-        private const int BUFFER_STABLE_TICKS = 3 * 30; //if buffer does not drop below 2 large for this number of ticks, tighten buffer size
+            Queue<VMNetCommandBodyAbstract> OutgoingCommands;
+            Queue<VMNetMessage> ServerMessages;
+            const int TICKS_PER_PACKET = 4;
+            const int BUFFER_STABLE_TICKS = 3 * 30; //if buffer does not drop below 2 large for this number of ticks, tighten buffer size
 
-        private int BufferSize = TICKS_PER_PACKET * 2;
-        private int TicksSinceCloseCall = 0;
-        private bool ReplenishBuffer = false; // when true, ticks run at half speed until BufferSize.
-        private bool ExecutedAnything;
-        private int DriverTickPhase = 0;
+            int BufferSize = TICKS_PER_PACKET * 2;
+            int TicksSinceCloseCall = 0;
+            bool ReplenishBuffer = false; // when true, ticks run at half speed until BufferSize.
+            bool ExecutedAnything;
+            int DriverTickPhase = 0;
 
-        private VM VMHook; //should probably always backreference the VM anyways, but just used by disconnect
+            VM VMHook; //should probably always backreference the VM anyways, but just used by disconnect
         //todo: clean up everything in all of these classes.
 
         /// <summary>
@@ -63,7 +62,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
             OutgoingCommands.Enqueue(cmd);
         }
 
-        private void SendToServer(VMNetCommandBodyAbstract cmd)
+            void SendToServer(VMNetCommandBodyAbstract cmd)
         {
             byte[] data;
             using (var stream = new MemoryStream())
@@ -187,7 +186,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
             }
         }
 
-        private void HandleNet()
+            void HandleNet()
         {
             lock (ServerMessages)
             {
@@ -199,7 +198,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
             }
         }
 
-        private void HandleServerMessage(VMNetMessage message)
+            void HandleServerMessage(VMNetMessage message)
         {
             if (message.Type == VMNetMessageType.Direct)
             {

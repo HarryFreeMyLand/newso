@@ -16,7 +16,6 @@ using FSO.Client.Utils;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Client.Controllers;
 using FSO.Common.Utils;
-using FSO.Common.DataService.Model;
 using FSO.Client.Model;
 using Microsoft.Xna.Framework;
 using FSO.Files.Formats.tsodata;
@@ -76,7 +75,7 @@ namespace FSO.Client.UI.Panels
         /// <param name="author">Author if type is read or IM, recipient if type is compose.</param>
         public UIMessageWindow()
         {
-            var script = this.RenderScript("message.uis");
+            var script = RenderScript("message.uis");
 
             Messages = new List<IMEntry>();
 
@@ -85,17 +84,17 @@ namespace FSO.Client.UI.Panels
                 X = 313,
                 Y = 216
             };
-            this.AddAt(0, BtnBackground);
+            AddAt(0, BtnBackground);
 
             TypeBackground = new UIImage(backgroundMessageImage)
             {
                 X = 10,
                 Y = 12
             };
-            this.AddAt(0, TypeBackground);
+            AddAt(0, TypeBackground);
 
             Background = new UIImage(backgroundImage);
-            this.AddAt(0, Background);
+            AddAt(0, Background);
 
             UIUtils.MakeDraggable(Background, this, true);
             UIUtils.MakeDraggable(TypeBackground, this, true);
@@ -149,13 +148,13 @@ namespace FSO.Client.UI.Panels
             Size = Background.Size.ToVector2();
 
 
-            this.Opacity = GlobalSettings.Default.ChatWindowsOpacity;
-            this.AddUpdateHook(ChatOpacityChangedListener);
+            Opacity = GlobalSettings.Default.ChatWindowsOpacity;
+            AddUpdateHook(ChatOpacityChangedListener);
         }
 
         void ChatOpacityChangedListener(UpdateState state)
         {
-            if (this.Opacity == GlobalSettings.Default.ChatWindowsOpacity) return;
+            if (Opacity == GlobalSettings.Default.ChatWindowsOpacity) return;
 
             FindController<MessagingWindowController>().UpdateOpacity();
         }
@@ -176,7 +175,7 @@ namespace FSO.Client.UI.Panels
         void SendMessageEnter(UIElement element)
         {
             //remove newline first
-            if (MessageType != Controllers.MessageType.Call || MessageTextEdit.EventSuppressed) return; //cannot send on enter for letters (or during read mode :|)
+            if (MessageType != MessageType.Call || MessageTextEdit.EventSuppressed) return; //cannot send on enter for letters (or during read mode :|)
             MessageTextEdit.CurrentText = MessageTextEdit.CurrentText.TrimEnd('\n');
             SendMessage(this);
         }
@@ -270,8 +269,8 @@ namespace FSO.Client.UI.Panels
 
         public void SetType(MessageType type)
         {
-            bool showMess = type == Controllers.MessageType.Call;
-            bool showLetter = type == Controllers.MessageType.ReadLetter|| type == Controllers.MessageType.WriteLetter;
+            bool showMess = type == MessageType.Call;
+            bool showLetter = type == MessageType.ReadLetter|| type == MessageType.WriteLetter;
 
             MessageTextEdit.Visible = showMess;
             MessageScrollDownButton.Visible = showMess;
@@ -281,7 +280,7 @@ namespace FSO.Client.UI.Panels
             HistorySlider.Visible = showMess;
             HistoryScrollUpButton.Visible = showMess;
             HistoryScrollDownButton.Visible = showMess;
-            SendMessageButton.Visible = type == Controllers.MessageType.Call;
+            SendMessageButton.Visible = type == MessageType.Call;
 
             LetterSubjectTextEdit.Visible = showLetter;
             LetterTextEdit.Visible = showLetter;
@@ -289,17 +288,17 @@ namespace FSO.Client.UI.Panels
             LetterScrollUpButton.Visible = showLetter;
             LetterScrollDownButton.Visible = showLetter;
 
-            SendLetterButton.Visible = type == Controllers.MessageType.WriteLetter;
-            RespondLetterButton.Visible = type == Controllers.MessageType.ReadLetter;
+            SendLetterButton.Visible = type == MessageType.WriteLetter;
+            RespondLetterButton.Visible = type == MessageType.ReadLetter;
             RespondLetterButton.Disabled = User.Value?.Type != Common.Enum.UserReferenceType.AVATAR;
 
-            TypeBackground.Texture = (type == Controllers.MessageType.Call) ? backgroundMessageImage : (type == Controllers.MessageType.ReadLetter) ? backgroundLetterReadImage : backgroundLetterComposeImage;
+            TypeBackground.Texture = (type == MessageType.Call) ? backgroundMessageImage : (type == MessageType.ReadLetter) ? backgroundLetterReadImage : backgroundLetterComposeImage;
 
-            LetterSubjectTextEdit.Mode = (type == Controllers.MessageType.ReadLetter) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
-            LetterTextEdit.Mode = (type == Controllers.MessageType.ReadLetter) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
-            LetterTextEdit.BBCodeEnabled = type == Controllers.MessageType.ReadLetter;
+            LetterSubjectTextEdit.Mode = (type == MessageType.ReadLetter) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
+            LetterTextEdit.Mode = (type == MessageType.ReadLetter) ? UITextEditMode.ReadOnly : UITextEditMode.Editor;
+            LetterTextEdit.BBCodeEnabled = type == MessageType.ReadLetter;
 
-            if (type == Controllers.MessageType.WriteLetter)
+            if (type == MessageType.WriteLetter)
             {
                 LetterSubjectTextEdit.CurrentText = "";
                 LetterTextEdit.CurrentText = "";
@@ -353,11 +352,11 @@ namespace FSO.Client.UI.Panels
         public UIMessageGroup(UIMessageType type, MessageAuthor author, UIMessageController parent)
         {
             this.parent = parent;
-            this.name = author.Author;
+            name = author.Author;
             this.type = type;
 
             window = new UIMessageWindow();
-            this.Add(window);
+            Add(window);
             window.X = GlobalSettings.Default.GraphicsWidth / 2 - 194;
             window.Y = GlobalSettings.Default.GraphicsHeight / 2 - 125;
             //icon = new UIMessageIcon(type);
@@ -366,7 +365,7 @@ namespace FSO.Client.UI.Panels
             icon.button.OnButtonClick += new ButtonClickDelegate(Show);
             window.MinimizeButton.OnButtonClick += new ButtonClickDelegate(Hide);
             window.CloseButton.OnButtonClick += new ButtonClickDelegate(Close);
-            this.AddUpdateHook(new UpdateHookDelegate(ButtonAnim));
+            AddUpdateHook(new UpdateHookDelegate(ButtonAnim));
             Ticks = 0;
             Alert = false;
 

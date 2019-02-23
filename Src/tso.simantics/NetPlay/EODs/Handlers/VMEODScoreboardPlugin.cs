@@ -2,17 +2,13 @@
 using FSO.SimAntics.NetPlay.EODs.Utils;
 using FSO.SimAntics.NetPlay.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODScoreboardPlugin : VMBasicEOD<object>
     {
-        private EODPersist<VMEODScoreboardData> Persist;
+            EODPersist<VMEODScoreboardData> Persist;
 
         public VMEODScoreboardPlugin(VMEODServer server) : base(server, "scoreboard")
         {
@@ -23,16 +19,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             PlaintextHandlers["scoreboard_setscore"] = SetScore;
         }
 
-        private void SetScore(string evt, string body, VMEODClient client)
+            void SetScore(string evt, string body, VMEODClient client)
         {
             var parts = body.Split(',');
             if (parts.Length != 2) { return; }
 
-            VMEODScoreboardTeam team;
-            short score;
-
-            if (!Enum.TryParse<VMEODScoreboardTeam>(parts[0], out team) ||
-                !short.TryParse(parts[1], out score))
+            if (!Enum.TryParse<VMEODScoreboardTeam>(parts[0], out var team) ||
+                !short.TryParse(parts[1], out var score))
             {
                 return;
             }
@@ -60,16 +53,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void UpdateScore(string evt, string body, VMEODClient client)
+            void UpdateScore(string evt, string body, VMEODClient client)
         {
             var parts = body.Split(',');
             if (parts.Length != 2) { return; }
 
-            VMEODScoreboardTeam team;
-            short difference;
-
-            if (!Enum.TryParse<VMEODScoreboardTeam>(parts[0], out team) ||
-                !short.TryParse(parts[1], out difference))
+            if (!Enum.TryParse<VMEODScoreboardTeam>(parts[0], out var team) ||
+                !short.TryParse(parts[1], out var difference))
             {
                 return;
             }
@@ -100,19 +90,17 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             });
         }
 
-        private void UpdateColor(string evt, string body, VMEODClient client)
+            void UpdateColor(string evt, string body, VMEODClient client)
         {
             var parts = body.Split(',');
             if (parts.Length != 2) { return; }
 
-            VMEODScoreboardTeam team;
-            VMEODScoreboardColor color;
-
-            if(!Enum.TryParse<VMEODScoreboardTeam>(parts[0], out team) ||
-                !Enum.TryParse<VMEODScoreboardColor>(parts[1], out color)){
+            if (!Enum.TryParse<VMEODScoreboardTeam>(parts[0], out var team) ||
+                !Enum.TryParse<VMEODScoreboardColor>(parts[1], out var color))
+            {
                 return;
             }
-            
+
 
             Persist.Patch(current =>
             {
@@ -205,8 +193,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         {
             writer.Write((byte)LHSColor);
             writer.Write((byte)RHSColor);
-            writer.Write((short)LHSScore);
-            writer.Write((short)RHSScore);
+            writer.Write(LHSScore);
+            writer.Write(RHSScore);
         }
 
         public VMEODScoreboardData Clone()

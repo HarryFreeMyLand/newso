@@ -4,15 +4,8 @@ If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Controls;
-using FSO.Client.UI.Screens;
-using FSO.Client.Rendering.City;
 using Microsoft.Xna.Framework;
 
 namespace FSO.Client.UI.Panels
@@ -28,7 +21,7 @@ namespace FSO.Client.UI.Panels
         {
             Background = new UIImage(GetTexture((ulong)0x000001A700000002));
             Background.With9Slice(40, 40, 0, 0);
-            this.AddAt(0, Background);
+            AddAt(0, Background);
             Background.BlockInput();
 
             Label = new UILabel
@@ -37,7 +30,7 @@ namespace FSO.Client.UI.Panels
             };
             Label.CaptionStyle.Size = 11;
             Label.Alignment = TextAlignment.Middle;
-            this.Add(Label);
+            Add(Label);
 
             SetTitle("Not Blazing Falls");
         }

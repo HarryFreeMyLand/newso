@@ -12,9 +12,9 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class DBRequestWrapperHandler
     {
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
-        private ServerTop100Domain Top100;
+        IDAFactory DAFactory;
+        CityServerContext Context;
+        ServerTop100Domain Top100;
 
         public DBRequestWrapperHandler(CityServerContext context, IDAFactory da, ServerTop100Domain Top100)
         {
@@ -31,7 +31,7 @@ namespace FSO.Server.Servers.City.Handlers
             }
         }
 
-        private void HandleNetMessage(IVoltronSession session, cTSONetMessageStandard msg, DBRequestWrapperPDU packet)
+        void HandleNetMessage(IVoltronSession session, cTSONetMessageStandard msg, DBRequestWrapperPDU packet)
         {
             if (!msg.DatabaseType.HasValue) { return; }
             var requestType = DBRequestTypeUtils.FromRequestID(msg.DatabaseType.Value);
@@ -68,7 +68,7 @@ namespace FSO.Server.Servers.City.Handlers
             }
         }
 
-        private object HandleGetTop100(IVoltronSession session, cTSONetMessageStandard msg)
+        object HandleGetTop100(IVoltronSession session, cTSONetMessageStandard msg)
         {
             var request = msg.ComplexParameter as GetTop100Request;
             if (request == null) { return null; }
@@ -88,7 +88,7 @@ namespace FSO.Server.Servers.City.Handlers
             };
         }
 
-        private object HandleLoadAvatarById(IVoltronSession session, cTSONetMessageStandard msg)
+        object HandleLoadAvatarById(IVoltronSession session, cTSONetMessageStandard msg)
         {
             var request = msg.ComplexParameter as LoadAvatarByIDRequest;
             if (request == null) { return null; }
@@ -129,7 +129,7 @@ namespace FSO.Server.Servers.City.Handlers
         }
 
 
-        private object HandleSearchExact(IVoltronSession session, cTSONetMessageStandard msg)
+        object HandleSearchExact(IVoltronSession session, cTSONetMessageStandard msg)
         {
             var request = msg.ComplexParameter as SearchRequest;
             if (request == null) { return null; }
@@ -171,7 +171,7 @@ namespace FSO.Server.Servers.City.Handlers
             }
         }
 
-        private object HandleSearchWildcard(IVoltronSession session, cTSONetMessageStandard msg)
+        object HandleSearchWildcard(IVoltronSession session, cTSONetMessageStandard msg)
         {
             var request = msg.ComplexParameter as SearchRequest;
             if (request == null) { return null; }

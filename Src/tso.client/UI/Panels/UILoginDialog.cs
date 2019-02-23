@@ -5,12 +5,8 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Client.UI.Screens;
 using FSO.Common;
 
 namespace FSO.Client.UI.Panels
@@ -23,8 +19,8 @@ namespace FSO.Client.UI.Panels
         public UILoginDialog(Action login)
             : base(UIDialogStyle.Standard, true)
         {
-            this.Login = login;
-            this.Caption = GameFacade.Strings.GetString("UIText", "209", "1");
+            Login = login;
+            Caption = GameFacade.Strings.GetString("UIText", "209", "1");
 
             SetSize(350, 225);
 
@@ -38,7 +34,7 @@ namespace FSO.Client.UI.Panels
             m_TxtAccName.OnTabPress += new KeyPressDelegate(m_TxtAccName_OnTabPress);
             m_TxtAccName.OnEnterPress += new KeyPressDelegate(loginBtn_OnButtonClick);
 
-            this.Add(m_TxtAccName);
+            Add(m_TxtAccName);
 
             m_TxtPass = UITextEdit.CreateTextBox();
             m_TxtPass.X = 20;
@@ -50,7 +46,7 @@ namespace FSO.Client.UI.Panels
             //m_TxtPass.OnTabPress += new KeyPressDelegate(m_TxtPass_OnTabPress);
             m_TxtPass.OnEnterPress += new KeyPressDelegate(loginBtn_OnButtonClick);
             m_TxtPass.OnShiftTabPress += new KeyPressDelegate(m_TxtPass_OnShiftTabPress);
-            this.Add(m_TxtPass);
+            Add(m_TxtPass);
 
             /** Login button **/
             var loginBtn = new UIButton
@@ -61,7 +57,7 @@ namespace FSO.Client.UI.Panels
                 ID = "LoginButton",
                 Caption = GameFacade.Strings.GetString("UIText", "209", "2")
             };
-            this.Add(loginBtn);
+            Add(loginBtn);
             loginBtn.OnButtonClick += new ButtonClickDelegate(loginBtn_OnButtonClick);
 
             var exitBtn = new UIButton
@@ -72,17 +68,17 @@ namespace FSO.Client.UI.Panels
                 ID = "ExitButton",
                 Caption = GameFacade.Strings.GetString("UIText", "209", "3")
             };
-            this.Add(exitBtn);
+            Add(exitBtn);
             exitBtn.OnButtonClick += new ButtonClickDelegate(exitBtn_OnButtonClick);
 
-            this.Add(new UILabel
+            Add(new UILabel
             {
                 Caption = GameFacade.Strings.GetString("UIText", "209", "4"),
                 X = 24,
                 Y = 50
             });
 
-            this.Add(new UILabel
+            Add(new UILabel
             {
                 Caption = GameFacade.Strings.GetString("UIText", "209", "5"),
                 X = 24,

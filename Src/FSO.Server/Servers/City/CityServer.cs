@@ -22,10 +22,10 @@ namespace FSO.Server.Servers.City
 {
     public class CityServer : AbstractAriesServer
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private CityServerConfiguration Config;
-        private ISessionGroup VoltronSessions;
-        private CityLivenessEngine Liveness;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        CityServerConfiguration Config;
+        ISessionGroup VoltronSessions;
+        CityLivenessEngine Liveness;
         public bool ShuttingDown;
 
         public CityServer(CityServerConfiguration config, IKernel kernel) : base(config, kernel)

@@ -1,12 +1,8 @@
-﻿using FSO.Common.Content;
-using FSO.Content.Codecs;
+using FSO.Common.Content;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FSO.Content.Framework
 {
@@ -29,7 +25,7 @@ namespace FSO.Content.Framework
             Manager = contentManager;
             //todo: files provider?
         }
-        
+
         public void Init()
         {
             FarProvider.Init();
@@ -39,16 +35,14 @@ namespace FSO.Content.Framework
         {
             var entries = FarProvider.GetEntriesForExtension(ext);
             var result = new Dictionary<string, IContentReference>();
-            
-            string[] folders = null;
-            if (BareFoldersByExtension.TryGetValue(ext, out folders))
+
+            if (BareFoldersByExtension.TryGetValue(ext, out var folders))
             {
                 foreach (var folder in folders)
                 {
                     var test = Manager.TS1AllFiles;
                     var regexStr = folder + ".*\\" + ext;
-                    FileProvider<object> provider;
-                    if (!FileProvidersByRegex.TryGetValue(regexStr, out provider))
+                    if (!FileProvidersByRegex.TryGetValue(regexStr, out var provider))
                     {
                         var regex = new Regex(regexStr);
                         provider = new FileProvider<object>(Manager, null, regex);
@@ -64,18 +58,21 @@ namespace FSO.Content.Framework
                 }
             }
 
-            if (entries == null) return result;
+            if (entries == null)
+                return result;
             foreach (var entry in entries)
             {
                 var name = Path.GetFileName(entry.FarEntry.Filename.ToLowerInvariant().Replace('\\', '/'));
-                if (name.Contains(exclude)) continue;
+                if (name.Contains(exclude))
+                    continue;
                 result[name] = entry;
             }
 
             return result;
         }
 
-        public object Get(string item) {
+        public object Get(string item)
+        {
             return FarProvider.Get(item);
         }
     }
@@ -115,10 +112,11 @@ namespace FSO.Content.Framework
         {
             Entries = BaseProvider.BuildDictionary(Extensions[0], "globals");
 
-            for (int i=1; i<Extensions.Length; i++)
+            for (int i = 1; i < Extensions.Length; i++)
             {
                 var ents = BaseProvider.BuildDictionary(Extensions[i], "globals");
-                foreach (var item in ents) Entries.Add(item.Key, item.Value);
+                foreach (var item in ents)
+                    Entries.Add(item.Key, item.Value);
             }
         }
 
@@ -129,8 +127,7 @@ namespace FSO.Content.Framework
 
         public virtual T Get(string name)
         {
-            IContentReference result = null;
-            if (Entries.TryGetValue(name, out result))
+            if (Entries.TryGetValue(name, out var result))
             {
                 return Converter(result.GetGeneric());
             }
@@ -155,7 +152,8 @@ namespace FSO.Content.Framework
 
         public T Get(ContentID id)
         {
-            if (id.FileName != null) return Get(id.FileName);
+            if (id.FileName != null)
+                return Get(id.FileName);
             throw new NotImplementedException();
         }
     }

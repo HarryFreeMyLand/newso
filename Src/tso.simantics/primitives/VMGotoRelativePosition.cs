@@ -5,13 +5,8 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
-using Microsoft.Xna.Framework;
-using FSO.LotView;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.LotView.Model;
 using System.IO;

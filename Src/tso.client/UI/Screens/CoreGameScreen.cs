@@ -7,8 +7,6 @@ http://mozilla.org/MPL/2.0/.
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Diagnostics;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Panels;
 using FSO.Client.UI.Model;
@@ -18,13 +16,9 @@ using FSO.Client.Utils;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Common.Rendering.Framework.IO;
 using FSO.Common.Rendering.Framework;
-using FSO.Client.Network;
 using FSO.LotView;
-using FSO.LotView.Model;
 using FSO.SimAntics;
 using FSO.SimAntics.Utils;
-using FSO.Debug;
-using FSO.SimAntics.Primitives;
 using FSO.HIT;
 using FSO.SimAntics.NetPlay.Drivers;
 using FSO.SimAntics.NetPlay.Model.Commands;
@@ -249,26 +243,26 @@ namespace FSO.Client.UI.Screens
             ucp.SetInLot(false);
             ucp.UpdateZoomButton();
             ucp.MoneyText.Caption = "0";// PlayerAccount.Money.ToString();
-            this.Add(ucp);
+            Add(ucp);
 
             gizmo = new UIGizmo();
             ControllerUtils.BindController<GizmoController>(gizmo);
             gizmo.X = ScreenWidth - 430;
             gizmo.Y = ScreenHeight - 230;
-            this.Add(gizmo);
+            Add(gizmo);
 
             Title = new UIGameTitle();
             Title.SetTitle("");
-            this.Add(Title);
+            Add(Title);
             
-            this.Add(FSOFacade.MessageController);
+            Add(FSOFacade.MessageController);
 
             MessageTray = new UIMessageTray
             {
                 X = ScreenWidth - 70,
                 Y = 12
             };
-            this.Add(MessageTray);
+            Add(MessageTray);
 
             WindowContainer = new UIContainer();
             Add(WindowContainer);
@@ -428,9 +422,8 @@ namespace FSO.Client.UI.Screens
                         World.Opacity = Math.Max(0, (CityRenderer.LotZoomProgress - 0.5f) * 2);
 
                         float scale = 1;
-                        if (CityRenderer.Camera is CityCamera2D)
+                        if (CityRenderer.Camera is CityCamera2D cam)
                         {
-                            var cam = (CityCamera2D)CityRenderer.Camera;
                             scale =
                                 1 / (cam.LotZoomProgress * (1 / cam.m_LotZoomSize) + (1 - cam.LotZoomProgress) * (1 / (Terrain.NEAR_ZOOM_SIZE * cam.m_WheelZoom)))
                                 / cam.m_LotZoomSize;
@@ -552,7 +545,7 @@ namespace FSO.Client.UI.Screens
             GameFacade.Scenes.Remove(World);
             World.Dispose();
             LotControl.Dispose();
-            this.Remove(LotControl);
+            Remove(LotControl);
             ucp.SetPanel(-1);
             ucp.SetInLot(false);
             vm.SuppressBHAVChanges();
@@ -649,7 +642,7 @@ namespace FSO.Client.UI.Screens
 
                 case 6: //done world load
                     GameFacade.Cursor.SetCursor(CursorType.Normal);
-                    UIScreen.RemoveDialog(JoinLotProgress);
+                    RemoveDialog(JoinLotProgress);
                     ZoomLevel = 1;
                     ucp.SetInLot(true);
                     break;
@@ -683,7 +676,7 @@ namespace FSO.Client.UI.Screens
             vm.Init();
 
             LotControl = new UILotControl(vm, World);
-            this.AddAt(1, LotControl);
+            AddAt(1, LotControl);
 
             var time = DateTime.UtcNow;
             var tsoTime = TSOTime.FromUTC(time);
@@ -716,7 +709,7 @@ namespace FSO.Client.UI.Screens
                     break;
                 case VMEventType.TSOTimeout:
                     var dialog = new UITimeOutDialog(vm, (int)data);
-                    UIScreen.GlobalShowDialog(dialog, true);
+                    GlobalShowDialog(dialog, true);
                     var rnd = new Random();
                     dialog.Position = new Vector2(rnd.Next(ScreenWidth - 500), rnd.Next(ScreenHeight - 500));
                     break;

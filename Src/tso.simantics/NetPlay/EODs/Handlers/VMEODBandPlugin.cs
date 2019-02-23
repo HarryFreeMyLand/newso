@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.NetPlay.EODs.Model;
@@ -12,19 +9,19 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODBandPlugin : VMEODHandler
     {
-        private VMEODClient Controller;
-        private VMEODBandStates State;
-        private EODLobby<VMEODBandSlot> Lobby;
-        private Random IsBuzzNoteRandom = new Random();
-        private Random NonBuzzNoteRandom = new Random();
-        private Timer SequenceTimer;
-        private List<byte> Song;
-        private short CurrentSongLength;
-        private int CurrentNote;
-        private int UITimer = -1;
-        private int TimerFrames;
-        private int CumulativePayout;
-        private decimal CombinedSkillAmount;
+            VMEODClient Controller;
+            VMEODBandStates State;
+            EODLobby<VMEODBandSlot> Lobby;
+            Random IsBuzzNoteRandom = new Random();
+            Random NonBuzzNoteRandom = new Random();
+            Timer SequenceTimer;
+            List<byte> Song;
+            short CurrentSongLength;
+            int CurrentNote;
+            int UITimer = -1;
+            int TimerFrames;
+            int CumulativePayout;
+            decimal CombinedSkillAmount;
 
         public const int FINALE_TIMER_DFEAULT = 9;
         public const int PRESHOW_TIMER_DEFAULT = 3;
@@ -148,14 +145,14 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * This Simantics event only happens after a win or a loss, not after each sequence round.
          */
-        private void AnimationsFinishedHandler(short evt, VMEODClient client)
+            void AnimationsFinishedHandler(short evt, VMEODClient client)
         {
             //ResetGame();
         }
         /*
          * This Simantics event happens after a win or a loss and each time a new player joins.
          */
-        private void NewGameHandler(short evt, VMEODClient client)
+            void NewGameHandler(short evt, VMEODClient client)
         {
             if (State.Equals(VMEODBandStates.Finale))
             {
@@ -165,7 +162,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Timed to trigger after each sequence is played for the players, allowing them to now attempt to play it back
          */
-        private void SequenceTimerElapsedHandler(object source, ElapsedEventArgs args)
+            void SequenceTimerElapsedHandler(object source, ElapsedEventArgs args)
         {
             SequenceTimer.Stop();
             State = VMEODBandStates.Performance;
@@ -175,7 +172,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Client has pushed RockOnBtn or SellOutBtn
          */
-        private void RockOnOrSellOutHandler(string evt, byte[] playerChoice, VMEODClient client)
+            void RockOnOrSellOutHandler(string evt, byte[] playerChoice, VMEODClient client)
         {
             if (playerChoice == null)
                 return;
@@ -188,7 +185,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Client has pushed a valid note button
          */
-        private void NoteSelectedHandler(string evt, byte[] playerChoice, VMEODClient client)
+            void NoteSelectedHandler(string evt, byte[] playerChoice, VMEODClient client)
         {
             if (playerChoice == null)
                 return;
@@ -282,7 +279,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void SequenceEndHandler()
+            void SequenceEndHandler()
         {
             SetTimer(-1);
 
@@ -301,7 +298,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void SetTimer(int newValue)
+            void SetTimer(int newValue)
         {
             UITimer = newValue;
             TimerFrames = 0;
@@ -311,15 +308,15 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 Lobby.Broadcast("Band_Timer", "" + Byte.MinValue);
         }
 
-        private void SendTime()
+            void SendTime()
         {
             Lobby.Broadcast("Band_Timer", ""  + UITimer);
         }
-        private void InitGame()
+            void InitGame()
         {
             InitGame(PRESHOW_TIMER_DEFAULT);
         }
-        private void InitGame(int Timer)
+            void InitGame(int Timer)
         {
             ResetGame();
 
@@ -327,7 +324,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             State = VMEODBandStates.PreShow;
             SetTimer(Timer);
         }
-        private void ResetGame()
+            void ResetGame()
         {
             SetTimer(-1);
 
@@ -345,7 +342,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Demonstrate the sequence to be played back
          */
-        private void PlayNextSequence()
+            void PlayNextSequence()
         {
             SetTimer(-1);
             ResetRockOn();
@@ -357,7 +354,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             SequenceTimer.Start();
         }
 
-        private bool RockOn()
+            bool RockOn()
         {
             SetTimer(-1);
             int rockOnCount = 0;
@@ -385,7 +382,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 return true;
         }
 
-        private void ResetRockOn()
+            void ResetRockOn()
         {
             foreach (var player in Lobby.Players)
             {
@@ -398,7 +395,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * The object handles the payout, but the payout amount must be sent. The song length is sent for the animations of winning.
          */
-        private void GameOver(bool win)
+            void GameOver(bool win)
         {
             SetTimer(-1);
             State = VMEODBandStates.Finale;
@@ -417,14 +414,14 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 Controller.SendOBJEvent(new VMEODEvent((short)VMEODBandEventTypes.LoseRound));
         }
 
-        private byte[] GetCurrentSequence()
+            byte[] GetCurrentSequence()
         {
             var sequence = new byte[CurrentSongLength];
             Song.CopyTo(0, sequence, 0, CurrentSongLength);
             return sequence;
         }
 
-        private List<byte> GetNewSong()
+            List<byte> GetNewSong()
         {
             List<byte> songList = new List<byte>(MAX_SONG_LENGTH);
 
@@ -442,7 +439,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return songList;
         }
 
-        private decimal GetAvatarsCurrentSkill(VMEODClient client)
+            decimal GetAvatarsCurrentSkill(VMEODClient client)
         {
             var avatar = client.Avatar;
             var slot = Lobby.GetSlotData(client);
@@ -454,7 +451,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 return avatar.GetPersonData(VMPersonDataVariable.CreativitySkill) / 100m;
         }
 
-        private void UpdatePlayersSkills()
+            void UpdatePlayersSkills()
         {
             foreach (var client in Lobby.Players)
             {
@@ -464,7 +461,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private decimal GetUpdatedSkillAmounts()
+            decimal GetUpdatedSkillAmounts()
         {
             UpdatePlayersSkills();
             decimal newAmount = 0;

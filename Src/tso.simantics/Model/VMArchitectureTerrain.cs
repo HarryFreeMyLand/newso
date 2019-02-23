@@ -1,10 +1,6 @@
 ﻿using FSO.Content.Model;
 using FSO.SimAntics.NetPlay.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FSO.SimAntics.Model
@@ -21,8 +17,8 @@ namespace FSO.SimAntics.Model
 
         public short[] VisHeights;
         public byte[] VisGrass;
-        private short[] OldHeights;
-        private byte[] OldGrass;
+            short[] OldHeights;
+            byte[] OldGrass;
 
         public TerrainType LightType = TerrainType.GRASS;
         public TerrainType DarkType = TerrainType.GRASS;

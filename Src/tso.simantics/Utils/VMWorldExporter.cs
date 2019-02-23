@@ -6,10 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.LotView.Model;
-using FSO.LotView.Components;
 
 namespace FSO.SimAntics.Utils
 {

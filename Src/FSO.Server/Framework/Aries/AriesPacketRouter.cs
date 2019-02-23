@@ -8,8 +8,8 @@ namespace FSO.Server.Framework.Aries
 {
     public class AriesPacketRouter : IAriesPacketRouter
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private Dictionary<Type, List<AriesHandler>> Handlers = new Dictionary<Type, List<AriesHandler>>();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        Dictionary<Type, List<AriesHandler>> Handlers = new Dictionary<Type, List<AriesHandler>>();
 
         public void On<T>(AriesHandler handler)
         {

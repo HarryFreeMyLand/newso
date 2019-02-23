@@ -1,35 +1,29 @@
-﻿using Mina.Filter.Codec;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Mina.Filter.Codec;
 using Mina.Core.Session;
 
 namespace FSO.Client.Network.Sandbox
 {
     public class FSOSandboxProtocol : IProtocolCodecFactory
     {
-        IProtocolDecoder _Decoder;
+        IProtocolDecoder _decoder;
+        IProtocolEncoder _encoder;
 
         public IProtocolDecoder GetDecoder(IoSession session)
         {
-            if (_Decoder == null)
+            if (_decoder == null)
             {
-                _Decoder = new FSOSandboxProtocolDecoder();
+                _decoder = new FSOSandboxProtocolDecoder();
             }
-            return _Decoder;
+            return _decoder;
         }
-
-        IProtocolEncoder _Encoder;
 
         public IProtocolEncoder GetEncoder(IoSession session)
         {
-            if (_Encoder == null)
+            if (_encoder == null)
             {
-                _Encoder = new FSOSandboxProtocolEncoder();
+                _encoder = new FSOSandboxProtocolEncoder();
             }
-            return _Encoder;
+            return _encoder;
         }
     }
 }

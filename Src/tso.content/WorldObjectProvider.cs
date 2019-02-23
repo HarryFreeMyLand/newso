@@ -6,8 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Content.Framework;
 using FSO.Common.Content;
 using System.Xml;
@@ -16,7 +14,6 @@ using System.Text.RegularExpressions;
 using FSO.Files.Formats.IFF;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.Files.Formats.OTF;
-using System.Collections.Concurrent;
 using System.IO;
 using FSO.Common;
 using FSO.Common.Utils;
@@ -253,8 +250,7 @@ namespace FSO.Content
 
         public object GetRoutine(ushort id)
         {
-            object result;
-            if (RoutineCache.TryGetValue(id, out result))
+            if (RoutineCache.TryGetValue(id, out var result))
                 return result;
             else
                 return null;

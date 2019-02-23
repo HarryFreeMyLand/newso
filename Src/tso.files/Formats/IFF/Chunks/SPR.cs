@@ -148,7 +148,7 @@ namespace FSO.Files.Formats.IFF.Chunks
         {
             if (ToDecode != null)
             {
-                using (IoBuffer buf = IoBuffer.FromStream(new MemoryStream(ToDecode), Parent.ByteOrd))
+                using (var buf = IoBuffer.FromStream(new MemoryStream(ToDecode), Parent.ByteOrd))
                 {
                     ReadDeferred(Version, buf);
                 }
@@ -281,7 +281,7 @@ namespace FSO.Files.Formats.IFF.Chunks
                         if (mip)
                             TextureUtils.UploadDXT5WithMips(PixelCache, w, h, device, Data);
                         else
-                            PixelCache.SetData<byte>(TextureUtils.DXT5Compress(Data, w, h).Item1);
+                            PixelCache.SetData(TextureUtils.DXT5Compress(Data, w, h).Item1);
                     }
                     else
                     {
@@ -289,13 +289,13 @@ namespace FSO.Files.Formats.IFF.Chunks
                         if (mip)
                             TextureUtils.UploadWithMips(PixelCache, device, Data);
                         else
-                            PixelCache.SetData<Color>(this.Data);
+                            PixelCache.SetData(this.Data);
                     }
                 }
                 else
                 {
                     PixelCache = new Texture2D(device, Math.Max(1, Width), Math.Max(1, Height), mip, SurfaceFormat.Color);
-                    PixelCache.SetData<Color>(new Color[] { Color.Transparent });
+                    PixelCache.SetData(new Color[] { Color.Transparent });
                 }
 
                 PixelCache.Tag = new TextureInfo(PixelCache, Width, Height);

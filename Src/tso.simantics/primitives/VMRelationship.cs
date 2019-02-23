@@ -6,8 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Utils;
@@ -152,7 +150,7 @@ namespace FSO.SimAntics.Primitives
 
     public class VMOldRelationshipOperand : VMRelationshipOperand
     {
-        private byte GetSet;
+            byte GetSet;
         //clever tricks to avoid coding the same thing twice ;)
         public override void Read(byte[] bytes)
         {

@@ -10,7 +10,7 @@ namespace FSO.Server.DataService
 {
     public class DataServiceSyncFactory : IDataServiceSyncFactory
     {
-        private IDataService DataService;
+        IDataService DataService;
 
         public DataServiceSyncFactory(IDataService ds)
         {
@@ -25,9 +25,9 @@ namespace FSO.Server.DataService
 
     public class DataServiceSync<T> : IDataServiceSync<T>
     {
-        private IDataService DataService;
-        private StructField[] Fields;
-        private PropertyInfo KeyField;
+        IDataService DataService;
+        StructField[] Fields;
+        PropertyInfo KeyField;
 
         public DataServiceSync(IDataService ds, string[] fields)
         {

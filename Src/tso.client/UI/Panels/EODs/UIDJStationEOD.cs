@@ -1,11 +1,7 @@
 ﻿using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.UI.Panels.EODs
 {
@@ -79,7 +75,7 @@ namespace FSO.Client.UI.Panels.EODs
             TeamMedallion = new UIImage();
             Add(TeamMedallion);
 
-            var script = this.RenderScript("djstationeod.uis");
+            var script = RenderScript("djstationeod.uis");
             
             var children = ChildrenWithinIdRange(100, 423);
             PatternButtons = children;

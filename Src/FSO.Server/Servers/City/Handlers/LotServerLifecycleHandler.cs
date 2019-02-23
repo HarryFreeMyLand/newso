@@ -6,7 +6,7 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class LotServerLifecycleHandler
     {
-        private LotServerPicker PickingEngine;
+        LotServerPicker PickingEngine;
 
         public LotServerLifecycleHandler(LotServerPicker pickingEngine)
         {

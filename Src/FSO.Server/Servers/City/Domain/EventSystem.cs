@@ -12,11 +12,11 @@ namespace FSO.Server.Servers.City.Domain
 {
     public class EventSystem
     {
-        private IDAFactory DA;
-        private MailHandler Mail;
-        private CityServerContext Context;
-        private ISessions Sessions;
-        private IKernel Kernel;
+        IDAFactory DA;
+        MailHandler Mail;
+        CityServerContext Context;
+        ISessions Sessions;
+        IKernel Kernel;
 
         public List<DbEvent> ActiveEvents = new List<DbEvent>();
         public DateTime Next = new DateTime(0);
@@ -60,11 +60,11 @@ namespace FSO.Server.Servers.City.Domain
             }
         }
 
-        private DateTime NextHour(DateTime now)
+        DateTime NextHour(DateTime now)
         {
             return Trim(now.AddHours(1), TimeSpan.TicksPerHour);
         }
-        private DateTime Trim(DateTime date, long roundTicks)
+        DateTime Trim(DateTime date, long roundTicks)
         {
             return new DateTime(date.Ticks - date.Ticks % roundTicks);
         }
@@ -145,7 +145,7 @@ namespace FSO.Server.Servers.City.Domain
             }
         }
 
-        private bool ParticipationType(DbEventType type)
+        bool ParticipationType(DbEventType type)
         {
             return type == DbEventType.free_money || type == DbEventType.free_object || type == DbEventType.mail_only;
         }

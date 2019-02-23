@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Utils
 {
@@ -93,13 +90,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
 
     public class AbstractMaze<T>
     {
-        private Stack<AbstractMazeCell<T>> BuildStack;
-        private AbstractMazeCell<T>[,] m_Maze;
-        private int Rows;
-        private int Columns;
-        private AbstractMazeCell<T> BuildOrigin;
-        private Random Random = new Random();
-        private bool DeadEnd;
+            Stack<AbstractMazeCell<T>> BuildStack;
+            AbstractMazeCell<T>[,] m_Maze;
+            int Rows;
+            int Columns;
+            AbstractMazeCell<T> BuildOrigin;
+            Random Random = new Random();
+            bool DeadEnd;
 
         public delegate void MazeEvent(AbstractMazeCell<T>[,] maze);
         public event MazeEvent OnMazeGenerated;
@@ -337,7 +334,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
             UnprocessCells();
             return solutionPath;
         }
-        private void UnprocessCells()
+            void UnprocessCells()
         {
             for (int y = 0; y < Rows; y++)
                 for (int x = 0; x < Columns; x++)

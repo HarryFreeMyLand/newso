@@ -4,10 +4,6 @@ using FSO.Common.Utils.Cache;
 using FSO.Content;
 using FSO.SimAntics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -21,7 +17,7 @@ namespace FSO.Client.Controllers
             {
                 MainContentAction = (Action donePart) =>
                 {
-                    FSO.Content.GameContent.Init(GlobalSettings.Default.StartupPath, GameFacade.GraphicsDevice);
+                    Content.GameContent.Init(GlobalSettings.Default.StartupPath, GameFacade.GraphicsDevice);
                     VMContext.InitVMConfig();
                 }
             };
@@ -55,7 +51,7 @@ namespace FSO.Client.Controllers
 
         public CacheInit(FileSystemCache cache)
         {
-            this.Cache = cache;
+            Cache = cache;
         }
 
         public object GetGeneric()

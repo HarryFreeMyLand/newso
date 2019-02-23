@@ -5,9 +5,7 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Content;
 using FSO.LotView.Components;
 using FSO.LotView.Model;
@@ -184,7 +182,7 @@ namespace FSO.SimAntics
             return false;
         }
 
-        private VMEntity DeepestObjInSlot(VMEntity pt, int depth)
+            VMEntity DeepestObjInSlot(VMEntity pt, int depth)
         {
             //todo: make sure nobody can create cyclic slots, and limit slot depth
             if (depth > 50) throw new Exception("slot depth too high!");
@@ -211,7 +209,7 @@ namespace FSO.SimAntics
             }
         }
 
-        private Direction _Direction;
+            Direction _Direction;
         public override Direction Direction { 
             get { return _Direction; }
             set {
@@ -424,7 +422,7 @@ namespace FSO.SimAntics
                         WallsDownMedium = sprs[4],
                         WallsDownNear = sprs[5]
                     };
-                    Object.OBJ.WallStyle = FSO.Content.GameContent.Get.WorldWalls.AddDynamicWallStyle(style);
+                    Object.OBJ.WallStyle = GameContent.Get.WorldWalls.AddDynamicWallStyle(style);
                 }
 
                 var placeFlags = (WallPlacementFlags)ObjectData[(int)VMStackObjectVariable.WallPlacementFlags];
@@ -458,7 +456,7 @@ namespace FSO.SimAntics
                     part.Mode = ParticleType.GENERIC_BOX;
                     GameThread.InUpdate(() =>
                     {
-                        part.Tex = Content.GameContent.Get.RCMeshes.GetTex("FSO_smoke.png");
+                        part.Tex = GameContent.Get.RCMeshes.GetTex("FSO_smoke.png");
                         WorldUI.blueprint.ObjectParticles.Add(part);
                     });
                     ((ObjectComponent)WorldUI).Particles.Add(part);
@@ -552,7 +550,7 @@ namespace FSO.SimAntics
 
             if (input.MasterGUID != 0)
             {
-                var masterDef = FSO.Content.GameContent.Get.WorldObjects.Get(input.MasterGUID);
+                var masterDef = GameContent.Get.WorldObjects.Get(input.MasterGUID);
                 MasterDefinition = masterDef.OBJ;
                 UseTreeTableOf(masterDef);
             }

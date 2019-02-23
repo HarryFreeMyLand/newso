@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
@@ -7,13 +7,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine.Scopes;
 using FSO.Vitaboy;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.Content;
 using FSO.SimAntics.Model;
 using FSO.Files.Formats.OTF;
+using FSO.Common;
 
 namespace FSO.SimAntics.Engine.Utils
 {
@@ -28,7 +28,8 @@ namespace FSO.SimAntics.Engine.Utils
         /// <returns></returns>
         public static short GetVariable(VMStackFrame context, VMVariableScope scope, short data)
         {
-            switch (scope){
+            switch (scope)
+            {
                 case VMVariableScope.MyObjectAttributes: //0
                     return context.Caller.GetAttribute((ushort)data);
 
@@ -36,7 +37,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return context.StackObject.GetAttribute((ushort)data);
 
                 case VMVariableScope.TargetObjectAttributes: //2
-                    throw new VMSimanticsException("Target Object is Deprecated!", context);
+                    throw new VMSimanticsException(GameConsts.ObjectDeprecated, context);
 
                 case VMVariableScope.MyObject: //3
                     return context.Caller.GetValue((VMStackObjectVariable)data);
@@ -45,7 +46,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return context.StackObject.GetValue((VMStackObjectVariable)data);
 
                 case VMVariableScope.TargetObject: //5
-                    throw new VMSimanticsException("Target Object is Deprecated!", context);
+                    throw new VMSimanticsException(GameConsts.ObjectDeprecated, context);
 
                 case VMVariableScope.Global: //6
                     return context.VM.GetGlobalValue((ushort)data);
@@ -64,13 +65,13 @@ namespace FSO.SimAntics.Engine.Utils
 
                 case VMVariableScope.TempByTemp: //11
                     return context.Thread.TempRegisters[context.Thread.TempRegisters[data]];
-                    
+
                 case VMVariableScope.TreeAdRange: //12
                     return 0;
-                    //throw new VMSimanticsException("Not implemented...", context);
+                //throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectTemp: //13
-                    throw new VMSimanticsException("Not implemented...", context); //accesses the stack object's thread and gets its temp...
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context); //accesses the stack object's thread and gets its temp...
 
                 case VMVariableScope.MyMotives: //14
                     return ((VMAvatar)context.Caller).GetMotiveData((VMMotive)data);
@@ -80,7 +81,7 @@ namespace FSO.SimAntics.Engine.Utils
 
                 case VMVariableScope.StackObjectSlot: //16
                     var slotObj = context.StackObject.GetSlot(data);
-                    return (slotObj == null)?(short)0:slotObj.ObjectID;
+                    return (slotObj == null) ? (short)0 : slotObj.ObjectID;
 
                 case VMVariableScope.StackObjectMotiveByTemp: //17
                     return ((VMAvatar)context.StackObject).GetMotiveData((VMMotive)context.Thread.TempRegisters[data]);
@@ -103,35 +104,43 @@ namespace FSO.SimAntics.Engine.Utils
 
                 case VMVariableScope.RoomByTemp0: //23
                     //returns information on the selected room. Right now we don't have a room system, so always return the same values. (everywhere is indoors, not a pool)
-                    var roomID = Math.Max(0, Math.Min(context.VM.Context.RoomInfo.Length-1, context.Thread.TempRegisters[0]));
+                    var roomID = Math.Max(0, Math.Min(context.VM.Context.RoomInfo.Length - 1, context.Thread.TempRegisters[0]));
                     var room = context.VM.Context.RoomInfo[roomID];
                     var baseroom = context.VM.Context.RoomInfo[room.Room.LightBaseRoom];
 
-                    if (data == 0) return 100; //ambient light 0-100
-                    else if (data == 1) return (short)((baseroom.Room.IsOutside)?1:0); //outside
-                    else if (data == 2) return (short)(baseroom.Room.Floor); //level
-                    else if (data == 3) return (short)baseroom.Room.Area; //area (???)
-                    else if (data == 4) return (short)(room.Room.IsPool?1:0); //is pool
-                    else throw new VMSimanticsException("Invalid room data!", context);
+                    if (data == 0)
+                        return 100; //ambient light 0-100
+                    else if (data == 1)
+                        return (short)((baseroom.Room.IsOutside) ? 1 : 0); //outside
+                    else if (data == 2)
+                        return baseroom.Room.Floor; //level
+                    else if (data == 3)
+                        return (short)baseroom.Room.Area; //area (???)
+                    else if (data == 4)
+                        return (short)(room.Room.IsPool ? 1 : 0); //is pool
+                    else
+                        throw new VMSimanticsException(GameConsts.InvalidRoomData, context);
 
-                    //throw new VMSimanticsException("Not implemented...");
+                //throw new VMSimanticsException(GameConsts.NotImplemented);
 
                 case VMVariableScope.NeighborInStackObject: //24
-                    if (!context.VM.TS1) throw new VMSimanticsException("Only valid in TS1.", context);
-                    var neighbor = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
+                    if (!context.VM.TS1)
+                        throw new VMSimanticsException(GameConsts.ValidInTS1, context);
+                    var neighbor = GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
                     var fam = neighbor?.PersonData?.ElementAt((int)VMPersonDataVariable.TS1FamilyNumber);
 
                     FAMI fami = null;
                     if (fam != null)
-                        fami = Content.GameContent.Get.Neighborhood.GetFamily((ushort)fam.Value);
-                    if (neighbor == null) return 0;
+                        fami = GameContent.Get.Neighborhood.GetFamily((ushort)fam.Value);
+                    if (neighbor == null)
+                        return 0;
                     switch (data)
                     {
                         case 0: //instance id
                             //find neighbour in the lot
                             return context.VM.Context.ObjectQueries.Avatars.FirstOrDefault(x => x.Object.GUID == neighbor.GUID)?.ObjectID ?? 0;
                         case 1: //belongs in house
-                            return (short)((context.VM.TS1State.CurrentFamily == fami) ? 1:0); //uh, okay.
+                            return (short)((context.VM.TS1State.CurrentFamily == fami) ? 1 : 0); //uh, okay.
                         case 2: //person age
                             return neighbor.PersonData?.ElementAt((int)VMPersonDataVariable.PersonsAge) ?? 0;
                         case 3: //relationship raw score
@@ -140,21 +149,21 @@ namespace FSO.SimAntics.Engine.Utils
                         case 4: //relationship score
                             return 0; //unused in favor of primitive?
                         case 5: //friend count
-                            return (short)neighbor.Relationships.Count(n => {
+                            return (short)neighbor.Relationships.Count(n =>
+                            {
                                 if (n.Value[0] >= 50)
                                 {
-                                    var othern = Content.GameContent.Get.Neighborhood.GetNeighborByID((short)n.Key);
+                                    var othern = GameContent.Get.Neighborhood.GetNeighborByID((short)n.Key);
                                     if (othern != null)
                                     {
-                                        List<short> orels;
-                                        if (othern.Relationships.TryGetValue(context.StackObjectID, out orels))
+                                        if (othern.Relationships.TryGetValue(context.StackObjectID, out var orels))
                                         {
                                             return orels[0] >= 50;
                                         }
                                     }
                                 }
                                 return false;
-                                }); //interaction - nag friends TEST
+                            }); //interaction - nag friends TEST
                         case 6: //house number
                             return (short)(fami?.HouseNumber ?? 0);
                         case 7: //has telephone
@@ -164,9 +173,9 @@ namespace FSO.SimAntics.Engine.Utils
                         case 9: //family friend count
                             return (short)(fami?.FamilyFriends ?? 0);
                     }
-                    throw new VMSimanticsException("Neighbor data out of bounds.", context);
+                    throw new VMSimanticsException(GameConsts.NHoodDataOutOfBands, context);
                 case VMVariableScope.Local: //25
-                    return (short)context.Locals[data];
+                    return context.Locals[data];
 
                 case VMVariableScope.Tuning: //26
                     return GetTuningVariable(context.Callee, (ushort)data, context);
@@ -175,10 +184,10 @@ namespace FSO.SimAntics.Engine.Utils
                     return context.StackObject.IsDynamicSpriteFlagSet((ushort)context.Thread.TempRegisters[data]) ? (short)1 : (short)0;
 
                 case VMVariableScope.TreeAdPersonalityVar: //28
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.TreeAdMin: //29
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.MyPersonDataByTemp: //30
                     return ((VMAvatar)context.Caller).GetPersonData((VMPersonDataVariable)(context.Thread.TempRegisters[data]));
@@ -187,12 +196,14 @@ namespace FSO.SimAntics.Engine.Utils
                     return ((VMAvatar)context.StackObject).GetPersonData((VMPersonDataVariable)(context.Thread.TempRegisters[data]));
 
                 case VMVariableScope.NeighborPersonData: //32
-                    if (!context.VM.TS1) throw new VMSimanticsException("Only valid in TS1.", context);
-                    return Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID)?.PersonData?.ElementAt(data) ?? 0;
+                    if (!context.VM.TS1)
+                        throw new VMSimanticsException(GameConsts.ValidInTS1, context);
+                    return GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID)?.PersonData?.ElementAt(data) ?? 0;
 
                 case VMVariableScope.JobData: //33 jobdata(temp0, temp1), used a few times to test if a person is at work but that isn't relevant for tso...
-                    if (!context.VM.TS1) throw new VMSimanticsException("Only valid in TS1.", context);
-                    return Content.GameContent.Get.Jobs.GetJobData((ushort)context.Thread.TempRegisters[0], context.Thread.TempRegisters[1], data);
+                    if (!context.VM.TS1)
+                        throw new VMSimanticsException(GameConsts.ValidInTS1, context);
+                    return GameContent.Get.Jobs.GetJobData((ushort)context.Thread.TempRegisters[0], context.Thread.TempRegisters[1], data);
 
                 case VMVariableScope.NeighborhoodData: //34
                     return 0; //tutorial values only
@@ -202,30 +213,35 @@ namespace FSO.SimAntics.Engine.Utils
                     return (short)context.StackObject.EntryPoints[data].ActionFunction;
 
                 case VMVariableScope.MyTypeAttr: //36
-                    if (context.VM.TS1) return Content.GameContent.Get.Neighborhood.GetTATT((context.Caller.MasterDefinition ?? context.Caller.Object.OBJ).TypeAttrGUID, data);
+                    if (context.VM.TS1)
+                        return GameContent.Get.Neighborhood.GetTATT((context.Caller.MasterDefinition ?? context.Caller.Object.OBJ).TypeAttrGUID, data);
                     return 0;
-                
+
                 case VMVariableScope.StackObjectTypeAttr: //37
-                    if (context.VM.TS1) return Content.GameContent.Get.Neighborhood.GetTATT((context.StackObject.MasterDefinition ?? context.StackObject.Object.OBJ).TypeAttrGUID, data);
+                    if (context.VM.TS1)
+                        return GameContent.Get.Neighborhood.GetTATT((context.StackObject.MasterDefinition ?? context.StackObject.Object.OBJ).TypeAttrGUID, data);
                     return 0;
 
                 case VMVariableScope.NeighborsObjectDefinition: //38
-                    if (!context.VM.TS1) throw new VMSimanticsException("Only valid in TS1.", context);
-                    var neighbor2 = Content.GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
-                    if (neighbor2 == null) return 0;
-                    var objd = Content.GameContent.Get.WorldObjects.Get(neighbor2.GUID)?.OBJ;
-                    if (objd == null) return 0;
+                    if (!context.VM.TS1)
+                        throw new VMSimanticsException(GameConsts.ValidInTS1, context);
+                    var neighbor2 = GameContent.Get.Neighborhood.GetNeighborByID(context.StackObjectID);
+                    if (neighbor2 == null)
+                        return 0;
+                    var objd = GameContent.Get.WorldObjects.Get(neighbor2.GUID)?.OBJ;
+                    if (objd == null)
+                        return 0;
                     return GetEntityDefinitionVar(objd, (VMOBJDVariable)data, context);
 
                 case VMVariableScope.Unused:
                     return context.VM.TuningCache.GetLimit((VMMotive)data);
 
                 case VMVariableScope.LocalByTemp: //40
-                    return (short)context.Locals[context.Thread.TempRegisters[data]];
+                    return context.Locals[context.Thread.TempRegisters[data]];
 
                 case VMVariableScope.StackObjectAttributeByTemp: //41
                     return context.StackObject.GetAttribute((ushort)context.Thread.TempRegisters[data]);
-                    
+
                 case VMVariableScope.TempXL: //42
                     //this needs a really intricate special case for specific operations.
                     throw new VMSimanticsException("Caller function does not support TempXL!", context);
@@ -275,19 +291,28 @@ namespace FSO.SimAntics.Engine.Utils
                 case VMVariableScope.MyList: //46 (man if only i knew what this meant)
                     switch (data)
                     {
-                        case 0: return context.Caller.MyList.First.Value; //is this allowed?
-                        case 1: return context.Caller.MyList.Last.Value;
-                        case 2: return (short)context.Caller.MyList.Count;
-                        default: return context.Caller.MyList.ElementAt(context.Thread.TempRegisters[0]);
+                        case 0:
+                            return context.Caller.MyList.First.Value; //is this allowed?
+                        case 1:
+                            return context.Caller.MyList.Last.Value;
+                        case 2:
+                            return (short)context.Caller.MyList.Count;
+                        default:
+                            return context.Caller.MyList.ElementAt(context.Thread.TempRegisters[0]);
                     }
                 case VMVariableScope.StackObjectList: //47
-                    if (context.StackObject == null) return 0;
+                    if (context.StackObject == null)
+                        return 0;
                     switch (data)
                     {
-                        case 0: return context.StackObject.MyList.First.Value;
-                        case 1: return context.StackObject.MyList.Last.Value;
-                        case 2: return (short)context.StackObject.MyList.Count;
-                        default: return context.StackObject.MyList.ElementAt(context.Thread.TempRegisters[0]);
+                        case 0:
+                            return context.StackObject.MyList.First.Value;
+                        case 1:
+                            return context.StackObject.MyList.Last.Value;
+                        case 2:
+                            return (short)context.StackObject.MyList.Count;
+                        default:
+                            return context.StackObject.MyList.ElementAt(context.Thread.TempRegisters[0]);
                     }
 
                 case VMVariableScope.MoneyOverHead32Bit: //48
@@ -301,24 +326,26 @@ namespace FSO.SimAntics.Engine.Utils
                     return context.StackObject.MultitileGroup.BaseObject.GetAttribute((ushort)data);
 
                 case VMVariableScope.MyLeadTile: //51
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectLeadTile: //52
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectMasterDef: //53
                     //gets definition of the master tile of a multi tile object in the stack object.
                     var masterDef = context.StackObject.MasterDefinition;
-                    return GetEntityDefinitionVar((masterDef == null)?context.StackObject.Object.OBJ:masterDef, (VMOBJDVariable)data, context);
+                    return GetEntityDefinitionVar((masterDef == null) ? context.StackObject.Object.OBJ : masterDef, (VMOBJDVariable)data, context);
 
                 case VMVariableScope.FeatureEnableLevel: //54
                     return 1;
-                    //all of them are enabled, dont really care right now
+                //all of them are enabled, dont really care right now
 
                 case VMVariableScope.MyAvatarID: //59
                     uint myPID;
-                    if (data < 2) myPID = context.Caller.PersistID;
-                    else myPID = context.StackObject.PersistID;
+                    if (data < 2)
+                        myPID = context.Caller.PersistID;
+                    else
+                        myPID = context.StackObject.PersistID;
                     switch (data)
                     {
                         case 0:
@@ -327,7 +354,8 @@ namespace FSO.SimAntics.Engine.Utils
                         case 1:
                         case 3:
                             return (short)(myPID >> 16);
-                        default: return 0;
+                        default:
+                            return 0;
                     }
 
             }
@@ -359,14 +387,18 @@ namespace FSO.SimAntics.Engine.Utils
         }
 
 
-        public static short GetTuningVariable(VMEntity entity, ushort data, VMStackFrame context) {
+        public static short GetTuningVariable(VMEntity entity, ushort data, VMStackFrame context)
+        {
             var tableID = (ushort)(data >> 7);
             var keyID = (ushort)(data & 0x7F);
 
             int mode = 0;
-            if (tableID < 64) mode = 0;
-            else if (tableID < 128) { tableID = (ushort)((tableID - 64)); mode = 1; }
-            else if (tableID < 192) { tableID = (ushort)((tableID - 128)); mode = 2; }
+            if (tableID < 64)
+                mode = 0;
+            else if (tableID < 128)
+            { tableID = (ushort)((tableID - 64)); mode = 1; }
+            else if (tableID < 192)
+            { tableID = (ushort)((tableID - 128)); mode = 2; }
 
             BCON bcon;
             OTFTable tuning;
@@ -374,28 +406,34 @@ namespace FSO.SimAntics.Engine.Utils
             /** This could be in a BCON or an OTF **/
 
             var dyn = context.VM.Tuning;
-            if (dyn != null) {
+            if (dyn != null)
+            {
                 string name = "object";
                 switch (mode)
                 {
                     case 0: //local
-                        name = context.ScopeResource.MainIff.Filename; break;
+                        name = context.ScopeResource.MainIff.Filename;
+                        break;
                     case 1: //semi globals
-                        name = context.ScopeResource.SemiGlobal?.Iff?.Filename ?? "unknown"; break;
+                        name = context.ScopeResource.SemiGlobal?.Iff?.Filename ?? "unknown";
+                        break;
                     case 2: //semi globals
-                        name = "global.iff"; break;
+                        name = "global.iff";
+                        break;
                 }
                 var replacement = dyn.GetTuning(name, tableID, keyID);
-                if (replacement != null) return (short)replacement;
+                if (replacement != null)
+                    return (short)replacement;
             }
 
             uint targID = 0;
             Dictionary<uint, short> tuningCache = null;
 
-            switch (mode) {
+            switch (mode)
+            {
                 case 0: //local
                     tuningCache = context.ScopeResource.TuningCache;
-                    targID = ((uint)(tableID + 4096) << 16) | keyID; 
+                    targID = ((uint)(tableID + 4096) << 16) | keyID;
                     break;
                 case 1: //semi globals
                     targID = ((uint)(tableID + 8192) << 16) | keyID;
@@ -410,8 +448,8 @@ namespace FSO.SimAntics.Engine.Utils
                     break;
             }
 
-            short value;
-            if (tuningCache.TryGetValue(targID, out value)) return value;
+            if (tuningCache.TryGetValue(targID, out var value))
+                return value;
             //throw new Exception("Could not find tuning constant!");
             return 0;
         }
@@ -426,7 +464,7 @@ namespace FSO.SimAntics.Engine.Utils
             var bcon = obj.Resource.Get<BCON>(tableID);
             if (bcon != null)
             {
-                return "bcon." + data;
+                return $"bcon.{data}";
             }
 
             var tuning = obj.Resource.Get<OTFTable>(tableID);
@@ -440,13 +478,14 @@ namespace FSO.SimAntics.Engine.Utils
         }
 
         //hilariously large switch case. there's got to be a better way
-        public static short GetEntityDefinitionVar(OBJD objd, VMOBJDVariable var, VMStackFrame context){
+        public static short GetEntityDefinitionVar(OBJD objd, VMOBJDVariable var, VMStackFrame context)
+        {
             switch (var)
             {
                 case VMOBJDVariable.Version1:
-                    return (short)(objd.Version%0xFFFF);
+                    return (short)(objd.Version % 0xFFFF);
                 case VMOBJDVariable.Version2:
-                    return (short)(objd.Version>>16);
+                    return (short)(objd.Version >> 16);
                 case VMOBJDVariable.InitialStackSize:
                     return (short)objd.StackSize;
                 case VMOBJDVariable.BaseGraphic:
@@ -460,13 +499,13 @@ namespace FSO.SimAntics.Engine.Utils
                 case VMOBJDVariable.TreeTableID:
                     return (short)objd.TreeTableID;
                 case VMOBJDVariable.InteractionGroup:
-                    return (short)objd.InteractionGroupID;
+                    return objd.InteractionGroupID;
                 case VMOBJDVariable.Type:
                     return (short)objd.ObjectType;
                 case VMOBJDVariable.MasterID:
                     return (short)objd.MasterID;
                 case VMOBJDVariable.SubIndex:
-                    return (short)objd.SubIndex;
+                    return objd.SubIndex;
                 case VMOBJDVariable.WashHandsTreeID:
                     return (short)objd.BHAV_WashHandsID;
                 case VMOBJDVariable.AnimTableID:
@@ -478,7 +517,7 @@ namespace FSO.SimAntics.Engine.Utils
                 case VMOBJDVariable.Disabled:
                     return (short)objd.Disabled;
                 case VMOBJDVariable.PortalTreeID:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.Price:
                     return (short)objd.Price;
                 case VMOBJDVariable.BodyStringsID:
@@ -514,15 +553,15 @@ namespace FSO.SimAntics.Engine.Utils
                 case VMOBJDVariable.SalePrice:
                     return (short)objd.SalePrice;
                 case VMOBJDVariable.Unused35:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.Unused36:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.BrokenBaseGraphicOffset:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.Unused38:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.HasCriticalAttributes:
-                    return (short)((objd.NumAttributes > 0)?1:0);
+                    return (short)((objd.NumAttributes > 0) ? 1 : 0);
                 case VMOBJDVariable.BuyModeType:
                     return (short)objd.FunctionFlags;
                 case VMOBJDVariable.CatalogStringsID:
@@ -624,24 +663,24 @@ namespace FSO.SimAntics.Engine.Utils
                 case VMOBJDVariable.RatingSkillFlags:
                     return (short)objd.RatingSkillFlags;
                 case VMOBJDVariable.NumTypeAttributes:
-                    throw new VMSimanticsException("Not Implemented!", context); //??
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context); //??
                 case VMOBJDVariable.MiscFlags:
-                    throw new VMSimanticsException("Not Implemented!", context); //??
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context); //??
                 case VMOBJDVariable.TypeAttrGUID1:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.TypeAttrGUID2:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.InteractionResultStrings:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.ClientHouseJoinTreeID:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 case VMOBJDVariable.PrepareForSaleTreeID:
-                    throw new VMSimanticsException("Not Implemented!", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
                 default:
                     return 0;
             }
         }
-            
+
         /// <summary>
         /// Set a variable
         /// </summary>
@@ -649,8 +688,10 @@ namespace FSO.SimAntics.Engine.Utils
         /// <param name="scope"></param>
         /// <param name="data"></param>
         /// <param name="value"></param>
-        public static bool SetVariable(VMStackFrame context, VMVariableScope scope, short data, short value){
-            switch (scope){
+        public static bool SetVariable(VMStackFrame context, VMVariableScope scope, short data, short value)
+        {
+            switch (scope)
+            {
                 case VMVariableScope.MyObjectAttributes: //0
                     context.Caller.SetAttribute((ushort)data, value);
                     return true;
@@ -660,7 +701,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return true;
 
                 case VMVariableScope.TargetObjectAttributes: //2
-                    throw new VMSimanticsException("Target Object is Deprecated!", context);
+                    throw new VMSimanticsException(GameConsts.ObjectDeprecated, context);
 
                 case VMVariableScope.MyObject: //3
                     return context.Caller.SetValue((VMStackObjectVariable)data, value);
@@ -669,7 +710,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return context.StackObject.SetValue((VMStackObjectVariable)data, value);
 
                 case VMVariableScope.TargetObject: //5
-                    throw new VMSimanticsException("Target Object is Deprecated!", context);
+                    throw new VMSimanticsException(GameConsts.ObjectDeprecated, context);
 
                 case VMVariableScope.Global: //6
                     return context.VM.SetGlobalValue((ushort)data, value);
@@ -699,7 +740,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return false; //can't set this!
 
                 case VMVariableScope.StackObjectTemp: //13
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.MyMotives: //14
                     return ((VMAvatar)context.Caller).SetMotiveData((VMMotive)data, value);
@@ -708,7 +749,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return (context.StackObject as VMAvatar)?.SetMotiveData((VMMotive)data, value) ?? false;
 
                 case VMVariableScope.StackObjectSlot: //16
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectMotiveByTemp: //17
                     return ((VMAvatar)context.StackObject).SetMotiveData((VMMotive)context.Thread.TempRegisters[data], value);
@@ -720,7 +761,7 @@ namespace FSO.SimAntics.Engine.Utils
                     return ((VMAvatar)context.StackObject).SetPersonData((VMPersonDataVariable)data, value);
 
                 case VMVariableScope.MySlot: //20
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectDefinition: //21
                     return false; //you can't set this!
@@ -730,10 +771,10 @@ namespace FSO.SimAntics.Engine.Utils
                     return true;
 
                 case VMVariableScope.RoomByTemp0: //23
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.NeighborInStackObject: //24
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.Local: //25
                     context.Locals[data] = value;
@@ -759,23 +800,25 @@ namespace FSO.SimAntics.Engine.Utils
                     return ((VMAvatar)context.StackObject).SetPersonData((VMPersonDataVariable)context.Thread.TempRegisters[data], value);
 
                 case VMVariableScope.NeighborPersonData: //32
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.JobData: //33
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.NeighborhoodData: //34
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectFunction: //35
                     return false; //you can't set this!
 
                 case VMVariableScope.MyTypeAttr: //36
-                    if (context.VM.TS1) Content.GameContent.Get.Neighborhood.SetTATT((context.Caller.MasterDefinition ?? context.Caller.Object.OBJ).TypeAttrGUID, data, value);
+                    if (context.VM.TS1)
+                        GameContent.Get.Neighborhood.SetTATT((context.Caller.MasterDefinition ?? context.Caller.Object.OBJ).TypeAttrGUID, data, value);
                     return true;
 
                 case VMVariableScope.StackObjectTypeAttr: //37
-                    if (context.VM.TS1) Content.GameContent.Get.Neighborhood.SetTATT((context.StackObject.MasterDefinition ?? context.StackObject.Object.OBJ).TypeAttrGUID, data, value);
+                    if (context.VM.TS1)
+                        GameContent.Get.Neighborhood.SetTATT((context.StackObject.MasterDefinition ?? context.StackObject.Object.OBJ).TypeAttrGUID, data, value);
                     return true;
 
                 case VMVariableScope.NeighborsObjectDefinition: //38
@@ -790,8 +833,8 @@ namespace FSO.SimAntics.Engine.Utils
                     return true;
 
                 case VMVariableScope.TempXL: //42
-                    throw new VMSimanticsException("Not implemented...", context);
-                    //this will need a special case for the expression primitive
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
+                //this will need a special case for the expression primitive
 
                 case VMVariableScope.CityTime: //43
                 case VMVariableScope.TSOStandardTime: //44
@@ -799,15 +842,15 @@ namespace FSO.SimAntics.Engine.Utils
                     return false; //you can't set this!
 
                 case VMVariableScope.MyList: //46
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.StackObjectList: //47
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.MoneyOverHead32Bit: //48
-                    //throw new VMSimanticsException("Not implemented...", context);
+                    //throw new VMSimanticsException(GameConsts.NotImplemented, context);
                     return true;
-                    //needs special case like TempXL.
+                //needs special case like TempXL.
 
                 case VMVariableScope.MyLeadTileAttribute: //49
                     context.Caller.MultitileGroup.BaseObject.SetAttribute((ushort)data, value);
@@ -823,11 +866,11 @@ namespace FSO.SimAntics.Engine.Utils
                     return false;
 
                 case VMVariableScope.FeatureEnableLevel: //54
-                    throw new VMSimanticsException("Not implemented...", context);
+                    throw new VMSimanticsException(GameConsts.NotImplemented, context);
 
                 case VMVariableScope.MyAvatarID: //59
                     return false; //you can't set this!
-                    
+
                 default:
                     throw new VMSimanticsException("Unknown scope for set variable!", context);
             }
@@ -854,17 +897,20 @@ namespace FSO.SimAntics.Engine.Utils
         /// <param name="scope"></param>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static Animation GetAnimation(VMStackFrame context, VMAnimationScope scope, ushort id){
+        public static Animation GetAnimation(VMStackFrame context, VMAnimationScope scope, ushort id)
+        {
 
             STR animTable = null;
             bool child = ((VMAvatar)context.Caller).GetPersonData(VMPersonDataVariable.PersonsAge) < 18 && context.VM.TS1;
 
-            switch (scope){
+            switch (scope)
+            {
                 case VMAnimationScope.Object:
                     var obj = context.CodeOwner;
                     var anitableID = obj.OBJ.AnimationTableID;
                     animTable = obj.Resource.Get<STR>(anitableID);
-                    if (animTable == null) animTable = obj.Resource.Get<STR>((ushort)(child?130:129));
+                    if (animTable == null)
+                        animTable = obj.Resource.Get<STR>((ushort)(child ? 130 : 129));
                     break;
                 case VMAnimationScope.Misc:
                     animTable = context.Global.Resource.Get<STR>((ushort)(child ? 157 : 156));
@@ -879,28 +925,34 @@ namespace FSO.SimAntics.Engine.Utils
                     var obj2 = context.StackObject.Object;
                     var anitableID2 = obj2.OBJ.AnimationTableID;
                     animTable = obj2.Resource.Get<STR>(anitableID2);
-                    if (animTable == null) animTable = obj2.Resource.Get<STR>((ushort)(child ? 130 : 129));
+                    if (animTable == null)
+                        animTable = obj2.Resource.Get<STR>((ushort)(child ? 130 : 129));
                     break;
             }
 
-            if (animTable == null){
+            if (animTable == null)
+            {
                 return null;
             }
 
             var animationName = animTable.GetString(id);
-            if (animationName != null) return FSO.Content.GameContent.Get.AvatarAnimations.Get(animationName + ".anim");
-            else return null;
+            if (animationName != null)
+                return GameContent.Get.AvatarAnimations.Get($"{animationName}.anim");
+            else
+                return null;
         }
 
-        public static Appearance GetSuit(VMStackFrame context, VMSuitScope scope, ushort id){
+        public static Appearance GetSuit(VMStackFrame context, VMSuitScope scope, ushort id)
+        {
             switch (scope)
             {
                 case VMSuitScope.Object:
                     var suitTable = context.Callee.Object.Resource.Get<STR>(304);
-                    if (suitTable != null){
-                        var suitFile = suitTable.GetString(id) + ".apr";
+                    if (suitTable != null)
+                    {
+                        var suitFile = $"{suitTable.GetString(id)}.apr";
 
-                        var apr = FSO.Content.GameContent.Get.AvatarAppearances.Get(suitFile);
+                        var apr = GameContent.Get.AvatarAppearances.Get(suitFile);
                         return apr;
                     }
                     return null;
@@ -912,20 +964,25 @@ namespace FSO.SimAntics.Engine.Utils
 
         public static SLOTItem GetSlot(VMStackFrame context, VMSlotScope scope, ushort data)
         {
-            switch (scope){
+            switch (scope)
+            {
                 case VMSlotScope.Global:
                     var slots = context.Global.Resource.Get<SLOT>(100);
-                    if (slots != null && slots.Slots.ContainsKey(3) && data < slots.Slots[3].Count){
-                        if (data >= slots.Slots[3].Count) return null;
+                    if (slots != null && slots.Slots.ContainsKey(3) && data < slots.Slots[3].Count)
+                    {
+                        if (data >= slots.Slots[3].Count)
+                            return null;
                         var slot = slots.Slots[3][data];
                         return slot;
                     }
                     return null;
                 case VMSlotScope.Literal:
-                    if (data >= context.StackObject.Slots.Slots[3].Count) return null;
+                    if (data >= context.StackObject.Slots.Slots[3].Count)
+                        return null;
                     return context.StackObject.Slots.Slots[3][data];
                 case VMSlotScope.StackVariable:
-                    if (context.Args[data] >= context.StackObject.Slots.Slots[3].Count) return null;
+                    if (context.Args[data] >= context.StackObject.Slots.Slots[3].Count)
+                        return null;
                     return context.StackObject.Slots.Slots[3][context.Args[data]];
             }
             return null;

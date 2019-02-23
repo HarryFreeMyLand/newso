@@ -29,7 +29,7 @@ namespace FSO.Files.Formats.IFF.Chunks
         {
             using (var io = IoBuffer.FromStream(stream, ByteOrder.LITTLE_ENDIAN))
             {
-                StringBuilder temp = new StringBuilder();
+                var temp = new StringBuilder();
                 var num = io.ReadByte();
                 if (num < 48)
                 { //less than smallest ASCII value for valid filename character, so assume this is a pascal string

@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content.TS1
 {
@@ -77,15 +75,13 @@ namespace FSO.Content.TS1
 
         private void AddItem(string cat, string avatartype, string item)
         {
-            TS1ClothingCollection col;
-            if (!CollectionsByName.TryGetValue(cat, out col))
+            if (!CollectionsByName.TryGetValue(cat, out var col))
             {
                 col = new TS1ClothingCollection();
                 CollectionsByName[cat] = col;
             }
 
-            List<string> items;
-            if (!col.ClothesByAvatarType.TryGetValue(avatartype, out items))
+            if (!col.ClothesByAvatarType.TryGetValue(avatartype, out var items))
             {
                 items = new List<string>();
                 col.ClothesByAvatarType[avatartype] = items;
@@ -105,17 +101,18 @@ namespace FSO.Content.TS1
             if (expected == typeof(Animation))
             {
                 name = name.Substring(0, name.Length - 5).ToLowerInvariant(); //remove .anim
-                string filename = null;
-                if (AnimHostBCF.TryGetValue(name, out filename))
+                if (AnimHostBCF.TryGetValue(name, out var filename))
                 {
                     var bcf = BCFProvider.Get(filename);
                     var anim = bcf.Animations.FirstOrDefault(x => x.Name.ToLowerInvariant() == name);
-                    if (anim == null) return null;
+                    if (anim == null)
+                        return null;
                     if (anim.Translations == null)
                     {
                         //enrich animation with CFP
                         var cfp = CFPProvider.Get((anim.XSkillName + ".cfp").ToLowerInvariant());
-                        if (cfp == null) return null;
+                        if (cfp == null)
+                            return null;
                         cfp.EnrichAnim(anim);
                     }
                     return anim;
@@ -125,8 +122,7 @@ namespace FSO.Content.TS1
             else if (expected == typeof(Appearance))
             {
                 name = name.Substring(0, name.Length - 4).ToLowerInvariant(); //remove .apr
-                string filename = null;
-                if (SkinHostBCF.TryGetValue(name, out filename))
+                if (SkinHostBCF.TryGetValue(name, out var filename))
                 {
                     var bcf = BCFProvider.Get(filename);
                     var skin = bcf.Appearances.FirstOrDefault(x => x.Name.ToLowerInvariant() == name);
@@ -137,8 +133,7 @@ namespace FSO.Content.TS1
             else if (expected == typeof(Skeleton))
             {
                 name = name.Substring(0, name.Length - 5).ToLowerInvariant(); //remove .skel
-                string filename = null;
-                if (SkelHostBCF.TryGetValue(name, out filename))
+                if (SkelHostBCF.TryGetValue(name, out var filename))
                 {
                     var bcf = BCFProvider.Get(filename);
                     var skel = bcf.Skeletons.FirstOrDefault(x => x.Name.ToLowerInvariant() == name);

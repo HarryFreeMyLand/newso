@@ -5,10 +5,6 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.Client.Rendering.City
 {

@@ -41,8 +41,8 @@ namespace FSO.Server.Servers.City.Domain
         public Dictionary<uint, JobEntry> InstanceIDToInstance = new Dictionary<uint, JobEntry>();
         public Dictionary<uint, JobEntry> InstanceForAvatar = new Dictionary<uint, JobEntry>();
 
-        private IDataService DataService;
-        private IDAFactory DA;
+        IDataService DataService;
+        IDAFactory DA;
 
         public JobMatchmaker(IDataService dataService, IDAFactory da)
         {
@@ -188,7 +188,7 @@ namespace FSO.Server.Servers.City.Domain
             }
         }
 
-        private uint GetRealID()
+        uint GetRealID()
         {
             lock (this)
             {

@@ -1,15 +1,10 @@
-﻿using FSO.Common.DataService.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FSO.Common.DataService.Framework;
 
 namespace FSO.Common.DataService.Model
 {
     public class Relationship : AbstractModel
     {
-        private ushort _Relationship_Days;
+        ushort _Relationship_Days;
         public ushort Relationship_Days
         {
             get { return _Relationship_Days; }
@@ -20,7 +15,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private uint _Relationship_TargetID;
+        uint _Relationship_TargetID;
         public uint Relationship_TargetID
         {
             get { return _Relationship_TargetID; }
@@ -31,7 +26,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private sbyte _Relationship_STR;
+        sbyte _Relationship_STR;
         public sbyte Relationship_STR
         {
             get { return _Relationship_STR; }
@@ -42,7 +37,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private sbyte _Relationship_LTR;
+        sbyte _Relationship_LTR;
         public sbyte Relationship_LTR
         {
             get { return _Relationship_LTR; }
@@ -53,7 +48,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private bool _Relationship_IsOutgoing;
+        bool _Relationship_IsOutgoing;
         public bool Relationship_IsOutgoing
         {
             get { return _Relationship_IsOutgoing; }
@@ -64,7 +59,7 @@ namespace FSO.Common.DataService.Model
             }
         }
 
-        private uint _Relationship_CommentID;
+        uint _Relationship_CommentID;
         public uint Relationship_CommentID
         {
             get { return _Relationship_CommentID; }

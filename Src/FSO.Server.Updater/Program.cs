@@ -1,9 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Net;
+using System.Runtime.Loader;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -35,13 +36,10 @@ namespace FSO.Server.Watchdog
             }
             while (restart)
             {
-                var setup = AppDomain.CurrentDomain.SetupInformation;
-                setup.ConfigurationFile = Path.Combine(Path.GetDirectoryName(setup.ConfigurationFile), "server.exe.config");
-                var childDomain = AppDomain.CreateDomain("serverDomain", null, setup);
-                int result = 3;
+
                 try
                 {
-                    result = childDomain.ExecuteAssembly("server.exe", args);
+                    AssemblyLoadContext.Default.LoadFromAssemblyPath("server.exe");
                 }
                 catch (Exception e)
                 {
@@ -49,23 +47,6 @@ namespace FSO.Server.Watchdog
                     Console.WriteLine(e.ToString());
                     e.ToString();
                 }
-                AppDomain.Unload(childDomain);
-
-                if (result > 1)
-                {
-                    //safe exit.
-                    switch (result)
-                    {
-                        case 2:
-                            restart = false; break;
-                        case 4:
-                            Update(new string[0]); break;
-                    }
-                }
-                return result; 
-                //was trying to do something smart here with appdomains to reload the app without closing it
-                //but it breaks mono... so to loop running the application you need to use a shell script.
-                //just loop while this watcher doesn't return 2 (shutdown)
             }
             return 0;
         }
@@ -125,8 +106,10 @@ namespace FSO.Server.Watchdog
             }
 
             var wait = new AutoResetEvent(false);
-            if (url != null) {
-                if (Directory.Exists("selfUpdate/")) Directory.Delete("selfUpdate/", true);
+            if (url != null)
+            {
+                if (Directory.Exists("selfUpdate/"))
+                    Directory.Delete("selfUpdate/", true);
                 Directory.CreateDirectory("selfUpdate/");
                 Console.WriteLine("Downloading artifacts...");
                 var client = new WebClient();
@@ -139,7 +122,8 @@ namespace FSO.Server.Watchdog
                     foreach (var entry in entries)
                     {
                         var targPath = Path.Combine("./", entry.FullName);
-                        if (File.Exists(targPath) && IgnoreFiles.Contains(entry.FullName)) continue;
+                        if (File.Exists(targPath) && IgnoreFiles.Contains(entry.FullName))
+                            continue;
                         Directory.CreateDirectory(Path.GetDirectoryName(targPath));
                         try
                         {

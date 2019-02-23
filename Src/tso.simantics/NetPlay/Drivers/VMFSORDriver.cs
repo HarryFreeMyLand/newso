@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.SimAntics.NetPlay.Model;
 using System.IO;
 using FSO.SimAntics.NetPlay.Model.Commands;
@@ -11,7 +8,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
 {
     public class VMFSORDriver : VMNetDriver
     {
-        private BinaryReader Reader;
+            BinaryReader Reader;
 
         public VMFSORDriver(Stream commandStream)
         {
@@ -36,7 +33,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
             //cannot change playback
         }
 
-        private uint TickID;
+            uint TickID;
 
         public override bool Tick(VM vm)
         {

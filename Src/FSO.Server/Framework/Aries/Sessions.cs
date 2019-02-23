@@ -9,12 +9,12 @@ namespace FSO.Server.Framework.Aries
 {
     public class Sessions : ISessions
     {
-        private HashSet<IAriesSession> _Sessions;
-        private HashSet<IGluonSession> _GluonSessions;
-        private ISessionProxy _All;
-        private AbstractAriesServer _Server;
+        HashSet<IAriesSession> _Sessions;
+        HashSet<IGluonSession> _GluonSessions;
+        ISessionProxy _All;
+        AbstractAriesServer _Server;
 
-        private Dictionary<object, SessionGroup> _Groups = new Dictionary<object, SessionGroup>();
+        Dictionary<object, SessionGroup> _Groups = new Dictionary<object, SessionGroup>();
 
         public Sessions(AbstractAriesServer server){
             _Server = server;
@@ -117,8 +117,8 @@ namespace FSO.Server.Framework.Aries
     }
 
     public class SessionGroup : EnumerableSessionProxy, ISessionGroup {
-        private HashSet<IAriesSession> _Sessions;
-        private Func<bool, IAriesSession> Criteria;
+        HashSet<IAriesSession> _Sessions;
+        Func<bool, IAriesSession> Criteria;
 
         public SessionGroup() : base(){
             _Sessions = new HashSet<IAriesSession>();

@@ -13,9 +13,9 @@ namespace FSO.Server.Servers.Tasks
 {
     public class TaskServer : AbstractAriesServer
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
-        private TaskEngine Engine;
-        private TaskServerConfiguration Config;
+        static Logger LOG = LogManager.GetCurrentClassLogger();
+        TaskEngine Engine;
+        TaskServerConfiguration Config;
 
         public TaskServer(TaskServerConfiguration config, IKernel kernel, TaskEngine engine) : base(config, kernel)
         {

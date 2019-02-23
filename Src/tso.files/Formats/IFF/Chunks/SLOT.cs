@@ -36,7 +36,7 @@ namespace FSO.Files.Formats.IFF.Chunks
         public Dictionary<ushort, List<SLOTItem>> Slots;
         public List<SLOTItem> Chronological;
 
-        public override void Read(IffFile iff, System.IO.Stream stream)
+        public override void Read(IffFile iff, Stream stream)
         {
             using (var io = IoBuffer.FromStream(stream, ByteOrder.LITTLE_ENDIAN)){
                 var zero = io.ReadUInt32();

@@ -4,10 +4,6 @@ using FSO.Common.DatabaseService.Model;
 using FSO.Common.Utils;
 using FSO.Server.Protocol.CitySelector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Client.Controllers
 {
@@ -22,10 +18,10 @@ namespace FSO.Client.Controllers
         public ConnectCityController(TransitionScreen view,
                                      CityConnectionRegulator cityConnectionRegulator)
         {
-            this.View = view;
-            this.CityConnectionRegulator = cityConnectionRegulator;
-            this.CityConnectionRegulator.OnTransition += CityConnectionRegulator_OnTransition;
-            this.CityConnectionRegulator.OnError += CityConnectionRegulator_OnError;
+            View = view;
+            CityConnectionRegulator = cityConnectionRegulator;
+            CityConnectionRegulator.OnTransition += CityConnectionRegulator_OnTransition;
+            CityConnectionRegulator.OnError += CityConnectionRegulator_OnError;
 
             View.ShowProgress = true;
             View.SetProgress(0, 4);

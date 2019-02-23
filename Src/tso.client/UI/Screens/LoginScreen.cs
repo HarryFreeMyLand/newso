@@ -9,15 +9,12 @@ using System.IO;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Panels;
-using FSO.Client.GameContent;
 using FSO.Server.Protocol.Authorization;
 using FSO.Files;
 using FSO.Client.Utils;
 using FSO.Client.Regulators;
 using FSO.Client.UI.Model;
 using FSO.HIT;
-using FSO.Files.Utils;
-using Microsoft.Xna.Framework.Graphics;
 using FSO.Common;
 using FSO.Server.Clients;
 using Ninject;
@@ -53,7 +50,7 @@ namespace FSO.Client.UI.Screens
                 //maybe signal to user that the updater update failed
             }
 
-            this.Regulator = regulator;
+            Regulator = regulator;
             regulator.Logout();
             
             HITVM.Get.PlaySoundEvent(UIMusic.None);
@@ -78,14 +75,14 @@ namespace FSO.Client.UI.Screens
                 Y = 558
             };
             Background.BackgroundCtnr.Add(lbl);
-            this.Add(Background);
+            Add(Background);
 
             /** Progress bar **/
             LoginProgress = new UILoginProgress();
             LoginProgress.X = ScreenWidth - (LoginProgress.Width + 20);
             LoginProgress.Y = ScreenHeight - (LoginProgress.Height + 20);
             LoginProgress.Opacity = 0.9f;
-            this.Add(LoginProgress);
+            Add(LoginProgress);
 
             /** Login dialog **/
             LoginDialog = new UILoginDialog(Login)
@@ -95,7 +92,7 @@ namespace FSO.Client.UI.Screens
             //Center
             LoginDialog.X = (ScreenWidth - LoginDialog.Width) / 2;
             LoginDialog.Y = (ScreenHeight - LoginDialog.Height) / 2;
-            this.Add(LoginDialog);
+            Add(LoginDialog);
 
             bool usernamePopulated = false;
 
@@ -127,7 +124,7 @@ namespace FSO.Client.UI.Screens
                 Width = 125,
                 X = 10
             };
-            this.Add(gameplayButton);
+            Add(gameplayButton);
             gameplayButton.OnButtonClick += new ButtonClickDelegate(gameplayButton_OnButtonClick);
             
             Regulator.OnError += AuthRegulator_OnError;
@@ -215,11 +212,10 @@ namespace FSO.Client.UI.Screens
                 error = ErrorMessage.FromLiteral(error.ToString());// GameFacade.Strings.GetString("210", "17"));
             }
 
-            if (error is ErrorMessage)
+            if (error is ErrorMessage errorMsg)
             {
-                ErrorMessage errorMsg = (ErrorMessage)error;
-
-                if (errorMsg.Message.StartsWith("INV-110")) {
+                if (errorMsg.Message.StartsWith("INV-110"))
+                {
                     LoginDialog.ClearPassword();
                 }
 
@@ -242,7 +238,7 @@ namespace FSO.Client.UI.Screens
             if (LoginDialog.Username.Length == 0 || LoginDialog.Password.Length == 0) {
                 if ( LastAlert != null )
                 {
-                    LoginScreen.RemoveDialog(LastAlert);
+                    RemoveDialog(LastAlert);
                 }
                 return;
             }
@@ -300,7 +296,7 @@ namespace FSO.Client.UI.Screens
 
         void gameplayButton_OnButtonClick(UIElement button)
         {
-            UIScreen.GlobalShowDialog(new UISandboxSelector(), true);
+            GlobalShowDialog(new UISandboxSelector(), true);
             return;
         }
 

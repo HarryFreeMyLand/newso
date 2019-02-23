@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace FSO.Common.DatabaseService.Framework
 {
-    [System.AttributeUsage(System.AttributeTargets.Class, AllowMultiple = true)]
-    public class DatabaseResponse : System.Attribute
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = true)]
+    public class DatabaseResponse : Attribute
     {
         public DBResponseType Type;
 
         public DatabaseResponse(DBResponseType type)
         {
-            this.Type = type;
+            Type = type;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace FSO.Files
 
         public float GetNum(string key)
         {
-            CultureInfo floatParse = CultureInfo.InvariantCulture;
+            var floatParse = CultureInfo.InvariantCulture;
             return float.Parse(KeyValues[key], floatParse);
         }
     }
@@ -89,7 +89,7 @@ namespace FSO.Files
 			byte[] Dummy = m_Reader.ReadBytes(3);
 			uint DecompressedSize2 = (uint)((Dummy[0] << 0x10) | (Dummy[1] << 0x08) | +Dummy[2]);
 
-			Decompresser Dec = new Decompresser();
+            var Dec = new Decompresser();
 			Dec.CompressedSize = CompressedSize;
 			Dec.DecompressedSize = DecompressedSize;
 
@@ -104,7 +104,7 @@ namespace FSO.Files
 
 			for (int i = 0; i < EntryCount; i++)
 			{
-				TuningEntry Entry = new TuningEntry();
+                var Entry = new TuningEntry();
 				Entry.EntryName = DecodeString(m_Reader);
 				Entry.KeyValueCount = m_Reader.ReadUInt32();
 				Entry.KeyValues = new Dictionary<string, string>();

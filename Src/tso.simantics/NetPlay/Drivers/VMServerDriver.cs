@@ -13,41 +13,40 @@ using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.NetPlay.SandboxMode;
 using System.Threading;
 using FSO.SimAntics.Engine.TSOTransaction;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.Drivers
 {
     public class VMServerDriver : VMNetDriver
     {
-        private List<VMNetCommand> QueuedCmds;
+            List<VMNetCommand> QueuedCmds;
 
-        private const int TICKS_PER_PACKET = 4;
-        private const int INACTIVITY_TICKS_WARN = 15 * 60 * 30;
-        private const int INACTIVITY_TICKS_KICK = 20 * 60 * 30;
-        private uint ProblemTick;
-        private List<VMNetTick> TickBuffer;
+            const int TICKS_PER_PACKET = 4;
+            const int INACTIVITY_TICKS_WARN = 15 * 60 * 30;
+            const int INACTIVITY_TICKS_KICK = 20 * 60 * 30;
+            uint ProblemTick;
+            List<VMNetTick> TickBuffer;
 
         // Networking Abstractions
-        private uint LastDesyncTick;
-        private List<float> LastDesyncPcts = new List<float>();
-        private const int DESYNC_LOOP_FREQ = 90 * 30; //less than 1.5 mins between desyncs indicates there ight be a problem.
+            uint LastDesyncTick;
+            List<float> LastDesyncPcts = new List<float>();
+            const int DESYNC_LOOP_FREQ = 90 * 30; //less than 1.5 mins between desyncs indicates there ight be a problem.
 
-        private Dictionary<uint, VMNetClient> Clients;
+            Dictionary<uint, VMNetClient> Clients;
 
-        private HashSet<VMNetClient> ClientsToDC;
-        private HashSet<VMNetClient> ClientsToSync;
+            HashSet<VMNetClient> ClientsToDC;
+            HashSet<VMNetClient> ClientsToSync;
         //a subset of ClientsToSync which we should NOT send intermediate ticks to. (since they don't have the lot yet)
-        private HashSet<VMNetClient> NewClients;
+            HashSet<VMNetClient> NewClients;
         //resyncing is a second class action - we will only provide state to resynced clients when there is a minimal amount of history.
         //this is to make sure they do not spend too long waiting for their game to catch up, and to avoid replaying sound effects.
-        private HashSet<VMNetClient> ResyncClients;
+            HashSet<VMNetClient> ResyncClients;
 
         //Sync and sync history
-        private const int MAX_HISTORY = (30 * 30) / TICKS_PER_PACKET;
-        private bool SyncSerializing; //this is set when we begin serializing the state on another thread.
-        private byte[] LastSync;
-        private List<byte[]> TicksSinceSync;
+            const int MAX_HISTORY = (30 * 30) / TICKS_PER_PACKET;
+            bool SyncSerializing; //this is set when we begin serializing the state on another thread.
+            byte[] LastSync;
+            List<byte[]> TicksSinceSync;
 
         public event VMServerBroadcastHandler OnTickBroadcast;
         public delegate void VMServerBroadcastHandler(VMNetMessage msg, HashSet<VMNetClient> ignore);
@@ -64,7 +63,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
         public BanList SandboxBans;
         public bool SelfResync;
 
-        private uint TickID = 1;
+            uint TickID = 1;
 
         public VMServerDriver(IVMTSOGlobalLink globalLink)
         {
@@ -106,8 +105,8 @@ namespace FSO.SimAntics.NetPlay.Drivers
         {
             lock (Clients)
             {
-                VMNetClient client = null;
-                if (Clients.TryGetValue(id, out client)) DisconnectClient(client);
+                if (Clients.TryGetValue(id, out var client))
+                    DisconnectClient(client);
             }
         }
 
@@ -122,7 +121,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
             }
         }
 
-        private void SendState(VM vm)
+            void SendState(VM vm)
         {
             if (ResyncClients.Count != 0 && LastSync == null && !SyncSerializing)
             {
@@ -257,7 +256,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
             return true;
         }
 
-        private void SendTickBuffer()
+            void SendTickBuffer()
         {
             var ticks = new VMNetTickList { Ticks = TickBuffer };
             byte[] data;
@@ -326,22 +325,22 @@ namespace FSO.SimAntics.NetPlay.Drivers
             Send(client, new VMNetMessage(VMNetMessageType.Direct, data));
         }
 
-        private void Send(VMNetClient client, VMNetMessage message)
+            void Send(VMNetClient client, VMNetMessage message)
         {
             if (OnDirectMessage != null) OnDirectMessage(client, message);
         }
 
-        private void Broadcast(VMNetMessage message, HashSet<VMNetClient> ignore)
+            void Broadcast(VMNetMessage message, HashSet<VMNetClient> ignore)
         {
             if (OnTickBroadcast != null) OnTickBroadcast(message, ignore);
         }
 
-        private void DropClient(VMNetClient client)
+            void DropClient(VMNetClient client)
         {
             if (OnDropClient != null) OnDropClient(client);
         }
 
-        private void HandleClients(VM vm)
+            void HandleClients(VM vm)
         {
             lock (Clients)
             {
@@ -381,15 +380,14 @@ namespace FSO.SimAntics.NetPlay.Drivers
         {
             lock (Clients)
             {
-                VMNetClient cli = null;
-                if (Clients.TryGetValue(id, out cli))
+                if (Clients.TryGetValue(id, out var cli))
                 {
                     cli.SubmitMessage(msg);
                 }
             }
         }
 
-        private void SendGenericMessage(VMNetClient client, string title, string msg)
+            void SendGenericMessage(VMNetClient client, string title, string msg)
         {
             SendDirectCommand(client, new VMGenericDialogCommand
             {
@@ -518,8 +516,7 @@ namespace FSO.SimAntics.NetPlay.Drivers
         {
             lock (Clients)
             {
-                VMNetClient client = null;
-                Clients.TryGetValue(uid, out client);
+                Clients.TryGetValue(uid, out var client);
                 if (client == null) return "unknown";
                 return client.RemoteIP;
             }

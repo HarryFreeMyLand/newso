@@ -3,8 +3,6 @@ using FSO.Content.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Xml;
 
 namespace FSO.Content
@@ -89,10 +87,10 @@ namespace FSO.Content
 
         public ObjectCatalogItem? GetItemByGUID(uint guid)
         {
-            ObjectCatalogItem item;
-            if (ItemsByGUID.TryGetValue(guid, out item))
+            if (ItemsByGUID.TryGetValue(guid, out var item))
                 return item;
-            else return null;
+            else
+                return null;
         }
 
 

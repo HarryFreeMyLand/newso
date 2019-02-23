@@ -2,10 +2,7 @@
 using FSO.SimAntics.NetPlay.EODs.Model;
 using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -127,12 +124,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         public void P_DJButton(string evt, string text, VMEODClient client)
         {
             if (text.Length < 3) return;
-            byte category = 0;
-            if (!byte.TryParse(text[0].ToString(), out category) || category > 3) return;
-            byte ind1 = 0;
-            if (!byte.TryParse(text[1].ToString(), out ind1) || ind1 > 3) return; // (abc), (most sig digit), (least sig digit)
-            byte ind2 = 0;
-            if (!byte.TryParse(text[2].ToString(), out ind2) || ind2 > 3) return; //number
+            if (!byte.TryParse(text[0].ToString(), out var category) || category > 3)
+                return;
+            if (!byte.TryParse(text[1].ToString(), out var ind1) || ind1 > 3)
+                return; // (abc), (most sig digit), (least sig digit)
+            if (!byte.TryParse(text[2].ToString(), out var ind2) || ind2 > 3)
+                return; //number
 
             PatternDirty[category] = true;
             var catPat = Patterns[category].ToCharArray();

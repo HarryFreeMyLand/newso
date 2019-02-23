@@ -1,17 +1,13 @@
-﻿using FSO.Common.Serialization;
+using FSO.Common.Serialization;
+using FSO.Content;
 using Ninject;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService
 {
     public class NullDataService : DataService
     {
         public NullDataService(IModelSerializer serializer,
-                                FSO.Content.GameContent content,
+                                GameContent content,
                                 IKernel kernel) : base(serializer, content)
         {
         }

@@ -43,47 +43,47 @@ namespace FSO.Server.Servers.Lot.Domain
     /// </summary>
     public class LotContainer
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private IDAFactory DAFactory;
-        private LotContext Context;
-        private ILotHost Host;
-        private IKernel Kernel;
-        private LotServerConfiguration Config;
-        private DbLot LotPersist;
-        private List<DbLot> LotAdj;
-        private List<DbRoommate> LotRoommates;
+        IDAFactory DAFactory;
+        LotContext Context;
+        ILotHost Host;
+        IKernel Kernel;
+        LotServerConfiguration Config;
+        DbLot LotPersist;
+        List<DbLot> LotAdj;
+        List<DbRoommate> LotRoommates;
 
-        private VM Lot;
-        private VMServerDriver VMDriver;
-        private LotServerGlobalLink VMGlobalLink;
-        private byte[][] HollowLots;
+        VM Lot;
+        VMServerDriver VMDriver;
+        LotServerGlobalLink VMGlobalLink;
+        byte[][] HollowLots;
         public int ClientCount = 0;
         public int TimeToShutdown = -1;
         public int LotSaveTicker = 0;
         public int AvatarSaveTicker = 0;
         public int KeepAliveTicker = 0;
 
-        private bool ShuttingDown;
+        bool ShuttingDown;
 
-        private HashSet<uint> AvatarsToSave = new HashSet<uint>();
-        private HashSet<IVoltronSession> SessionsToRelease = new HashSet<IVoltronSession>();
-        private List<DbRelationship> RelationshipsToSave = new List<DbRelationship>();
-        private DynamicTuning Tuning;
+        HashSet<uint> AvatarsToSave = new HashSet<uint>();
+        HashSet<IVoltronSession> SessionsToRelease = new HashSet<IVoltronSession>();
+        List<DbRelationship> RelationshipsToSave = new List<DbRelationship>();
+        DynamicTuning Tuning;
 
         public static readonly int TICKRATE = 30;
         public static readonly int LOT_SAVE_PERIOD = TICKRATE * 60 * 10;
         public static readonly int AVATAR_SAVE_PERIOD = TICKRATE * 60 * 1;
         public static readonly int KEEP_ALIVE_PERIOD = TICKRATE * 3;
 
-        private IShardRealestateDomain Realestate;
-        private VMTSOSurroundingTerrain Terrain;
-        private bool JobLot;
-        private ManualResetEvent LotActive = new ManualResetEvent(false);
-        private bool ActiveYet;
-        private Queue<Action> LotThreadActions = new Queue<Action>();
+        IShardRealestateDomain Realestate;
+        VMTSOSurroundingTerrain Terrain;
+        bool JobLot;
+        ManualResetEvent LotActive = new ManualResetEvent(false);
+        bool ActiveYet;
+        Queue<Action> LotThreadActions = new Queue<Action>();
 
-        private static HashSet<uint> ValidOOWGUIDs = new HashSet<uint>()
+        static HashSet<uint> ValidOOWGUIDs = new HashSet<uint>()
         {
             0x37EB32F3, //skill controller
             0x534564D5, //skill degrade
@@ -105,18 +105,18 @@ namespace FSO.Server.Servers.Lot.Domain
             0x3278BD34, //dog carrier
         };
 
-        private static HashSet<uint> RequiredGUIDs = new HashSet<uint>()
+        static HashSet<uint> RequiredGUIDs = new HashSet<uint>()
         {
             0x37EB32F3, //skill controller
             0x534564D5, //skill degrade
         };
 
-        private static HashSet<uint> InvalidGUIDs = new HashSet<uint>()
+        static HashSet<uint> InvalidGUIDs = new HashSet<uint>()
         {
             0xA4E8B034
         };
 
-        private static HashSet<uint> PetCrateGUIDs = new HashSet<uint>()
+        static HashSet<uint> PetCrateGUIDs = new HashSet<uint>()
         {
             0x3278BD34,
             0x5157DDF2
@@ -373,7 +373,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void ResetObjectValues()
+        void ResetObjectValues()
         {
             //the values of the objects on this lot may be invalid.
 
@@ -405,7 +405,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void ReturnOOWObjects()
+        void ReturnOOWObjects()
         {
             //we can delete these without respecting slot rules because of how SLOTs work (deleting table under us will move us to OOW)
 
@@ -418,7 +418,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void ReturnInvalidObjects()
+        void ReturnInvalidObjects()
         {
             var objectsOnLot = new List<uint>();
             var total = 0;
@@ -524,7 +524,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void ObjListAllContained(List<VMEntity> ents, VMEntity ent, int depth)
+        void ObjListAllContained(List<VMEntity> ents, VMEntity ent, int depth)
         {
             if (depth > 50) throw new Exception("slot depth too high!");
             for (int i=0; i<ent.TotalSlots(); i++)
@@ -538,7 +538,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void CleanLot()
+        void CleanLot()
         {
             LOG.Info("Cleaning lot with dbid = " + Context.DbId);
             var avatars = new List<VMEntity>(Lot.Entities.Where(x => x is VMAvatar && x.PersistID != 0));
@@ -760,7 +760,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void Lot_OnChatEvent(VMChatEvent evt)
+        void Lot_OnChatEvent(VMChatEvent evt)
         {
             if (evt.Type == VMChatEventType.Debug)
             {
@@ -768,7 +768,7 @@ namespace FSO.Server.Servers.Lot.Domain
             }
         }
 
-        private void DropClient(VMNetClient target)
+        void DropClient(VMNetClient target)
         {
             //The VM wants us to drop this client.
             //...uh, tell the host because we don't control the voltron sessions
@@ -780,7 +780,7 @@ namespace FSO.Server.Servers.Lot.Domain
             VMDriver.SubmitMessage(session.AvatarId, new VMNetMessage(VMNetMessageType.Command, cmd.Data));
         }
 
-        private void DirectMessage(VMNetClient target, VMNetMessage msg)
+        void DirectMessage(VMNetClient target, VMNetMessage msg)
         {
             object packet = (msg.Type == VMNetMessageType.Direct) ?
                 (object)(new FSOVMDirectToClient() { Data = msg.Data })
@@ -788,13 +788,13 @@ namespace FSO.Server.Servers.Lot.Domain
             Host.Send(target.PersistID, packet);
         }
 
-        private void TickBroadcast(VMNetMessage msg, HashSet<VMNetClient> ignore)
+        void TickBroadcast(VMNetMessage msg, HashSet<VMNetClient> ignore)
         {
             var ignoreIDs = new HashSet<uint>(ignore.Select(x => x.PersistID));
             Host.Broadcast(ignoreIDs, new FSOVMTickBroadcast() { Data = msg.Data });
         }
 
-        private void DereferenceLot()
+        void DereferenceLot()
         {
             //mono somehow keeps a reference to the LotContainer... (probably)
             //this causes a substantial memory leak on linux
@@ -1159,7 +1159,7 @@ namespace FSO.Server.Servers.Lot.Domain
             });
         }
 
-        private VMNetAvatarPersistState StateFromDB(DbAvatar avatar, User user, List<DbRelationship> rels, List<DbJobLevel> jobs, List<DbRoommate> myRoomieLots, List<uint> ignored)
+        VMNetAvatarPersistState StateFromDB(DbAvatar avatar, User user, List<DbRelationship> rels, List<DbJobLevel> jobs, List<DbRoommate> myRoomieLots, List<uint> ignored)
         {
             var state = new VMNetAvatarPersistState
             {

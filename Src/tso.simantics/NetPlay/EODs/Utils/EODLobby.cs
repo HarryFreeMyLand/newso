@@ -1,9 +1,6 @@
 ﻿using FSO.Common.Serialization;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Utils
 {
@@ -12,8 +9,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
         public static int[] ParsePlayers(string msg)
         {
             return msg.Split('\n').Select(x => {
-                int result = 0;
-                int.TryParse(x, out result);
+                int.TryParse(x, out var result);
                 return result;
             }).ToArray();
         }
@@ -21,13 +17,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
 
     public class EODLobby<T> : EODLobby
     {
-        private VMEODServer Server;
+            VMEODServer Server;
         public VMEODClient[] Players { get; internal set; }
-        private T[] SlotData;
+            T[] SlotData;
 
-        private string BroadcastPlayersOnChangeHandler;
-        private string OnJoinSendHandler;
-        private bool _DisconnectIfSlotTaken = false;
+            string BroadcastPlayersOnChangeHandler;
+            string OnJoinSendHandler;
+            bool _DisconnectIfSlotTaken = false;
 
         public EODLobby(VMEODServer server, uint numSlots)
         {
@@ -141,7 +137,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
             }
         }
 
-        private void BroadcastPlayers()
+            void BroadcastPlayers()
         {
             if(BroadcastPlayersOnChangeHandler != null)
             {

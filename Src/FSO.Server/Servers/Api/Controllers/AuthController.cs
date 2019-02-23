@@ -10,20 +10,20 @@ namespace FSO.Server.Servers.Api.Controllers
 {
     public class AuthController : NancyModule
     {
-        private const String ERROR_020_CODE = "INV-020";
-        private const String ERROR_020_MSG = "Please enter your member name and password.";
+        const String ERROR_020_CODE = "INV-020";
+        const String ERROR_020_MSG = "Please enter your member name and password.";
 
-        private const String ERROR_110_CODE = "INV-110";
-        private const String ERROR_110_MSG = "The member name or password you have entered is incorrect. Please try again.";
+        const String ERROR_110_CODE = "INV-110";
+        const String ERROR_110_MSG = "The member name or password you have entered is incorrect. Please try again.";
 
-        private const String ERROR_302_CODE = "INV-302";
-        private const String ERROR_302_MSG = "The game has experienced an internal error. Please try again.";
+        const String ERROR_302_CODE = "INV-302";
+        const String ERROR_302_MSG = "The game has experienced an internal error. Please try again.";
 
-        private const String ERROR_160_CODE = "INV-160";
-        private const String ERROR_160_MSG = "The server is currently down for maintainance. Please try again later.";
+        const String ERROR_160_CODE = "INV-160";
+        const String ERROR_160_MSG = "The server is currently down for maintainance. Please try again later.";
 
-        private IDAFactory DAFactory;
-        private ApiServerConfiguration Config;
+        IDAFactory DAFactory;
+        ApiServerConfiguration Config;
 
         public AuthController(IDAFactory daFactory, ApiServerConfiguration config)
         {

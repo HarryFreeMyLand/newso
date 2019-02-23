@@ -9,8 +9,8 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class MessagingHandler
     {
-        private ISessions Sessions;
-        private IDataService DataService;
+        ISessions Sessions;
+        IDataService DataService;
 
         public MessagingHandler(ISessions sessions, IDataService dataService)
         {

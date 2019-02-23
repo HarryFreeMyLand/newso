@@ -5,18 +5,13 @@ using FSO.Common.Domain.Shards;
 using FSO.Common.Security;
 using FSO.Common.Serialization.Primitives;
 using FSO.Common.Utils.Cache;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Common.DataService.Providers.Client
 {
     public class ClientLotProvider : ReceiveOnlyServiceProvider<uint, Lot>
     {
-        private ICache Cache;
-        private IShardsDomain Shards;
+        ICache Cache;
+        IShardsDomain Shards;
 
         public ClientLotProvider(ICache cache, IShardsDomain shards)
         {
@@ -76,7 +71,7 @@ namespace FSO.Common.DataService.Providers.Client
         }
 
 
-        private bool FastBytesCompare(byte[] a, byte[] b)
+        bool FastBytesCompare(byte[] a, byte[] b)
         {
             if (a == null && b != null) { return false; }
             if (a != null && b == null) { return false; }

@@ -15,12 +15,12 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class PurchaseLotHandler
     {
-        private IRealestateDomain GlobalRealestate;
-        private IShardRealestateDomain Realestate;
-        private IDAFactory DA;
-        private IDataService DataService;
-        private CityServerContext Context;
-        private IKernel Kernel;
+        IRealestateDomain GlobalRealestate;
+        IShardRealestateDomain Realestate;
+        IDAFactory DA;
+        IDataService DataService;
+        CityServerContext Context;
+        IKernel Kernel;
         
         public PurchaseLotHandler(CityServerContext context, IRealestateDomain realestate, IDAFactory da, IDataService dataService, IKernel kernel)
         {

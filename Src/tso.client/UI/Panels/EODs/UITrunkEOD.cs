@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
@@ -69,7 +65,7 @@ namespace FSO.Client.UI.Panels.EODs
         }
         void InitUI()
         {
-            Script = this.RenderScript("trunkeod.uis");
+            Script = RenderScript("trunkeod.uis");
             // add background image and thumbnail
             SubpanelBackground = Script.Create<UIImage>("SubpanelBackground");
             AddAt(0, SubpanelBackground);
@@ -78,7 +74,7 @@ namespace FSO.Client.UI.Panels.EODs
 
             CostumeOptions = Script.Create<UICollectionViewer>("BodySkinBrowser");
             CostumeOptions.Init();
-            this.Add(CostumeOptions);
+            Add(CostumeOptions);
         }
         void CostumeOptionsChangeHandler(UIElement element)
         {

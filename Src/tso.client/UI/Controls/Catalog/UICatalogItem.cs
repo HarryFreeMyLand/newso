@@ -5,14 +5,10 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using FSO.Common.Rendering.Framework.IO;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.Utils;
-using FSO.Client.UI.Controls;
 using FSO.Common.Utils;
 using Microsoft.Xna.Framework;
 using FSO.Common.Rendering.Framework.Model;
@@ -34,7 +30,7 @@ namespace FSO.Client.UI.Controls.Catalog
 
         public void SetActive(bool active)
         {
-            this.Active = active;
+            Active = active;
             UpdateHighlight();
         }
 
@@ -47,13 +43,13 @@ namespace FSO.Client.UI.Controls.Catalog
 
         public void SetHover(bool hover)
         {
-            this.Hovered = hover;
+            Hovered = hover;
             UpdateHighlight();
         }
 
         public void SetDisabled(bool disable)
         {
-            this.Disabled = disable;
+            Disabled = disable;
             UpdateHighlight();
         }
 

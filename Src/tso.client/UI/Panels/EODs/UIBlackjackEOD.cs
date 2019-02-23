@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Timers;
-using System.Text;
-using System.Threading.Tasks;
-using FSO.Content.Model;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
 using FSO.Client.UI.Panels.EODs.Utils;
-using FSO.SimAntics;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
 using Microsoft.Xna.Framework.Graphics;
@@ -531,7 +527,7 @@ namespace FSO.Client.UI.Panels.EODs
             {
                 TextSize = 12,
                 Title = Insurance,
-                Message = InsuranceQuestion + System.Environment.NewLine + insuranceDesc1 + System.Environment.NewLine + InsuranceDesc2,
+                Message = InsuranceQuestion + Environment.NewLine + insuranceDesc1 + Environment.NewLine + InsuranceDesc2,
                 Alignment = TextAlignment.Center,
                 TextEntry = false,
                 Buttons = UIAlertButton.YesNo(
@@ -2395,7 +2391,7 @@ namespace FSO.Client.UI.Panels.EODs
                 card.ScaleX = card.ScaleY = _CurrentScale;
                 card.Opacity = CurrentOpacity;
                 card.InvalidateOpacity();
-                this.Add(card);
+                Add(card);
                 if (PreviousCard != null)
                 {
                     PreviousCard.Texture = GetTexture(UIPlayingCard.GetPartialCardAssetID(PreviousCard.Tooltip)); // swap for partial card image

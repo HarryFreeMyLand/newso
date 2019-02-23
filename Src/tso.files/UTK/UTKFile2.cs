@@ -224,9 +224,9 @@ namespace FSO.Files.UTK
         /// <param name="min">Lower bound.</param>
         /// <returns></returns>
         public static T Clamp<T>(T value, T max, T min)
-         where T : System.IComparable<T>
+         where T : IComparable<T>
         {
-            T result = value;
+            var result = value;
             if (value.CompareTo(max) < 0)
                 result = max;
             if (value.CompareTo(min) > 0)
@@ -249,7 +249,7 @@ namespace FSO.Files.UTK
                 for (int i = 0; i < BlockSize; i++)
                 {
                     int Value = (int)Math.Round(m_DecompressedFrame[324 + i]);
-                    Value = Clamp<int>(Value, -32768, 32767);
+                    Value = Clamp(Value, -32768, 32767);
                     m_Writer.Write((ushort)Value);
                 }
 

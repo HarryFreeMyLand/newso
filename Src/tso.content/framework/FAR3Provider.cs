@@ -6,8 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Files.FAR3;
 using System.IO;
 using System.Text.RegularExpressions;
@@ -94,8 +92,7 @@ namespace FSO.Content.Framework
 
         protected virtual T ResolveById(ulong id)
         {
-            Far3ProviderEntry<T> entry = null;
-            if (EntriesById.TryGetValue(id, out entry))
+            if (EntriesById.TryGetValue(id, out var entry))
             {
                 return Get(entry);
             }
@@ -109,9 +106,8 @@ namespace FSO.Content.Framework
         /// <returns>A FAR3 archive.</returns>
         public T Get(string Filename)
         {
-            Far3ProviderEntry<T> entry;
 
-            if (EntriesByName.TryGetValue(Filename.ToLowerInvariant(), out entry))
+            if (EntriesByName.TryGetValue(Filename.ToLowerInvariant(), out var entry))
             {
                 return Get(entry);
             }

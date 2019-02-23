@@ -8,11 +8,11 @@ namespace FSO.Server.Servers.Api.Controllers.UserAPI
 {
     public class CityInfoController : NancyModule
     {
-        private IDAFactory DAFactory;
-        private IServerNFSProvider NFS;
-        private static object ModelLock = new object { };
-        private static CityInfoModel LastModel = new CityInfoModel();
-        private static uint LastModelUpdate;
+        IDAFactory DAFactory;
+        IServerNFSProvider NFS;
+        static object ModelLock = new object { };
+        static CityInfoModel LastModel = new CityInfoModel();
+        static uint LastModelUpdate;
 
         /*
          * TODO: city data service access for desired shards. 

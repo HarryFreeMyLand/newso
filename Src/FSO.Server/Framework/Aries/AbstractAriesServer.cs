@@ -21,20 +21,20 @@ namespace FSO.Server.Framework.Aries
 {
     public abstract class AbstractAriesServer : AbstractServer, IoHandler, ISocketServer
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
         protected IKernel Kernel;
 
-        private AbstractAriesServerConfig Config;
+        AbstractAriesServerConfig Config;
         protected IDAFactory DAFactory;
 
-        private IoAcceptor Acceptor;
-        private IoAcceptor PlainAcceptor;
-        private IServerDebugger Debugger;
+        IoAcceptor Acceptor;
+        IoAcceptor PlainAcceptor;
+        IServerDebugger Debugger;
 
-        private AriesPacketRouter _Router = new AriesPacketRouter();
-        private Sessions _Sessions;
+        AriesPacketRouter _Router = new AriesPacketRouter();
+        Sessions _Sessions;
 
-        private List<IAriesSessionInterceptor> _SessionInterceptors = new List<IAriesSessionInterceptor>();
+        List<IAriesSessionInterceptor> _SessionInterceptors = new List<IAriesSessionInterceptor>();
 
         public AbstractAriesServer(AbstractAriesServerConfig config, IKernel kernel)
         {

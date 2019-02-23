@@ -26,15 +26,15 @@ namespace FSO.Server.Servers.Lot.Domain
 {
     public class LotServerGlobalLink : IVMTSOGlobalLink
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private IDAFactory DAFactory;
-        private ILotHost Host;
-        private LotContext Context;
-        private LotServerConfiguration Config;
-        private Queue<VMNetArchitectureCmd> ArchBuffer = new Queue<VMNetArchitectureCmd>();
-        private CityConnections City;
-        private bool WaitingOnArch;
+        IDAFactory DAFactory;
+        ILotHost Host;
+        LotContext Context;
+        LotServerConfiguration Config;
+        Queue<VMNetArchitectureCmd> ArchBuffer = new Queue<VMNetArchitectureCmd>();
+        CityConnections City;
+        bool WaitingOnArch;
 
         public LotServerGlobalLink(LotServerConfiguration config, IDAFactory da, LotContext context, ILotHost host, CityConnections city)
         {
@@ -326,7 +326,7 @@ namespace FSO.Server.Servers.Lot.Domain
             });
         }
 
-        private DbObject GenerateObjectPersist(VMMultitileGroup obj)
+        DbObject GenerateObjectPersist(VMMultitileGroup obj)
         {
             var bobj = obj.BaseObject;
             uint? owner = ((VMTSOObjectState)obj.BaseObject.TSOState).OwnerID;
@@ -360,7 +360,7 @@ namespace FSO.Server.Servers.Lot.Domain
                 }
             });
         }
-        private void SaveInventoryState(bool isNew, uint objectPID, VMStandaloneObjectMarshal state, DbObject dbState, uint guid, VMAsyncInventorySaveCallback callback, bool runSync)
+        void SaveInventoryState(bool isNew, uint objectPID, VMStandaloneObjectMarshal state, DbObject dbState, uint guid, VMAsyncInventorySaveCallback callback, bool runSync)
         {
             try
             {
@@ -591,7 +591,7 @@ namespace FSO.Server.Servers.Lot.Domain
             });
         }
 
-        private void UpdateInventoryFor(VM vm, uint targetPID)
+        void UpdateInventoryFor(VM vm, uint targetPID)
         {
             using (var da = DAFactory.Get)
             {

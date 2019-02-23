@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Mina.Core.Buffer;
 using FSO.Files.Formats.tsodata;
 using FSO.Common.Serialization.Primitives;
@@ -15,9 +13,9 @@ namespace FSO.Common.DataService.Framework
     public class DataServiceModelTypeSerializer : ITypeSerializer
     {
         //0xA96E7E5B: cTSOValue<class cRZAutoRefCount<class cITSOProperty> >
-        private readonly uint CLSID = 0xA96E7E5B;
+        readonly uint CLSID = 0xA96E7E5B;
 
-        private TSODataDefinition Model;
+        TSODataDefinition Model;
         protected Dictionary<string, Struct> StructsByName = new Dictionary<string, Struct>();
         protected Dictionary<uint, Struct> StructById = new Dictionary<uint, Struct>();
         protected Dictionary<string, Type> ModelsByName = new Dictionary<string, Type>();
@@ -46,7 +44,7 @@ namespace FSO.Common.DataService.Framework
 
         protected virtual void ScanAssembly(Assembly assembly)
         {
-            foreach (Type type in assembly.GetTypes())
+            foreach (var type in assembly.GetTypes())
             {
                 if (typeof(AbstractModel).IsAssignableFrom(type))
                 {

@@ -7,7 +7,7 @@ namespace FSO.Server.Servers.Tasks.Domain
 {
     public class PruneDatabaseTask : ITask
     {
-        private IDAFactory DAFactory;
+        IDAFactory DAFactory;
 
         public PruneDatabaseTask(IDAFactory DAFactory)
         {

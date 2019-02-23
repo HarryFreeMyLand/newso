@@ -27,7 +27,6 @@ using FSO.HIT.Model;
 using FSO.UI.Model;
 using FSO.Files.RC;
 using FSO.Files.Formats.IFF;
-using FSO.SimAntics;
 //using System.Windows.Forms;
 
 namespace FSO.Client

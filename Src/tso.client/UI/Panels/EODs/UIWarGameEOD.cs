@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
@@ -460,7 +456,7 @@ namespace FSO.Client.UI.Panels.EODs
         }
         void BuildUI()
         {
-            var script = this.RenderScript("wargameeod.uis");
+            var script = RenderScript("wargameeod.uis");
             Script = script;
 
             // add backgrounds

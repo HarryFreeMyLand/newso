@@ -4,12 +4,7 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
-using FSO.Files.Utils;
 using FSO.Files.Formats.IFF.Chunks;
 
 namespace FSO.SimAntics.Primitives

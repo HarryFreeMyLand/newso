@@ -1,4 +1,4 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
@@ -10,45 +10,38 @@ namespace FSO.Client.Utils
 {
     public class ThreeDMesh<T>
     {
-        List<T> Vertexes = new List<T>();
-        List<int> Indexes = new List<int>();
-        int IndexOffset = 0;
-        int _PrimitiveCount = 0;
+        List<T> _vertexes = new List<T>();
+        List<int> _indexes = new List<int>();
+        int _indexOffset = 0;
 
         public void AddQuad(T tl, T tr, T br, T bl)
         {
-            Vertexes.Add(tl);
-            Vertexes.Add(tr);
-            Vertexes.Add(br);
-            Vertexes.Add(bl);
+            _vertexes.Add(tl);
+            _vertexes.Add(tr);
+            _vertexes.Add(br);
+            _vertexes.Add(bl);
 
-            Indexes.Add(IndexOffset);
-            Indexes.Add(IndexOffset + 1);
-            Indexes.Add(IndexOffset + 2);
-            Indexes.Add(IndexOffset + 2);
-            Indexes.Add(IndexOffset + 3);
-            Indexes.Add(IndexOffset);
+            _indexes.Add(_indexOffset);
+            _indexes.Add(_indexOffset + 1);
+            _indexes.Add(_indexOffset + 2);
+            _indexes.Add(_indexOffset + 2);
+            _indexes.Add(_indexOffset + 3);
+            _indexes.Add(_indexOffset);
 
-            IndexOffset += 4;
-            _PrimitiveCount += 2;
+            _indexOffset += 4;
+            PrimitiveCount += 2;
         }
 
         public T[] GetVertexes()
         {
-            return Vertexes.ToArray();
+            return _vertexes.ToArray();
         }
 
         public int[] GetIndexes()
         {
-            return Indexes.ToArray();
+            return _indexes.ToArray();
         }
 
-        public int PrimitiveCount
-        {
-            get
-            {
-                return _PrimitiveCount;
-            }
-        }
+        public int PrimitiveCount { get; private set; } = 0;
     }
 }

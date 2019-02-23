@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.SimAntics.NetPlay.EODs.Utils;
 using FSO.SimAntics.NetPlay.EODs.Handlers.Data;
 using FSO.SimAntics.Model.TSOPlatform;
@@ -13,28 +11,28 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODHoldEmCasinoPlugin : VMEODHandler
     {
-        private int ActivePlayerIndex;
-        private int BettingTimer;
-        private AbstractPlayingCardsDeck CardDeck;
-        private int DecisionTimer;
-        private int IdleTimer;
-        private EODLobby<HoldEmCasinoPlayer> Lobby;
-        private int MaxAnteBet;
-        private int MaxSideBet;
-        private int MinAnteBet;
-        private int TableBalance;
-        private int Tock;
-        private VMEODHoldEmCasinoStates GameState;
-        private VMEODHoldEmCasinoStates NextState = VMEODHoldEmCasinoStates.Invalid;
-        private bool DealerIntermissionComplete;
-        private List<VMEODEvent> DealerEventsQueue;
-        private List<VMEODClient> SyncQueue;
+            int ActivePlayerIndex;
+            int BettingTimer;
+            AbstractPlayingCardsDeck CardDeck;
+            int DecisionTimer;
+            int IdleTimer;
+            EODLobby<HoldEmCasinoPlayer> Lobby;
+            int MaxAnteBet;
+            int MaxSideBet;
+            int MinAnteBet;
+            int TableBalance;
+            int Tock;
+            VMEODHoldEmCasinoStates GameState;
+            VMEODHoldEmCasinoStates NextState = VMEODHoldEmCasinoStates.Invalid;
+            bool DealerIntermissionComplete;
+            List<VMEODEvent> DealerEventsQueue;
+            List<VMEODClient> SyncQueue;
 
-        private HoldEmCasinoPlayer CommunityHand;
-        private VMEODClient Controller;
-        private VMEODClient Dealer;
-        private HoldEmCasinoPlayer DealerPlayer;
-        private VMEODClient Owner;
+            HoldEmCasinoPlayer CommunityHand;
+            VMEODClient Controller;
+            VMEODClient Dealer;
+            HoldEmCasinoPlayer DealerPlayer;
+            VMEODClient Owner;
 
         public static readonly int MAXIMUM_BET = 1000;
         public static readonly int WORST_CASE_ANTE_PAYOUT_RATIO = 84;
@@ -423,11 +421,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Events for the owner to stock the table and set the min/max ante and max side bets
          */
-        private void NewMinimumAnteBetHandler(string evt, string newMinString, VMEODClient client)
+            void NewMinimumAnteBetHandler(string evt, string newMinString, VMEODClient client)
         {
             string failureReason = "";
-            short newMinBet;
-            var result = Int16.TryParse(newMinString.Trim(), out newMinBet);
+            var result = Int16.TryParse(newMinString.Trim(), out var newMinBet);
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if (!isOwner)
                 failureReason = VMEODSlotsInputErrorTypes.InvalidOwner.ToString(); // not the owner
@@ -464,11 +461,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             // send the fail reason
             client.Send("holdemcasino_n_bet_fail", failureReason);
         }
-        private void NewMaximumAnteBetHandler(string evt, string newMaxString, VMEODClient client)
+            void NewMaximumAnteBetHandler(string evt, string newMaxString, VMEODClient client)
         {
             string failureReason = "";
-            short newMaxBet;
-            var result = Int16.TryParse(newMaxString.Trim(), out newMaxBet);
+            var result = Int16.TryParse(newMaxString.Trim(), out var newMaxBet);
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if (!isOwner)
                 failureReason = VMEODSlotsInputErrorTypes.InvalidOwner.ToString(); // not the owner
@@ -478,7 +474,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 if (newMaxBet < MinAnteBet)
                     failureReason = VMEODRouletteInputErrorTypes.BetTooLow.ToString();
                 // proposed maximum bet must not be greater than $1000 for short data type restrictions
-                else if (newMaxBet > VMEODHoldEmCasinoPlugin.MAXIMUM_BET)
+                else if (newMaxBet > MAXIMUM_BET)
                     failureReason = VMEODRouletteInputErrorTypes.BetTooHigh.ToString();
                 else
                 {
@@ -505,11 +501,10 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             // send the fail reason
             client.Send("holdemcasino_x_bet_fail", failureReason);
         }
-        private void NewMaximumSideBetHandler(string evt, string newMaxString, VMEODClient client)
+            void NewMaximumSideBetHandler(string evt, string newMaxString, VMEODClient client)
         {
             string failureReason = "";
-            short newMaxBet;
-            var result = Int16.TryParse(newMaxString.Trim(), out newMaxBet);
+            var result = Int16.TryParse(newMaxString.Trim(), out var newMaxBet);
             bool isOwner = (((VMTSOObjectState)Server.Object.TSOState).OwnerID == client.Avatar.PersistID);
             if (!isOwner)
                 failureReason = VMEODSlotsInputErrorTypes.InvalidOwner.ToString(); // not the owner
@@ -519,7 +514,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 if (newMaxBet < 0)
                     failureReason = VMEODRouletteInputErrorTypes.BetTooLow.ToString();
                 // proposed maximum side bet must not be greater than $1000 for short data type restrictions
-                else if (newMaxBet > VMEODHoldEmCasinoPlugin.MAXIMUM_BET)
+                else if (newMaxBet > MAXIMUM_BET)
                     failureReason = VMEODRouletteInputErrorTypes.BetTooHigh.ToString();
                 else
                 {
@@ -546,13 +541,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             // send the fail reason
             client.Send("holdemcasino_s_bet_fail", failureReason);
         }
-        private void WithdrawHandler(string evt, string amountString, VMEODClient client)
+            void WithdrawHandler(string evt, string amountString, VMEODClient client)
         {
             string failureReason = "";
 
             // try to parse the withdraw amount
-            int withdrawAmount;
-            var result = Int32.TryParse(amountString.Trim(), out withdrawAmount);
+            var result = Int32.TryParse(amountString.Trim(), out var withdrawAmount);
             if (result)
             {
                 // check the successfully parsed amount to make sure it's non-negative and against the TableBalance to determine if valid amount
@@ -595,13 +589,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 client.Send("holdemcasino_withdraw_fail", failureReason);
             }
         }
-        private void DepositHandler(string evt, string amountString, VMEODClient client)
+            void DepositHandler(string evt, string amountString, VMEODClient client)
         {
             string failureReason = "";
 
             // try to parse the deposit amount
-            int depositAmount;
-            var result = Int32.TryParse(amountString.Trim(), out depositAmount);
+            var result = Int32.TryParse(amountString.Trim(), out var depositAmount);
             if (result)
             {
                 // check the successfully parsed amount to make sure it's non-negative and against the MachineBalanceMax to determine if valid amount
@@ -652,7 +645,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         #region Events
         // client closes UI
         // if the data sent equals 0, the client is a player. if it's 1, the client is the owner and closed the managing window
-        private void UIClosedHandler(string evt, byte[] data, VMEODClient client)
+            void UIClosedHandler(string evt, byte[] data, VMEODClient client)
         {
             if (client != null && client.Avatar != null)
             {
@@ -662,7 +655,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     Controller.SendOBJEvent(new VMEODEvent((short)VMEODHoldEmCasinoEvents.Failsafe_Remove_Dealer, client.Avatar.ObjectID));
             }
         }
-        private void DecisionRequestHandler(string evt, byte[] decisionType, VMEODClient client)
+            void DecisionRequestHandler(string evt, byte[] decisionType, VMEODClient client)
         {
             if (GameState.Equals(VMEODHoldEmCasinoStates.Player_Decision))
             {
@@ -710,7 +703,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
         // client tries to submit bet
-        private void BetChangeRequestHandler(string evt, byte[] newBetsSerialized, VMEODClient client)
+            void BetChangeRequestHandler(string evt, byte[] newBetsSerialized, VMEODClient client)
         {
             if (GameState.Equals(VMEODHoldEmCasinoStates.Betting_Round))
             {
@@ -718,10 +711,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 if (slot != null & newBetsSerialized != null)
                 {
                     string[] betStrings = VMEODGameCompDrawACardData.DeserializeStrings(newBetsSerialized);
-                    int newAnteBet = 0;
-                    int newSideBet = 0;
-                    if (betStrings != null && betStrings.Length == 2 && Int32.TryParse(betStrings[0], out newAnteBet) &&
-                        Int32.TryParse(betStrings[1], out newSideBet))
+                    if (betStrings != null && betStrings.Length == 2 && Int32.TryParse(betStrings[0], out var newAnteBet) &&
+                        Int32.TryParse(betStrings[1], out var newSideBet))
                     {
                         if (newAnteBet < MinAnteBet)
                         {
@@ -761,7 +752,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
         // this simantics event occurs after any animation sequence during gamestate = entre'act
-        private void AnimationCompleteHandler(short evt, VMEODClient controller)
+            void AnimationCompleteHandler(short evt, VMEODClient controller)
         {
             if (OneOrMoreBetsAccepted() || (!AllPendingTransactionFinal() && AllPlayersHaveSubmitted()))
             {
@@ -785,7 +776,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * This handles the queue of dealer events. They're either events to declare a winner then give chips, or to collect chips from a loser.
          * Each event has data sent with it that contains the objectID of the player who either won or lost.
          */
-        private void DealerCallbackHandler(short evt, VMEODClient controller)
+            void DealerCallbackHandler(short evt, VMEODClient controller)
         {
             if (!GameState.Equals(VMEODHoldEmCasinoStates.Waiting_For_Player))
             {
@@ -832,7 +823,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * Ideally this never happens, but in the event of an unrecoverable error with bets or hand evaluations, rather than having the table
          * be stuck forever, return all bets to players, invoked before table closes.
          */
-        private void RefundAllPlayers()
+            void RefundAllPlayers()
         {
             int cumulativeRefund = 0;
             var players = new List<VMEODClient>(Lobby.Players);
@@ -851,7 +842,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Returns a value of 1 in the index of the player if that player has an accepted bet and is therefore playing this hand.
          */
-        private byte[] GetAllActivePlayers()
+            byte[] GetAllActivePlayers()
         {
             byte[] players = new byte[4];
             for (int index = 0; index < 4; index++)
@@ -867,7 +858,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
             return players;
         }
-        private bool AllHandsEvaluated()
+            bool AllHandsEvaluated()
         {
             bool result = DealerPlayer.HandEvaluated;
             if (result)
@@ -887,7 +878,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
             return result;
         }
-        private bool AllSideBetsEvaluated()
+            bool AllSideBetsEvaluated()
         {
             for (int index = 0; index < 4; index++)
             {
@@ -904,7 +895,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return true;
         }
         // active player didn't make decision within time limit, they are now forced to fold this hand.
-        private void ForceFold(bool playerLeft)
+            void ForceFold(bool playerLeft)
         {
             EnqueueGotoState(VMEODHoldEmCasinoStates.Entre_Act);
             if (!playerLeft)
@@ -932,7 +923,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          * Deal two more community cards
          * @param: playersPlaying: each index contains the objectID of the avatars that called, 0 for folded or vacant
          */
-        private void DealFinalCards(short[] playersPlaying)
+            void DealFinalCards(short[] playersPlaying)
         {
             // deal the two new community cards and send to broadcast them
             CommunityHand.DealCards(CardDeck.Draw(), CardDeck.Draw());
@@ -958,12 +949,12 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         #endregion
         #region Copied but Modified from VMEODBlackjackPlugin.cs
 
-        private void EnqueueGotoState(VMEODHoldEmCasinoStates nextState)
+            void EnqueueGotoState(VMEODHoldEmCasinoStates nextState)
         {
             NextState = nextState;
         }
 
-        private void GotoState(VMEODHoldEmCasinoStates newState)
+            void GotoState(VMEODHoldEmCasinoStates newState)
         {
             if (GameState.Equals(newState))
                 return;
@@ -1311,7 +1302,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
          ***********************************************************************************************************************************
          * Note: The reference to the table max balance constant in VMEODBlackjackPlugin was left here on purpose.
          */
-        private bool IsTableWithinLimits()
+            bool IsTableWithinLimits()
         {
             if (TableBalance >= (MaxAnteBet * WORST_CASE_ANTE_PAYOUT_RATIO + MaxSideBet * WORST_CASE_SIDE_PAYOUT_RATIO)
                 && TableBalance <= VMEODBlackjackPlugin.TABLE_MAX_BALANCE)
@@ -1321,7 +1312,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * During betting phase, when a player changes their ante bet all other players should be notified in their client.
          */
-        private void BroadcastSingleAnteBet(HoldEmCasinoPlayer playerWithNewBet)
+            void BroadcastSingleAnteBet(HoldEmCasinoPlayer playerWithNewBet)
         {
             if (GameState.Equals(VMEODHoldEmCasinoStates.Betting_Round))
             {
@@ -1335,7 +1326,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * During betting phase, when a player changes their side bet all other players should be notified in their client.
          */
-        private void BroadcastSingleSideBet(HoldEmCasinoPlayer playerWithNewBet)
+            void BroadcastSingleSideBet(HoldEmCasinoPlayer playerWithNewBet)
         {
             if (GameState.Equals(VMEODHoldEmCasinoStates.Betting_Round))
             {
@@ -1349,7 +1340,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Deals two ("back" face down) cards to each player and dealer, then 3 face-up cards to the community pile
          */
-        private void DealIntitialCards()
+            void DealIntitialCards()
         {
             List<string> allCardsInPlay = new List<string>();
             short[] playersPlaying = new short[4];
@@ -1421,7 +1412,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * This only occurs when a new player joins mid-game, so during any gamestate that is not waiting for player or betting round
          */
-        private void SyncAllPlayers(VMEODClient client)
+            void SyncAllPlayers(VMEODClient client)
         {
             // sync all ante and side bets
             List<string> acceptedBets = GetAllAcceptedBets();
@@ -1438,7 +1429,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             if (communityCards != null)
                 client.Send("holdemcasino_sync_community", VMEODGameCompDrawACardData.SerializeStrings(communityCards.ToArray()));
         }
-        private List<string> GetAllAcceptedBets()
+            List<string> GetAllAcceptedBets()
         {
             List<string> allAcceptedBets = new List<string>();
 
@@ -1462,7 +1453,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * This method returns all cards in each player's hand. It does not return community cards.
          */
-        private List<string> GetAllActiveCardsInPlay(bool showDealerCards)
+            List<string> GetAllActiveCardsInPlay(bool showDealerCards)
         {
             List<string> allCardsInPlay = new List<string>();
 
@@ -1510,7 +1501,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Note: Will not send if the gamestate is not player decision, such as if the player ran out of time to call or fold
          */
-        private void SendEnableInput(HoldEmCasinoPlayer player)
+            void SendEnableInput(HoldEmCasinoPlayer player)
         {
             if (player.Client != null && GameState.Equals(VMEODHoldEmCasinoStates.Player_Decision))
             {
@@ -1523,7 +1514,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Reset all players' hands, including dealer's as well as players' bet data
          */
-        private void NewGame()
+            void NewGame()
         {
             for (int index = 0; index < 4; index++)
             {
@@ -1555,7 +1546,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * One or more players did not place a bet before the timer expired.
          */
-        private void ForceEndBettingRound()
+            void ForceEndBettingRound()
         {
             // immediately disallow server-side and client-side betting
             EnqueueGotoState(VMEODHoldEmCasinoStates.Pending_Initial_Transactions);
@@ -1594,7 +1585,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         /*
          * Catch-all method for handling the required transaction of certain actions: initial betting (ante & side) and calling (2x the anti bet)
          */
-        private void EnqueueSequence(VMEODClient client, VMEODHoldEmCasinoEvents sequenceType, int amount)
+            void EnqueueSequence(VMEODClient client, VMEODHoldEmCasinoEvents sequenceType, int amount)
         {
             if (client == null)
                 return;
@@ -1693,7 +1684,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         #region Copied from VMEODBlackjackPlugin.cs
 
         // true if every non-null player has submitted a bet
-        private bool AllPlayersHaveSubmitted()
+            bool AllPlayersHaveSubmitted()
         {
             for (int index = 0; index < 4; index++)
             {
@@ -1707,7 +1698,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return true;
         }
         // false if any transactions still pending
-        private bool AllPendingTransactionFinal()
+            bool AllPendingTransactionFinal()
         {
             for (int index = 0; index < 4; index++)
             {
@@ -1721,7 +1712,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return true;
         }
         // true if any non-null player has been debited a bet
-        private bool OneOrMoreBetsAccepted()
+            bool OneOrMoreBetsAccepted()
         {
             for (int index = 0; index < 4; index++)
             {
@@ -1735,7 +1726,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             return false;
         }
         // pays the player their winnings
-        private void EnqueuePayout(int payoutAmount, VMEODClient targetClient)
+            void EnqueuePayout(int payoutAmount, VMEODClient targetClient)
         {
             if (targetClient != null)
             {
@@ -1760,29 +1751,29 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
     }
     public class HoldEmCasinoPlayer
     {
-        private bool _BetAccepted;
-        private bool _BetSubmitted;
-        private bool _HandIsEvaluated;
-        private bool _HandQualified;
-        private bool _HasFolded;
-        private bool _PendingTransaction;
-        private bool _Pushed;
-        private bool _SideBetEvaluated;
-        private bool _WarnedForObservation;
+            bool _BetAccepted;
+            bool _BetSubmitted;
+            bool _HandIsEvaluated;
+            bool _HandQualified;
+            bool _HasFolded;
+            bool _PendingTransaction;
+            bool _Pushed;
+            bool _SideBetEvaluated;
+            bool _WarnedForObservation;
 
-        private VMEODClient _Client;
-        private List<PlayingCard> Hand;
+            VMEODClient _Client;
+            List<PlayingCard> Hand;
 
-        private Hand MyFiveCardSideBetHand;
-        private Hand MySevenCardHoldemHand;
+            Hand MyFiveCardSideBetHand;
+            Hand MySevenCardHoldemHand;
 
-        private int _AnteBetAmount;
-        private int _CallBetAmount;
-        private int _PlayerIndex;
-        private int _PropsedAnteBetAmount;
-        private int _PropsedSideBetAmount;
-        private int _SideBetAmount;
-        private int _SimoleonBalance;
+            int _AnteBetAmount;
+            int _CallBetAmount;
+            int _PlayerIndex;
+            int _PropsedAnteBetAmount;
+            int _PropsedSideBetAmount;
+            int _SideBetAmount;
+            int _SimoleonBalance;
 
         internal delegate void BetChange(HoldEmCasinoPlayer player);
 
@@ -1964,7 +1955,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
             return type;
         }
-        private List<string> GetRelevantCardNames(Hand.HandTypes handType, string description)
+            List<string> GetRelevantCardNames(Hand.HandTypes handType, string description)
         {
             List<string> relevantCardNames = new List<string>();
             switch (handType)
@@ -2117,7 +2108,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
             return (short)(antePayoutRatio * AnteBetAmount + CallBetPayoutRatio * CallBetAmount + AnteBetAmount + CallBetAmount);
         }
-        private Dictionary<Hand.HandTypes, int> AntePayoutRatios = new Dictionary<HoldemHand.Hand.HandTypes, int>
+            Dictionary<Hand.HandTypes, int> AntePayoutRatios = new Dictionary<HoldemHand.Hand.HandTypes, int>
         {
             { HoldemHand.Hand.HandTypes.StraightFlush, 25 },
             { HoldemHand.Hand.HandTypes.FourOfAKind, 12 },
@@ -2129,7 +2120,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             { HoldemHand.Hand.HandTypes.Pair, 1 },
             { HoldemHand.Hand.HandTypes.HighCard, 1 }
         };
-        private Dictionary<Hand.HandTypes, int> SidePayoutRatios = new Dictionary<HoldemHand.Hand.HandTypes, int>
+            Dictionary<Hand.HandTypes, int> SidePayoutRatios = new Dictionary<HoldemHand.Hand.HandTypes, int>
         {
             { HoldemHand.Hand.HandTypes.StraightFlush, 25 },
             { HoldemHand.Hand.HandTypes.FourOfAKind, 25 },

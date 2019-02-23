@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -60,15 +57,15 @@ namespace FSO.Common.DataService.Framework
             }
         }
 
-        private Task<object> ResolveMissingKey(object key)
+        Task<object> ResolveMissingKey(object key)
         {
             return ResolveMissingKey(key, default(VALUE));
         }
 
-        private Task<object> ResolveMissingKey(object key, VALUE oldVal)
+        Task<object> ResolveMissingKey(object key, VALUE oldVal)
         {
             var cts = new CancellationTokenSource(LazyLoadTimeout);
-            return Task.Factory.StartNew<object>(() =>
+            return Task.Factory.StartNew(() =>
             {
                 return (object)LazyLoad((KEY)key, oldVal);
             }, cts.Token);
@@ -93,8 +90,8 @@ namespace FSO.Common.DataService.Framework
     //when they are completed... only when they are deleted.
     public class TaskWrap<T>
     {
-        private Task<T> Task { get; set; }
-        private T Result;
+        Task<T> Task { get; set; }
+        T Result;
         public bool Ready { get { return Result != null; } }
 
         public TaskWrap(Task<T> task) {

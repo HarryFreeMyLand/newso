@@ -6,15 +6,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.Engine;
 using FSO.Files.Utils;
 using FSO.SimAntics.Engine.Scopes;
 using FSO.SimAntics.Engine.Utils;
 using System.IO;
 using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.NetPlay.Model.Commands;
 
 namespace FSO.SimAntics.Primitives
 {
@@ -90,8 +87,7 @@ namespace FSO.SimAntics.Primitives
             }
 
             var amount = VMMemory.GetBigVariable(context, operand.GetAmountOwner(), (short)operand.AmountData);
-            float scale = 1f;
-            if (ExpenseTuningMultiplier.TryGetValue(operand.ExpenseType, out scale))
+            if (ExpenseTuningMultiplier.TryGetValue(operand.ExpenseType, out var scale))
             {
                 amount = (int)(amount * scale);
             }
@@ -218,7 +214,7 @@ namespace FSO.SimAntics.Primitives
     public class VMTransferFundsOperand : VMPrimitiveOperand
     {
         public VMTransferFundsOldOwner OldAmountOwner { get; set; }
-        private VMVariableScope _AmountOwner;
+            VMVariableScope _AmountOwner;
         public VMVariableScope AmountOwner
         {
             get => GetAmountOwner();
@@ -274,7 +270,7 @@ namespace FSO.SimAntics.Primitives
             {
                 io.Write((byte)OldAmountOwner);
                 io.Write((byte)_AmountOwner);
-                io.Write((ushort)AmountData);
+                io.Write(AmountData);
                 io.Write((byte)Flags);
                 io.Write((byte)0);
                 io.Write((byte)ExpenseType);

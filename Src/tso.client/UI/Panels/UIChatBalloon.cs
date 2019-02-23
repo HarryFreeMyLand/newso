@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Client.UI.Controls;
 using FSO.SimAntics;
@@ -319,10 +317,10 @@ namespace FSO.Client.UI.Panels
                 }
                 if (cmd is TextDrawCmd_Emoji) ((TextDrawCmd_Emoji)cmd).Shadow = false;
             }
-            BodyTextStyle.Color = this.Color * Alpha;
+            BodyTextStyle.Color = Color * Alpha;
             TextRenderer.DrawText(BodyTextLabels.DrawingCommands, this, batch);
 
-            this.Position = new Vector2();
+            Position = new Vector2();
         }
 
         public void Dispose()

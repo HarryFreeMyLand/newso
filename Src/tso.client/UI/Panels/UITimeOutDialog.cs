@@ -1,11 +1,6 @@
 ﻿using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.SimAntics;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Common;
 using FSO.SimAntics.NetPlay.Model.Commands;
@@ -26,8 +21,8 @@ namespace FSO.Client.UI.Panels
         public UITimeOutDialog(VM callingVM, int timer)
             : base(UIDialogStyle.Standard, true)
         {
-            this.RenderScript("timeoutdialog.uis");
-            this.SetSize(380, 180);
+            RenderScript("timeoutdialog.uis");
+            SetSize(380, 180);
 
             CloseButton.OnButtonClick += CloseButton_OnButtonClick;
             CallingVM = callingVM;

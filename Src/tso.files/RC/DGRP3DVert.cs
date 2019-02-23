@@ -61,7 +61,7 @@ namespace Microsoft.Xna.Framework.Graphics
         static DGRP3DVert()
         {
             VertexElement[] elements = new VertexElement[] { new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0), new VertexElement(12, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0), new VertexElement(20, VertexElementFormat.Vector3, VertexElementUsage.TextureCoordinate, 1) };
-            VertexDeclaration declaration = new VertexDeclaration(elements);
+            var declaration = new VertexDeclaration(elements);
             VertexDeclaration = declaration;
         }
 

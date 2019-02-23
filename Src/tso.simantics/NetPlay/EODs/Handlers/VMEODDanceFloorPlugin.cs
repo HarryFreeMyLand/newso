@@ -1,9 +1,4 @@
 ﻿using FSO.SimAntics.NetPlay.EODs.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
@@ -23,8 +18,8 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
         public void P_DanceButton(string evt, string text, VMEODClient client)
         {
-            byte num = 0;
-            if (!byte.TryParse(text, out num)) return;
+            if (!byte.TryParse(text, out var num))
+                return;
             if (ControllerClient != null) ControllerClient.SendOBJEvent(new VMEODEvent(num, client.Avatar.ObjectID));
         }
 

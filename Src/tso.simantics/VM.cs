@@ -3,7 +3,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Engine;
 /*
@@ -13,12 +12,9 @@ using FSO.SimAntics.Engine;
  */
 
 using Microsoft.Xna.Framework;
-using FSO.Content;
-using FSO.Vitaboy;
 using FSO.SimAntics.Model;
 using FSO.SimAntics.NetPlay;
 using FSO.SimAntics.NetPlay.Model;
-using System.Collections.Concurrent;
 using FSO.SimAntics.Marshals;
 using FSO.LotView.Components;
 using FSO.SimAntics.Marshals.Threads;
@@ -32,7 +28,6 @@ using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Marshals.Hollow;
 using FSO.SimAntics.Engine.Diagnostics;
 using FSO.Common;
-using FSO.SimAntics.Primitives;
 using FSO.LotView.Model;
 using FSO.HIT;
 using FSO.Common.Model;
@@ -48,7 +43,7 @@ namespace FSO.SimAntics
     public class VM
     {
         public bool UseSchedule = true;
-        private static bool _UseWorld = true;
+            static bool _UseWorld = true;
         public static bool SignalBreaks = false;
         public static bool UseWorld
         {
@@ -74,7 +69,7 @@ namespace FSO.SimAntics
         //we can assume one application won't be running TS1 and TSO at the same time.
         public bool Aborting = false;
 
-        private const long TickInterval = 33 * TimeSpan.TicksPerMillisecond;
+            const long TickInterval = 33 * TimeSpan.TicksPerMillisecond;
         public byte[][] HollowAdj;
 
         public VMContext Context { get; internal set; }
@@ -106,8 +101,8 @@ namespace FSO.SimAntics
 
         public DynamicTuning Tuning;
         public VMTuningCache TuningCache = new VMTuningCache();
-        private Dictionary<short, VMEntity> ObjectsById = new Dictionary<short, VMEntity>();
-        private short ObjectId = 1;
+            Dictionary<short, VMEntity> ObjectsById = new Dictionary<short, VMEntity>();
+            short ObjectId = 1;
 
         internal VMNetDriver Driver;
         public VMHeadlineRendererProvider Headline;
@@ -163,7 +158,7 @@ namespace FSO.SimAntics
             GlobTS1 = TS1;
         }
 
-        private void VM_OnBHAVChange()
+            void VM_OnBHAVChange()
         {
             BHAVDirty = true;
         }
@@ -189,8 +184,7 @@ namespace FSO.SimAntics
 
         public VMAvatar GetAvatarByPersist(uint id)
         {
-            VMAvatar result = null;
-            Context.ObjectQueries.AvatarsByPersist.TryGetValue(id, out result);
+            Context.ObjectQueries.AvatarsByPersist.TryGetValue(id, out var result);
             return result;
         }
 
@@ -223,19 +217,19 @@ namespace FSO.SimAntics
             }
         }
 
-        private int GameTickRate = 60;
-        private int GameTickNum = 0;
+            int GameTickRate = 60;
+            int GameTickNum = 0;
         public int SpeedMultiplier = 1;
         public int LastSpeedMultiplier;
-        private int LastFrameSpeed = 1;
-        private float Fraction;
+            int LastFrameSpeed = 1;
+            float Fraction;
         public VMEntity GlobalBlockingDialog;
         public void Update()
         {
             if (UseWorld)
             {
                 Microsoft.Xna.Framework.Audio.SoundEffect.DistanceScale = 10;
-                var listener = HIT.HITVM.Get.Listener;
+                var listener = HITVM.Get.Listener;
                 var cam = Context.World.State.Camera;
                 listener.Position = cam.Position;
                 var forward = cam.Target - cam.Position;
@@ -460,7 +454,7 @@ namespace FSO.SimAntics
         /// <summary>
         /// Finds the next free object ID and remembers it for use when making another object.
         /// </summary>
-        private short NextObjID()
+            short NextObjID()
         {
             for (short i = ObjectId; i > 0; i++)
                 if (!ObjectsById.ContainsKey(i)) return i;
@@ -510,7 +504,7 @@ namespace FSO.SimAntics
             GlobalState[var] = value;
             return true;
         }
-        private static event VMBHAVChangeDelegate OnBHAVChange;
+            static event VMBHAVChangeDelegate OnBHAVChange;
 
         public static void BHAVChanged(BHAV bhav)
         {
@@ -670,7 +664,7 @@ namespace FSO.SimAntics
             Context.RegeneratePortalInfo();
             Context.Architecture.Terrain.RegenerateCenters();
 
-            if (VM.UseWorld)
+            if (UseWorld)
             {
                 Context.Blueprint.Altitude = Context.Architecture.Terrain.Heights;
                 Context.Blueprint.AltitudeCenters = Context.Architecture.Terrain.Centers;
@@ -705,7 +699,7 @@ namespace FSO.SimAntics
             foreach (var ent in input.Entities)
             {
                 VMEntity realEnt;
-                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(ent.GUID);
+                var objDefinition = Content.GameContent.Get.WorldObjects.Get(ent.GUID);
                 if (ent is VMAvatarMarshal)
                 {
                     var avatar = new VMAvatar(objDefinition);
@@ -751,7 +745,7 @@ namespace FSO.SimAntics
             foreach (var multi in input.MultitileGroups)
             {
                 var grp = new VMMultitileGroup(multi, Context); //should self register
-                if (VM.UseWorld)
+                if (UseWorld)
                 {
                     var b = grp.BaseObject;
                     var avgPos = new LotTilePos();
@@ -849,7 +843,7 @@ namespace FSO.SimAntics
             foreach (var ent in input.Entities)
             {
                 VMEntity realEnt;
-                var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(ent.GUID);
+                var objDefinition = Content.GameContent.Get.WorldObjects.Get(ent.GUID);
 
                 var worldObject = Context.MakeObjectComponent(objDefinition);
                 var obj = new VMGameObject(objDefinition, worldObject);

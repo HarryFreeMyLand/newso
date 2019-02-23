@@ -8,8 +8,8 @@ namespace FSO.Server.Servers.Lot.Handlers
 {
     public class VoltronConnectionLifecycleHandler : IAriesSessionInterceptor
     {
-        private LotHost Lots;
-        private IDAFactory DAFactory;
+        LotHost Lots;
+        IDAFactory DAFactory;
 
         public VoltronConnectionLifecycleHandler(LotHost lots, IDAFactory da)
         {

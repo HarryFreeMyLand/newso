@@ -4,10 +4,6 @@ If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 
@@ -25,8 +21,8 @@ namespace FSO.Client.UI.Panels
         public UIExitDialog()
             : base(UIDialogStyle.Standard, true)
         {
-            this.RenderScript("exitdialog.uis");
-            this.SetSize(380, 180);
+            RenderScript("exitdialog.uis");
+            SetSize(380, 180);
 
             ExitButton.OnButtonClick += new ButtonClickDelegate(ExitButton_OnButtonClick);
             CancelButton.OnButtonClick += new ButtonClickDelegate(CancelButton_OnButtonClick);

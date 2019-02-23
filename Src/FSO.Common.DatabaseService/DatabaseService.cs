@@ -66,7 +66,7 @@ namespace FSO.Common.DatabaseService
                 pending.ResponseType = responseType;
                 PendingRequests.Add(id, pending);
 
-                this.CityClient.Write(new DBRequestWrapperPDU()
+                CityClient.Write(new DBRequestWrapperPDU()
                 {
                     Sender = new Sender
                     {
@@ -93,7 +93,7 @@ namespace FSO.Common.DatabaseService
                 return;
             }
 
-            DBRequestWrapperPDU response = (DBRequestWrapperPDU)message;
+            var response = (DBRequestWrapperPDU)message;
             if (response.Body is cTSONetMessageStandard)
             {
                 var body = (cTSONetMessageStandard)response.Body;

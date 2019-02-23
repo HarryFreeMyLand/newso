@@ -1,12 +1,4 @@
-﻿using FSO.Client.Regulators;
-using FSO.Client.UI.Controls;
-using FSO.Client.UI.Framework;
-using FSO.Server.Protocol.Electron.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FSO.Client.UI.Controls;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Common.Rendering.Framework;
 
@@ -19,8 +11,8 @@ namespace FSO.Client.UI.Panels
 
         public UIJoinLotProgress() : base(UIDialogStyle.Standard, false)
         {
-            this.SetSize(400, 180);
-            this.Caption = GameFacade.Strings.GetString("211", "1");
+            SetSize(400, 180);
+            Caption = GameFacade.Strings.GetString("211", "1");
 
 
             /**
@@ -32,7 +24,7 @@ namespace FSO.Client.UI.Panels
                 Y = 120
             };
             bgImg.SetSize(360, 27);
-            this.Add(bgImg);
+            Add(bgImg);
 
 
             m_ProgressBar = new UIProgressBar()
@@ -42,16 +34,16 @@ namespace FSO.Client.UI.Panels
                 Value = 0
             };
             m_ProgressBar.SetSize(360, 27);
-            this.Add(m_ProgressBar);
+            Add(m_ProgressBar);
 
-            this.Add(new UILabel
+            Add(new UILabel
             {
                 Caption = GameFacade.Strings.GetString("211", "2"),
                 X = 20,
                 Y = 44
             });
 
-            this.Add(new UILabel
+            Add(new UILabel
             {
                 Caption = GameFacade.Strings.GetString("211", "3"),
                 X = 20,
@@ -64,7 +56,7 @@ namespace FSO.Client.UI.Panels
                 X = 31,
                 Y = 122
             };
-            this.Add(m_ProgressLabel);
+            Add(m_ProgressLabel);
         }
 
         public override void Update(UpdateState state)

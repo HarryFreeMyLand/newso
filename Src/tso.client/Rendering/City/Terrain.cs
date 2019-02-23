@@ -8,20 +8,14 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
-using System.Timers;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Content;
 using FSO.Client.UI.Screens;
 using FSO.Common.Rendering.Framework;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Files;
-using FSO.Client.Utils;
-using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
-using FSO.Common.Utils;
 using FSO.Client.Controllers;
 using FSO.LotView;
 using FSO.Client.Rendering.City.Plugins;
@@ -1001,9 +995,8 @@ namespace FSO.Client.Rendering.City
 
                 //move the weather camera
                 var scale = Camera.GetIsoScale();
-                if (Camera is CityCamera2D)
+                if (Camera is CityCamera2D c2d)
                 {
-                    var c2d = (CityCamera2D)Camera;
                     ParticleCamera.Position = new Vector3(0, 0.5f, 0.86602540f) * scale * 10000 + new Vector3(c2d.m_ViewOffX * 4 + 2000, 0, c2d.m_ViewOffY * -5 + 2000);
                     ParticleCamera.Target = ParticleCamera.Position - new Vector3(0, 0.5f, 0.86602540f);
                     ParticleCamera.ProjectionDirty();
@@ -1461,9 +1454,8 @@ namespace FSO.Client.Rendering.City
         {
             if (!GlobalSettings.Default.CitySkybox)
             {
-                if (camera is WorldCamera3D)
+                if (camera is WorldCamera3D wc)
                 {
-                    var wc = (WorldCamera3D)camera;
                     if (wc.FromIntensity != 0)
                         wc.FromIntensity = 0;
                 }

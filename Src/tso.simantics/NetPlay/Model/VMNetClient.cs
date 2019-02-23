@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace FSO.SimAntics.NetPlay.Model
 {
@@ -19,7 +15,7 @@ namespace FSO.SimAntics.NetPlay.Model
         public object NetHandle;
         public string FatalDCMessage;
 
-        private Queue<VMNetMessage> Messages = new Queue<VMNetMessage>();
+            Queue<VMNetMessage> Messages = new Queue<VMNetMessage>();
 
         internal Queue<VMNetMessage> GetMessages()
         {

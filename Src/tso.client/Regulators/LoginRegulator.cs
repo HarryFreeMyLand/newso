@@ -7,8 +7,6 @@ using FSO.Server.Protocol.Authorization;
 using FSO.Server.Protocol.CitySelector;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace FSO.Client.Regulators
 {
@@ -27,9 +25,9 @@ namespace FSO.Client.Regulators
 
         public LoginRegulator(AuthClient authClient, CityClient cityClient, IShardsDomain domain)
         {
-            this.Shards = domain;
-            this.AuthClient = authClient;
-            this.CityClient = cityClient;
+            Shards = domain;
+            AuthClient = authClient;
+            CityClient = cityClient;
             
             AddState("NotLoggedIn")
                 .Default()
@@ -57,23 +55,23 @@ namespace FSO.Client.Regulators
                     {
                         if (result.ReasonText != null)
                         {
-                            base.ThrowErrorAndReset(ErrorMessage.FromLiteral(result.ReasonText));
+                            ThrowErrorAndReset(ErrorMessage.FromLiteral(result.ReasonText));
                         }
                         else if (result.ReasonCode != null)
                         {
-                            base.ThrowErrorAndReset(ErrorMessage.FromLiteral(
+                            ThrowErrorAndReset(ErrorMessage.FromLiteral(
                                 (GameFacade.Strings.GetString("210", result.ReasonCode) ?? "Unknown Error")
                                 .Replace("EA.com", AuthClient.BaseUrl.Substring(7).TrimEnd('/'))
                                 ));
                         }
                         else
                         {
-                            base.ThrowErrorAndReset(new Exception("Unknown error"));
+                            ThrowErrorAndReset(new Exception("Unknown error"));
                         }
                     }
                     else
                     {
-                        this.AuthResult = result;
+                        AuthResult = result;
                         AsyncTransition("InitialConnect");
                     }
                     break;
@@ -102,11 +100,11 @@ namespace FSO.Client.Regulators
                         }
                         else if (connectResult.Status == InitialConnectServletResultType.Error)
                         {
-                            base.ThrowErrorAndReset(ErrorMessage.FromLiteral(connectResult.Error.Code, connectResult.Error.Message));
+                            ThrowErrorAndReset(ErrorMessage.FromLiteral(connectResult.Error.Code, connectResult.Error.Message));
                         }
                     }catch(Exception ex)
                     {
-                        base.ThrowErrorAndReset(ex);
+                        ThrowErrorAndReset(ex);
                     }
                     break;
                 case "UpdateRequired":
@@ -118,7 +116,7 @@ namespace FSO.Client.Regulators
                     }
                     catch (Exception ex)
                     {
-                        base.ThrowErrorAndReset(ex);
+                        ThrowErrorAndReset(ex);
                     }
                     break;
 
@@ -129,7 +127,7 @@ namespace FSO.Client.Regulators
                     }
                     catch (Exception ex)
                     {
-                        base.ThrowErrorAndReset(ex);
+                        ThrowErrorAndReset(ex);
                     }
                     break;
                 case "LoggedIn":
@@ -159,12 +157,12 @@ namespace FSO.Client.Regulators
         }
 
         public void Login(AuthRequest request){
-            this.AsyncProcessMessage(request);
+            AsyncProcessMessage(request);
         }
 
         public void Logout()
         {
-            this.AsyncTransition("NotLoggedIn");
+            AsyncTransition("NotLoggedIn");
         }
     }
 }

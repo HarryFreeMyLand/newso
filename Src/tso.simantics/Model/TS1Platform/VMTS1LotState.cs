@@ -1,9 +1,6 @@
 ﻿using FSO.SimAntics.Model.Platform;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.SimAntics.Primitives;
@@ -46,7 +43,7 @@ namespace FSO.SimAntics.Model.TS1Platform
                 ((VMAvatar)sim).SetPersonData(VMPersonDataVariable.TS1FamilyNumber, (short)CurrentFamily.ChunkID);
                 var mailbox = vm.Entities.FirstOrDefault(x => (x.Object.OBJ.GUID == 0xEF121974 || x.Object.OBJ.GUID == 0x1D95C9B0));
                 if (mailbox != null) VMFindLocationFor.FindLocationFor(sim, mailbox, vm.Context, VMPlaceRequestFlags.Default);
-                ((VMAvatar)sim).AvatarState.Permissions = Model.TSOPlatform.VMTSOAvatarPermissions.Owner;
+                ((VMAvatar)sim).AvatarState.Permissions = TSOPlatform.VMTSOAvatarPermissions.Owner;
             }
 
         }

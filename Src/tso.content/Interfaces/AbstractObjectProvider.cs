@@ -2,12 +2,8 @@
 using FSO.Common.Utils;
 using FSO.Files.Formats.IFF;
 using FSO.Files.Formats.IFF.Chunks;
-using FSO.Files.Formats.OTF;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Content.Interfaces
 {
@@ -150,8 +146,7 @@ namespace FSO.Content.Interfaces
             }
             lock (Cache)
             {
-                GameObject removed;
-                Cache.TryRemove(GUID, out removed);
+                Cache.TryRemove(GUID, out var removed);
             }
         }
 

@@ -1,12 +1,7 @@
 ﻿using FSO.SimAntics.Model;
 using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.Primitives;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.Model.Commands
 {
@@ -16,7 +11,7 @@ namespace FSO.SimAntics.NetPlay.Model.Commands
         public byte LotStories;
         //lot direction must be changed from city.
 
-        private bool Verified;
+            bool Verified;
         public override bool Execute(VM vm)
         {
             vm.TSOState.Size &= 0xFF0000;

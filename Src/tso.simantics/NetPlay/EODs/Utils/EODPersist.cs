@@ -1,18 +1,15 @@
 ﻿using FSO.SimAntics.NetPlay.Model;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Utils
 {
     public class EODPersist<T> where T : VMSerializable
     {
-        private VMEODServer Server;
-        private T CurrentData;
-        private TaskCompletionSource<T> CurrentDataTask;
+            VMEODServer Server;
+            T CurrentData;
+            TaskCompletionSource<T> CurrentDataTask;
         
 
         public EODPersist(VMEODServer server)
@@ -82,7 +79,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Utils
             return Activator.CreateInstance<T>();
         }
 
-        private void InternalUpdate(T value)
+            void InternalUpdate(T value)
         {
             CurrentData = value;
             CurrentDataTask.SetResult(value);

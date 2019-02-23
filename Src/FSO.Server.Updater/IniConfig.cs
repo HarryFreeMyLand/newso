@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace FSO.Server.Watchdog
 {
+    // Just because TSO used Ini files back in the day
+    // doesn't mean we have to
+    [Obsolete]
     public abstract class IniConfig
     {
-        private string ActivePath;
+        private string _activePath;
 
         public abstract Dictionary<string, string> DefaultValues
         {
@@ -18,14 +21,15 @@ namespace FSO.Server.Watchdog
 
         private void SetValue(string key, string value)
         {
-            var prop = this.GetType().GetProperty(key);
+            var prop = GetType().GetProperty(key);
             if (prop != null)
             {
                 try
                 {
                     if (prop.PropertyType != typeof(string))
                         prop.SetValue(this, Convert.ChangeType(value, prop.PropertyType));
-                    else prop.SetValue(this, value);
+                    else
+                        prop.SetValue(this, value);
                 }
                 catch (Exception) { }
             }
@@ -33,7 +37,7 @@ namespace FSO.Server.Watchdog
 
         public IniConfig(string path)
         {
-            ActivePath = path;
+            _activePath = path;
             Load();
         }
 
@@ -45,19 +49,21 @@ namespace FSO.Server.Watchdog
                 SetValue(pair.Key, pair.Value);
             }
 
-            if (!File.Exists(ActivePath))
+            if (!File.Exists(_activePath))
             {
                 Save();
             }
             else
             {
-                var lines = File.ReadAllLines(ActivePath);
+                var lines = File.ReadAllLines(_activePath);
                 foreach (var line in lines)
                 {
                     var clean = line.Trim();
-                    if (clean.Length == 0 || clean[0] == '#' || clean[0] == '[') continue;
+                    if (clean.Length == 0 || clean[0] == '#' || clean[0] == '[')
+                        continue;
                     var split = clean.IndexOf('=');
-                    if (split == -1) continue; //?
+                    if (split == -1)
+                        continue; //?
                     var prop = clean.Substring(0, split).Trim();
                     var value = clean.Substring(split + 1).Trim();
 
@@ -70,13 +76,14 @@ namespace FSO.Server.Watchdog
         {
             try
             {
-                using (var stream = new StreamWriter(File.Open(ActivePath, FileMode.Create, FileAccess.Write)))
+                using (var stream = new StreamWriter(File.Open(_activePath, FileMode.Create, FileAccess.Write)))
                 {
                     stream.WriteLine("# Watchdog configuration.");
                     var props = this.GetType().GetProperties();
                     foreach (var prop in props)
                     {
-                        if (prop.Name == "Default" || prop.Name == "DefaultValues") continue;
+                        if (prop.Name == "Default" || prop.Name == "DefaultValues")
+                            continue;
                         stream.WriteLine(prop.Name + "=" + prop.GetValue(this).ToString());
                     }
                 }

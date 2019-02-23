@@ -1,22 +1,16 @@
 ﻿using FSO.SimAntics.Engine.Scopes;
 using FSO.SimAntics.Model;
-using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.SimAntics.NetPlay.EODs.Model;
-using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.Vitaboy;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODTrunkPlugin : VMEODHandler
     {
         Collection TrunkOutfits { get; set; }
-        private bool IsCostumeTrunk;
+            bool IsCostumeTrunk;
 
         public VMEODTrunkPlugin(VMEODServer server) : base(server)
         {
@@ -43,7 +37,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             var typeString = Enum.GetName(typeof(VMEODTrunkPluginCollections), trunkTypeShort);
 
             // avatar gender affects collection & path
-            var avatar = (VMAvatar)client.Avatar;
+            var avatar = client.Avatar;
             bool isMale = (avatar.GetPersonData(VMPersonDataVariable.Gender) == 0);
 
             string collectionPath = typeString + (isMale ? "_" : "_fe" ) + "male.col";
@@ -58,16 +52,15 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
         {
             base.OnDisconnection(client);
         }
-        private void TrunkUIClosedHandler (string evt, string str, VMEODClient client)
+            void TrunkUIClosedHandler (string evt, string str, VMEODClient client)
         {
             Server.Disconnect(client);
         }
-        private void WearCostumeHandler(string evt, string costumeID, VMEODClient client)
+            void WearCostumeHandler(string evt, string costumeID, VMEODClient client)
         {
             // make sure the requested item is valid and is found in the collection
-            ulong parsedID;
             ulong assetID = 0;
-            var valid = ulong.TryParse(costumeID, out parsedID);
+            var valid = ulong.TryParse(costumeID, out var parsedID);
             if (valid)
                 assetID = FindInCollection(parsedID);
 
@@ -89,7 +82,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 Server.Disconnect(client);
             }
         }
-        private ulong FindInCollection(ulong outfitID)
+            ulong FindInCollection(ulong outfitID)
         {
             foreach (var outfit in TrunkOutfits)
             {

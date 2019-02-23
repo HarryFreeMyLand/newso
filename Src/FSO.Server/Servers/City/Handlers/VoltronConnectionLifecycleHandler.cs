@@ -12,14 +12,14 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class VoltronConnectionLifecycleHandler : IAriesSessionInterceptor
     {
-        private ISessionGroup VoltronSessions;
-        private ISessions Sessions;
-        private IDataService DataService;
-        private IDAFactory DAFactory;
-        private CityServerContext Context;
-        private LotServerPicker LotServers;
-        private CityLivenessEngine Liveness;
-        private EventSystem Events;
+        ISessionGroup VoltronSessions;
+        ISessions Sessions;
+        IDataService DataService;
+        IDAFactory DAFactory;
+        CityServerContext Context;
+        LotServerPicker LotServers;
+        CityLivenessEngine Liveness;
+        EventSystem Events;
 
         public VoltronConnectionLifecycleHandler(ISessions sessions, IDataService dataService, IDAFactory da, CityServerContext context, LotServerPicker lotServers, CityLivenessEngine engine,
             EventSystem events)

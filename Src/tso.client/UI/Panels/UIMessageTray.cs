@@ -4,17 +4,11 @@ using FSO.Client.UI.Controls;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Framework.Parser;
 using FSO.Client.Utils;
-using FSO.Common.DataService.Model;
 using FSO.Common.Utils;
 using FSO.Content.Model;
-using FSO.Vitaboy;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 
 namespace FSO.Client.UI.Panels
@@ -29,7 +23,7 @@ namespace FSO.Client.UI.Panels
 
         public void SetItems(List<Message> messages)
         {
-            foreach (var item in _Items) { this.Remove(item); }
+            foreach (var item in _Items) { Remove(item); }
 
             var y = 0;
 
@@ -39,7 +33,7 @@ namespace FSO.Client.UI.Panels
                     Y = y
                 };
                 _Items.Add(ui);
-                this.Add(ui);
+                Add(ui);
                 y += 45;
             }
         }
@@ -69,13 +63,13 @@ namespace FSO.Client.UI.Panels
         {
             Message = message;
 
-            var script = this.RenderScript("messageicon.uis");
+            var script = RenderScript("messageicon.uis");
             button = new UIButton((message.Type == MessageType.Call) ? BackgroundImageCall : BackgroundImageLetter)
             {
                 ImageStates = 3
             };
             button.OnButtonClick += Button_OnButtonClick;
-            this.Add(button);
+            Add(button);
 
             AvatarThumbnail = script.Create<UIMessageIconThumbnail>("AvatarThumbnail");
             AvatarThumbnail.Button = button;
@@ -87,7 +81,7 @@ namespace FSO.Client.UI.Panels
 
             User.Value = message.User;
 
-            this.Add(AvatarThumbnail);
+            Add(AvatarThumbnail);
 
             m_TooltipHandler = UIUtils.GiveTooltip(this);
         }
@@ -101,7 +95,7 @@ namespace FSO.Client.UI.Panels
 
         void Button_OnButtonClick(UIElement button)
         {
-            FindController<MessagingController>().ToggleWindow(this.Message);
+            FindController<MessagingController>().ToggleWindow(Message);
         }
 
         ITextureRef _Icon;

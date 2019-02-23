@@ -14,11 +14,11 @@ namespace FSO.Server.Servers.Api
 {
     public class ApiServer : AbstractServer
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger LOG = LogManager.GetCurrentClassLogger();
 
-        private ApiServerConfiguration Config;
-        private IKernel Kernel;
-        private NancyHost Nancy;
+        ApiServerConfiguration Config;
+        IKernel Kernel;
+        NancyHost Nancy;
 
         //TODO: connect to shards to do these? right now this assumes the API server is on the same server as all shards.
         //would mean we could move these out of this class too.
@@ -80,7 +80,7 @@ namespace FSO.Server.Servers.Api
 
     class CustomNancyBootstrap : NinjectNancyBootstrapper
     {
-        private IKernel Kernel;
+        IKernel Kernel;
 
         public CustomNancyBootstrap(IKernel kernel)
         {

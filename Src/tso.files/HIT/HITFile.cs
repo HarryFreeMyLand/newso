@@ -43,7 +43,7 @@ namespace FSO.Files.HIT
 
         private void ReadFile(Stream data)
         {
-            BinaryReader Reader = new BinaryReader(data);
+            var Reader = new BinaryReader(data);
 
             MagicNumber = new string(Reader.ReadChars(4));
             MajorVersion = Reader.ReadUInt32();

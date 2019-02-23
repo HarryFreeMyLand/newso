@@ -4,10 +4,7 @@
  * http://mozilla.org/MPL/2.0/. 
  */
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.IO;
 using FSO.Files.FAR3;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,7 +12,6 @@ using FSO.Common.Content;
 using FSO.Files;
 using FSO.Files.Formats.tsodata;
 using FSO.Files.Formats.IFF;
-using System.Threading;
 using FSO.Common;
 using FSO.Content.Model;
 using FSO.Content.Interfaces;

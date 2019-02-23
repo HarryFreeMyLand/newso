@@ -5,9 +5,7 @@ http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using FSO.Client.UI.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using FSO.Client.UI.Controls;
@@ -16,9 +14,7 @@ using FSO.SimAntics;
 using FSO.SimAntics.Model;
 using FSO.Client.UI.Panels.EODs;
 using FSO.Client.UI.Framework.Parser;
-using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.LotView.Components;
-using FSO.LotView;
 using FSO.Common;
 using FSO.Content.Model;
 using FSO.SimAntics.Model.TSOPlatform;
@@ -121,7 +117,7 @@ namespace FSO.Client.UI.Panels
 
         public UILiveMode (UILotControl lotController) {
             Small800 = (GlobalSettings.Default.GraphicsWidth < 1024) || FSOEnvironment.UIZoomFactor > 1f;
-            var script = this.RenderScript("livepanel"+(Small800?"":"1024")+".uis");
+            var script = RenderScript("livepanel"+(Small800?"":"1024")+".uis");
             EODLayout = new UIEODLayout(script);
             Script = script;
             LotController = lotController;
@@ -131,7 +127,7 @@ namespace FSO.Client.UI.Panels
             {
                 Y = 35
             };
-            this.AddAt(0, Background);
+            AddAt(0, Background);
 
             EODCloseButton.OnButtonClick += EODCloseButton_OnButtonClick;
 
@@ -144,13 +140,13 @@ namespace FSO.Client.UI.Panels
             {
                 Position = new Vector2(375, 38)
             };
-            this.AddAt(1, PeopleListBg);
+            AddAt(1, PeopleListBg);
 
             Divider = new UIImage(DividerImg)
             {
                 Position = new Vector2(140, 49)
             };
-            this.AddAt(1, Divider);
+            AddAt(1, Divider);
 
             MoodPanelButton = new UIButton
             {
@@ -158,13 +154,13 @@ namespace FSO.Client.UI.Panels
                 ImageStates = 4,
                 Position = new Vector2(31, 63)
             };
-            this.Add(MoodPanelButton);
+            Add(MoodPanelButton);
 
             MotiveDisplay = new UIMotiveDisplay
             {
                 Position = new Vector2(165, 56)
             };
-            this.Add(MotiveDisplay);
+            Add(MotiveDisplay);
             DynamicOverlay.Add(MotiveDisplay);
 
             PersonGrid = new UIPersonGrid(LotController.vm);
@@ -674,11 +670,11 @@ namespace FSO.Client.UI.Panels
 
         public UIEODLayout(UIScript script)
         {
-            this.Script = script;
+            Script = script;
 
             //EOD baseline should be 114 from the bottom of the screen
-            this.ScreenBottom = 149;
-            this.Baseline = new Vector2(0, ScreenBottom - 114);
+            ScreenBottom = 149;
+            Baseline = new Vector2(0, ScreenBottom - 114);
         }
 
         public string GetHeightSuffix(EODHeight height)

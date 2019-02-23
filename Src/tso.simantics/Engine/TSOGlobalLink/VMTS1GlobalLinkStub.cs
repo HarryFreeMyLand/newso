@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Primitives;
 using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.NetPlay;
-using FSO.SimAntics.Engine.TSOGlobalLink;
 using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.Entities;
 using FSO.SimAntics.Engine.TSOGlobalLink.Model;
@@ -21,8 +18,8 @@ namespace FSO.SimAntics.Engine.TSOTransaction
     /// </summary>
     public class VMTS1GlobalLinkStub : IVMTSOGlobalLink
     {
-        private Queue<VMNetArchitectureCmd> ArchBuffer = new Queue<VMNetArchitectureCmd>();
-        private bool WaitingOnArch;
+            Queue<VMNetArchitectureCmd> ArchBuffer = new Queue<VMNetArchitectureCmd>();
+            bool WaitingOnArch;
 
         public void PerformTransaction(VM vm, bool testOnly, uint uid1, uint uid2, int amount, short thread, short type, VMAsyncTransactionCallback callback)
         {

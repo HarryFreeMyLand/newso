@@ -7,14 +7,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using FSO.Files.Formats.IFF.Chunks;
 using FSO.LotView.Model;
 using FSO.Common.Utils;
 using FSO.SimAntics.Model.Routing;
-using FSO.SimAntics.NetPlay.Model;
-using System.IO;
 using FSO.SimAntics.Marshals.Threads;
 using FSO.SimAntics.Model;
 
@@ -30,19 +27,19 @@ namespace FSO.SimAntics.Engine
 
         public SLOTItem Slot;
 
-        private static VMRouteFailCode[] FailPrio = {
+            static VMRouteFailCode[] FailPrio = {
             VMRouteFailCode.NoValidGoals,
             VMRouteFailCode.NoChair,
             VMRouteFailCode.DestTileOccupiedPerson,
             VMRouteFailCode.DestTileOccupied,
         };
 
-        private SLOTFlags Flags;
-        private int MinProximity;
-        private int MaxProximity;
-        private int DesiredProximity;
+            SLOTFlags Flags;
+            int MinProximity;
+            int MaxProximity;
+            int DesiredProximity;
 
-        private bool OnlySit
+            bool OnlySit
         {
             get
             {
@@ -166,7 +163,7 @@ namespace FSO.SimAntics.Engine
             return Results;
         }
 
-        private void SLOTEnumerationFunction (Callback<int, int, double> outputFunc)
+            void SLOTEnumerationFunction (Callback<int, int, double> outputFunc)
         {
             if (Slot.MaxProximity == Slot.MinProximity)
             {
@@ -195,7 +192,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private void VerifyAndAddLocation(VMEntity obj, Vector2 pos, Vector2 center, SLOTFlags entryFlags, double score, VMContext context, VMEntity caller, float facingDir)
+            void VerifyAndAddLocation(VMEntity obj, Vector2 pos, Vector2 center, SLOTFlags entryFlags, double score, VMContext context, VMEntity caller, float facingDir)
         {
             //note: verification is not performed if snap target slot is enabled.
             var tpos = new LotTilePos((short)Math.Round(pos.X * 16), (short)Math.Round(pos.Y * 16), obj.Position.Level);
@@ -227,7 +224,7 @@ namespace FSO.SimAntics.Engine
                     default:
                         int intDir = (int)Math.Round(Math.Log((double)obj.Direction, 2));
                         var rotatedF = ((int)Slot.Facing + intDir) % 8;
-                        facingDir = (float)(((int)rotatedF > 4) ? ((double)rotatedF * Math.PI / 4.0) : (((double)rotatedF - 8.0) * Math.PI / 4.0)); break;
+                        facingDir = (float)((rotatedF > 4) ? (rotatedF * Math.PI / 4.0) : ((rotatedF - 8.0) * Math.PI / 4.0)); break;
                 }
             }
 
@@ -242,7 +239,7 @@ namespace FSO.SimAntics.Engine
             if (Slot.SnapTargetSlot < 0)
             {
                 var solid = caller.PositionValid(tpos, Direction.NORTH, context, VMPlaceRequestFlags.AcceptSlots | VMPlaceRequestFlags.AllAvatarsSolid);
-                if (solid.Status != Model.VMPlacementError.Success)
+                if (solid.Status != VMPlacementError.Success)
                 {
                     if (solid.Object != null)
                     {
@@ -298,7 +295,7 @@ namespace FSO.SimAntics.Engine
             Results.Add(result);
         }
 
-        private void SetFail(VMRouteFailCode code, VMEntity blocker)
+            void SetFail(VMRouteFailCode code, VMEntity blocker)
         {
             if (Array.IndexOf(FailPrio, code) > Array.IndexOf(FailPrio, FailCode))
             {
@@ -307,7 +304,7 @@ namespace FSO.SimAntics.Engine
             }
         }
 
-        private static double FlagsAsRad(SLOTFlags dir)
+            static double FlagsAsRad(SLOTFlags dir)
         {
             double value = Math.Round(Math.Log((int)dir & 255, 2))*Math.PI/4;
             //if (value > Math.PI) value -= 2*Math.PI;
@@ -324,7 +321,7 @@ namespace FSO.SimAntics.Engine
 
             double dir = Math.Atan2(Math.Floor(pos2.X) - Math.Floor(pos1.X), Math.Floor(pos1.Y) - Math.Floor(pos2.Y)) * (180.0/Math.PI);
             dir = DirectionUtils.NormalizeDegrees(dir - rotShift * (180.0 / Math.PI));
-            SLOTFlags result = (SLOTFlags)0;
+            SLOTFlags result = 0;
 
             if (dir >= -45.0 - ANGLE_ERROR && dir <= 45.0 + ANGLE_ERROR) result |= SLOTFlags.NORTH;
             if (dir >= 0.0 - ANGLE_ERROR && dir <= 90.0 + ANGLE_ERROR) result |= SLOTFlags.NORTH_EAST;

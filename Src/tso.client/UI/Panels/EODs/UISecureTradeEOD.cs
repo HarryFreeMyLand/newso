@@ -4,12 +4,9 @@ using FSO.Client.UI.Framework.Parser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.SimAntics.Model;
 using FSO.Content.Interfaces;
-using FSO.Common.Rendering.Framework.IO;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
@@ -81,8 +78,8 @@ namespace FSO.Client.UI.Panels.EODs
 
         protected virtual void InitUI()
         {
-            Small800 = (GlobalSettings.Default.GraphicsWidth < 1024) || Common.FSOEnvironment.UIZoomFactor > 1f;
-            Script = this.RenderScript("securetradingeod"+(Small800?"":"1024")+".uis");
+            Small800 = (GlobalSettings.Default.GraphicsWidth < 1024) || FSOEnvironment.UIZoomFactor > 1f;
+            Script = RenderScript("securetradingeod"+(Small800?"":"1024")+".uis");
 
             Catalog = new UICatalog(Small800 ? 18 : 28);
             Script.ApplyControlProperties(Catalog, "InventoryCatalogSecureTrading");
@@ -103,8 +100,8 @@ namespace FSO.Client.UI.Panels.EODs
 
             OurAvatarMoneySymbol.CurrentText = "$";
             OtherAvatarMoneySymbol.CurrentText = "$";
-            AmountEntry.Alignment = Framework.TextAlignment.Center;
-            OtherAvatarAmount.Alignment = Framework.TextAlignment.Center;
+            AmountEntry.Alignment = TextAlignment.Center;
+            OtherAvatarAmount.Alignment = TextAlignment.Center;
 
             AmountEntry.OnChange += AmountEntry_OnChange;
 

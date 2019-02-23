@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FSO.Content;
 using FSO.Content.TS1;
 using FSO.Files.Formats.IFF.Chunks;
 
@@ -120,14 +117,14 @@ namespace FSO.SimAntics.Utils
             return item;
         }
 
-        private static string FindHG(string item)
+            static string FindHG(string item)
         {
             var ind = item.IndexOf('_');
             if (ind != -1) item = item.Substring(ind);
             return item;
         }
 
-        private static string RemoveExt(string item)
+            static string RemoveExt(string item)
         {
             if (item == null) return null;
             var ind = item.LastIndexOf('.');
@@ -135,14 +132,14 @@ namespace FSO.SimAntics.Utils
             return item;
         }
 
-        private static string ExtractID(string item, string skncol)
+            static string ExtractID(string item, string skncol)
         {
             var ind = item.IndexOf('_');
             if (ind != -1) item = item.Substring(0, ind);
             return item + skncol;
         }
 
-        private static string InsertSkinColor(string name, string skncol)
+            static string InsertSkinColor(string name, string skncol)
         {
             var ind = name.IndexOf('_');
             if (ind != -1) name = name.Insert(ind, skncol);

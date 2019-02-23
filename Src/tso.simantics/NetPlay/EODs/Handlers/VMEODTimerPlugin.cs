@@ -1,23 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.SimAntics.NetPlay.EODs.Model;
 
 namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODTimerPlugin : VMEODHandler
     {
-        private VMEODClient PlayerClient;
+            VMEODClient PlayerClient;
 
-        private short CurrentDisplayedSeconds;
-        private short CurrentDisplayedMinutes;
-        private bool IsRunning;
-        private bool UpdatedAfterStop = true;
-        private VMEODTimerPluginStates State;
+            short CurrentDisplayedSeconds;
+            short CurrentDisplayedMinutes;
+            bool IsRunning;
+            bool UpdatedAfterStop = true;
+            VMEODTimerPluginStates State;
 
-        private int Tock;
+            int Tock;
 
         public VMEODTimerPlugin(VMEODServer server) : base(server)
         {
@@ -104,7 +100,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             base.OnDisconnection(client);
         }
         
-        private void StateChangeHandler(string evt, byte[] newState, VMEODClient client)
+            void StateChangeHandler(string evt, byte[] newState, VMEODClient client)
         {
             if ((newState == null) || (newState.Length < 1) || (newState[0] > 1))
                 return;
@@ -134,7 +130,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void IsRunningChangeHandler(string evt, byte[] newRunningState, VMEODClient client)
+            void IsRunningChangeHandler(string evt, byte[] newRunningState, VMEODClient client)
         {
             if ((newRunningState == null) || (newRunningState.Length < 1) || (newRunningState[0] > 1))
                 return;
@@ -163,7 +159,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             }
         }
 
-        private void SetTimerHandler(string evt, byte[] newTime, VMEODClient client)
+            void SetTimerHandler(string evt, byte[] newTime, VMEODClient client)
         {
             if ((newTime == null) || (newTime.Length < 2) || (newTime[0] > 99) || (newTime[1] > 59))
                 return;
@@ -174,7 +170,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             PlayerClient.SendOBJEvent(new VMEODEvent((short)VMEODTimerEvents.SetTime, new short[] { (short)(CurrentDisplayedMinutes + CurrentDisplayedSeconds) } ));
         }
 
-        private void CloseHandler(string evt, string msg, VMEODClient client)
+            void CloseHandler(string evt, string msg, VMEODClient client)
         {
             Server.Disconnect(client);
         }

@@ -1,4 +1,4 @@
-﻿using FSO.Common.DataService.Framework;
+using FSO.Common.DataService.Framework;
 using FSO.Common.DataService.Framework.Attributes;
 using FSO.Common.Security;
 using FSO.Common.Serialization;
@@ -19,34 +19,36 @@ namespace FSO.Common.DataService
 {
     public class DataService : IDataService
     {
-        private static Logger LOG = LogManager.GetCurrentClassLogger();
+        static Logger _log = LogManager.GetCurrentClassLogger();
 
-        private Dictionary<uint, IDataServiceProvider> ProviderByTypeId = new Dictionary<uint, IDataServiceProvider>();
-        private Dictionary<Type, IDataServiceProvider> ProviderByType = new Dictionary<Type, IDataServiceProvider>();
-        private Dictionary<MaskedStruct, IDataServiceProvider> ProviderByDerivedStruct = new Dictionary<MaskedStruct, IDataServiceProvider>();
-        private Dictionary<MaskedStruct, StructField[]> MaskedStructToActualFields = new Dictionary<MaskedStruct, StructField[]>();
-        private Dictionary<uint, StructField[]> StructToActualFields = new Dictionary<uint, StructField[]>();
-        private Dictionary<uint, Type> ModelTypeById = new Dictionary<uint, Type>();
-        private Dictionary<Type, uint> ModelIdByType = new Dictionary<Type, uint>();
+        Dictionary<uint, IDataServiceProvider> _providerByTypeId = new Dictionary<uint, IDataServiceProvider>();
+        Dictionary<Type, IDataServiceProvider> _providerByType = new Dictionary<Type, IDataServiceProvider>();
+        Dictionary<MaskedStruct, IDataServiceProvider> _providerByDerivedStruct = new Dictionary<MaskedStruct, IDataServiceProvider>();
+        Dictionary<MaskedStruct, StructField[]> _maskedStructToActualFields = new Dictionary<MaskedStruct, StructField[]>();
+        Dictionary<uint, StructField[]> _structToActualFields = new Dictionary<uint, StructField[]>();
+        Dictionary<uint, Type> _modelTypeById = new Dictionary<uint, Type>();
+        Dictionary<Type, uint> _modelIdByType = new Dictionary<Type, uint>();
 
-        private IModelSerializer Serializer;
-        private TSODataDefinition DataDefinition;
+        IModelSerializer _serializer;
+        TSODataDefinition _dataDefinition;
 
-        public DataService(IModelSerializer serializer, FSO.Content.GameContent content){
-            this.Serializer = serializer;
-            this.DataDefinition = content.DataDefinition;
+        public DataService(IModelSerializer serializer, FSO.Content.GameContent content)
+        {
+            _serializer = serializer;
+            _dataDefinition = content.DataDefinition;
 
             //Build Struct => Field[] maps for quicker serialization
-            foreach (var derived in DataDefinition.DerivedStructs)
+            foreach (var derived in _dataDefinition.DerivedStructs)
             {
                 var type = MaskedStructUtils.FromID(derived.ID);
-                List<StructField> fields = new List<StructField>();
-                var parent = DataDefinition.Structs.First(x => x.ID == derived.Parent);
+                var fields = new List<StructField>();
+                var parent = _dataDefinition.Structs.First(x => x.ID == derived.Parent);
 
                 foreach (var field in parent.Fields)
                 {
                     var mask = derived.FieldMasks.FirstOrDefault(x => x.ID == field.ID);
-                    if (mask == null) { continue; }
+                    if (mask == null)
+                    { continue; }
                     /*
                     var action = DerivedStructFieldMaskType.KEEP;
                     if (mask != null){
@@ -59,107 +61,121 @@ namespace FSO.Common.DataService
                     */
                     fields.Add(field);
                 }
-                MaskedStructToActualFields.Add(type, fields.ToArray());
+                _maskedStructToActualFields.Add(type, fields.ToArray());
             }
 
-            foreach(var _struct in DataDefinition.Structs){
-                StructToActualFields.Add(_struct.ID, _struct.Fields.ToArray());
+            foreach (var _struct in _dataDefinition.Structs)
+            {
+                _structToActualFields.Add(_struct.ID, _struct.Fields.ToArray());
             }
 
             var assembly = Assembly.GetAssembly(typeof(DataService));
 
-            foreach (Type type in assembly.GetTypes()){
-                System.Attribute[] attributes = System.Attribute.GetCustomAttributes(type);
+            foreach (var type in assembly.GetTypes())
+            {
+                var attributes = Attribute.GetCustomAttributes(type);
 
-                foreach (Attribute attribute in attributes)
+                foreach (var attribute in attributes)
                 {
                     if (attribute is DataServiceModel)
                     {
-                        var _struct = DataDefinition.GetStruct(type.Name);
-                        if(_struct != null){
-                            ModelTypeById.Add(_struct.ID, type);
-                            ModelIdByType.Add(type, _struct.ID);
+                        var _struct = _dataDefinition.GetStruct(type.Name);
+                        if (_struct != null)
+                        {
+                            _modelTypeById.Add(_struct.ID, type);
+                            _modelIdByType.Add(type, _struct.ID);
                         }
                     }
                 }
             }
         }
 
-        public Task<T> Get<T>(object key){
-            return Get(typeof(T), key).ContinueWith<T>(x => (T)x.Result);
+        public Task<T> Get<T>(object key)
+        {
+            return Get(typeof(T), key).ContinueWith(x => (T)x.Result);
         }
 
 
-        public Task<T[]> GetMany<T>(object[] keys){
-            return GetMany(typeof(T), keys).ContinueWith<T[]>(x =>
+        public Task<T[]> GetMany<T>(object[] keys)
+        {
+            return GetMany(typeof(T), keys).ContinueWith(x =>
             {
-                if (x.IsFaulted) { throw x.Exception; }
+                if (x.IsFaulted)
+                { throw x.Exception; }
                 var result = new List<T>();
-                foreach(var item in x.Result){
+                foreach (var item in x.Result)
+                {
                     result.Add((T)item);
                 }
                 return result.ToArray();
             });
         }
 
-        public Task<object[]> GetMany(Type type, object[] keys){
-            var provider = ProviderByType[type];
+        public Task<object[]> GetMany(Type type, object[] keys)
+        {
+            var provider = _providerByType[type];
             return GetMany(provider, keys);
         }
 
-        private Task<object[]> GetMany(IDataServiceProvider provider, object[] keys){
+        Task<object[]> GetMany(IDataServiceProvider provider, object[] keys)
+        {
             Task<object>[] tasks = new Task<object>[keys.Length];
-            for(int i=0; i < keys.Length; i++){
+            for (int i = 0; i < keys.Length; i++)
+            {
                 tasks[i] = Get(provider, keys[i]);
             }
 
-            return Task.WhenAll<object>(tasks);
+            return Task.WhenAll(tasks);
         }
 
-        public Task<object> Get(Type type, object key){
-            var provider = ProviderByType[type];
+        public Task<object> Get(Type type, object key)
+        {
+            var provider = _providerByType[type];
             return Get(provider, key);
         }
 
-        public Task<object> Get(uint type, object key){
-            var provider = ProviderByTypeId[type];
+        public Task<object> Get(uint type, object key)
+        {
+            var provider = _providerByTypeId[type];
             return Get(provider, key);
         }
 
 
         public IDataServiceProvider GetProvider(uint type)
         {
-            return ProviderByTypeId[type];
+            return _providerByTypeId[type];
         }
 
         public Task<object> Get(MaskedStruct type, object key)
         {
-            if (!ProviderByDerivedStruct.ContainsKey(type))
+            if (!_providerByDerivedStruct.ContainsKey(type))
             {
                 return null;
             }
-            var provider = ProviderByDerivedStruct[type];
+            var provider = _providerByDerivedStruct[type];
             return Get(provider, key);
         }
 
-        protected virtual Task<object> Get(IDataServiceProvider provider, object key){
+        protected virtual Task<object> Get(IDataServiceProvider provider, object key)
+        {
             return provider.Get(key);
         }
 
         public void Invalidate<T>(object key)
         {
-            var provider = ProviderByType[typeof(T)];
+            var provider = _providerByType[typeof(T)];
             provider.Invalidate(key);
         }
 
         public void Invalidate<T>(object key, T replacement)
         {
-            var provider = ProviderByType[typeof(T)];
+            var provider = _providerByType[typeof(T)];
             provider.Invalidate(key, replacement);
         }
 
-        public List<cTSOTopicUpdateMessage> SerializeUpdate(MaskedStruct mask, object value, uint id){
-            return SerializeUpdateFields(MaskedStructToActualFields[mask], value, id);
+        public List<cTSOTopicUpdateMessage> SerializeUpdate(MaskedStruct mask, object value, uint id)
+        {
+            return SerializeUpdateFields(_maskedStructToActualFields[mask], value, id);
         }
 
         public List<cTSOTopicUpdateMessage> SerializeUpdate(StructField[] fields, object value, uint id)
@@ -174,29 +190,29 @@ namespace FSO.Common.DataService
 
         public StructField GetFieldByName(Type type, string field)
         {
-            if (ModelIdByType.ContainsKey(type))
+            if (_modelIdByType.ContainsKey(type))
             {
-                var modelId = ModelIdByType[type];
-                return StructToActualFields[modelId].Where(x => field == x.Name).FirstOrDefault();
+                var modelId = _modelIdByType[type];
+                return _structToActualFields[modelId].Where(x => field == x.Name).FirstOrDefault();
             }
             return null;
         }
 
         public StructField[] GetFieldsByName(Type type, params string[] fields)
         {
-            if (ModelIdByType.ContainsKey(type))
+            if (_modelIdByType.ContainsKey(type))
             {
-                var modelId = ModelIdByType[type];
-                return StructToActualFields[modelId].Where(x => fields.Contains(x.Name)).ToArray();
+                var modelId = _modelIdByType[type];
+                return _structToActualFields[modelId].Where(x => fields.Contains(x.Name)).ToArray();
             }
-            return new StructField[]{};
+            return new StructField[] { };
         }
 
         public async Task<cTSOTopicUpdateMessage> SerializePath(params uint[] dotPath)
         {
             var path = await ResolveDotPath(dotPath);
             var value = path.GetValue();
-            
+
             return SerializeUpdateField(value.Value, dotPath);
         }
 
@@ -209,7 +225,8 @@ namespace FSO.Common.DataService
                 var path = await ResolveDotPath(partialDotPath);
 
                 var target = path.GetValue();
-                if (target.Value == null) { throw new Exception("Cannot set property on null value"); }
+                if (target.Value == null)
+                { throw new Exception("Cannot set property on null value"); }
 
                 //Apply the change!
                 var targetType = target.Value.GetType();
@@ -276,12 +293,14 @@ namespace FSO.Common.DataService
                         throw new Exception("Trying to set field on unknown type");
                     }
 
-                    var _struct = DataDefinition.GetStruct(target.TypeId);
+                    var _struct = _dataDefinition.GetStruct(target.TypeId);
                     var field = _struct.Fields.FirstOrDefault(x => x.ID == finalPath);
-                    if (field == null) { throw new Exception("Unknown field in dot path"); }
+                    if (field == null)
+                    { throw new Exception("Unknown field in dot path"); }
 
                     var objectField = target.Value.GetType().GetProperty(field.Name);
-                    if (objectField == null) { throw new Exception("Unknown field in model: " + objectField.Name); }
+                    if (objectField == null)
+                    { throw new Exception("Unknown field in model: " + objectField.Name); }
 
                     //If the value is null (0) and the field has a decoration of NullValueIndicatesDeletion
                     //Delete the value instead of setting it
@@ -326,52 +345,57 @@ namespace FSO.Common.DataService
                         }
                     }
                 }
-            } catch (Exception e)
+            }
+            catch (Exception e)
             {
-                
+
                 if (e is SecurityException)
                 {
-                    LOG.Error("Unauthorised data service update:" + e.Message);
-                } else
-                {
-                    LOG.Error(e, "Data service update failed.");
+                    _log.Error("Unauthorised data service update:" + e.Message);
                 }
-                
+                else
+                {
+                    _log.Error(e, "Data service update failed.");
+                }
+
             }
         }
 
-        private uint? GetStructType(object value)
+        uint? GetStructType(object value)
         {
-            if(value != null)
+            if (value != null)
             {
-                if (ModelIdByType.ContainsKey(value.GetType()))
+                if (_modelIdByType.ContainsKey(value.GetType()))
                 {
-                    return ModelIdByType[value.GetType()];
+                    return _modelIdByType[value.GetType()];
                 }
                 return null;
             }
             return null;
         }
 
-        private async Task<DotPathResult> ResolveDotPath(params uint[] _path)
+        async Task<DotPathResult> ResolveDotPath(params uint[] _path)
         {
             var result = new DotPathResult();
             result.Path = new DotPathResultComponent[_path.Length];
 
-            Queue<uint> path = new Queue<uint>(_path);
+            var path = new Queue<uint>(_path);
 
             var typeId = path.Dequeue();
             var entityId = path.Dequeue();
             var obj = await Get(typeId, entityId);
-            if (obj == null) { throw new Exception("Unknown object in dot path"); }
+            if (obj == null)
+            { throw new Exception("Unknown object in dot path"); }
 
-            result.Path[0] = new DotPathResultComponent {
+            result.Path[0] = new DotPathResultComponent
+            {
                 Value = null,
                 Id = typeId,
                 Type = DotPathResultComponentType.PROVIDER,
                 Name = null
             };
-            result.Path[1] = new DotPathResultComponent{
+            result.Path[1] = new DotPathResultComponent
+            {
                 Value = obj,
                 Id = entityId,
                 Type = DotPathResultComponentType.ARRAY_ITEM,
@@ -379,23 +403,28 @@ namespace FSO.Common.DataService
                 Name = entityId.ToString()
             };
 
-            var _struct = DataDefinition.GetStructFromValue(obj);
-            if (_struct == null) { throw new Exception("Unknown struct in dot path"); }
+            var _struct = _dataDefinition.GetStructFromValue(obj);
+            if (_struct == null)
+            { throw new Exception("Unknown struct in dot path"); }
             var index = 2;
 
             while (path.Count > 0)
             {
                 var nextField = path.Dequeue();
                 var field = _struct.Fields.FirstOrDefault(x => x.ID == nextField);
-                if (field == null) { throw new Exception("Unknown field in dot path"); }
+                if (field == null)
+                { throw new Exception("Unknown field in dot path"); }
 
                 var objectField = obj.GetType().GetProperty(field.Name);
-                if (objectField == null) { throw new Exception("Unknown field " + field.Name); }
+                if (objectField == null)
+                { throw new Exception("Unknown field " + field.Name); }
                 obj = objectField.GetValue(obj);
-                if (obj == null) { throw new Exception("Member not found, unable to apply update"); }
-                _struct = DataDefinition.GetStructFromValue(obj);
+                if (obj == null)
+                { throw new Exception("Member not found, unable to apply update"); }
+                _struct = _dataDefinition.GetStructFromValue(obj);
 
-                result.Path[index++] = new DotPathResultComponent {
+                result.Path[index++] = new DotPathResultComponent
+                {
                     Value = obj,
                     Id = field.ID,
                     TypeId = _struct != null ? _struct.ID : 0,
@@ -414,15 +443,17 @@ namespace FSO.Common.DataService
                         var arrIndex = path.Dequeue();
                         if (arrIndex >= arr.Count)
                         {
-                            if (arr.Count == 0) throw new Exception("Item at index not found, unable to apply update");
+                            if (arr.Count == 0)
+                                throw new Exception("Item at index not found, unable to apply update");
                             arrIndex = (uint)(arr.Count - 1);
                         }
 
                         if (arrIndex < arr.Count)
                         {
                             obj = arr[(int)arrIndex];
-                            if (obj == null) { throw new Exception("Item at index not found, unable to apply update"); }
-                            _struct = DataDefinition.GetStructFromValue(obj);
+                            if (obj == null)
+                            { throw new Exception("Item at index not found, unable to apply update"); }
+                            _struct = _dataDefinition.GetStructFromValue(obj);
 
                             result.Path[index++] = new DotPathResultComponent
                             {
@@ -444,37 +475,41 @@ namespace FSO.Common.DataService
             return result;
         }
 
-        private bool IsList(object value)
+        bool IsList(object value)
         {
-            if (value == null) { return false; }
+            if (value == null)
+            { return false; }
             return IsList(value.GetType());
         }
 
-        private bool IsList(Type targetType)
+        bool IsList(Type targetType)
         {
             return targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(ImmutableList<>);
         }
 
-        private MethodInfo GetGenericMethod(Type targetType, string name, Type[] args)
+        MethodInfo GetGenericMethod(Type targetType, string name, Type[] args)
         {
             return targetType.GetMethod(name, args);
         }
 
-        private MethodInfo GetGenericMethod(Type targetType, string name)
+        MethodInfo GetGenericMethod(Type targetType, string name)
         {
             return targetType.GetMethod(name);
         }
 
-        private bool IsNull(object value)
+        bool IsNull(object value)
         {
-            if (value == null) { return true; }
-            if(value is uint)
+            if (value == null)
+            { return true; }
+            if (value is uint)
             {
                 return ((uint)value) == 0;
-            }else if (value is int)
+            }
+            else if (value is int)
             {
                 return ((int)value) == 0;
-            }else if (value is ushort)
+            }
+            else if (value is ushort)
             {
                 return ((ushort)value) == 0;
             }
@@ -485,9 +520,10 @@ namespace FSO.Common.DataService
             return false;
         }
 
-        private object GetUpdateValue(object value)
+        object GetUpdateValue(object value)
         {
-            if(value is cTSOProperty){
+            if (value is cTSOProperty)
+            {
                 //Convert to model
                 return ConvertProperty(value as cTSOProperty);
             }
@@ -496,34 +532,39 @@ namespace FSO.Common.DataService
 
         public object ConvertProperty(cTSOProperty property)
         {
-            var _struct = DataDefinition.GetStruct(property.StructType);
-            if (_struct == null) { return null; }
+            var _struct = _dataDefinition.GetStruct(property.StructType);
+            if (_struct == null)
+            { return null; }
 
-            if (!ModelTypeById.ContainsKey(_struct.ID)){
+            if (!_modelTypeById.ContainsKey(_struct.ID))
+            {
                 return null;
             }
 
-            var type = ModelTypeById[_struct.ID];
+            var type = _modelTypeById[_struct.ID];
             var instance = ModelActivator.NewInstance(type);
-            
-            foreach(var field in property.StructFields){
+
+            foreach (var field in property.StructFields)
+            {
                 var _field = _struct.Fields.FirstOrDefault(x => x.ID == field.StructFieldID);
-                if (_field == null) { continue; }
-                
+                if (_field == null)
+                { continue; }
+
                 SetFieldValue(instance, _field.Name, GetUpdateValue(field.Value));
             }
 
             return instance;
         }
 
-        private List<cTSOTopicUpdateMessage> SerializeUpdateFields(StructField[] fields, object instance, uint id)
+        List<cTSOTopicUpdateMessage> SerializeUpdateFields(StructField[] fields, object instance, uint id)
         {
             var result = new List<cTSOTopicUpdateMessage>();
             foreach (var field in fields)
             {
                 object value = GetFieldValue(instance, field.Name);
-                if (value == null) { continue; }
-                
+                if (value == null)
+                { continue; }
+
                 //Might be a struct
                 try
                 {
@@ -533,17 +574,18 @@ namespace FSO.Common.DataService
                         field.ID
                     }));
                 }
-                catch(Exception ex){
+                catch (Exception ex)
+                {
                 }
             }
             return result;
         }
 
-        private cTSOTopicUpdateMessage SerializeUpdateField(object value, uint[] path)
+        cTSOTopicUpdateMessage SerializeUpdateField(object value, uint[] path)
         {
             try
             {
-                var clsid = Serializer.GetClsid(value);
+                var clsid = _serializer.GetClsid(value);
                 if (!clsid.HasValue)
                 {
                     throw new Exception("Unable to serialize value with type: " + value.GetType());
@@ -556,45 +598,50 @@ namespace FSO.Common.DataService
             }
             catch (Exception ex)
             {
-                LOG.Error(ex);
+                _log.Error(ex);
                 throw ex;
             }
         }
 
-        private object GetFieldValue(object obj, string fieldName)
+        object GetFieldValue(object obj, string fieldName)
         {
-            if (obj == null) { return null; }
+            if (obj == null)
+            { return null; }
 
             var objectField = obj.GetType().GetProperty(fieldName);
-            if (objectField == null) { return null; }
+            if (objectField == null)
+            { return null; }
 
             var value = objectField.GetValue(obj);
 
             return value;
         }
 
-        private void SetFieldValue(object obj, string fieldName, object value)
+        void SetFieldValue(object obj, string fieldName, object value)
         {
             var objectField = obj.GetType().GetProperty(fieldName);
-            if (objectField == null) { return; }
+            if (objectField == null)
+            { return; }
 
             objectField.SetValue(obj, value);
         }
 
-        public void AddProvider(IDataServiceProvider provider){
+        public void AddProvider(IDataServiceProvider provider)
+        {
             provider.Init();
 
             var type = provider.GetValueType();
-            var structDef = DataDefinition.Structs.First(x => x.Name == type.Name);
+            var structDef = _dataDefinition.Structs.First(x => x.Name == type.Name);
 
-            ProviderByTypeId.Add(structDef.ID, provider);
-            ProviderByType.Add(type, provider);
+            _providerByTypeId.Add(structDef.ID, provider);
+            _providerByType.Add(type, provider);
 
-            var derived = DataDefinition.DerivedStructs.Where(x => x.Parent == structDef.ID);
-            foreach(var item in derived){
-                ProviderByDerivedStruct.Add(MaskedStructUtils.FromID(item.ID), provider);
+            var derived = _dataDefinition.DerivedStructs.Where(x => x.Parent == structDef.ID);
+            foreach (var item in derived)
+            {
+                _providerByDerivedStruct.Add(MaskedStructUtils.FromID(item.ID), provider);
             }
         }
-        
+
     }
 }

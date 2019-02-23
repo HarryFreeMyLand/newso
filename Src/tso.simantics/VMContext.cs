@@ -7,14 +7,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.IO;
 using FSO.LotView;
 using FSO.SimAntics.Engine;
 using FSO.SimAntics.Engine.Primitives;
 using FSO.SimAntics.Primitives;
 using FSO.Content;
-using FSO.Files.Formats.IFF;
 using FSO.LotView.Model;
 using FSO.LotView.Components;
 using FSO.Files.Formats.IFF.Chunks;
@@ -33,7 +30,7 @@ namespace FSO.SimAntics
         public Blueprint Blueprint;
         public VMClock Clock { get; internal set; }
 
-        private VMArchitecture _Arch;
+            VMArchitecture _Arch;
         public VMArchitecture Architecture
         {
             get
@@ -79,12 +76,12 @@ namespace FSO.SimAntics
                 this.Ambience = oldContext.Ambience;
             }
 
-            Globals = FSO.Content.GameContent.Get.WorldObjectGlobals.Get("global");
+            Globals = GameContent.Get.WorldObjectGlobals.Get("global");
             GlobalTreeTable = Globals.Resource.List<TTAB>()?.FirstOrDefault();
             GlobalTTAs = Globals.Resource.List<TTAs>()?.FirstOrDefault();
             RandomSeed = (ulong)((new Random()).NextDouble() * UInt64.MaxValue); //when resuming state, this should be set.
             
-            if (Content.GameContent.Get.TS1)
+            if (GameContent.Get.TS1)
                 Clock.TicksPerMinute = 30; //1 minute per irl second
             else
                 Clock.TicksPerMinute = 30 * 5; //1 minute per 5 irl second
@@ -446,7 +443,7 @@ namespace FSO.SimAntics
                 OperandModel = typeof(VMInventoryOperationsOperand)
             });
 
-            if (Content.GameContent.Get.TS1)
+            if (GameContent.Get.TS1)
             {
                 AddPrimitive(new VMPrimitiveRegistration(new VMFindBestAction())
                 {
@@ -508,7 +505,7 @@ namespace FSO.SimAntics
                 });
             }
 
-            GameObjectResource.BHAVAssembler = VMTranslator.Assemble;
+            GameIffResource.BHAVAssembler = VMTranslator.Assemble;
         }
 
         /// <summary>
@@ -522,7 +519,7 @@ namespace FSO.SimAntics
             RandomSeed ^= RandomSeed >> 12;
             RandomSeed ^= RandomSeed << 25;
             RandomSeed ^= RandomSeed >> 27;
-            return (RandomSeed * (ulong)(2685821657736338717)) % max;
+            return (RandomSeed * 2685821657736338717) % max;
         }
 
         //TODO: move special tuning handles to another class?
@@ -552,7 +549,7 @@ namespace FSO.SimAntics
             }
         }
 
-        private void WallsChanged(VMArchitecture caller)
+            void WallsChanged(VMArchitecture caller)
         {
             RegeneratePortalInfo();
 
@@ -1238,20 +1235,20 @@ namespace FSO.SimAntics
         {
 
             VMMultitileGroup group = new VMMultitileGroup();
-            var objDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(GUID);
+            var objDefinition = GameContent.Get.WorldObjects.Get(GUID);
             if (objDefinition == null)
             {
                 return null;
             }
 
-            var catalog = Content.GameContent.Get.WorldCatalog;
+            var catalog = GameContent.Get.WorldCatalog;
             var item = catalog.GetItemByGUID(GUID);
 
             int salePrice = 0;
             if (item != null) salePrice = (int)item.Value.Price;
             //salePrice = Math.Max(0, Math.Min(salePrice, (salePrice * (100 - objDefinition.OBJ.InitialDepreciation)) / 100));
 
-            group.InitialPrice = (int)salePrice;
+            group.InitialPrice = salePrice;
 
             var master = objDefinition.OBJ.MasterID;
             if (master != 0 && objDefinition.OBJ.SubIndex == -1)
@@ -1263,7 +1260,7 @@ namespace FSO.SimAntics
                 {
                     if (objd[i].MasterID == master && objd[i].SubIndex != -1) //if sub-part of this object, make it!
                     {
-                        var subObjDefinition = FSO.Content.GameContent.Get.WorldObjects.Get(objd[i].GUID);
+                        var subObjDefinition = GameContent.Get.WorldObjects.Get(objd[i].GUID);
                         if (subObjDefinition != null)
                         {
                             var worldObject = MakeObjectComponent(subObjDefinition);
@@ -1311,10 +1308,10 @@ namespace FSO.SimAntics
 
                     if (VM.TS1)
                     {
-                        var id = Content.GameContent.Get.Neighborhood.GetNeighborIDForGUID(GUID);
+                        var id = GameContent.Get.Neighborhood.GetNeighborIDForGUID(GUID);
                         if (id != null)
                         {
-                            var neigh = Content.GameContent.Get.Neighborhood.GetNeighborByID(id.Value);
+                            var neigh = GameContent.Get.Neighborhood.GetNeighborByID(id.Value);
                             if (neigh != null) vmObject.InheritNeighbor(neigh, VM.TS1State.CurrentFamily);
                         }
                     }

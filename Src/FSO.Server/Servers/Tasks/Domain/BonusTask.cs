@@ -15,9 +15,9 @@ namespace FSO.Server.Servers.Tasks.Domain
     /// </summary>
     public class BonusTask : ITask
     {
-        private IDAFactory DAFactory;
-        private bool Running;
-        private TaskTuning Tuning;
+        IDAFactory DAFactory;
+        bool Running;
+        TaskTuning Tuning;
 
         public BonusTask(IDAFactory DAFactory, TaskTuning tuning)
         {
@@ -133,7 +133,7 @@ namespace FSO.Server.Servers.Tasks.Domain
         /// <param name="day"></param>
         /// <param name="start"></param>
         /// <param name="end"></param>
-        private TimeSpan CalculateDateOverlap(DateTime r1_start, DateTime r1_end, DateTime r2_start, DateTime r2_end)
+        TimeSpan CalculateDateOverlap(DateTime r1_start, DateTime r1_end, DateTime r2_start, DateTime r2_end)
         {
             var startsInRange = r2_start >= r1_start && r2_start <= r1_end;
             var endsInRange = r2_end <= r1_end && r2_end >= r1_start;
@@ -159,7 +159,7 @@ namespace FSO.Server.Servers.Tasks.Domain
             }
         }
 
-        private DateTime Midnight()
+        DateTime Midnight()
         {
             var now = DateTime.Now;
             return new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);

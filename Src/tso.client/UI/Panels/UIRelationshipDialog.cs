@@ -3,8 +3,6 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Client.UI.Framework;
 using FSO.Common.DataService.Model;
@@ -51,7 +49,7 @@ namespace FSO.Client.UI.Panels
         public UIRelationshipDialog()
             : base(UIDialogStyle.Standard | UIDialogStyle.Close, true)
         {
-            this.Caption = GameFacade.Strings.GetString("f106", "10");
+            Caption = GameFacade.Strings.GetString("f106", "10");
             //f_web_inbtn = 0x1972454856DDBAC,
             //f_web_outbtn = 0x3D3AEF0856DDBAC,
 
@@ -111,7 +109,7 @@ namespace FSO.Client.UI.Panels
             SearchLabel = new UILabel
             {
                 Caption = GameFacade.Strings.GetString("f106", "14"),
-                Alignment = Framework.TextAlignment.Right,
+                Alignment = TextAlignment.Right,
                 Position = new Vector2(550 - 230, 38),
                 Size = new Vector2(50, 1)
             };

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.Client.UI.Framework;
 using FSO.Client.UI.Controls;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
@@ -150,7 +146,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                     case ManageEODObjectTypes.Roulette:
                         {
                             // "You do not have enough money in this object to cover that bet amount." \n \n
-                            message = GameFacade.Strings.GetString("f110", "32") + System.Environment.NewLine + System.Environment.NewLine +
+                            message = GameFacade.Strings.GetString("f110", "32") + Environment.NewLine + Environment.NewLine +
                                 // "You must stock AT LEAST 140 times the maximum bet amount."
                                 GameFacade.Strings.GetString("f110", "33");
                             break;
@@ -158,7 +154,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                     case ManageEODObjectTypes.Blackjack:
                         {
                             // "You do not have enough money in this object to cover that bet amount." \n \n
-                            message = GameFacade.Strings.GetString("f110", "32") + System.Environment.NewLine + System.Environment.NewLine +
+                            message = GameFacade.Strings.GetString("f110", "32") + Environment.NewLine + Environment.NewLine +
                                 // "You must stock at least 8 times the maximum bet."
                                 GameFacade.Strings.GetString("f110", "19");
                             break;
@@ -166,7 +162,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                     case ManageEODObjectTypes.HoldEmCasino:
                         {
                             // "You do not have enough money in this object to cover that bet amount." \n \n
-                            message = GameFacade.Strings.GetString("f110", "32") + System.Environment.NewLine + System.Environment.NewLine +
+                            message = GameFacade.Strings.GetString("f110", "32") + Environment.NewLine + Environment.NewLine +
                                 // "You must stock at least 84 times the maximum ante bet and 104 times the maximum side bet."
                                 GameFacade.Strings.GetString("f110", "41");
                             break;
@@ -659,13 +655,13 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 TextSize = 12,
                 Title = GameFacade.Strings.GetString("f110", "4") + " " + GameFacade.Strings.GetString("f110", "5"), // "Deposit Simoleons"
                 // "This object is currently stocked with: $%d" \n \n
-                Message = GameFacade.Strings.GetString("f110", "6").Replace("%d", "" + ObjectBalance) + System.Environment.NewLine +
+                Message = GameFacade.Strings.GetString("f110", "6").Replace("%d", "" + ObjectBalance) + Environment.NewLine +
                 // "For players to use this object you must maintain a minimum balance of: $%d" \n \n
-                System.Environment.NewLine + GameFacade.Strings.GetString("f110", "8").Replace("%d", "" + ObjectMinimumBalance) +
+                Environment.NewLine + GameFacade.Strings.GetString("f110", "8").Replace("%d", "" + ObjectMinimumBalance) +
                 // "How much would you like to deposit?"
-                System.Environment.NewLine + System.Environment.NewLine + GameFacade.Strings.GetString("f110", "10") +
+                Environment.NewLine + Environment.NewLine + GameFacade.Strings.GetString("f110", "10") +
                 // "(This object cannot hold more than: $%d)"
-                System.Environment.NewLine + System.Environment.NewLine + "(" +
+                Environment.NewLine + Environment.NewLine + "(" +
                 GameFacade.Strings.GetString("f110", "7").Replace("%d", "" + ObjectMaximumBalance) + ")",
                 Alignment = TextAlignment.Left,
                 TextEntry = true,
@@ -687,11 +683,11 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 TextSize = 12,
                 Title = GameFacade.Strings.GetString("f110", "3") + " " + GameFacade.Strings.GetString("f110", "5"), // "Withdraw Simoleons" 
                 // "This object is currently stocked with: $%d" \n \n
-                Message = GameFacade.Strings.GetString("f110", "6").Replace("%d", "" + ObjectBalance) + System.Environment.NewLine +
+                Message = GameFacade.Strings.GetString("f110", "6").Replace("%d", "" + ObjectBalance) + Environment.NewLine +
                 // "For players to use this object you must maintain a minimum balance of: $%d" \n \n
-                System.Environment.NewLine + GameFacade.Strings.GetString("f110", "8").Replace("%d", "" + ObjectMinimumBalance) +
+                Environment.NewLine + GameFacade.Strings.GetString("f110", "8").Replace("%d", "" + ObjectMinimumBalance) +
                 // "How much would you like to withdraw?"
-                System.Environment.NewLine + System.Environment.NewLine + GameFacade.Strings.GetString("f110", "9"),
+                Environment.NewLine + Environment.NewLine + GameFacade.Strings.GetString("f110", "9"),
                 Alignment = TextAlignment.Left,
                 TextEntry = true,
                 MaxChars = 6,
@@ -773,7 +769,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                         eventMessage = VMEODRouletteInputErrorTypes.BetTooLow.ToString();
                     }
                     // proposed maximum bet must not be greater than $1000
-                    else if (amount > UIManageEODObjectPanel.MAXIMUM_BET_LIMIT)
+                    else if (amount > MAXIMUM_BET_LIMIT)
                     {
                         eventMessage = VMEODRouletteInputErrorTypes.BetTooHigh.ToString();
                     }
@@ -794,7 +790,7 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                     // proposed maximum side bet must not be greater than maximum allowed for short data type constraints
                     if (amount < 0)
                         eventMessage = VMEODRouletteInputErrorTypes.BetTooLow.ToString();
-                    else if (amount > UIManageEODObjectPanel.MAXIMUM_BET_LIMIT)
+                    else if (amount > MAXIMUM_BET_LIMIT)
                     {
                         eventMessage = VMEODRouletteInputErrorTypes.BetTooHigh.ToString();
                     }
@@ -905,14 +901,14 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             if (Type.Equals(ManageEODObjectTypes.Roulette))
             {
                 // "Roulette tables must be able to cover 35 times any bet for 4 simultaneous players, so at least 140 times the maximum bet." \n \n
-                typeConditional = GameFacade.Strings.GetString("f110", "16") + System.Environment.NewLine + System.Environment.NewLine +
+                typeConditional = GameFacade.Strings.GetString("f110", "16") + Environment.NewLine + Environment.NewLine +
                     // "For example: if your maximum bet is $100, you must have AT LEAST $14000 in this object."
                     GameFacade.Strings.GetString("f110", "17");
             }
             else if (Type.Equals(ManageEODObjectTypes.Blackjack))
             {
                 // "A Blackjack payout is 3:2 or one and a half times any bet. Tables must be able to cover up to 4 blackjacks per player each round." \n \n
-                typeConditional = GameFacade.Strings.GetString("f110", "18") + System.Environment.NewLine + System.Environment.NewLine +
+                typeConditional = GameFacade.Strings.GetString("f110", "18") + Environment.NewLine + Environment.NewLine +
                     // "You must stock at least 8 times the maximum bet."
                     GameFacade.Strings.GetString("f110", "19");
                 tempMax = MAXIMUM_BET_LIMIT;
@@ -920,10 +916,10 @@ namespace FSO.Client.UI.Panels.EODs.Utils
             else if (Type.Equals(ManageEODObjectTypes.HoldEmCasino))
             {
                 // "Holdem Casino tables must cover the payout of up to four players, each of which have an ante and side bet." \n \n
-                typeConditional = GameFacade.Strings.GetString("f110", "42") + System.Environment.NewLine + System.Environment.NewLine +
+                typeConditional = GameFacade.Strings.GetString("f110", "42") + Environment.NewLine + Environment.NewLine +
                     // "While the probability is very low, this could mean paying out for a Royal Flush, Straight Flush, 4 of a kind,
                     // and a Flush in the same hand, therefore:"  \n \n
-                    GameFacade.Strings.GetString("f110", "43") + System.Environment.NewLine + System.Environment.NewLine +
+                    GameFacade.Strings.GetString("f110", "43") + Environment.NewLine + Environment.NewLine +
                     // "You must stock at least 84 times the maximum ante bet and 104 times the maximum side bet."
                     GameFacade.Strings.GetString("f110", "41");
                 tempMax = MAXIMUM_BET_LIMIT;
@@ -961,10 +957,10 @@ namespace FSO.Client.UI.Panels.EODs.Utils
                 TextSize = 12,
                 Title = GameFacade.Strings.GetString("f110", "15") + setBet, // "Edit Min/Max/Side bet"
                 // "This object is currently stocked with: $%d" \n \n
-                Message = GameFacade.Strings.GetString("f110", "6").Replace("%d", "" + ObjectBalance) + System.Environment.NewLine +
-                System.Environment.NewLine + typeConditional + System.Environment.NewLine + System.Environment.NewLine +
+                Message = GameFacade.Strings.GetString("f110", "6").Replace("%d", "" + ObjectBalance) + Environment.NewLine +
+                Environment.NewLine + typeConditional + Environment.NewLine + Environment.NewLine +
                 // "What would you like to set as your " + "Min/Max/Side bet?" \n \n Tip
-                GameFacade.Strings.GetString("f110", "22") + setBet + "?" + System.Environment.NewLine + System.Environment.NewLine + betTip,
+                GameFacade.Strings.GetString("f110", "22") + setBet + "?" + Environment.NewLine + Environment.NewLine + betTip,
                 Alignment = TextAlignment.Left,
                 TextEntry = true,
                 MaxChars = 4,

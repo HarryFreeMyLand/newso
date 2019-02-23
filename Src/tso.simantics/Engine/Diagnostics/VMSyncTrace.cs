@@ -2,8 +2,6 @@ using FSO.SimAntics.NetPlay.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 
 namespace FSO.SimAntics.Engine.Diagnostics
@@ -11,8 +9,8 @@ namespace FSO.SimAntics.Engine.Diagnostics
     public class VMSyncTrace
     {
         public List<VMSyncTraceTick> History = new List<VMSyncTraceTick>();
-        private VMSyncTraceTick _current = null;
-        private const int MAX_HISTORY = 30 * 60;
+            VMSyncTraceTick _current = null;
+            const int MAX_HISTORY = 30 * 60;
 
         public VMSyncTraceTick GetTick(uint tickID)
         {

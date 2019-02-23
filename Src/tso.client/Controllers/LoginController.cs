@@ -7,13 +7,7 @@ using FSO.Common;
 using FSO.Common.Utils;
 using FSO.Server.Protocol.CitySelector;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FSO.Patcher;
 using System.Diagnostics;
-using System.IO;
 
 namespace FSO.Client.Controllers
 {
@@ -123,7 +117,7 @@ namespace FSO.Client.Controllers
         {
             if (FSOEnvironment.Linux)
             {
-                System.Diagnostics.Process.Start("mono", "update.exe "+FSOEnvironment.Args);
+                Process.Start("mono", "update.exe "+FSOEnvironment.Args);
             }
             else
             {
@@ -131,12 +125,12 @@ namespace FSO.Client.Controllers
                 try
                 {
 
-                    System.Diagnostics.Process.Start(args);
+                    Process.Start(args);
                 }
                 catch (Exception)
                 {
                     args.FileName = "update.exe";
-                    System.Diagnostics.Process.Start(args);
+                    Process.Start(args);
                 }
             }
             GameFacade.Kill();

@@ -13,9 +13,9 @@ namespace FSO.Server.Servers.City.Handlers
 {
     public class MailHandler
     {
-        private ISessions Sessions;
-        private IDataService DataService;
-        private IDAFactory DA;
+        ISessions Sessions;
+        IDataService DataService;
+        IDAFactory DA;
 
         public MailHandler(ISessions sessions, IDataService dataService, IDAFactory da)
         {

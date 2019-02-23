@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FSO.SimAntics.NetPlay.EODs.Model;
 using FSO.SimAntics.NetPlay.EODs.Utils;
 
@@ -10,27 +8,27 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODTwoPersonJobObjectMazePlugin : VMEODHandler
     {
-        private List<ColorPool> AllColorPools;
-        private VMEODClient CharismaPlayer;
-        private bool CharismaPlayerHasInit;
-        private AbstractMazeCell<TSOMazeData> CharismaPlayerOrigin;
-        private List<AbstractMazeCell<TSOMazeData>>[] ColorCells;
-        private VMEODClient Controller;
-        private int CooldownTimer;
-        private AbstractMaze<TSOMazeData> CurrentMaze;
-        private VMEODTwoPersonJobObjectMazePluginStates GameState;
-        private VMEODClient LogicPlayer;
-        private bool LogicPlayerHasInit;
-        private AbstractMazeCell<TSOMazeData>[,] MazeArray;
-        private bool MazeGenerated;
-        private bool MazeSolved;
-        private VMEODTwoPersonJobObjectMazePluginStates NextState;
-        private Random Rng;
-        private int RoundTimeRemaining;
-        private AbstractMazeCell<TSOMazeData> SolutionCell;
-        private List<AbstractMazeCell<TSOMazeData>> SolutionPath;
-        private int ThisRoundOriginColor;
-        private int Tock;
+            List<ColorPool> AllColorPools;
+            VMEODClient CharismaPlayer;
+            bool CharismaPlayerHasInit;
+            AbstractMazeCell<TSOMazeData> CharismaPlayerOrigin;
+            List<AbstractMazeCell<TSOMazeData>>[] ColorCells;
+            VMEODClient Controller;
+            int CooldownTimer;
+            AbstractMaze<TSOMazeData> CurrentMaze;
+            VMEODTwoPersonJobObjectMazePluginStates GameState;
+            VMEODClient LogicPlayer;
+            bool LogicPlayerHasInit;
+            AbstractMazeCell<TSOMazeData>[,] MazeArray;
+            bool MazeGenerated;
+            bool MazeSolved;
+            VMEODTwoPersonJobObjectMazePluginStates NextState;
+            Random Rng;
+            int RoundTimeRemaining;
+            AbstractMazeCell<TSOMazeData> SolutionCell;
+            List<AbstractMazeCell<TSOMazeData>> SolutionPath;
+            int ThisRoundOriginColor;
+            int Tock;
 
         public static readonly int MAX_ROWS = 8;
         public static readonly int MAX_COLUMNS = 36;
@@ -184,7 +182,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 EnqueueGotoState(VMEODTwoPersonJobObjectMazePluginStates.Waiting_For_Player);
             base.OnDisconnection(client);
         }
-        private void CharismaButtonClickedHandler(string evt, byte[] direction, VMEODClient charPlayer)
+            void CharismaButtonClickedHandler(string evt, byte[] direction, VMEODClient charPlayer)
         {
             // validate move, make move, check for solution
             if (charPlayer.Equals(CharismaPlayer) && direction.Length == 1 && GameState.Equals(VMEODTwoPersonJobObjectMazePluginStates.Solving))
@@ -231,18 +229,18 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     SendCharismaPlayerCellData("TSOMaze_Update_Cell");
             }
         }
-        private void BroadcastSharedEvent(string evt, byte[] data)
+            void BroadcastSharedEvent(string evt, byte[] data)
         {
             if (LogicPlayer != null)
                 LogicPlayer.Send(evt, data);
             if (CharismaPlayer != null)
                 CharismaPlayer.Send(evt, data);
         }
-        private void EnqueueGotoState(VMEODTwoPersonJobObjectMazePluginStates newState)
+            void EnqueueGotoState(VMEODTwoPersonJobObjectMazePluginStates newState)
         {
             NextState = newState;
         }
-        private void GotoState(VMEODTwoPersonJobObjectMazePluginStates state)
+            void GotoState(VMEODTwoPersonJobObjectMazePluginStates state)
         {
             switch (state)
             {
@@ -298,7 +296,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     }
             }
         }
-        private void Reset()
+            void Reset()
         {
             MazeGenerated = false;
             MazeSolved = false;
@@ -340,7 +338,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             // also resets previous mazes
             CurrentMaze.BuildFromOrigin(origin); 
         }
-        private void SendCharismaPlayerData(bool disableInput)
+            void SendCharismaPlayerData(bool disableInput)
         {
             if (CharismaPlayer != null)
             {
@@ -351,13 +349,13 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                     SendCharismaPlayerCellData("TSOMaze_Update_Cell");
             }
         }
-        private void SendCharismaPlayerCellData(string eventName)
+            void SendCharismaPlayerCellData(string eventName)
         {
             byte wallConfig = (byte)CharismaPlayerOrigin.CellData.Wall_Config;
             byte color = (byte)CharismaPlayerOrigin.CellData.Color;
             CharismaPlayer.Send(eventName, new byte[] { wallConfig, color });
         }
-        private void SendLogicPlayerData()
+            void SendLogicPlayerData()
         {
             if (LogicPlayer != null)
             {
@@ -408,7 +406,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
                 LogicPlayer.Send("TSOMaze_ExitIcon", new byte[] { (byte)SolutionCell.Row, (byte)SolutionCell.Column });
             }
         }
-        private void MazeGeneratedHandler(AbstractMazeCell<TSOMazeData>[,] maze)
+            void MazeGeneratedHandler(AbstractMazeCell<TSOMazeData>[,] maze)
         {
             MazeArray = maze;
 
@@ -436,7 +434,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             else
                 Reset();
         }
-        private void OnProcessedCellHandler(AbstractMazeCell<TSOMazeData> cell)
+            void OnProcessedCellHandler(AbstractMazeCell<TSOMazeData> cell)
         {
             // get wall configuration
             cell.CellData.Wall_Config = AbstractMazeGenerator<TSOMazeData>.GetWallConfig(cell);

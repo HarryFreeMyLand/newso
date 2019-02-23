@@ -14,13 +14,13 @@ namespace FSO.Common.DatabaseService.Model
         
         public void Deserialize(IoBuffer input, ISerializationContext context)
         {
-            this.Query = input.GetPascalVLCString();
-            this.Type = (SearchType)input.GetUInt32();
+            Query = input.GetPascalVLCString();
+            Type = (SearchType)input.GetUInt32();
         }
 
         public void Serialize(IoBuffer output, ISerializationContext context)
         {
-            output.PutPascalVLCString(this.Query);
+            output.PutPascalVLCString(Query);
             output.PutUInt32((uint)Type);
         }
     }
