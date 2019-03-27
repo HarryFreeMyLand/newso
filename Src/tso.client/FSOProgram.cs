@@ -1,11 +1,13 @@
+using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Threading;
 using FSO.Client.Utils;
 using FSO.Client.Utils.GameLocator;
 using FSO.Common;
 using FSO.UI;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Threading;
+using Longhorn;
 //using System.Windows.Forms;
 
 namespace FSO.Client
@@ -23,6 +25,9 @@ namespace FSO.Client
 
         public bool InitWithArguments(string[] args)
         {
+            // Added by Harrison, needs to run pretty early to avoid exception.
+            NinjectCheck();
+
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             Directory.SetCurrentDirectory(baseDir);
             AppDomain.CurrentDomain.AssemblyResolve += OnAssemblyResolve;
@@ -34,13 +39,10 @@ namespace FSO.Client
             ILocator gameLocator;
             bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
 
-            switch (pid)
+            switch (PlatformDetect.IsPlatformID)
             {
-                case PlatformID.MacOSX:
-                    gameLocator = new MacOSLocator();
-                    break;
                 case PlatformID.Unix:
-                    gameLocator = new LinuxLocator();
+                    gameLocator = new UnixLocator();
                     break;
                 default:
                 case PlatformID.Win32NT:
@@ -161,7 +163,7 @@ namespace FSO.Client
                 var assembly = Assembly.LoadFrom(assemblyPath);
                 return assembly;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return null;
             }
@@ -193,6 +195,20 @@ namespace FSO.Client
                 }
                 */
                 return GameConsts.TCVersion;
+            }
+        }
+
+        // Added by Harrison
+        /// <summary>
+        /// Checks the version and if it's not the right version, replace it.
+        /// </summary>
+        void NinjectCheck()
+        {
+            var NinjectVersion = FileVersionInfo.GetVersionInfo(@"ninject.dll");
+
+            if (!NinjectVersion.FileVersion.Contains("3.3"))
+            {
+                File.Copy(@".\\x86\\ninject.dll", @".\\ninject.dll", true);
             }
         }
     }

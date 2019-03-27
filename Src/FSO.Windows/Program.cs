@@ -1,22 +1,18 @@
-﻿/*
+/*
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at
 http://mozilla.org/MPL/2.0/.
 */
 
 using System;
-using System.IO;
-using System.Threading;
-using FSO.Client.Utils.GameLocator;
-using FSO.Client.Utils;
-using FSO.Common;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Runtime.InteropServices;
-using FSO.Common.Rendering.Framework.IO;
+using System.Windows.Forms;
 using FSO.Client;
 using FSO.Client.UI.Panels;
-using System.Windows.Forms;
+using FSO.Common.Rendering.Framework.IO;
 
 namespace FSO.Windows
 {
@@ -39,13 +35,14 @@ namespace FSO.Windows
         public static void InitWindows()
         {
             //initialize some platform specific stuff
-            FSO.Files.ImageLoaderHelpers.BitmapFunction = BitmapReader;
+            Files.ImageLoaderHelpers.BitmapFunction = BitmapReader;
             ClipboardHandler.Default = new WinFormsClipboard();
 
-            OperatingSystem os = Environment.OSVersion;
-            PlatformID pid = os.Platform;
+            var os = Environment.OSVersion;
+            var pid = os.Platform;
             bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
-            if (!linux) ITTSContext.Provider = UITTSContext.PlatformProvider;
+            if (!linux)
+                ITTSContext.Provider = UITTSContext.PlatformProvider;
 
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             FSOProgram.ShowDialog = ShowDialog;
@@ -72,7 +69,7 @@ namespace FSO.Windows
 
         public static Tuple<byte[], int, int> BitmapReader(Stream str)
         {
-            Bitmap image = (Bitmap)Bitmap.FromStream(str);
+            var image = (Bitmap)Image.FromStream(str);
             try
             {
                 // Fix up the Image to match the expected format
@@ -80,7 +77,7 @@ namespace FSO.Windows
 
                 var data = new byte[image.Width * image.Height * 4];
 
-                BitmapData bitmapData = image.LockBits(new System.Drawing.Rectangle(0, 0, image.Width, image.Height),
+                var bitmapData = image.LockBits(new Rectangle(0, 0, image.Width, image.Height),
                     ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
 
                 if (bitmapData.Stride != image.Width * 4)
@@ -129,14 +126,14 @@ namespace FSO.Windows
 
             try
             {
-                System.Drawing.Imaging.ImageAttributes ia = new System.Drawing.Imaging.ImageAttributes();
-                System.Drawing.Imaging.ColorMatrix cm = new System.Drawing.Imaging.ColorMatrix(rgbtobgr);
+                var ia = new ImageAttributes();
+                var cm = new ColorMatrix(rgbtobgr);
 
                 ia.SetColorMatrix(cm);
-                using (System.Drawing.Graphics g = System.Drawing.Graphics.FromImage(newBmp))
+                using (var g = System.Drawing.Graphics.FromImage(newBmp))
                 {
                     g.Clear(Color.Transparent);
-                    g.DrawImage(bmp, new System.Drawing.Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, System.Drawing.GraphicsUnit.Pixel, ia);
+                    g.DrawImage(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, System.Drawing.GraphicsUnit.Pixel, ia);
                 }
             }
             finally
