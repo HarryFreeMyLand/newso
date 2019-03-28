@@ -239,7 +239,6 @@
     <Compile Include="Utils\ControllerUtils.cs" />
     <Compile Include="Utils\Endian.cs" />
     <Compile Include="Utils\GameLocator\ILocator.cs" />
-    <Compile Include="Utils\GameLocator\LinuxLocator.cs" />
     <Compile Include="Utils\GameLocator\WindowsLocator.cs" />
     <Compile Include="Utils\MonogameLinker.cs" />
     <Compile Include="Utils\ThreeDMesh.cs" />
@@ -481,7 +480,7 @@
     <Content Include="sdl2.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Compile Include="Utils\GameLocator\MacOSLocator.cs" />
+    <Compile Include="Utils\GameLocator\UnixLocator.cs" />
     <Content Include="Monogame\MacOS\libxammac.dylib">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
