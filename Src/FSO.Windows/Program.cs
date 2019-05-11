@@ -28,8 +28,8 @@ namespace FSO.Windows
         public static void Main(string[] args)
         {
             InitWindows();
-            if ((new FSOProgram()).InitWithArguments(args))
-                (new GameStartProxy()).Start(UseDX);
+            if (new FSOProgram().InitWithArguments(args))
+                new GameStartProxy().Start(UseDX);
         }
 
         public static void InitWindows()
@@ -78,7 +78,7 @@ namespace FSO.Windows
                 var data = new byte[image.Width * image.Height * 4];
 
                 var bitmapData = image.LockBits(new Rectangle(0, 0, image.Width, image.Height),
-                    ImageLockMode.ReadOnly, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                    ImageLockMode.ReadOnly, PixelFormat.Format32bppArgb);
 
                 if (bitmapData.Stride != image.Width * 4)
                     throw new NotImplementedException();
@@ -114,9 +114,9 @@ namespace FSO.Windows
         internal static Image RGBToBGR(this Image bmp)
         {
             Image newBmp;
-            if ((bmp.PixelFormat & System.Drawing.Imaging.PixelFormat.Indexed) != 0)
+            if ((bmp.PixelFormat & PixelFormat.Indexed) != 0)
             {
-                newBmp = new Bitmap(bmp.Width, bmp.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
+                newBmp = new Bitmap(bmp.Width, bmp.Height, PixelFormat.Format32bppArgb);
             }
             else
             {
@@ -130,10 +130,10 @@ namespace FSO.Windows
                 var cm = new ColorMatrix(rgbtobgr);
 
                 ia.SetColorMatrix(cm);
-                using (var g = System.Drawing.Graphics.FromImage(newBmp))
+                using (var g = Graphics.FromImage(newBmp))
                 {
                     g.Clear(Color.Transparent);
-                    g.DrawImage(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, System.Drawing.GraphicsUnit.Pixel, ia);
+                    g.DrawImage(bmp, new Rectangle(0, 0, bmp.Width, bmp.Height), 0, 0, bmp.Width, bmp.Height, GraphicsUnit.Pixel, ia);
                 }
             }
             finally

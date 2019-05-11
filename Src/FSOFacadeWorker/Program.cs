@@ -6,8 +6,6 @@ using System.Threading;
 using FSO.Common;
 using FSO.Common.Rendering.Framework;
 using FSO.Common.Utils;
-using FSO.Common.Utils.GameLocator;
-using FSO.Compat;
 using FSO.Files.RC;
 using FSO.LotView;
 using FSO.LotView.Facade;
@@ -49,21 +47,7 @@ namespace FSOFacadeWorker
 
             var os = Environment.OSVersion;
             var pid = os.Platform;
-
-            IGameLocation gameLocator;
-            bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
-
-
-            switch (PlatformDetect.IsPlatformID)
-            {
-                case PlatformID.Unix:
-                    gameLocator = new UnixLocator();
-                    break;
-                default:
-                case PlatformID.Win32NT:
-                    gameLocator = new WindowsLocator();
-                    break;
-            }
+            var linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
 
             bool useDX = true;
 
@@ -71,7 +55,7 @@ namespace FSOFacadeWorker
             GameThread.NoGame = true;
             GameThread.UpdateExecuting = true;
 
-            var path = gameLocator.FindTheSimsOnline;
+            var path = Pathfinder.GamePath;
 
             if (path != null)
             {
