@@ -41,8 +41,8 @@ namespace FSO.Common.Utils.GameLocator
                 if (File.Exists(Path.Combine(localDir, "tuning.dat")))
                     return localDir.Replace("\\", "/");
 
-                // Fall back to the default install location if the other two checks fail
-                return @"C:\Program Files\Maxis\The Sims Online\TSOClient\".Replace('\\', '/');
+                // Never assume the game is installed
+                throw new DirectoryNotFoundException();
             }
         }
 

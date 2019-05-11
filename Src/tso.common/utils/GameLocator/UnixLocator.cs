@@ -24,8 +24,9 @@ namespace FSO.Common.Utils.GameLocator
 
                 if (File.Exists(Path.Combine(localDir, "tuning.dat")))
                     return localDir.Replace("\\", "/");
-                else
-                    throw new DirectoryNotFoundException();
+
+                // Never assume the game is installed
+                throw new DirectoryNotFoundException();
             }
         }
     }

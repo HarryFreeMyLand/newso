@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using FSO.Common.Utils.GameLocator;
 using FSO.Compat;
 
@@ -18,13 +19,20 @@ namespace FSO.Common.Utils
                     case PlatformID.Win32NT:
                         gameLocation = new WindowsLocator();
                         break;
-                    // Catch-all for Unix and Linux-based systems
+                    case PlatformID.MacOSX: // Deprecated in .NET Standard
                     case PlatformID.Unix:
                         gameLocation = new UnixLocator();
                         break;
                 }
 
-                return gameLocation.FindTheSimsOnline;
+                try
+                {
+                    return gameLocation.FindTheSimsOnline;
+                }
+                catch (DirectoryNotFoundException err)
+                {
+                    throw err;
+                }
             }
         }
     }
