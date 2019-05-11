@@ -2,9 +2,9 @@ using System;
 using System.IO;
 using FSO.Compat;
 
-namespace FSO.Client.Utils.GameLocator
+namespace FSO.Common.Utils.GameLocator
 {
-    public class UnixLocator : ILocator
+    public class UnixLocator : IGameLocation
     {
         /// <summary>
         /// Expects The Sims Online to be located in
@@ -15,10 +15,15 @@ namespace FSO.Client.Utils.GameLocator
         {
             get
             {
+                var localDir = "";
+
                 if (PlatformDetect.IsMacOS)
-                    return $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}//Documents//The Sims Online//TSOClient//";
+                    localDir = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}//Documents//The Sims Online//TSOClient//";
                 else if (PlatformDetect.IsLinux)
-                    return @"game/TSOClient/";
+                    localDir = @"game/TSOClient/";
+
+                if (File.Exists(Path.Combine(localDir, "tuning.dat")))
+                    return localDir.Replace("\\", "/");
                 else
                     throw new DirectoryNotFoundException();
             }

@@ -103,7 +103,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FSODroid", "FSODroid\FSODro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSO.Server.Patcher", "FSO.Server.Patcher\FSO.Server.Patcher.csproj", "{0C1B3F53-1A8B-45D9-BD7E-D60AED50250C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Longhorn", "Longhorn\Longhorn.csproj", "{25E7EE68-0535-45EE-B991-D6755AF1361B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FSO.Compat", "Longhorn\FSO.Compat.csproj", "{25E7EE68-0535-45EE-B991-D6755AF1361B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

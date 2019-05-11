@@ -6,11 +6,12 @@ using System.Threading;
 using FSO.Common;
 using FSO.Common.Rendering.Framework;
 using FSO.Common.Utils;
+using FSO.Common.Utils.GameLocator;
+using FSO.Compat;
 using FSO.Files.RC;
 using FSO.LotView;
 using FSO.LotView.Facade;
 using FSO.Server.Clients;
-using Longhorn;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -49,24 +50,28 @@ namespace FSOFacadeWorker
             var os = Environment.OSVersion;
             var pid = os.Platform;
 
-            ILocator gameLocator;
+            IGameLocation gameLocator;
             bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
 
 
-            if (PlatformDetect.IsMacOS && Directory.Exists("/Users"))
-                gameLocator = new MacOSLocator();
-            else if (PlatformDetect.IsLinux)
-                gameLocator = new LinuxLocator();
-            else
-                gameLocator = new WindowsLocator();
+            switch (PlatformDetect.IsPlatformID)
+            {
+                case PlatformID.Unix:
+                    gameLocator = new UnixLocator();
+                    break;
+                default:
+                case PlatformID.Win32NT:
+                    gameLocator = new WindowsLocator();
+                    break;
+            }
 
             bool useDX = true;
 
-            FSOEnvironment.Enable3D = true;
+            FSOEnvironment.Enable3D = false;
             GameThread.NoGame = true;
             GameThread.UpdateExecuting = true;
 
-            var path = gameLocator.FindTheSimsOnline();
+            var path = gameLocator.FindTheSimsOnline;
 
             if (path != null)
             {
@@ -90,8 +95,10 @@ namespace FSOFacadeWorker
 
             //set up some extra stuff like the content manager
             var services = new GameServiceContainer();
-            var content = new ContentManager(services);
-            content.RootDirectory = FSOEnvironment.GFXContentDir;
+            var content = new ContentManager(services)
+            {
+                RootDirectory = FSOEnvironment.GFXContentDir
+            };
             services.AddService<IGraphicsDeviceService>(gds);
 
             var vitaboyEffect = content.Load<Effect>("Effects/Vitaboy");

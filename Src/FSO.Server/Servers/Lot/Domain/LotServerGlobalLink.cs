@@ -1,26 +1,25 @@
-﻿using FSO.Server.Database.DA;
-using FSO.SimAntics.Engine.TSOTransaction;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using FSO.SimAntics;
-using FSO.SimAntics.NetPlay.Model.Commands;
-using FSO.SimAntics.NetPlay.Model;
-using FSO.SimAntics.Primitives;
 using System.IO;
-using NLog;
+using System.Linq;
+using FSO.Server.Database.DA;
+using FSO.Server.Database.DA.Avatars;
 using FSO.Server.Database.DA.Objects;
-using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.Model;
+using FSO.Server.Database.DA.Roommates;
+using FSO.Server.Protocol.Gluon.Model;
+using FSO.Server.Protocol.Gluon.Packets;
+using FSO.Server.Servers.Lot.Lifecycle;
+using FSO.SimAntics;
+using FSO.SimAntics.Engine.TSOGlobalLink.Model;
+using FSO.SimAntics.Engine.TSOTransaction;
 using FSO.SimAntics.Entities;
 using FSO.SimAntics.Marshals;
-using FSO.Server.Database.DA.Roommates;
-using FSO.SimAntics.Engine.TSOGlobalLink.Model;
-using FSO.Server.Database.DA.Avatars;
+using FSO.SimAntics.Model;
+using FSO.SimAntics.Model.TSOPlatform;
 using FSO.SimAntics.NetPlay.EODs.Handlers;
-using FSO.Server.Protocol.Gluon.Packets;
-using FSO.Server.Protocol.Gluon.Model;
-using FSO.Server.Servers.Lot.Lifecycle;
+using FSO.SimAntics.NetPlay.Model;
+using FSO.SimAntics.NetPlay.Model.Commands;
+using FSO.SimAntics.Primitives;
 
 namespace FSO.Server.Servers.Lot.Domain
 {
@@ -67,8 +66,9 @@ namespace FSO.Server.Servers.Lot.Domain
             {
                 using (var db = DAFactory.Get)
                 {
-                    var result = (testOnly)?db.Avatars.TestTransaction(uid1, uid2, amount, 0):db.Avatars.Transaction(uid1, uid2, amount, type);
-                    if (result == null) result = new DbTransactionResult() { success = false };
+                    var result = (testOnly) ? db.Avatars.TestTransaction(uid1, uid2, amount, 0) : db.Avatars.Transaction(uid1, uid2, amount, type);
+                    if (result == null)
+                        result = new DbTransactionResult() { success = false };
 
                     var finalAmount = amount;
 
@@ -162,7 +162,7 @@ namespace FSO.Server.Servers.Lot.Domain
                                 vm.ForwardCommand(new VMChangePermissionsCmd()
                                 {
                                     TargetUID = avatarID,
-                                    Level = (permissions==0)?VMTSOAvatarPermissions.Roommate:VMTSOAvatarPermissions.BuildBuyRoommate,
+                                    Level = (permissions == 0) ? VMTSOAvatarPermissions.Roommate : VMTSOAvatarPermissions.BuildBuyRoommate,
                                     Verified = true
                                 });
                             }
@@ -211,7 +211,8 @@ namespace FSO.Server.Servers.Lot.Domain
             //TODO: maybe a ring backup system for this too? may be more difficult
             Host.InBackground(() =>
             {
-                if (objectPID == 0) callback(null);
+                if (objectPID == 0)
+                    callback(null);
                 try
                 {
                     var objStr = objectPID.ToString("x8");
@@ -237,10 +238,12 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public void SavePluginPersist(VM vm, uint objectPID, uint pluginID, byte[] data)
         {
-            if (objectPID == 0) return; //non-persist objects cannot save persist state!
+            if (objectPID == 0)
+                return; //non-persist objects cannot save persist state!
             Host.InBackground(() =>
             {
-                try {
+                try
+                {
                     var objStr = objectPID.ToString("x8");
                     //make sure this exists
                     Directory.CreateDirectory(Path.Combine(Config.SimNFS, "Objects/" + objStr + "/"));
@@ -248,7 +251,8 @@ namespace FSO.Server.Servers.Lot.Domain
 
                     var file = File.Open(Path.Combine(Config.SimNFS, "Objects/" + objStr + "/Plugin/" + pluginID.ToString("x8") + ".dat"), FileMode.Create);
                     file.WriteAsync(data, 0, data.Length).ContinueWith(x => file.Close());
-                } catch (Exception e)
+                }
+                catch (Exception e)
                 {
                     //todo: specific types of exception that can be thrown here? instead of just catching em all
                     LOG.Error(e, "Failed to save plugin persist for object " + objectPID.ToString("x8") + " plugin " + pluginID.ToString("x8") + "!");
@@ -273,13 +277,16 @@ namespace FSO.Server.Servers.Lot.Domain
                     else
                     {
                         uint source, target;
-                        if (cost > 0) { source = cmd.ActorUID; target = uint.MaxValue; }
-                        else { source = uint.MaxValue; target = cmd.ActorUID; }
+                        if (cost > 0)
+                        { source = cmd.ActorUID; target = uint.MaxValue; }
+                        else
+                        { source = uint.MaxValue; target = cmd.ActorUID; }
                         WaitingOnArch = true;
                         PerformTransaction(vm, false, source, target, Math.Abs(cost),
                             (bool success, int transferAmount, uint uid1, uint budget1, uint uid2, uint budget2) =>
                             {
-                                lock (ArchBuffer) WaitingOnArch = false;
+                                lock (ArchBuffer)
+                                    WaitingOnArch = false;
                                 if (success)
                                 {
                                     cmd.Verified = true;
@@ -293,13 +300,16 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public void RegisterNewObject(VM vm, VMEntity obj, VMAsyncPersistIDCallback callback)
         {
-            if (obj is VMAvatar) return; //???
+            if (obj is VMAvatar)
+                return; //???
 
             var objid = obj.ObjectID;
             uint guid = obj.Object.OBJ.GUID;
-            if (obj.MasterDefinition != null) guid = obj.MasterDefinition.GUID;
+            if (obj.MasterDefinition != null)
+                guid = obj.MasterDefinition.GUID;
             uint? owner = ((VMTSOObjectState)obj.TSOState).OwnerID;
-            if (owner == 0) owner = null;
+            if (owner == 0)
+                owner = null;
             var dbo = new DbObject()
             {
                 owner_id = owner,
@@ -319,7 +329,8 @@ namespace FSO.Server.Servers.Lot.Domain
                     using (var db = DAFactory.Get)
                     {
                         var id = db.Objects.Create(dbo);
-                        if (callback != null) callback(objid, id);
+                        if (callback != null)
+                            callback(objid, id);
                     }
                 }
                 catch (Exception) { callback(objid, 0); }
@@ -330,7 +341,8 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             var bobj = obj.BaseObject;
             uint? owner = ((VMTSOObjectState)obj.BaseObject.TSOState).OwnerID;
-            if (owner == 0) owner = null;
+            if (owner == 0)
+                owner = null;
             return new DbObject()
             {
                 object_id = obj.BaseObject.PersistID,
@@ -435,7 +447,8 @@ namespace FSO.Server.Servers.Lot.Domain
             var objectPID = obj.BaseObject.PersistID;
             var objb = obj.BaseObject;
             uint guid = objb.Object.OBJ.GUID;
-            if (objb.MasterDefinition != null) guid = objb.MasterDefinition.GUID;
+            if (objb.MasterDefinition != null)
+                guid = objb.MasterDefinition.GUID;
             var isNew = objectPID == 0;
             var state = new VMStandaloneObjectMarshal(obj);
             var dbState = GenerateObjectPersist(obj);
@@ -476,7 +489,8 @@ namespace FSO.Server.Servers.Lot.Domain
             var objectPID = obj.BaseObject.PersistID;
             var objb = obj.BaseObject;
             uint guid = objb.Object.OBJ.GUID;
-            if (objb.MasterDefinition != null) guid = objb.MasterDefinition.GUID;
+            if (objb.MasterDefinition != null)
+                guid = objb.MasterDefinition.GUID;
             var isNew = objectPID == 0;
             var state = new VMStandaloneObjectMarshal(obj);
             var dbState = GenerateObjectPersist(obj);
@@ -494,7 +508,8 @@ namespace FSO.Server.Servers.Lot.Domain
                         {
                             //todo: transaction-ify this whole thing? might need a large scale rollback...
                             var tresult = da.Avatars.Transaction(purchaserPID, owner, salePrice, 0);
-                            if (tresult == null) tresult = new DbTransactionResult() { success = false };
+                            if (tresult == null)
+                                tresult = new DbTransactionResult() { success = false };
 
                             //update the budgets of the respective characters.
                             var finalAmount = salePrice;
@@ -515,7 +530,8 @@ namespace FSO.Server.Servers.Lot.Domain
                             }
 
                         }
-                        else callback(false, objPID);
+                        else
+                            callback(false, objPID);
                     }, true);
                 }
             });
@@ -533,7 +549,8 @@ namespace FSO.Server.Servers.Lot.Domain
                             callback(true, db.Objects.ObjOfTypeInAvatarInventory(ownerPID, guid).Count);
                             return;
                         case 1:
-                            if (num == 0) callback(true, 0);
+                            if (num == 0)
+                                callback(true, 0);
                             else
                             {
                                 callback(db.Objects.ConsumeObjsOfTypeInAvatarInventory(ownerPID, guid, num), 0);
@@ -550,7 +567,8 @@ namespace FSO.Server.Servers.Lot.Domain
             //TODO: maybe a ring backup system for this too? may be more difficult
             Host.InBackground(() =>
             {
-                if (objectPID == 0) callback(0, null);
+                if (objectPID == 0)
+                    callback(0, null);
                 byte[] dat = null;
                 try
                 {
@@ -571,19 +589,22 @@ namespace FSO.Server.Servers.Lot.Domain
                         LOG.Error(e, "Failed to load inventory state for object " + objectPID.ToString("x8") + "!");
                 }
 
-                if (dat != null && dat.Length == 0) dat = null; //treat empty files as if no state were available.
+                if (dat != null && dat.Length == 0)
+                    dat = null; //treat empty files as if no state were available.
                 //put object on this lot
                 using (var db = DAFactory.Get)
                 {
                     var obj = db.Objects.Get(objectPID);
-                    if (obj == null || obj.owner_id != ownerPID) callback(0, null); //object does not exist or request is for wrong owner.
+                    if (obj == null || obj.owner_id != ownerPID)
+                        callback(0, null); //object does not exist or request is for wrong owner.
                     if (setOnLot)
                     {
                         if (db.Objects.SetInLot(objectPID, (uint)Context.DbId))
                             callback(obj.type, dat); //load the object with its data, if available.
                         else
                             callback(0, null); //object is already on a lot. we cannot load it!
-                    } else if (obj.lot_id == null)
+                    }
+                    else if (obj.lot_id == null)
                     {
                         callback(obj.type, dat); //load the object with its data, if available. (for trade) 
                     }
@@ -609,11 +630,13 @@ namespace FSO.Server.Servers.Lot.Domain
         {
             Host.InBackground(() =>
             {
-                if (objectPID == 0) callback(true);
+                if (objectPID == 0)
+                    callback(true);
 
                 var objStr = objectPID.ToString("x8");
                 var path = Path.Combine(Config.SimNFS, "Objects/" + objStr + "/");
-                if (Directory.Exists(path)) Directory.Delete(path, true); //delete any persist data we might have, plugins and inventory.
+                if (Directory.Exists(path))
+                    Directory.Delete(path, true); //delete any persist data we might have, plugins and inventory.
 
                 //remove object from db
                 using (var db = DAFactory.Get)
@@ -630,7 +653,8 @@ namespace FSO.Server.Servers.Lot.Domain
 
         public void StockOutfit(VM vm, VMGLOutfit outfit, VMAsyncStockOutfitCallback callback)
         {
-            Host.InBackground(() => {
+            Host.InBackground(() =>
+            {
                 if (outfit.owner_id == 0)
                 {
                     callback(false, 0);
@@ -639,7 +663,8 @@ namespace FSO.Server.Servers.Lot.Domain
 
                 using (var db = DAFactory.Get)
                 {
-                    try {
+                    try
+                    {
                         var model = new Database.DA.Outfits.DbOutfit
                         {
                             asset_id = outfit.asset_id,
@@ -649,15 +674,20 @@ namespace FSO.Server.Servers.Lot.Domain
                             outfit_source = outfit.outfit_source == VMGLOutfitSource.cas ? Database.DA.Outfits.DbOutfitSource.cas : Database.DA.Outfits.DbOutfitSource.rack
                         };
 
-                        if(outfit.owner_type == VMGLOutfitOwner.AVATAR){
+                        if (outfit.owner_type == VMGLOutfitOwner.AVATAR)
+                        {
                             model.avatar_owner = outfit.owner_id;
-                        }else if(outfit.owner_type == VMGLOutfitOwner.OBJECT){
+                        }
+                        else if (outfit.owner_type == VMGLOutfitOwner.OBJECT)
+                        {
                             model.object_owner = outfit.owner_id;
                         }
 
                         var result = db.Outfits.Create(model);
                         callback(result != 0, result);
-                    }catch(Exception ex){
+                    }
+                    catch (Exception ex)
+                    {
                         callback(false, 0);
                     }
                 }
@@ -672,7 +702,8 @@ namespace FSO.Server.Servers.Lot.Domain
                 {
                     var outfits = owner == VMGLOutfitOwner.OBJECT ? db.Outfits.GetByObjectId(ownerPID) : db.Outfits.GetByAvatarId(ownerPID);
                     callback(
-                        outfits.Select(x => {
+                        outfits.Select(x =>
+                        {
                             var outfit = new VMGLOutfit()
                             {
                                 asset_id = x.asset_id,
@@ -687,7 +718,8 @@ namespace FSO.Server.Servers.Lot.Domain
                             {
                                 outfit.owner_type = VMGLOutfitOwner.AVATAR;
                                 outfit.owner_id = x.avatar_owner.Value;
-                            }else if(x.object_owner != null && x.object_owner.HasValue)
+                            }
+                            else if (x.object_owner != null && x.object_owner.HasValue)
                             {
                                 outfit.owner_type = VMGLOutfitOwner.OBJECT;
                                 outfit.owner_id = x.object_owner.Value;
@@ -706,9 +738,12 @@ namespace FSO.Server.Servers.Lot.Domain
             {
                 using (var db = DAFactory.Get)
                 {
-                    if (owner == VMGLOutfitOwner.OBJECT){
+                    if (owner == VMGLOutfitOwner.OBJECT)
+                    {
                         callback(db.Outfits.DeleteFromObject(outfitPID, ownerPID));
-                    }else if(owner == VMGLOutfitOwner.AVATAR){
+                    }
+                    else if (owner == VMGLOutfitOwner.AVATAR)
+                    {
                         callback(db.Outfits.DeleteFromAvatar(outfitPID, ownerPID));
                     }
                 }
@@ -721,7 +756,7 @@ namespace FSO.Server.Servers.Lot.Domain
             {
                 using (var db = DAFactory.Get)
                 {
-                    callback(db.Outfits.UpdatePrice(outfitPID, objectPID, newSalePrice));   
+                    callback(db.Outfits.UpdatePrice(outfitPID, objectPID, newSalePrice));
                 }
             });
         }
@@ -768,7 +803,7 @@ namespace FSO.Server.Servers.Lot.Domain
                         Name = x.title,
                         Description = x.description,
                         StartDate = x.start_day.Ticks,
-                        EndDate = (x.type == Database.DA.DbEvents.DbEventType.mail_only)?x.start_day.Ticks:x.end_day.Ticks
+                        EndDate = (x.type == Database.DA.DbEvents.DbEventType.mail_only) ? x.start_day.Ticks : x.end_day.Ticks
                     }).ToList();
 
                     callback(data);
@@ -796,7 +831,8 @@ namespace FSO.Server.Servers.Lot.Domain
                         var objs = new List<uint>();
                         foreach (var item in p1.ObjectOffer)
                         {
-                            if (item == null) continue;
+                            if (item == null)
+                                continue;
                             if (item.LotID > 0)
                             {
                                 lot1 = item;
@@ -806,7 +842,8 @@ namespace FSO.Server.Servers.Lot.Domain
                         }
                         var count = db.Objects.ChangeInventoryOwners(objs, p1.PlayerPersist, p2.PlayerPersist);
                         //if the number of rows changed does not equal the number we wanted to change, the transaction is invalid.
-                        if (count != objs.Count) {
+                        if (count != objs.Count)
+                        {
                             failState = VMEODSecureTradeError.MISSING_OBJECT;
                             return false;
                         }
@@ -814,7 +851,8 @@ namespace FSO.Server.Servers.Lot.Domain
                         objs = new List<uint>();
                         foreach (var item in p2.ObjectOffer)
                         {
-                            if (item == null) continue;
+                            if (item == null)
+                                continue;
                             if (item.LotID > 0)
                             {
                                 lot2 = item;
@@ -823,7 +861,8 @@ namespace FSO.Server.Servers.Lot.Domain
                             objs.Add(item.PID);
                         }
                         count = db.Objects.ChangeInventoryOwners(objs, p2.PlayerPersist, p1.PlayerPersist);
-                        if (count != objs.Count) {
+                        if (count != objs.Count)
+                        {
                             failState = VMEODSecureTradeError.MISSING_OBJECT;
                             return false;
                         }
@@ -841,7 +880,8 @@ namespace FSO.Server.Servers.Lot.Domain
                                     failState = VMEODSecureTradeError.WRONG_OWNER_LOT;
                                     return false;
                                 }
-                                if (lot.owner_id != null) db.Roommates.RemoveRoommate(lot.owner_id.Value, lot.lot_id);
+                                if (lot.owner_id != null)
+                                    db.Roommates.RemoveRoommate(lot.owner_id.Value, lot.lot_id);
                                 //evict this roommate from any lots they are on
                                 var otherLots = db.Roommates.GetAvatarsLots(otherP.PlayerPersist);
                                 foreach (var olot in otherLots)
@@ -898,7 +938,8 @@ namespace FSO.Server.Servers.Lot.Domain
 
                         return (failState == VMEODSecureTradeError.SUCCESS);
                     });
-                    if (failState == VMEODSecureTradeError.SUCCESS && !result.success) failState = VMEODSecureTradeError.MISSING_MONEY;
+                    if (failState == VMEODSecureTradeError.SUCCESS && !result.success)
+                        failState = VMEODSecureTradeError.MISSING_MONEY;
 
                     vm.SendCommand(new VMNetAsyncResponseCmd(0, new VMTransferFundsState
                     {
@@ -933,7 +974,8 @@ namespace FSO.Server.Servers.Lot.Domain
                 using (var db = DAFactory.Get)
                 {
                     var lot = db.Lots.GetByOwner(persistID);
-                    if (lot == null) p(0, 0, 0, null);
+                    if (lot == null)
+                        p(0, 0, 0, null);
 
                     var objects = db.Objects.GetByAvatarIdLot(persistID, (uint)lot.lot_id);
 

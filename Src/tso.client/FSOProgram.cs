@@ -7,7 +7,7 @@ using FSO.Client.Utils;
 using FSO.Client.Utils.GameLocator;
 using FSO.Common;
 using FSO.UI;
-using Longhorn;
+using FSO.Compat;
 //using System.Windows.Forms;
 
 namespace FSO.Client

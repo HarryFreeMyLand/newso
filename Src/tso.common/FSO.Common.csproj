@@ -230,6 +230,9 @@
     <Compile Include="Utils\DotPath.cs" />
     <Compile Include="Utils\FeatureLevelTest.cs" />
     <Compile Include="Utils\FileUtils.cs" />
+    <Compile Include="Utils\GameLocator\IGameLocation.cs" />
+    <Compile Include="Utils\GameLocator\UnixLocator.cs" />
+    <Compile Include="Utils\GameLocator\WindowsLocator.cs" />
     <Compile Include="Utils\GameThread.cs" />
     <Compile Include="Utils\HTMLPrinter.cs" />
     <Compile Include="Utils\IffPrinter.cs" />
@@ -260,6 +263,10 @@
     <ProjectReference Include="..\..\Other\libs\mp3sharp\mp3sharp\Mp3Sharp.csproj">
       <Project>{834cab58-648d-47cc-ac6f-d01c08c809a4}</Project>
       <Name>Mp3Sharp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Longhorn\FSO.Compat.csproj">
+      <Project>{25e7ee68-0535-45ee-b991-d6755af1361b}</Project>
+      <Name>FSO.Compat</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
