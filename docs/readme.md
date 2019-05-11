@@ -8,7 +8,7 @@ NewSO is a fork of this project, with different goals from FreeSO, specifically:
 Note: You will still need a copy of the original game to be able to use FreeSO/NewSO
 
 # File Hierarchy
-[Most of the sourcecode is located in /src](../src)
+[Most of the sourcecode is located in /src](../../src)
 The project is composed of C# code, much of which is based on older code dating back to the Sim's Restoration Project, based on a really old .NET Framework. Over time it's being upgraded to modern standards.
 As a result, things are inconsistent because many parts have been hacked together, though we are trying to unify the coding styles.
 > An example of this is the src directory, you can already see two distinct coding styles in that some directories are named FSO and others tso, which is a throwback to the days where the code was based off a previous project called Project Dollhouse
