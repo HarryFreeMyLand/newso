@@ -7,32 +7,36 @@ namespace FSO.Common.Utils
 {
     public class Pathfinder
     {
+        static string _gameLocation;
         public static string GamePath
         {
+            set
+            {
+                _gameLocation = value;
+            }
             get
             {
-                IGameLocation gameLocation;
+                IGameLocation tsoLocation;
 
                 switch (PlatformDetect.IsPlatformID)
                 {
                     default:
                     case PlatformID.Win32NT:
-                        gameLocation = new WindowsLocator();
+                        tsoLocation = new WindowsLocator();
                         break;
                     case PlatformID.MacOSX: // Deprecated in .NET Standard
                     case PlatformID.Unix:
-                        gameLocation = new UnixLocator();
+                        tsoLocation = new UnixLocator();
                         break;
                 }
 
-                try
-                {
-                    return gameLocation.FindTheSimsOnline;
-                }
-                catch (DirectoryNotFoundException err)
-                {
-                    throw err;
-                }
+                if (Directory.Exists(tsoLocation.FindTheSimsOnline))
+                    _gameLocation = tsoLocation.FindTheSimsOnline;
+                else
+                    throw new DirectoryNotFoundException();
+
+
+                return _gameLocation;
             }
         }
     }
