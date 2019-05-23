@@ -25,15 +25,22 @@ namespace FSO.Server.Watchdog
         {
             get
             {
-                if (File.Exists(TOML_FILE))
+                try
                 {
-                    if (_defaultInstance == null)
-                        _defaultInstance = Toml.ReadFile<Config>(TOML_FILE);
+                    if (File.Exists(TOML_FILE))
+                    {
+                        if (_defaultInstance == null)
+                            _defaultInstance = Toml.ReadFile<Config>(TOML_FILE);
+                    }
+                    else if (File.Exists(INI_FILE))
+                    {
+                        if (_defaultInstance == null)
+                            _defaultInstance = new Config(INI_FILE);
+                    }
                 }
-                else if (File.Exists(INI_FILE))
+                catch
                 {
-                    if (_defaultInstance == null)
-                        _defaultInstance = new Config(INI_FILE);
+                    throw new FileNotFoundException("Could not find configuration file. Please ensure it is valid and present in the same folder as this executable.");
                 }
 
                 return _defaultInstance;

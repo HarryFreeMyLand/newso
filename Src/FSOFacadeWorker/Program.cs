@@ -25,7 +25,6 @@ namespace FSOFacadeWorker
     {
         static _3DLayer _layer;
         static GraphicsDevice _gd;
-
         static FacadeConfig _config;
 
         static void Main(string[] args)
@@ -34,16 +33,7 @@ namespace FSOFacadeWorker
             TimedReferenceController.SetMode(CacheType.PERMANENT);
 
             Console.WriteLine("Loading Config...");
-            try
-            {
-                var configString = File.ReadAllText("facadeconfig.json");
-                _config = Newtonsoft.Json.JsonConvert.DeserializeObject<FacadeConfig>(configString);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Could not find configuration file 'facadeconfig.json'. Please ensure it is valid and present in the same folder as this executable.");
-                return;
-            }
+            _config = FacadeConfig.Default;
 
             Console.WriteLine("Locating The Sims Online...");
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
