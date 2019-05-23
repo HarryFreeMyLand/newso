@@ -715,9 +715,9 @@
       <Project>{73e2ad5b-720b-4ef3-9b7c-55931d0ec693}</Project>
       <Name>FSO.UI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Longhorn\Longhorn.csproj">
+    <ProjectReference Include="..\Longhorn\FSO.Compat.csproj">
       <Project>{25e7ee68-0535-45ee-b991-d6755af1361b}</Project>
-      <Name>Longhorn</Name>
+      <Name>FSO.Compat</Name>
     </ProjectReference>
     <ProjectReference Include="..\tso.common\FSO.Common.csproj">
       <Project>{C42962A1-8796-4F47-9DCD-79ED5904D8CA}</Project>

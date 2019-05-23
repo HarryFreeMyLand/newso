@@ -6,8 +6,9 @@ using System.Threading;
 using FSO.Client.Utils;
 using FSO.Client.Utils.GameLocator;
 using FSO.Common;
+using FSO.Common.Utils;
+using FSO.Compat;
 using FSO.UI;
-using Longhorn;
 //using System.Windows.Forms;
 
 namespace FSO.Client
@@ -123,7 +124,7 @@ namespace FSO.Client
 
             UseDX = MonogameLinker.Link(useDX);
 
-            var path = gameLocator.FindTheSimsOnline;
+            var path = Pathfinder.GamePath;
 
             if (path != null)
             {

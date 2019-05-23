@@ -10,7 +10,11 @@ using FSO.Files.RC;
 using FSO.LotView;
 using FSO.LotView.Facade;
 using FSO.Server.Clients;
-using Longhorn;
+using FSO.SimAntics;
+using FSO.SimAntics.Engine.TSOTransaction;
+using FSO.SimAntics.Marshals;
+using FSO.SimAntics.Model;
+using FSO.SimAntics.NetPlay.Drivers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -48,25 +52,15 @@ namespace FSOFacadeWorker
 
             var os = Environment.OSVersion;
             var pid = os.Platform;
-
-            ILocator gameLocator;
-            bool linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
-
-
-            if (PlatformDetect.IsMacOS && Directory.Exists("/Users"))
-                gameLocator = new MacOSLocator();
-            else if (PlatformDetect.IsLinux)
-                gameLocator = new LinuxLocator();
-            else
-                gameLocator = new WindowsLocator();
+            var linux = pid == PlatformID.MacOSX || pid == PlatformID.Unix;
 
             bool useDX = true;
 
-            FSOEnvironment.Enable3D = true;
+            FSOEnvironment.Enable3D = false;
             GameThread.NoGame = true;
             GameThread.UpdateExecuting = true;
 
-            var path = gameLocator.FindTheSimsOnline();
+            var path = Pathfinder.GamePath;
 
             if (path != null)
             {
@@ -90,8 +84,10 @@ namespace FSOFacadeWorker
 
             //set up some extra stuff like the content manager
             var services = new GameServiceContainer();
-            var content = new ContentManager(services);
-            content.RootDirectory = FSOEnvironment.GFXContentDir;
+            var content = new ContentManager(services)
+            {
+                RootDirectory = FSOEnvironment.GFXContentDir
+            };
             services.AddService<IGraphicsDeviceService>(gds);
 
             var vitaboyEffect = content.Load<Effect>("Effects/Vitaboy");

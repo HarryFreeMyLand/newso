@@ -1,4 +1,4 @@
-﻿using FSO.SimAntics.NetPlay.EODs.Archetypes;
+using FSO.SimAntics.NetPlay.EODs.Archetypes;
 using FSO.SimAntics.NetPlay.Model;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 {
     public class VMEODFNewspaperPlugin : VMBasicEOD<object>
     {
-            VMEODFNewspaperData Data;
+        VMEODFNewspaperData _data;
 
         public VMEODFNewspaperPlugin(VMEODServer server) : base(server, "newspaper")
         {
@@ -96,7 +96,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
 
             var totalPoints = reader.ReadInt32();
             Points.Clear();
-            for (int i=0; i<totalPoints; i++)
+            for (int i = 0; i < totalPoints; i++)
             {
                 var dat = new VMEODFNewspaperPoint();
                 dat.Deserialize(reader);
@@ -109,7 +109,7 @@ namespace FSO.SimAntics.NetPlay.EODs.Handlers
             writer.Write(News.Count);
             foreach (var data in News)
                 data.SerializeInto(writer);
-            
+
             writer.Write(Points.Count);
             foreach (var data in Points)
                 data.SerializeInto(writer);

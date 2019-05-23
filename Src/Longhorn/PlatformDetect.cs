@@ -1,10 +1,10 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace Longhorn
+namespace FSO.Compat
 {
     // Based on https://mariusschulz.com/blog/detecting-the-operating-system-in-net-core
-    public struct PlatformDetect
+    public class PlatformDetect
     {
         public static PlatformID IsPlatformID
         {

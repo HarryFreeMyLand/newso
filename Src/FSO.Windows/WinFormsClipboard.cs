@@ -32,7 +32,7 @@ namespace FSO.Windows
         {
             var copyThread = new Thread(x =>
             {
-                System.Windows.Forms.Clipboard.SetText((String.IsNullOrEmpty(str)) ? " " : str);
+                System.Windows.Forms.Clipboard.SetText(String.IsNullOrEmpty(str) ? " " : str);
             });
             copyThread.SetApartmentState(ApartmentState.STA);
             copyThread.Start();

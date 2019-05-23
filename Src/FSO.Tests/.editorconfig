@@ -35,7 +35,7 @@ dotnet_naming_style.pascal_case_style.capitalization                     = pasca
 
 # Comment this group and uncomment out the next group if you don't want _ prefixed fields.
 
-# internal private and fields should be _camelCase
+# internal and private fields should be _camelCase
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity       = suggestion
 dotnet_naming_rule.camel_case_for_private_internal_fields.symbols        = private_internal_fields
 dotnet_naming_rule.camel_case_for_private_internal_fields.style          = camel_case_underscore_style

@@ -1,30 +1,17 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Nett;
 
 namespace FSO.Server.Watchdog
 {
     public class Config : IniConfig
     {
-        private static Config _defaultInstance;
+        const string INI_FILE = "watchdog.ini";
+        const string TOML_FILE = "watchdog.toml";
 
-        public static Config Default
-        {
-            get
-            {
-                if (_defaultInstance == null)
-                    _defaultInstance = new Config("watchdog.ini");
-                return _defaultInstance;
-            }
-        }
+        static Config _defaultInstance;
 
-        public Config(string path) : base(path) { }
-
-        private Dictionary<string, string> _defaultValues = new Dictionary<string, string>()
+        Dictionary<string, string> _defaultValues = new Dictionary<string, string>()
         {
             { "UseTeamCity", "False" },
             { "TeamCityUrl", "http://servo.freeso.org" },
@@ -33,6 +20,28 @@ namespace FSO.Server.Watchdog
 
             { "NormalUpdateUrl", "https://dl.dropboxusercontent.com/u/12239448/FreeSO/devserver.zip" },
         };
+
+        public static Config Default
+        {
+            get
+            {
+                if (File.Exists(TOML_FILE))
+                {
+                    if (_defaultInstance == null)
+                        _defaultInstance = Toml.ReadFile<Config>(TOML_FILE);
+                }
+                else if (File.Exists(INI_FILE))
+                {
+                    if (_defaultInstance == null)
+                        _defaultInstance = new Config(INI_FILE);
+                }
+
+                return _defaultInstance;
+            }
+        }
+
+        public Config(string path) : base(path) { }
+
         public override Dictionary<string, string> DefaultValues
         {
             get { return _defaultValues; }

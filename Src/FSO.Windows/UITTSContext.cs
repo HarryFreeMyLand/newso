@@ -25,7 +25,7 @@ namespace FSO.Windows
             var Synth = new System.Speech.Synthesis.SpeechSynthesizer();
             try
             {
-                Synth.SelectVoiceByHints((gender) ? System.Speech.Synthesis.VoiceGender.Female : System.Speech.Synthesis.VoiceGender.Male);
+                Synth.SelectVoiceByHints(gender ? System.Speech.Synthesis.VoiceGender.Female : System.Speech.Synthesis.VoiceGender.Male);
             } catch
             {
                 //couldnt find any tts voices...

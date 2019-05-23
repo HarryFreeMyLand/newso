@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Longhorn;
+using FSO.Compat;
 
 namespace FSO.Client.Utils.GameLocator
 {
