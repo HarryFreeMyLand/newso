@@ -20,6 +20,7 @@ using FSO.SimAntics.NetPlay.EODs.Handlers;
 using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Primitives;
+using NLog;
 
 namespace FSO.Server.Servers.Lot.Domain
 {

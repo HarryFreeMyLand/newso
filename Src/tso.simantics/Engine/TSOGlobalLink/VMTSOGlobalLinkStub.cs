@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
+using FSO.SimAntics.Engine.TSOGlobalLink;
+using FSO.SimAntics.Engine.TSOGlobalLink.Model;
+using FSO.SimAntics.Entities;
+using FSO.SimAntics.Model.TSOPlatform;
+using FSO.SimAntics.NetPlay;
+using FSO.SimAntics.NetPlay.EODs.Handlers;
+using FSO.SimAntics.NetPlay.Model;
 using FSO.SimAntics.NetPlay.Model.Commands;
 using FSO.SimAntics.Primitives;
-using FSO.SimAntics.NetPlay.Model;
-using FSO.SimAntics.NetPlay;
-using FSO.SimAntics.Engine.TSOGlobalLink;
-using FSO.SimAntics.Model.TSOPlatform;
-using FSO.SimAntics.Entities;
-using FSO.SimAntics.Engine.TSOGlobalLink.Model;
-using FSO.SimAntics.NetPlay.EODs.Handlers;
 
 namespace FSO.SimAntics.Engine.TSOTransaction
 {
@@ -317,25 +317,25 @@ namespace FSO.SimAntics.Engine.TSOTransaction
                     },
                 },
                 Points =
-                new List<NetPlay.EODs.Handlers.VMEODFNewspaperPoint>()
-            {
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.0f, Skilltype = 0 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.2f, Skilltype = 1 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.3f, Skilltype = 2 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 0.95f, Skilltype = 3 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 0.66f, Skilltype = 4 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.3f, Skilltype = 5 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 0.8f, Skilltype = 6 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.0f, Skilltype = 7 },
+                new List<VMEODFNewspaperPoint>()
+                {
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.0f, Skilltype = 0 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.2f, Skilltype = 1 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.3f, Skilltype = 2 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 0.95f, Skilltype = 3 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 0.66f, Skilltype = 4 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.3f, Skilltype = 5 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 0.8f, Skilltype = 6 },
+                new VMEODFNewspaperPoint() { Day = 0, Multiplier = 1.0f, Skilltype = 7 },
 
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.1f, Skilltype = 0 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.3f, Skilltype = 1 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.25f, Skilltype = 2 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.05f, Skilltype = 3 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 0.5f, Skilltype = 4 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.5f, Skilltype = 5 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 0.65f, Skilltype = 6 },
-                new NetPlay.EODs.Handlers.VMEODFNewspaperPoint() { Day = 1, Multiplier = 0.9f, Skilltype = 7 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.1f, Skilltype = 0 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.3f, Skilltype = 1 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.25f, Skilltype = 2 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.05f, Skilltype = 3 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 0.5f, Skilltype = 4 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 1.5f, Skilltype = 5 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 0.65f, Skilltype = 6 },
+                new VMEODFNewspaperPoint() { Day = 1, Multiplier = 0.9f, Skilltype = 7 },
             }
             });
         }

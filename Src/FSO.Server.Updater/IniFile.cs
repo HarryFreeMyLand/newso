@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FSO.Server.Watchdog
 {
@@ -12,14 +9,14 @@ namespace FSO.Server.Watchdog
     [Obsolete]
     public abstract class IniConfig
     {
-        private string _activePath;
+        string _activePath;
 
         public abstract Dictionary<string, string> DefaultValues
         {
             get; set;
         }
 
-        private void SetValue(string key, string value)
+        void SetValue(string key, string value)
         {
             var prop = GetType().GetProperty(key);
             if (prop != null)
