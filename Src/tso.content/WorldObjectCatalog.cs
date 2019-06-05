@@ -1,9 +1,10 @@
-﻿using FSO.Common;
+using FSO.Common;
 using FSO.Content.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
+using System.Text;
 
 namespace FSO.Content
 {
@@ -11,6 +12,8 @@ namespace FSO.Content
     {
         private static List<ObjectCatalogItem>[] ItemsByCategory;
         private static Dictionary<uint, ObjectCatalogItem> ItemsByGUID;
+
+        public static string CLots = "0";
 
         public void Init(GameContent content)
         {
@@ -21,7 +24,15 @@ namespace FSO.Content
 
             var packingslip = new XmlDocument();
 
-            packingslip.Load(content.GetPath("packingslips/catalog.xml"));
+            //very simple overide incase you don't want to use the TSO catalog or want to change it.
+            if (File.Exists(Path.Combine(FSOEnvironment.ContentDir, "Objects/catalog.xml")))
+                packingslip.Load(Path.Combine(FSOEnvironment.ContentDir, "Objects/catalog.xml"));
+            else
+                packingslip.Load(content.GetPath("packingslips/catalog.xml"));
+            //If the community lot file exists, load it for uilotbutton.
+            if (File.Exists(Path.Combine(FSOEnvironment.ContentDir, "patch/mtune/clots.txt")))
+                CLots = File.ReadAllText(Path.Combine(FSOEnvironment.ContentDir, "patch/mtune/clots.txt"), Encoding.UTF8);
+
             var objectInfos = packingslip.GetElementsByTagName("P");
 
             foreach (XmlNode objectInfo in objectInfos)

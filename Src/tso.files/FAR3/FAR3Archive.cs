@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
@@ -25,6 +25,7 @@ namespace FSO.Files.FAR3
         private List<Far3Entry> m_EntriesList = new List<Far3Entry>();
         private Dictionary<uint, Far3Entry> m_EntryByID = new Dictionary<uint, Far3Entry>();
         private uint m_ManifestOffset;
+        public bool IsOverride { get; private set; }
 
         /// <summary>
         /// Creates a new FAR3Archive instance from a path.
@@ -83,6 +84,16 @@ namespace FSO.Files.FAR3
                     m_EntriesList.Add(Entry);
 
                     m_EntryByID.Add(Entry.FileID, Entry); //isn't this a bad idea? i have a feeling this is a bad idea...
+
+                    //If file being processed is a texture.dat file continue, else skip
+                    //Adds the ability to use custom skins in the TSO format.
+                    if (Path.Contains("textures.dat") && File.Exists("gamedata/skins/" + Entry.Filename))
+                    {
+                        Entry.IsOverride = true;
+                        Entry.IsCompressed = (byte)0;
+                        FileInfo fileInfo = new FileInfo("gamedata/skins/" + Entry.Filename);
+                        Entry.DecompressedFileSize = (uint)fileInfo.Length;
+                    }
                 }
 
                 //Keep the stream open, it helps peformance.
@@ -137,6 +148,20 @@ namespace FSO.Files.FAR3
 
                         return Data;
                     }
+
+                }
+                //if the file needs to use an override, load it from gamedata instead.
+                if (Entry.IsOverride)
+                {
+                    BinaryReader binaryReader = new BinaryReader((Stream)File.Open("gamedata/skins/" + Entry.Filename, FileMode.Open, FileAccess.Read, FileShare.Read));
+                    byte[] Data = binaryReader.ReadBytes((int)Entry.DecompressedFileSize);
+                    binaryReader.Close();
+
+                    //done
+                    isReadingSomething = false;
+                    FAR3Archive.isReadingSomething = false;
+
+                    return Data;
                 }
                 else
                 {

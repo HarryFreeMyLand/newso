@@ -1,4 +1,4 @@
-﻿using FSO.Client.UI.Framework;
+using FSO.Client.UI.Framework;
 using FSO.Client.Utils;
 using FSO.Common.DataService.Model;
 using FSO.Common.Utils;
@@ -16,6 +16,7 @@ using FSO.HIT;
 using FSO.Client.UI.Model;
 using FSO.Common.Rendering.Framework.Model;
 using FSO.Client.Rendering.City;
+using FSO.Content;
 
 namespace FSO.Client.UI.Controls
 {
@@ -225,7 +226,9 @@ namespace FSO.Client.UI.Controls
 
         public override void Draw(UISpriteBatch batch)
         {
-            if (!Visible) return;
+            //simple overide that always draws lots that are community regardless of their online status
+            //Visible=cityview (don't draw in lotview), Lot_IsOnline= lotthread is open(blinking red on map), CLots= list with specific overrides based on db location
+            if (!Visible || Thumb == null || (!Target.Value.Lot_IsOnline && !WorldObjectCatalog.CLots.Contains(Convert.ToString(LotId)))) return;
             var ThumbImg = Thumb.LotTexture;
             if (ThumbImg != null && BgImg != null && HoverImg != null)
             {

@@ -1,4 +1,4 @@
-﻿/*
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
  * If a copy of the MPL was not distributed with this file, You can obtain one at
  * http://mozilla.org/MPL/2.0/. 
@@ -38,5 +38,7 @@ namespace FSO.Files.FAR3
         public uint FileID;
         //The name of the archived file; size depends on the filename length field.
         public string Filename;
+        //Does the file we are loading have a counterpart in gamedata?
+        public bool IsOverride;
     }
 }
